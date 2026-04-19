@@ -21,7 +21,7 @@ export class AppComponent {
       ]
     },
     {
-      title: 'Charts',
+      title: 'Charts & Gantt',
       items: [
         { path: '/charts', label: 'Bar, Line, Pie & Sparkline', icon: '📊' },
         { path: '/basic', label: 'Gantt Chart', icon: '📅' },
@@ -41,6 +41,12 @@ export class AppComponent {
         { path: '/grid', label: 'Data Grid', icon: '🗂️' },
         { path: '/tree-list', label: 'Tree View & List View', icon: '🌳' },
         { path: '/tooltip', label: 'Tooltip & Popover', icon: '💬' },
+      ]
+    },
+    {
+      title: 'Overlays',
+      items: [
+        { path: '/dialog', label: 'Dialog / Overlay', icon: '🪟' },
       ]
     },
   ];

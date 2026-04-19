@@ -5,13 +5,6 @@
  * All exports are re-exported here for convenience/backward compatibility.
  */
 
-// ===== Gantt Chart (primary entry only) =====
-export { GanttChartComponent } from './lib/gantt-chart/gantt-chart.component';
-export * from './lib/gantt-chart/models';
-export { GanttScaleService } from './lib/gantt-chart/services/gantt-scale.service';
-export type { FlatRow } from './lib/gantt-chart/services/gantt-layout.service';
-export * from './lib/gantt-chart/utils/date-utils';
-
 // ===== Tooltip & Popover (primary entry only) =====
 export { TooltipDirective } from './lib/tooltip/tooltip.directive';
 export type { TooltipPosition } from './lib/tooltip/tooltip.directive';
@@ -28,13 +21,28 @@ export { MultiSelectComponent } from 'ngx-core-components/inputs';
 export { AutocompleteComponent } from 'ngx-core-components/inputs';
 export { DatePickerComponent } from 'ngx-core-components/inputs';
 
-// ===== Charts (also available via ngx-core-components/charts) =====
+// ===== Charts & Gantt (also available via ngx-core-components/charts) =====
 export { BarChartComponent } from 'ngx-core-components/charts';
 export { LineChartComponent } from 'ngx-core-components/charts';
 export { PieChartComponent } from 'ngx-core-components/charts';
 export { SparklineComponent } from 'ngx-core-components/charts';
 export type { ChartSeries, ChartDataPoint } from 'ngx-core-components/charts';
 export { CHART_COLORS } from 'ngx-core-components/charts';
+export { GanttChartComponent } from 'ngx-core-components/charts';
+export type { FlatRow } from 'ngx-core-components/charts';
+export { GanttScaleService } from 'ngx-core-components/charts';
+// Gantt model types
+export type {
+  GanttTask,
+  GanttDependency,
+  GanttConfig,
+  GanttColumnDef,
+  GanttTaskChangeEvent,
+  GanttTaskClickEvent,
+  GanttDependencyClickEvent,
+  GanttScrollEvent,
+} from 'ngx-core-components/charts';
+export { ZoomLevel, DependencyType } from 'ngx-core-components/charts';
 
 // ===== Data Grid (also available via ngx-core-components/grid) =====
 export { DataGridComponent } from 'ngx-core-components/grid';

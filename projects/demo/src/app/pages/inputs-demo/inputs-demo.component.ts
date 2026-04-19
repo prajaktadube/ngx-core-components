@@ -1,7 +1,8 @@
 import { Component, signal, computed } from '@angular/core';
 import {
   TextBoxComponent, DropdownComponent, DatePickerComponent, MultiSelectComponent,
-  DropdownOption
+  CheckboxComponent, RadioGroupComponent, AutocompleteComponent,
+  DropdownOption, RadioOption
 } from 'ngx-core-components';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
@@ -9,7 +10,10 @@ interface ApiRow { name: string; type: string; default: string; description: str
 @Component({
   selector: 'app-inputs-demo',
   standalone: true,
-  imports: [TextBoxComponent, DropdownComponent, DatePickerComponent, MultiSelectComponent],
+  imports: [
+    TextBoxComponent, DropdownComponent, DatePickerComponent, MultiSelectComponent,
+    CheckboxComponent, RadioGroupComponent, AutocompleteComponent,
+  ],
   template: `
     <div class="demo-page">
 
@@ -196,6 +200,83 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
       }
 
+      <!-- ===== CHECKBOX ===== -->
+      @if (activeTab() === 'Checkbox') {
+        <div class="tab-content">
+          <div class="section-label">Live Demo</div>
+          <div class="demo-cards-grid">
+            <div class="demo-card">
+              <div class="demo-card-title">Basic Checkboxes</div>
+              <div class="input-stack">
+                <ngx-checkbox label="Accept terms and conditions" [checked]="termsChecked()" (checkedChange)="termsChecked.set($event)" />
+                <ngx-checkbox label="Subscribe to newsletter" [checked]="newsletterChecked()" (checkedChange)="newsletterChecked.set($event)" />
+                <ngx-checkbox label="Disabled (checked)" [checked]="true" [disabled]="true" />
+                <ngx-checkbox label="Disabled (unchecked)" [checked]="false" [disabled]="true" />
+              </div>
+              <div class="value-display">Terms: {{ termsChecked() }} · Newsletter: {{ newsletterChecked() }}</div>
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ checkboxCode }}</pre>
+        </div>
+      }
+
+      <!-- ===== RADIO ===== -->
+      @if (activeTab() === 'Radio') {
+        <div class="tab-content">
+          <div class="section-label">Live Demo</div>
+          <div class="demo-cards-grid">
+            <div class="demo-card">
+              <div class="demo-card-title">Plan Selection</div>
+              <ngx-radio-group label="Choose your plan" [options]="planOptions" [value]="selectedPlan()"
+                (valueChange)="selectedPlan.set($any($event))" />
+              <div class="value-display">Selected: {{ selectedPlan() }}</div>
+            </div>
+            <div class="demo-card">
+              <div class="demo-card-title">Inline Layout</div>
+              <ngx-radio-group label="Priority" [options]="priorityOptions" [value]="selectedPriority()"
+                [inline]="true" (valueChange)="selectedPriority.set($any($event))" />
+              <div class="value-display">Priority: {{ selectedPriority() }}</div>
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ radioCode }}</pre>
+        </div>
+      }
+
+      <!-- ===== AUTOCOMPLETE ===== -->
+      @if (activeTab() === 'Autocomplete') {
+        <div class="tab-content">
+          <div class="section-label">Live Demo</div>
+          <div class="demo-cards-grid">
+            <div class="demo-card">
+              <div class="demo-card-title">Framework Search</div>
+              <ngx-autocomplete
+                label="Framework"
+                placeholder="Type to search..."
+                [options]="frameworkOptions"
+                (valueChange)="selectedFramework.set($any($event))" />
+              <div class="value-display">Selected: {{ selectedFramework() }}</div>
+            </div>
+            <div class="demo-card">
+              <div class="demo-card-title">Min-length = 2</div>
+              <ngx-autocomplete
+                label="Country"
+                placeholder="Type 2+ characters..."
+                [options]="countryOptions"
+                [minLength]="2"
+                (valueChange)="selectedAcCountry.set($any($event))" />
+              <div class="value-display">Selected: {{ selectedAcCountry() }}</div>
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ autocompleteCode }}</pre>
+        </div>
+      }
+
     </div>
   `,
   styles: [`
@@ -235,7 +316,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
 })
 export class InputsDemoComponent {
   activeTab = signal('TextBox');
-  tabs = ['TextBox', 'Dropdown', 'DatePicker', 'MultiSelect'];
+  tabs = ['TextBox', 'Dropdown', 'DatePicker', 'MultiSelect', 'Checkbox', 'Radio', 'Autocomplete'];
 
   textValue = signal('');
   emailValue = signal('');
@@ -245,6 +326,18 @@ export class InputsDemoComponent {
   selectedDate = signal<Date | null>(null);
   selectedSkills = signal<unknown[]>([]);
   filteredSkills = signal<unknown[]>([]);
+
+  // Checkbox state
+  termsChecked = signal(false);
+  newsletterChecked = signal(true);
+
+  // Radio state
+  selectedPlan = signal<string | number>('pro');
+  selectedPriority = signal<string | number>('medium');
+
+  // Autocomplete state
+  selectedFramework = signal('');
+  selectedAcCountry = signal('');
 
   countries: DropdownOption[] = [
     { label: 'United States', value: 'us' },
@@ -267,6 +360,41 @@ export class InputsDemoComponent {
     { label: 'Docker', value: 'docker' },
     { label: 'Kubernetes', value: 'k8s' },
   ];
+
+  planOptions: RadioOption[] = [
+    { label: 'Free — 5 projects', value: 'free' },
+    { label: 'Pro — Unlimited projects', value: 'pro' },
+    { label: 'Enterprise — SSO + priority support', value: 'enterprise' },
+  ];
+
+  priorityOptions: RadioOption[] = [
+    { label: 'Low', value: 'low' },
+    { label: 'Medium', value: 'medium' },
+    { label: 'High', value: 'high' },
+    { label: 'Critical', value: 'critical' },
+  ];
+
+  frameworkOptions: DropdownOption[] = [
+    { label: 'Angular', value: 'angular' },
+    { label: 'React', value: 'react' },
+    { label: 'Vue.js', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
+    { label: 'SolidJS', value: 'solidjs' },
+    { label: 'Next.js', value: 'nextjs' },
+    { label: 'Nuxt', value: 'nuxt' },
+    { label: 'Remix', value: 'remix' },
+    { label: 'Astro', value: 'astro' },
+  ];
+
+  countryOptions: DropdownOption[] = [
+    'Afghanistan', 'Albania', 'Algeria', 'Australia', 'Austria', 'Belgium', 'Brazil',
+    'Canada', 'Chile', 'China', 'Colombia', 'Croatia', 'Czech Republic', 'Denmark',
+    'Egypt', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'India', 'Indonesia',
+    'Iran', 'Ireland', 'Israel', 'Italy', 'Japan', 'Kenya', 'Mexico', 'Netherlands',
+    'New Zealand', 'Nigeria', 'Norway', 'Pakistan', 'Philippines', 'Poland', 'Portugal',
+    'Romania', 'Russia', 'Saudi Arabia', 'South Africa', 'South Korea', 'Spain', 'Sweden',
+    'Switzerland', 'Thailand', 'Turkey', 'Ukraine', 'United Kingdom', 'United States',
+  ].map(c => ({ label: c, value: c.toLowerCase().replace(/ /g, '-') }));
 
   selectedLabel(): string {
     return this.countries.find(c => c.value === this.selectedCountry())?.label ?? 'none';
@@ -466,6 +594,51 @@ export class MyComponent {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the component.' },
     { name: '(valuesChange)', type: 'unknown[]', default: '—', description: 'Emitted when the selection changes. Contains full array of selected values.' },
   ];
+
+  checkboxCode = `import { CheckboxComponent } from 'ngx-core-components';
+
+@Component({
+  imports: [CheckboxComponent],
+  template: \`
+    <ngx-checkbox label="Accept terms" [checked]="checked()"
+      (checkedChange)="checked.set($event)" />
+  \`
+})
+export class MyComponent {
+  checked = signal(false);
+}`;
+
+  radioCode = `import { RadioGroupComponent, RadioOption } from 'ngx-core-components';
+
+@Component({
+  imports: [RadioGroupComponent],
+  template: \`
+    <ngx-radio-group label="Plan" [options]="plans"
+      [value]="plan()" (valueChange)="plan.set($event)" />
+  \`
+})
+export class MyComponent {
+  plan = signal('pro');
+  plans: RadioOption[] = [
+    { label: 'Free', value: 'free' },
+    { label: 'Pro', value: 'pro' },
+    { label: 'Enterprise', value: 'enterprise' },
+  ];
+}`;
+
+  autocompleteCode = `import { AutocompleteComponent } from 'ngx-core-components';
+
+@Component({
+  imports: [AutocompleteComponent],
+  template: \`
+    <ngx-autocomplete label="Framework" [options]="frameworks"
+      [value]="selected()" (valueChange)="selected.set($event)" />
+  \`
+})
+export class MyComponent {
+  selected = signal('');
+  frameworks = ['Angular', 'React', 'Vue.js', 'Svelte'];
+}`;
 
   inputCssVars: { name: string; default: string; description: string }[] = [
     { name: '--ngx-input-border', default: '#ced4da', description: 'Default border color.' },

@@ -1,5 +1,5 @@
 import {
-  Component, ChangeDetectionStrategy, input, output, signal, forwardRef
+  Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -16,8 +16,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
   template: `
     <label class="ngx-checkbox" [class.disabled]="disabled()">
-      <span class="ngx-checkbox-box" [class.checked]="_checked()" [class.indeterminate]="indeterminate()" (click)="toggle()">
-        @if (_checked()) {
+      <span class="ngx-checkbox-box" [class.checked]="_displayChecked()" [class.indeterminate]="indeterminate()" (click)="toggle()">
+        @if (_displayChecked()) {
           <svg class="ngx-checkbox-icon" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 5L4.5 8.5L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -59,19 +59,23 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class CheckboxComponent implements ControlValueAccessor {
   label = input<string>('');
+  checked = input<boolean>(false);
   disabled = input<boolean>(false);
   indeterminate = input<boolean>(false);
 
   checkedChange = output<boolean>();
 
   _checked = signal<boolean>(false);
+  private _cvaActive = false;
 
   private _onChange: (val: boolean) => void = () => {};
   private _onTouched: () => void = () => {};
 
+  _displayChecked = computed(() => this._cvaActive ? this._checked() : this.checked());
+
   toggle(): void {
     if (this.disabled()) return;
-    const next = !this._checked();
+    const next = !this._displayChecked();
     this._checked.set(next);
     this._onChange(next);
     this._onTouched();
@@ -80,6 +84,7 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   // ControlValueAccessor
   writeValue(val: boolean): void {
+    this._cvaActive = true;
     this._checked.set(!!val);
   }
 

@@ -57,4 +57,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/tooltip-demo/tooltip-demo.component').then(m => m.TooltipDemoComponent),
   },
+  {
+    path: 'dialog',
+    loadComponent: () =>
+      import('./pages/dialog-demo/dialog-demo.component').then(m => m.DialogDemoComponent),
+  },
 ];

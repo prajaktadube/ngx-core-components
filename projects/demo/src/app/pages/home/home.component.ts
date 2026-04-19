@@ -31,7 +31,7 @@ interface ComponentCard {
           <a class="btn-secondary" routerLink="/charts">View Components</a>
         </div>
         <div class="hero-stats">
-          <div class="stat"><span class="stat-num">14+</span><span class="stat-label">Components</span></div>
+          <div class="stat"><span class="stat-num">20+</span><span class="stat-label">Components</span></div>
           <div class="stat-div"></div>
           <div class="stat"><span class="stat-num">0</span><span class="stat-label">Dependencies</span></div>
           <div class="stat-div"></div>
@@ -290,6 +290,42 @@ export class HomeComponent {
       tag: 'Overlay',
       tagColor: '#c0392b',
       features: ['4 positions', 'Auto-flip', 'Rich content', 'Click trigger'],
+    },
+    {
+      icon: '🪟',
+      title: 'Dialog',
+      description: 'Programmatically open any Angular component as a floating dialog using DialogService. No NgModule required.',
+      route: '/dialog',
+      tag: 'Overlay',
+      tagColor: '#c0392b',
+      features: ['Programmatic', 'Animated', 'Signal result', 'Backdrop close'],
+    },
+    {
+      icon: '✅',
+      title: 'Checkbox',
+      description: 'Accessible checkbox with indeterminate state, disabled mode, and ControlValueAccessor support.',
+      route: '/inputs',
+      tag: 'Inputs',
+      tagColor: '#27ae60',
+      features: ['Indeterminate', 'ControlValueAccessor', 'Disabled', 'Accessible'],
+    },
+    {
+      icon: '🔘',
+      title: 'Radio Group',
+      description: 'Radio button group with vertical and inline layouts. ControlValueAccessor support for Reactive Forms.',
+      route: '/inputs',
+      tag: 'Inputs',
+      tagColor: '#27ae60',
+      features: ['Vertical / Inline', 'ControlValueAccessor', 'Disabled', 'Custom options'],
+    },
+    {
+      icon: '🔍',
+      title: 'Autocomplete',
+      description: 'Text input with type-ahead suggestion dropdown, keyboard navigation, and min-length filter.',
+      route: '/inputs',
+      tag: 'Inputs',
+      tagColor: '#27ae60',
+      features: ['Type-ahead', 'Keyboard nav', 'Min-length', 'ControlValueAccessor'],
     },
     {
       icon: '📅',

@@ -1,5 +1,5 @@
 import {
-  Component, ChangeDetectionStrategy, input, output, signal, forwardRef
+  Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -86,18 +86,22 @@ export interface RadioOption {
 export class RadioGroupComponent implements ControlValueAccessor {
   options = input<RadioOption[]>([]);
   label = input<string>('');
+  value = input<unknown>(null);
   disabled = input<boolean>(false);
   inline = input<boolean>(false);
 
   valueChange = output<unknown>();
 
   _value = signal<unknown>(null);
+  private _cvaActive = false;
 
   private _onChange: (val: unknown) => void = () => {};
   private _onTouched: () => void = () => {};
 
+  _activeValue = computed(() => this._cvaActive ? this._value() : this.value());
+
   isChecked(val: unknown): boolean {
-    return this._value() === val;
+    return this._activeValue() === val;
   }
 
   select(opt: RadioOption): void {
@@ -110,6 +114,7 @@ export class RadioGroupComponent implements ControlValueAccessor {
 
   // ControlValueAccessor
   writeValue(val: unknown): void {
+    this._cvaActive = true;
     this._value.set(val ?? null);
   }
 
