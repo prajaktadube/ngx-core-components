@@ -1,59 +1,120 @@
-# NgxCoreComponentsWorkspace
+# ngx-core-components
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.23.
+> Angular 19+ component library — production-ready UI components built with signals, OnPush change detection, and zero runtime dependencies.
 
-## Development server
+[![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-To start a local development server, run:
+## 🚀 Live Demo
 
-```bash
-ng serve
-```
+**[https://prajaktadube.github.io/ngx-core-components/](https://prajaktadube.github.io/ngx-core-components/)**
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Browse every component interactively — no install required.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Installation
 
 ```bash
-ng generate --help
+npm install ngx-core-components
 ```
 
-## Building
+## Components
 
-To build the project run:
+| Entry point | Components |
+|---|---|
+| `ngx-core-components` | Re-exports everything below |
+| `ngx-core-components/inputs` | Textbox, Dropdown, Multi-select, Autocomplete, Checkbox, Radio, Date Picker |
+| `ngx-core-components/charts` | Gantt Chart, Bar Chart, Line Chart, Pie Chart, Sparkline |
+| `ngx-core-components/dialog` | Dialog service + container |
+| `ngx-core-components/grid` | Data Grid |
+
+All components are **standalone** (no NgModules), use **Angular Signals**, and have **OnPush** change detection.
+
+## Quick Start
+
+### Gantt Chart
+
+```typescript
+import { GanttChartComponent, GanttTask } from 'ngx-core-components/charts';
+
+@Component({
+  standalone: true,
+  imports: [GanttChartComponent],
+  template: `
+    <ngx-gantt-chart [tasks]="tasks" style="height: 400px" />
+  `,
+})
+export class MyComponent {
+  tasks: GanttTask[] = [
+    { id: '1', name: 'Design',      start: new Date('2026-04-01'), end: new Date('2026-04-05'), progress: 100, parentId: null, collapsed: false, isMilestone: false },
+    { id: '2', name: 'Development', start: new Date('2026-04-06'), end: new Date('2026-04-15'), progress: 40,  parentId: null, collapsed: false, isMilestone: false },
+  ];
+}
+```
+
+### Dialog
+
+```typescript
+import { DialogService } from 'ngx-core-components/dialog';
+
+@Component({ /* ... */ })
+export class MyComponent {
+  constructor(private dialog: DialogService) {}
+
+  open() {
+    this.dialog.open({ title: 'Confirm', message: 'Are you sure?' });
+  }
+}
+```
+
+### Textbox (Reactive Forms)
+
+```typescript
+import { TextboxComponent } from 'ngx-core-components/inputs';
+
+@Component({
+  standalone: true,
+  imports: [TextboxComponent, ReactiveFormsModule],
+  template: `<ngx-textbox [formControl]="ctrl" label="Name" />`,
+})
+export class MyComponent {
+  ctrl = new FormControl('');
+}
+```
+
+## Theming
+
+All components expose CSS custom properties. Example for the Gantt chart:
+
+```css
+ngx-gantt-chart {
+  --ngx-gantt-bar-bg: #27ae60;
+  --ngx-gantt-today-color: #e74c3c;
+  --ngx-gantt-header-bg: #2c3e50;
+}
+```
+
+## Local Development
 
 ```bash
-ng build
+# Install dependencies
+npm install
+
+# Build the library
+npx ng build ngx-core-components
+
+# Serve the demo app (hot-reload)
+npx ng serve demo
+
+# Build the demo for production
+npx ng build demo --base-href /ngx-core-components/
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Contributing
 
-## Running unit tests
+Issues and pull requests are welcome at [github.com/prajaktadube/ngx-core-components](https://github.com/prajaktadube/ngx-core-components).
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## License
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+MIT
