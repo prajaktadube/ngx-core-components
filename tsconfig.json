@@ -13,6 +13,26 @@
       "ngx-core-components": [
         "./projects/ngx-core-components/src/public-api.ts",
         "./dist/ngx-core-components"
+      ],
+      "ngx-core-components/inputs": [
+        "./projects/ngx-core-components/inputs/public-api.ts",
+        "./dist/ngx-core-components/inputs"
+      ],
+      "ngx-core-components/charts": [
+        "./projects/ngx-core-components/charts/public-api.ts",
+        "./dist/ngx-core-components/charts"
+      ],
+      "ngx-core-components/grid": [
+        "./projects/ngx-core-components/grid/public-api.ts",
+        "./dist/ngx-core-components/grid"
+      ],
+      "ngx-core-components/views": [
+        "./projects/ngx-core-components/views/public-api.ts",
+        "./dist/ngx-core-components/views"
+      ],
+      "ngx-core-components/dialog": [
+        "./projects/ngx-core-components/dialog/public-api.ts",
+        "./dist/ngx-core-components/dialog"
       ]
     },
     "skipLibCheck": true,

@@ -1,51 +1,62 @@
 /*
  * Public API Surface of ngx-core-components
+ *
+ * Components are organized into secondary entry points.
+ * All exports are re-exported here for convenience/backward compatibility.
  */
 
-// ===== Gantt Chart =====
+// ===== Gantt Chart (primary entry only) =====
 export { GanttChartComponent } from './lib/gantt-chart/gantt-chart.component';
 export * from './lib/gantt-chart/models';
 export { GanttScaleService } from './lib/gantt-chart/services/gantt-scale.service';
 export type { FlatRow } from './lib/gantt-chart/services/gantt-layout.service';
 export * from './lib/gantt-chart/utils/date-utils';
 
-// ===== Charts =====
-export { BarChartComponent } from './lib/charts/bar-chart/bar-chart.component';
-export { LineChartComponent } from './lib/charts/line-chart/line-chart.component';
-export { PieChartComponent } from './lib/charts/pie-chart/pie-chart.component';
-export { SparklineComponent } from './lib/charts/sparkline/sparkline.component';
-export type { ChartSeries, ChartDataPoint } from './lib/charts/shared/chart-utils';
-export { CHART_COLORS } from './lib/charts/shared/chart-utils';
+// ===== Tooltip & Popover (primary entry only) =====
+export { TooltipDirective } from './lib/tooltip/tooltip.directive';
+export type { TooltipPosition } from './lib/tooltip/tooltip.directive';
+export { PopoverComponent } from './lib/tooltip/popover.component';
 
-// ===== Input Components =====
-export { TextBoxComponent } from './lib/inputs/textbox/textbox.component';
-export { DropdownComponent } from './lib/inputs/dropdown/dropdown.component';
-export type { DropdownOption } from './lib/inputs/dropdown/dropdown.component';
-export { DatePickerComponent } from './lib/inputs/date-picker/date-picker.component';
-export { MultiSelectComponent } from './lib/inputs/multi-select/multi-select.component';
+// ===== Input Components (also available via ngx-core-components/inputs) =====
+export { TextBoxComponent } from 'ngx-core-components/inputs';
+export { CheckboxComponent } from 'ngx-core-components/inputs';
+export { RadioGroupComponent } from 'ngx-core-components/inputs';
+export type { RadioOption } from 'ngx-core-components/inputs';
+export { DropdownComponent } from 'ngx-core-components/inputs';
+export type { DropdownOption } from 'ngx-core-components/inputs';
+export { MultiSelectComponent } from 'ngx-core-components/inputs';
+export { AutocompleteComponent } from 'ngx-core-components/inputs';
+export { DatePickerComponent } from 'ngx-core-components/inputs';
 
-// ===== Data Grid =====
-export { DataGridComponent } from './lib/data-grid/data-grid.component';
+// ===== Charts (also available via ngx-core-components/charts) =====
+export { BarChartComponent } from 'ngx-core-components/charts';
+export { LineChartComponent } from 'ngx-core-components/charts';
+export { PieChartComponent } from 'ngx-core-components/charts';
+export { SparklineComponent } from 'ngx-core-components/charts';
+export type { ChartSeries, ChartDataPoint } from 'ngx-core-components/charts';
+export { CHART_COLORS } from 'ngx-core-components/charts';
+
+// ===== Data Grid (also available via ngx-core-components/grid) =====
+export { DataGridComponent } from 'ngx-core-components/grid';
 export type {
   GridColumnDef,
   GridSortState,
   GridPageChangeEvent,
   GridSortChangeEvent,
   GridRowClickEvent,
-} from './lib/data-grid/data-grid.component';
+} from 'ngx-core-components/grid';
 
-// ===== Tree View =====
-export { TreeViewComponent } from './lib/tree-view/tree-view.component';
-export type { TreeNode, TreeNodeEvent } from './lib/tree-view/tree-view.component';
-
-// ===== List View =====
-export { ListViewComponent } from './lib/list-view/list-view.component';
+// ===== Hierarchical Views (also available via ngx-core-components/views) =====
+export { TreeViewComponent } from 'ngx-core-components/views';
+export type { TreeNode, TreeNodeEvent } from 'ngx-core-components/views';
+export { ListViewComponent } from 'ngx-core-components/views';
 export type {
   ListViewItemClickEvent,
   ListViewSelectionEvent,
-} from './lib/list-view/list-view.component';
+} from 'ngx-core-components/views';
 
-// ===== Tooltip & Popover =====
-export { TooltipDirective } from './lib/tooltip/tooltip.directive';
-export type { TooltipPosition } from './lib/tooltip/tooltip.directive';
-export { PopoverComponent } from './lib/tooltip/popover.component';
+// ===== Dialog (also available via ngx-core-components/dialog) =====
+export { DialogService } from 'ngx-core-components/dialog';
+export type { DialogRef, DialogConfig } from 'ngx-core-components/dialog';
+export { DialogContainerComponent } from 'ngx-core-components/dialog';
+
