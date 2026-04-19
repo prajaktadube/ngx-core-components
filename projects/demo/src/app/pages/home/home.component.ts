@@ -20,10 +20,10 @@ interface ComponentCard {
 
       <!-- Hero -->
       <div class="hero">
-        <div class="hero-badge">Angular 19 · Standalone · Zero Dependencies</div>
+        <div class="hero-badge">Angular 19 · 20 · 21 · Standalone · Zero Dependencies</div>
         <h1 class="hero-title">ngx-core-components</h1>
         <p class="hero-subtitle">
-          A production-ready UI component library for Angular 19.
+          A production-ready UI component library for Angular 19, 20, and 21.
           Built with signals, OnPush change detection, and CSS custom properties for full theming control.
         </p>
         <div class="hero-actions">
@@ -105,7 +105,7 @@ interface ComponentCard {
 
       <!-- Footer -->
       <div class="home-footer">
-        <span>ngx-core-components · MIT License · Angular 19 · Built with ❤️</span>
+        <span>ngx-core-components · MIT License · Angular 19 · 20 · 21 · Built with ❤️</span>
       </div>
 
     </div>
@@ -305,7 +305,7 @@ export class HomeComponent {
   features = [
     {
       icon: '⚡',
-      title: 'Angular 19 Signals',
+      title: 'Angular Signals',
       desc: 'All inputs use the new signal-based input() / output() API. Full OnPush compatibility.',
     },
     {
@@ -316,7 +316,7 @@ export class HomeComponent {
     {
       icon: '📦',
       title: 'Zero Runtime Dependencies',
-      desc: 'No third-party chart libs, no CDK. Pure Angular 19 with native DOM APIs only.',
+      desc: 'No third-party chart libs, no CDK. Pure Angular with native DOM APIs only.',
     },
     {
       icon: '🧩',

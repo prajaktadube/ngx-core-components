@@ -1,6 +1,6 @@
 # ngx-core-components
 
-Angular 19+ component library featuring a full-featured **SVG Gantt Chart**.
+Angular 19 / 20 / 21 component library featuring a full-featured **SVG Gantt Chart**.
 
 [![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
