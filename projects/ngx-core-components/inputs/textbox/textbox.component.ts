@@ -1,21 +1,29 @@
 import {
-  Component, ChangeDetectionStrategy, input, output, signal, computed
+  Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'ngx-textbox',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TextBoxComponent),
+      multi: true,
+    },
+  ],
   template: `
     <div class="ngx-textbox" [class.focused]="isFocused()" [class.has-error]="!!error()" [class.disabled]="disabled()">
       @if (label()) {
-        <label class="ngx-textbox-label" [class.floating]="isFocused() || !!value()">{{ label() }}</label>
+        <label class="ngx-textbox-label" [class.floating]="isFocused() || !!_displayValue()">{{ label() }}</label>
       }
       <div class="ngx-textbox-wrap">
         <input
           class="ngx-textbox-input"
           [type]="type()"
-          [value]="value()"
+          [value]="_displayValue()"
           [placeholder]="isFocused() || !label() ? placeholder() : ''"
           [disabled]="disabled()"
           [readOnly]="readonly()"
@@ -72,7 +80,7 @@ import {
     .ngx-textbox-hint { font-size: 12px; color: var(--ngx-input-label, #6c757d); margin-top: 4px; }
   `]
 })
-export class TextBoxComponent {
+export class TextBoxComponent implements ControlValueAccessor {
   value = input<string>('');
   label = input<string>('');
   placeholder = input<string>('');
@@ -86,9 +94,19 @@ export class TextBoxComponent {
   focusChange = output<boolean>();
 
   isFocused = signal(false);
+  _cvaValue = signal<string>('');
+  private _cvaActive = false;
+  private _onChange: (v: string) => void = () => {};
+  private _onTouched: () => void = () => {};
+
+  /** Merges reactive-form value (CVA) with template binding (input()). CVA takes precedence. */
+  _displayValue = computed(() => this._cvaActive ? this._cvaValue() : this.value());
 
   onInput(e: Event): void {
-    this.valueChange.emit((e.target as HTMLInputElement).value);
+    const v = (e.target as HTMLInputElement).value;
+    this._cvaValue.set(v);
+    this._onChange(v);
+    this.valueChange.emit(v);
   }
 
   onFocus(): void {
@@ -99,5 +117,26 @@ export class TextBoxComponent {
   onBlur(): void {
     this.isFocused.set(false);
     this.focusChange.emit(false);
+    this._onTouched();
+  }
+
+  // ControlValueAccessor
+  writeValue(val: string): void {
+    this._cvaActive = true;
+    this._cvaValue.set(val ?? '');
+  }
+
+  registerOnChange(fn: (v: string) => void): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(_isDisabled: boolean): void {
+    // disabled is controlled via input() for template usage;
+    // reactive-form disable/enable is handled at the FormControl level.
   }
 }
+

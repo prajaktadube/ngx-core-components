@@ -1,13 +1,21 @@
 import {
   Component, ChangeDetectionStrategy, input, output, signal, computed,
-  HostListener, ElementRef, inject
+  HostListener, ElementRef, inject, forwardRef
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from '../dropdown/dropdown.component';
 
 @Component({
   selector: 'ngx-multi-select',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MultiSelectComponent),
+      multi: true,
+    },
+  ],
   template: `
     <div class="ngx-multi-select" [class.open]="isOpen()" [class.disabled]="disabled()" role="combobox">
       @if (label()) {
@@ -133,7 +141,7 @@ import { DropdownOption } from '../dropdown/dropdown.component';
     .ms-empty { padding: 12px; text-align: center; color: #adb5bd; font-size: 13px; }
   `]
 })
-export class MultiSelectComponent {
+export class MultiSelectComponent implements ControlValueAccessor {
   options = input<DropdownOption[]>([]);
   values = input<unknown[]>([]);
   label = input<string>('');
@@ -147,11 +155,17 @@ export class MultiSelectComponent {
   isOpen = signal(false);
   filterText = signal('');
   focusedIndex = signal(-1);
+  _cvaValues = signal<unknown[]>([]);
+  private _cvaActive = false;
+  private _onChange: (v: unknown[]) => void = () => {};
+  private _onTouched: () => void = () => {};
 
   private el = inject(ElementRef);
 
+  _activeValues = computed(() => this._cvaActive ? this._cvaValues() : this.values());
+
   displayValues = computed(() =>
-    this.values()
+    this._activeValues()
       .slice(0, this.maxTags() === Infinity ? undefined : this.maxTags())
       .map(v => ({ value: v, label: this.options().find(o => o.value === v)?.label ?? String(v) }))
   );
@@ -161,10 +175,10 @@ export class MultiSelectComponent {
     return f ? this.options().filter(o => o.label.toLowerCase().includes(f)) : this.options();
   });
 
-  allSelected = computed(() => this.options().every(o => this.values().includes(o.value)));
-  someSelected = computed(() => this.options().some(o => this.values().includes(o.value)));
+  allSelected = computed(() => this.options().every(o => this._activeValues().includes(o.value)));
+  someSelected = computed(() => this.options().some(o => this._activeValues().includes(o.value)));
 
-  isChecked(opt: DropdownOption): boolean { return this.values().includes(opt.value); }
+  isChecked(opt: DropdownOption): boolean { return this._activeValues().includes(opt.value); }
 
   toggle(): void {
     if (this.disabled()) return;
@@ -173,19 +187,27 @@ export class MultiSelectComponent {
 
   toggleOption(opt: DropdownOption): void {
     if (opt.disabled) return;
-    const cur = this.values();
+    const cur = this._activeValues();
     const next = cur.includes(opt.value) ? cur.filter(v => v !== opt.value) : [...cur, opt.value];
+    this._cvaValues.set(next);
+    this._onChange(next);
+    this._onTouched();
     this.valuesChange.emit(next);
   }
 
   removeValue(val: unknown, e: MouseEvent): void {
     e.stopPropagation();
-    this.valuesChange.emit(this.values().filter(v => v !== val));
+    const next = this._activeValues().filter(v => v !== val);
+    this._cvaValues.set(next);
+    this._onChange(next);
+    this.valuesChange.emit(next);
   }
 
   toggleAll(): void {
-    if (this.allSelected()) this.valuesChange.emit([]);
-    else this.valuesChange.emit(this.options().filter(o => !o.disabled).map(o => o.value));
+    const next = this.allSelected() ? [] : this.options().filter(o => !o.disabled).map(o => o.value);
+    this._cvaValues.set(next);
+    this._onChange(next);
+    this.valuesChange.emit(next);
   }
 
   onTriggerKey(e: KeyboardEvent): void {
@@ -199,5 +221,23 @@ export class MultiSelectComponent {
       this.isOpen.set(false);
       this.filterText.set('');
     }
+  }
+
+  // ControlValueAccessor
+  writeValue(val: unknown[]): void {
+    this._cvaActive = true;
+    this._cvaValues.set(Array.isArray(val) ? val : []);
+  }
+
+  registerOnChange(fn: (v: unknown[]) => void): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(_isDisabled: boolean): void {
+    // disabled is controlled via input() for template usage.
   }
 }

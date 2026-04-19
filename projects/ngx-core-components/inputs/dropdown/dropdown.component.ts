@@ -1,7 +1,8 @@
 import {
   Component, ChangeDetectionStrategy, input, output, signal, computed,
-  HostListener, ElementRef, inject
+  HostListener, ElementRef, inject, forwardRef
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface DropdownOption {
   label: string;
@@ -13,6 +14,13 @@ export interface DropdownOption {
   selector: 'ngx-dropdown',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DropdownComponent),
+      multi: true,
+    },
+  ],
   template: `
     <div
       class="ngx-dropdown"
@@ -121,7 +129,7 @@ export interface DropdownOption {
     .popup-empty { padding: 12px; text-align: center; color: #adb5bd; font-size: 13px; }
   `]
 })
-export class DropdownComponent {
+export class DropdownComponent implements ControlValueAccessor {
   options = input<DropdownOption[]>([]);
   value = input<unknown>(null);
   label = input<string>('');
@@ -134,11 +142,17 @@ export class DropdownComponent {
   isOpen = signal(false);
   filterText = signal('');
   focusedIndex = signal(-1);
+  _cvaValue = signal<unknown>(null);
+  private _cvaActive = false;
+  private _onChange: (v: unknown) => void = () => {};
+  private _onTouched: () => void = () => {};
 
   private el = inject(ElementRef);
 
+  _activeValue = computed(() => this._cvaActive ? this._cvaValue() : this.value());
+
   selectedLabel = computed(() => {
-    const opt = this.options().find(o => o.value === this.value());
+    const opt = this.options().find(o => o.value === this._activeValue());
     return opt?.label ?? '';
   });
 
@@ -147,7 +161,7 @@ export class DropdownComponent {
     return f ? this.options().filter(o => o.label.toLowerCase().includes(f)) : this.options();
   });
 
-  isSelected(opt: DropdownOption): boolean { return opt.value === this.value(); }
+  isSelected(opt: DropdownOption): boolean { return opt.value === this._activeValue(); }
 
   toggle(): void {
     if (this.disabled()) return;
@@ -157,6 +171,9 @@ export class DropdownComponent {
 
   selectOption(opt: DropdownOption): void {
     if (opt.disabled) return;
+    this._cvaValue.set(opt.value);
+    this._onChange(opt.value);
+    this._onTouched();
     this.valueChange.emit(opt.value);
     this.isOpen.set(false);
     this.filterText.set('');
@@ -192,4 +209,23 @@ export class DropdownComponent {
       this.filterText.set('');
     }
   }
+
+  // ControlValueAccessor
+  writeValue(val: unknown): void {
+    this._cvaActive = true;
+    this._cvaValue.set(val ?? null);
+  }
+
+  registerOnChange(fn: (v: unknown) => void): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(_isDisabled: boolean): void {
+    // disabled is controlled via input() for template usage.
+  }
 }
+

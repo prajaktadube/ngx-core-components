@@ -1,12 +1,20 @@
 import {
   Component, ChangeDetectionStrategy, input, output, signal, computed,
-  HostListener, ElementRef, inject
+  HostListener, ElementRef, inject, forwardRef
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'ngx-date-picker',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatePickerComponent),
+      multi: true,
+    },
+  ],
   template: `
     <div class="ngx-date-picker" [class.open]="isOpen()" [class.disabled]="disabled()">
       @if (label()) {
@@ -117,7 +125,7 @@ import {
     .dp-clear-btn { color: #6c757d; }
   `]
 })
-export class DatePickerComponent {
+export class DatePickerComponent implements ControlValueAccessor {
   value = input<Date | null>(null);
   label = input<string>('');
   placeholder = input<string>('Select date...');
@@ -133,11 +141,17 @@ export class DatePickerComponent {
   isOpen = signal(false);
   viewYear = signal(new Date().getFullYear());
   viewMonth = signal(new Date().getMonth());
+  _cvaValue = signal<Date | null>(null);
+  private _cvaActive = false;
+  private _onChange: (v: Date | null) => void = () => {};
+  private _onTouched: () => void = () => {};
 
   private el = inject(ElementRef);
 
+  _activeValue = computed(() => this._cvaActive ? this._cvaValue() : this.value());
+
   displayValue = computed(() => {
-    const v = this.value();
+    const v = this._activeValue();
     if (!v) return '';
     return v.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
   });
@@ -152,7 +166,7 @@ export class DatePickerComponent {
     const first = new Date(y, m, 1);
     const last = new Date(y, m + 1, 0);
     const today = new Date(); today.setHours(0, 0, 0, 0);
-    const selectedTime = this.value()?.setHours(0, 0, 0, 0) ?? -1;
+    const selectedTime = this._activeValue()?.setHours(0, 0, 0, 0) ?? -1;
     const days: { date: Date | null; label: string; current: boolean; isToday: boolean; isSelected: boolean; disabled: boolean }[] = [];
 
     // Leading blanks
@@ -183,9 +197,9 @@ export class DatePickerComponent {
   toggle(): void {
     if (this.disabled()) return;
     this.isOpen.update(v => !v);
-    if (this.isOpen() && this.value()) {
-      this.viewYear.set(this.value()!.getFullYear());
-      this.viewMonth.set(this.value()!.getMonth());
+    if (this.isOpen() && this._activeValue()) {
+      this.viewYear.set(this._activeValue()!.getFullYear());
+      this.viewMonth.set(this._activeValue()!.getMonth());
     }
   }
 
@@ -201,15 +215,42 @@ export class DatePickerComponent {
 
   selectDay(date: Date | null): void {
     if (!date) return;
+    this._cvaValue.set(date);
+    this._onChange(date);
+    this._onTouched();
     this.valueChange.emit(date);
     this.isOpen.set(false);
   }
 
   selectToday(): void { this.selectDay(new Date()); }
-  clearValue(): void { this.valueChange.emit(null); this.isOpen.set(false); }
+
+  clearValue(): void {
+    this._cvaValue.set(null);
+    this._onChange(null);
+    this.valueChange.emit(null);
+    this.isOpen.set(false);
+  }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
     if (!this.el.nativeElement.contains(e.target)) this.isOpen.set(false);
+  }
+
+  // ControlValueAccessor
+  writeValue(val: Date | null): void {
+    this._cvaActive = true;
+    this._cvaValue.set(val instanceof Date ? val : null);
+  }
+
+  registerOnChange(fn: (v: Date | null) => void): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(_isDisabled: boolean): void {
+    // disabled is controlled via input() for template usage.
   }
 }
