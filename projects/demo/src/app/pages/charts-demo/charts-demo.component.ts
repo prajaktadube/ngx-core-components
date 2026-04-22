@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import {
   BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
   GanttChartComponent, GanttTask, GanttDependency, GanttConfig, ZoomLevel,
+  GanttTaskChangeEvent,
   ChartSeries, ChartDataPoint, CHART_COLORS
 } from 'ngx-core-components';
 import { getSampleTasks, getSampleDependencies } from '../../data/sample-tasks';
@@ -192,7 +193,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
         <div class="tab-content">
           <div class="section-label">Live Demo</div>
           <div class="chart-card gantt-card">
-            <div class="chart-card-title">Project timeline with dependencies</div>
+            <div class="chart-card-title">Project timeline with subtasks &amp; dependencies</div>
             <div class="gantt-toolbar">
               <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Day" (click)="setGanttZoom(ZoomLevel.Day)">Day</button>
               <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Week" (click)="setGanttZoom(ZoomLevel.Week)">Week</button>
@@ -213,7 +214,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
               </label>
             </div>
             <div class="gantt-demo-wrap">
-              <ngx-gantt-chart [tasks]="ganttTasks" [dependencies]="ganttDependencies" [config]="ganttConfig()" />
+              <ngx-gantt-chart [tasks]="ganttTasks" [dependencies]="ganttDependencies" [config]="ganttConfig()" (taskChange)="onGanttTaskChange($event)" />
             </div>
           </div>
 
@@ -276,10 +277,10 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .gantt-toolbar { display: flex; gap: 8px; }
     .gantt-demo-wrap {
       position: relative;
-      flex: 0 0 var(--ngx-gantt-min-height, 420px);
-      height: var(--ngx-gantt-min-height, 420px);
-      min-height: var(--ngx-gantt-min-height, 420px);
-      max-height: var(--ngx-gantt-min-height, 420px);
+      flex: 0 0 var(--ngx-gantt-min-height, 520px);
+      height: var(--ngx-gantt-min-height, 520px);
+      min-height: var(--ngx-gantt-min-height, 520px);
+      max-height: var(--ngx-gantt-min-height, 520px);
       border: 1px solid #f1f3f5;
       border-radius: 8px;
       overflow: clip;
@@ -291,7 +292,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
       height: 100%;
       min-height: 100%;
       max-height: 100%;
-      --ngx-gantt-min-height: 420px;
+      --ngx-gantt-min-height: 520px;
     }
     .mini-btn { padding: 6px 12px; border: 1px solid #ced4da; border-radius: 999px; background: #fff; color: #495057; font-size: 12px; cursor: pointer; font-family: inherit; }
     .mini-btn.active { background: #1a73e8; border-color: #1a73e8; color: #fff; }
@@ -360,7 +361,7 @@ export class ChartsDemoComponent {
     { name: 'Avg. Session', data: [2.1,1.9,2.3,2.0,2.4,2.6,2.5], type: 'line' as const, color: '#8e44ad', up: true, change: 5 },
   ];
 
-  ganttTasks: GanttTask[] = getSampleTasks().slice(0, 8).map(task => ({ ...task }));
+  ganttTasks: GanttTask[] = getSampleTasks().map(task => ({ ...task }));
   ganttDependencies: GanttDependency[] = getSampleDependencies().filter(dep => {
     const taskIds = new Set(this.ganttTasks.map(task => task.id));
     return taskIds.has(dep.fromId) && taskIds.has(dep.toId);
@@ -470,33 +471,36 @@ export class MyComponent {
   trend = [42, 38, 55, 61, 48, 70, 66];
 }`;
 
-  ganttCode = `import { GanttChartComponent, type GanttTask, type GanttDependency } from 'ngx-core-components';
+  ganttCode = `import { GanttChartComponent, type GanttTask, type GanttSubtask, type GanttDependency } from 'ngx-core-components';
 
 @Component({
   imports: [GanttChartComponent],
-  template: \
-    \
+  template: \`
     <ngx-gantt-chart
       [tasks]="tasks"
       [dependencies]="dependencies"
-      [config]="{
-        zoomLevel: 'week',
-        rowHeight: 40,
-        showGrid: true,
-        snapTo: 'hour',
-        sidebarColumns: [
-          { field: 'name', header: 'Task Name', width: 180 },
-          { field: 'start', header: 'Start', width: 80 },
-          { field: 'end', header: 'End', width: 80 },
-          { field: 'progress', header: '%', width: 50 }
-        ]
-      }"
+      [config]="{ zoomLevel: 'week', rowHeight: 40, showGrid: true }"
     />
-  \
+  \`
 })
 export class MyComponent {
-  tasks: GanttTask[] = [...];
-  dependencies: GanttDependency[] = [...];
+  tasks: GanttTask[] = [
+    {
+      id: 'task-1', name: 'Backend API', start: new Date(), end: addDays(8),
+      progress: 60, parentId: 'phase-1', collapsed: false, isMilestone: false,
+      color: '#e9ecef', rowId: 'row-1',
+      subtasks: [
+        { id: 'sub-1', name: 'Auth Service', start: new Date(), end: addDays(3),
+          color: '#27ae60', description: 'JWT authentication', progress: 100 },
+        { id: 'sub-2', name: 'CRUD Endpoints', start: addDays(3), end: addDays(6),
+          color: '#f39c12', description: 'Core endpoints', progress: 50 },
+        { id: 'sub-3', name: 'Validation', start: addDays(6), end: addDays(8),
+          color: '#e74c3c', description: 'Input validation', progress: 0 },
+      ]
+    },
+    // Multiple tasks in same row via shared rowId
+    { id: 'task-2', name: 'DB Schema', rowId: 'row-1', /* ... */ subtasks: [...] }
+  ];
 }`;
 
   // ===== API TABLES =====
@@ -541,9 +545,11 @@ export class MyComponent {
   ];
 
   ganttInputs: ApiRow[] = [
-    { name: 'tasks', type: 'GanttTask[]', default: 'required', description: 'Task rows rendered in the sidebar and timeline.' },
+    { name: 'tasks', type: 'GanttTask[]', default: 'required', description: 'Task rows rendered in the sidebar and timeline. Each task can have a subtasks[] array.' },
     { name: 'dependencies', type: 'GanttDependency[]', default: '[]', description: 'Dependency links between tasks.' },
     { name: 'config', type: 'Partial<GanttConfig>', default: '{}', description: 'Zoom, sizing, grid, and interaction configuration.' },
+    { name: 'task.subtasks', type: 'GanttSubtask[]', default: '[]', description: 'Subtasks rendered as colored segments inside the task bar. Each has id, name, start, end, color, description?, progress?.' },
+    { name: 'task.rowId', type: 'string', default: 'undefined', description: 'Tasks sharing the same rowId (and parentId) are rendered in a single row.' },
   ];
 
   protected readonly ZoomLevel = ZoomLevel;
@@ -562,6 +568,12 @@ export class MyComponent {
   setGanttGrid(show: boolean): void {
     this.ganttShowGrid.set(show);
     this.ganttConfig.set({ ...this.ganttConfig(), showGrid: show });
+  }
+
+  onGanttTaskChange(event: GanttTaskChangeEvent): void {
+    this.ganttTasks = this.ganttTasks.map(t =>
+      t.id === event.task.id ? { ...t, start: event.task.start, end: event.task.end, subtasks: event.task.subtasks } : t
+    );
   }
 
   chartCssVars: { name: string; default: string; description: string }[] = [

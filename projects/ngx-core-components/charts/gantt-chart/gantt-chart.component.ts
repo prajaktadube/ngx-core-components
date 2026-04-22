@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
   GanttTask,
+  GanttSubtask,
   GanttDependency,
   GanttConfig,
   GanttColumnDef,
@@ -275,6 +276,48 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                       <div class="k-summary-left-cap"></div>
                       <div class="k-summary-right-cap"></div>
                     </div>
+                  } @else if (bar.task.subtasks && bar.task.subtasks.length > 0) {
+                    <!-- Task bar with subtask segments -->
+                    <div
+                      class="k-task k-task-with-subtasks"
+                      [style.left.px]="bar.left"
+                      [style.width.px]="bar.width"
+                      [style.background]="bar.task.color || '#e9ecef'"
+                      [class.k-focused]="keyboardService.focusedTaskId() === bar.task.id"
+                      [class.k-selected]="selectedTaskId() === bar.task.id"
+                      (mouseenter)="hoveredTaskId.set(bar.primaryTaskId)"
+                      (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
+                      (pointerdown)="onBarPointerDown($event, bar.task, 'move')"
+                      (click)="onTaskBarClick(bar.task, $event)"
+                      (dblclick)="onTaskBarDblClick(bar.task, $event)"
+                      tabindex="0"
+                      role="img"
+                      [attr.aria-label]="bar.task.name + ' with ' + bar.task.subtasks.length + ' subtasks'"
+                    >
+                      @for (sub of getSubtaskBars(bar); track sub.subtask.id) {
+                        <div
+                          class="k-subtask-segment"
+                          [style.left.px]="sub.left"
+                          [style.width.px]="sub.width"
+                          [style.background]="sub.subtask.color"
+                          [title]="sub.subtask.name + (sub.subtask.description ? ': ' + sub.subtask.description : '')"
+                          (mouseenter)="showSubtaskTooltip(bar.task, sub.subtask, $event); $event.stopPropagation()"
+                          (mouseleave)="hideTooltip()"
+                        >
+                          @if (sub.width > 40) {
+                            <span class="k-subtask-text">{{ sub.subtask.name }}</span>
+                          }
+                          @if (sub.subtask.progress != null) {
+                            <div class="k-subtask-progress" [style.width.%]="sub.subtask.progress"></div>
+                          }
+                        </div>
+                      }
+                      <!-- Resize handles -->
+                      @if (bar.task.draggable !== false) {
+                        <div class="k-resize-handle k-resize-w" (pointerdown)="onBarPointerDown($event, bar.task, 'resize-left')"></div>
+                        <div class="k-resize-handle k-resize-e" (pointerdown)="onBarPointerDown($event, bar.task, 'resize-right')"></div>
+                      }
+                    </div>
                   } @else {
                     <!-- Regular task bar -->
                     <div
@@ -341,23 +384,69 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
         [style.top.px]="tooltipY()"
       >
         <div class="k-bar-tooltip-title">{{ tooltipTask()!.name }}</div>
-        <div class="k-bar-tooltip-row">
-          <span class="k-bar-tooltip-label">Start</span>
-          <span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.start) }}</span>
-        </div>
-        <div class="k-bar-tooltip-row">
-          <span class="k-bar-tooltip-label">End</span>
-          <span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.end) }}</span>
-        </div>
-        <div class="k-bar-tooltip-row">
-          <span class="k-bar-tooltip-label">Progress</span>
-          <span class="k-bar-tooltip-value">{{ tooltipTask()!.progress }}%</span>
-        </div>
-        @for (entry of getMetaEntries(tooltipTask()!.meta); track entry.key) {
+        @if (tooltipSubtask()) {
           <div class="k-bar-tooltip-row">
-            <span class="k-bar-tooltip-label">{{ entry.key }}</span>
-            <span class="k-bar-tooltip-value">{{ entry.value }}</span>
+            <span class="k-bar-tooltip-label">Subtask</span>
+            <span class="k-bar-tooltip-value">{{ tooltipSubtask()!.name }}</span>
           </div>
+          @if (tooltipSubtask()!.description) {
+            <div class="k-bar-tooltip-row">
+              <span class="k-bar-tooltip-label">Description</span>
+              <span class="k-bar-tooltip-value">{{ tooltipSubtask()!.description }}</span>
+            </div>
+          }
+          <div class="k-bar-tooltip-row">
+            <span class="k-bar-tooltip-label">Start</span>
+            <span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.start) }}</span>
+          </div>
+          <div class="k-bar-tooltip-row">
+            <span class="k-bar-tooltip-label">End</span>
+            <span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.end) }}</span>
+          </div>
+          @if (tooltipSubtask()!.progress != null) {
+            <div class="k-bar-tooltip-row">
+              <span class="k-bar-tooltip-label">Progress</span>
+              <span class="k-bar-tooltip-value">{{ tooltipSubtask()!.progress }}%</span>
+            </div>
+          }
+          @for (entry of getMetaEntries(tooltipSubtask()!.meta); track entry.key) {
+            <div class="k-bar-tooltip-row">
+              <span class="k-bar-tooltip-label">{{ entry.key }}</span>
+              <span class="k-bar-tooltip-value">{{ entry.value }}</span>
+            </div>
+          }
+        } @else {
+          <div class="k-bar-tooltip-row">
+            <span class="k-bar-tooltip-label">Start</span>
+            <span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.start) }}</span>
+          </div>
+          <div class="k-bar-tooltip-row">
+            <span class="k-bar-tooltip-label">End</span>
+            <span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.end) }}</span>
+          </div>
+          <div class="k-bar-tooltip-row">
+            <span class="k-bar-tooltip-label">Progress</span>
+            <span class="k-bar-tooltip-value">{{ tooltipTask()!.progress }}%</span>
+          </div>
+          @for (entry of getMetaEntries(tooltipTask()!.meta); track entry.key) {
+            <div class="k-bar-tooltip-row">
+              <span class="k-bar-tooltip-label">{{ entry.key }}</span>
+              <span class="k-bar-tooltip-value">{{ entry.value }}</span>
+            </div>
+          }
+          @if (tooltipTask()!.subtasks && tooltipTask()!.subtasks!.length > 0) {
+            <div class="k-bar-tooltip-divider"></div>
+            <div class="k-bar-tooltip-label" style="margin-top: 6px;">Subtasks</div>
+            @for (sub of tooltipTask()!.subtasks!; track sub.id) {
+              <div class="k-row-tooltip-task">
+                <span class="k-row-tooltip-dot" [style.background]="sub.color"></span>
+                <span class="k-row-tooltip-name">{{ sub.name }}</span>
+                @if (sub.description) {
+                  <span class="k-bar-tooltip-label">{{ sub.description }}</span>
+                }
+              </div>
+            }
+          }
         }
       </div>
     }
@@ -825,6 +914,69 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
       background: rgba(255,255,255,0.25);
     }
 
+    /* Subtask segments */
+    .k-task-with-subtasks {
+      overflow: hidden;
+      box-shadow: none;
+    }
+    .k-task-with-subtasks:hover {
+      box-shadow: none;
+    }
+    .k-task-with-subtasks.k-dragging {
+      background: rgba(0,0,0,0.06) !important;
+      border: 1px dashed rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+    .k-task-with-subtasks.k-dragging .k-subtask-segment {
+      pointer-events: none;
+      transition: none;
+    }
+    .k-subtask-segment {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
+      transition: box-shadow 0.15s ease, transform 0.1s ease;
+      cursor: pointer;
+      pointer-events: all;
+      min-width: 4px;
+    }
+    .k-subtask-segment:hover {
+      box-shadow: 0 3px 8px rgba(0,0,0,0.22), 0 1px 3px rgba(0,0,0,0.12);
+      transform: scaleY(1.08);
+      z-index: 1;
+    }
+    .k-subtask-text {
+      position: relative;
+      z-index: 1;
+      padding: 0 6px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    }
+    .k-subtask-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: rgba(0,0,0,0.15);
+      border-radius: 4px 0 0 4px;
+      pointer-events: none;
+    }
+    .k-bar-tooltip-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin: 6px 0;
+    }
+
     /* Summary bar (with caps) */
     .k-task-summary {
       position: absolute;
@@ -1025,6 +1177,7 @@ export class GanttChartComponent {
 
   // Tooltip state
   tooltipTask = signal<GanttTask | null>(null);
+  tooltipSubtask = signal<GanttSubtask | null>(null);
   tooltipX = signal(0);
   tooltipY = signal(0);
 
@@ -1277,6 +1430,7 @@ export class GanttChartComponent {
     barEl.style.cursor = mode === 'move' ? 'grabbing' : 'col-resize';
     barEl.style.zIndex = '10';
     barEl.style.opacity = '0.85';
+    barEl.classList.add('k-dragging');
 
     const onMove = (e: PointerEvent) => {
       const deltaX = e.clientX - startX;
@@ -1301,6 +1455,7 @@ export class GanttChartComponent {
       barEl.style.cursor = '';
       barEl.style.zIndex = '';
       barEl.style.opacity = '';
+      barEl.classList.remove('k-dragging');
 
       const deltaX = e.clientX - startX;
       if (Math.abs(deltaX) < 2) return; // ignore tiny movements
@@ -1332,8 +1487,36 @@ export class GanttChartComponent {
         newEnd = addDays(newStart, 1);
       }
 
+      // Shift/scale subtask dates along with the parent task
+      let updatedSubtasks = task.subtasks;
+      if (updatedSubtasks && updatedSubtasks.length > 0) {
+        const origDuration = previousEnd.getTime() - previousStart.getTime();
+        const newDuration = newEnd.getTime() - newStart.getTime();
+
+        if (mode === 'move') {
+          // Move: shift all subtask dates by the same delta
+          const shiftMs = newStart.getTime() - previousStart.getTime();
+          updatedSubtasks = updatedSubtasks.map(sub => ({
+            ...sub,
+            start: new Date(sub.start.getTime() + shiftMs),
+            end: new Date(sub.end.getTime() + shiftMs),
+          }));
+        } else if (origDuration > 0) {
+          // Resize: scale subtask dates proportionally within the new span
+          updatedSubtasks = updatedSubtasks.map(sub => {
+            const subStartRatio = (sub.start.getTime() - previousStart.getTime()) / origDuration;
+            const subEndRatio = (sub.end.getTime() - previousStart.getTime()) / origDuration;
+            return {
+              ...sub,
+              start: new Date(newStart.getTime() + subStartRatio * newDuration),
+              end: new Date(newStart.getTime() + subEndRatio * newDuration),
+            };
+          });
+        }
+      }
+
       this.taskChange.emit({
-        task: { ...task, start: newStart, end: newEnd },
+        task: { ...task, start: newStart, end: newEnd, subtasks: updatedSubtasks },
         previousStart,
         previousEnd,
       });
@@ -1470,6 +1653,7 @@ export class GanttChartComponent {
 
   showTooltip(task: GanttTask, event: MouseEvent): void {
     this.tooltipTask.set(task);
+    this.tooltipSubtask.set(null);
     const OFFSET = 14;
     const TOOLTIP_W = 220;
     const TOOLTIP_H = 100;
@@ -1479,8 +1663,21 @@ export class GanttChartComponent {
     this.tooltipY.set(flipCoord(event.clientY, TOOLTIP_H, window.innerHeight));
   }
 
+  showSubtaskTooltip(task: GanttTask, subtask: GanttSubtask, event: MouseEvent): void {
+    this.tooltipTask.set(task);
+    this.tooltipSubtask.set(subtask);
+    const OFFSET = 14;
+    const TOOLTIP_W = 240;
+    const TOOLTIP_H = 120;
+    const flipCoord = (cursor: number, size: number, viewport: number): number =>
+      cursor + OFFSET + size > viewport ? cursor - size - OFFSET : cursor + OFFSET;
+    this.tooltipX.set(flipCoord(event.clientX, TOOLTIP_W, window.innerWidth));
+    this.tooltipY.set(flipCoord(event.clientY, TOOLTIP_H, window.innerHeight));
+  }
+
   hideTooltip(): void {
     this.tooltipTask.set(null);
+    this.tooltipSubtask.set(null);
   }
 
   // Multi-task row helpers
@@ -1516,6 +1713,28 @@ export class GanttChartComponent {
         .replace(/^./, c => c.toUpperCase()),
       value: String(value),
     }));
+  }
+
+  /** Compute pixel positions for subtask segments within a task bar. */
+  getSubtaskBars(bar: { task: GanttTask; left: number; width: number }): { subtask: GanttSubtask; left: number; width: number }[] {
+    const subtasks = bar.task.subtasks;
+    if (!subtasks || subtasks.length === 0) return [];
+
+    const cfg = this.mergedConfig();
+    const range = this.dateRange();
+
+    return subtasks.map(sub => {
+      const subLeft = this.scaleService.dateToX(sub.start, range.start, cfg.columnWidth, cfg.zoomLevel) - bar.left;
+      const subWidth = this.scaleService.getBarWidth(sub.start, sub.end, range.start, cfg.columnWidth, cfg.zoomLevel);
+      // Clamp subtask segment within bar bounds
+      const clampedLeft = Math.max(0, Math.min(subLeft, bar.width));
+      const clampedWidth = Math.max(4, Math.min(subWidth, bar.width - clampedLeft));
+      return {
+        subtask: sub,
+        left: clampedLeft,
+        width: clampedWidth,
+      };
+    });
   }
 
   showRowTooltip(row: FlatRow, event: MouseEvent): void {

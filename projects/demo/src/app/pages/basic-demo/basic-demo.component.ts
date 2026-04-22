@@ -202,7 +202,7 @@ export class ExampleComponent {}`;
 
   onTaskChange(event: GanttTaskChangeEvent): void {
     this.tasks = this.tasks.map(t =>
-      t.id === event.task.id ? { ...t, start: event.task.start, end: event.task.end } : t
+      t.id === event.task.id ? { ...t, start: event.task.start, end: event.task.end, subtasks: event.task.subtasks } : t
     );
   }
 
