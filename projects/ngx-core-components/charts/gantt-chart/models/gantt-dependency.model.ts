@@ -9,6 +9,6 @@ export interface GanttDependency {
   fromId: string;
   toId: string;
   type: DependencyType;
-  color?: string;
+  color?: string | { default: string; active?: string };
   cssClass?: string;
 }

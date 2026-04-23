@@ -14,5 +14,6 @@ export { CHART_COLORS } from './shared/chart-utils';
 export { GanttChartComponent } from './gantt-chart/gantt-chart.component';
 export * from './gantt-chart/models';
 export { GanttScaleService } from './gantt-chart/services/gantt-scale.service';
+export { GanttPrintService } from './gantt-chart/services/gantt-print.service';
 export type { FlatRow } from './gantt-chart/services/gantt-layout.service';
 export * from './gantt-chart/utils/date-utils';

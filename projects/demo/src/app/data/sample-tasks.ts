@@ -1,5 +1,116 @@
 import { GanttTask, GanttDependency, DependencyType } from 'ngx-core-components';
 
+/**
+ * Transport/logistics Gantt data.
+ * Each vehicle is a row. Each voyage on that row has 7 subtask phases:
+ *   Station Start → Transit → Hub1 → Transit → Hub2 → Transit → Station End
+ * Multiple voyages share the same rowId so they appear side-by-side on one row.
+ */
+export function getTransportTasks(): GanttTask[] {
+  const base = new Date();
+  base.setHours(6, 0, 0, 0); // start at 06:00 today
+
+  const h = (hours: number): Date => new Date(base.getTime() + hours * 3600000);
+
+  const colors = {
+    station: '#10b981', // emerald green — station start / end
+    transit: '#3b82f6', // vivid blue    — in-transit legs
+    hub:     '#f59e0b', // amber gold    — hub stops
+  };
+
+  const vehicles = [
+    { id: 'vehicle-1', name: 'Vehicle TRK-1001' },
+    { id: 'vehicle-2', name: 'Vehicle TRK-1002' },
+    { id: 'vehicle-3', name: 'Vehicle TRK-1003' },
+  ];
+
+  // Each voyage: { start (hour offset), stations: [4 stops], durations: [7 phase durations] }
+  // Phases: Station Start, Transit1, Hub1, Transit2, Hub2, Transit3, Station End
+  const voyages: { start: number; stations: string[]; durations: number[] }[][] = [
+    [ // Vehicle 1
+      { start: 0,  stations: ['Mumbai Stn', 'Delhi Hub', 'Jaipur Hub', 'Ahmedabad Stn'], durations: [1, 4, 1, 3, 1, 3.5, 1] },
+      { start: 16, stations: ['Ahmedabad Stn', 'Surat Hub', 'Pune Hub', 'Mumbai Stn'],   durations: [1, 3, 1, 2.5, 1, 3, 1] },
+      { start: 30, stations: ['Mumbai Stn', 'Nashik Hub', 'Indore Hub', 'Delhi Stn'],     durations: [1, 3.5, 1, 3, 1, 4, 1] },
+    ],
+    [ // Vehicle 2
+      { start: 1,  stations: ['Chennai Stn', 'Bangalore Hub', 'Hyderabad Hub', 'Vizag Stn'],       durations: [1, 3.5, 1, 3, 1, 3, 1] },
+      { start: 15, stations: ['Vizag Stn', 'Bhubaneswar Hub', 'Raipur Hub', 'Chennai Stn'],        durations: [1, 3, 1, 2.5, 1, 3.5, 1] },
+      { start: 29, stations: ['Chennai Stn', 'Coimbatore Hub', 'Kochi Hub', 'Trivandrum Stn'],     durations: [1, 2.5, 1, 2, 1, 2.5, 1] },
+    ],
+    [ // Vehicle 3
+      { start: 2,  stations: ['Kolkata Stn', 'Patna Hub', 'Lucknow Hub', 'Kanpur Stn'],    durations: [1, 4, 1, 3.5, 1, 3, 1] },
+      { start: 18, stations: ['Kanpur Stn', 'Agra Hub', 'Jaipur Hub', 'Kolkata Stn'],      durations: [1, 3, 1, 3, 1, 4, 1] },
+      { start: 34, stations: ['Kolkata Stn', 'Ranchi Hub', 'Varanasi Hub', 'Lucknow Stn'], durations: [1, 3.5, 1, 3, 1, 3, 1] },
+    ],
+  ];
+
+  const tasks: GanttTask[] = [];
+
+  vehicles.forEach((vehicle, vi) => {
+    voyages[vi].forEach((voyage, vyi) => {
+      const voyageId = `${vehicle.id}-voyage-${vyi + 1}`;
+      const { start: startH, stations, durations } = voyage;
+      const totalH = durations.reduce((a, b) => a + b, 0);
+      const progress = vyi === 0 ? 100 : vyi === 1 ? 45 : 0;
+
+      // Build 7 phases: Stn Start, Transit, Hub1, Transit, Hub2, Transit, Stn End
+      const phaseLabels: { name: string; color: string; desc: string; css?: string }[] = [
+        { name: stations[0], color: colors.station, desc: `Departure: ${stations[0]}`, css: 'station-pill' },
+        { name: 'Transit',   color: colors.transit, desc: `${stations[0]} → ${stations[1]}`, css: 'transit-arrow' },
+        { name: stations[1], color: colors.hub,     desc: `Stop: ${stations[1]}`, css: 'hub-badge' },
+        { name: 'Transit',   color: colors.transit, desc: `${stations[1]} → ${stations[2]}`, css: 'transit-arrow' },
+        { name: stations[2], color: colors.hub,     desc: `Stop: ${stations[2]}`, css: 'hub-badge' },
+        { name: 'Transit',   color: colors.transit, desc: `${stations[2]} → ${stations[3]}`, css: 'transit-arrow' },
+        { name: stations[3], color: colors.station, desc: `Arrival: ${stations[3]}`, css: 'station-pill' },
+      ];
+
+      let cursor = startH;
+      const subtasks = phaseLabels.map((p, pi) => {
+        const s = cursor;
+        cursor += durations[pi];
+        return {
+          id: `${voyageId}-phase-${pi}`,
+          name: p.name,
+          start: h(s),
+          end: h(cursor),
+          color: p.color,
+          description: p.desc,
+          progress: vyi === 0 ? 100 : vyi === 1 && pi <= 3 ? 100 : vyi === 1 && pi === 4 ? 50 : 0,
+          ...(p.css ? { cssClass: p.css } : {}),
+        };
+      });
+
+      tasks.push({
+        id: voyageId,
+        name: vehicle.name,
+        start: h(startH),
+        end: h(startH + totalH),
+        progress,
+        parentId: null,
+        collapsed: false,
+        isMilestone: false,
+        rowId: vehicle.id,
+        color: '#f1f3f5',
+        meta: {
+          vehicle: vehicle.name,
+          voyageNo: vyi + 1,
+          origin: stations[0],
+          destination: stations[stations.length - 1],
+          route: stations.join(' → '),
+        },
+        subtasks,
+      });
+    });
+  });
+
+  return tasks;
+}
+
+/** No inter-voyage dependencies — transit arrows visually connect the phases. */
+export function getTransportDependencies(): GanttDependency[] {
+  return [];
+}
+
 export function getSampleTasks(): GanttTask[] {
   const today = new Date();
   today.setHours(0, 0, 0, 0);

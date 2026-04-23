@@ -41,6 +41,20 @@ export type {
   GanttTaskClickEvent,
   GanttDependencyClickEvent,
   GanttScrollEvent,
+  GanttGroup,
+  GanttBaselineItem,
+  GanttDragEvent,
+  GanttLinkDragEvent,
+  GanttLineClickEvent,
+  GanttBarClickEvent,
+  GanttSelectedEvent,
+  GanttTableDragStartedEvent,
+  GanttTableDragEndedEvent,
+  GanttTableDragDroppedEvent,
+  GanttLoadOnScrollEvent,
+  GanttVirtualScrolledIndexChangeEvent,
+  GanttViewChangeEvent,
+  GanttExpandChangeEvent,
 } from 'ngx-core-components/charts';
 export { ZoomLevel, DependencyType } from 'ngx-core-components/charts';
 

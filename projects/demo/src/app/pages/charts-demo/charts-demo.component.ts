@@ -2,10 +2,10 @@ import { Component, signal } from '@angular/core';
 import {
   BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
   GanttChartComponent, GanttTask, GanttDependency, GanttConfig, ZoomLevel,
-  GanttTaskChangeEvent,
+  GanttTaskChangeEvent, GanttGroup, GanttBaselineItem, GanttLinkDragEvent, GanttBarClickEvent,
   ChartSeries, ChartDataPoint, CHART_COLORS
 } from 'ngx-core-components';
-import { getSampleTasks, getSampleDependencies } from '../../data/sample-tasks';
+import { getSampleTasks, getSampleDependencies, getTransportTasks, getTransportDependencies } from '../../data/sample-tasks';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
@@ -195,9 +195,12 @@ interface ApiRow { name: string; type: string; default: string; description: str
           <div class="chart-card gantt-card">
             <div class="chart-card-title">Project timeline with subtasks &amp; dependencies</div>
             <div class="gantt-toolbar">
+              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Hour" (click)="setGanttZoom(ZoomLevel.Hour)">Hour</button>
               <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Day" (click)="setGanttZoom(ZoomLevel.Day)">Day</button>
               <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Week" (click)="setGanttZoom(ZoomLevel.Week)">Week</button>
               <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Month" (click)="setGanttZoom(ZoomLevel.Month)">Month</button>
+              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Quarter" (click)="setGanttZoom(ZoomLevel.Quarter)">Quarter</button>
+              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Year" (click)="setGanttZoom(ZoomLevel.Year)">Year</button>
 
               <label class="gantt-control">
                 Snap
@@ -212,9 +215,22 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 <input type="checkbox" [checked]="ganttShowGrid()" (change)="setGanttGrid($any($event.target).checked)" />
                 Show Grid
               </label>
+              <label class="gantt-control gantt-toggle">
+                <input type="checkbox" [checked]="ganttLinkable()" (change)="setGanttLinkable($any($event.target).checked)" />
+                Linkable
+              </label>
+              <label class="gantt-control gantt-toggle">
+                <input type="checkbox" [checked]="ganttSelectable()" (change)="setGanttSelectable($any($event.target).checked)" />
+                Selectable
+              </label>
+              <label class="gantt-control gantt-toggle">
+                <input type="checkbox" [checked]="ganttShowBaseline()" (change)="setGanttBaseline($any($event.target).checked)" />
+                Baseline
+              </label>
             </div>
             <div class="gantt-demo-wrap">
-              <ngx-gantt-chart [tasks]="ganttTasks" [dependencies]="ganttDependencies" [config]="ganttConfig()" (taskChange)="onGanttTaskChange($event)" />
+              <ngx-gantt-chart [tasks]="ganttTasks" [dependencies]="ganttDependencies" [config]="ganttConfig()" [baselineItems]="ganttBaseline"
+                (taskChange)="onGanttTaskChange($event)" (linkDragEnded)="onLinkDragEnded($event)" (barClick)="onBarClick($event)" />
             </div>
           </div>
 
@@ -232,6 +248,45 @@ interface ApiRow { name: string; type: string; default: string; description: str
               </tbody>
             </table>
           </div>
+        </div>
+      }
+
+      <!-- ===== TRANSPORT GANTT ===== -->
+      @if (activeTab() === 'Transport') {
+        <div class="tab-content">
+          <div class="section-label">Live Demo — Transport &amp; Logistics</div>
+          <div class="chart-card gantt-card transport-card">
+            <div class="transport-header">
+              <div class="transport-header-text">
+                <h3>🚚 Fleet Voyage Tracker</h3>
+                <p>Real-time vehicle tracking — station departures, transit legs, hub stops &amp; arrivals</p>
+              </div>
+              <div class="transport-badges">
+                <span class="t-badge t-badge-live">● Live</span>
+                <span class="t-badge t-badge-count">3 Vehicles</span>
+                <span class="t-badge t-badge-count">9 Voyages</span>
+              </div>
+            </div>
+            <div class="transport-controls">
+              <div class="gantt-toolbar">
+                <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Hour" (click)="setTransportZoom(ZoomLevel.Hour)">🕒 Hour</button>
+                <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Day" (click)="setTransportZoom(ZoomLevel.Day)">📅 Day</button>
+                <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Week" (click)="setTransportZoom(ZoomLevel.Week)">📆 Week</button>
+              </div>
+              <div class="transport-legend">
+                <span class="legend-pill station-pill">🟢 Station</span>
+                <span class="legend-pill transit-pill">➡️ Transit</span>
+                <span class="legend-pill hub-pill">🟡 Hub Stop</span>
+              </div>
+            </div>
+            <div class="gantt-demo-wrap">
+              <ngx-gantt-chart [tasks]="transportTasks" [dependencies]="transportDeps" [config]="transportConfig()"
+                (barClick)="onTransportBarClick($event)" />
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ transportCode }}</pre>
         </div>
       }
 
@@ -300,6 +355,133 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .gantt-control select { border: 1px solid #ced4da; border-radius: 4px; padding: 3px 6px; font-size: 12px; }
     .gantt-toggle { margin-left: 0; }
 
+    /* Transport legend */
+    .transport-card {
+      background: #fff;
+      border: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .transport-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .transport-header-text h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
+    .transport-header-text p { margin: 0; font-size: 12px; color: rgba(255,255,255,0.7); }
+    .transport-badges { display: flex; gap: 8px; }
+    .t-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+    .t-badge-live { background: rgba(16,185,129,0.2); color: #34d399; animation: pulse-live 2s ease-in-out infinite; }
+    .t-badge-count { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
+    @keyframes pulse-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+    .transport-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .transport-legend { display: flex; gap: 10px; }
+    .legend-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .station-pill { background: #ecfdf5; color: #059669; }
+    .transit-pill { background: #eff6ff; color: #2563eb; }
+    .hub-pill { background: #fffbeb; color: #d97706; }
+
+    /* Transit arrow shape */
+    :host ::ng-deep .transport-card .k-task-with-subtasks {
+      overflow: visible;
+      background: transparent !important;
+    }
+    :host ::ng-deep .k-subtask-segment.transit-arrow {
+      clip-path: polygon(
+        0% 20%,
+        4px 0%,
+        calc(100% - 10px) 0%,
+        100% 50%,
+        calc(100% - 10px) 100%,
+        4px 100%,
+        0% 80%
+      );
+      border-radius: 0;
+      box-shadow: none;
+      background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 40%, #2563eb 100%) !important;
+      transition: filter 0.2s ease, clip-path 0.2s ease;
+    }
+    :host ::ng-deep .k-subtask-segment.transit-arrow .k-subtask-text {
+      padding: 0 14px 0 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    :host ::ng-deep .k-subtask-segment.transit-arrow:hover {
+      clip-path: polygon(
+        0% 12%,
+        4px 0%,
+        calc(100% - 12px) 0%,
+        100% 50%,
+        calc(100% - 12px) 100%,
+        4px 100%,
+        0% 88%
+      );
+      filter: brightness(1.18) drop-shadow(0 2px 4px rgba(37,99,235,0.35));
+      transform: none;
+      z-index: 2;
+    }
+    /* Station rounded pills */
+    :host ::ng-deep .k-subtask-segment.station-pill {
+      border-radius: 999px;
+      background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%) !important;
+      box-shadow: 0 2px 6px rgba(16,185,129,0.35);
+      transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    :host ::ng-deep .k-subtask-segment.station-pill .k-subtask-text {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    :host ::ng-deep .k-subtask-segment.station-pill:hover {
+      box-shadow: 0 4px 14px rgba(16,185,129,0.45);
+      transform: scale(1.06);
+      z-index: 2;
+    }
+    /* Hub diamond badges */
+    :host ::ng-deep .k-subtask-segment.hub-badge {
+      clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
+      border-radius: 0;
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%) !important;
+      box-shadow: none;
+      transition: filter 0.2s ease, transform 0.15s ease;
+    }
+    :host ::ng-deep .k-subtask-segment.hub-badge .k-subtask-text {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 0 10px;
+    }
+    :host ::ng-deep .k-subtask-segment.hub-badge:hover {
+      filter: brightness(1.12) drop-shadow(0 2px 4px rgba(245,158,11,0.4));
+      transform: scaleY(1.1);
+      z-index: 2;
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+    .legend-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+    .legend-swatch.arrow { clip-path: polygon(0 20%, 75% 20%, 75% 0, 100% 50%, 75% 100%, 75% 80%, 0 80%); width: 18px; }
+
     /* Sparkline table */
     .sparkline-table { display: flex; flex-direction: column; gap: 12px; }
     .sl-row { display: flex; align-items: center; gap: 20px; border-bottom: 1px solid #f1f3f5; padding-bottom: 12px; }
@@ -328,10 +510,13 @@ interface ApiRow { name: string; type: string; default: string; description: str
 })
 export class ChartsDemoComponent {
   activeTab = signal('Bar Chart');
-  tabs = ['Bar Chart', 'Line Chart', 'Pie / Donut', 'Sparkline', 'Gantt'];
+  tabs = ['Bar Chart', 'Line Chart', 'Pie / Donut', 'Sparkline', 'Gantt', 'Transport'];
   ganttZoom = signal(ZoomLevel.Week);
   ganttSnap = signal<'none' | 'day' | 'hour'>('day');
   ganttShowGrid = signal(true);
+  ganttLinkable = signal(false);
+  ganttSelectable = signal(true);
+  ganttShowBaseline = signal(false);
 
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
@@ -376,11 +561,44 @@ export class ChartsDemoComponent {
     showGrid: true,
     collapsible: true,
     snapTo: 'day',
+    linkable: false,
+    selectable: true,
+    multiple: true,
+    showBaseline: false,
+    showToolbar: false,
     sidebarColumns: [
       { field: 'name', header: 'Task Name', width: 180 },
       { field: 'start', header: 'Start', width: 80 },
       { field: 'end', header: 'End', width: 80 },
       { field: 'progress', header: '%', width: 50 },
+    ],
+  });
+
+  ganttBaseline: GanttBaselineItem[] = this.ganttTasks.slice(0, 3).map(t => ({
+    id: t.id,
+    start: new Date(t.start.getTime() - 2 * 86400000),
+    end: new Date(t.end.getTime() - 1 * 86400000),
+  }));
+
+  // ===== TRANSPORT GANTT =====
+  transportZoom = signal(ZoomLevel.Hour);
+  transportTasks: GanttTask[] = getTransportTasks();
+  transportDeps: GanttDependency[] = getTransportDependencies();
+  transportConfig = signal<Partial<GanttConfig>>({
+    zoomLevel: ZoomLevel.Hour,
+    rowHeight: 48,
+    columnWidth: 60,
+    headerHeight: 56,
+    sidebarWidth: 200,
+    showTodayMarker: true,
+    showGrid: true,
+    collapsible: false,
+    snapTo: 'hour',
+    linkable: false,
+    selectable: false,
+    showToolbar: false,
+    sidebarColumns: [
+      { field: 'name', header: 'Vehicle', width: 200 },
     ],
   });
 
@@ -503,6 +721,33 @@ export class MyComponent {
   ];
 }`;
 
+  transportCode = `import { GanttChartComponent, GanttTask } from 'ngx-core-components';
+
+// Each vehicle = 1 row (shared rowId). Each voyage = 1 bar with 7 subtask phases.
+// Voyage: Station Start → Transit → Hub1 → Transit → Hub2 → Transit → Station End
+tasks: GanttTask[] = [
+  {
+    id: 'v1-voyage-1', name: 'Vehicle TRK-1001',
+    start: new Date('...'), end: new Date('...'),
+    progress: 100, parentId: null, collapsed: false, isMilestone: false,
+    rowId: 'vehicle-1', color: '#f1f3f5',
+    subtasks: [
+      { id: '...-stn-start', name: 'Mumbai Station',  start: ..., end: ..., color: '#27ae60' },
+      { id: '...-transit-1', name: 'Transit',          start: ..., end: ..., color: '#2980b9' },
+      { id: '...-hub-1',     name: 'Delhi Hub',        start: ..., end: ..., color: '#8e44ad' },
+      { id: '...-transit-2', name: 'Transit',          start: ..., end: ..., color: '#2980b9' },
+      { id: '...-hub-2',     name: 'Jaipur Hub',       start: ..., end: ..., color: '#8e44ad' },
+      { id: '...-transit-3', name: 'Transit',          start: ..., end: ..., color: '#2980b9' },
+      { id: '...-stn-end',   name: 'Ahmedabad Station',start: ..., end: ..., color: '#27ae60' },
+    ],
+  },
+  // More voyages on same rowId appear side-by-side
+  { id: 'v1-voyage-2', rowId: 'vehicle-1', ... },
+  { id: 'v1-voyage-3', rowId: 'vehicle-1', ... },
+  // Next vehicle row
+  { id: 'v2-voyage-1', rowId: 'vehicle-2', ... },
+];`;
+
   // ===== API TABLES =====
   barInputs: ApiRow[] = [
     { name: 'series', type: 'ChartSeries[]', default: '[]', description: 'Array of data series. Each series has a name and an array of numeric values.' },
@@ -555,7 +800,8 @@ export class MyComponent {
   protected readonly ZoomLevel = ZoomLevel;
 
   setGanttZoom(level: ZoomLevel): void {
-    const columnWidth = level === ZoomLevel.Day ? 36 : level === ZoomLevel.Week ? 120 : 180;
+    const widths: Record<string, number> = { hour: 24, day: 36, week: 120, month: 180, quarter: 220, year: 280 };
+    const columnWidth = widths[level] || 120;
     this.ganttZoom.set(level);
     this.ganttConfig.set({ ...this.ganttConfig(), zoomLevel: level, columnWidth });
   }
@@ -574,6 +820,44 @@ export class MyComponent {
     this.ganttTasks = this.ganttTasks.map(t =>
       t.id === event.task.id ? { ...t, start: event.task.start, end: event.task.end, subtasks: event.task.subtasks } : t
     );
+  }
+
+  onLinkDragEnded(event: GanttLinkDragEvent): void {
+    if (event.target && event.type) {
+      const newDep: GanttDependency = { fromId: event.source.id, toId: event.target.id, type: event.type };
+      this.ganttDependencies = [...this.ganttDependencies, newDep];
+    }
+  }
+
+  onBarClick(event: GanttBarClickEvent): void {
+    console.log('Bar clicked:', event.task.name);
+  }
+
+  setGanttLinkable(val: boolean): void {
+    this.ganttLinkable.set(val);
+    this.ganttConfig.set({ ...this.ganttConfig(), linkable: val });
+  }
+  setGanttSelectable(val: boolean): void {
+    this.ganttSelectable.set(val);
+    this.ganttConfig.set({ ...this.ganttConfig(), selectable: val });
+  }
+  setGanttBaseline(val: boolean): void {
+    this.ganttShowBaseline.set(val);
+    this.ganttConfig.set({ ...this.ganttConfig(), showBaseline: val });
+  }
+
+  // Transport helpers
+  setTransportZoom(level: ZoomLevel): void {
+    const widths: Record<string, number> = { hour: 60, day: 120, week: 360 };
+    this.transportZoom.set(level);
+    this.transportConfig.set({ ...this.transportConfig(), zoomLevel: level, columnWidth: widths[level] || 60 });
+  }
+
+  onTransportBarClick(event: GanttBarClickEvent): void {
+    const m = event.task.meta;
+    if (m) {
+      console.log(`[Transport] ${m['vehicle']} — Voyage ${m['voyageNo']}: ${m['route']}`);
+    }
   }
 
   chartCssVars: { name: string; default: string; description: string }[] = [

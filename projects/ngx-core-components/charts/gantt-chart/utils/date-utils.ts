@@ -6,9 +6,25 @@ export function addDays(date: Date, days: number): Date {
   return result;
 }
 
+export function addHours(date: Date, hours: number): Date {
+  const result = new Date(date);
+  result.setTime(result.getTime() + hours * 3600000);
+  return result;
+}
+
 export function diffDays(a: Date, b: Date): number {
   const msPerDay = 86400000;
   return Math.round((a.getTime() - b.getTime()) / msPerDay);
+}
+
+export function diffHours(a: Date, b: Date): number {
+  return (a.getTime() - b.getTime()) / 3600000;
+}
+
+export function startOfHour(date: Date): Date {
+  const result = new Date(date);
+  result.setMinutes(0, 0, 0);
+  return result;
 }
 
 export function startOfDay(date: Date): Date {
@@ -32,9 +48,34 @@ export function startOfMonth(date: Date): Date {
   return result;
 }
 
+export function startOfQuarter(date: Date): Date {
+  const result = new Date(date);
+  const quarter = Math.floor(result.getMonth() / 3);
+  result.setMonth(quarter * 3, 1);
+  result.setHours(0, 0, 0, 0);
+  return result;
+}
+
+export function startOfYear(date: Date): Date {
+  const result = new Date(date);
+  result.setMonth(0, 1);
+  result.setHours(0, 0, 0, 0);
+  return result;
+}
+
 export function addMonths(date: Date, months: number): Date {
   const result = new Date(date);
   result.setMonth(result.getMonth() + months);
+  return result;
+}
+
+export function addQuarters(date: Date, quarters: number): Date {
+  return addMonths(date, quarters * 3);
+}
+
+export function addYears(date: Date, years: number): Date {
+  const result = new Date(date);
+  result.setFullYear(result.getFullYear() + years);
   return result;
 }
 
@@ -45,6 +86,10 @@ export function addWeeks(date: Date, weeks: number): Date {
 export function isWeekend(date: Date): boolean {
   const day = date.getDay();
   return day === 0 || day === 6;
+}
+
+export function daysInMonth(date: Date): number {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 
 export function getDateRange(tasks: { start: Date; end: Date }[]): { start: Date; end: Date } {
@@ -66,6 +111,13 @@ export function getColumnDates(start: Date, end: Date, zoom: ZoomLevel): Date[] 
   let current: Date;
 
   switch (zoom) {
+    case ZoomLevel.Hour:
+      current = startOfHour(start);
+      while (current <= end) {
+        dates.push(new Date(current));
+        current = addHours(current, 1);
+      }
+      break;
     case ZoomLevel.Day:
       current = startOfDay(start);
       while (current <= end) {
@@ -85,6 +137,20 @@ export function getColumnDates(start: Date, end: Date, zoom: ZoomLevel): Date[] 
       while (current <= end) {
         dates.push(new Date(current));
         current = addMonths(current, 1);
+      }
+      break;
+    case ZoomLevel.Quarter:
+      current = startOfQuarter(start);
+      while (current <= end) {
+        dates.push(new Date(current));
+        current = addQuarters(current, 1);
+      }
+      break;
+    case ZoomLevel.Year:
+      current = startOfYear(start);
+      while (current <= end) {
+        dates.push(new Date(current));
+        current = addYears(current, 1);
       }
       break;
   }
