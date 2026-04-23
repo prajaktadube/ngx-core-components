@@ -22,6 +22,13 @@ export function getTransportTasks(): GanttTask[] {
     { id: 'vehicle-1', name: 'Vehicle TRK-1001' },
     { id: 'vehicle-2', name: 'Vehicle TRK-1002' },
     { id: 'vehicle-3', name: 'Vehicle TRK-1003' },
+    { id: 'vehicle-4', name: 'Vehicle TRK-1004' },
+    { id: 'vehicle-5', name: 'Vehicle TRK-1005' },
+    { id: 'vehicle-6', name: 'Vehicle TRK-1006' },
+    { id: 'vehicle-7', name: 'Vehicle TRK-1007' },
+    { id: 'vehicle-8', name: 'Vehicle TRK-1008' },
+    { id: 'vehicle-9', name: 'Vehicle TRK-1009' },
+    { id: 'vehicle-10', name: 'Vehicle TRK-1010' },
   ];
 
   // Each voyage: { start (hour offset), stations: [4 stops], durations: [7 phase durations] }
@@ -41,6 +48,41 @@ export function getTransportTasks(): GanttTask[] {
       { start: 2,  stations: ['Kolkata Stn', 'Patna Hub', 'Lucknow Hub', 'Kanpur Stn'],    durations: [1, 4, 1, 3.5, 1, 3, 1] },
       { start: 18, stations: ['Kanpur Stn', 'Agra Hub', 'Jaipur Hub', 'Kolkata Stn'],      durations: [1, 3, 1, 3, 1, 4, 1] },
       { start: 34, stations: ['Kolkata Stn', 'Ranchi Hub', 'Varanasi Hub', 'Lucknow Stn'], durations: [1, 3.5, 1, 3, 1, 3, 1] },
+    ],
+    [ // Vehicle 4
+      { start: 0.5, stations: ['Pune Stn', 'Nagpur Hub', 'Bhopal Hub', 'Jaipur Stn'],        durations: [1, 3.5, 1, 3, 1, 3.5, 1] },
+      { start: 15,  stations: ['Jaipur Stn', 'Udaipur Hub', 'Ahmedabad Hub', 'Pune Stn'],    durations: [1, 3, 1, 2.5, 1, 3, 1] },
+      { start: 28,  stations: ['Pune Stn', 'Solapur Hub', 'Gulbarga Hub', 'Hyderabad Stn'],  durations: [1, 3, 1, 2.5, 1, 3, 1] },
+    ],
+    [ // Vehicle 5
+      { start: 1.5, stations: ['Delhi Stn', 'Chandigarh Hub', 'Amritsar Hub', 'Jammu Stn'],     durations: [1, 3, 1, 2.5, 1, 3, 1] },
+      { start: 14,  stations: ['Jammu Stn', 'Ludhiana Hub', 'Dehradun Hub', 'Delhi Stn'],       durations: [1, 3.5, 1, 3, 1, 3.5, 1] },
+      { start: 30,  stations: ['Delhi Stn', 'Agra Hub', 'Gwalior Hub', 'Bhopal Stn'],           durations: [1, 3, 1, 3, 1, 3.5, 1] },
+    ],
+    [ // Vehicle 6
+      { start: 2.5, stations: ['Hyderabad Stn', 'Warangal Hub', 'Nagpur Hub', 'Raipur Stn'],   durations: [1, 3.5, 1, 3.5, 1, 3, 1] },
+      { start: 17,  stations: ['Raipur Stn', 'Bilaspur Hub', 'Jabalpur Hub', 'Hyderabad Stn'], durations: [1, 3, 1, 3, 1, 4, 1] },
+      { start: 32,  stations: ['Hyderabad Stn', 'Vijayawada Hub', 'Guntur Hub', 'Chennai Stn'],durations: [1, 3, 1, 2.5, 1, 3, 1] },
+    ],
+    [ // Vehicle 7
+      { start: 0,  stations: ['Bangalore Stn', 'Mysore Hub', 'Mangalore Hub', 'Goa Stn'],     durations: [1, 2.5, 1, 3, 1, 3, 1] },
+      { start: 13, stations: ['Goa Stn', 'Belgaum Hub', 'Kolhapur Hub', 'Bangalore Stn'],     durations: [1, 3, 1, 2.5, 1, 3.5, 1] },
+      { start: 27, stations: ['Bangalore Stn', 'Salem Hub', 'Madurai Hub', 'Kochi Stn'],      durations: [1, 3, 1, 3, 1, 3, 1] },
+    ],
+    [ // Vehicle 8
+      { start: 3,  stations: ['Lucknow Stn', 'Varanasi Hub', 'Patna Hub', 'Ranchi Stn'],      durations: [1, 3.5, 1, 3, 1, 3.5, 1] },
+      { start: 18, stations: ['Ranchi Stn', 'Jamshedpur Hub', 'Kolkata Hub', 'Lucknow Stn'],  durations: [1, 3, 1, 3.5, 1, 3, 1] },
+      { start: 32, stations: ['Lucknow Stn', 'Allahabad Hub', 'Kanpur Hub', 'Agra Stn'],      durations: [1, 2.5, 1, 2, 1, 2.5, 1] },
+    ],
+    [ // Vehicle 9
+      { start: 1,  stations: ['Ahmedabad Stn', 'Vadodara Hub', 'Surat Hub', 'Mumbai Stn'],    durations: [1, 2.5, 1, 2, 1, 3, 1] },
+      { start: 12, stations: ['Mumbai Stn', 'Thane Hub', 'Nashik Hub', 'Ahmedabad Stn'],      durations: [1, 2, 1, 3, 1, 3.5, 1] },
+      { start: 25, stations: ['Ahmedabad Stn', 'Rajkot Hub', 'Jamnagar Hub', 'Dwarka Stn'],   durations: [1, 3, 1, 2.5, 1, 3, 1] },
+    ],
+    [ // Vehicle 10
+      { start: 2,  stations: ['Bhopal Stn', 'Indore Hub', 'Ujjain Hub', 'Udaipur Stn'],       durations: [1, 3, 1, 2.5, 1, 3.5, 1] },
+      { start: 16, stations: ['Udaipur Stn', 'Jodhpur Hub', 'Bikaner Hub', 'Jaipur Stn'],     durations: [1, 3.5, 1, 3, 1, 3, 1] },
+      { start: 30, stations: ['Jaipur Stn', 'Ajmer Hub', 'Kota Hub', 'Bhopal Stn'],           durations: [1, 2.5, 1, 3, 1, 3, 1] },
     ],
   ];
 

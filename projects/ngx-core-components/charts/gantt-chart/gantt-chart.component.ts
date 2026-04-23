@@ -125,9 +125,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                             @if (row.task.isMilestone) { <span class="k-milestone-icon">&#9670;</span> }
                             <div class="k-name-wrapper">
                               <span class="k-task-name" [class.k-summary-name]="row.hasChildren" [title]="row.task.name">{{ row.task.name }}</span>
-                              @if (row.extraTasks.length > 0) {
+                              @if (getUniqueExtraTasks(row).length > 0) {
                                 <div class="k-extra-tasks-chips">
-                                  @for (extra of row.extraTasks; track extra.id) {
+                                  @for (extra of getUniqueExtraTasks(row); track extra.id) {
                                     <span class="k-extra-task-chip" [style.background]="extra.color || '#6c757d'" [title]="extra.name">{{ extra.name.length > 14 ? extra.name.slice(0, 14) + '\u2026' : extra.name }}</span>
                                   }
                                 </div>
@@ -202,14 +202,14 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                     @if (bar.isGroupHeader) {
                     } @else if (bar.task.isMilestone) {
                       <div class="k-milestone" [style.left.px]="bar.left - 8" [class.k-focused]="keyboardService.focusedTaskId() === bar.task.id" [class.k-selected]="isTaskSelected(bar.task.id)"
-                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
+                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (click)="onTaskBarClick(bar.task, $event)" (dblclick)="onTaskBarDblClick(bar.task, $event)" tabindex="0" [attr.aria-label]="'Milestone: ' + bar.task.name">
                         <div class="k-milestone-diamond" [style.background]="bar.task.color || '#e74c3c'"></div>
                       </div>
                     } @else if (bar.task.type === 'range') {
                       <div class="k-task k-task-range" [style.left.px]="bar.left" [style.width.px]="bar.width" [style.background]="bar.task.color || '#ff9f73'"
                         [class.k-selected]="isTaskSelected(bar.task.id)"
-                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
+                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (click)="onTaskBarClick(bar.task, $event)" tabindex="0" [attr.aria-label]="bar.task.name">
                         <span class="k-task-text">{{ bar.task.name }}</span>
                         @if (mergedConfig().linkable && bar.task.linkable !== false) {
@@ -219,7 +219,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                       </div>
                     } @else if (bar.isSummary) {
                       <div class="k-task-summary" [style.left.px]="bar.left" [style.width.px]="bar.width" [class.k-selected]="isTaskSelected(bar.task.id)"
-                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
+                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (click)="onTaskBarClick(bar.task, $event)" tabindex="0">
                         <div class="k-summary-bar"><div class="k-summary-progress" [style.width.%]="bar.task.progress"></div></div>
                         <div class="k-summary-left-cap"></div><div class="k-summary-right-cap"></div>
@@ -233,7 +233,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                         @for (sub of getSubtaskBars(bar); track sub.subtask.id) {
                           <div class="k-subtask-segment" [class]="sub.subtask.cssClass || ''" [style.left.px]="sub.left" [style.width.px]="sub.width" [style.background]="sub.subtask.color"
                             [title]="sub.subtask.name"
-                            (mouseenter)="showSubtaskTooltip(bar.task, sub.subtask, $event); $event.stopPropagation()" (mouseleave)="hideTooltip()">
+                            (mouseenter)="showSubtaskTooltip(bar.task, sub.subtask, $event); $event.stopPropagation()" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hideTooltip()">
                             @if (sub.width > 40) { <span class="k-subtask-text">{{ sub.subtask.name }}</span> }
                             @if (sub.subtask.progress != null) { <div class="k-subtask-progress" [style.width.%]="sub.subtask.progress"></div> }
                           </div>
@@ -250,7 +250,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                     } @else {
                       <div class="k-task" [style.left.px]="bar.left" [style.width.px]="bar.width" [style.background]="bar.task.color || 'var(--k-primary, #4a90d9)'"
                         [class.k-focused]="keyboardService.focusedTaskId() === bar.task.id" [class.k-selected]="isTaskSelected(bar.task.id)"
-                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
+                        (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (pointerdown)="onBarPointerDown($event, bar.task, 'move')" (click)="onTaskBarClick(bar.task, $event)" (dblclick)="onTaskBarDblClick(bar.task, $event)"
                         tabindex="0" role="img" [attr.aria-label]="bar.task.name + ' - ' + bar.task.progress + '% complete'">
                         <div class="k-task-progress" [style.width.%]="bar.task.progress"><div class="k-task-progress-inner"></div></div>
@@ -327,7 +327,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     }
   `,
   styles: [`
-    :host { display: block; height: 100%; min-height: var(--ngx-gantt-min-height, 420px); }
+    :host { display: block; height: 100%; min-height: var(--ngx-gantt-min-height, 420px); position: relative; }
     .k-gantt { display: flex; flex-direction: column; height: 100%; min-height: inherit; width: 100%; background: var(--ngx-gantt-bg, #ffffff); border: 1px solid var(--ngx-gantt-border, #dee2e6); border-radius: 4px; font-family: var(--ngx-gantt-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif); font-size: var(--ngx-gantt-font-size, 13px); color: var(--ngx-gantt-text, #212529); overflow: hidden; position: relative; }
     .k-gantt-body { display: flex; flex: 1; min-height: 0; overflow: hidden; }
     .k-gantt-toolbar { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-bottom: 1px solid var(--ngx-gantt-border, #dee2e6); background: var(--ngx-gantt-header-bg, #f1f3f5); flex-shrink: 0; }
@@ -397,7 +397,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-baseline-bar { position: absolute; background: rgba(0,0,0,0.08); border: 1px dashed rgba(0,0,0,0.15); border-radius: 3px; pointer-events: none; }
     .k-gantt-tasks { position: absolute; top: 0; left: 0; z-index: 2; }
     .k-task-wrap { position: absolute; left: 0; right: 0; display: flex; align-items: center; pointer-events: none; }
-    .k-task { position: absolute; height: var(--ngx-gantt-bar-height, 24px); border-radius: 4px; cursor: grab; pointer-events: all; display: flex; align-items: center; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06); transition: box-shadow 0.15s ease; user-select: none; }
+    .k-task { position: absolute; height: var(--ngx-gantt-bar-height, 24px); border-radius: 4px; cursor: grab; pointer-events: all; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06); transition: box-shadow 0.15s ease; user-select: none; }
     .k-task:hover { box-shadow: 0 3px 8px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.1); }
     .k-task:active { cursor: grabbing; }
     .k-task.k-focused { outline: 2px solid var(--k-primary, #4a90d9); outline-offset: 2px; }
@@ -419,8 +419,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-task-with-subtasks { overflow: hidden; box-shadow: none; }
     .k-task-with-subtasks:hover { box-shadow: none; }
     .k-task-with-subtasks.k-dragging { background: rgba(0,0,0,0.06) !important; border: 1px dashed rgba(0,0,0,0.2); border-radius: 4px; }
-    .k-subtask-segment { position: absolute; top: 0; height: 100%; border-radius: 4px; display: flex; align-items: center; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12); transition: box-shadow 0.15s ease, transform 0.1s ease; cursor: pointer; pointer-events: all; min-width: 4px; }
+    .k-subtask-segment { position: absolute; top: 0; height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12); transition: box-shadow 0.15s ease, transform 0.1s ease; cursor: pointer; pointer-events: all; min-width: 4px; }
     .k-subtask-segment:hover { box-shadow: 0 3px 8px rgba(0,0,0,0.22); transform: scaleY(1.08); z-index: 1; }
+    .k-subtask-segment.transit-arrow { height: 40%; top: 30%; border-radius: 2px; box-shadow: none; }
     .k-subtask-text { position: relative; z-index: 1; padding: 0 6px; color: #fff; font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
     .k-subtask-progress { position: absolute; top: 0; left: 0; height: 100%; background: rgba(0,0,0,0.15); border-radius: 4px 0 0 4px; pointer-events: none; }
     .k-task-summary { position: absolute; height: 10px; pointer-events: all; cursor: pointer; display: flex; align-items: flex-end; }
@@ -442,11 +443,11 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-spinner-circle { width: 32px; height: 32px; border: 3px solid var(--ngx-gantt-border, #dee2e6); border-top-color: var(--k-primary, #4a90d9); border-radius: 50%; animation: k-spin 0.8s linear infinite; }
     .k-loading-text { font-size: 12px; color: var(--ngx-gantt-text-secondary, #6c757d); }
     @keyframes k-tooltip-fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-    .k-bar-tooltip { position: fixed; z-index: 9999; background: var(--ngx-gantt-tooltip-bg, #2d3748); color: var(--ngx-gantt-tooltip-text, #ffffff); border-radius: 6px; padding: 10px 14px; min-width: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.22); pointer-events: none; font-size: 12px; line-height: 1.5; animation: k-tooltip-fadein 0.15s ease; }
+    .k-bar-tooltip { position: absolute; z-index: 9999; background: var(--ngx-gantt-tooltip-bg, #2d3748); color: var(--ngx-gantt-tooltip-text, #ffffff); border-radius: 6px; padding: 10px 14px; min-width: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.22); pointer-events: none; font-size: 12px; line-height: 1.5; animation: k-tooltip-fadein 0.15s ease; }
     .k-bar-tooltip-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
-    .k-bar-tooltip-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 3px; }
-    .k-bar-tooltip-label { color: var(--ngx-gantt-tooltip-label, rgba(255,255,255,0.65)); white-space: nowrap; }
-    .k-bar-tooltip-value { font-weight: 500; white-space: nowrap; }
+    .k-bar-tooltip-row { display: flex; gap: 12px; margin-top: 3px; }
+    .k-bar-tooltip-label { color: var(--ngx-gantt-tooltip-label, rgba(255,255,255,0.65)); white-space: nowrap; min-width: 60px; flex-shrink: 0; }
+    .k-bar-tooltip-value { font-weight: 500; white-space: nowrap; text-align: right; margin-left: auto; }
     .k-row-tooltip { min-width: 240px; }
     .k-row-tooltip-task { display: flex; align-items: center; gap: 6px; margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.12); }
     .k-row-tooltip-task:first-of-type { border-top: none; }
@@ -922,17 +923,27 @@ export class GanttChartComponent {
   }
   showTooltip(task: GanttTask, event: MouseEvent): void {
     this.tooltipTask.set(task); this.tooltipSubtask.set(null);
-    this.tooltipX.set(flipCoord(event.clientX, 220, window.innerWidth));
-    this.tooltipY.set(flipCoord(event.clientY, 100, window.innerHeight));
+    this.updateTooltipPosition(event);
   }
   showSubtaskTooltip(task: GanttTask, subtask: GanttSubtask, event: MouseEvent): void {
     this.tooltipTask.set(task); this.tooltipSubtask.set(subtask);
-    this.tooltipX.set(flipCoord(event.clientX, 240, window.innerWidth));
-    this.tooltipY.set(flipCoord(event.clientY, 120, window.innerHeight));
+    this.updateTooltipPosition(event);
+  }
+  updateTooltipPosition(event: MouseEvent): void {
+    const hostRect = this.elementRef.nativeElement.getBoundingClientRect();
+    const relX = event.clientX - hostRect.left;
+    const relY = event.clientY - hostRect.top;
+    const hostW = hostRect.width;
+    const hostH = hostRect.height;
+    const estimatedW = this.tooltipSubtask() ? 240 : 220;
+    const estimatedH = this.tooltipSubtask() ? 140 : 120;
+    this.tooltipX.set(flipCoord(relX, estimatedW, hostW));
+    this.tooltipY.set(flipCoord(relY, estimatedH, hostH));
   }
   hideTooltip(): void { this.tooltipTask.set(null); this.tooltipSubtask.set(null); }
   getRowAvgProgress(row: FlatRow): number { const all = [row.task, ...row.extraTasks]; return Math.round(all.reduce((s, t) => s + t.progress, 0) / all.length); }
   getRowProgressTitle(row: FlatRow): string { return [row.task, ...row.extraTasks].map(t => t.name + ': ' + t.progress + '%').join(', '); }
+  getUniqueExtraTasks(row: FlatRow): GanttTask[] { return row.extraTasks.filter(t => t.name !== row.task.name); }
   getMetaEntries(meta: Record<string, unknown> | undefined): { key: string; value: string }[] {
     if (!meta) return [];
     return Object.entries(meta).map(([k, v]) => ({ key: k.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()), value: String(v) }));
@@ -952,8 +963,9 @@ export class GanttChartComponent {
   hideRowTooltip(): void { this.rowTooltipData.set(null); }
   toStyleStr(style: Partial<CSSStyleDeclaration>): string { return Object.entries(style).filter(([, v]) => v != null).map(([k, v]) => k.replace(/([A-Z])/g, '-$1').toLowerCase() + ':' + v).join(';'); }
   private positionRowTooltip(event: MouseEvent): void {
-    this.rowTooltipX.set(flipCoord(event.clientX, 260, window.innerWidth));
-    this.rowTooltipY.set(flipCoord(event.clientY, 120, window.innerHeight));
+    const hostRect = this.elementRef.nativeElement.getBoundingClientRect();
+    this.rowTooltipX.set(flipCoord(event.clientX - hostRect.left, 260, hostRect.width));
+    this.rowTooltipY.set(flipCoord(event.clientY - hostRect.top, 120, hostRect.height));
   }
   private getPrimaryLabel(date: Date, zoom: ZoomLevel, locale: string): string {
     switch (zoom) {
