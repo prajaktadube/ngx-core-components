@@ -1,6 +1,6 @@
 {
   "name": "ngx-core-components",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Angular component library featuring a full-featured SVG Gantt Chart with drag/resize, dependencies, zoom, tree hierarchy, and theming.",
   "keywords": [
     "angular",
