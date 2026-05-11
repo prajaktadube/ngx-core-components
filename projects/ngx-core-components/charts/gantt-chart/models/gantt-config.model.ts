@@ -102,6 +102,10 @@ export interface GanttConfig {
   maxLevel: number;
   /** Bar height in pixels */
   barHeight: number;
+  /** Enable alternate row colors for better row distinction */
+  enableAlternateRowColor: boolean;
+  /** Enable alternate column colors for better column distinction */
+  enableAlternateColumnColor: boolean;
 }
 
 export const DEFAULT_GANTT_CONFIG: GanttConfig = {
@@ -153,4 +157,6 @@ export const DEFAULT_GANTT_CONFIG: GanttConfig = {
   loadOnScroll: false,
   maxLevel: 10,
   barHeight: 24,
+  enableAlternateRowColor: false,
+  enableAlternateColumnColor: false,
 };
