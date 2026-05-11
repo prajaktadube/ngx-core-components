@@ -273,6 +273,16 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Day" (click)="setTransportZoom(ZoomLevel.Day)">📅 Day</button>
                 <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Week" (click)="setTransportZoom(ZoomLevel.Week)">📆 Week</button>
               </div>
+              <div style="display: flex; gap: 12px; margin-left: auto;">
+                <label style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
+                  <input type="checkbox" [checked]="transportConfig().enableAlternateRowColor" (change)="toggleTransportAlternateRows($event)" />
+                  Alternate Rows
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
+                  <input type="checkbox" [checked]="transportConfig().enableAlternateColumnColor" (change)="toggleTransportAlternateColumns($event)" />
+                  Alternate Columns
+                </label>
+              </div>
               <div class="transport-legend">
                 <span class="legend-pill station-pill">🟢 Station</span>
                 <span class="legend-pill transit-pill">➡️ Transit</span>
@@ -597,6 +607,8 @@ export class ChartsDemoComponent {
     linkable: false,
     selectable: false,
     showToolbar: false,
+    enableAlternateRowColor: false,
+    enableAlternateColumnColor: false,
     sidebarColumns: [
       { field: 'name', header: 'Vehicle', width: 200 },
     ],
@@ -858,6 +870,16 @@ tasks: GanttTask[] = [
     if (m) {
       console.log(`[Transport] ${m['vehicle']} — Voyage ${m['voyageNo']}: ${m['route']}`);
     }
+  }
+
+  toggleTransportAlternateRows(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.transportConfig.set({ ...this.transportConfig(), enableAlternateRowColor: checked });
+  }
+
+  toggleTransportAlternateColumns(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.transportConfig.set({ ...this.transportConfig(), enableAlternateColumnColor: checked });
   }
 
   chartCssVars: { name: string; default: string; description: string }[] = [

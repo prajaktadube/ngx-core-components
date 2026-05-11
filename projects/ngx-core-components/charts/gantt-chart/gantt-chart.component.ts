@@ -98,7 +98,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               <tbody>
                 @for (row of renderedRows(); track row.task.id; let i = $index) {
                   <tr class="k-treelist-row" [class.k-group-header-row]="row.isGroupHeader" [style.height.px]="mergedConfig().rowHeight"
-                    [class.k-alt]="i % 2 === 1 && !row.isGroupHeader" [class.k-selected]="isTaskSelected(row.task.id)" [class.k-hover]="hoveredTaskId() === row.task.id"
+                    [class.k-alt]="mergedConfig().enableAlternateRowColor && i % 2 === 1 && !row.isGroupHeader" [class.k-selected]="isTaskSelected(row.task.id)" [class.k-hover]="hoveredTaskId() === row.task.id"
                     (mouseenter)="hoveredTaskId.set(row.task.id)" (mouseleave)="hoveredTaskId.set(null)" (click)="onRowClick(row.task, $event)">
                     @if (row.isGroupHeader) {
                       <td class="k-treelist-cell k-group-cell" [attr.colspan]="sidebarColumns().length">
@@ -169,7 +169,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               <div class="k-gantt-rows">
                 @for (row of renderedRows(); track row.task.id; let i = $index) {
                   <div class="k-gantt-row" [class.k-group-row]="row.isGroupHeader" [style.top.px]="i * mergedConfig().rowHeight" [style.height.px]="mergedConfig().rowHeight"
-                    [class.k-alt]="i % 2 === 1 && !row.isGroupHeader" [class.k-hover]="hoveredTaskId() === row.task.id" [class.k-selected]="isTaskSelected(row.task.id)"
+                    [class.k-alt]="mergedConfig().enableAlternateRowColor && i % 2 === 1 && !row.isGroupHeader" [class.k-hover]="hoveredTaskId() === row.task.id" [class.k-selected]="isTaskSelected(row.task.id)"
                     (mouseenter)="hoveredTaskId.set(row.task.id)" (mouseleave)="hoveredTaskId.set(null)"
                     (dragover)="mergedConfig().tableDraggable ? onTableDragOver($event, row) : null" (drop)="mergedConfig().tableDraggable ? onTableDrop($event, row) : null">
                   </div>
@@ -178,8 +178,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
 
               @if (mergedConfig().showGrid) {
                 <div class="k-gantt-columns">
-                  @for (col of headerColumns(); track col.x) {
-                    <div class="k-gantt-column" [style.left.px]="col.x" [style.width.px]="col.width" [style.height.px]="totalHeight()" [class.k-weekend-col]="col.isWeekend"></div>
+                  @for (col of headerColumns(); track col.x; let colIndex = $index) {
+                    <div class="k-gantt-column" [style.left.px]="col.x" [style.width.px]="col.width" [style.height.px]="totalHeight()" 
+                      [class.k-weekend-col]="col.isWeekend" [class.k-alt-col]="mergedConfig().enableAlternateColumnColor && colIndex % 2 === 1"></div>
                   }
                 </div>
               }
@@ -391,6 +392,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-gantt-columns { position: absolute; top: 0; left: 0; }
     .k-gantt-column { position: absolute; top: 0; border-right: 1px solid var(--ngx-gantt-grid-line, #ebedf0); box-sizing: border-box; }
     .k-gantt-column.k-weekend-col { background: var(--ngx-gantt-weekend-bg, rgba(0,0,0,0.02)); }
+    .k-gantt-column.k-alt-col { background: var(--ngx-gantt-alt-col-bg, rgba(0,0,0,0.03)); }
     .k-today-marker { position: absolute; top: 0; width: 2px; background: var(--k-danger, #ff6358); z-index: 3; pointer-events: none; }
     .k-today-indicator { position: absolute; top: -1px; left: -5px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid var(--k-danger, #ff6358); }
     .k-gantt-baselines { position: absolute; top: 0; left: 0; z-index: 1; }
