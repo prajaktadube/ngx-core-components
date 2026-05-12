@@ -95,23 +95,67 @@ export type { DialogRef, DialogConfig } from 'ngx-core-components/dialog';
 export { DialogContainerComponent } from 'ngx-core-components/dialog';
 
 // ===== Buttons (also available via ngx-core-components/buttons) =====
-export { ButtonComponent, ButtonGroupComponent, ChipComponent, ChipListComponent, SplitButtonComponent, DropDownButtonComponent } from 'ngx-core-components/buttons';
-export type { ButtonVariant, ButtonSize, ButtonShape, ChipVariant, SplitButtonItem, DropDownButtonItem } from 'ngx-core-components/buttons';
+export {
+  ButtonComponent,
+  ButtonGroupComponent,
+  ChipComponent,
+  ChipListComponent,
+  SplitButtonComponent,
+  DropDownButtonComponent,
+} from 'ngx-core-components/buttons';
+export type {
+  ButtonVariant,
+  ButtonSize,
+  ButtonShape,
+  ChipVariant,
+  SplitButtonItem,
+  DropDownButtonItem,
+} from 'ngx-core-components/buttons';
 
 // ===== Layout (also available via ngx-core-components/layout) =====
-export { CardComponent, TabStripComponent, TabComponent, AccordionComponent, StepperComponent, SplitterComponent } from 'ngx-core-components/layout';
+export {
+  CardComponent,
+  TabStripComponent,
+  TabComponent,
+  AccordionComponent,
+  StepperComponent,
+  SplitterComponent,
+} from 'ngx-core-components/layout';
 export type { CardVariant, AccordionItem, StepperStep } from 'ngx-core-components/layout';
 
 // ===== Feedback (also available via ngx-core-components/feedback) =====
-export { BadgeComponent, ProgressBarComponent, SkeletonComponent, NotificationService, NotificationContainerComponent } from 'ngx-core-components/feedback';
-export type { BadgeVariant, BadgePosition, ProgressVariant, SkeletonShape, NotificationOptions, NotificationType, NotificationPosition } from 'ngx-core-components/feedback';
+export {
+  BadgeComponent,
+  ProgressBarComponent,
+  SkeletonComponent,
+  NotificationService,
+  NotificationContainerComponent,
+} from 'ngx-core-components/feedback';
+export type {
+  BadgeVariant,
+  BadgePosition,
+  ProgressVariant,
+  SkeletonShape,
+  NotificationOptions,
+  NotificationType,
+  NotificationPosition,
+} from 'ngx-core-components/feedback';
 
 // ===== Navigation (also available via ngx-core-components/navigation) =====
 export { BreadcrumbComponent, MenuComponent } from 'ngx-core-components/navigation';
 export type { BreadcrumbItem, MenuItem } from 'ngx-core-components/navigation';
 
 // ===== Additional Inputs (also available via ngx-core-components/inputs) =====
-export { SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent, TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent } from 'ngx-core-components/inputs';
+export {
+  SliderComponent,
+  SwitchComponent,
+  RatingComponent,
+  NumericTextBoxComponent,
+  TextareaComponent,
+  ColorPickerComponent,
+  TimePickerComponent,
+  DateRangePickerComponent,
+} from 'ngx-core-components/inputs';
 
 // ===== Barcodes (also available via ngx-core-components/barcodes) =====
 export { QrCodeComponent, BarcodeComponent } from 'ngx-core-components/barcodes';
