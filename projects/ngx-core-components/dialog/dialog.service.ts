@@ -88,24 +88,27 @@ export class DialogService {
       projectableNodes: [],
     });
 
-    // Pass data if the content component has a `dialogData` input
+    // Always assign common integration properties so dynamic dialog content
+    // can close itself even when these are plain class fields (not @Input).
     const instance = contentRef.instance as Record<string, unknown>;
-    if ('dialogData' in instance) {
-      instance['dialogData'] = cfg.data;
-    }
-    // Pass the dialogRef so the content can close itself
-    if ('dialogRef' in instance) {
-      instance['dialogRef'] = dialogRef;
+    instance['dialogData'] = cfg.data;
+    instance['dialogRef'] = dialogRef;
+
+    // If the content uses Angular inputs, update them through setInput as well.
+    if (typeof contentRef.setInput === 'function') {
+      try { contentRef.setInput('dialogData', cfg.data); } catch {}
+      try { contentRef.setInput('dialogRef', dialogRef); } catch {}
     }
 
     container.attachContent(contentRef.hostView);
     this.appRef.attachView(containerRef.hostView);
-    this.appRef.attachView(contentRef.hostView);
+
+    // Ensure the content template sees injected properties immediately.
+    contentRef.changeDetectorRef.detectChanges();
 
     containerRef.changeDetectorRef.detectChanges();
 
     const remove = () => {
-      this.appRef.detachView(contentRef.hostView);
       this.appRef.detachView(containerRef.hostView);
       contentRef.destroy();
       containerRef.destroy();

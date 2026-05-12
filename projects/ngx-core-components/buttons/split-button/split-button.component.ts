@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, HostListener, ElementRef, inject, input, output, signal } from '@angular/core';
 import { ButtonComponent, ButtonVariant, ButtonSize } from '../button/button.component';
 
 export interface SplitButtonItem { label?: string; text?: string; icon?: string; disabled?: boolean; separator?: boolean; }
@@ -17,12 +17,16 @@ export interface SplitButtonItem { label?: string; text?: string; icon?: string;
       </button>
       @if (open()) {
         <ul class="split-menu" role="menu">
-          @for (item of items(); track item.text) {
-            <li class="split-menu-item" [class.disabled]="item.disabled" role="menuitem"
-              (click)="!item.disabled && itemClicked.emit(item); open.set(false)">
-              @if (item.icon) { <span class="item-icon">{{ item.icon }}</span> }
-              <span>{{ item.text }}</span>
-            </li>
+          @for (item of items(); track (item.text || item.label || $index)) {
+            @if (item.separator) {
+              <li class="split-menu-separator" role="separator"></li>
+            } @else {
+              <li class="split-menu-item" [class.disabled]="item.disabled" role="menuitem"
+                (click)="onItemClick(item)">
+                @if (item.icon) { <span class="item-icon">{{ item.icon }}</span> }
+                <span>{{ item.text || item.label }}</span>
+              </li>
+            }
           }
         </ul>
       }
@@ -38,10 +42,13 @@ export interface SplitButtonItem { label?: string; text?: string; icon?: string;
     .split-menu-item { display: flex; align-items: center; gap: 8px; padding: 8px 14px; font-size: 13px; cursor: pointer; color: #212529; }
     .split-menu-item:hover:not(.disabled) { background: #f1f3f5; }
     .split-menu-item.disabled { color: #adb5bd; cursor: not-allowed; }
+    .split-menu-separator { margin: 4px 0; height: 1px; background: var(--ngx-menu-separator, #dee2e6); list-style: none; }
     .item-icon { font-size: 14px; }
   `]
 })
 export class SplitButtonComponent {
+  private el = inject(ElementRef);
+
   variant = input<ButtonVariant>('primary');
   size = input<ButtonSize>('md');
   disabled = input(false);
@@ -52,5 +59,21 @@ export class SplitButtonComponent {
   mainClicked = output<MouseEvent>();
   itemClicked = output<SplitButtonItem>();
 
-  toggle(): void { this.open.update(v => !v); }
+  toggle(): void {
+    if (this.disabled() || this.loading()) return;
+    this.open.update(v => !v);
+  }
+
+  onItemClick(item: SplitButtonItem): void {
+    if (item.disabled) return;
+    this.itemClicked.emit(item);
+    this.open.set(false);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocClick(event: MouseEvent): void {
+    if (!this.el.nativeElement.contains(event.target)) {
+      this.open.set(false);
+    }
+  }
 }

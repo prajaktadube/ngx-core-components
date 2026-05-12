@@ -9,6 +9,7 @@ export interface TreeNode {
   icon?: string;
   children?: TreeNode[];
   hasChildren?: boolean;
+  disabled?: boolean;
   data?: unknown;
 }
 
@@ -31,10 +32,12 @@ export interface TreeNodeEvent { node: TreeNode; }
           [style.padding-left.px]="depth * 20 + 8"
           [class.selected]="selectedId() === node.id"
           [class.focused]="focusedId() === node.id"
+          [class.disabled]="node.disabled"
           role="treeitem"
           [attr.aria-expanded]="isExpanded(node.id)"
           [attr.aria-selected]="selectedId() === node.id"
-          (click)="onNodeClick(node, $event)"
+          [attr.aria-disabled]="node.disabled || null"
+          (click)="!node.disabled && onNodeClick(node, $event)"
         >
           <!-- Expand/collapse -->
           @if (hasNodeChildren(node)) {
@@ -96,6 +99,7 @@ export interface TreeNodeEvent { node: TreeNode; }
     .tree-node:hover { background: var(--ngx-tree-hover-bg, #f1f3f5); }
     .tree-node.selected { background: var(--ngx-tree-selected-bg, #e8f0fe); color: var(--ngx-tree-selected-color, #1a73e8); }
     .tree-node.focused { outline: 2px solid rgba(74,144,217,0.4); outline-offset: -1px; }
+    .tree-node.disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
     .tree-expand-btn {
       width: 20px; height: 20px; background: none; border: none; cursor: pointer;
       padding: 0; display: flex; align-items: center; justify-content: center;
@@ -191,5 +195,25 @@ export class TreeViewComponent {
       if (n.children) { const found = this.findNode(id, n.children); if (found) return found; }
     }
     return null;
+  }
+
+  /** Expand all nodes that have children. */
+  expandAll(): void {
+    const ids = new Set<string>();
+    const collect = (nodes: TreeNode[]) => {
+      for (const n of nodes) {
+        if (this.hasNodeChildren(n)) {
+          ids.add(n.id);
+          if (n.children) collect(n.children);
+        }
+      }
+    };
+    collect(this.nodes());
+    this.expandedSet.set(ids);
+  }
+
+  /** Collapse all nodes. */
+  collapseAll(): void {
+    this.expandedSet.set(new Set());
   }
 }
