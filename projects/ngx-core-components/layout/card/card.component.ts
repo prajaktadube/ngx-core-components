@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 
 export type CardVariant = 'default' | 'outlined' | 'elevated' | 'filled';
 
@@ -6,7 +6,14 @@ export type CardVariant = 'default' | 'outlined' | 'elevated' | 'filled';
   selector: 'ngx-card',
   standalone: true,
   template: `
-    <div class="ngx-card" [class]="'ngx-card-' + variant()" [class.hoverable]="hoverable()" [class.selectable]="selectable()" [class.selected]="selected()">
+    <div
+      class="ngx-card"
+      [class]="'ngx-card-' + variant()"
+      [class.hoverable]="hoverable()"
+      [class.selectable]="selectable()"
+      [class.selected]="selected()"
+      (click)="(selectable() || hoverable()) ? cardClick.emit($event) : null"
+    >
       @if (hasHeader()) {
         <div class="card-header">
           @if (headerIcon()) { <span class="card-header-icon">{{ headerIcon() }}</span> }
@@ -65,5 +72,8 @@ export class CardComponent {
   hoverable = input(false);
   selectable = input(false);
   selected = input(false);
-  get hasHeader() { return () => this.title() || this.subtitle() || this.headerIcon(); }
+
+  cardClick = output<MouseEvent>();
+
+  hasHeader = computed(() => !!(this.title() || this.subtitle() || this.headerIcon()));
 }

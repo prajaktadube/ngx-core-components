@@ -2,7 +2,6 @@ import {
   Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 @Component({
   selector: 'ngx-textbox',
   standalone: true,
@@ -20,6 +19,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         <label class="ngx-textbox-label" [class.floating]="isFocused() || !!_displayValue()">{{ label() }}</label>
       }
       <div class="ngx-textbox-wrap">
+        @if (prefixIcon()) {
+          <span class="ngx-textbox-affix ngx-textbox-prefix" aria-hidden="true">{{ prefixIcon() }}</span>
+        }
         <input
           class="ngx-textbox-input"
           [type]="type()"
@@ -27,12 +29,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
           [placeholder]="isFocused() || !label() ? placeholder() : ''"
           [disabled]="disabled()"
           [readOnly]="readonly()"
+          [attr.maxlength]="maxlength() > 0 ? maxlength() : null"
           [attr.aria-invalid]="!!error()"
           (input)="onInput($event)"
           (focus)="onFocus()"
           (blur)="onBlur()"
         />
+        @if (clearable() && !!_displayValue() && !disabled() && !readonly()) {
+          <button class="ngx-textbox-clear" type="button" (click)="clearValue()" aria-label="Clear">✕</button>
+        }
+        @if (suffixIcon()) {
+          <span class="ngx-textbox-affix ngx-textbox-suffix" aria-hidden="true">{{ suffixIcon() }}</span>
+        }
       </div>
+      @if (maxlength() > 0 && showCharCount()) {
+        <div class="ngx-textbox-charcount">{{ _displayValue().length }} / {{ maxlength() }}</div>
+      }
       @if (error()) {
         <div class="ngx-textbox-error">{{ error() }}</div>
       } @else if (hint()) {
@@ -78,6 +90,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     .ngx-textbox-input:disabled { cursor: not-allowed; color: #adb5bd; }
     .ngx-textbox-error { font-size: 12px; color: var(--ngx-input-error, #e74c3c); margin-top: 4px; }
     .ngx-textbox-hint { font-size: 12px; color: var(--ngx-input-label, #6c757d); margin-top: 4px; }
+    .ngx-textbox-affix { display: flex; align-items: center; padding: 0 10px; color: #6c757d; font-size: 14px; flex-shrink: 0; }
+    .ngx-textbox-clear {
+      background: none; border: none; cursor: pointer; color: #adb5bd; font-size: 12px;
+      padding: 0 8px; line-height: 1; display: flex; align-items: center; flex-shrink: 0;
+    }
+    .ngx-textbox-clear:hover { color: #495057; }
+    .ngx-textbox-charcount { font-size: 11px; color: #adb5bd; margin-top: 3px; text-align: right; }
   `]
 })
 export class TextBoxComponent implements ControlValueAccessor {
@@ -89,6 +108,11 @@ export class TextBoxComponent implements ControlValueAccessor {
   readonly = input<boolean>(false);
   error = input<string>('');
   hint = input<string>('');
+  maxlength = input<number>(0);
+  clearable = input<boolean>(false);
+  showCharCount = input<boolean>(false);
+  prefixIcon = input<string>('');
+  suffixIcon = input<string>('');
 
   valueChange = output<string>();
   focusChange = output<boolean>();
@@ -118,6 +142,12 @@ export class TextBoxComponent implements ControlValueAccessor {
     this.isFocused.set(false);
     this.focusChange.emit(false);
     this._onTouched();
+  }
+
+  clearValue(): void {
+    this._cvaValue.set('');
+    this._onChange('');
+    this.valueChange.emit('');
   }
 
   // ControlValueAccessor

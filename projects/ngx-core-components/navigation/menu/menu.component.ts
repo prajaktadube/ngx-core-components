@@ -1,4 +1,4 @@
-﻿import { Component, input, output, signal, HostListener } from '@angular/core';
+﻿import { Component, input, output, signal, HostListener, computed } from '@angular/core';
 
 export interface MenuItem {
 	label?: string;
@@ -23,6 +23,7 @@ export interface MenuItem {
 						[class.has-children]="item.children && item.children.length > 0"
 						[class.open]="openIndex() === i"
 						[class.disabled]="item.disabled"
+						[class.active]="isActiveItem(item)"
 						role="menuitem"
 						[attr.tabindex]="item.disabled ? -1 : 0"
 						(click)="handleClick($event, item, i)"
@@ -39,7 +40,7 @@ export interface MenuItem {
 									@if (child.separator) {
 										<hr class="menu-separator" />
 									} @else {
-										<div class="menu-subitem" [class.disabled]="child.disabled" role="menuitem" [attr.tabindex]="child.disabled ? -1 : 0" (click)="handleSubClick($event, child)">
+										<div class="menu-subitem" [class.disabled]="child.disabled" [class.active]="isActiveItem(child)" role="menuitem" [attr.tabindex]="child.disabled ? -1 : 0" (click)="handleSubClick($event, child)">
 											@if (child.icon) { <span class="menu-icon">{{ child.icon }}</span> }
 											{{ child.label }}
 										</div>
@@ -66,14 +67,22 @@ export interface MenuItem {
 		.menu-vertical .menu-submenu { top: 0; left: 100%; }
 		.menu-subitem { display: flex; align-items: center; gap: 7px; padding: 8px 16px; font-size: 13px; cursor: pointer; color: var(--ngx-menu-color, #212529); transition: background 0.12s; white-space: nowrap; }
 		.menu-subitem:hover:not(.disabled) { background: var(--ngx-menu-hover-bg, #f1f3f5); color: var(--ngx-menu-active-color, #1a73e8); }
-		.menu-subitem.disabled { opacity: 0.5; cursor: not-allowed; }
+		.menu-item.active, .menu-subitem.active { background: var(--ngx-menu-active-bg, #e8f0fe); color: var(--ngx-menu-active-color, #1a73e8); font-weight: 600; }
 	`]
 })
 export class MenuComponent {
 	items = input<MenuItem[]>([]);
 	orientation = input<'horizontal' | 'vertical'>('horizontal');
+	/** Label or URL of the currently active item — used to highlight the active menu entry. */
+	activeItem = input<string>('');
 	openIndex = signal<number | null>(null);
 	itemClick = output<MenuItem>();
+
+	isActiveItem(item: MenuItem): boolean {
+		const active = this.activeItem();
+		if (!active) return false;
+		return item.label === active || item.url === active;
+	}
 
 	handleClick(event: Event, item: MenuItem, i: number): void {
 		if (item.disabled) return;

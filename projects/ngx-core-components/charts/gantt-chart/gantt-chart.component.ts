@@ -90,7 +90,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               </tr></thead>
             </table>
           </div>
-          <div class="k-treelist-content" #treelistContent>
+          <div class="k-treelist-content" #treelistContent (wheel)="onTreelistWheel($event)">
             <table class="k-treelist-table">
               <colgroup>
                 @for (col of sidebarColumns(); track col.header + '-' + $index) { <col [style.width.px]="col.width"/> }
@@ -341,7 +341,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-treelist-header-table, .k-treelist-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
     .k-header-cell { padding: 8px; text-align: left; font-size: 12px; font-weight: 600; color: var(--ngx-gantt-header-text, #495057); border-right: 1px solid var(--ngx-gantt-border, #dee2e6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .k-header-cell:last-child { border-right: none; text-align: center; }
-    .k-treelist-content { flex: 1; overflow-y: auto; overflow-x: hidden; }
+    .k-treelist-content { flex: 1; overflow: hidden; }
     .k-treelist-row { cursor: default; border-bottom: 1px solid var(--ngx-gantt-grid-line, #ebedf0); }
     .k-treelist-row.k-alt { background: var(--ngx-gantt-alt-bg, #f8f9fa); }
     .k-treelist-row.k-hover { background: var(--ngx-gantt-hover-bg, #e8f0fe) !important; }
@@ -712,6 +712,19 @@ export class GanttChartComponent {
     this.scroll.emit({ scrollLeft: el.scrollLeft, scrollTop: el.scrollTop, visibleStartDate: visStart, visibleEndDate: visEnd });
     if (cfg.loadOnScroll && (el.scrollLeft < 100 || el.scrollLeft + el.clientWidth > el.scrollWidth - 100)) {
       this.loadOnScroll.emit({ start: visStart, end: visEnd });
+    }
+  }
+
+  onTreelistWheel(event: WheelEvent): void {
+    const timelineEl = this.timelineContent()?.nativeElement;
+    if (!timelineEl) return;
+    event.preventDefault();
+
+    if (event.shiftKey && event.deltaY !== 0) {
+      timelineEl.scrollLeft += event.deltaY;
+    } else {
+      timelineEl.scrollTop += event.deltaY;
+      timelineEl.scrollLeft += event.deltaX;
     }
   }
 

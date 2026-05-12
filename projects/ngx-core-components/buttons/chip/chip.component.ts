@@ -6,7 +6,20 @@ export type ChipVariant = 'default' | 'info' | 'success' | 'warning' | 'error' |
   selector: 'ngx-chip',
   standalone: true,
   template: `
-    <span class="ngx-chip" [class]="'ngx-chip-' + variant()" [class.removable]="removable()" [class.selected]="selected()" [class.disabled]="disabled()">
+    <span
+      class="ngx-chip"
+      [class]="'ngx-chip-' + variant()"
+      [class.removable]="removable()"
+      [class.selected]="selected()"
+      [class.disabled]="disabled()"
+      [class.selectable]="selectable()"
+      [attr.role]="selectable() ? 'checkbox' : null"
+      [attr.aria-checked]="selectable() ? selected() : null"
+      [attr.tabindex]="selectable() && !disabled() ? 0 : null"
+      (click)="onChipClick()"
+      (keydown.enter)="onChipClick()"
+      (keydown.space)="onChipClick()"
+    >
       @if (icon()) {
         <span class="chip-icon" aria-hidden="true">{{ icon() }}</span>
       }
@@ -35,6 +48,8 @@ export type ChipVariant = 'default' | 'info' | 'success' | 'warning' | 'error' |
     .chip-icon { font-size: 11px; }
     .chip-remove { background: none; border: none; cursor: pointer; font-size: 10px; line-height: 1; padding: 0 0 0 2px; color: inherit; opacity: 0.7; }
     .chip-remove:hover { opacity: 1; }
+    .ngx-chip.selectable { cursor: pointer; }
+    .ngx-chip.selectable:hover:not(.disabled) { filter: brightness(0.95); }
   `]
 })
 export class ChipComponent {
@@ -43,9 +58,16 @@ export class ChipComponent {
   selected = input(false);
   removable = input(false);
   disabled = input(false);
+  selectable = input(false);
+  label = input<string>('');
+
   removed = output<void>();
-    label = input<string>('');
-    selectable = input(false);
+  selectedChange = output<boolean>();
+
+  onChipClick(): void {
+    if (!this.selectable() || this.disabled()) return;
+    this.selectedChange.emit(!this.selected());
+  }
 }
 
 @Component({

@@ -1,22 +1,26 @@
 import { Component, input, output, signal, contentChildren, AfterContentInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ngx-tab',
   standalone: true,
-  template: `<ng-content />`,
+  template: `
+    <div [hidden]="!isActive()">
+      <ng-content />
+    </div>
+  `,
 })
 export class TabComponent {
   title = input.required<string>();
   icon = input<string>('');
   disabled = input(false);
   badge = input<string | number>('');
+  isActive = signal(false);
 }
 
 @Component({
   selector: 'ngx-tab-strip',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="ngx-tab-strip" [class]="'tabs-' + position()">
       <div class="tab-list" role="tablist">
@@ -35,16 +39,8 @@ export class TabComponent {
             @if (tab.badge()) { <span class="tab-badge">{{ tab.badge() }}</span> }
           </button>
         }
-        <span class="tab-indicator" [style.left.px]="indicatorLeft()" [style.width.px]="indicatorWidth()"></span>
       </div>
       <div class="tab-content" role="tabpanel">
-        @for (tab of tabs(); track tab.title(); let i = $index) {
-          @if (activeIndex() === i) {
-            <div class="tab-pane active">
-              <ng-container *ngComponentOutlet="null" />
-            </div>
-          }
-        }
         <ng-content />
       </div>
     </div>
@@ -79,10 +75,19 @@ export class TabStripComponent implements AfterContentInit {
 
   tabChange = output<number>();
 
-  ngAfterContentInit() { }
+  ngAfterContentInit() {
+    this._syncActiveTabs();
+  }
 
   selectTab(index: number) {
     this.activeIndex.set(index);
+    this._syncActiveTabs();
     this.tabChange.emit(index);
+  }
+
+  private _syncActiveTabs(): void {
+    const tabs = this.tabs();
+    const active = this.activeIndex();
+    tabs.forEach((tab, i) => tab.isActive.set(i === active));
   }
 }
