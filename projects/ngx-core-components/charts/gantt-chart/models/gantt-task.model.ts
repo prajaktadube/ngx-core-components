@@ -1,3 +1,8 @@
+export interface GanttTooltipContext {
+  task: GanttTask;
+  subtask?: GanttSubtask;
+}
+
 export enum GanttItemType {
   Bar = 'bar',
   Range = 'range',
