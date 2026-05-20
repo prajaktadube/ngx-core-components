@@ -35,7 +35,6 @@ jobs:
 
       - name: Determine Version Bump Type
         id: determine_bump
-        # Analyzes the latest commit message to decide Major, Minor, or Patch
         run: |
           COMMIT_MSG=$(git log -1 --pretty=%B)
           echo "Commit message: $COMMIT_MSG"
@@ -49,17 +48,16 @@ jobs:
           fi
 
       - name: Auto-Sync and Bump Version
-        # Dynamically bumps the version based on the commit analysis
         run: |
           cd projects/ngx-core-components
           
-          LIVE_VERSION=$(npm show ngx-core-components version)
+          LIVE_VERSION=$(npm show ngx-core-components version 2>/dev/null || echo "0.0.0")
           npm version $LIVE_VERSION --no-git-tag-version --allow-same-version
           
-          # This line now dynamically uses major, minor, or patch!
           npm version ${{ env.BUMP_TYPE }} --no-git-tag-version
           
           NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
           
           cd ../..
           git add projects/ngx-core-components/package.json
@@ -72,6 +70,7 @@ jobs:
       - name: Publish to npm
         run: |
           cd dist/ngx-core-components
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
