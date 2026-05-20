@@ -11,6 +11,8 @@ permissions:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    # Skip Dependabot commits — they only bump deps, not library code
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') }}
 
     steps:
       - name: Checkout code
@@ -50,15 +52,24 @@ jobs:
       - name: Auto-Sync and Bump Version
         run: |
           cd projects/ngx-core-components
-          
-          LIVE_VERSION=$(npm show ngx-core-components version 2>/dev/null || echo "0.0.0")
-          npm version $LIVE_VERSION --no-git-tag-version --allow-same-version
-          
+
+          LIVE_VERSION=$(npm show ngx-core-components version --registry https://registry.npmjs.org 2>/dev/null || echo "")
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+
+          # Only sync from registry if the package is confirmed to be ours
+          # (registry returns a version AND it is >= local, meaning we own it)
+          if [ -n "$LIVE_VERSION" ]; then
+            OWNER=$(npm show ngx-core-components --json 2>/dev/null | node -e "try{const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));process.stdout.write(d.maintainers?.[0]?.name||'')}catch(e){}")
+            if [ "$OWNER" = "prajaktadube" ]; then
+              npm version $LIVE_VERSION --no-git-tag-version --allow-same-version
+            fi
+          fi
+
           npm version ${{ env.BUMP_TYPE }} --no-git-tag-version
-          
+
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-          
+
           cd ../..
           git add projects/ngx-core-components/package.json
           git commit -m "chore: release version $NEW_VERSION [skip ci]"
