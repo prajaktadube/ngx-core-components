@@ -9,7 +9,9 @@ import {
   viewChild,
   inject,
   ElementRef,
+  TemplateRef,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   GanttTask,
   GanttSubtask,
@@ -38,6 +40,7 @@ import {
   GanttVirtualScrolledIndexChangeEvent,
   GanttViewChangeEvent,
   GanttExpandChangeEvent,
+  GanttTooltipContext,
 } from './models';
 import { GanttScaleService } from './services/gantt-scale.service';
 import { GanttLayoutService, FlatRow } from './services/gantt-layout.service';
@@ -55,7 +58,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
 @Component({
   selector: 'ngx-gantt-chart',
   standalone: true,
-  imports: [],
+  imports: [NgTemplateOutlet],
   providers: [GanttScaleService, GanttLayoutService, GanttKeyboardService, GanttPrintService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -300,16 +303,20 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
 
     @if (tooltipTask()) {
       <div class="k-bar-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
-        <div class="k-bar-tooltip-title">{{ tooltipTask()!.name }}</div>
-        @if (tooltipSubtask()) {
-          <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Subtask</span><span class="k-bar-tooltip-value">{{ tooltipSubtask()!.name }}</span></div>
-          <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.start) }}</span></div>
-          <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.end) }}</span></div>
-          @if (tooltipSubtask()!.progress != null) { <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Progress</span><span class="k-bar-tooltip-value">{{ tooltipSubtask()!.progress }}%</span></div> }
+        @if (tooltipTemplate()) {
+          <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: { task: tooltipTask()!, subtask: tooltipSubtask() ?? undefined } }" />
         } @else {
-          <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.start) }}</span></div>
-          <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.end) }}</span></div>
-          <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Progress</span><span class="k-bar-tooltip-value">{{ tooltipTask()!.progress }}%</span></div>
+          <div class="k-bar-tooltip-title">{{ tooltipTask()!.name }}</div>
+          @if (tooltipSubtask()) {
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Subtask</span><span class="k-bar-tooltip-value">{{ tooltipSubtask()!.name }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.start) }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.end) }}</span></div>
+            @if (tooltipSubtask()!.progress != null) { <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Progress</span><span class="k-bar-tooltip-value">{{ tooltipSubtask()!.progress }}%</span></div> }
+          } @else {
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.start) }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.end) }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Progress</span><span class="k-bar-tooltip-value">{{ tooltipTask()!.progress }}%</span></div>
+          }
         }
       </div>
     }
@@ -464,6 +471,7 @@ export class GanttChartComponent {
   config = input<Partial<GanttConfig>>({});
   groups = input<GanttGroup[]>([]);
   baselineItems = input<GanttBaselineItem[]>([]);
+  tooltipTemplate = input<TemplateRef<{ $implicit: GanttTooltipContext }> | null>(null);
 
   taskChange = output<GanttTaskChangeEvent>();
   taskClick = output<GanttTaskClickEvent>();

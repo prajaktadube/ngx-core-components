@@ -55,6 +55,7 @@ export type {
   GanttVirtualScrolledIndexChangeEvent,
   GanttViewChangeEvent,
   GanttExpandChangeEvent,
+  GanttTooltipContext,
 } from 'ngx-core-components/charts';
 export { ZoomLevel, DependencyType } from 'ngx-core-components/charts';
 

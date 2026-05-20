@@ -3,7 +3,7 @@ import {
   BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
   GanttChartComponent, GanttTask, GanttDependency, GanttConfig, ZoomLevel,
   GanttTaskChangeEvent, GanttGroup, GanttBaselineItem, GanttLinkDragEvent, GanttBarClickEvent,
-  ChartSeries, ChartDataPoint, CHART_COLORS
+  ChartSeries, ChartDataPoint, CHART_COLORS, GanttTooltipContext
 } from 'ngx-core-components';
 import { getSampleTasks, getSampleDependencies, getTransportTasks, getTransportDependencies } from '../../data/sample-tasks';
 
@@ -291,8 +291,38 @@ interface ApiRow { name: string; type: string; default: string; description: str
             </div>
             <div class="gantt-demo-wrap">
               <ngx-gantt-chart [tasks]="transportTasks" [dependencies]="transportDeps" [config]="transportConfig()"
+                [tooltipTemplate]="transportTooltip"
                 (barClick)="onTransportBarClick($event)" />
             </div>
+
+            <ng-template #transportTooltip let-ctx>
+              @if (ctx.subtask) {
+                <div class="tt-phase" [class.tt-station]="ctx.subtask.cssClass === 'station-pill'" [class.tt-hub]="ctx.subtask.cssClass === 'hub-badge'" [class.tt-transit]="ctx.subtask.cssClass === 'transit-arrow'">
+                  <div class="tt-phase-icon">{{ ctx.subtask.cssClass === 'station-pill' ? '🟢' : ctx.subtask.cssClass === 'hub-badge' ? '🟡' : '➡️' }}</div>
+                  <div class="tt-phase-body">
+                    <div class="tt-phase-name">{{ ctx.subtask.name }}</div>
+                    <div class="tt-phase-desc">{{ ctx.subtask.description }}</div>
+                    <div class="tt-phase-times">
+                      <span>{{ formatTime(ctx.subtask.start) }}</span>
+                      <span class="tt-arrow">→</span>
+                      <span>{{ formatTime(ctx.subtask.end) }}</span>
+                    </div>
+                    @if (ctx.subtask.progress != null) {
+                      <div class="tt-progress-bar"><div class="tt-progress-fill" [style.width.%]="ctx.subtask.progress"></div></div>
+                    }
+                  </div>
+                </div>
+              } @else {
+                <div class="tt-voyage">
+                  <div class="tt-voyage-title">🚚 {{ ctx.task.meta?.['vehicle'] }}</div>
+                  <div class="tt-voyage-route">{{ ctx.task.meta?.['origin'] }} → {{ ctx.task.meta?.['destination'] }}</div>
+                  <div class="tt-voyage-row"><span>Voyage</span><span>#{{ ctx.task.meta?.['voyageNo'] }}</span></div>
+                  <div class="tt-voyage-row"><span>Departs</span><span>{{ formatTime(ctx.task.start) }}</span></div>
+                  <div class="tt-voyage-row"><span>Arrives</span><span>{{ formatTime(ctx.task.end) }}</span></div>
+                  <div class="tt-voyage-row"><span>Progress</span><span>{{ ctx.task.progress }}%</span></div>
+                </div>
+              }
+            </ng-template>
           </div>
 
           <div class="section-label">How to Use</div>
@@ -491,6 +521,26 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .legend-item { display: inline-flex; align-items: center; gap: 5px; }
     .legend-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
     .legend-swatch.arrow { clip-path: polygon(0 20%, 75% 20%, 75% 0, 100% 50%, 75% 100%, 75% 80%, 0 80%); width: 18px; }
+
+    /* Transport custom tooltip */
+    .tt-voyage { min-width: 200px; }
+    .tt-voyage-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .tt-voyage-route { font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+    .tt-voyage-row { display: flex; justify-content: space-between; gap: 16px; font-size: 12px; margin-top: 3px; }
+    .tt-voyage-row span:first-child { color: rgba(255,255,255,0.6); }
+    .tt-voyage-row span:last-child { font-weight: 600; }
+    .tt-phase { display: flex; gap: 10px; align-items: flex-start; min-width: 200px; }
+    .tt-phase-icon { font-size: 18px; line-height: 1; padding-top: 2px; }
+    .tt-phase-body { flex: 1; }
+    .tt-phase-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .tt-phase-desc { font-size: 11px; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
+    .tt-phase-times { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; margin-bottom: 6px; }
+    .tt-arrow { color: rgba(255,255,255,0.4); }
+    .tt-progress-bar { height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden; }
+    .tt-progress-fill { height: 100%; border-radius: 2px; background: #34d399; }
+    .tt-station .tt-progress-fill { background: #34d399; }
+    .tt-hub .tt-progress-fill { background: #fbbf24; }
+    .tt-transit .tt-progress-fill { background: #60a5fa; }
 
     /* Sparkline table */
     .sparkline-table { display: flex; flex-direction: column; gap: 12px; }
@@ -880,6 +930,10 @@ tasks: GanttTask[] = [
   toggleTransportAlternateColumns(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
     this.transportConfig.set({ ...this.transportConfig(), enableAlternateColumnColor: checked });
+  }
+
+  formatTime(date: Date): string {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   chartCssVars: { name: string; default: string; description: string }[] = [
