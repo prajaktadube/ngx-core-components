@@ -79,10 +79,7 @@ jobs:
         run: npx ng build ngx-core-components
 
       - name: Publish to npm
-        run: |
-          cd dist/ngx-core-components
-          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-          npm publish --access public
+        run: cd dist/ngx-core-components && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
