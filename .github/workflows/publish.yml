@@ -79,7 +79,13 @@ jobs:
         run: npx ng build ngx-core-components
 
       - name: Publish to npm
-        run: cd dist/ngx-core-components && npm publish --access public
+        run: |
+          if [ -z "${NODE_AUTH_TOKEN}" ]; then
+            echo "ERROR: NPM_TOKEN secret is missing or empty"
+            exit 1
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > dist/ngx-core-components/.npmrc
+          cd dist/ngx-core-components && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
