@@ -11,6 +11,7 @@ permissions:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
 
     steps:
       - name: Checkout code
@@ -70,9 +71,7 @@ jobs:
         run: npx ng build ngx-core-components
 
       - name: Publish to npm
-        run: |
-          cd dist/ngx-core-components
-          npm publish --access public
+        run: npm publish dist/ngx-core-components --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

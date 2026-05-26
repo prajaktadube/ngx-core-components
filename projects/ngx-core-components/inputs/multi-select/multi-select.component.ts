@@ -98,46 +98,62 @@ import { DropdownOption } from '../dropdown/dropdown.component';
     .ms-trigger {
       display: flex; align-items: center; min-height: 38px;
       padding: 4px 8px 4px 4px; border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: var(--ngx-input-radius, 4px); background: var(--ngx-input-bg, #fff);
-      cursor: pointer; user-select: none; transition: border-color 0.15s, box-shadow 0.15s;
+      border-radius: var(--ngx-input-radius, 8px); background: var(--ngx-input-bg, #fff);
+      cursor: pointer; user-select: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .ms-trigger:hover { border-color: #adb5bd; }
-    .open .ms-trigger { border-color: var(--ngx-input-focus, #4a90d9); box-shadow: 0 0 0 2px rgba(74,144,217,0.18); }
-    .disabled .ms-trigger { background: #f8f9fa; cursor: not-allowed; }
+    .ms-trigger:hover { border-color: var(--ngx-input-focus, #4f46e5); }
+    .open .ms-trigger { border-color: var(--ngx-input-focus, #4f46e5); box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15)); }
+    .disabled .ms-trigger { background: var(--ngx-input-disabled-bg, #f8f9fa); cursor: not-allowed; opacity: 0.7; }
     .ms-tags { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; align-items: center; }
     .ms-tag {
       display: inline-flex; align-items: center; gap: 4px;
-      background: var(--ngx-input-tag-bg, #e8f0fe); color: var(--ngx-input-tag-color, #1a73e8);
-      padding: 2px 4px 2px 8px; border-radius: 3px; font-size: 12px;
+      background: var(--ngx-input-tag-bg, #e0e7ff); color: var(--ngx-input-tag-color, #4f46e5);
+      padding: 2px 6px 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500;
+      border: 1px solid rgba(79, 70, 229, 0.15);
     }
     .ms-tag-remove {
       background: none; border: none; cursor: pointer; padding: 0 2px;
-      color: var(--ngx-input-tag-color, #1a73e8); font-size: 10px; line-height: 1;
+      color: var(--ngx-input-tag-color, #4f46e5); font-size: 10px; line-height: 1;
+      opacity: 0.6; transition: opacity 0.12s;
     }
+    .ms-tag-remove:hover { opacity: 1; }
     .ms-placeholder { color: #adb5bd; font-size: 14px; padding: 0 4px; }
     .ms-arrow { font-size: 10px; color: #6c757d; transition: transform 0.15s; margin-left: auto; }
     .ms-arrow.open { transform: rotate(180deg); }
     .ms-popup {
       position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 1000;
       background: var(--ngx-input-bg, #fff); border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: var(--ngx-input-radius, 4px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); overflow: hidden;
+      border-radius: var(--ngx-input-radius, 8px); box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0,0,0,0.1)); overflow: hidden;
+      transform-origin: top;
+      animation: popup-slide 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes popup-slide {
+      from { opacity: 0; transform: translateY(-4px) scaleY(0.95); }
+      to { opacity: 1; transform: translateY(0) scaleY(1); }
     }
     .ms-search { padding: 8px; border-bottom: 1px solid var(--ngx-input-border, #ced4da); }
     .ms-search-input {
       width: 100%; padding: 6px 10px; border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: 3px; font-size: 13px; outline: none; font-family: inherit;
+      border-radius: var(--radius-sm, 6px); font-size: 13px; outline: none; font-family: inherit;
+      background: var(--bg-primary); color: var(--text-primary);
+      transition: all 0.15s ease;
+    }
+    .ms-search-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      background: var(--bg-secondary);
     }
     .ms-list { max-height: 240px; overflow-y: auto; }
     .ms-item {
       display: flex; align-items: center; gap: 10px; padding: 8px 12px;
       cursor: pointer; font-size: 14px; color: var(--ngx-input-text, #212529);
+      transition: all 0.12s;
     }
-    .ms-item:hover, .ms-item.focused { background: #f1f3f5; }
-    .ms-item.checked { background: #f0f7ff; }
+    .ms-item:hover, .ms-item.focused { background: var(--ngx-grid-hover-bg, #f1f3f5); color: var(--ngx-input-focus, #4f46e5); }
+    .ms-item.checked { background: var(--ngx-grid-selected-bg, #e8f0fe); color: var(--ngx-input-focus, #4f46e5); }
     .ms-item.disabled { color: #adb5bd; cursor: not-allowed; }
-    .ms-item input[type="checkbox"] { width: 14px; height: 14px; cursor: pointer; accent-color: var(--ngx-input-focus, #4a90d9); }
-    .ms-select-all { font-weight: 500; }
-    .ms-divider { height: 1px; background: #eee; margin: 2px 0; }
+    .ms-item input[type="checkbox"] { width: 14px; height: 14px; cursor: pointer; accent-color: var(--ngx-input-focus, #4f46e5); }
+    .ms-select-all { font-weight: 600; }
+    .ms-divider { height: 1px; background: var(--ngx-input-border, #eee); margin: 2px 0; }
     .ms-empty { padding: 12px; text-align: center; color: #adb5bd; font-size: 13px; }
   `]
 })

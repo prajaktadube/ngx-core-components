@@ -1,0 +1,622 @@
+{
+  "C:\\Work\\ngx-core-components\\angular.json": {
+    "mtime": 1776666340.4478445,
+    "ast_hash": "eb91c3db6183a27eae11f34c2061c9e2",
+    "semantic_hash": "eb91c3db6183a27eae11f34c2061c9e2"
+  },
+  "C:\\Work\\ngx-core-components\\package.json": {
+    "mtime": 1776666340.4568563,
+    "ast_hash": "0fae91d917829093fc787a3921e90f49",
+    "semantic_hash": "0fae91d917829093fc787a3921e90f49"
+  },
+  "C:\\Work\\ngx-core-components\\tsconfig.json": {
+    "mtime": 1776671130.0406945,
+    "ast_hash": "6885a2f5f4713e1108d146ba5deac9b0",
+    "semantic_hash": "6885a2f5f4713e1108d146ba5deac9b0"
+  },
+  "C:\\Work\\ngx-core-components\\.vscode\\extensions.json": {
+    "mtime": 1776666340.4402854,
+    "ast_hash": "66fd9e60d4633b6099fe02e06a7075ea",
+    "semantic_hash": "66fd9e60d4633b6099fe02e06a7075ea"
+  },
+  "C:\\Work\\ngx-core-components\\.vscode\\launch.json": {
+    "mtime": 1776666340.4422426,
+    "ast_hash": "430386a2f03e9d559664c196344c121b",
+    "semantic_hash": "430386a2f03e9d559664c196344c121b"
+  },
+  "C:\\Work\\ngx-core-components\\.vscode\\tasks.json": {
+    "mtime": 1776666340.4437032,
+    "ast_hash": "d2fc2624d783980be281b4cf0acc2455",
+    "semantic_hash": "d2fc2624d783980be281b4cf0acc2455"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\tsconfig.app.json": {
+    "mtime": 1776666340.5006864,
+    "ast_hash": "4cf182c37a0e1c47301e43f88f4098a7",
+    "semantic_hash": "4cf182c37a0e1c47301e43f88f4098a7"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\tsconfig.spec.json": {
+    "mtime": 1776666340.502701,
+    "ast_hash": "f0c8aa349d779b94d4872bef8c474ecc",
+    "semantic_hash": "f0c8aa349d779b94d4872bef8c474ecc"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\main.ts": {
+    "mtime": 1776666340.499536,
+    "ast_hash": "b5c1d106e573fea21ef1ad9e4360e77a",
+    "semantic_hash": "b5c1d106e573fea21ef1ad9e4360e77a"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.component.spec.ts": {
+    "mtime": 1779768742.3385477,
+    "ast_hash": "40619cfa85e66a3285c46c484e6c299f",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.component.ts": {
+    "mtime": 1779768313.2403767,
+    "ast_hash": "62ff6f70759da1a54f27c83c4d08d0c1",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.config.ts": {
+    "mtime": 1776666340.467867,
+    "ast_hash": "b3783e1fb2e6298f7fdaeb3874308fd3",
+    "semantic_hash": "b3783e1fb2e6298f7fdaeb3874308fd3"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.routes.ts": {
+    "mtime": 1776681810.3554504,
+    "ast_hash": "990760d963e2d327a8753ce6cf43c97c",
+    "semantic_hash": "990760d963e2d327a8753ce6cf43c97c"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\data\\sample-tasks.ts": {
+    "mtime": 1776944186.31451,
+    "ast_hash": "ea75f33de6b1bf6ed3676567b454a483",
+    "semantic_hash": "ea75f33de6b1bf6ed3676567b454a483"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\barcodes-demo\\barcodes-demo.component.ts": {
+    "mtime": 1776674169.4160974,
+    "ast_hash": "5ebed0bcbb89f24cce58d91cb6ddfbc1",
+    "semantic_hash": "5ebed0bcbb89f24cce58d91cb6ddfbc1"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\basic-demo\\basic-demo.component.ts": {
+    "mtime": 1776944181.375313,
+    "ast_hash": "e846992948cf7f4743552c39a7ed7285",
+    "semantic_hash": "e846992948cf7f4743552c39a7ed7285"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\buttons-demo\\buttons-demo.component.ts": {
+    "mtime": 1779768632.112466,
+    "ast_hash": "e6057b4fd9ef5fceef419604240c83a1",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\charts-demo\\charts-demo.component.ts": {
+    "mtime": 1779769119.443752,
+    "ast_hash": "96a5e1cffd01aa60c1b7c0392a824bbf",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\dialog-demo\\dialog-demo.component.ts": {
+    "mtime": 1776674923.798798,
+    "ast_hash": "b5d53653c4e00baec26037f46e6cdbbc",
+    "semantic_hash": "b5d53653c4e00baec26037f46e6cdbbc"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\feedback-demo\\feedback-demo.component.ts": {
+    "mtime": 1776674363.0598917,
+    "ast_hash": "591544de0b760a8499319ba7f61770a3",
+    "semantic_hash": "591544de0b760a8499319ba7f61770a3"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\getting-started\\getting-started.component.ts": {
+    "mtime": 1776681477.55941,
+    "ast_hash": "306318969798347811baba17d54c76db",
+    "semantic_hash": "306318969798347811baba17d54c76db"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\grid-demo\\grid-demo.component.ts": {
+    "mtime": 1779768646.8010404,
+    "ast_hash": "caaa1e6517c135e1e93f7cc1b24074bb",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\home\\home.component.ts": {
+    "mtime": 1776681477.558137,
+    "ast_hash": "67b5ce68f9203831c87cdaf0e8492baa",
+    "semantic_hash": "67b5ce68f9203831c87cdaf0e8492baa"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\inputs-demo\\inputs-demo.component.ts": {
+    "mtime": 1779768666.2165983,
+    "ast_hash": "5c160ec6ccc72aabfac2efbf96fae698",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\interactive-demo\\interactive-demo.component.ts": {
+    "mtime": 1776852261.9253888,
+    "ast_hash": "8e4ca26bd1d68d3425adf2731805cb1b",
+    "semantic_hash": "8e4ca26bd1d68d3425adf2731805cb1b"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\large-dataset-demo\\large-dataset-demo.component.ts": {
+    "mtime": 1776944181.3776186,
+    "ast_hash": "4e4e8646ac962873440ba045af848d77",
+    "semantic_hash": "4e4e8646ac962873440ba045af848d77"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\layout-demo\\layout-demo.component.ts": {
+    "mtime": 1776680537.8952801,
+    "ast_hash": "09ff52e51c70157144c6dbe634f6699f",
+    "semantic_hash": "09ff52e51c70157144c6dbe634f6699f"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\navigation-demo\\navigation-demo.component.ts": {
+    "mtime": 1776674363.0598917,
+    "ast_hash": "4601c50d30dd270efc407ef0f7286987",
+    "semantic_hash": "4601c50d30dd270efc407ef0f7286987"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\theming-demo\\theming-demo.component.ts": {
+    "mtime": 1776674923.7867997,
+    "ast_hash": "8f60e99bd48382168f2699fc5dc4c959",
+    "semantic_hash": "8f60e99bd48382168f2699fc5dc4c959"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\tooltip-demo\\tooltip-demo.component.ts": {
+    "mtime": 1776666340.495685,
+    "ast_hash": "8511f91889ab885a22f13ca9996f3031",
+    "semantic_hash": "8511f91889ab885a22f13ca9996f3031"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\tree-list-demo\\tree-list-demo.component.ts": {
+    "mtime": 1776680537.8942807,
+    "ast_hash": "51f2c5d181ed76ac54ab9c8b7c06f7cc",
+    "semantic_hash": "51f2c5d181ed76ac54ab9c8b7c06f7cc"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ng-package.json": {
+    "mtime": 1776666340.5616374,
+    "ast_hash": "d7d11eb6bde5f57a26e5d8fd94e387cf",
+    "semantic_hash": "d7d11eb6bde5f57a26e5d8fd94e387cf"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\package.json": {
+    "mtime": 1776944186.3385112,
+    "ast_hash": "edf52a72d31029ca8b378d3342a6b184",
+    "semantic_hash": "edf52a72d31029ca8b378d3342a6b184"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\tsconfig.lib.json": {
+    "mtime": 1776666340.5677938,
+    "ast_hash": "62891dde70d08cc645ff9453da9e026b",
+    "semantic_hash": "62891dde70d08cc645ff9453da9e026b"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\tsconfig.lib.prod.json": {
+    "mtime": 1776666340.5686796,
+    "ast_hash": "72a35c57002f98b3ab7336f4c4dd5d29",
+    "semantic_hash": "72a35c57002f98b3ab7336f4c4dd5d29"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\tsconfig.spec.json": {
+    "mtime": 1776666340.569657,
+    "ast_hash": "142078bdc6571996cc350cf127ba6d2b",
+    "semantic_hash": "142078bdc6571996cc350cf127ba6d2b"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\ng-package.json": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\public-api.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "3160ffaa4783f8f14a2343dedf8dc2e6",
+    "semantic_hash": "3160ffaa4783f8f14a2343dedf8dc2e6"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\barcode\\barcode.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "af4464e7d4db85cd3efb3f75ed2c924f",
+    "semantic_hash": "af4464e7d4db85cd3efb3f75ed2c924f"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\qr-code\\qr-code.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "115199b8bda390bf4142872ba815d857",
+    "semantic_hash": "115199b8bda390bf4142872ba815d857"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\ng-package.json": {
+    "mtime": 1776671130.0383365,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\public-api.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "0c0f5181c4415bf1fa8237ccf13bb327",
+    "semantic_hash": "0c0f5181c4415bf1fa8237ccf13bb327"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button\\button.component.ts": {
+    "mtime": 1779768348.68045,
+    "ast_hash": "3c9aa1df77aba9413b9ab4d2d0a424fb",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button-group\\button-group.component.ts": {
+    "mtime": 1776671130.0343337,
+    "ast_hash": "b8447997290273d5d6cbc3208ee1a04b",
+    "semantic_hash": "b8447997290273d5d6cbc3208ee1a04b"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\chip\\chip.component.ts": {
+    "mtime": 1779768356.1015282,
+    "ast_hash": "ddf7033dca84bf399d29dc5869311195",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\dropdown-button\\dropdown-button.component.ts": {
+    "mtime": 1776671130.0383365,
+    "ast_hash": "110be20c0225cdeb04ae25ca17462e63",
+    "semantic_hash": "110be20c0225cdeb04ae25ca17462e63"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\split-button\\split-button.component.ts": {
+    "mtime": 1776671130.0343337,
+    "ast_hash": "555445d963da0cf63f84732d08531af5",
+    "semantic_hash": "555445d963da0cf63f84732d08531af5"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ng-package.json": {
+    "mtime": 1776666340.5257783,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\public-api.ts": {
+    "mtime": 1776944186.3365247,
+    "ast_hash": "4c585e71ac26f3bc5e7f3c95139aac89",
+    "semantic_hash": "4c585e71ac26f3bc5e7f3c95139aac89"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bar-chart\\bar-chart.component.ts": {
+    "mtime": 1776666340.5063684,
+    "ast_hash": "5eaf8080a3e0b14c6ed46ed0c4d67e26",
+    "semantic_hash": "5eaf8080a3e0b14c6ed46ed0c4d67e26"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\gantt-chart.component.ts": {
+    "mtime": 1779769106.5110502,
+    "ast_hash": "33e64591536a4cbf6dc72a5852fbac74",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-baseline.model.ts": {
+    "mtime": 1776944186.3195298,
+    "ast_hash": "4974eb19848c801342611bc3bb0a1f6f",
+    "semantic_hash": "4974eb19848c801342611bc3bb0a1f6f"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-config.model.ts": {
+    "mtime": 1776944186.320513,
+    "ast_hash": "36fa45f0f0db17c7dd7f97ec71ded68c",
+    "semantic_hash": "36fa45f0f0db17c7dd7f97ec71ded68c"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-dependency.model.ts": {
+    "mtime": 1776944186.322513,
+    "ast_hash": "5b6fb6bdd1e767fb29e9df4f75f8fef6",
+    "semantic_hash": "5b6fb6bdd1e767fb29e9df4f75f8fef6"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-event.model.ts": {
+    "mtime": 1776944186.3245113,
+    "ast_hash": "9d4cb90c7995379090444f97585189cc",
+    "semantic_hash": "9d4cb90c7995379090444f97585189cc"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-group.model.ts": {
+    "mtime": 1776944186.325518,
+    "ast_hash": "e3132cfc159cc2cc63b77b7c3ee334a0",
+    "semantic_hash": "e3132cfc159cc2cc63b77b7c3ee334a0"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-task.model.ts": {
+    "mtime": 1776944186.3276596,
+    "ast_hash": "ac1c572ea4ea9e08b15669db9661d2fa",
+    "semantic_hash": "ac1c572ea4ea9e08b15669db9661d2fa"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\index.ts": {
+    "mtime": 1776944186.329508,
+    "ast_hash": "23020321f888571a829b16742c1febab",
+    "semantic_hash": "23020321f888571a829b16742c1febab"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-keyboard.service.ts": {
+    "mtime": 1776666340.517761,
+    "ast_hash": "ab422a68ce92b8c2963e542011dc1e3a",
+    "semantic_hash": "ab422a68ce92b8c2963e542011dc1e3a"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-layout.service.ts": {
+    "mtime": 1776944186.3305092,
+    "ast_hash": "26f2dc77b0d1dad04bb7f181b0ca499f",
+    "semantic_hash": "26f2dc77b0d1dad04bb7f181b0ca499f"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-print.service.ts": {
+    "mtime": 1776944186.331531,
+    "ast_hash": "3fc870ed9d95d416fd43e17f5c788d90",
+    "semantic_hash": "3fc870ed9d95d416fd43e17f5c788d90"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-scale.service.ts": {
+    "mtime": 1776944186.333509,
+    "ast_hash": "cc0fa50eec2136ed2c06d9cdf478ca43",
+    "semantic_hash": "cc0fa50eec2136ed2c06d9cdf478ca43"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\utils\\date-utils.ts": {
+    "mtime": 1776944186.3345141,
+    "ast_hash": "34b550913e0d3b92a083917a055001dd",
+    "semantic_hash": "34b550913e0d3b92a083917a055001dd"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\utils\\svg-utils.ts": {
+    "mtime": 1776944186.3355076,
+    "ast_hash": "8c8de6e42be304272eff3e0839cf0864",
+    "semantic_hash": "8c8de6e42be304272eff3e0839cf0864"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\line-chart\\line-chart.component.ts": {
+    "mtime": 1776666340.5248733,
+    "ast_hash": "a27d137aa8ddbfca9082d817bb389e36",
+    "semantic_hash": "a27d137aa8ddbfca9082d817bb389e36"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\pie-chart\\pie-chart.component.ts": {
+    "mtime": 1776666340.5278919,
+    "ast_hash": "3a578f6d81fadc5f6844fa354391610d",
+    "semantic_hash": "3a578f6d81fadc5f6844fa354391610d"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\shared\\chart-utils.ts": {
+    "mtime": 1776666340.5317893,
+    "ast_hash": "93ab158a90366f3b5281ee85b0c2bddc",
+    "semantic_hash": "93ab158a90366f3b5281ee85b0c2bddc"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sparkline\\sparkline.component.ts": {
+    "mtime": 1776666340.533808,
+    "ast_hash": "fb193b7d0127264a83157740ef388ba0",
+    "semantic_hash": "fb193b7d0127264a83157740ef388ba0"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\dialog\\dialog-container.component.ts": {
+    "mtime": 1776666340.5358057,
+    "ast_hash": "8fc68520f6f8aa62fe2c8737341da26a",
+    "semantic_hash": "8fc68520f6f8aa62fe2c8737341da26a"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\dialog\\dialog.service.ts": {
+    "mtime": 1776666340.5368028,
+    "ast_hash": "9339c25c577f0d27a8abfc5552ea6e14",
+    "semantic_hash": "9339c25c577f0d27a8abfc5552ea6e14"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\dialog\\ng-package.json": {
+    "mtime": 1776666340.5388598,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\dialog\\public-api.ts": {
+    "mtime": 1776666340.539933,
+    "ast_hash": "ef2ceb45bc50df234b1dce9c982d9d65",
+    "semantic_hash": "ef2ceb45bc50df234b1dce9c982d9d65"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\ng-package.json": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\public-api.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "7ab8fe883daa4b9551e8f972aabe5791",
+    "semantic_hash": "7ab8fe883daa4b9551e8f972aabe5791"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\badge\\badge.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "729c0f5a191ff479c2dc076972c919da",
+    "semantic_hash": "729c0f5a191ff479c2dc076972c919da"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\notification\\notification.service.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "9df7ed4bf7ccd205c0a5cb67eaf3630d",
+    "semantic_hash": "9df7ed4bf7ccd205c0a5cb67eaf3630d"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\progress-bar\\progress-bar.component.ts": {
+    "mtime": 1779768364.6457782,
+    "ast_hash": "515dde2640f8888fc9fdbab97a847227",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\skeleton\\skeleton.component.ts": {
+    "mtime": 1779768371.387744,
+    "ast_hash": "cb9f736727f50aa2f06c04432e14efc4",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\ng-package.json": {
+    "mtime": 1776666340.5440612,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\public-api.ts": {
+    "mtime": 1776681477.5551379,
+    "ast_hash": "3b91bc371e5dd6710eb282adc34e9786",
+    "semantic_hash": "3b91bc371e5dd6710eb282adc34e9786"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\data-grid\\data-grid.component.ts": {
+    "mtime": 1779768623.8238301,
+    "ast_hash": "55ed4271e7bb6358c7f1a588fd060657",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\ng-package.json": {
+    "mtime": 1776666340.556045,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\public-api.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "0d2b00197d04801a51aaa97b5153bfba",
+    "semantic_hash": "0d2b00197d04801a51aaa97b5153bfba"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\autocomplete\\autocomplete.component.ts": {
+    "mtime": 1776666340.548597,
+    "ast_hash": "bfdcc7fbae24bbb3391f24c54383b59c",
+    "semantic_hash": "bfdcc7fbae24bbb3391f24c54383b59c"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\checkbox\\checkbox.component.ts": {
+    "mtime": 1776666340.5496447,
+    "ast_hash": "b21cb3c7efd4640b8d47d7e664daf46f",
+    "semantic_hash": "b21cb3c7efd4640b8d47d7e664daf46f"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\color-picker\\color-picker.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "5ac3c6ef79bf68b5c8e32b4e780bb7de",
+    "semantic_hash": "5ac3c6ef79bf68b5c8e32b4e780bb7de"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\date-picker\\date-picker.component.ts": {
+    "mtime": 1776666340.5520315,
+    "ast_hash": "a66a49c9030a6d2a4ac4dc8656a423c2",
+    "semantic_hash": "a66a49c9030a6d2a4ac4dc8656a423c2"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\date-range-picker\\date-range-picker.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "e457e1e65d968ea22ba2f6ed4e92e063",
+    "semantic_hash": "e457e1e65d968ea22ba2f6ed4e92e063"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\dropdown\\dropdown.component.ts": {
+    "mtime": 1779768390.7354524,
+    "ast_hash": "9a6b3b8ee0b7f1a15e68397ca8b80f91",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\multi-select\\multi-select.component.ts": {
+    "mtime": 1779768405.22587,
+    "ast_hash": "5a2920678092f20813a1ad907a594a71",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\numeric-textbox\\numeric-textbox.component.ts": {
+    "mtime": 1776680537.8917277,
+    "ast_hash": "1d7d178852421a91f4a5d0be6a9786bd",
+    "semantic_hash": "1d7d178852421a91f4a5d0be6a9786bd"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\radio\\radio-group.component.ts": {
+    "mtime": 1776666340.55935,
+    "ast_hash": "5f03e3bef540f36c3d5eee49406d9579",
+    "semantic_hash": "5f03e3bef540f36c3d5eee49406d9579"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\rating\\rating.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "9a6fdf4911bf4fa400ff6b136a5b688c",
+    "semantic_hash": "9a6fdf4911bf4fa400ff6b136a5b688c"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\slider\\slider.component.ts": {
+    "mtime": 1776673340.8899465,
+    "ast_hash": "6dab6dd665c1eb4dd958f3959fc64175",
+    "semantic_hash": "6dab6dd665c1eb4dd958f3959fc64175"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\switch\\switch.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "fc0de9f84178a0dbfab8aa27c09bc6e6",
+    "semantic_hash": "fc0de9f84178a0dbfab8aa27c09bc6e6"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textarea\\textarea.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "ab771be59c3e54ee4e3e0784c6d20e62",
+    "semantic_hash": "ab771be59c3e54ee4e3e0784c6d20e62"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textbox\\textbox.component.ts": {
+    "mtime": 1779768379.1471498,
+    "ast_hash": "9fa9910ddf48e37a262c3c6798756653",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\time-picker\\time-picker.component.ts": {
+    "mtime": 1776680537.8904166,
+    "ast_hash": "6e669d266253832c2f6456593a9da213",
+    "semantic_hash": "6e669d266253832c2f6456593a9da213"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\ng-package.json": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\public-api.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "e7989d82c810936621f5b2e6db78ec09",
+    "semantic_hash": "e7989d82c810936621f5b2e6db78ec09"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\accordion\\accordion.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "133f8dd258e691a71a7e3a53d15f338d",
+    "semantic_hash": "133f8dd258e691a71a7e3a53d15f338d"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\card\\card.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "e6d53db53f826da154e5ad703c154954",
+    "semantic_hash": "e6d53db53f826da154e5ad703c154954"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\splitter\\splitter.component.ts": {
+    "mtime": 1776680537.8917277,
+    "ast_hash": "4c3ee66b71a035593977f8ba89962796",
+    "semantic_hash": "4c3ee66b71a035593977f8ba89962796"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\stepper\\stepper.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "5d05b6d3637b809f2a11d679f13ff6b9",
+    "semantic_hash": "5d05b6d3637b809f2a11d679f13ff6b9"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\tab-strip\\tab-strip.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "02a9c44e91bdb814cf3ff28106b6de83",
+    "semantic_hash": "02a9c44e91bdb814cf3ff28106b6de83"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\ng-package.json": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\public-api.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "a75f2d6be085b99dcd6fada15614e089",
+    "semantic_hash": "a75f2d6be085b99dcd6fada15614e089"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\breadcrumb\\breadcrumb.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "3edd5fe75a9bda49a3feb0c9d7549230",
+    "semantic_hash": "3edd5fe75a9bda49a3feb0c9d7549230"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\menu\\menu.component.ts": {
+    "mtime": 1776671130.0393357,
+    "ast_hash": "61b543ba11f2b894fa60335018abc7a9",
+    "semantic_hash": "61b543ba11f2b894fa60335018abc7a9"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\public-api.ts": {
+    "mtime": 1776944186.3405082,
+    "ast_hash": "660dca1446765846be89bf5322d33818",
+    "semantic_hash": "660dca1446765846be89bf5322d33818"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip\\popover.component.ts": {
+    "mtime": 1776666340.5647578,
+    "ast_hash": "10767653ffe0b14ea306b88427280ce2",
+    "semantic_hash": "10767653ffe0b14ea306b88427280ce2"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip\\tooltip.directive.ts": {
+    "mtime": 1776666340.5657682,
+    "ast_hash": "21c707355edcae1d505614e8f86f6943",
+    "semantic_hash": "21c707355edcae1d505614e8f86f6943"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\ng-package.json": {
+    "mtime": 1776666340.5726545,
+    "ast_hash": "ae7461dbe62bfb51f56a83e6389cba48",
+    "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\public-api.ts": {
+    "mtime": 1776680537.8952801,
+    "ast_hash": "7ee17a0a6d313e6cfb15f4befc031389",
+    "semantic_hash": "7ee17a0a6d313e6cfb15f4befc031389"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\list-view\\list-view.component.ts": {
+    "mtime": 1776680537.8952801,
+    "ast_hash": "d0a58ff25cf7c96a46e982a38093a80b",
+    "semantic_hash": "d0a58ff25cf7c96a46e982a38093a80b"
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\tree-view\\tree-view.component.ts": {
+    "mtime": 1776666340.5750527,
+    "ast_hash": "ab5d9a8307ea21decf6bb5c88e90e10c",
+    "semantic_hash": "ab5d9a8307ea21decf6bb5c88e90e10c"
+  },
+  "C:\\Work\\ngx-core-components\\README.md": {
+    "mtime": 1776944186.3115106,
+    "ast_hash": "9dcafcf0d4abed088496184b96377a0b",
+    "semantic_hash": "9dcafcf0d4abed088496184b96377a0b"
+  },
+  "C:\\Work\\ngx-core-components\\.agents\\rules\\graphify.md": {
+    "mtime": 1779767252.7441635,
+    "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
+    "semantic_hash": "a0e4d192b9e2e17256124dbfc8e24e6a"
+  },
+  "C:\\Work\\ngx-core-components\\.agents\\workflows\\graphify.md": {
+    "mtime": 1779767252.7451642,
+    "ast_hash": "84de69efd46ab0b8430393bd4188f8f2",
+    "semantic_hash": "84de69efd46ab0b8430393bd4188f8f2"
+  },
+  "C:\\Work\\ngx-core-components\\.github\\workflows\\deploy-pages.yml": {
+    "mtime": 1779769448.036754,
+    "ast_hash": "ac8b56438e90d3bc59e1ff230c259085",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\.github\\workflows\\publish.yml": {
+    "mtime": 1779769446.0263443,
+    "ast_hash": "7181dedc7eca0f8f263c28bc2187f56b",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\index.html": {
+    "mtime": 1779768299.2870667,
+    "ast_hash": "e6b5a52ca5e2725d0f22ec43ea42a5f0",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.component.html": {
+    "mtime": 1779768317.5985103,
+    "ast_hash": "774a2606ceaa83b8803cc52ea2b75f87",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\README.md": {
+    "mtime": 1776680537.8952801,
+    "ast_hash": "e3f8953f0b8cf2dbf905b379dbcf6bb1",
+    "semantic_hash": "e3f8953f0b8cf2dbf905b379dbcf6bb1"
+  }
+}

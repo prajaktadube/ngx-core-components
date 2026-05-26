@@ -30,16 +30,17 @@ export type ButtonShape = 'rectangle' | 'rounded' | 'pill' | 'square';
     .ngx-btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
       font-family: inherit; font-weight: 500; cursor: pointer; border: 1px solid transparent;
-      transition: all 0.15s; outline: none; text-decoration: none; white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); outline: none; text-decoration: none; white-space: nowrap;
       position: relative; overflow: hidden;
     }
-    .ngx-btn:focus-visible { box-shadow: 0 0 0 3px rgba(74,144,217,0.3); }
-    .ngx-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .ngx-btn:active:not(:disabled) { transform: scale(0.96); }
+    .ngx-btn:focus-visible { box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3); }
+    .ngx-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
     /* Sizes */
-    .ngx-btn-sm { font-size: 12px; padding: 5px 12px; border-radius: var(--ngx-btn-radius, 4px); }
-    .ngx-btn-md { font-size: 14px; padding: 8px 18px; border-radius: var(--ngx-btn-radius, 4px); }
-    .ngx-btn-lg { font-size: 16px; padding: 11px 24px; border-radius: var(--ngx-btn-radius, 4px); }
+    .ngx-btn-sm { font-size: 12px; padding: 5px 12px; border-radius: var(--ngx-btn-radius, 6px); }
+    .ngx-btn-md { font-size: 14px; padding: 8px 18px; border-radius: var(--ngx-btn-radius, 8px); }
+    .ngx-btn-lg { font-size: 16px; padding: 11px 24px; border-radius: var(--ngx-btn-radius, 10px); }
 
     /* Shapes */
     .ngx-btn-pill { border-radius: 999px !important; }
@@ -47,29 +48,96 @@ export type ButtonShape = 'rectangle' | 'rounded' | 'pill' | 'square';
     .ngx-btn-rounded { border-radius: 8px !important; }
 
     /* Variants */
-    .ngx-btn-primary { background: var(--ngx-btn-primary-bg, #1a73e8); color: var(--ngx-btn-primary-color, #fff); border-color: var(--ngx-btn-primary-bg, #1a73e8); }
-    .ngx-btn-primary:hover:not(:disabled) { background: var(--ngx-btn-primary-hover, #1557b0); border-color: var(--ngx-btn-primary-hover, #1557b0); }
+    .ngx-btn-primary { 
+      background: var(--ngx-btn-primary-bg, #4f46e5); 
+      color: var(--ngx-btn-primary-color, #fff); 
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+    }
+    .ngx-btn-primary:hover:not(:disabled) { 
+      background: var(--ngx-btn-primary-hover, #4338ca); 
+      border-color: var(--ngx-btn-primary-hover, #4338ca);
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+    }
 
-    .ngx-btn-secondary { background: var(--ngx-btn-secondary-bg, #f1f3f5); color: var(--ngx-btn-secondary-color, #212529); border-color: var(--ngx-btn-secondary-border, #dee2e6); }
-    .ngx-btn-secondary:hover:not(:disabled) { background: var(--ngx-btn-secondary-hover, #e2e6ea); }
+    .ngx-btn-secondary { 
+      background: var(--ngx-btn-secondary-bg, #f1f3f5); 
+      color: var(--ngx-btn-secondary-color, #212529); 
+      border-color: var(--ngx-btn-secondary-border, #dee2e6); 
+    }
+    .ngx-btn-secondary:hover:not(:disabled) { 
+      background: var(--ngx-btn-secondary-hover, #e2e6ea); 
+      border-color: var(--ngx-btn-secondary-border, #dee2e6);
+    }
 
-    .ngx-btn-danger { background: var(--ngx-btn-danger-bg, #e74c3c); color: #fff; border-color: var(--ngx-btn-danger-bg, #e74c3c); }
-    .ngx-btn-danger:hover:not(:disabled) { background: var(--ngx-btn-danger-hover, #c0392b); border-color: var(--ngx-btn-danger-hover, #c0392b); }
+    .ngx-btn-danger { 
+      background: var(--ngx-btn-danger-bg, #ef4444); 
+      color: #fff; 
+      border-color: var(--ngx-btn-danger-bg, #ef4444); 
+      box-shadow: 0 2px 4px rgba(239, 68, 68, 0.15);
+    }
+    .ngx-btn-danger:hover:not(:disabled) { 
+      background: var(--ngx-btn-danger-hover, #dc2626); 
+      border-color: var(--ngx-btn-danger-hover, #dc2626);
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);
+    }
 
-    .ngx-btn-success { background: var(--ngx-btn-success-bg, #27ae60); color: #fff; border-color: var(--ngx-btn-success-bg, #27ae60); }
-    .ngx-btn-success:hover:not(:disabled) { background: var(--ngx-btn-success-hover, #1e8449); border-color: var(--ngx-btn-success-hover, #1e8449); }
+    .ngx-btn-success { 
+      background: var(--ngx-btn-success-bg, #10b981); 
+      color: #fff; 
+      border-color: var(--ngx-btn-success-bg, #10b981); 
+      box-shadow: 0 2px 4px rgba(16, 185, 129, 0.15);
+    }
+    .ngx-btn-success:hover:not(:disabled) { 
+      background: var(--ngx-btn-success-hover, #059669); 
+      border-color: var(--ngx-btn-success-hover, #059669);
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+    }
 
-    .ngx-btn-warning { background: var(--ngx-btn-warning-bg, #f39c12); color: #fff; border-color: var(--ngx-btn-warning-bg, #f39c12); }
-    .ngx-btn-warning:hover:not(:disabled) { background: var(--ngx-btn-warning-hover, #d68910); border-color: var(--ngx-btn-warning-hover, #d68910); }
+    .ngx-btn-warning { 
+      background: var(--ngx-btn-warning-bg, #f59e0b); 
+      color: #fff; 
+      border-color: var(--ngx-btn-warning-bg, #f59e0b); 
+      box-shadow: 0 2px 4px rgba(245, 158, 11, 0.15);
+    }
+    .ngx-btn-warning:hover:not(:disabled) { 
+      background: var(--ngx-btn-warning-hover, #d97706); 
+      border-color: var(--ngx-btn-warning-hover, #d97706);
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.25);
+    }
 
-    .ngx-btn-info { background: var(--ngx-btn-info-bg, #17a2b8); color: #fff; border-color: var(--ngx-btn-info-bg, #17a2b8); }
-    .ngx-btn-info:hover:not(:disabled) { background: var(--ngx-btn-info-hover, #138496); }
+    .ngx-btn-info { 
+      background: var(--ngx-btn-info-bg, #3b82f6); 
+      color: #fff; 
+      border-color: var(--ngx-btn-info-bg, #3b82f6); 
+    }
+    .ngx-btn-info:hover:not(:disabled) { 
+      background: var(--ngx-btn-info-hover, #2563eb); 
+      border-color: var(--ngx-btn-info-hover, #2563eb);
+    }
 
-    .ngx-btn-ghost { background: transparent; color: var(--ngx-btn-ghost-color, #1a73e8); border-color: var(--ngx-btn-ghost-border, #1a73e8); }
-    .ngx-btn-ghost:hover:not(:disabled) { background: var(--ngx-btn-ghost-hover-bg, #e8f0fe); }
+    .ngx-btn-ghost { 
+      background: transparent; 
+      color: var(--ngx-btn-ghost-color, #4f46e5); 
+      border-color: var(--ngx-btn-ghost-border, #cbd5e1); 
+    }
+    .ngx-btn-ghost:hover:not(:disabled) { 
+      background: var(--ngx-btn-ghost-hover-bg, rgba(79, 70, 229, 0.08)); 
+      border-color: var(--ngx-btn-ghost-color, #4f46e5);
+    }
 
-    .ngx-btn-link { background: transparent; color: var(--ngx-btn-link-color, #1a73e8); border-color: transparent; text-decoration: underline; padding-left: 2px; padding-right: 2px; }
-    .ngx-btn-link:hover:not(:disabled) { color: var(--ngx-btn-link-hover, #1557b0); }
+    .ngx-btn-link { 
+      background: transparent; 
+      color: var(--ngx-btn-link-color, #4f46e5); 
+      border-color: transparent; 
+      text-decoration: none; 
+      padding-left: 2px; 
+      padding-right: 2px; 
+    }
+    .ngx-btn-link:hover:not(:disabled) { 
+      color: var(--ngx-btn-link-hover, #4338ca); 
+      text-decoration: underline; 
+    }
 
     /* Loading spinner */
     .btn-spinner {

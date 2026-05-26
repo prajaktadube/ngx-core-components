@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import {
   BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
   GanttChartComponent, GanttTask, GanttDependency, GanttConfig, ZoomLevel,
@@ -12,7 +13,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
 @Component({
   selector: 'app-charts-demo',
   standalone: true,
-  imports: [BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent, GanttChartComponent],
+  imports: [BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent, GanttChartComponent, DatePipe],
   template: `
     <div class="demo-page">
 
@@ -281,8 +282,70 @@ interface ApiRow { name: string; type: string; default: string; description: str
             </div>
             <div class="gantt-demo-wrap">
               <ngx-gantt-chart [tasks]="transportTasks" [dependencies]="transportDeps" [config]="transportConfig()"
+                [tooltipTemplate]="transportTooltip" [markers]="transportMarkers()"
                 (barClick)="onTransportBarClick($event)" />
             </div>
+
+            <ng-template #transportTooltip let-task="task" let-subtask="subtask">
+              <div class="t-voyage-tooltip">
+                <div class="t-voyage-tooltip-header">
+                  <span class="t-tooltip-icon">🚢</span>
+                  <div class="t-tooltip-header-details">
+                    <div class="t-tooltip-title">{{ task.name }}</div>
+                    <div class="t-tooltip-voyage">Voyage #{{ task.meta?.voyageNo }}</div>
+                  </div>
+                </div>
+                <div class="t-tooltip-divider"></div>
+                @if (subtask) {
+                  <div class="t-tooltip-subtask">
+                    <div class="t-tooltip-subtask-badge" [style.background-color]="subtask.color">
+                      {{ subtask.name }}
+                    </div>
+                    @if (subtask.description) {
+                      <div class="t-tooltip-desc">{{ subtask.description }}</div>
+                    }
+                    <div class="t-tooltip-times">
+                      <div class="t-tooltip-time-row">
+                        <span class="t-label">Departure</span>
+                        <span class="t-val">{{ subtask.start | date:'MMM d, h:mm a' }}</span>
+                      </div>
+                      <div class="t-tooltip-time-row">
+                        <span class="t-label">Arrival</span>
+                        <span class="t-val">{{ subtask.end | date:'MMM d, h:mm a' }}</span>
+                      </div>
+                    </div>
+                    @if (subtask.progress != null) {
+                      <div class="t-tooltip-progress-wrap">
+                        <div class="t-tooltip-progress-bg">
+                          <div class="t-tooltip-progress-fill" [style.width.%]="subtask.progress" [style.background-color]="subtask.color"></div>
+                        </div>
+                        <span class="t-tooltip-progress-lbl">Progress: {{ subtask.progress }}%</span>
+                      </div>
+                    }
+                  </div>
+                } @else {
+                  <div class="t-tooltip-voyage-info">
+                    <div class="t-tooltip-route"><strong>Route:</strong> {{ task.meta?.route }}</div>
+                    <div class="t-tooltip-times">
+                      <div class="t-tooltip-time-row">
+                        <span class="t-label">Start Voyage</span>
+                        <span class="t-val">{{ task.start | date:'MMM d, h:mm a' }}</span>
+                      </div>
+                      <div class="t-tooltip-time-row">
+                        <span class="t-label">End Voyage</span>
+                        <span class="t-val">{{ task.end | date:'MMM d, h:mm a' }}</span>
+                      </div>
+                    </div>
+                    <div class="t-tooltip-progress-wrap">
+                      <div class="t-tooltip-progress-bg">
+                        <div class="t-tooltip-progress-fill" [style.width.%]="task.progress" style="background-color: var(--ngx-btn-primary-bg, #4f46e5)"></div>
+                      </div>
+                      <span class="t-tooltip-progress-lbl">Completed: {{ task.progress }}%</span>
+                    </div>
+                  </div>
+                }
+              </div>
+            </ng-template>
           </div>
 
           <div class="section-label">How to Use</div>
@@ -354,6 +417,28 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .gantt-control { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #495057; margin-left: 8px; }
     .gantt-control select { border: 1px solid #ced4da; border-radius: 4px; padding: 3px 6px; font-size: 12px; }
     .gantt-toggle { margin-left: 0; }
+
+    /* Custom Transport Tooltip */
+    .t-voyage-tooltip { font-family: inherit; color: #f8fafc; }
+    .t-voyage-tooltip-header { display: flex; align-items: center; gap: 10px; }
+    .t-tooltip-icon { font-size: 20px; }
+    .t-tooltip-header-details { display: flex; flex-direction: column; }
+    .t-tooltip-title { font-weight: 700; font-size: 13px; line-height: 1.2; }
+    .t-tooltip-voyage { font-size: 11px; color: rgba(248, 250, 252, 0.6); font-weight: 600; margin-top: 2px; }
+    .t-tooltip-divider { height: 1px; background: rgba(255, 255, 255, 0.08); margin: 8px 0; }
+    .t-tooltip-subtask { display: flex; flex-direction: column; gap: 6px; }
+    .t-tooltip-subtask-badge { display: inline-block; align-self: flex-start; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; color: #fff; text-transform: uppercase; letter-spacing: 0.3px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .t-tooltip-desc { font-size: 11px; color: rgba(248, 250, 252, 0.8); font-weight: 500; }
+    .t-tooltip-times { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
+    .t-tooltip-time-row { display: flex; justify-content: space-between; align-items: center; font-size: 11px; gap: 16px; }
+    .t-label { color: rgba(248, 250, 252, 0.5); }
+    .t-val { font-weight: 600; color: #ffffff; }
+    .t-tooltip-progress-wrap { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+    .t-tooltip-progress-bg { height: 4px; background: rgba(255,255,255,0.12); border-radius: 99px; overflow: hidden; }
+    .t-tooltip-progress-fill { height: 100%; border-radius: 99px; }
+    .t-tooltip-progress-lbl { font-size: 9px; font-weight: 600; color: rgba(248, 250, 252, 0.6); text-align: right; }
+    .t-tooltip-voyage-info { display: flex; flex-direction: column; gap: 6px; }
+    .t-tooltip-route { font-size: 11px; color: rgba(248, 250, 252, 0.85); }
 
     /* Transport legend */
     .transport-card {
@@ -600,6 +685,18 @@ export class ChartsDemoComponent {
     sidebarColumns: [
       { field: 'name', header: 'Vehicle', width: 200 },
     ],
+  });
+
+  transportMarkers = computed(() => {
+    const base = new Date();
+    base.setHours(6, 0, 0, 0); // match base time in transport dataset
+    const h = (hours: number): Date => new Date(base.getTime() + hours * 3600000);
+    return [
+      { date: h(8), label: 'Shift A Handover', color: '#ef4444' },
+      { date: h(16), label: 'Shift B Handover', color: '#f59e0b' },
+      { date: h(24), label: 'Daily Cargo Audit', color: '#8e44ad' },
+      { date: h(36), label: 'Shift C Handover', color: '#ef4444' },
+    ];
   });
 
   // ===== CODE SNIPPETS =====

@@ -31,19 +31,28 @@ export type ProgressVariant = 'primary' | 'success' | 'danger' | 'warning' | 'in
   styles: [`
     :host { display: block; }
     .ngx-progress-bar { width: 100%; }
-    .progress-label { font-size: 12px; font-weight: 600; color: var(--ngx-progress-label, #495057); margin-bottom: 4px; }
-    .progress-track { background: var(--ngx-progress-track, #e9ecef); border-radius: 999px; overflow: hidden; position: relative; }
-    .progress-fill { height: 100%; border-radius: 999px; transition: width 0.3s ease; }
-    .progress-value { font-size: 11px; color: #6c757d; margin-top: 3px; text-align: right; }
+    .progress-label { font-size: 12px; font-weight: 600; color: var(--ngx-progress-label, var(--text-secondary, #475569)); margin-bottom: 4px; }
+    .progress-track { background: var(--ngx-progress-track, var(--border-color, #e2e8f0)); border-radius: 999px; overflow: hidden; position: relative; }
+    .progress-fill { 
+      height: 100%; border-radius: 999px; transition: width 0.3s ease; 
+      background-image: linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent);
+      background-size: 1rem 1rem;
+      animation: progress-bar-stripes 1s linear infinite;
+    }
+    .progress-value { font-size: 11px; color: var(--text-secondary, #6c757d); margin-top: 3px; text-align: right; }
 
     .progress-fill-indeterminate { height: 100%; border-radius: 999px; width: 40%; animation: indeterminate 1.5s infinite ease-in-out; position: absolute; }
     @keyframes indeterminate { 0% { left: -40%; } 100% { left: 120%; } }
+    @keyframes progress-bar-stripes {
+      from { background-position: 1rem 0; }
+      to { background-position: 0 0; }
+    }
 
-    .variant-primary { background: var(--ngx-progress-primary, #1a73e8); }
-    .variant-success { background: var(--ngx-progress-success, #27ae60); }
-    .variant-danger { background: var(--ngx-progress-danger, #e74c3c); }
-    .variant-warning { background: var(--ngx-progress-warning, #f39c12); }
-    .variant-info { background: var(--ngx-progress-info, #17a2b8); }
+    .variant-primary { background-color: var(--ngx-progress-primary, #4f46e5); }
+    .variant-success { background-color: var(--ngx-progress-success, #10b981); }
+    .variant-danger { background-color: var(--ngx-progress-danger, #ef4444); }
+    .variant-warning { background-color: var(--ngx-progress-warning, #f59e0b); }
+    .variant-info { background-color: var(--ngx-progress-info, #3b82f6); }
   `]
 })
 export class ProgressBarComponent {

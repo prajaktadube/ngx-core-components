@@ -29,14 +29,24 @@ export type SkeletonShape = 'text' | 'circle' | 'rect' | 'card';
   `,
   styles: [`
     :host { display: block; }
-    .skeleton-circle, .skeleton-rect, .skeleton-text, .skeleton-card-body { background: var(--ngx-skeleton-bg, #e9ecef); border-radius: 4px; animation: shimmer 1.4s infinite; background-size: 200% 100%; background-image: linear-gradient(90deg, var(--ngx-skeleton-bg, #e9ecef) 0%, var(--ngx-skeleton-highlight, #f8f9fa) 50%, var(--ngx-skeleton-bg, #e9ecef) 100%); }
+    .skeleton-circle, .skeleton-rect, .skeleton-text { 
+      background: var(--ngx-skeleton-bg, var(--border-color, #e2e8f0)); 
+      border-radius: 4px; 
+      animation: shimmer 1.5s infinite linear; 
+      background-size: 200% 100%; 
+      background-image: linear-gradient(90deg, 
+        var(--ngx-skeleton-bg, var(--border-color, #e2e8f0)) 25%, 
+        var(--ngx-skeleton-highlight, var(--bg-primary, #f1f5f9)) 50%, 
+        var(--ngx-skeleton-bg, var(--border-color, #e2e8f0)) 75%
+      ); 
+    }
     .skeleton-circle { border-radius: 50%; }
     .skeleton-text { height: 14px; margin-bottom: 8px; border-radius: 4px; }
     .skeleton-text:last-child { margin-bottom: 0; }
     .skeleton-rect { border-radius: 6px; }
-    .skeleton-card { border-radius: 8px; overflow: hidden; }
-    .skeleton-card-body { background: none; padding: 12px; }
-    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    .skeleton-card { border-radius: var(--radius-md, 8px); overflow: hidden; background: var(--bg-secondary) !important; border: 1px solid var(--border-color); }
+    .skeleton-card-body { padding: 12px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
   `]
 })
 export class SkeletonComponent {

@@ -13,6 +13,9 @@
       </div>
     </div>
     <div class="navbar-end">
+      <button class="theme-toggle-btn" (click)="toggleDarkMode()" [title]="darkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        {{ darkMode() ? '☀️' : '🌙' }}
+      </button>
       <a href="https://github.com/prajaktadube/ngx-core-components" target="_blank" class="nav-link" title="GitHub Repository">
         <span>GitHub</span>
       </a>

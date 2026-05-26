@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, RouterModule.forRoot([])],
     }).compileComponents();
   });
 
@@ -14,16 +15,19 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'demo' title`, () => {
+  it('should toggle sidebarOpen when toggleSidebar is called', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('demo');
+    const initialValue = app.sidebarOpen();
+    app.toggleSidebar();
+    expect(app.sidebarOpen()).toBe(!initialValue);
   });
 
-  it('should render title', () => {
+  it('should toggle darkMode when toggleDarkMode is called', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, demo');
+    const app = fixture.componentInstance;
+    const initialValue = app.darkMode();
+    app.toggleDarkMode();
+    expect(app.darkMode()).toBe(!initialValue);
   });
 });

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { ButtonComponent, ButtonGroupComponent, ChipComponent, ChipListComponent, SplitButtonComponent, DropDownButtonComponent } from 'ngx-core-components/buttons';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
@@ -33,6 +33,100 @@ interface ApiRow { name: string; type: string; default: string; description: str
       <!-- ===== DEMO ===== -->
       @if (activeTab() === 'Demo') {
         <div class="tab-content">
+          <div class="section-label">Interactive Button Playground</div>
+          <div class="playground-card">
+            <div class="playground-preview">
+              <div class="preview-box">
+                <ngx-button
+                  [variant]="playgroundVariant()"
+                  [size]="playgroundSize()"
+                  [shape]="playgroundShape()"
+                  [disabled]="playgroundDisabled()"
+                  [loading]="playgroundLoading()"
+                  [prefixIcon]="playgroundPrefixIcon()"
+                  [suffixIcon]="playgroundSuffixIcon()"
+                  (click)="log('Playground button clicked!')"
+                >
+                  {{ playgroundText() }}
+                </ngx-button>
+              </div>
+            </div>
+            
+            <div class="playground-controls">
+              <div class="control-group">
+                <label>Text</label>
+                <input class="control-input" type="text" [value]="playgroundText()" (input)="playgroundText.set($any($event.target).value)" />
+              </div>
+              <div class="control-group-grid">
+                <div class="control-group">
+                  <label>Variant</label>
+                  <select [value]="playgroundVariant()" (change)="playgroundVariant.set($any($event.target).value)">
+                    <option value="primary">Primary</option>
+                    <option value="secondary">Secondary</option>
+                    <option value="success">Success</option>
+                    <option value="danger">Danger</option>
+                    <option value="warning">Warning</option>
+                    <option value="info">Info</option>
+                    <option value="ghost">Ghost</option>
+                    <option value="link">Link</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Size</label>
+                  <select [value]="playgroundSize()" (change)="playgroundSize.set($any($event.target).value)">
+                    <option value="sm">Small</option>
+                    <option value="md">Medium</option>
+                    <option value="lg">Large</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Shape</label>
+                  <select [value]="playgroundShape()" (change)="playgroundShape.set($any($event.target).value)">
+                    <option value="rectangle">Rectangle</option>
+                    <option value="rounded">Rounded</option>
+                    <option value="pill">Pill</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control-group-grid">
+                <div class="control-group">
+                  <label>Prefix Icon</label>
+                  <select [value]="playgroundPrefixIcon()" (change)="playgroundPrefixIcon.set($any($event.target).value)">
+                    <option value="">None</option>
+                    <option value="📥">📥 Download</option>
+                    <option value="🚀">🚀 Launch</option>
+                    <option value="✏️">✏️ Edit</option>
+                    <option value="🔍">🔍 Search</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Suffix Icon</label>
+                  <select [value]="playgroundSuffixIcon()" (change)="playgroundSuffixIcon.set($any($event.target).value)">
+                    <option value="">None</option>
+                    <option value="→">→ Next</option>
+                    <option value="✓">✓ Done</option>
+                    <option value="⚙️">⚙️ Settings</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control-checkboxes">
+                <label class="control-checkbox">
+                  <input type="checkbox" [checked]="playgroundDisabled()" (change)="playgroundDisabled.set($any($event.target).checked)" />
+                  Disabled
+                </label>
+                <label class="control-checkbox">
+                  <input type="checkbox" [checked]="playgroundLoading()" (change)="playgroundLoading.set($any($event.target).checked)" />
+                  Loading
+                </label>
+              </div>
+            </div>
+            
+            <div class="playground-code-block">
+              <pre><code>{{ playgroundCode() }}</code></pre>
+              <button class="copy-btn" (click)="copyToClipboard(playgroundCode())">Copy Code</button>
+            </div>
+          </div>
+
           <div class="section-label">Button Variants</div>
           <div class="demo-row wrap">
             <ngx-button variant="primary">Primary</ngx-button>
@@ -242,14 +336,160 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
     .api-type { color: #8e44ad !important; font-family: monospace; white-space: nowrap; }
     .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
+    
+    /* Playground Styles */
+    .playground-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+    }
+    .playground-preview {
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.02) 0%, rgba(124, 58, 237, 0.02) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-color);
+      min-height: 120px;
+    }
+    .preview-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .playground-controls {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .control-group label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .control-input, .playground-controls select {
+      padding: 8px 12px;
+      font-size: 13px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .control-input:focus, .playground-controls select:focus {
+      border-color: var(--primary-color);
+      box-shadow: var(--shadow-glow);
+    }
+    .control-group-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    .control-checkboxes {
+      display: flex;
+      gap: 20px;
+      margin-top: 8px;
+    }
+    .control-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .control-checkbox input {
+      cursor: pointer;
+    }
+    .playground-code-block {
+      padding: 16px 20px;
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .playground-code-block pre {
+      margin: 0;
+      font-family: 'Cascadia Code', Consolas, monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      flex: 1;
+    }
+    .copy-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .copy-btn:active {
+      transform: scale(0.96);
+    }
   `]
 })
+
 export class ButtonsDemoComponent {
   activeTab = signal('Demo');
   tabs = ['Demo', 'API Reference'];
   loading = signal(false);
   lastAction = signal('');
   tags = signal(['Angular', 'TypeScript', 'Enterprise', 'UI Library']);
+
+  // Playground Signals
+  playgroundVariant = signal<'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'ghost' | 'link'>('primary');
+  playgroundSize = signal<'sm' | 'md' | 'lg'>('md');
+  playgroundShape = signal<'rectangle' | 'rounded' | 'pill'>('rounded');
+  playgroundDisabled = signal(false);
+  playgroundLoading = signal(false);
+  playgroundPrefixIcon = signal('');
+  playgroundSuffixIcon = signal('');
+  playgroundText = signal('Interactive Button');
+
+  playgroundCode = computed(() => {
+    let code = `<ngx-button`;
+    if (this.playgroundVariant() !== 'primary') code += ` variant="${this.playgroundVariant()}"`;
+    if (this.playgroundSize() !== 'md') code += ` size="${this.playgroundSize()}"`;
+    if (this.playgroundShape() !== 'rounded') code += ` shape="${this.playgroundShape()}"`;
+    if (this.playgroundDisabled()) code += ` [disabled]="${this.playgroundDisabled()}"`;
+    if (this.playgroundLoading()) code += ` [loading]="${this.playgroundLoading()}"`;
+    if (this.playgroundPrefixIcon()) code += ` prefixIcon="${this.playgroundPrefixIcon()}"`;
+    if (this.playgroundSuffixIcon()) code += ` suffixIcon="${this.playgroundSuffixIcon()}"`;
+    code += `>${this.playgroundText()}</ngx-button>`;
+    return code;
+  });
+
+  copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text);
+    this.log('Copied code to clipboard: ' + text);
+  }
 
   howToCode = `import { Component } from '@angular/core';
 import { ButtonComponent, SplitButtonComponent } from 'ngx-core-components/buttons';

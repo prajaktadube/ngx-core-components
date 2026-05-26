@@ -12,6 +12,26 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   sidebarOpen = signal(true);
   searchQuery = signal('');
+  darkMode = signal(localStorage.getItem('ngx-dark-mode') === 'true');
+
+  constructor() {
+    this.applyTheme(this.darkMode());
+  }
+
+  toggleDarkMode(): void {
+    const nextVal = !this.darkMode();
+    this.darkMode.set(nextVal);
+    localStorage.setItem('ngx-dark-mode', String(nextVal));
+    this.applyTheme(nextVal);
+  }
+
+  private applyTheme(dark: boolean): void {
+    if (dark) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }
 
   navGroups = [
     {

@@ -122,6 +122,14 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
   template: `
     <div class="ngx-data-grid" [class.loading]="loading()">
 
+      <div class="grid-toolbar">
+        <span class="grid-toolbar-title">Data Grid</span>
+        <div class="grid-toolbar-actions">
+          <button class="grid-action-btn" (click)="exportToJson()" title="Export JSON">JSON</button>
+          <button class="grid-action-btn" (click)="exportToCsv()" title="Export CSV">CSV</button>
+        </div>
+      </div>
+
       @if (hasFilterableColumns()) {
         <div class="grid-filter-bar">
           @for (col of columns(); track col.field) {
@@ -402,53 +410,106 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
     :host { display: block; }
     .ngx-data-grid {
       font-family: inherit;
-      border: 1px solid var(--ngx-grid-border, #dee2e6);
-      border-radius: var(--ngx-grid-radius, 4px);
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-radius: var(--ngx-grid-radius, 12px);
       overflow: hidden;
-      background: var(--ngx-grid-bg, #fff);
+      background: var(--ngx-grid-bg, #ffffff);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .grid-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .grid-toolbar-title {
+      font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ngx-grid-text, #0f172a);
+    }
+    .grid-toolbar-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .grid-action-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-radius: 8px;
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+    }
+    .grid-action-btn:hover {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      border-color: var(--ngx-input-border, #cbd5e1);
+      transform: translateY(-0.5px);
+    }
+    .grid-action-btn:active {
+      transform: scale(0.97);
     }
     .grid-filter-bar {
       display: flex;
       gap: 8px;
-      padding: 8px 12px;
-      background: var(--ngx-grid-header-bg, #f1f3f5);
-      border-bottom: 1px solid var(--ngx-grid-border, #dee2e6);
+      padding: 10px 16px;
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
     }
     .grid-filter-input {
-      padding: 4px 8px;
-      border: 1px solid var(--ngx-grid-border, #dee2e6);
-      border-radius: 3px;
+      padding: 6px 12px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 8px;
       font-size: 12px;
       outline: none;
       font-family: inherit;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .grid-filter-input:focus { border-color: #4a90d9; }
+    .grid-filter-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
     .grid-filter-spacer { flex-shrink: 0; }
     .grid-table-wrap { overflow-x: auto; }
     .grid-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .grid-th {
-      padding: 10px 12px;
+      padding: 12px 16px;
       text-align: left;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ngx-grid-text-secondary, #6c757d);
-      background: var(--ngx-grid-header-bg, #f1f3f5);
-      border-bottom: 2px solid var(--ngx-grid-border, #dee2e6);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
       white-space: nowrap;
       user-select: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
     }
-    .grid-th.sortable { cursor: pointer; }
-    .grid-th.sortable:hover { background: #e9ecef; }
-    .grid-th.sort-asc, .grid-th.sort-desc { color: #4a90d9; }
+    .grid-th.sortable { cursor: pointer; transition: background-color 0.2s; }
+    .grid-th.sortable:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); }
+    .grid-th.sort-asc, .grid-th.sort-desc { color: var(--ngx-input-focus, #4f46e5); }
     .th-text { margin-right: 4px; }
-    .sort-icon { font-size: 10px; color: #adb5bd; }
-    .sort-asc .sort-icon, .sort-desc .sort-icon { color: #4a90d9; }
+    .sort-icon { font-size: 10px; color: #cbd5e1; }
+    .sort-asc .sort-icon, .sort-desc .sort-icon { color: var(--ngx-input-focus, #4f46e5); }
     .grid-group-row td {
-      background: #f8f9fa;
-      border-bottom: 1px solid #e9ecef;
-      color: #495057;
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-bottom: 1.5px solid var(--ngx-grid-border, #e2e8f0);
+      color: var(--ngx-grid-text, #0f172a);
       font-size: 12px;
-      padding: 9px 12px;
+      font-weight: 600;
+      padding: 11px 16px;
       cursor: pointer;
     }
     .group-toggle {
@@ -456,21 +517,22 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
       background: transparent;
       margin-right: 6px;
       cursor: pointer;
-      color: #6c757d;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-size: 12px;
     }
-    .group-count { color: #6c757d; margin-left: 4px; }
+    .group-count { color: var(--ngx-grid-text-secondary, #64748b); margin-left: 6px; font-weight: 500; }
     .grid-row {
-      border-bottom: 1px solid var(--ngx-grid-border, #dee2e6);
-      transition: background 0.1s;
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      transition: background-color 0.15s;
     }
-    .grid-row:hover { background: var(--ngx-grid-hover-bg, #f8f9fa); }
-    .grid-row.selected { background: var(--ngx-grid-selected-bg, #e8f0fe); }
-    .grid-table.striped .grid-row:nth-child(even) { background: #f8f9fa; }
-    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, #f8f9fa); }
-    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, #e8f0fe) !important; }
+    .grid-row:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); }
+    .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
+    .grid-table.striped .grid-row:nth-child(even) { background: var(--ngx-grid-stripe-bg, #f8fafc); }
+    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, #f1f5f9); }
+    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
     .grid-td {
-      padding: 9px 12px;
-      color: var(--ngx-grid-text, #212529);
+      padding: 11px 16px;
+      color: var(--ngx-grid-text, #0f172a);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -478,63 +540,85 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
     }
     .grid-th-check, .grid-td-check,
     .grid-th-toggle, .grid-td-toggle {
-      width: 40px !important;
+      width: 44px !important;
       text-align: center;
     }
     .toggle-btn {
       border: none;
       background: transparent;
-      color: #6c757d;
+      color: var(--ngx-grid-text-secondary, #64748b);
       cursor: pointer;
       font-size: 13px;
+      transition: color 0.15s;
     }
+    .toggle-btn:hover { color: var(--ngx-grid-text, #0f172a); }
     .grid-detail-row td {
-      background: #fcfcfd;
-      border-bottom: 1px solid var(--ngx-grid-border, #dee2e6);
+      background: var(--ngx-grid-stripe-bg, #f8fafc);
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
     }
     .grid-detail-cell {
-      padding: 12px 16px;
+      padding: 16px 24px;
       white-space: normal;
     }
     .grid-edit-input {
       width: 100%;
       min-width: 80px;
-      padding: 5px 8px;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
+      padding: 6px 10px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 6px;
       font-size: 12px;
       font-family: inherit;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
       box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .grid-edit-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
     .grid-actions { white-space: nowrap; }
     .action-btn {
-      border: 1px solid #ced4da;
-      background: #fff;
-      color: #495057;
-      border-radius: 4px;
-      padding: 4px 8px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      border-radius: 6px;
+      padding: 5px 10px;
       font-size: 12px;
+      font-weight: 500;
       margin-right: 6px;
       cursor: pointer;
+      transition: all 0.2s;
+      outline: none;
+    }
+    .action-btn:hover {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      border-color: var(--ngx-input-border, #cbd5e1);
     }
     .action-btn.save {
-      border-color: #1a73e8;
-      background: #1a73e8;
-      color: #fff;
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+    }
+    .action-btn.save:hover {
+      background: var(--ngx-btn-primary-hover, #4338ca);
+      border-color: var(--ngx-btn-primary-hover, #4338ca);
     }
     .action-btn:last-child { margin-right: 0; }
     .grid-loading-cell, .grid-empty-cell {
-      padding: 32px;
+      padding: 48px;
       text-align: center;
-      color: var(--ngx-grid-text-secondary, #6c757d);
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-weight: 500;
     }
     .grid-spinner {
-      width: 24px;
-      height: 24px;
-      border: 3px solid #dee2e6;
-      border-top-color: #4a90d9;
+      width: 28px;
+      height: 28px;
+      border: 3.5px solid var(--ngx-grid-border, #e2e8f0);
+      border-top-color: var(--ngx-btn-primary-bg, #4f46e5);
       border-radius: 50%;
-      animation: spin 0.7s linear infinite;
+      animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       margin: 0 auto;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -542,29 +626,39 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 12px;
-      border-top: 1px solid var(--ngx-grid-border, #dee2e6);
-      background: var(--ngx-grid-bg, #fff);
+      padding: 10px 16px;
+      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
+      background: var(--ngx-grid-bg, #ffffff);
       flex-wrap: wrap;
       gap: 8px;
     }
-    .page-info { font-size: 12px; color: var(--ngx-grid-text-secondary, #6c757d); }
-    .page-btns { display: flex; gap: 2px; }
+    .page-info { font-size: 12px; color: var(--ngx-grid-text-secondary, #64748b); font-weight: 500; }
+    .page-btns { display: flex; gap: 4px; }
     .page-btn {
-      min-width: 28px;
-      height: 28px;
-      padding: 0 6px;
-      font-size: 13px;
-      border: 1px solid var(--ngx-grid-border, #dee2e6);
-      background: var(--ngx-grid-bg, #fff);
-      border-radius: 3px;
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      background: var(--ngx-grid-bg, #ffffff);
+      border-radius: 8px;
       cursor: pointer;
       font-family: inherit;
-      color: var(--ngx-grid-text, #212529);
-      transition: background 0.1s;
+      color: var(--ngx-grid-text, #0f172a);
+      transition: all 0.2s;
+      outline: none;
     }
-    .page-btn:hover:not(:disabled) { background: #f1f3f5; }
-    .page-btn.active { background: #4a90d9; color: #fff; border-color: #4a90d9; }
+    .page-btn:hover:not(:disabled) {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      border-color: var(--ngx-input-border, #cbd5e1);
+    }
+    .page-btn.active {
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+    }
     .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   `],
 })
@@ -799,6 +893,40 @@ export class DataGridComponent<T extends object = Record<string, unknown>> {
     return this.filters().get(field) ?? '';
   }
 
+  exportToJson(): void {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.data(), null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", "grid-data.json");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+
+  exportToCsv(): void {
+    if (this.data().length === 0) return;
+    const cols = this.columns();
+    const headers = cols.map(c => c.title);
+    const fields = cols.map(c => c.field);
+    const rows = this.data().map(row => {
+      const r = row as Record<string, unknown>;
+      return fields.map(field => {
+        const val = r[field] ?? '';
+        const valStr = typeof val === 'object' ? JSON.stringify(val) : String(val);
+        return `"${valStr.replace(/"/g, '""')}"`;
+      });
+    });
+    const csvContent = [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", url);
+    downloadAnchor.setAttribute("download", "grid-data.csv");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+
   setFilter(field: string, value: string): void {
     const nextFilters = new Map(this.filters());
     if (value) {
@@ -1029,7 +1157,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> {
       pageSize: this.pageSize(),
       sort: this.sortState(),
       filters: this.activeFilters(),
-      group: overrideGroup !== undefined ? overrideGroup : this.groupBy(),
+      group: overrideGroup === undefined ? this.groupBy() : overrideGroup,
     });
   }
 }

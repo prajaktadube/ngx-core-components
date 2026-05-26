@@ -92,16 +92,16 @@ export interface DropdownOption {
     .ngx-dropdown-trigger {
       display: flex; align-items: center; justify-content: space-between;
       padding: 8px 12px; border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: var(--ngx-input-radius, 4px); background: var(--ngx-input-bg, #fff);
+      border-radius: var(--ngx-input-radius, 8px); background: var(--ngx-input-bg, #fff);
       cursor: pointer; user-select: none; font-size: 14px;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .ngx-dropdown-trigger:hover { border-color: #adb5bd; }
+    .ngx-dropdown-trigger:hover { border-color: var(--ngx-input-focus, #4f46e5); }
     .open .ngx-dropdown-trigger {
-      border-color: var(--ngx-input-focus, #4a90d9);
-      box-shadow: 0 0 0 2px rgba(74,144,217,0.18);
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
-    .disabled .ngx-dropdown-trigger { background: #f8f9fa; cursor: not-allowed; color: #adb5bd; }
+    .disabled .ngx-dropdown-trigger { background: var(--ngx-input-disabled-bg, #f8f9fa); cursor: not-allowed; color: #adb5bd; opacity: 0.7; }
     .trigger-text { flex: 1; color: var(--ngx-input-text, #212529); }
     .trigger-text.placeholder { color: #adb5bd; }
     .trigger-arrow { font-size: 10px; color: #6c757d; transition: transform 0.15s; }
@@ -109,21 +109,33 @@ export interface DropdownOption {
     .ngx-dropdown-popup {
       position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 1000;
       background: var(--ngx-input-bg, #fff); border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: var(--ngx-input-radius, 4px); box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      border-radius: var(--ngx-input-radius, 8px); box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0,0,0,0.1));
       overflow: hidden;
+      transform-origin: top;
+      animation: popup-slide 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes popup-slide {
+      from { opacity: 0; transform: translateY(-4px) scaleY(0.95); }
+      to { opacity: 1; transform: translateY(0) scaleY(1); }
     }
     .popup-search { padding: 8px; border-bottom: 1px solid var(--ngx-input-border, #ced4da); }
     .popup-search-input {
       width: 100%; padding: 6px 10px; border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: 3px; font-size: 13px; outline: none; font-family: inherit;
+      border-radius: var(--radius-sm, 6px); font-size: 13px; outline: none; font-family: inherit;
+      background: var(--bg-primary); color: var(--text-primary);
+      transition: all 0.15s ease;
+    }
+    .popup-search-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      background: var(--bg-secondary);
     }
     .popup-list { max-height: 240px; overflow-y: auto; }
     .popup-item {
       padding: 8px 12px; font-size: 14px; cursor: pointer;
-      color: var(--ngx-input-text, #212529); transition: background 0.1s;
+      color: var(--ngx-input-text, #212529); transition: all 0.12s;
     }
-    .popup-item:hover, .popup-item.focused { background: var(--ngx-input-hover-bg, #f1f3f5); }
-    .popup-item.selected { background: var(--ngx-input-selected-bg, #e8f0fe); color: var(--ngx-input-focus, #4a90d9); font-weight: 500; }
+    .popup-item:hover, .popup-item.focused { background: var(--ngx-grid-hover-bg, #f1f3f5); color: var(--ngx-input-focus, #4f46e5); }
+    .popup-item.selected { background: var(--ngx-grid-selected-bg, #e8f0fe); color: var(--ngx-input-focus, #4f46e5); font-weight: 600; }
     .popup-item.disabled { color: #adb5bd; cursor: not-allowed; }
     .popup-item.disabled:hover { background: none; }
     .popup-empty { padding: 12px; text-align: center; color: #adb5bd; font-size: 13px; }

@@ -1,4 +1,129 @@
-/* Global styles */
+:root {
+  --ngx-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ngx-heading-font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Custom Light Palette */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --primary-glow: rgba(79, 70, 229, 0.15);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Library Component CSS Variables overrides (Light Theme defaults) */
+  --ngx-btn-radius: 8px;
+  --ngx-input-radius: 8px;
+  --ngx-grid-radius: 10px;
+  --ngx-gantt-font: var(--ngx-font-family);
+
+  /* Override specific component custom properties */
+  --ngx-btn-primary-bg: #4f46e5;
+  --ngx-btn-primary-hover: #4338ca;
+  --ngx-input-focus: #4f46e5;
+  --ngx-input-border: #cbd5e1;
+  --ngx-input-bg: #ffffff;
+  --ngx-grid-header-bg: #f8fafc;
+  --ngx-grid-border: #e2e8f0;
+  --ngx-grid-hover-bg: #f1f5f9;
+  --ngx-grid-selected-bg: #e0e7ff;
+  --ngx-gantt-bg: #ffffff;
+  --ngx-gantt-border: #e2e8f0;
+  --ngx-gantt-header-bg: #f8fafc;
+  --ngx-gantt-grid-line: #f1f5f9;
+  --ngx-gantt-hover-bg: #f8fafc;
+  --ngx-gantt-selected-bg: #e0e7ff;
+  --ngx-gantt-bar-bg: #4f46e5;
+  --ngx-gantt-bar-progress-bg: #3730a3;
+  --ngx-gantt-today-color: #ef4444;
+}
+
+body.dark-theme {
+  /* Custom Dark Palette */
+  --bg-primary: #0b0f19;
+  --bg-secondary: #111827;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #1f2937;
+  --border-light: #111827;
+
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --primary-glow: rgba(99, 102, 241, 0.25);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+
+  /* Library overrides for dark theme */
+  --ngx-input-bg: #111827;
+  --ngx-input-border: #1f2937;
+  --ngx-input-text: #f8fafc;
+  --ngx-input-label: #94a3b8;
+  --ngx-input-focus: #6366f1;
+  --ngx-input-error: #f87171;
+  
+  --ngx-btn-primary-bg: #6366f1;
+  --ngx-btn-primary-hover: #4f46e5;
+  --ngx-btn-secondary-bg: #1f2937;
+  --ngx-btn-secondary-color: #f8fafc;
+  --ngx-btn-secondary-border: #374151;
+  --ngx-btn-secondary-hover: #374151;
+  --ngx-btn-ghost-color: #818cf8;
+  --ngx-btn-ghost-border: #374151;
+  --ngx-btn-ghost-hover-bg: #1e1b4b;
+
+  --ngx-grid-bg: #111827;
+  --ngx-grid-header-bg: #0f172a;
+  --ngx-grid-border: #1f2937;
+  --ngx-grid-hover-bg: #1e293b;
+  --ngx-grid-selected-bg: #312e81;
+  --ngx-grid-text: #f8fafc;
+  --ngx-grid-stripe-bg: #111827;
+  --ngx-grid-text-secondary: #94a3b8;
+
+  --ngx-tree-bg: #111827;
+  --ngx-tree-border: #1f2937;
+  --ngx-tree-hover-bg: #1e293b;
+  --ngx-tree-selected-bg: #312e81;
+  --ngx-tree-selected-color: #818cf8;
+  --ngx-tree-text: #f8fafc;
+
+  --ngx-gantt-bg: #111827;
+  --ngx-gantt-border: #1f2937;
+  --ngx-gantt-text: #f8fafc;
+  --ngx-gantt-header-bg: #0f172a;
+  --ngx-gantt-grid-line: #1f2937;
+  --ngx-gantt-alt-bg: #111827;
+  --ngx-gantt-hover-bg: #1e293b;
+  --ngx-gantt-selected-bg: #312e81;
+  --ngx-gantt-bar-bg: #6366f1;
+  --ngx-gantt-bar-progress-bg: #4338ca;
+  --ngx-gantt-today-color: #ef4444;
+
+  --ngx-tooltip-bg: #0f172a;
+  --ngx-tooltip-color: #f8fafc;
+  --ngx-popover-bg: #111827;
+  --ngx-popover-border: #1f2937;
+  --ngx-popover-header-bg: #0f172a;
+  --ngx-popover-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -8,9 +133,10 @@ html, body {
   padding: 0;
   height: 100%;
   overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #f7f8fb;
-  color: #212529;
+  font-family: var(--ngx-font-family);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Scrollbar styling */
