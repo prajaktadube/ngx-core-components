@@ -90,6 +90,13 @@ jobs:
             echo ".npmrc not found in home directory."
           fi
 
+      - name: List dist/ngx-core-components contents
+        run: |
+          echo "Listing dist/ngx-core-components directory:"
+          ls -lR dist/ngx-core-components
+          echo "\nDisplaying dist/ngx-core-components/package.json:"
+          cat dist/ngx-core-components/package.json
+
       - name: Publish to npm
         # Run from workspace root so actions/setup-node's .npmrc (with auth) is used.
         # NODE_AUTH_TOKEN is resolved by npm from the .npmrc written by setup-node.
