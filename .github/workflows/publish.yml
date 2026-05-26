@@ -79,16 +79,11 @@ jobs:
         run: npx ng build ngx-core-components
 
       - name: Publish to npm
-        run: |
-          if [ -z "${NODE_AUTH_TOKEN}" ]; then
-            echo "ERROR: NPM_TOKEN secret is missing or empty"
-            exit 1
-          fi
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > dist/ngx-core-components/.npmrc
-          cd dist/ngx-core-components && npm publish --access public --userconfig .npmrc
+        # Run from workspace root so actions/setup-node's .npmrc (with auth) is used.
+        # NODE_AUTH_TOKEN is resolved by npm from the .npmrc written by setup-node.
+        run: npm publish dist/ngx-core-components --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_USERCONFIG: ""
 
       - name: Push Version Update back to GitHub
         run: git push origin HEAD:main --follow-tags
