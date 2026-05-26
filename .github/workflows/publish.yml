@@ -78,6 +78,18 @@ jobs:
       - name: Build the Angular Library
         run: npx ng build ngx-core-components
 
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Check for .npmrc
+        run: |
+          if [ -f "$HOME/.npmrc" ]; then
+            echo ".npmrc found in home directory:"
+            cat $HOME/.npmrc
+          else
+            echo ".npmrc not found in home directory."
+          fi
+
       - name: Publish to npm
         # Run from workspace root so actions/setup-node's .npmrc (with auth) is used.
         # NODE_AUTH_TOKEN is resolved by npm from the .npmrc written by setup-node.
