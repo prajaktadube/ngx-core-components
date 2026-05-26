@@ -5,21 +5,19 @@ on:
     branches:
       - main
 
+# Explicitly grant the GitHub Action permission to push the version bump back to the repo
 permissions:
   contents: write
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    # Skip Dependabot commits — they only bump deps, not library code
-    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          ref: main
+          fetch-depth: 0 # Required to push version tags back to the repository
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -35,74 +33,24 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Determine Version Bump Type
-        id: determine_bump
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-          echo "Commit message: $COMMIT_MSG"
-          
-          if [[ "$COMMIT_MSG" == *"BREAKING CHANGE"* ]] || [[ "$COMMIT_MSG" == *"major:"* ]]; then
-            echo "BUMP_TYPE=major" >> $GITHUB_ENV
-          elif [[ "$COMMIT_MSG" == *"feat:"* ]] || [[ "$COMMIT_MSG" == *"minor:"* ]]; then
-            echo "BUMP_TYPE=minor" >> $GITHUB_ENV
-          else
-            echo "BUMP_TYPE=patch" >> $GITHUB_ENV
-          fi
-
-      - name: Auto-Sync and Bump Version
+      - name: Bump Version in Library
+        # Navigates to your library folder and bumps the patch version (e.g., 0.0.5 -> 0.0.6)
+        # The [skip ci] tag is CRITICAL: it prevents this commit from triggering an infinite loop of workflows
         run: |
           cd projects/ngx-core-components
-
-          LIVE_VERSION=$(npm show ngx-core-components version --registry https://registry.npmjs.org 2>/dev/null || echo "")
-          LOCAL_VERSION=$(node -p "require('./package.json').version")
-
-          # Only sync from registry if the package is confirmed to be ours
-          # (registry returns a version AND it is >= local, meaning we own it)
-          if [ -n "$LIVE_VERSION" ]; then
-            OWNER=$(npm show ngx-core-components --json 2>/dev/null | node -e "try{const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));process.stdout.write(d.maintainers?.[0]?.name||'')}catch(e){}")
-            if [ "$OWNER" = "prajaktadube" ]; then
-              npm version $LIVE_VERSION --no-git-tag-version --allow-same-version
-            fi
-          fi
-
-          npm version ${{ env.BUMP_TYPE }} --no-git-tag-version
-
-          NEW_VERSION=$(node -p "require('./package.json').version")
-          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-
-          cd ../..
-          git add projects/ngx-core-components/package.json
-          git commit -m "chore: release version $NEW_VERSION [skip ci]"
-          git tag "v$NEW_VERSION"
+          npm version patch -m "chore: release version %s [skip ci]"
 
       - name: Build the Angular Library
         run: npx ng build ngx-core-components
 
-      - name: Clean npm cache
-        run: npm cache clean --force
-
-      - name: Check for .npmrc
-        run: |
-          if [ -f "$HOME/.npmrc" ]; then
-            echo ".npmrc found in home directory:"
-            cat $HOME/.npmrc
-          else
-            echo ".npmrc not found in home directory."
-          fi
-
-      - name: List dist/ngx-core-components contents
-        run: |
-          echo "Listing dist/ngx-core-components directory:"
-          ls -lR dist/ngx-core-components
-          echo "\nDisplaying dist/ngx-core-components/package.json:"
-          cat dist/ngx-core-components/package.json
-
       - name: Publish to npm
-        # Run from workspace root so actions/setup-node's .npmrc (with auth) is used.
-        # NODE_AUTH_TOKEN is resolved by npm from the .npmrc written by setup-node.
-        run: npm publish dist/ngx-core-components --access public
+        # Navigates to the compiled output folder and publishes to npm
+        run: |
+          cd dist/ngx-core-components
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push Version Update back to GitHub
-        run: git push origin HEAD:main --follow-tags
+        # Pushes the newly created version commit and tag back to your main branch
+        run: git push origin main --follow-tags
