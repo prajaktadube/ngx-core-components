@@ -1,4 +1,4 @@
-import { Component, input, output, signal, computed } from '@angular/core';
+import { Component, OnInit, input, output, signal, computed } from '@angular/core';
 
 @Component({
   selector: 'ngx-slider',
@@ -49,20 +49,34 @@ import { Component, input, output, signal, computed } from '@angular/core';
     .slider-ticks { display: flex; justify-content: space-between; font-size: 10px; color: #adb5bd; margin-top: 4px; padding: 0 5px; }
   `]
 })
-export class SliderComponent {
+export class SliderComponent implements OnInit {
   label = input('');
   min = input(0);
   max = input(100);
   step = input(1);
-  value = signal(0);
-  low = signal(20);
-  high = signal(80);
   range = input(false);
   disabled = input(false);
   showValue = input(true);
   showTicks = input(false);
+
+  /** Initial value for single-handle mode. */
+  initialValue = input<number>(0);
+  /** Initial low value for range mode. */
+  initialLow = input<number>(20);
+  /** Initial high value for range mode. */
+  initialHigh = input<number>(80);
+
+  value = signal(0);
+  low = signal(20);
+  high = signal(80);
   valueChange = output<number>();
   rangeChange = output<[number, number]>();
+
+  ngOnInit(): void {
+    this.value.set(this.clamp(this.initialValue(), this.min(), this.max()));
+    this.low.set(this.clamp(this.initialLow(), this.min(), this.max()));
+    this.high.set(this.clamp(this.initialHigh(), this.min(), this.max()));
+  }
 
   pct = computed(() => {
     const min = this.min();

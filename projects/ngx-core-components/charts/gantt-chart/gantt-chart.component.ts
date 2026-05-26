@@ -40,6 +40,7 @@ import {
   GanttVirtualScrolledIndexChangeEvent,
   GanttViewChangeEvent,
   GanttExpandChangeEvent,
+  GanttTooltipContext,
 } from './models';
 import { GanttScaleService } from './services/gantt-scale.service';
 import { GanttLayoutService, FlatRow } from './services/gantt-layout.service';
@@ -65,34 +66,17 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
 
       @if (mergedConfig().showToolbar) {
         <div class="k-gantt-toolbar">
-          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-            <div class="k-toolbar-group k-toolbar-views">
-              @for (vt of mergedConfig().toolbarOptions.viewTypes; track vt) {
-                <button class="k-toolbar-btn" [class.k-active]="mergedConfig().zoomLevel === vt" (click)="onToolbarViewChange(vt)">{{ getViewLabel(vt) }}</button>
-              }
-            </div>
-            <div class="k-toolbar-group">
-              <input 
-                type="text" 
-                class="k-search-input" 
-                placeholder="Search tasks..." 
-                [value]="ganttSearchQuery()"
-                (input)="onSearchInput($event)"
-              />
-            </div>
+          <div class="k-toolbar-group k-toolbar-views">
+            @for (vt of mergedConfig().toolbarOptions.viewTypes; track vt) {
+              <button class="k-toolbar-btn" [class.k-active]="mergedConfig().zoomLevel === vt" (click)="onToolbarViewChange(vt)">{{ getViewLabel(vt) }}</button>
+            }
           </div>
-          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-            <div class="k-toolbar-group">
-              <button class="k-toolbar-btn" (click)="exportToJson()" title="Export to JSON">JSON</button>
-              <button class="k-toolbar-btn" (click)="exportToCsv()" title="Export to CSV">CSV</button>
-            </div>
-            <div class="k-toolbar-group">
-              <button class="k-toolbar-btn" (click)="scrollToToday()" title="Go to Today">Today</button>
-              @if (mergedConfig().collapsible) {
-                <button class="k-toolbar-btn" (click)="expandAll()">Expand</button>
-                <button class="k-toolbar-btn" (click)="collapseAll()">Collapse</button>
-              }
-            </div>
+          <div class="k-toolbar-group">
+            <button class="k-toolbar-btn" (click)="scrollToToday()" title="Go to Today">Today</button>
+            @if (mergedConfig().collapsible) {
+              <button class="k-toolbar-btn" (click)="expandAll()">Expand</button>
+              <button class="k-toolbar-btn" (click)="collapseAll()">Collapse</button>
+            }
           </div>
         </div>
       }
@@ -109,7 +93,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               </tr></thead>
             </table>
           </div>
-          <div class="k-treelist-content" #treelistContent>
+          <div class="k-treelist-content" #treelistContent (wheel)="onTreelistWheel($event)">
             <table class="k-treelist-table">
               <colgroup>
                 @for (col of sidebarColumns(); track col.header + '-' + $index) { <col [style.width.px]="col.width"/> }
@@ -117,7 +101,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               <tbody>
                 @for (row of renderedRows(); track row.task.id; let i = $index) {
                   <tr class="k-treelist-row" [class.k-group-header-row]="row.isGroupHeader" [style.height.px]="mergedConfig().rowHeight"
-                    [class.k-alt]="i % 2 === 1 && !row.isGroupHeader" [class.k-selected]="isTaskSelected(row.task.id)" [class.k-hover]="hoveredTaskId() === row.task.id"
+                    [class.k-alt]="mergedConfig().enableAlternateRowColor && i % 2 === 1 && !row.isGroupHeader" [class.k-selected]="isTaskSelected(row.task.id)" [class.k-hover]="hoveredTaskId() === row.task.id"
                     (mouseenter)="hoveredTaskId.set(row.task.id)" (mouseleave)="hoveredTaskId.set(null)" (click)="onRowClick(row.task, $event)">
                     @if (row.isGroupHeader) {
                       <td class="k-treelist-cell k-group-cell" [attr.colspan]="sidebarColumns().length">
@@ -188,7 +172,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               <div class="k-gantt-rows">
                 @for (row of renderedRows(); track row.task.id; let i = $index) {
                   <div class="k-gantt-row" [class.k-group-row]="row.isGroupHeader" [style.top.px]="i * mergedConfig().rowHeight" [style.height.px]="mergedConfig().rowHeight"
-                    [class.k-alt]="i % 2 === 1 && !row.isGroupHeader" [class.k-hover]="hoveredTaskId() === row.task.id" [class.k-selected]="isTaskSelected(row.task.id)"
+                    [class.k-alt]="mergedConfig().enableAlternateRowColor && i % 2 === 1 && !row.isGroupHeader" [class.k-hover]="hoveredTaskId() === row.task.id" [class.k-selected]="isTaskSelected(row.task.id)"
                     (mouseenter)="hoveredTaskId.set(row.task.id)" (mouseleave)="hoveredTaskId.set(null)"
                     (dragover)="mergedConfig().tableDraggable ? onTableDragOver($event, row) : null" (drop)="mergedConfig().tableDraggable ? onTableDrop($event, row) : null">
                   </div>
@@ -197,20 +181,15 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
 
               @if (mergedConfig().showGrid) {
                 <div class="k-gantt-columns">
-                  @for (col of headerColumns(); track col.x) {
-                    <div class="k-gantt-column" [style.left.px]="col.x" [style.width.px]="col.width" [style.height.px]="totalHeight()" [class.k-weekend-col]="col.isWeekend"></div>
+                  @for (col of headerColumns(); track col.x; let colIndex = $index) {
+                    <div class="k-gantt-column" [style.left.px]="col.x" [style.width.px]="col.width" [style.height.px]="totalHeight()" 
+                      [class.k-weekend-col]="col.isWeekend" [class.k-alt-col]="mergedConfig().enableAlternateColumnColor && colIndex % 2 === 1"></div>
                   }
                 </div>
               }
 
               @if (mergedConfig().showTodayMarker && todayX() !== null) {
                 <div class="k-today-marker" [style.left.px]="todayX()" [style.height.px]="totalHeight()"><div class="k-today-indicator"></div></div>
-              }
-
-              @for (marker of timelineMarkers(); track marker.label + '-' + marker.x) {
-                <div class="k-timeline-marker" [style.left.px]="marker.x" [style.height.px]="totalHeight()" [style.border-left-color]="marker.color || 'var(--ngx-gantt-border, #cbd5e1)'" [class]="marker.cssClass || ''">
-                  <span class="k-timeline-marker-label" [style.background]="marker.color || '#64748b'">{{ marker.label }}</span>
-                </div>
               }
 
               @if (mergedConfig().showBaseline && baselineItems().length > 0) {
@@ -325,17 +304,17 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     @if (tooltipTask()) {
       <div class="k-bar-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
         @if (tooltipTemplate()) {
-          <ng-container [ngTemplateOutlet]="tooltipTemplate()!" [ngTemplateOutletContext]="{ task: tooltipTask(), subtask: tooltipSubtask(), format: formatTooltipDate.bind(this) }"></ng-container>
+          <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: { task: tooltipTask()!, subtask: tooltipSubtask() ?? undefined } }" />
         } @else {
           <div class="k-bar-tooltip-title">{{ tooltipTask()!.name }}</div>
           @if (tooltipSubtask()) {
             <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Subtask</span><span class="k-bar-tooltip-value">{{ tooltipSubtask()!.name }}</span></div>
-            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatTooltipDate(tooltipSubtask()!.start) }}</span></div>
-            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatTooltipDate(tooltipSubtask()!.end) }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.start) }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipSubtask()!.end) }}</span></div>
             @if (tooltipSubtask()!.progress != null) { <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Progress</span><span class="k-bar-tooltip-value">{{ tooltipSubtask()!.progress }}%</span></div> }
           } @else {
-            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatTooltipDate(tooltipTask()!.start) }}</span></div>
-            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatTooltipDate(tooltipTask()!.end) }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.start) }}</span></div>
+            <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.end) }}</span></div>
             <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Progress</span><span class="k-bar-tooltip-value">{{ tooltipTask()!.progress }}%</span></div>
           }
         }
@@ -357,149 +336,133 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
   `,
   styles: [`
     :host { display: block; height: 100%; min-height: var(--ngx-gantt-min-height, 420px); position: relative; }
-    .k-gantt { display: flex; flex-direction: column; height: 100%; min-height: inherit; width: 100%; background: var(--ngx-gantt-bg, #ffffff); border: 1px solid var(--ngx-gantt-border, #e2e8f0); border-radius: 12px; font-family: var(--ngx-gantt-font, 'Inter', sans-serif); font-size: var(--ngx-gantt-font-size, 13px); color: var(--ngx-gantt-text, #0f172a); overflow: hidden; position: relative; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05); transition: background-color 0.3s, border-color 0.3s; }
+    .k-gantt { display: flex; flex-direction: column; height: 100%; min-height: inherit; width: 100%; background: var(--ngx-gantt-bg, #ffffff); border: 1px solid var(--ngx-gantt-border, #dee2e6); border-radius: 4px; font-family: var(--ngx-gantt-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif); font-size: var(--ngx-gantt-font-size, 13px); color: var(--ngx-gantt-text, #212529); overflow: hidden; position: relative; }
     .k-gantt-body { display: flex; flex: 1; min-height: 0; overflow: hidden; }
-    .k-gantt-toolbar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--ngx-gantt-border, #e2e8f0); background: var(--ngx-gantt-header-bg, #f8fafc); flex-shrink: 0; justify-content: space-between; flex-wrap: wrap; }
-    .k-toolbar-group { display: flex; gap: 6px; align-items: center; }
-    .k-toolbar-btn { padding: 6px 14px; border: 1px solid var(--ngx-gantt-border, #e2e8f0); border-radius: 8px; background: var(--ngx-gantt-bg, #ffffff); color: var(--ngx-gantt-text, #0f172a); font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); outline: none; }
-    .k-toolbar-btn:hover { background: var(--ngx-gantt-hover-bg, #f1f5f9); border-color: var(--ngx-input-border, #cbd5e1); transform: translateY(-0.5px); }
-    .k-toolbar-btn:active { transform: scale(0.97); }
-    .k-toolbar-btn.k-active { background: var(--ngx-btn-primary-bg, #4f46e5); color: #ffffff; border-color: var(--ngx-btn-primary-bg, #4f46e5); box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2); }
-    .k-search-input { padding: 6px 14px; font-size: 12px; border: 1px solid var(--ngx-input-border, #cbd5e1); border-radius: 8px; background: var(--ngx-input-bg, #ffffff); color: var(--ngx-gantt-text, #0f172a); outline: none; transition: all 0.2s ease; width: 180px; }
-    .k-search-input:focus { border-color: var(--ngx-input-focus, #4f46e5); box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15)); width: 220px; }
-    .k-gantt-treelist { display: flex; flex-direction: column; flex-shrink: 0; border-right: 1px solid var(--ngx-gantt-border, #e2e8f0); overflow: hidden; background: var(--ngx-gantt-bg, #ffffff); transition: width 0.15s ease; }
-    .k-treelist-header { flex-shrink: 0; background: var(--ngx-gantt-header-bg, #f8fafc); border-bottom: 1px solid var(--ngx-gantt-border, #e2e8f0); overflow: hidden; display: flex; align-items: flex-end; }
+    .k-gantt-toolbar { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-bottom: 1px solid var(--ngx-gantt-border, #dee2e6); background: var(--ngx-gantt-header-bg, #f1f3f5); flex-shrink: 0; }
+    .k-toolbar-group { display: flex; gap: 4px; }
+    .k-toolbar-btn { padding: 4px 12px; border: 1px solid var(--ngx-gantt-border, #dee2e6); border-radius: 4px; background: var(--ngx-gantt-bg, #fff); color: var(--ngx-gantt-text, #212529); font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.12s; }
+    .k-toolbar-btn:hover { background: var(--ngx-gantt-hover-bg, #e8f0fe); }
+    .k-toolbar-btn.k-active { background: var(--k-primary, #4a90d9); color: #fff; border-color: var(--k-primary, #4a90d9); }
+    .k-gantt-treelist { display: flex; flex-direction: column; flex-shrink: 0; border-right: 1px solid var(--ngx-gantt-border, #dee2e6); overflow: hidden; background: var(--ngx-gantt-bg, #ffffff); }
+    .k-treelist-header { flex-shrink: 0; background: var(--ngx-gantt-header-bg, #f1f3f5); border-bottom: 1px solid var(--ngx-gantt-border, #dee2e6); overflow: hidden; display: flex; align-items: flex-end; }
     .k-treelist-header-table, .k-treelist-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    .k-header-cell { padding: 10px 8px; text-align: left; font-size: 11px; font-weight: 700; color: var(--ngx-gantt-header-text, #64748b); text-transform: uppercase; letter-spacing: 0.05em; border-right: 1px solid var(--ngx-gantt-border, #e2e8f0); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif); }
+    .k-header-cell { padding: 8px; text-align: left; font-size: 12px; font-weight: 600; color: var(--ngx-gantt-header-text, #495057); border-right: 1px solid var(--ngx-gantt-border, #dee2e6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .k-header-cell:last-child { border-right: none; text-align: center; }
-    .k-treelist-content { flex: 1; overflow-y: auto; overflow-x: hidden; }
-    .k-treelist-row { cursor: default; border-bottom: 1px solid var(--ngx-gantt-grid-line, #f1f5f9); transition: background-color 0.15s; }
-    .k-treelist-row.k-alt { background: var(--ngx-gantt-alt-bg, #f8fafc); }
-    .k-treelist-row.k-hover { background: var(--ngx-gantt-hover-bg, #f1f5f9) !important; }
-    .k-treelist-row.k-selected { background: var(--ngx-gantt-selected-bg, #e0e7ff) !important; }
-    .k-treelist-cell { padding: 0 10px; height: 100%; vertical-align: middle; border-right: 1px solid var(--ngx-gantt-grid-line, #f1f5f9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .k-treelist-content { flex: 1; overflow: hidden; }
+    .k-treelist-row { cursor: default; border-bottom: 1px solid var(--ngx-gantt-grid-line, #ebedf0); }
+    .k-treelist-row.k-alt { background: var(--ngx-gantt-alt-bg, #f8f9fa); }
+    .k-treelist-row.k-hover { background: var(--ngx-gantt-hover-bg, #e8f0fe) !important; }
+    .k-treelist-row.k-selected { background: var(--ngx-gantt-selected-bg, #d0e1f9) !important; }
+    .k-treelist-cell { padding: 0 8px; height: 100%; vertical-align: middle; border-right: 1px solid var(--ngx-gantt-grid-line, #ebedf0); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .k-treelist-cell:last-child { border-right: none; }
-    .k-group-header-row { background: var(--ngx-gantt-header-bg, #f8fafc) !important; font-weight: 600; border-bottom: 1.5px solid var(--ngx-gantt-border, #e2e8f0); }
-    .k-group-cell { display: flex; align-items: center; gap: 6px; }
-    .k-group-title { font-size: 13px; font-weight: 700; color: var(--ngx-gantt-text, #0f172a); }
-    .k-group-row { background: var(--ngx-gantt-header-bg, #f8fafc) !important; opacity: 0.85; }
+    .k-group-header-row { background: var(--ngx-gantt-header-bg, #f1f3f5) !important; font-weight: 600; }
+    .k-group-cell { display: flex; align-items: center; gap: 4px; }
+    .k-group-title { font-size: 13px; font-weight: 700; }
+    .k-group-row { background: var(--ngx-gantt-header-bg, #f1f3f5) !important; }
     .k-name-cell { display: flex; align-items: center; gap: 0; }
     .k-indent { display: inline-block; flex-shrink: 0; }
-    .k-name-wrapper { display: flex; flex-direction: column; min-width: 0; justify-content: center; gap: 3px; overflow: hidden; }
-    .k-extra-tasks-chips { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 1px; }
-    .k-extra-task-chip { display: inline-flex; align-items: center; padding: 0 6px; height: 16px; border-radius: 99px; font-size: 9px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; opacity: 0.9; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-    .k-multi-pct { cursor: help; font-weight: 600; color: var(--ngx-gantt-text, #0f172a); }
-    .k-drag-handle { cursor: grab; color: var(--ngx-gantt-text-secondary, #94a3b8); font-size: 12px; padding: 0 6px; flex-shrink: 0; opacity: 0.4; user-select: none; transition: opacity 0.15s; }
-    .k-drag-handle:hover { opacity: 0.85; }
-    .k-collapse-btn { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; flex-shrink: 0; background: none; border: none; cursor: pointer; padding: 0; color: var(--ngx-gantt-text-secondary, #64748b); border-radius: 6px; transition: all 0.15s; }
-    .k-collapse-btn:hover { background: var(--ngx-gantt-border, #e2e8f0); color: var(--ngx-gantt-text, #0f172a); }
-    .k-icon { font-size: 8px; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
+    .k-name-wrapper { display: flex; flex-direction: column; min-width: 0; justify-content: center; gap: 2px; overflow: hidden; }
+    .k-extra-tasks-chips { display: flex; flex-wrap: wrap; gap: 3px; }
+    .k-extra-task-chip { display: inline-flex; align-items: center; padding: 0 5px; height: 14px; border-radius: 7px; font-size: 10px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; opacity: 0.9; font-weight: 500; }
+    .k-multi-pct { cursor: help; }
+    .k-drag-handle { cursor: grab; color: var(--ngx-gantt-text-secondary, #6c757d); font-size: 12px; padding: 0 4px; flex-shrink: 0; opacity: 0.5; user-select: none; }
+    .k-drag-handle:hover { opacity: 1; }
+    .k-collapse-btn { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex-shrink: 0; background: none; border: none; cursor: pointer; padding: 0; color: var(--ngx-gantt-text-secondary, #6c757d); border-radius: 3px; }
+    .k-collapse-btn:hover { background: var(--ngx-gantt-border, #dee2e6); }
+    .k-icon { font-size: 8px; transition: transform 0.15s ease; display: inline-block; }
     .k-icon.k-collapsed { transform: rotate(-90deg); }
-    .k-collapse-spacer { display: inline-block; width: 22px; flex-shrink: 0; }
-    .k-milestone-icon { color: var(--ngx-gantt-milestone-color, #ef4444); margin-right: 6px; font-size: 10px; flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(239, 68, 68, 0.2)); }
-    .k-task-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
-    .k-summary-name { font-weight: 700; color: var(--ngx-gantt-text, #0f172a); }
-    .k-date-cell { font-size: 11px; color: var(--ngx-gantt-text-secondary, #64748b); text-align: center; }
-    .k-pct-cell { font-size: 11px; text-align: center; font-weight: 600; }
-    .k-splitbar { width: 8px; flex-shrink: 0; background: var(--ngx-gantt-header-bg, #f8fafc); border-left: 1px solid var(--ngx-gantt-border, #e2e8f0); border-right: 1px solid var(--ngx-gantt-border, #e2e8f0); cursor: col-resize; display: flex; align-items: center; justify-content: center; user-select: none; z-index: 2; transition: background-color 0.2s; }
-    .k-splitbar:hover { background: var(--ngx-gantt-border, #e2e8f0); }
-    .k-splitbar-icon { color: var(--ngx-gantt-text-secondary, #94a3b8); font-size: 14px; line-height: 1; opacity: 0.6; }
-    .k-splitbar:hover .k-splitbar-icon { opacity: 1; }
+    .k-collapse-spacer { display: inline-block; width: 20px; flex-shrink: 0; }
+    .k-milestone-icon { color: var(--ngx-gantt-milestone-color, #e74c3c); margin-right: 4px; font-size: 10px; flex-shrink: 0; }
+    .k-task-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .k-summary-name { font-weight: 600; }
+    .k-date-cell { font-size: 11px; color: var(--ngx-gantt-text-secondary, #6c757d); text-align: center; }
+    .k-pct-cell { font-size: 11px; text-align: center; font-weight: 500; }
+    .k-splitbar { width: 7px; flex-shrink: 0; background: var(--ngx-gantt-header-bg, #f1f3f5); border-left: 1px solid var(--ngx-gantt-border, #dee2e6); border-right: 1px solid var(--ngx-gantt-border, #dee2e6); cursor: col-resize; display: flex; align-items: center; justify-content: center; user-select: none; z-index: 2; }
+    .k-splitbar:hover { background: var(--ngx-gantt-border, #dee2e6); }
+    .k-splitbar-icon { color: var(--ngx-gantt-text-secondary, #6c757d); font-size: 14px; line-height: 1; }
     .k-gantt-timeline { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
-    .k-timeline-header { flex-shrink: 0; overflow: hidden; background: var(--ngx-gantt-header-bg, #f8fafc); border-bottom: 1px solid var(--ngx-gantt-border, #e2e8f0); }
+    .k-timeline-header { flex-shrink: 0; overflow: hidden; background: var(--ngx-gantt-header-bg, #f1f3f5); border-bottom: 1px solid var(--ngx-gantt-border, #dee2e6); }
     .k-timeline-header-wrap { position: relative; display: flex; flex-direction: column; height: 100%; }
     .k-header-row { position: relative; flex: 1; }
-    .k-header-primary { border-bottom: 1px solid var(--ngx-gantt-border, #e2e8f0); }
-    .k-header-group-cell { position: absolute; top: 0; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--ngx-gantt-header-text, #64748b); text-transform: uppercase; letter-spacing: 0.05em; border-right: 1px solid var(--ngx-gantt-border, #e2e8f0); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 8px; box-sizing: border-box; font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif); }
-    .k-header-tick-cell { position: absolute; top: 0; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--ngx-gantt-text-secondary, #64748b); border-right: 1px solid var(--ngx-gantt-grid-line, #f1f5f9); white-space: nowrap; box-sizing: border-box; }
-    .k-header-tick-cell.k-weekend { background: var(--ngx-gantt-weekend-bg, rgba(0,0,0,0.015)); color: #cbd5e1; }
-    .k-header-tick-cell.k-today-header { color: var(--ngx-gantt-today-color, #ef4444); font-weight: 700; background: rgba(239, 68, 68, 0.03); }
+    .k-header-primary { border-bottom: 1px solid var(--ngx-gantt-border, #dee2e6); }
+    .k-header-group-cell { position: absolute; top: 0; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--ngx-gantt-header-text, #495057); border-right: 1px solid var(--ngx-gantt-border, #dee2e6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 4px; box-sizing: border-box; }
+    .k-header-tick-cell { position: absolute; top: 0; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--ngx-gantt-text-secondary, #6c757d); border-right: 1px solid var(--ngx-gantt-grid-line, #ebedf0); white-space: nowrap; box-sizing: border-box; }
+    .k-header-tick-cell.k-weekend { background: var(--ngx-gantt-weekend-bg, rgba(0,0,0,0.02)); color: #adb5bd; }
+    .k-header-tick-cell.k-today-header { color: var(--k-danger, #ff6358); font-weight: 700; }
     .k-timeline-content { flex: 1; overflow: auto; }
     .k-timeline-canvas { position: relative; }
     .k-gantt-rows { position: absolute; top: 0; left: 0; right: 0; }
-    .k-gantt-row { position: absolute; left: 0; right: 0; border-bottom: 1px solid var(--ngx-gantt-grid-line, #f1f5f9); transition: background-color 0.15s; }
-    .k-gantt-row.k-alt { background: var(--ngx-gantt-alt-bg, #f8fafc); }
-    .k-gantt-row.k-hover { background: var(--ngx-gantt-hover-bg, #f1f5f9) !important; }
-    .k-gantt-row.k-selected { background: var(--ngx-gantt-selected-bg, #e0e7ff) !important; }
+    .k-gantt-row { position: absolute; left: 0; right: 0; border-bottom: 1px solid var(--ngx-gantt-grid-line, #ebedf0); }
+    .k-gantt-row.k-alt { background: var(--ngx-gantt-alt-bg, #f8f9fa); }
+    .k-gantt-row.k-hover { background: var(--ngx-gantt-hover-bg, #e8f0fe) !important; }
+    .k-gantt-row.k-selected { background: var(--ngx-gantt-selected-bg, #d0e1f9) !important; }
     .k-gantt-columns { position: absolute; top: 0; left: 0; }
-    .k-gantt-column { position: absolute; top: 0; border-right: 1px solid var(--ngx-gantt-grid-line, #f1f5f9); box-sizing: border-box; }
-    .k-gantt-column.k-weekend-col { background: var(--ngx-gantt-weekend-bg, rgba(0,0,0,0.015)); }
-    .k-today-marker { position: absolute; top: 0; width: 2px; background: var(--ngx-gantt-today-color, #ef4444); z-index: 3; pointer-events: none; opacity: 0.8; }
-    .k-today-indicator { position: absolute; top: -1px; left: -5px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid var(--ngx-gantt-today-color, #ef4444); }
+    .k-gantt-column { position: absolute; top: 0; border-right: 1px solid var(--ngx-gantt-grid-line, #ebedf0); box-sizing: border-box; }
+    .k-gantt-column.k-weekend-col { background: var(--ngx-gantt-weekend-bg, rgba(0,0,0,0.02)); }
+    .k-gantt-column.k-alt-col { background: var(--ngx-gantt-alt-col-bg, rgba(0,0,0,0.03)); }
+    .k-today-marker { position: absolute; top: 0; width: 2px; background: var(--k-danger, #ff6358); z-index: 3; pointer-events: none; }
+    .k-today-indicator { position: absolute; top: -1px; left: -5px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid var(--k-danger, #ff6358); }
     .k-gantt-baselines { position: absolute; top: 0; left: 0; z-index: 1; }
-    .k-baseline-bar { position: absolute; background: rgba(148, 163, 184, 0.15); border: 1.5px dashed rgba(148, 163, 184, 0.4); border-radius: 99px; pointer-events: none; }
+    .k-baseline-bar { position: absolute; background: rgba(0,0,0,0.08); border: 1px dashed rgba(0,0,0,0.15); border-radius: 3px; pointer-events: none; }
     .k-gantt-tasks { position: absolute; top: 0; left: 0; z-index: 2; }
     .k-task-wrap { position: absolute; left: 0; right: 0; display: flex; align-items: center; pointer-events: none; }
-    .k-task { position: absolute; height: var(--ngx-gantt-bar-height, 28px); border-radius: 99px; cursor: grab; pointer-events: all; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), outline 0.15s ease; user-select: none; border: none; }
-    .k-task::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.05)); pointer-events: none; border-radius: inherit; }
-    .k-task:hover { box-shadow: 0 6px 14px var(--primary-glow, rgba(79, 70, 229, 0.25)), 0 4px 6px rgba(0, 0, 0, 0.05); transform: translateY(-0.5px) scale(1.01); }
+    .k-task { position: absolute; height: var(--ngx-gantt-bar-height, 24px); border-radius: 4px; cursor: grab; pointer-events: all; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06); transition: box-shadow 0.15s ease; user-select: none; }
+    .k-task:hover { box-shadow: 0 3px 8px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.1); }
     .k-task:active { cursor: grabbing; }
-    .k-task.k-focused { outline: 2.5px solid var(--ngx-input-focus, #4f46e5); outline-offset: 2px; }
-    .k-task.k-selected { outline: 2.5px solid var(--ngx-input-focus, #4f46e5); outline-offset: 1px; }
-    .k-task-range { height: 10px !important; border-radius: 99px; cursor: pointer; opacity: 0.85; }
-    .k-task-range .k-task-text { font-size: 10px; padding: 0 4px; }
-    .k-task-progress { position: absolute; top: 0; left: 0; height: 100%; overflow: hidden; border-radius: 99px 0 0 99px; pointer-events: none; }
-    .k-task-progress-inner { width: 10000px; height: 100%; background: var(--ngx-gantt-bar-progress-bg, rgba(0,0,0,0.18)); }
-    .k-task-text { position: relative; z-index: 1; padding: 0 12px; color: var(--ngx-gantt-bar-text, #ffffff); font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); letter-spacing: 0.01em; }
-    .k-resize-handle { position: absolute; top: 0; width: 8px; height: 100%; cursor: col-resize; pointer-events: all; z-index: 2; }
+    .k-task.k-focused { outline: 2px solid var(--k-primary, #4a90d9); outline-offset: 2px; }
+    .k-task.k-selected { outline: 2px solid var(--k-primary, #4a90d9); outline-offset: 1px; }
+    .k-task-range { height: 8px !important; border-radius: 4px; cursor: pointer; opacity: 0.8; }
+    .k-task-range .k-task-text { font-size: 10px; }
+    .k-task-progress { position: absolute; top: 0; left: 0; height: 100%; overflow: hidden; border-radius: 4px 0 0 4px; }
+    .k-task-progress-inner { width: 10000px; height: 100%; background: var(--ngx-gantt-bar-progress-bg, rgba(0,0,0,0.15)); }
+    .k-task-text { position: relative; z-index: 1; padding: 0 8px; color: var(--ngx-gantt-bar-text, #ffffff); font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 1px rgba(0,0,0,0.15); }
+    .k-resize-handle { position: absolute; top: 0; width: 6px; height: 100%; cursor: col-resize; pointer-events: all; z-index: 2; }
     .k-resize-w { left: 0; }
     .k-resize-e { right: 0; }
-    .k-resize-handle:hover { background: rgba(255, 255, 255, 0.25); }
-    .k-link-connector { position: absolute; top: 50%; width: 11px; height: 11px; border-radius: 50%; background: var(--ngx-gantt-today-color, #ef4444); border: 2px solid #ffffff; transform: translateY(-50%); cursor: crosshair; pointer-events: all; opacity: 0; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 5; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+    .k-resize-handle:hover { background: rgba(255,255,255,0.25); }
+    .k-link-connector { position: absolute; top: 50%; width: 10px; height: 10px; border-radius: 50%; background: var(--k-danger, #ff6358); transform: translateY(-50%); cursor: crosshair; pointer-events: all; opacity: 0; transition: opacity 0.15s ease; z-index: 5; }
     .k-task:hover .k-link-connector { opacity: 1; }
-    .k-link-start { left: -6px; }
-    .k-link-end { right: -6px; }
-    @keyframes k-pulse {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6), 0 2px 4px rgba(0,0,0,0.15); }
-      70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0), 0 2px 4px rgba(0,0,0,0.15); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0), 0 2px 4px rgba(0,0,0,0.15); }
-    }
-    .k-link-connector:hover { transform: translateY(-50%) scale(1.35); animation: k-pulse 1.2s infinite; border-color: #ffffff; }
+    .k-link-start { left: -5px; }
+    .k-link-end { right: -5px; }
     .k-link-drag-line { pointer-events: none; }
-    .k-task-with-subtasks { overflow: hidden; box-shadow: none; border-radius: 8px; }
+    .k-task-with-subtasks { overflow: hidden; box-shadow: none; }
     .k-task-with-subtasks:hover { box-shadow: none; }
-    .k-task-with-subtasks.k-dragging { background: rgba(0,0,0,0.05) !important; border: 1.5px dashed rgba(0,0,0,0.2); border-radius: 8px; }
-    .k-subtask-segment { position: absolute; top: 0; height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: box-shadow 0.2s, transform 0.15s; cursor: pointer; pointer-events: all; min-width: 6px; }
-    .k-subtask-segment::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.05)); pointer-events: none; }
-    .k-subtask-segment:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.18); transform: scaleY(1.06); z-index: 1; }
+    .k-task-with-subtasks.k-dragging { background: rgba(0,0,0,0.06) !important; border: 1px dashed rgba(0,0,0,0.2); border-radius: 4px; }
+    .k-subtask-segment { position: absolute; top: 0; height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12); transition: box-shadow 0.15s ease, transform 0.1s ease; cursor: pointer; pointer-events: all; min-width: 4px; }
+    .k-subtask-segment:hover { box-shadow: 0 3px 8px rgba(0,0,0,0.22); transform: scaleY(1.08); z-index: 1; }
     .k-subtask-segment.transit-arrow { height: 40%; top: 30%; border-radius: 2px; box-shadow: none; }
-    .k-subtask-text { position: relative; z-index: 1; padding: 0 8px; color: #ffffff; font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 1px rgba(0,0,0,0.15); }
-    .k-subtask-progress { position: absolute; top: 0; left: 0; height: 100%; background: rgba(0,0,0,0.15); border-radius: 6px 0 0 6px; pointer-events: none; }
+    .k-subtask-text { position: relative; z-index: 1; padding: 0 6px; color: #fff; font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+    .k-subtask-progress { position: absolute; top: 0; left: 0; height: 100%; background: rgba(0,0,0,0.15); border-radius: 4px 0 0 4px; pointer-events: none; }
     .k-task-summary { position: absolute; height: 10px; pointer-events: all; cursor: pointer; display: flex; align-items: flex-end; }
-    .k-task-summary.k-selected { outline: 2px solid var(--ngx-input-focus, #4f46e5); outline-offset: 4px; border-radius: 2px; }
-    .k-summary-bar { position: relative; width: 100%; height: 6px; background: var(--ngx-gantt-summary-color, #475569); border-radius: 2px; }
-    .k-summary-progress { height: 100%; background: #0f172a; border-radius: 2px 0 0 2px; }
-    .k-summary-left-cap, .k-summary-right-cap { position: absolute; bottom: 0; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--ngx-gantt-summary-color, #475569); }
+    .k-task-summary.k-selected { outline: 2px solid var(--k-primary, #4a90d9); outline-offset: 3px; border-radius: 2px; }
+    .k-summary-bar { position: relative; width: 100%; height: 6px; background: var(--ngx-gantt-summary-color, #495057); }
+    .k-summary-progress { height: 100%; background: #343a40; }
+    .k-summary-left-cap, .k-summary-right-cap { position: absolute; bottom: 0; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--ngx-gantt-summary-color, #495057); }
     .k-summary-left-cap { left: -1px; }
     .k-summary-right-cap { right: -1px; }
     .k-milestone { position: absolute; pointer-events: all; cursor: pointer; }
-    .k-milestone.k-selected { outline: 2.5px solid var(--ngx-input-focus, #4f46e5); outline-offset: 5px; border-radius: 2px; }
-    .k-milestone-diamond { width: 14px; height: 14px; background: var(--ngx-gantt-milestone-color, #ef4444); transform: rotate(45deg); border-radius: 3px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
-    .k-milestone:hover .k-milestone-diamond { transform: rotate(45deg) scale(1.2); box-shadow: 0 4px 10px rgba(0,0,0,0.25); }
+    .k-milestone.k-selected { outline: 2px solid var(--k-primary, #4a90d9); outline-offset: 4px; border-radius: 2px; }
+    .k-milestone-diamond { width: 16px; height: 16px; background: var(--ngx-gantt-milestone-color, #e74c3c); transform: rotate(45deg); border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
     .k-gantt-dependencies { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
-    .k-dep-line { fill: none; stroke: var(--ngx-gantt-today-color, #ef4444); stroke-width: 1.5; pointer-events: stroke; cursor: pointer; transition: stroke-width 0.15s, opacity 0.15s; opacity: 0.8; }
-    .k-dep-line:hover { stroke-width: 3.5; opacity: 1; }
-    .k-loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.65); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; }
-    body.dark-theme .k-loading-overlay { background: rgba(17, 24, 39, 0.65); }
+    .k-dep-line { fill: none; stroke: var(--k-danger, #ff6358); stroke-width: 1.5; pointer-events: stroke; cursor: pointer; }
+    .k-dep-line:hover { stroke-width: 3; }
+    .k-loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.7); z-index: 100; display: flex; align-items: center; justify-content: center; }
     .k-loading-spinner { display: flex; flex-direction: column; align-items: center; gap: 12px; }
     @keyframes k-spin { to { transform: rotate(360deg); } }
-    .k-spinner-circle { width: 36px; height: 36px; border: 3.5px solid var(--ngx-gantt-border, #e2e8f0); border-top-color: var(--ngx-btn-primary-bg, #4f46e5); border-radius: 50%; animation: k-spin 0.85s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
-    .k-loading-text { font-size: 12px; font-weight: 500; color: var(--ngx-gantt-text-secondary, #64748b); }
-    @keyframes k-tooltip-fadein { from { opacity: 0; transform: translateY(6px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    .k-bar-tooltip { position: absolute; z-index: 9999; background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.08); color: #f8fafc; border-radius: 10px; padding: 12px 16px; min-width: 200px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.35), 0 8px 10px -6px rgba(0,0,0,0.35); pointer-events: none; font-size: 12px; line-height: 1.5; animation: k-tooltip-fadein 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
-    .k-bar-tooltip-title { font-weight: 700; font-size: 13px; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif); }
-    .k-bar-tooltip-row { display: flex; gap: 12px; margin-top: 4px; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 4px; }
-    .k-bar-tooltip-row:first-of-type { border-top: none; padding-top: 0; }
-    .k-bar-tooltip-label { color: rgba(248, 250, 252, 0.6); white-space: nowrap; min-width: 60px; flex-shrink: 0; }
-    .k-bar-tooltip-value { font-weight: 600; white-space: nowrap; text-align: right; margin-left: auto; color: #ffffff; }
+    .k-spinner-circle { width: 32px; height: 32px; border: 3px solid var(--ngx-gantt-border, #dee2e6); border-top-color: var(--k-primary, #4a90d9); border-radius: 50%; animation: k-spin 0.8s linear infinite; }
+    .k-loading-text { font-size: 12px; color: var(--ngx-gantt-text-secondary, #6c757d); }
+    @keyframes k-tooltip-fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .k-bar-tooltip { position: absolute; z-index: 9999; background: var(--ngx-gantt-tooltip-bg, #2d3748); color: var(--ngx-gantt-tooltip-text, #ffffff); border-radius: 6px; padding: 10px 14px; min-width: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.22); pointer-events: none; font-size: 12px; line-height: 1.5; animation: k-tooltip-fadein 0.15s ease; }
+    .k-bar-tooltip-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+    .k-bar-tooltip-row { display: flex; gap: 12px; margin-top: 3px; }
+    .k-bar-tooltip-label { color: var(--ngx-gantt-tooltip-label, rgba(255,255,255,0.65)); white-space: nowrap; min-width: 60px; flex-shrink: 0; }
+    .k-bar-tooltip-value { font-weight: 500; white-space: nowrap; text-align: right; margin-left: auto; }
     .k-row-tooltip { min-width: 240px; }
-    .k-row-tooltip-task { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .k-row-tooltip-task { display: flex; align-items: center; gap: 6px; margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.12); }
     .k-row-tooltip-task:first-of-type { border-top: none; }
     .k-row-tooltip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .k-row-tooltip-name { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .k-gantt.k-no-grid .k-header-cell, .k-gantt.k-no-grid .k-treelist-cell, .k-gantt.k-no-grid .k-treelist-row, .k-gantt.k-no-grid .k-header-group-cell, .k-gantt.k-no-grid .k-header-tick-cell, .k-gantt.k-no-grid .k-gantt-row, .k-gantt.k-no-grid .k-gantt-column { border: none !important; }
-    .k-timeline-marker { position: absolute; top: 0; width: 0; border-left: 1.5px dashed var(--ngx-gantt-border, #cbd5e1); z-index: 3; pointer-events: none; }
-    .k-timeline-marker-label { position: absolute; top: 8px; left: 6px; font-size: 9px; font-weight: 700; color: #ffffff; padding: 2px 6px; border-radius: 4px; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.15); opacity: 0.85; pointer-events: auto; }
   `]
 })
 export class GanttChartComponent {
@@ -508,9 +471,7 @@ export class GanttChartComponent {
   config = input<Partial<GanttConfig>>({});
   groups = input<GanttGroup[]>([]);
   baselineItems = input<GanttBaselineItem[]>([]);
-  tooltipTemplate = input<TemplateRef<any> | null>(null);
-  tooltipDateFormat = input<(date: Date) => string>();
-  markers = input<{ date: Date; label: string; color?: string; cssClass?: string }[]>([]);
+  tooltipTemplate = input<TemplateRef<{ $implicit: GanttTooltipContext }> | null>(null);
 
   taskChange = output<GanttTaskChangeEvent>();
   taskClick = output<GanttTaskClickEvent>();
@@ -545,45 +506,6 @@ export class GanttChartComponent {
   private internalCollapsed = signal<Map<string, boolean>>(new Map());
   private internalGroupExpanded = signal<Map<string, boolean>>(new Map());
   hoveredTaskId = signal<string | null>(null);
-  ganttSearchQuery = signal('');
-
-  onSearchInput(e: Event): void {
-    this.ganttSearchQuery.set((e.target as HTMLInputElement).value);
-  }
-
-  exportToJson(): void {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.tasks(), null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "gantt-tasks.json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  }
-
-  exportToCsv(): void {
-    const headers = ['ID', 'Name', 'Start', 'End', 'Progress', 'Parent ID', 'Is Milestone'];
-    const rows = this.tasks().map(t => [
-      t.id,
-      `"${t.name.replace(/"/g, '""')}"`,
-      t.start instanceof Date ? t.start.toISOString().split('T')[0] : new Date(t.start).toISOString().split('T')[0],
-      t.end instanceof Date ? t.end.toISOString().split('T')[0] : new Date(t.end).toISOString().split('T')[0],
-      t.progress,
-      t.parentId || '',
-      t.isMilestone ? 'true' : 'false'
-    ]);
-    
-    const csvContent = [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", url);
-    downloadAnchor.setAttribute("download", "gantt-tasks.csv");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  }
-
   private selectedTaskIds = signal<Set<string>>(new Set());
   scrollLeft = signal(0);
   private sidebarWidthOverride = signal<number | null>(null);
@@ -642,12 +564,7 @@ export class GanttChartComponent {
     this.layoutService.flattenTasks(this.effectiveTasks(), this.effectiveGroups().length > 0 ? this.effectiveGroups() : undefined)
   );
 
-  visibleRows = computed<FlatRow[]>(() => {
-    const rows = this.flatRows().filter(r => r.isVisible);
-    const q = this.ganttSearchQuery().toLowerCase().trim();
-    if (!q) return rows;
-    return rows.filter(r => r.task.name.toLowerCase().includes(q));
-  });
+  visibleRows = computed<FlatRow[]>(() => this.flatRows().filter(r => r.isVisible));
 
   renderedRows = computed<FlatRow[]>(() => {
     const rows = this.visibleRows();
@@ -694,17 +611,6 @@ export class GanttChartComponent {
     if (today < range.start || today > range.end) return null;
     const cfg = this.mergedConfig();
     return this.scaleService.dateToX(today, range.start, cfg.columnWidth, cfg.zoomLevel);
-  });
-
-  timelineMarkers = computed(() => {
-    const cfg = this.mergedConfig();
-    const range = this.dateRange();
-    return this.markers()
-      .filter(m => m.date >= range.start && m.date <= range.end)
-      .map(m => ({
-        ...m,
-        x: this.scaleService.dateToX(m.date, range.start, cfg.columnWidth, cfg.zoomLevel)
-      }));
   });
 
   taskBars = computed(() => {
@@ -814,6 +720,19 @@ export class GanttChartComponent {
     this.scroll.emit({ scrollLeft: el.scrollLeft, scrollTop: el.scrollTop, visibleStartDate: visStart, visibleEndDate: visEnd });
     if (cfg.loadOnScroll && (el.scrollLeft < 100 || el.scrollLeft + el.clientWidth > el.scrollWidth - 100)) {
       this.loadOnScroll.emit({ start: visStart, end: visEnd });
+    }
+  }
+
+  onTreelistWheel(event: WheelEvent): void {
+    const timelineEl = this.timelineContent()?.nativeElement;
+    if (!timelineEl) return;
+    event.preventDefault();
+
+    if (event.shiftKey && event.deltaY !== 0) {
+      timelineEl.scrollLeft += event.deltaY;
+    } else {
+      timelineEl.scrollTop += event.deltaY;
+      timelineEl.scrollLeft += event.deltaX;
     }
   }
 
@@ -1013,18 +932,6 @@ export class GanttChartComponent {
 
   formatDateShort(date: Date): string { return date.toLocaleDateString(this.mergedConfig().locale, { month: 'short', day: 'numeric' }); }
   formatDateFull(date: Date): string { return date.toLocaleDateString(this.mergedConfig().locale, { month: 'short', day: 'numeric', year: 'numeric' }); }
-  formatTooltipDate(date: Date): string {
-    const customFormat = this.tooltipDateFormat();
-    if (customFormat) {
-      return customFormat(date);
-    }
-    const locale = this.mergedConfig().locale;
-    if (this.mergedConfig().zoomLevel === ZoomLevel.Hour) {
-      return date.toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' }) + ' ' + 
-             date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
-    }
-    return this.formatDateFull(date);
-  }
   isNameColumn(col: GanttColumnDef, index: number): boolean { return typeof col.field === 'function' ? index === 0 : col.field === 'name' || index === 0; }
   isDateColumn(col: GanttColumnDef): boolean { return typeof col.field === 'string' && (col.field === 'start' || col.field === 'end'); }
   isProgressColumn(col: GanttColumnDef): boolean { return typeof col.field === 'string' && col.field === 'progress'; }

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 export type ProgressVariant = 'primary' | 'success' | 'danger' | 'warning' | 'info';
 
@@ -15,7 +15,7 @@ export type ProgressVariant = 'primary' | 'success' | 'danger' | 'warning' | 'in
           <div
             class="progress-fill"
             [class]="'variant-' + variant()"
-            [style.width.%]="clamp()"
+            [style.width.%]="clampedPct()"
             role="progressbar"
             [attr.aria-valuenow]="value()"
             [attr.aria-valuemin]="min()"
@@ -24,7 +24,7 @@ export type ProgressVariant = 'primary' | 'success' | 'danger' | 'warning' | 'in
         }
       </div>
       @if (showValue()) {
-        <div class="progress-value">{{ (clamp()).toFixed(0) }}%</div>
+        <div class="progress-value">{{ clampedPct().toFixed(0) }}%</div>
       }
     </div>
   `,
@@ -65,5 +65,7 @@ export class ProgressBarComponent {
   showValue = input(false);
   indeterminate = input(false);
 
-  get clamp() { return () => Math.max(0, Math.min(100, ((this.value() - this.min()) / (this.max() - this.min())) * 100)); }
+  clampedPct = computed(() =>
+    Math.max(0, Math.min(100, ((this.value() - this.min()) / Math.max(1, this.max() - this.min())) * 100))
+  );
 }

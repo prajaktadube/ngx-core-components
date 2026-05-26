@@ -11,7 +11,9 @@ export type ButtonShape = 'rectangle' | 'rounded' | 'pill' | 'square';
     <button
       class="ngx-btn"
       [class]="btnClass()"
+      [type]="type()"
       [disabled]="disabled() || loading()"
+      [attr.aria-label]="ariaLabel() || null"
       (click)="clicked.emit($event)"
     >
       @if (loading()) {
@@ -152,10 +154,12 @@ export class ButtonComponent {
   variant = input<ButtonVariant>('primary');
   size = input<ButtonSize>('md');
   shape = input<ButtonShape>('rectangle');
+  type = input<'button' | 'submit' | 'reset'>('button');
   disabled = input(false);
   loading = input(false);
   prefixIcon = input<string>('');
   suffixIcon = input<string>('');
+  ariaLabel = input<string>('');
 
   clicked = output<MouseEvent>();
 

@@ -1,5 +1,4 @@
 <div class="app-shell">
-  <!-- Top Navbar -->
   <header class="app-navbar">
     <div class="navbar-start">
       <button class="nav-toggle" (click)="toggleSidebar()" title="Toggle sidebar">
@@ -9,13 +8,12 @@
         <div class="nav-brand-main">
           <span class="nav-brand">ngx-core-components</span>
         </div>
-        <span class="nav-subtitle-text">Angular Component Library</span>
+        <span class="nav-subtitle-text">UX-first demo workspace</span>
       </div>
     </div>
     <div class="navbar-end">
-      <button class="theme-toggle-btn" (click)="toggleDarkMode()" [title]="darkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
-        {{ darkMode() ? '☀️' : '🌙' }}
-      </button>
+      <a routerLink="/getting-started" class="nav-link">Start</a>
+      <a routerLink="/charts" class="nav-link">Components</a>
       <a href="https://github.com/prajaktadube/ngx-core-components" target="_blank" class="nav-link" title="GitHub Repository">
         <span>GitHub</span>
       </a>
@@ -23,31 +21,47 @@
   </header>
 
   <div class="app-body">
-    <!-- Sidebar Navigation -->
+    @if (sidebarOpen()) {
+      <button class="sidebar-backdrop" (click)="closeSidebar()" aria-label="Close navigation"></button>
+    }
+
     <nav class="app-sidebar" [class.collapsed]="!sidebarOpen()">
-      <!-- Search Bar -->
       <div class="sidebar-search">
-        <input 
-          type="text" 
-          class="search-input" 
+        <input
+          type="text"
+          class="search-input"
           placeholder="Search components..."
           [value]="searchQuery()"
           (input)="onSearchInput($event)"
         />
-        @if (searchQuery()) {
-          <button class="search-clear" (click)="searchQuery.set('')">✕</button>
+        @if (isSearching()) {
+          <button class="search-clear" (click)="clearSearch()" aria-label="Clear search">✕</button>
         }
       </div>
 
+      @if (!isSearching()) {
+        <section class="featured-nav">
+          <div class="featured-title">Quick Access</div>
+          <div class="featured-list">
+            @for (item of featuredItems(); track item.path) {
+              <a class="featured-item" [routerLink]="item.path" routerLinkActive="active" (click)="onNavClick()">
+                <span>{{ item.icon }}</span>
+                <span>{{ item.label }}</span>
+              </a>
+            }
+          </div>
+        </section>
+      }
+
       <div class="sidebar-content">
-        @for (group of getVisibleGroups(); track group.title) {
+        @for (group of visibleGroups(); track group.title) {
           <div class="nav-group">
             <div class="nav-group-header">
               <span class="nav-group-icon">{{ group.icon }}</span>
               <span class="nav-group-title">{{ group.title }}</span>
             </div>
             @for (item of group.items; track item.path) {
-              <a class="nav-item" [routerLink]="item.path" routerLinkActive="active">
+              <a class="nav-item" [routerLink]="item.path" routerLinkActive="active" (click)="onNavClick()">
                 <span class="nav-icon">{{ item.icon }}</span>
                 <div class="nav-label-section">
                   <span class="nav-label">{{ item.label }}</span>
@@ -60,14 +74,19 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="footer-text">ngx-core-components</div>
-        <div class="footer-version">MIT License</div>
+        <div class="footer-text">50+ Components</div>
+        <div class="footer-version">Signals + Standalone + Typed</div>
       </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="app-content">
-      <router-outlet />
+      <section class="content-header">
+        <h1>{{ currentTitle() }}</h1>
+        <p>{{ currentDescription() }}</p>
+      </section>
+      <section class="content-body">
+        <router-outlet />
+      </section>
     </main>
   </div>
 </div>

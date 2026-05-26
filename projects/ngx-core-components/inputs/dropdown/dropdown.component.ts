@@ -26,20 +26,25 @@ export interface DropdownOption {
       class="ngx-dropdown"
       [class.open]="isOpen()"
       [class.disabled]="disabled()"
+      [class.has-error]="!!error()"
       [attr.aria-expanded]="isOpen()"
       role="combobox"
     >
       @if (label()) {
-        <label class="ngx-dropdown-label">{{ label() }}</label>
+        <label class="ngx-dropdown-label">
+          {{ label() }}
+          @if (required()) { <span class="ngx-dropdown-required" aria-hidden="true">*</span> }
+        </label>
       }
 
       <!-- Trigger -->
       <div
         class="ngx-dropdown-trigger"
-        tabindex="0"
+        [attr.tabindex]="disabled() ? -1 : 0"
         (click)="toggle()"
         (keydown)="onTriggerKey($event)"
         [attr.aria-label]="selectedLabel() || placeholder()"
+        [attr.aria-disabled]="disabled()"
       >
         <span class="trigger-text" [class.placeholder]="!selectedLabel()">
           {{ selectedLabel() || placeholder() }}
@@ -80,6 +85,11 @@ export interface DropdownOption {
             }
           </div>
         </div>
+      }
+      @if (error()) {
+        <div class="ngx-dropdown-error">{{ error() }}</div>
+      } @else if (hint()) {
+        <div class="ngx-dropdown-hint">{{ hint() }}</div>
       }
     </div>
   `,
@@ -139,6 +149,11 @@ export interface DropdownOption {
     .popup-item.disabled { color: #adb5bd; cursor: not-allowed; }
     .popup-item.disabled:hover { background: none; }
     .popup-empty { padding: 12px; text-align: center; color: #adb5bd; font-size: 13px; }
+    .has-error .ngx-dropdown-trigger { border-color: var(--ngx-input-error, #e74c3c); }
+    .has-error.focused .ngx-dropdown-trigger, .has-error.open .ngx-dropdown-trigger { box-shadow: 0 0 0 2px rgba(231,76,60,0.18); }
+    .ngx-dropdown-error { font-size: 12px; color: var(--ngx-input-error, #e74c3c); margin-top: 4px; }
+    .ngx-dropdown-hint { font-size: 12px; color: var(--ngx-input-label, #6c757d); margin-top: 4px; }
+    .ngx-dropdown-required { color: var(--ngx-input-error, #e74c3c); margin-left: 2px; }
   `]
 })
 export class DropdownComponent implements ControlValueAccessor {
@@ -148,6 +163,9 @@ export class DropdownComponent implements ControlValueAccessor {
   placeholder = input<string>('Select...');
   disabled = input<boolean>(false);
   filterable = input<boolean>(false);
+  required = input<boolean>(false);
+  error = input<string>('');
+  hint = input<string>('');
 
   valueChange = output<unknown>();
 
@@ -178,11 +196,20 @@ export class DropdownComponent implements ControlValueAccessor {
   toggle(): void {
     if (this.disabled()) return;
     this.isOpen.update(v => !v);
-    if (!this.isOpen()) this.filterText.set('');
+    if (this.isOpen()) {
+      const opts = this.filteredOptions();
+      const selectedIndex = opts.findIndex(o => o.value === this._activeValue());
+      this.focusedIndex.set(selectedIndex >= 0 ? selectedIndex : (opts.length > 0 ? 0 : -1));
+    } else {
+      this.filterText.set('');
+      this.focusedIndex.set(-1);
+      this._onTouched();
+    }
   }
 
   selectOption(opt: DropdownOption): void {
     if (opt.disabled) return;
+    this._cvaActive = true;
     this._cvaValue.set(opt.value);
     this._onChange(opt.value);
     this._onTouched();
@@ -211,14 +238,22 @@ export class DropdownComponent implements ControlValueAccessor {
 
   private moveFocus(delta: number): void {
     const n = this.filteredOptions().length;
+    if (n <= 0) {
+      this.focusedIndex.set(-1);
+      return;
+    }
     this.focusedIndex.update(i => Math.max(0, Math.min(n - 1, i + delta)));
   }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
     if (!this.el.nativeElement.contains(e.target)) {
-      this.isOpen.set(false);
-      this.filterText.set('');
+      if (this.isOpen()) {
+        this.isOpen.set(false);
+        this.filterText.set('');
+        this.focusedIndex.set(-1);
+        this._onTouched();
+      }
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 export type BadgeVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
 export type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
@@ -10,11 +10,7 @@ export type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-
     <span class="ngx-badge-host" [class.positioned]="positioned()">
       <ng-content />
       <span
-        class="ngx-badge"
-        [class]="'ngx-badge-' + variant()"
-        [class.badge-dot]="dot()"
-        [class.badge-positioned]="positioned()"
-        [class]="positioned() ? 'badge-pos-' + position() : ''"
+        [class]="badgeClass()"
         [attr.aria-label]="ariaLabel() || content()"
       >
         @if (!dot()) { {{ content() }} }
@@ -54,4 +50,14 @@ export class BadgeComponent {
   positioned = input(false);
   position = input<BadgePosition>('top-right');
   ariaLabel = input('');
+
+  badgeClass = computed(() => {
+    const cls = ['ngx-badge', `ngx-badge-${this.variant()}`];
+    if (this.dot()) cls.push('badge-dot');
+    if (this.positioned()) {
+      cls.push('badge-positioned');
+      cls.push(`badge-pos-${this.position()}`);
+    }
+    return cls.join(' ');
+  });
 }

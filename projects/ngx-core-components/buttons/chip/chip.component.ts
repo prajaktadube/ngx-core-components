@@ -6,7 +6,20 @@ export type ChipVariant = 'default' | 'info' | 'success' | 'warning' | 'error' |
   selector: 'ngx-chip',
   standalone: true,
   template: `
-    <span class="ngx-chip" [class]="'ngx-chip-' + variant()" [class.removable]="removable()" [class.selected]="selected()" [class.disabled]="disabled()" [class.selectable]="selectable()">
+    <span
+      class="ngx-chip"
+      [class]="'ngx-chip-' + variant()"
+      [class.removable]="removable()"
+      [class.selected]="selected()"
+      [class.disabled]="disabled()"
+      [class.selectable]="selectable()"
+      [attr.role]="selectable() ? 'checkbox' : null"
+      [attr.aria-checked]="selectable() ? selected() : null"
+      [attr.tabindex]="selectable() && !disabled() ? 0 : null"
+      (click)="onChipClick()"
+      (keydown.enter)="onChipClick()"
+      (keydown.space)="onChipClick()"
+    >
       @if (icon()) {
         <span class="chip-icon" aria-hidden="true">{{ icon() }}</span>
       }
@@ -21,23 +34,22 @@ export type ChipVariant = 'default' | 'info' | 'success' | 'warning' | 'error' |
     .ngx-chip {
       display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px;
       font-size: 12px; font-weight: 500; border-radius: 999px;
-      background: var(--ngx-chip-bg, #f1f5f9); color: var(--ngx-chip-color, #475569);
-      border: 1px solid var(--ngx-chip-border, #e2e8f0); font-family: inherit; transition: all 0.15s ease;
-      cursor: default;
+      background: var(--ngx-chip-bg, #e9ecef); color: var(--ngx-chip-color, #495057);
+      border: 1px solid var(--ngx-chip-border, #dee2e6); font-family: inherit; transition: all 0.12s;
     }
-    .ngx-chip.selected { background: var(--ngx-chip-selected-bg, #e0e7ff); color: var(--ngx-chip-selected-color, #4f46e5); border-color: #c7d2fe; }
+    .ngx-chip.selected { background: var(--ngx-chip-selected-bg, #dbeafe); color: var(--ngx-chip-selected-color, #1a73e8); border-color: #93c5fd; }
     .ngx-chip.disabled { opacity: 0.5; cursor: not-allowed; }
-    .ngx-chip.selectable { cursor: pointer; }
-    .ngx-chip.selectable:hover:not(.disabled) { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-    .ngx-chip-info { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
-    .ngx-chip-success { background: #d1fae5; color: #047857; border-color: #a7f3d0; }
-    .ngx-chip-warning { background: #fef3c7; color: #b45309; border-color: #fde68a; }
-    .ngx-chip-error { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
-    .ngx-chip-danger { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
-    .ngx-chip-outlined { background: transparent; color: var(--primary-color, #4f46e5); border-color: var(--primary-color, #4f46e5); }
+    .ngx-chip-info { background: #dbeafe; color: #1a73e8; border-color: #93c5fd; }
+    .ngx-chip-success { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+    .ngx-chip-warning { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+    .ngx-chip-error { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+      .ngx-chip-danger { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+      .ngx-chip-outlined { background: transparent; color: var(--ngx-btn-primary, #0f0f23); border-color: var(--ngx-btn-primary, #0f0f23); }
     .chip-icon { font-size: 11px; }
-    .chip-remove { background: none; border: none; cursor: pointer; font-size: 10px; line-height: 1; padding: 0 0 0 2px; color: inherit; opacity: 0.6; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; transition: all 0.12s; }
-    .chip-remove:hover { opacity: 1; background: rgba(0,0,0,0.08); }
+    .chip-remove { background: none; border: none; cursor: pointer; font-size: 10px; line-height: 1; padding: 0 0 0 2px; color: inherit; opacity: 0.7; }
+    .chip-remove:hover { opacity: 1; }
+    .ngx-chip.selectable { cursor: pointer; }
+    .ngx-chip.selectable:hover:not(.disabled) { filter: brightness(0.95); }
   `]
 })
 export class ChipComponent {
@@ -46,9 +58,16 @@ export class ChipComponent {
   selected = input(false);
   removable = input(false);
   disabled = input(false);
+  selectable = input(false);
+  label = input<string>('');
+
   removed = output<void>();
-    label = input<string>('');
-    selectable = input(false);
+  selectedChange = output<boolean>();
+
+  onChipClick(): void {
+    if (!this.selectable() || this.disabled()) return;
+    this.selectedChange.emit(!this.selected());
+  }
 }
 
 @Component({

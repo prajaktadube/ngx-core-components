@@ -11,7 +11,8 @@ permissions:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]'
+    # Skip Dependabot commits — they only bump deps, not library code
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') }}
 
     steps:
       - name: Checkout code
@@ -36,7 +37,6 @@ jobs:
 
       - name: Determine Version Bump Type
         id: determine_bump
-        # Analyzes the latest commit message to decide Major, Minor, or Patch
         run: |
           COMMIT_MSG=$(git log -1 --pretty=%B)
           echo "Commit message: $COMMIT_MSG"
@@ -50,18 +50,26 @@ jobs:
           fi
 
       - name: Auto-Sync and Bump Version
-        # Dynamically bumps the version based on the commit analysis
         run: |
           cd projects/ngx-core-components
-          
-          LIVE_VERSION=$(npm show ngx-core-components version)
-          npm version $LIVE_VERSION --no-git-tag-version --allow-same-version
-          
-          # This line now dynamically uses major, minor, or patch!
+
+          LIVE_VERSION=$(npm show ngx-core-components version --registry https://registry.npmjs.org 2>/dev/null || echo "")
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+
+          # Only sync from registry if the package is confirmed to be ours
+          # (registry returns a version AND it is >= local, meaning we own it)
+          if [ -n "$LIVE_VERSION" ]; then
+            OWNER=$(npm show ngx-core-components --json 2>/dev/null | node -e "try{const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));process.stdout.write(d.maintainers?.[0]?.name||'')}catch(e){}")
+            if [ "$OWNER" = "prajaktadube" ]; then
+              npm version $LIVE_VERSION --no-git-tag-version --allow-same-version
+            fi
+          fi
+
           npm version ${{ env.BUMP_TYPE }} --no-git-tag-version
-          
+
           NEW_VERSION=$(node -p "require('./package.json').version")
-          
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
           cd ../..
           git add projects/ngx-core-components/package.json
           git commit -m "chore: release version $NEW_VERSION [skip ci]"
@@ -71,9 +79,16 @@ jobs:
         run: npx ng build ngx-core-components
 
       - name: Publish to npm
-        run: npm publish dist/ngx-core-components --access public
+        run: |
+          if [ -z "${NODE_AUTH_TOKEN}" ]; then
+            echo "ERROR: NPM_TOKEN secret is missing or empty"
+            exit 1
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > dist/ngx-core-components/.npmrc
+          cd dist/ngx-core-components && npm publish --access public --userconfig .npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ""
 
       - name: Push Version Update back to GitHub
         run: git push origin HEAD:main --follow-tags

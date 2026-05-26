@@ -48,6 +48,14 @@ interface ApiRow {
               (click)="setZoom(ZoomLevel.Month)"
             >Month</button>
           </div>
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; margin-left: auto;">
+            <input type="checkbox" [checked]="config.enableAlternateRowColor" (change)="toggleAlternateRows($event)" />
+            Alternate Rows
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px;">
+            <input type="checkbox" [checked]="config.enableAlternateColumnColor" (change)="toggleAlternateColumns($event)" />
+            Alternate Columns
+          </label>
         </div>
       </div>
       <div class="demo-chart">
@@ -169,6 +177,8 @@ export class ExampleComponent {}`;
     { name: 'showGrid', type: 'boolean', default: 'true', description: 'Shows row and column grid lines.' },
     { name: 'snapTo', type: "'day'|'week'|'month'", default: "'day'", description: 'Snaps drag and resize actions to the chosen unit.' },
     { name: 'collapsible', type: 'boolean', default: 'true', description: 'Allows parent rows to collapse and expand.' },
+    { name: 'enableAlternateRowColor', type: 'boolean', default: 'false', description: 'Enables alternating background colors for rows for better readability.' },
+    { name: 'enableAlternateColumnColor', type: 'boolean', default: 'false', description: 'Enables alternating background colors for columns for better readability.' },
   ];
 
   tasks: GanttTask[] = getSampleTasks();
@@ -186,6 +196,8 @@ export class ExampleComponent {}`;
     showGrid: true,
     snapTo: 'day',
     collapsible: true,
+    enableAlternateRowColor: false,
+    enableAlternateColumnColor: false,
   };
 
   protected readonly ZoomLevel = ZoomLevel;
@@ -212,5 +224,15 @@ export class ExampleComponent {}`;
 
   formatDate(d: Date): string {
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  toggleAlternateRows(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.config = { ...this.config, enableAlternateRowColor: checked };
+  }
+
+  toggleAlternateColumns(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.config = { ...this.config, enableAlternateColumnColor: checked };
   }
 }
