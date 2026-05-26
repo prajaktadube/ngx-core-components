@@ -161,3 +161,14 @@ export {
 // ===== Barcodes (also available via ngx-core-components/barcodes) =====
 export { QrCodeComponent, BarcodeComponent } from 'ngx-core-components/barcodes';
 
+// ===== AI & Agentic Components (also available via ngx-core-components/ai) =====
+export { AIChatComponent } from 'ngx-core-components/ai';
+export type {
+  AIMessage,
+  AgentStep,
+  AICard,
+  AICardAction,
+  QuickReply,
+} from 'ngx-core-components/ai';
+
+

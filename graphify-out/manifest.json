@@ -5,14 +5,14 @@
     "semantic_hash": "eb91c3db6183a27eae11f34c2061c9e2"
   },
   "C:\\Work\\ngx-core-components\\package.json": {
-    "mtime": 1776666340.4568563,
-    "ast_hash": "0fae91d917829093fc787a3921e90f49",
-    "semantic_hash": "0fae91d917829093fc787a3921e90f49"
+    "mtime": 1779797137.3359818,
+    "ast_hash": "47633c7b1aeffa18dcdcb0a59d886f7f",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\tsconfig.json": {
-    "mtime": 1776671130.0406945,
-    "ast_hash": "6885a2f5f4713e1108d146ba5deac9b0",
-    "semantic_hash": "6885a2f5f4713e1108d146ba5deac9b0"
+    "mtime": 1779794932.503997,
+    "ast_hash": "f25c69639281b5bf51106cbb5854177e",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.vscode\\extensions.json": {
     "mtime": 1776666340.4402854,
@@ -60,9 +60,9 @@
     "semantic_hash": "b3783e1fb2e6298f7fdaeb3874308fd3"
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.routes.ts": {
-    "mtime": 1776681810.3554504,
-    "ast_hash": "990760d963e2d327a8753ce6cf43c97c",
-    "semantic_hash": "990760d963e2d327a8753ce6cf43c97c"
+    "mtime": 1779794946.135135,
+    "ast_hash": "f393cfc248145cf5fa4b9bd2775727e0",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\data\\sample-tasks.ts": {
     "mtime": 1779788974.5243886,
@@ -545,8 +545,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\public-api.ts": {
-    "mtime": 1779769653.1660988,
-    "ast_hash": "b734822f7359ce3b51b7aadbbce6bda7",
+    "mtime": 1779794927.0212307,
+    "ast_hash": "0a2dd1ebb2642051fdaaed43e106f636",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip\\popover.component.ts": {
@@ -620,8 +620,8 @@
     "semantic_hash": "e3f8953f0b8cf2dbf905b379dbcf6bb1"
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\core\\demo-nav.config.ts": {
-    "mtime": 1779769653.1544466,
-    "ast_hash": "3386d884cc4504c8fe21dc0847fc28a7",
+    "mtime": 1779794943.390581,
+    "ast_hash": "ce60ecf7bc07f72593e7ae905214146d",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\home\\home.data.ts": {
@@ -632,6 +632,31 @@
   "C:\\Work\\ngx-core-components\\AGENTS.md": {
     "mtime": 1779784237.8186584,
     "ast_hash": "c8a97ee53910979f759e56420391fcf2",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\ai-demo\\ai-demo.component.ts": {
+    "mtime": 1779795851.421106,
+    "ast_hash": "4ae7d51481940a5600033f998d642de5",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ng-package.json": {
+    "mtime": 1779794920.2758057,
+    "ast_hash": "7373d55559b46e11b75b77568bead584",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\public-api.ts": {
+    "mtime": 1779794917.257992,
+    "ast_hash": "d42dd6dcfa16f35a40a01935afb92199",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat\\ai-chat.component.ts": {
+    "mtime": 1779794913.5273726,
+    "ast_hash": "bb8460cb905d7b508111a26da5787c7a",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat\\models.ts": {
+    "mtime": 1779794899.647816,
+    "ast_hash": "ac96999dcc098fec52da0734bb8f8881",
     "semantic_hash": ""
   }
 }

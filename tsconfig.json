@@ -54,6 +54,10 @@
         "ngx-core-components/barcodes": [
           "./projects/ngx-core-components/barcodes/public-api.ts",
           "./dist/ngx-core-components/barcodes"
+        ],
+        "ngx-core-components/ai": [
+          "./projects/ngx-core-components/ai/public-api.ts",
+          "./dist/ngx-core-components/ai"
         ]
     },
     "skipLibCheck": true,

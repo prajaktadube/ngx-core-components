@@ -87,4 +87,9 @@ export const routes: Routes = [
       loadComponent: () =>
         import('./pages/barcodes-demo/barcodes-demo.component').then(m => m.BarcodesDemoComponent),
     },
+    {
+      path: 'ai',
+      loadComponent: () =>
+        import('./pages/ai-demo/ai-demo.component').then(m => m.AiDemoComponent),
+    },
 ];

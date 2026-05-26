@@ -1391,6 +1391,78 @@
       "norm_label": "getsampledependencies()"
     },
     {
+      "label": "ai-demo.component.ts",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L1",
+      "id": "projects_demo_src_app_pages_ai_demo_ai_demo_component_ts",
+      "community": 117,
+      "norm_label": "ai-demo.component.ts"
+    },
+    {
+      "label": "AiDemoComponent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L292",
+      "id": "ai_demo_ai_demo_component_aidemocomponent",
+      "community": 117,
+      "norm_label": "aidemocomponent"
+    },
+    {
+      "label": ".onSendMessage()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L365",
+      "id": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
+      "community": 117,
+      "norm_label": ".onsendmessage()"
+    },
+    {
+      "label": ".onQuickReplyClick()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L383",
+      "id": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick",
+      "community": 117,
+      "norm_label": ".onquickreplyclick()"
+    },
+    {
+      "label": ".onCardActionClick()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L391",
+      "id": "ai_demo_ai_demo_component_aidemocomponent_oncardactionclick",
+      "community": 117,
+      "norm_label": ".oncardactionclick()"
+    },
+    {
+      "label": ".onClearHistory()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L395",
+      "id": "ai_demo_ai_demo_component_aidemocomponent_onclearhistory",
+      "community": 117,
+      "norm_label": ".onclearhistory()"
+    },
+    {
+      "label": ".simulateSimpleResponse()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L399",
+      "id": "ai_demo_ai_demo_component_aidemocomponent_simulatesimpleresponse",
+      "community": 117,
+      "norm_label": ".simulatesimpleresponse()"
+    },
+    {
+      "label": ".simulateAgentWorkflow()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L415",
+      "id": "ai_demo_ai_demo_component_aidemocomponent_simulateagentworkflow",
+      "community": 117,
+      "norm_label": ".simulateagentworkflow()"
+    },
+    {
       "label": "barcodes-demo.component.ts",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/barcodes-demo/barcodes-demo.component.ts",
@@ -2878,6 +2950,186 @@
     {
       "label": "ng-package.json",
       "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ng-package.json",
+      "source_location": "L1",
+      "id": "projects_ngx_core_components_ai_ng_package_json",
+      "community": 126,
+      "norm_label": "ng-package.json"
+    },
+    {
+      "label": "$schema",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ng-package.json",
+      "source_location": "L2",
+      "id": "ai_ng_package_schema",
+      "community": 126,
+      "norm_label": "$schema"
+    },
+    {
+      "label": "lib",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ng-package.json",
+      "source_location": "L3",
+      "id": "ai_ng_package_lib",
+      "community": 126,
+      "norm_label": "lib"
+    },
+    {
+      "label": "entryFile",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ng-package.json",
+      "source_location": "L4",
+      "id": "ai_ng_package_lib_entryfile",
+      "community": 126,
+      "norm_label": "entryfile"
+    },
+    {
+      "label": "public-api.ts",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L1",
+      "id": "projects_ngx_core_components_ai_public_api_ts",
+      "community": 10,
+      "norm_label": "public-api.ts"
+    },
+    {
+      "label": "ai-chat.component.ts",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L1",
+      "id": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "community": 10,
+      "norm_label": "ai-chat.component.ts"
+    },
+    {
+      "label": "AIChatComponent",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L800",
+      "id": "ai_chat_ai_chat_component_aichatcomponent",
+      "community": 10,
+      "norm_label": "aichatcomponent"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L822",
+      "id": "ai_chat_ai_chat_component_aichatcomponent_constructor",
+      "community": 10,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": ".onSubmit()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L831",
+      "id": "ai_chat_ai_chat_component_aichatcomponent_onsubmit",
+      "community": 10,
+      "norm_label": ".onsubmit()"
+    },
+    {
+      "label": ".toggleStep()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L838",
+      "id": "ai_chat_ai_chat_component_aichatcomponent_togglestep",
+      "community": 10,
+      "norm_label": ".togglestep()"
+    },
+    {
+      "label": ".getCompletedStepsCount()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L842",
+      "id": "ai_chat_ai_chat_component_aichatcomponent_getcompletedstepscount",
+      "community": 10,
+      "norm_label": ".getcompletedstepscount()"
+    },
+    {
+      "label": ".getInitials()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L846",
+      "id": "ai_chat_ai_chat_component_aichatcomponent_getinitials",
+      "community": 10,
+      "norm_label": ".getinitials()"
+    },
+    {
+      "label": ".scrollToBottom()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L855",
+      "id": "ai_chat_ai_chat_component_aichatcomponent_scrolltobottom",
+      "community": 10,
+      "norm_label": ".scrolltobottom()"
+    },
+    {
+      "label": ".formatMessage()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L864",
+      "id": "ai_chat_ai_chat_component_aichatcomponent_formatmessage",
+      "community": 10,
+      "norm_label": ".formatmessage()"
+    },
+    {
+      "label": "models.ts",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L1",
+      "id": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "community": 10,
+      "norm_label": "models.ts"
+    },
+    {
+      "label": "AgentStep",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L1",
+      "id": "ai_chat_models_agentstep",
+      "community": 10,
+      "norm_label": "agentstep"
+    },
+    {
+      "label": "AICardAction",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L11",
+      "id": "ai_chat_models_aicardaction",
+      "community": 10,
+      "norm_label": "aicardaction"
+    },
+    {
+      "label": "AICard",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L17",
+      "id": "ai_chat_models_aicard",
+      "community": 10,
+      "norm_label": "aicard"
+    },
+    {
+      "label": "AIMessage",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L25",
+      "id": "ai_chat_models_aimessage",
+      "community": 10,
+      "norm_label": "aimessage"
+    },
+    {
+      "label": "QuickReply",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L36",
+      "id": "ai_chat_models_quickreply",
+      "community": 10,
+      "norm_label": "quickreply"
+    },
+    {
+      "label": "ng-package.json",
+      "file_type": "code",
       "source_file": "projects/ngx-core-components/barcodes/ng-package.json",
       "source_location": "L1",
       "id": "projects_ngx_core_components_barcodes_ng_package_json",
@@ -3916,7 +4168,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L933",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_formatdateshort",
-      "community": 10,
+      "community": 1,
       "norm_label": ".formatdateshort()"
     },
     {
@@ -3934,7 +4186,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L935",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isnamecolumn",
-      "community": 10,
+      "community": 23,
       "norm_label": ".isnamecolumn()"
     },
     {
@@ -3943,7 +4195,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L936",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isdatecolumn",
-      "community": 10,
+      "community": 23,
       "norm_label": ".isdatecolumn()"
     },
     {
@@ -3952,7 +4204,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L937",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isprogresscolumn",
-      "community": 10,
+      "community": 23,
       "norm_label": ".isprogresscolumn()"
     },
     {
@@ -3961,7 +4213,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L938",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getsidebarcellvalue",
-      "community": 10,
+      "community": 1,
       "norm_label": ".getsidebarcellvalue()"
     },
     {
@@ -3970,7 +4222,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L947",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_showtooltip",
-      "community": 1,
+      "community": 124,
       "norm_label": ".showtooltip()"
     },
     {
@@ -3979,7 +4231,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L951",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_showsubtasktooltip",
-      "community": 1,
+      "community": 124,
       "norm_label": ".showsubtasktooltip()"
     },
     {
@@ -3988,7 +4240,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L955",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_updatetooltipposition",
-      "community": 1,
+      "community": 124,
       "norm_label": ".updatetooltipposition()"
     },
     {
@@ -4006,7 +4258,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L967",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getrowavgprogress",
-      "community": 10,
+      "community": 1,
       "norm_label": ".getrowavgprogress()"
     },
     {
@@ -4042,7 +4294,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L974",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getsubtaskbars",
-      "community": 23,
+      "community": 124,
       "norm_label": ".getsubtaskbars()"
     },
     {
@@ -4123,7 +4375,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1017",
       "id": "gantt_chart_gantt_chart_component_flipcoord",
-      "community": 1,
+      "community": 124,
       "norm_label": "flipcoord()"
     },
     {
@@ -4132,7 +4384,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1018",
       "id": "gantt_chart_gantt_chart_component_getrowstart",
-      "community": 10,
+      "community": 1,
       "norm_label": "getrowstart()"
     },
     {
@@ -4141,7 +4393,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1019",
       "id": "gantt_chart_gantt_chart_component_getrowend",
-      "community": 10,
+      "community": 1,
       "norm_label": "getrowend()"
     },
     {
@@ -4231,7 +4483,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-config.model.ts",
       "source_location": "L57",
       "id": "models_gantt_config_model_ganttcolumndef",
-      "community": 10,
+      "community": 23,
       "norm_label": "ganttcolumndef"
     },
     {
@@ -4483,7 +4735,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-task.model.ts",
       "source_location": "L12",
       "id": "models_gantt_task_model_ganttsubtask",
-      "community": 23,
+      "community": 124,
       "norm_label": "ganttsubtask"
     },
     {
@@ -6391,7 +6643,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L116",
       "id": "autocomplete_autocomplete_component_autocompletecomponent",
-      "community": 2,
+      "community": 115,
       "norm_label": "autocompletecomponent"
     },
     {
@@ -6418,7 +6670,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L146",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_oninput",
-      "community": 2,
+      "community": 115,
       "norm_label": ".oninput()"
     },
     {
@@ -6427,7 +6679,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L154",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onfocus",
-      "community": 2,
+      "community": 115,
       "norm_label": ".onfocus()"
     },
     {
@@ -6436,7 +6688,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L161",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onblur",
-      "community": 2,
+      "community": 115,
       "norm_label": ".onblur()"
     },
     {
@@ -6445,7 +6697,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L167",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onkeydown",
-      "community": 2,
+      "community": 115,
       "norm_label": ".onkeydown()"
     },
     {
@@ -6454,7 +6706,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L183",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_selectoption",
-      "community": 2,
+      "community": 115,
       "norm_label": ".selectoption()"
     },
     {
@@ -6463,7 +6715,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L193",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_clear",
-      "community": 2,
+      "community": 115,
       "norm_label": ".clear()"
     },
     {
@@ -6472,7 +6724,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L202",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_ondocclick",
-      "community": 2,
+      "community": 115,
       "norm_label": ".ondocclick()"
     },
     {
@@ -6481,7 +6733,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L209",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_writevalue",
-      "community": 2,
+      "community": 115,
       "norm_label": ".writevalue()"
     },
     {
@@ -6490,7 +6742,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L220",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_registeronchange",
-      "community": 2,
+      "community": 115,
       "norm_label": ".registeronchange()"
     },
     {
@@ -6499,7 +6751,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L224",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_registerontouched",
-      "community": 2,
+      "community": 115,
       "norm_label": ".registerontouched()"
     },
     {
@@ -6508,7 +6760,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L228",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_setdisabledstate",
-      "community": 2,
+      "community": 115,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -6976,7 +7228,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L159",
       "id": "dropdown_dropdown_component_dropdowncomponent",
-      "community": 2,
+      "community": 116,
       "norm_label": "dropdowncomponent"
     },
     {
@@ -7003,7 +7255,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L194",
       "id": "dropdown_dropdown_component_dropdowncomponent_isselected",
-      "community": 2,
+      "community": 116,
       "norm_label": ".isselected()"
     },
     {
@@ -7012,7 +7264,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L196",
       "id": "dropdown_dropdown_component_dropdowncomponent_toggle",
-      "community": 2,
+      "community": 116,
       "norm_label": ".toggle()"
     },
     {
@@ -7021,7 +7273,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L210",
       "id": "dropdown_dropdown_component_dropdowncomponent_selectoption",
-      "community": 2,
+      "community": 116,
       "norm_label": ".selectoption()"
     },
     {
@@ -7030,7 +7282,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L221",
       "id": "dropdown_dropdown_component_dropdowncomponent_ontriggerkey",
-      "community": 2,
+      "community": 116,
       "norm_label": ".ontriggerkey()"
     },
     {
@@ -7039,7 +7291,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L228",
       "id": "dropdown_dropdown_component_dropdowncomponent_onfilterkey",
-      "community": 2,
+      "community": 116,
       "norm_label": ".onfilterkey()"
     },
     {
@@ -7048,7 +7300,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L239",
       "id": "dropdown_dropdown_component_dropdowncomponent_movefocus",
-      "community": 2,
+      "community": 116,
       "norm_label": ".movefocus()"
     },
     {
@@ -7057,7 +7309,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L249",
       "id": "dropdown_dropdown_component_dropdowncomponent_ondocclick",
-      "community": 2,
+      "community": 116,
       "norm_label": ".ondocclick()"
     },
     {
@@ -7066,7 +7318,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L261",
       "id": "dropdown_dropdown_component_dropdowncomponent_writevalue",
-      "community": 2,
+      "community": 116,
       "norm_label": ".writevalue()"
     },
     {
@@ -7075,7 +7327,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L266",
       "id": "dropdown_dropdown_component_dropdowncomponent_registeronchange",
-      "community": 2,
+      "community": 116,
       "norm_label": ".registeronchange()"
     },
     {
@@ -7084,7 +7336,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L270",
       "id": "dropdown_dropdown_component_dropdowncomponent_registerontouched",
-      "community": 2,
+      "community": 116,
       "norm_label": ".registerontouched()"
     },
     {
@@ -7093,7 +7345,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L274",
       "id": "dropdown_dropdown_component_dropdowncomponent_setdisabledstate",
-      "community": 2,
+      "community": 116,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -7318,7 +7570,7 @@
       "source_file": "projects/ngx-core-components/inputs/radio/radio-group.component.ts",
       "source_location": "L86",
       "id": "radio_radio_group_component_radiogroupcomponent",
-      "community": 16,
+      "community": 123,
       "norm_label": "radiogroupcomponent"
     },
     {
@@ -7327,7 +7579,7 @@
       "source_file": "projects/ngx-core-components/inputs/radio/radio-group.component.ts",
       "source_location": "L103",
       "id": "radio_radio_group_component_radiogroupcomponent_ischecked",
-      "community": 16,
+      "community": 123,
       "norm_label": ".ischecked()"
     },
     {
@@ -7336,7 +7588,7 @@
       "source_file": "projects/ngx-core-components/inputs/radio/radio-group.component.ts",
       "source_location": "L107",
       "id": "radio_radio_group_component_radiogroupcomponent_select",
-      "community": 16,
+      "community": 123,
       "norm_label": ".select()"
     },
     {
@@ -7345,7 +7597,7 @@
       "source_file": "projects/ngx-core-components/inputs/radio/radio-group.component.ts",
       "source_location": "L116",
       "id": "radio_radio_group_component_radiogroupcomponent_writevalue",
-      "community": 16,
+      "community": 123,
       "norm_label": ".writevalue()"
     },
     {
@@ -7354,7 +7606,7 @@
       "source_file": "projects/ngx-core-components/inputs/radio/radio-group.component.ts",
       "source_location": "L121",
       "id": "radio_radio_group_component_radiogroupcomponent_registeronchange",
-      "community": 16,
+      "community": 123,
       "norm_label": ".registeronchange()"
     },
     {
@@ -7363,7 +7615,7 @@
       "source_file": "projects/ngx-core-components/inputs/radio/radio-group.component.ts",
       "source_location": "L125",
       "id": "radio_radio_group_component_radiogroupcomponent_registerontouched",
-      "community": 16,
+      "community": 123,
       "norm_label": ".registerontouched()"
     },
     {
@@ -7372,7 +7624,7 @@
       "source_file": "projects/ngx-core-components/inputs/radio/radio-group.component.ts",
       "source_location": "L129",
       "id": "radio_radio_group_component_radiogroupcomponent_setdisabledstate",
-      "community": 16,
+      "community": 123,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -8263,7 +8515,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L12",
       "id": "tooltip_tooltip_directive_tooltipdirective",
-      "community": 33,
+      "community": 125,
       "norm_label": "tooltipdirective"
     },
     {
@@ -8272,7 +8524,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L21",
       "id": "tooltip_tooltip_directive_tooltipdirective_onmouseenter",
-      "community": 33,
+      "community": 125,
       "norm_label": ".onmouseenter()"
     },
     {
@@ -8281,7 +8533,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L28",
       "id": "tooltip_tooltip_directive_tooltipdirective_onmouseleave",
-      "community": 33,
+      "community": 125,
       "norm_label": ".onmouseleave()"
     },
     {
@@ -8290,7 +8542,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L32",
       "id": "tooltip_tooltip_directive_tooltipdirective_showtooltip",
-      "community": 33,
+      "community": 125,
       "norm_label": ".showtooltip()"
     },
     {
@@ -8299,7 +8551,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L79",
       "id": "tooltip_tooltip_directive_tooltipdirective_hidetooltip",
-      "community": 33,
+      "community": 125,
       "norm_label": ".hidetooltip()"
     },
     {
@@ -12601,9 +12853,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_app_component_ts",
-      "target": "projects_demo_src_app_core_demo_nav_config_ts",
-      "confidence_score": 1.0
+      "target": "projects_demo_src_app_core_demo_nav_config_ts"
     },
     {
       "relation": "imports",
@@ -12612,9 +12864,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_app_component_ts",
-      "target": "core_demo_nav_config_demo_nav_groups",
-      "confidence_score": 1.0
+      "target": "core_demo_nav_config_demo_nav_groups"
     },
     {
       "relation": "contains",
@@ -12632,9 +12884,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_app_component_ts",
-      "target": "app_app_component_query",
-      "confidence_score": 1.0
+      "target": "app_app_component_query"
     },
     {
       "relation": "contains",
@@ -12642,9 +12894,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_app_component_ts",
-      "target": "app_app_component_haystack",
-      "confidence_score": 1.0
+      "target": "app_app_component_haystack"
     },
     {
       "relation": "method",
@@ -12672,9 +12924,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent",
-      "target": "app_app_component_appcomponent_closesidebar",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_closesidebar"
     },
     {
       "relation": "method",
@@ -12682,9 +12934,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent",
-      "target": "app_app_component_appcomponent_clearsearch",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_clearsearch"
     },
     {
       "relation": "method",
@@ -12702,9 +12954,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L84",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent",
-      "target": "app_app_component_appcomponent_onnavclick",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_onnavclick"
     },
     {
       "relation": "method",
@@ -12712,9 +12964,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L90",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent",
-      "target": "app_app_component_appcomponent_onroutechanged",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_onroutechanged"
     },
     {
       "relation": "method",
@@ -12722,9 +12974,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L96",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent",
-      "target": "app_app_component_appcomponent_normalizepath",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_normalizepath"
     },
     {
       "relation": "method",
@@ -12732,9 +12984,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L101",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent",
-      "target": "app_app_component_appcomponent_ismobileview",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_ismobileview"
     },
     {
       "relation": "method",
@@ -12783,9 +13035,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent_constructor",
-      "target": "app_app_component_appcomponent_normalizepath",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_normalizepath"
     },
     {
       "relation": "calls",
@@ -12794,9 +13046,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent_constructor",
-      "target": "app_app_component_appcomponent_ismobileview",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_ismobileview"
     },
     {
       "relation": "calls",
@@ -12816,9 +13068,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent_onnavclick",
-      "target": "app_app_component_appcomponent_closesidebar",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_closesidebar"
     },
     {
       "relation": "calls",
@@ -12827,9 +13079,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent_onroutechanged",
-      "target": "app_app_component_appcomponent_closesidebar",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_closesidebar"
     },
     {
       "relation": "calls",
@@ -12838,9 +13090,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L85",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent_onnavclick",
-      "target": "app_app_component_appcomponent_ismobileview",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_ismobileview"
     },
     {
       "relation": "calls",
@@ -12849,9 +13101,9 @@
       "source_file": "projects/demo/src/app/app.component.ts",
       "source_location": "L91",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_component_appcomponent_onroutechanged",
-      "target": "app_app_component_appcomponent_ismobileview",
-      "confidence_score": 1.0
+      "target": "app_app_component_appcomponent_ismobileview"
     },
     {
       "relation": "imports_from",
@@ -12901,9 +13153,9 @@
       "source_file": "projects/demo/src/app/core/demo-nav.config.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_core_demo_nav_config_ts",
-      "target": "core_demo_nav_config_demonavitem",
-      "confidence_score": 1.0
+      "target": "core_demo_nav_config_demonavitem"
     },
     {
       "relation": "contains",
@@ -12911,9 +13163,9 @@
       "source_file": "projects/demo/src/app/core/demo-nav.config.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_core_demo_nav_config_ts",
-      "target": "core_demo_nav_config_demonavgroup",
-      "confidence_score": 1.0
+      "target": "core_demo_nav_config_demonavgroup"
     },
     {
       "relation": "contains",
@@ -12921,9 +13173,9 @@
       "source_file": "projects/demo/src/app/core/demo-nav.config.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_core_demo_nav_config_ts",
-      "target": "core_demo_nav_config_demo_nav_groups",
-      "confidence_score": 1.0
+      "target": "core_demo_nav_config_demo_nav_groups"
     },
     {
       "relation": "imports_from",
@@ -13133,6 +13385,120 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L292",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_ai_demo_ai_demo_component_ts",
+      "target": "ai_demo_ai_demo_component_aidemocomponent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L365",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L383",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L391",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_oncardactionclick",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L395",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onclearhistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L399",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulatesimpleresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L415",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulateagentworkflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L377",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulateagentworkflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L379",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulatesimpleresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L388",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
+      "source_location": "L385",
+      "weight": 1.0,
+      "source": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick",
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onclearhistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "projects/demo/src/app/pages/barcodes-demo/barcodes-demo.component.ts",
       "source_location": "L4",
       "weight": 1.0,
@@ -13227,9 +13593,9 @@
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L229",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "basic_demo_basic_demo_component_basicdemocomponent",
-      "target": "basic_demo_basic_demo_component_basicdemocomponent_togglealternaterows",
-      "confidence_score": 1.0
+      "target": "basic_demo_basic_demo_component_basicdemocomponent_togglealternaterows"
     },
     {
       "relation": "method",
@@ -13237,9 +13603,9 @@
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L234",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "basic_demo_basic_demo_component_basicdemocomponent",
-      "target": "basic_demo_basic_demo_component_basicdemocomponent_togglealternatecolumns",
-      "confidence_score": 1.0
+      "target": "basic_demo_basic_demo_component_basicdemocomponent_togglealternatecolumns"
     },
     {
       "relation": "contains",
@@ -13489,9 +13855,9 @@
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
       "source_location": "L931",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "charts_demo_charts_demo_component_chartsdemocomponent",
-      "target": "charts_demo_charts_demo_component_chartsdemocomponent_toggletransportalternaterows",
-      "confidence_score": 1.0
+      "target": "charts_demo_charts_demo_component_chartsdemocomponent_toggletransportalternaterows"
     },
     {
       "relation": "method",
@@ -13499,9 +13865,9 @@
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
       "source_location": "L936",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "charts_demo_charts_demo_component_chartsdemocomponent",
-      "target": "charts_demo_charts_demo_component_chartsdemocomponent_toggletransportalternatecolumns",
-      "confidence_score": 1.0
+      "target": "charts_demo_charts_demo_component_chartsdemocomponent_toggletransportalternatecolumns"
     },
     {
       "relation": "method",
@@ -13509,9 +13875,9 @@
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
       "source_location": "L941",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "charts_demo_charts_demo_component_chartsdemocomponent",
-      "target": "charts_demo_charts_demo_component_chartsdemocomponent_formattime",
-      "confidence_score": 1.0
+      "target": "charts_demo_charts_demo_component_chartsdemocomponent_formattime"
     },
     {
       "relation": "imports_from",
@@ -13867,9 +14233,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_component_ts",
-      "target": "projects_demo_src_app_pages_home_home_data_ts",
-      "confidence_score": 1.0
+      "target": "projects_demo_src_app_pages_home_home_data_ts"
     },
     {
       "relation": "imports",
@@ -13878,9 +14244,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_component_ts",
-      "target": "home_home_data_build_cards",
-      "confidence_score": 1.0
+      "target": "home_home_data_build_cards"
     },
     {
       "relation": "imports",
@@ -13889,9 +14255,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_component_ts",
-      "target": "home_home_data_explore_cards",
-      "confidence_score": 1.0
+      "target": "home_home_data_explore_cards"
     },
     {
       "relation": "imports",
@@ -13900,9 +14266,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_component_ts",
-      "target": "home_home_data_compare_tracks",
-      "confidence_score": 1.0
+      "target": "home_home_data_compare_tracks"
     },
     {
       "relation": "imports",
@@ -13911,9 +14277,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_component_ts",
-      "target": "home_home_data_integrate_cards",
-      "confidence_score": 1.0
+      "target": "home_home_data_integrate_cards"
     },
     {
       "relation": "contains",
@@ -13941,9 +14307,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.data.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_data_ts",
-      "target": "home_home_data_journeycard",
-      "confidence_score": 1.0
+      "target": "home_home_data_journeycard"
     },
     {
       "relation": "contains",
@@ -13951,9 +14317,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.data.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_data_ts",
-      "target": "home_home_data_comparetrack",
-      "confidence_score": 1.0
+      "target": "home_home_data_comparetrack"
     },
     {
       "relation": "contains",
@@ -13961,9 +14327,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.data.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_data_ts",
-      "target": "home_home_data_build_cards",
-      "confidence_score": 1.0
+      "target": "home_home_data_build_cards"
     },
     {
       "relation": "contains",
@@ -13971,9 +14337,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.data.ts",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_data_ts",
-      "target": "home_home_data_explore_cards",
-      "confidence_score": 1.0
+      "target": "home_home_data_explore_cards"
     },
     {
       "relation": "contains",
@@ -13981,9 +14347,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.data.ts",
       "source_location": "L78",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_data_ts",
-      "target": "home_home_data_compare_tracks",
-      "confidence_score": 1.0
+      "target": "home_home_data_compare_tracks"
     },
     {
       "relation": "contains",
@@ -13991,9 +14357,9 @@
       "source_file": "projects/demo/src/app/pages/home/home.data.ts",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_home_home_data_ts",
-      "target": "home_home_data_integrate_cards",
-      "confidence_score": 1.0
+      "target": "home_home_data_integrate_cards"
     },
     {
       "relation": "imports_from",
@@ -14979,6 +15345,342 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ng-package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ng_package_json",
+      "target": "ai_ng_package_schema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ng-package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ng_package_json",
+      "target": "ai_ng_package_lib",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ng-package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "ai_ng_package_lib",
+      "target": "ai_ng_package_lib_entryfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "ai_chat_ai_chat_component_aichatcomponent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "ai_chat_models_aimessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "ai_chat_models_agentstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "ai_chat_models_aicard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "ai_chat_models_aicardaction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/public-api.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_public_api_ts",
+      "target": "ai_chat_models_quickreply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "target": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "target": "ai_chat_models_aimessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "target": "ai_chat_models_agentstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "target": "ai_chat_models_aicard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "target": "ai_chat_models_aicardaction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "target": "ai_chat_models_quickreply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L800",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
+      "target": "ai_chat_ai_chat_component_aichatcomponent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L822",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent",
+      "target": "ai_chat_ai_chat_component_aichatcomponent_constructor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L831",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent",
+      "target": "ai_chat_ai_chat_component_aichatcomponent_onsubmit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L838",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent",
+      "target": "ai_chat_ai_chat_component_aichatcomponent_togglestep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L842",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent",
+      "target": "ai_chat_ai_chat_component_aichatcomponent_getcompletedstepscount",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L846",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent",
+      "target": "ai_chat_ai_chat_component_aichatcomponent_getinitials",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L855",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent",
+      "target": "ai_chat_ai_chat_component_aichatcomponent_scrolltobottom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L864",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent",
+      "target": "ai_chat_ai_chat_component_aichatcomponent_formatmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L838",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent_togglestep",
+      "target": "ai_chat_models_agentstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
+      "source_location": "L842",
+      "weight": 1.0,
+      "source": "ai_chat_ai_chat_component_aichatcomponent_getcompletedstepscount",
+      "target": "ai_chat_models_agentstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "target": "ai_chat_models_agentstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "target": "ai_chat_models_aicardaction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "target": "ai_chat_models_aicard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "target": "ai_chat_models_aimessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
+      "target": "ai_chat_models_quickreply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/barcodes/ng-package.json",
       "source_location": "L2",
       "weight": 1.0,
@@ -15691,9 +16393,9 @@
       "source_file": "projects/ngx-core-components/buttons/chip/chip.component.ts",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "chip_chip_component_chipcomponent",
-      "target": "chip_chip_component_chipcomponent_onchipclick",
-      "confidence_score": 1.0
+      "target": "chip_chip_component_chipcomponent_onchipclick"
     },
     {
       "relation": "contains",
@@ -15761,9 +16463,9 @@
       "source_file": "projects/ngx-core-components/buttons/split-button/split-button.component.ts",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "split_button_split_button_component_splitbuttoncomponent",
-      "target": "split_button_split_button_component_splitbuttoncomponent_onitemclick",
-      "confidence_score": 1.0
+      "target": "split_button_split_button_component_splitbuttoncomponent_onitemclick"
     },
     {
       "relation": "method",
@@ -15771,9 +16473,9 @@
       "source_file": "projects/ngx-core-components/buttons/split-button/split-button.component.ts",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "split_button_split_button_component_splitbuttoncomponent",
-      "target": "split_button_split_button_component_splitbuttoncomponent_ondocclick",
-      "confidence_score": 1.0
+      "target": "split_button_split_button_component_splitbuttoncomponent_ondocclick"
     },
     {
       "relation": "contains",
@@ -17001,9 +17703,9 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_charts_gantt_chart_gantt_chart_component_ts",
-      "target": "models_gantt_task_model_gantttooltipcontext",
-      "confidence_score": 1.0
+      "target": "models_gantt_task_model_gantttooltipcontext"
     },
     {
       "relation": "contains",
@@ -17061,9 +17763,9 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L726",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "gantt_chart_gantt_chart_component_ganttchartcomponent",
-      "target": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontreelistwheel",
-      "confidence_score": 1.0
+      "target": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontreelistwheel"
     },
     {
       "relation": "method",
@@ -18903,9 +19605,9 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-task.model.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_charts_gantt_chart_models_gantt_task_model_ts",
-      "target": "models_gantt_task_model_gantttooltipcontext",
-      "confidence_score": 1.0
+      "target": "models_gantt_task_model_gantttooltipcontext"
     },
     {
       "relation": "contains",
@@ -21186,9 +21888,9 @@
       "source_file": "projects/ngx-core-components/feedback/badge/badge.component.ts",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_feedback_badge_badge_component_ts",
-      "target": "badge_badge_component_cls",
-      "confidence_score": 1.0
+      "target": "badge_badge_component_cls"
     },
     {
       "relation": "contains",
@@ -24294,9 +24996,9 @@
       "source_file": "projects/ngx-core-components/inputs/slider/slider.component.ts",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "slider_slider_component_slidercomponent",
-      "target": "slider_slider_component_slidercomponent_ngoninit",
-      "confidence_score": 1.0
+      "target": "slider_slider_component_slidercomponent_ngoninit"
     },
     {
       "relation": "method",
@@ -24355,9 +25057,9 @@
       "source_file": "projects/ngx-core-components/inputs/slider/slider.component.ts",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "slider_slider_component_slidercomponent_ngoninit",
-      "target": "slider_slider_component_slidercomponent_clamp",
-      "confidence_score": 1.0
+      "target": "slider_slider_component_slidercomponent_clamp"
     },
     {
       "relation": "calls",
@@ -24366,9 +25068,9 @@
       "source_file": "projects/ngx-core-components/inputs/slider/slider.component.ts",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "slider_slider_component_slidercomponent_ngoninit",
-      "target": "slider_slider_component_min",
-      "confidence_score": 1.0
+      "target": "slider_slider_component_min"
     },
     {
       "relation": "calls",
@@ -24377,9 +25079,9 @@
       "source_file": "projects/ngx-core-components/inputs/slider/slider.component.ts",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "slider_slider_component_slidercomponent_ngoninit",
-      "target": "slider_slider_component_max",
-      "confidence_score": 1.0
+      "target": "slider_slider_component_max"
     },
     {
       "relation": "calls",
@@ -24610,9 +25312,9 @@
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
       "source_location": "L147",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "textbox_textbox_component_textboxcomponent",
-      "target": "textbox_textbox_component_textboxcomponent_clearvalue",
-      "confidence_score": 1.0
+      "target": "textbox_textbox_component_textboxcomponent_clearvalue"
     },
     {
       "relation": "method",
@@ -25317,9 +26019,9 @@
       "source_file": "projects/ngx-core-components/layout/tab-strip/tab-strip.component.ts",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tab_strip_tab_strip_component_tabstripcomponent",
-      "target": "tab_strip_tab_strip_component_tabstripcomponent_syncactivetabs",
-      "confidence_score": 1.0
+      "target": "tab_strip_tab_strip_component_tabstripcomponent_syncactivetabs"
     },
     {
       "relation": "calls",
@@ -25328,9 +26030,9 @@
       "source_file": "projects/ngx-core-components/layout/tab-strip/tab-strip.component.ts",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tab_strip_tab_strip_component_tabstripcomponent_ngaftercontentinit",
-      "target": "tab_strip_tab_strip_component_tabstripcomponent_syncactivetabs",
-      "confidence_score": 1.0
+      "target": "tab_strip_tab_strip_component_tabstripcomponent_syncactivetabs"
     },
     {
       "relation": "calls",
@@ -25339,9 +26041,9 @@
       "source_file": "projects/ngx-core-components/layout/tab-strip/tab-strip.component.ts",
       "source_location": "L84",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tab_strip_tab_strip_component_tabstripcomponent_selecttab",
-      "target": "tab_strip_tab_strip_component_tabstripcomponent_syncactivetabs",
-      "confidence_score": 1.0
+      "target": "tab_strip_tab_strip_component_tabstripcomponent_syncactivetabs"
     },
     {
       "relation": "contains",
@@ -25495,9 +26197,9 @@
       "source_file": "projects/ngx-core-components/navigation/menu/menu.component.ts",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "menu_menu_component_menucomponent",
-      "target": "menu_menu_component_menucomponent_isactiveitem",
-      "confidence_score": 1.0
+      "target": "menu_menu_component_menucomponent_isactiveitem"
     },
     {
       "relation": "method",
@@ -26145,9 +26847,9 @@
       "source_file": "projects/ngx-core-components/views/tree-view/tree-view.component.ts",
       "source_location": "L201",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tree_view_tree_view_component_treeviewcomponent",
-      "target": "tree_view_tree_view_component_treeviewcomponent_expandall",
-      "confidence_score": 1.0
+      "target": "tree_view_tree_view_component_treeviewcomponent_expandall"
     },
     {
       "relation": "method",
@@ -26155,9 +26857,9 @@
       "source_file": "projects/ngx-core-components/views/tree-view/tree-view.component.ts",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tree_view_tree_view_component_treeviewcomponent",
-      "target": "tree_view_tree_view_component_treeviewcomponent_collapseall",
-      "confidence_score": 1.0
+      "target": "tree_view_tree_view_component_treeviewcomponent_collapseall"
     },
     {
       "relation": "calls",
@@ -26209,9 +26911,9 @@
       "source_file": "AGENTS.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "agents_md",
-      "target": "ngx_core_components_agents_agents_repo_guidance_for_ai_coding_agents",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_agents_agents_repo_guidance_for_ai_coding_agents"
     },
     {
       "relation": "contains",
@@ -28356,5 +29058,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "31ab2d161cf4b756a393e1f2f10124860320d1b4"
+  "built_at_commit": "d96b351e8fb2b30d825298acee42b1300bb79438"
 }

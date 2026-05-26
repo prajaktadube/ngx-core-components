@@ -177,4 +177,18 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
       },
     ],
   },
+  {
+    title: 'Agentic AI',
+    icon: '🤖',
+    items: [
+      {
+        path: '/ai',
+        label: 'AI Chat & Agent Console',
+        icon: '🧠',
+        desc: 'Structured steps, card carousels, and replies',
+        keywords: 'ai agent chat console LLM structured tool call prompt',
+        featured: true,
+      },
+    ],
+  },
 ];
