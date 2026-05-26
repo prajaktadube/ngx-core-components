@@ -308,14 +308,20 @@ interface ApiRow { name: string; type: string; default: string; description: str
                       <span>{{ formatTime(ctx.subtask.end) }}</span>
                     </div>
                     @if (ctx.subtask.progress != null) {
-                      <div class="tt-progress-bar"><div class="tt-progress-fill" [style.width.%]="ctx.subtask.progress"></div></div>
+                      <div class="tt-progress-bar" style="margin-bottom: 6px;"><div class="tt-progress-fill" [style.width.%]="ctx.subtask.progress"></div></div>
                     }
+                    <div class="tt-phase-meta" style="font-size: 10px; opacity: 0.75; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 5px; margin-top: 5px; display: flex; flex-direction: column; gap: 2px;">
+                      <div style="display: flex; justify-content: space-between;"><span>Voyage ID:</span><span>{{ ctx.task.meta?.['voyageId'] }}</span></div>
+                      <div style="display: flex; justify-content: space-between;"><span>Vehicle No:</span><span>{{ ctx.task.meta?.['vehicleNo'] }}</span></div>
+                    </div>
                   </div>
                 </div>
               } @else {
                 <div class="tt-voyage">
                   <div class="tt-voyage-title">🚚 {{ ctx.task.meta?.['vehicle'] }}</div>
                   <div class="tt-voyage-route">{{ ctx.task.meta?.['origin'] }} → {{ ctx.task.meta?.['destination'] }}</div>
+                  <div class="tt-voyage-row"><span>Voyage ID</span><span>{{ ctx.task.meta?.['voyageId'] }}</span></div>
+                  <div class="tt-voyage-row"><span>Vehicle No</span><span>{{ ctx.task.meta?.['vehicleNo'] }}</span></div>
                   <div class="tt-voyage-row"><span>Voyage</span><span>#{{ ctx.task.meta?.['voyageNo'] }}</span></div>
                   <div class="tt-voyage-row"><span>Departs</span><span>{{ formatTime(ctx.task.start) }}</span></div>
                   <div class="tt-voyage-row"><span>Arrives</span><span>{{ formatTime(ctx.task.end) }}</span></div>

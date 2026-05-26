@@ -22,12 +22,4 @@ describe('AppComponent', () => {
     app.toggleSidebar();
     expect(app.sidebarOpen()).toBe(!initialValue);
   });
-
-  it('should toggle darkMode when toggleDarkMode is called', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    const initialValue = app.darkMode();
-    app.toggleDarkMode();
-    expect(app.darkMode()).toBe(!initialValue);
-  });
 });

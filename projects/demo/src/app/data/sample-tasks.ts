@@ -135,7 +135,9 @@ export function getTransportTasks(): GanttTask[] {
         color: '#f1f3f5',
         meta: {
           vehicle: vehicle.name,
+          vehicleNo: vehicle.name.replace('Vehicle ', ''),
           voyageNo: vyi + 1,
+          voyageId: voyageId,
           origin: stations[0],
           destination: stations[stations.length - 1],
           route: stations.join(' → '),
