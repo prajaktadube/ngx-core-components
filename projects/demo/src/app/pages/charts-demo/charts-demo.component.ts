@@ -227,6 +227,10 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 <input type="checkbox" [checked]="ganttShowBaseline()" (change)="setGanttBaseline($any($event.target).checked)" />
                 Baseline
               </label>
+              <label class="gantt-control gantt-toggle">
+                <input type="checkbox" [checked]="ganttDragToZoom()" (change)="setGanttDragToZoom($any($event.target).checked)" />
+                Drag to Zoom
+              </label>
             </div>
             <div class="gantt-demo-wrap">
               <ngx-gantt-chart [tasks]="ganttTasks" [dependencies]="ganttDependencies" [config]="ganttConfig()" [baselineItems]="ganttBaseline"
@@ -273,6 +277,16 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Day" (click)="setTransportZoom(ZoomLevel.Day)">📅 Day</button>
                 <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Week" (click)="setTransportZoom(ZoomLevel.Week)">📆 Week</button>
               </div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <button class="mini-btn" [class.active]="transportGantt.isAreaZoomMode()" (click)="transportGantt.toggleAreaZoomMode()" title="Toggle Area Selection Zoom">
+                  🔍 Area Zoom
+                </button>
+                @if (transportGantt.isZoomed()) {
+                  <button class="mini-btn reset-zoom-btn" (click)="transportGantt.resetZoom()" title="Reset to full timeline">
+                    Reset Zoom
+                  </button>
+                }
+              </div>
               <div style="display: flex; gap: 12px; margin-left: auto;">
                 <label style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
                   <input type="checkbox" [checked]="transportConfig().enableAlternateRowColor" (change)="toggleTransportAlternateRows($event)" />
@@ -290,8 +304,9 @@ interface ApiRow { name: string; type: string; default: string; description: str
               </div>
             </div>
             <div class="gantt-demo-wrap">
-              <ngx-gantt-chart [tasks]="transportTasks" [dependencies]="transportDeps" [config]="transportConfig()"
+              <ngx-gantt-chart #transportGantt [tasks]="transportTasks" [dependencies]="transportDeps" [config]="transportConfig()"
                 [tooltipTemplate]="transportTooltip"
+                [enableDragToZoom]="true"
                 (barClick)="onTransportBarClick($event)" />
             </div>
 
@@ -583,6 +598,7 @@ export class ChartsDemoComponent {
   ganttLinkable = signal(false);
   ganttSelectable = signal(true);
   ganttShowBaseline = signal(false);
+  ganttDragToZoom = signal(true);
 
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
@@ -631,7 +647,8 @@ export class ChartsDemoComponent {
     selectable: true,
     multiple: true,
     showBaseline: false,
-    showToolbar: false,
+    showToolbar: true,
+    enableDragToZoom: true,
     sidebarColumns: [
       { field: 'name', header: 'Task Name', width: 180 },
       { field: 'start', header: 'Start', width: 80 },
@@ -861,6 +878,7 @@ tasks: GanttTask[] = [
     { name: 'tasks', type: 'GanttTask[]', default: 'required', description: 'Task rows rendered in the sidebar and timeline. Each task can have a subtasks[] array.' },
     { name: 'dependencies', type: 'GanttDependency[]', default: '[]', description: 'Dependency links between tasks.' },
     { name: 'config', type: 'Partial<GanttConfig>', default: '{}', description: 'Zoom, sizing, grid, and interaction configuration.' },
+    { name: 'enableDragToZoom', type: 'boolean', default: 'false', description: 'Enables area-selection zooming by dragging the mouse while holding Shift or toggling Zoom Mode.' },
     { name: 'task.subtasks', type: 'GanttSubtask[]', default: '[]', description: 'Subtasks rendered as colored segments inside the task bar. Each has id, name, start, end, color, description?, progress?.' },
     { name: 'task.rowId', type: 'string', default: 'undefined', description: 'Tasks sharing the same rowId (and parentId) are rendered in a single row.' },
   ];
@@ -912,6 +930,10 @@ tasks: GanttTask[] = [
   setGanttBaseline(val: boolean): void {
     this.ganttShowBaseline.set(val);
     this.ganttConfig.set({ ...this.ganttConfig(), showBaseline: val });
+  }
+  setGanttDragToZoom(val: boolean): void {
+    this.ganttDragToZoom.set(val);
+    this.ganttConfig.set({ ...this.ganttConfig(), enableDragToZoom: val });
   }
 
   // Transport helpers

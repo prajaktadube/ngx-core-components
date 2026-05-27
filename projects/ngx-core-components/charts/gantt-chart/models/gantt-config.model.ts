@@ -106,6 +106,8 @@ export interface GanttConfig {
   enableAlternateRowColor: boolean;
   /** Enable alternate column colors for better column distinction */
   enableAlternateColumnColor: boolean;
+  /** Enable drag to select area zoom feature */
+  enableDragToZoom: boolean;
 }
 
 export const DEFAULT_GANTT_CONFIG: GanttConfig = {
@@ -159,4 +161,5 @@ export const DEFAULT_GANTT_CONFIG: GanttConfig = {
   barHeight: 24,
   enableAlternateRowColor: false,
   enableAlternateColumnColor: false,
+  enableDragToZoom: false,
 };

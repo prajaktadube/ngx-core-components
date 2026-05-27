@@ -85,8 +85,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\charts-demo\\charts-demo.component.ts": {
-    "mtime": 1779788981.4930441,
-    "ast_hash": "42ad0a003a37e2d1fe8b6bbf5c42ed36",
+    "mtime": 1779858760.3034735,
+    "ast_hash": "b423411bd16a68fdad02514178b9fe79",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\dialog-demo\\dialog-demo.component.ts": {
@@ -250,8 +250,8 @@
     "semantic_hash": "5eaf8080a3e0b14c6ed46ed0c4d67e26"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\gantt-chart.component.ts": {
-    "mtime": 1779769764.854573,
-    "ast_hash": "2ec0a56a6a58ede074c9ac2749633b79",
+    "mtime": 1779858449.6630538,
+    "ast_hash": "036c69a722267f86163ad232b29900f4",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-baseline.model.ts": {
@@ -260,8 +260,8 @@
     "semantic_hash": "4974eb19848c801342611bc3bb0a1f6f"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-config.model.ts": {
-    "mtime": 1779769653.160012,
-    "ast_hash": "920cd69edd1c0c9beefe927c1ad1354f",
+    "mtime": 1779858382.5045931,
+    "ast_hash": "b372c7a9f4121de9290951e5c09062b5",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-dependency.model.ts": {

@@ -78,6 +78,18 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               <button class="k-toolbar-btn" (click)="collapseAll()">Collapse</button>
             }
           </div>
+          @if (isDragToZoomEnabled()) {
+            <div class="k-toolbar-group k-toolbar-zoom" style="margin-left: auto;">
+              <button class="k-toolbar-btn k-zoom-mode-btn" [class.k-active]="isAreaZoomMode()" (click)="toggleAreaZoomMode()" title="Toggle Area Selection Zoom">
+                🔍 Area Zoom
+              </button>
+              @if (isZoomed()) {
+                <button class="k-toolbar-btn k-zoom-reset-btn" (click)="resetZoom()" title="Reset to full timeline">
+                  Reset Zoom
+                </button>
+              }
+            </div>
+          }
         </div>
       }
 
@@ -167,7 +179,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
             </div>
           </div>
 
-          <div class="k-timeline-content" #timelineContent (scroll)="onTimelineScroll()">
+          <div class="k-timeline-content" #timelineContent (scroll)="onTimelineScroll()"
+            [class.k-zoom-mode-cursor]="isAreaZoomMode()"
+            (pointerdown)="onTimelinePointerDown($event)">
             <div class="k-timeline-canvas" [style.width.px]="totalWidth()" [style.height.px]="totalHeight()">
               <div class="k-gantt-rows">
                 @for (row of renderedRows(); track row.task.id; let i = $index) {
@@ -291,6 +305,11 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                     stroke="#ff6358" stroke-width="2" stroke-dasharray="4 3"/>
                 }
               </svg>
+              @if (isDraggingZoom() && zoomDragStart() && zoomDragCurrent()) {
+                <div class="k-gantt-zoom-overlay" [style.left.px]="zoomOverlayLeft()" [style.width.px]="zoomOverlayWidth()" [style.height.px]="totalHeight()">
+                  <div class="k-zoom-overlay-badge">{{ zoomOverlayDateRangeText() }}</div>
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -463,6 +482,10 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-row-tooltip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .k-row-tooltip-name { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .k-gantt.k-no-grid .k-header-cell, .k-gantt.k-no-grid .k-treelist-cell, .k-gantt.k-no-grid .k-treelist-row, .k-gantt.k-no-grid .k-header-group-cell, .k-gantt.k-no-grid .k-header-tick-cell, .k-gantt.k-no-grid .k-gantt-row, .k-gantt.k-no-grid .k-gantt-column { border: none !important; }
+    .k-gantt-zoom-overlay { position: absolute; top: 0; background: rgba(26, 115, 232, 0.12); border-left: 2px solid var(--k-primary, #1a73e8); border-right: 2px solid var(--k-primary, #1a73e8); z-index: 10; pointer-events: none; backdrop-filter: blur(1px); }
+    .k-zoom-overlay-badge { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); background: #2d3748; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.1); }
+    .k-timeline-content.k-zoom-mode-cursor { cursor: crosshair !important; }
+    .k-timeline-content.k-zoom-mode-cursor .k-task, .k-timeline-content.k-zoom-mode-cursor .k-milestone, .k-timeline-content.k-zoom-mode-cursor .k-task-summary { cursor: crosshair !important; pointer-events: none !important; }
   `]
 })
 export class GanttChartComponent {
@@ -472,6 +495,7 @@ export class GanttChartComponent {
   groups = input<GanttGroup[]>([]);
   baselineItems = input<GanttBaselineItem[]>([]);
   tooltipTemplate = input<TemplateRef<{ $implicit: GanttTooltipContext }> | null>(null);
+  enableDragToZoom = input<boolean>(false);
 
   taskChange = output<GanttTaskChangeEvent>();
   taskClick = output<GanttTaskClickEvent>();
@@ -494,6 +518,7 @@ export class GanttChartComponent {
   tableDragStarted = output<GanttTableDragStartedEvent>();
   tableDragEnded = output<GanttTableDragEndedEvent>();
   tableDragDropped = output<GanttTableDragDroppedEvent>();
+  zoomRangeChange = output<{ start: Date; end: Date }>();
 
   private scaleService = inject(GanttScaleService);
   private layoutService = inject(GanttLayoutService);
@@ -524,10 +549,62 @@ export class GanttChartComponent {
   private tableDragSourceRow: FlatRow | null = null;
   private virtualRange = signal<{ start: number; end: number }>({ start: 0, end: Infinity });
 
+  // Area Zoom State
+  isAreaZoomMode = signal(false);
+  zoomStart = signal<Date | null>(null);
+  zoomEnd = signal<Date | null>(null);
+  zoomColumnWidth = signal<number | null>(null);
+  internalZoomLevel = signal<ZoomLevel | null>(null);
+  isDraggingZoom = signal(false);
+  zoomDragStart = signal<{ x: number, y: number } | null>(null);
+  zoomDragCurrent = signal<{ x: number, y: number } | null>(null);
+
+  isDragToZoomEnabled = computed(() => this.enableDragToZoom() || this.mergedConfig().enableDragToZoom || false);
+  isZoomed = computed(() => this.zoomStart() !== null);
+
+  zoomOverlayLeft = computed(() => {
+    const start = this.zoomDragStart();
+    const current = this.zoomDragCurrent();
+    if (!start || !current) return 0;
+    return Math.min(start.x, current.x);
+  });
+
+  zoomOverlayWidth = computed(() => {
+    const start = this.zoomDragStart();
+    const current = this.zoomDragCurrent();
+    if (!start || !current) return 0;
+    return Math.abs(start.x - current.x);
+  });
+
+  zoomOverlayDateRangeText = computed(() => {
+    const start = this.zoomDragStart();
+    const current = this.zoomDragCurrent();
+    if (!start || !current) return '';
+    const leftX = Math.min(start.x, current.x);
+    const rightX = Math.max(start.x, current.x);
+
+    const cfg = this.mergedConfig();
+    const baseRange = getDateRange(this.tasks());
+    const currentStart = this.zoomStart() || baseRange.start;
+
+    const date1 = this.scaleService.xToDate(leftX, currentStart, cfg.columnWidth, cfg.zoomLevel);
+    const date2 = this.scaleService.xToDate(rightX, currentStart, cfg.columnWidth, cfg.zoomLevel);
+
+    const format = (d: Date) => d.toLocaleDateString(cfg.locale, { month: 'short', day: 'numeric' });
+    return `${format(date1)} \u2013 ${format(date2)}`;
+  });
+
   mergedConfig = computed<GanttConfig>(() => {
     const base = { ...DEFAULT_GANTT_CONFIG, ...this.config() };
     const sbOverride = this.sidebarWidthOverride();
     if (sbOverride !== null) base.sidebarWidth = sbOverride;
+
+    const intZoom = this.internalZoomLevel();
+    if (intZoom !== null) base.zoomLevel = intZoom;
+
+    const customColWidth = this.zoomColumnWidth();
+    if (customColWidth !== null) base.columnWidth = customColWidth;
+
     if (this.config().linkOptions) base.linkOptions = { ...DEFAULT_GANTT_CONFIG.linkOptions, ...this.config().linkOptions };
     if (this.config().toolbarOptions) base.toolbarOptions = { ...DEFAULT_GANTT_CONFIG.toolbarOptions, ...this.config().toolbarOptions };
     if (this.config().styleOptions) base.styleOptions = { ...DEFAULT_GANTT_CONFIG.styleOptions, ...this.config().styleOptions };
@@ -573,7 +650,14 @@ export class GanttChartComponent {
     return rows.slice(range.start, Math.min(range.end, rows.length));
   });
 
-  private dateRange = computed(() => getDateRange(this.tasks()));
+  private dateRange = computed(() => {
+    const customStart = this.zoomStart();
+    const customEnd = this.zoomEnd();
+    if (customStart && customEnd) {
+      return { start: customStart, end: customEnd };
+    }
+    return getDateRange(this.tasks());
+  });
   private columnDates = computed(() => getColumnDates(this.dateRange().start, this.dateRange().end, this.mergedConfig().zoomLevel));
   totalWidth = computed(() => this.columnDates().length * this.mergedConfig().columnWidth);
   totalHeight = computed(() => this.visibleRows().length * this.mergedConfig().rowHeight);
@@ -882,7 +966,148 @@ export class GanttChartComponent {
     this.internalGroupExpanded.set(current);
     this.expandChange.emit({ group, expanded: !isExpanded });
   }
-  onToolbarViewChange(vt: ZoomLevel): void { this.viewChange.emit({ viewType: vt }); this.zoomChange.emit(vt); }
+  onToolbarViewChange(vt: ZoomLevel): void {
+    this.internalZoomLevel.set(vt);
+    this.viewChange.emit({ viewType: vt });
+    this.zoomChange.emit(vt);
+  }
+
+  toggleAreaZoomMode(): void {
+    this.isAreaZoomMode.update(v => !v);
+  }
+
+  resetZoom(): void {
+    this.zoomStart.set(null);
+    this.zoomEnd.set(null);
+    this.zoomColumnWidth.set(null);
+    this.internalZoomLevel.set(null);
+
+    // Scroll to first task start date or today
+    setTimeout(() => {
+      const tasks = this.tasks();
+      if (tasks.length > 0) {
+        this.scrollToDate(tasks[0].start);
+      } else {
+        this.scrollToToday();
+      }
+    }, 50);
+  }
+
+  private getBestZoomLevel(start: Date, end: Date): ZoomLevel {
+    const ms = Math.abs(end.getTime() - start.getTime());
+    const days = ms / 86400000;
+
+    if (days <= 0.5) return ZoomLevel.Hour;
+    if (days <= 10) return ZoomLevel.Day;
+    if (days <= 45) return ZoomLevel.Week;
+    if (days <= 180) return ZoomLevel.Month;
+    if (days <= 500) return ZoomLevel.Quarter;
+    return ZoomLevel.Year;
+  }
+
+  private zoomToRange(x1: number, x2: number): void {
+    const timelineEl = this.timelineContent()?.nativeElement;
+    if (!timelineEl) return;
+
+    const cfg = this.mergedConfig();
+    const baseRange = getDateRange(this.tasks());
+    const currentStart = this.zoomStart() || baseRange.start;
+
+    // Convert pixels to Dates
+    const date1 = this.scaleService.xToDate(x1, currentStart, cfg.columnWidth, cfg.zoomLevel);
+    const date2 = this.scaleService.xToDate(x2, currentStart, cfg.columnWidth, cfg.zoomLevel);
+
+    const startD = date1 < date2 ? date1 : date2;
+    const endD = date1 < date2 ? date2 : date1;
+
+    // Select the best scale for this range
+    const bestZoom = this.getBestZoomLevel(startD, endD);
+
+    // Calculate new column width to stretch columns to fit the viewport width
+    const viewportWidth = timelineEl.clientWidth || 800;
+    const colDates = getColumnDates(startD, endD, bestZoom);
+    const numCols = Math.max(1, colDates.length);
+    const stretchColWidth = Math.floor(viewportWidth / numCols);
+
+    // Clamp column width between base and 300px
+    const baseColWidth = cfg.columnWidth || 40;
+    const finalColWidth = Math.max(baseColWidth, Math.min(300, stretchColWidth));
+
+    // Update signals
+    this.zoomStart.set(startD);
+    this.zoomEnd.set(endD);
+    this.internalZoomLevel.set(bestZoom);
+    this.zoomColumnWidth.set(finalColWidth);
+
+    // Emit output
+    this.zoomRangeChange.emit({ start: startD, end: endD });
+    this.zoomChange.emit(bestZoom);
+
+    // Scroll back to the left start position
+    setTimeout(() => {
+      if (timelineEl) {
+        timelineEl.scrollLeft = 0;
+      }
+    }, 50);
+  }
+
+  onTimelinePointerDown(event: PointerEvent): void {
+    if (!this.isDragToZoomEnabled()) return;
+
+    const isZoomButtonActive = this.isAreaZoomMode();
+    const isShiftPressed = event.shiftKey;
+
+    const target = event.target as HTMLElement;
+    const isTaskClick = target.closest('.k-task, .k-milestone, .k-task-summary, .k-link-connector, .k-resize-handle, .k-subtask-segment');
+
+    if (!isZoomButtonActive && !isShiftPressed && isTaskClick) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const timelineEl = this.timelineContent()?.nativeElement;
+    if (!timelineEl) return;
+
+    const rect = timelineEl.getBoundingClientRect();
+    const startX = event.clientX - rect.left + timelineEl.scrollLeft;
+    const startY = event.clientY - rect.top + timelineEl.scrollTop;
+
+    this.isDraggingZoom.set(true);
+    this.zoomDragStart.set({ x: startX, y: startY });
+    this.zoomDragCurrent.set({ x: startX, y: startY });
+
+    const onMove = (e: PointerEvent) => {
+      const currentX = e.clientX - rect.left + timelineEl.scrollLeft;
+      const currentY = e.clientY - rect.top + timelineEl.scrollTop;
+      this.zoomDragCurrent.set({ x: currentX, y: currentY });
+    };
+
+    const onUp = (e: PointerEvent) => {
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+
+      this.isDraggingZoom.set(false);
+      const start = this.zoomDragStart();
+      const current = this.zoomDragCurrent();
+      this.zoomDragStart.set(null);
+      this.zoomDragCurrent.set(null);
+
+      if (!start || !current) return;
+
+      const x1 = Math.min(start.x, current.x);
+      const x2 = Math.max(start.x, current.x);
+
+      if (x2 - x1 > 10) {
+        this.zoomToRange(x1, x2);
+      }
+    };
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+  }
+
   getViewLabel(vt: ZoomLevel): string {
     const m: Record<string, string> = { hour: 'Hour', day: 'Day', week: 'Week', month: 'Month', quarter: 'Quarter', year: 'Year' };
     return m[vt] || vt;
