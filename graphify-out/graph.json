@@ -2474,7 +2474,7 @@
       "label": "vars",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L586",
+      "source_location": "L622",
       "id": "theming_demo_theming_demo_component_vars",
       "community": 46,
       "norm_label": "vars"
@@ -2483,7 +2483,7 @@
       "label": "lines",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L587",
+      "source_location": "L623",
       "id": "theming_demo_theming_demo_component_lines",
       "community": 46,
       "norm_label": "lines"
@@ -2492,7 +2492,7 @@
       "label": ".onTaskChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L652",
+      "source_location": "L688",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_ontaskchange",
       "community": 20,
       "norm_label": ".ontaskchange()"
@@ -2501,7 +2501,7 @@
       "label": ".copyGeneratedCss()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L658",
+      "source_location": "L694",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_copygeneratedcss",
       "community": 20,
       "norm_label": ".copygeneratedcss()"
@@ -2510,7 +2510,7 @@
       "label": ".applyPreset()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L665",
+      "source_location": "L701",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_applypreset",
       "community": 20,
       "norm_label": ".applypreset()"
@@ -2519,7 +2519,7 @@
       "label": ".updateVar()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L671",
+      "source_location": "L707",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_updatevar",
       "community": 20,
       "norm_label": ".updatevar()"
@@ -2528,7 +2528,7 @@
       "label": ".getVarGroup()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L682",
+      "source_location": "L718",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_getvargroup",
       "community": 20,
       "norm_label": ".getvargroup()"
@@ -2537,7 +2537,7 @@
       "label": "result",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L693",
+      "source_location": "L729",
       "id": "theming_demo_theming_demo_component_result",
       "community": 46,
       "norm_label": "result"
@@ -2546,7 +2546,7 @@
       "label": ".buildInitialVars()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L700",
+      "source_location": "L736",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_buildinitialvars",
       "community": 20,
       "norm_label": ".buildinitialvars()"
@@ -2555,7 +2555,7 @@
       "label": ".applyAllVars()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L722",
+      "source_location": "L758",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_applyallvars",
       "community": 20,
       "norm_label": ".applyallvars()"
@@ -2564,7 +2564,7 @@
       "label": ".isColor()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L728",
+      "source_location": "L764",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_iscolor",
       "community": 20,
       "norm_label": ".iscolor()"
@@ -2573,7 +2573,7 @@
       "label": ".prettyLabel()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
-      "source_location": "L732",
+      "source_location": "L768",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_prettylabel",
       "community": 20,
       "norm_label": ".prettylabel()"
@@ -4168,7 +4168,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L933",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_formatdateshort",
-      "community": 1,
+      "community": 115,
       "norm_label": ".formatdateshort()"
     },
     {
@@ -4186,7 +4186,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L935",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isnamecolumn",
-      "community": 23,
+      "community": 115,
       "norm_label": ".isnamecolumn()"
     },
     {
@@ -4195,7 +4195,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L936",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isdatecolumn",
-      "community": 23,
+      "community": 115,
       "norm_label": ".isdatecolumn()"
     },
     {
@@ -4204,7 +4204,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L937",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isprogresscolumn",
-      "community": 23,
+      "community": 115,
       "norm_label": ".isprogresscolumn()"
     },
     {
@@ -4213,7 +4213,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L938",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getsidebarcellvalue",
-      "community": 1,
+      "community": 115,
       "norm_label": ".getsidebarcellvalue()"
     },
     {
@@ -4222,7 +4222,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L947",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_showtooltip",
-      "community": 124,
+      "community": 1,
       "norm_label": ".showtooltip()"
     },
     {
@@ -4231,7 +4231,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L951",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_showsubtasktooltip",
-      "community": 124,
+      "community": 1,
       "norm_label": ".showsubtasktooltip()"
     },
     {
@@ -4240,7 +4240,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L955",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_updatetooltipposition",
-      "community": 124,
+      "community": 1,
       "norm_label": ".updatetooltipposition()"
     },
     {
@@ -4258,7 +4258,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L967",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getrowavgprogress",
-      "community": 1,
+      "community": 115,
       "norm_label": ".getrowavgprogress()"
     },
     {
@@ -4294,7 +4294,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L974",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getsubtaskbars",
-      "community": 124,
+      "community": 23,
       "norm_label": ".getsubtaskbars()"
     },
     {
@@ -4375,7 +4375,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1017",
       "id": "gantt_chart_gantt_chart_component_flipcoord",
-      "community": 124,
+      "community": 1,
       "norm_label": "flipcoord()"
     },
     {
@@ -4384,7 +4384,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1018",
       "id": "gantt_chart_gantt_chart_component_getrowstart",
-      "community": 1,
+      "community": 115,
       "norm_label": "getrowstart()"
     },
     {
@@ -4393,7 +4393,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1019",
       "id": "gantt_chart_gantt_chart_component_getrowend",
-      "community": 1,
+      "community": 115,
       "norm_label": "getrowend()"
     },
     {
@@ -4483,7 +4483,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-config.model.ts",
       "source_location": "L57",
       "id": "models_gantt_config_model_ganttcolumndef",
-      "community": 23,
+      "community": 115,
       "norm_label": "ganttcolumndef"
     },
     {
@@ -4735,7 +4735,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-task.model.ts",
       "source_location": "L12",
       "id": "models_gantt_task_model_ganttsubtask",
-      "community": 124,
+      "community": 23,
       "norm_label": "ganttsubtask"
     },
     {
@@ -6643,7 +6643,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L116",
       "id": "autocomplete_autocomplete_component_autocompletecomponent",
-      "community": 115,
+      "community": 2,
       "norm_label": "autocompletecomponent"
     },
     {
@@ -6670,7 +6670,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L146",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_oninput",
-      "community": 115,
+      "community": 2,
       "norm_label": ".oninput()"
     },
     {
@@ -6679,7 +6679,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L154",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onfocus",
-      "community": 115,
+      "community": 2,
       "norm_label": ".onfocus()"
     },
     {
@@ -6688,7 +6688,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L161",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onblur",
-      "community": 115,
+      "community": 2,
       "norm_label": ".onblur()"
     },
     {
@@ -6697,7 +6697,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L167",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onkeydown",
-      "community": 115,
+      "community": 2,
       "norm_label": ".onkeydown()"
     },
     {
@@ -6706,7 +6706,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L183",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_selectoption",
-      "community": 115,
+      "community": 2,
       "norm_label": ".selectoption()"
     },
     {
@@ -6715,7 +6715,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L193",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_clear",
-      "community": 115,
+      "community": 2,
       "norm_label": ".clear()"
     },
     {
@@ -6724,7 +6724,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L202",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_ondocclick",
-      "community": 115,
+      "community": 2,
       "norm_label": ".ondocclick()"
     },
     {
@@ -6733,7 +6733,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L209",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_writevalue",
-      "community": 115,
+      "community": 2,
       "norm_label": ".writevalue()"
     },
     {
@@ -6742,7 +6742,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L220",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_registeronchange",
-      "community": 115,
+      "community": 2,
       "norm_label": ".registeronchange()"
     },
     {
@@ -6751,7 +6751,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L224",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_registerontouched",
-      "community": 115,
+      "community": 2,
       "norm_label": ".registerontouched()"
     },
     {
@@ -6760,7 +6760,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L228",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_setdisabledstate",
-      "community": 115,
+      "community": 2,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -6769,7 +6769,7 @@
       "source_file": "projects/ngx-core-components/inputs/checkbox/checkbox.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_checkbox_checkbox_component_ts",
-      "community": 118,
+      "community": 16,
       "norm_label": "checkbox.component.ts"
     },
     {
@@ -6778,7 +6778,7 @@
       "source_file": "projects/ngx-core-components/inputs/checkbox/checkbox.component.ts",
       "source_location": "L60",
       "id": "checkbox_checkbox_component_checkboxcomponent",
-      "community": 118,
+      "community": 16,
       "norm_label": "checkboxcomponent"
     },
     {
@@ -6787,7 +6787,7 @@
       "source_file": "projects/ngx-core-components/inputs/checkbox/checkbox.component.ts",
       "source_location": "L76",
       "id": "checkbox_checkbox_component_checkboxcomponent_toggle",
-      "community": 118,
+      "community": 16,
       "norm_label": ".toggle()"
     },
     {
@@ -6796,7 +6796,7 @@
       "source_file": "projects/ngx-core-components/inputs/checkbox/checkbox.component.ts",
       "source_location": "L86",
       "id": "checkbox_checkbox_component_checkboxcomponent_writevalue",
-      "community": 118,
+      "community": 16,
       "norm_label": ".writevalue()"
     },
     {
@@ -6805,7 +6805,7 @@
       "source_file": "projects/ngx-core-components/inputs/checkbox/checkbox.component.ts",
       "source_location": "L91",
       "id": "checkbox_checkbox_component_checkboxcomponent_registeronchange",
-      "community": 118,
+      "community": 16,
       "norm_label": ".registeronchange()"
     },
     {
@@ -6814,7 +6814,7 @@
       "source_file": "projects/ngx-core-components/inputs/checkbox/checkbox.component.ts",
       "source_location": "L95",
       "id": "checkbox_checkbox_component_checkboxcomponent_registerontouched",
-      "community": 118,
+      "community": 16,
       "norm_label": ".registerontouched()"
     },
     {
@@ -6823,7 +6823,7 @@
       "source_file": "projects/ngx-core-components/inputs/checkbox/checkbox.component.ts",
       "source_location": "L99",
       "id": "checkbox_checkbox_component_checkboxcomponent_setdisabledstate",
-      "community": 118,
+      "community": 16,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -6832,7 +6832,7 @@
       "source_file": "projects/ngx-core-components/inputs/color-picker/color-picker.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_color_picker_color_picker_component_ts",
-      "community": 20,
+      "community": 116,
       "norm_label": "color-picker.component.ts"
     },
     {
@@ -6841,7 +6841,7 @@
       "source_file": "projects/ngx-core-components/inputs/color-picker/color-picker.component.ts",
       "source_location": "L3",
       "id": "color_picker_color_picker_component_colors",
-      "community": 20,
+      "community": 116,
       "norm_label": "colors"
     },
     {
@@ -6850,7 +6850,7 @@
       "source_file": "projects/ngx-core-components/inputs/color-picker/color-picker.component.ts",
       "source_location": "L55",
       "id": "color_picker_color_picker_component_colorpickercomponent",
-      "community": 20,
+      "community": 116,
       "norm_label": "colorpickercomponent"
     },
     {
@@ -6859,7 +6859,7 @@
       "source_file": "projects/ngx-core-components/inputs/color-picker/color-picker.component.ts",
       "source_location": "L62",
       "id": "color_picker_color_picker_component_colorpickercomponent_pick",
-      "community": 20,
+      "community": 116,
       "norm_label": ".pick()"
     },
     {
@@ -6868,7 +6868,7 @@
       "source_file": "projects/ngx-core-components/inputs/color-picker/color-picker.component.ts",
       "source_location": "L63",
       "id": "color_picker_color_picker_component_colorpickercomponent_onhexinput",
-      "community": 20,
+      "community": 116,
       "norm_label": ".onhexinput()"
     },
     {
@@ -6877,7 +6877,7 @@
       "source_file": "projects/ngx-core-components/inputs/color-picker/color-picker.component.ts",
       "source_location": "L64",
       "id": "color_picker_color_picker_component_colorpickercomponent_toggleopen",
-      "community": 20,
+      "community": 116,
       "norm_label": ".toggleopen()"
     },
     {
@@ -6886,7 +6886,7 @@
       "source_file": "projects/ngx-core-components/inputs/color-picker/color-picker.component.ts",
       "source_location": "L65",
       "id": "color_picker_color_picker_component_colorpickercomponent_onnativeinput",
-      "community": 20,
+      "community": 116,
       "norm_label": ".onnativeinput()"
     },
     {
@@ -7228,7 +7228,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L159",
       "id": "dropdown_dropdown_component_dropdowncomponent",
-      "community": 116,
+      "community": 2,
       "norm_label": "dropdowncomponent"
     },
     {
@@ -7255,7 +7255,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L194",
       "id": "dropdown_dropdown_component_dropdowncomponent_isselected",
-      "community": 116,
+      "community": 2,
       "norm_label": ".isselected()"
     },
     {
@@ -7264,7 +7264,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L196",
       "id": "dropdown_dropdown_component_dropdowncomponent_toggle",
-      "community": 116,
+      "community": 2,
       "norm_label": ".toggle()"
     },
     {
@@ -7273,7 +7273,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L210",
       "id": "dropdown_dropdown_component_dropdowncomponent_selectoption",
-      "community": 116,
+      "community": 2,
       "norm_label": ".selectoption()"
     },
     {
@@ -7282,7 +7282,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L221",
       "id": "dropdown_dropdown_component_dropdowncomponent_ontriggerkey",
-      "community": 116,
+      "community": 2,
       "norm_label": ".ontriggerkey()"
     },
     {
@@ -7291,7 +7291,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L228",
       "id": "dropdown_dropdown_component_dropdowncomponent_onfilterkey",
-      "community": 116,
+      "community": 2,
       "norm_label": ".onfilterkey()"
     },
     {
@@ -7300,7 +7300,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L239",
       "id": "dropdown_dropdown_component_dropdowncomponent_movefocus",
-      "community": 116,
+      "community": 2,
       "norm_label": ".movefocus()"
     },
     {
@@ -7309,7 +7309,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L249",
       "id": "dropdown_dropdown_component_dropdowncomponent_ondocclick",
-      "community": 116,
+      "community": 2,
       "norm_label": ".ondocclick()"
     },
     {
@@ -7318,7 +7318,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L261",
       "id": "dropdown_dropdown_component_dropdowncomponent_writevalue",
-      "community": 116,
+      "community": 2,
       "norm_label": ".writevalue()"
     },
     {
@@ -7327,7 +7327,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L266",
       "id": "dropdown_dropdown_component_dropdowncomponent_registeronchange",
-      "community": 116,
+      "community": 2,
       "norm_label": ".registeronchange()"
     },
     {
@@ -7336,7 +7336,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L270",
       "id": "dropdown_dropdown_component_dropdowncomponent_registerontouched",
-      "community": 116,
+      "community": 2,
       "norm_label": ".registerontouched()"
     },
     {
@@ -7345,7 +7345,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L274",
       "id": "dropdown_dropdown_component_dropdowncomponent_setdisabledstate",
-      "community": 116,
+      "community": 2,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -7487,7 +7487,7 @@
       "label": "NumericTextBoxComponent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
-      "source_location": "L43",
+      "source_location": "L51",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
       "community": 43,
       "norm_label": "numerictextboxcomponent"
@@ -7496,7 +7496,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
-      "source_location": "L57",
+      "source_location": "L68",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_constructor",
       "community": 43,
       "norm_label": ".constructor()"
@@ -7505,16 +7505,25 @@
       "label": ".onChange()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
-      "source_location": "L63",
+      "source_location": "L74",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onchange",
       "community": 43,
       "norm_label": ".onchange()"
     },
     {
+      "label": ".onBlur()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L87",
+      "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onblur",
+      "community": 43,
+      "norm_label": ".onblur()"
+    },
+    {
       "label": ".onKeyDown()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
-      "source_location": "L76",
+      "source_location": "L92",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onkeydown",
       "community": 43,
       "norm_label": ".onkeydown()"
@@ -7523,7 +7532,7 @@
       "label": ".spin()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
-      "source_location": "L92",
+      "source_location": "L108",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_spin",
       "community": 43,
       "norm_label": ".spin()"
@@ -7532,7 +7541,7 @@
       "label": ".setValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
-      "source_location": "L94",
+      "source_location": "L110",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setvalue",
       "community": 43,
       "norm_label": ".setvalue()"
@@ -7541,10 +7550,46 @@
       "label": ".clamp()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
-      "source_location": "L100",
+      "source_location": "L117",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_clamp",
       "community": 43,
       "norm_label": ".clamp()"
+    },
+    {
+      "label": ".writeValue()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L122",
+      "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_writevalue",
+      "community": 43,
+      "norm_label": ".writevalue()"
+    },
+    {
+      "label": ".registerOnChange()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L126",
+      "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registeronchange",
+      "community": 43,
+      "norm_label": ".registeronchange()"
+    },
+    {
+      "label": ".registerOnTouched()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L130",
+      "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registerontouched",
+      "community": 43,
+      "norm_label": ".registerontouched()"
+    },
+    {
+      "label": ".setDisabledState()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L134",
+      "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setdisabledstate",
+      "community": 43,
+      "norm_label": ".setdisabledstate()"
     },
     {
       "label": "radio-group.component.ts",
@@ -7820,16 +7865,25 @@
       "label": "TextBoxComponent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L102",
+      "source_location": "L116",
       "id": "textbox_textbox_component_textboxcomponent",
       "community": 41,
       "norm_label": "textboxcomponent"
     },
     {
+      "label": ".togglePasswordVisibility()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
+      "source_location": "L152",
+      "id": "textbox_textbox_component_textboxcomponent_togglepasswordvisibility",
+      "community": 41,
+      "norm_label": ".togglepasswordvisibility()"
+    },
+    {
       "label": ".onInput()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L129",
+      "source_location": "L157",
       "id": "textbox_textbox_component_textboxcomponent_oninput",
       "community": 41,
       "norm_label": ".oninput()"
@@ -7838,7 +7892,7 @@
       "label": ".onFocus()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L136",
+      "source_location": "L164",
       "id": "textbox_textbox_component_textboxcomponent_onfocus",
       "community": 41,
       "norm_label": ".onfocus()"
@@ -7847,7 +7901,7 @@
       "label": ".onBlur()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L141",
+      "source_location": "L169",
       "id": "textbox_textbox_component_textboxcomponent_onblur",
       "community": 41,
       "norm_label": ".onblur()"
@@ -7856,7 +7910,7 @@
       "label": ".clearValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L147",
+      "source_location": "L175",
       "id": "textbox_textbox_component_textboxcomponent_clearvalue",
       "community": 41,
       "norm_label": ".clearvalue()"
@@ -7865,7 +7919,7 @@
       "label": ".writeValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L154",
+      "source_location": "L182",
       "id": "textbox_textbox_component_textboxcomponent_writevalue",
       "community": 41,
       "norm_label": ".writevalue()"
@@ -7874,7 +7928,7 @@
       "label": ".registerOnChange()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L159",
+      "source_location": "L187",
       "id": "textbox_textbox_component_textboxcomponent_registeronchange",
       "community": 41,
       "norm_label": ".registeronchange()"
@@ -7883,7 +7937,7 @@
       "label": ".registerOnTouched()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L163",
+      "source_location": "L191",
       "id": "textbox_textbox_component_textboxcomponent_registerontouched",
       "community": 41,
       "norm_label": ".registerontouched()"
@@ -7892,7 +7946,7 @@
       "label": ".setDisabledState()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
-      "source_location": "L167",
+      "source_location": "L195",
       "id": "textbox_textbox_component_textboxcomponent_setdisabledstate",
       "community": 41,
       "norm_label": ".setdisabledstate()"
@@ -7903,7 +7957,7 @@
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_time_picker_time_picker_component_ts",
-      "community": 16,
+      "community": 29,
       "norm_label": "time-picker.component.ts"
     },
     {
@@ -8515,7 +8569,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L12",
       "id": "tooltip_tooltip_directive_tooltipdirective",
-      "community": 125,
+      "community": 33,
       "norm_label": "tooltipdirective"
     },
     {
@@ -8524,7 +8578,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L21",
       "id": "tooltip_tooltip_directive_tooltipdirective_onmouseenter",
-      "community": 125,
+      "community": 33,
       "norm_label": ".onmouseenter()"
     },
     {
@@ -8533,7 +8587,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L28",
       "id": "tooltip_tooltip_directive_tooltipdirective_onmouseleave",
-      "community": 125,
+      "community": 33,
       "norm_label": ".onmouseleave()"
     },
     {
@@ -8542,7 +8596,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L32",
       "id": "tooltip_tooltip_directive_tooltipdirective_showtooltip",
-      "community": 125,
+      "community": 33,
       "norm_label": ".showtooltip()"
     },
     {
@@ -8551,7 +8605,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/tooltip.directive.ts",
       "source_location": "L79",
       "id": "tooltip_tooltip_directive_tooltipdirective_hidetooltip",
-      "community": 125,
+      "community": 33,
       "norm_label": ".hidetooltip()"
     },
     {
@@ -13388,9 +13442,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L292",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_ai_demo_ai_demo_component_ts",
-      "target": "ai_demo_ai_demo_component_aidemocomponent",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent"
     },
     {
       "relation": "method",
@@ -13398,9 +13452,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L365",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage"
     },
     {
       "relation": "method",
@@ -13408,9 +13462,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L383",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick"
     },
     {
       "relation": "method",
@@ -13418,9 +13472,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L391",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_oncardactionclick",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_oncardactionclick"
     },
     {
       "relation": "method",
@@ -13428,9 +13482,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L395",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_onclearhistory",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onclearhistory"
     },
     {
       "relation": "method",
@@ -13438,9 +13492,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L399",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_simulatesimpleresponse",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulatesimpleresponse"
     },
     {
       "relation": "method",
@@ -13448,9 +13502,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L415",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_simulateagentworkflow",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulateagentworkflow"
     },
     {
       "relation": "calls",
@@ -13459,9 +13513,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L377",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_simulateagentworkflow",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulateagentworkflow"
     },
     {
       "relation": "calls",
@@ -13470,9 +13524,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L379",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_simulatesimpleresponse",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_simulatesimpleresponse"
     },
     {
       "relation": "calls",
@@ -13481,9 +13535,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L388",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onsendmessage"
     },
     {
       "relation": "calls",
@@ -13492,9 +13546,9 @@
       "source_file": "projects/demo/src/app/pages/ai-demo/ai-demo.component.ts",
       "source_location": "L385",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_demo_ai_demo_component_aidemocomponent_onquickreplyclick",
-      "target": "ai_demo_ai_demo_component_aidemocomponent_onclearhistory",
-      "confidence_score": 1.0
+      "target": "ai_demo_ai_demo_component_aidemocomponent_onclearhistory"
     },
     {
       "relation": "contains",
@@ -15348,9 +15402,9 @@
       "source_file": "projects/ngx-core-components/ai/ng-package.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ng_package_json",
-      "target": "ai_ng_package_schema",
-      "confidence_score": 1.0
+      "target": "ai_ng_package_schema"
     },
     {
       "relation": "contains",
@@ -15358,9 +15412,9 @@
       "source_file": "projects/ngx-core-components/ai/ng-package.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ng_package_json",
-      "target": "ai_ng_package_lib",
-      "confidence_score": 1.0
+      "target": "ai_ng_package_lib"
     },
     {
       "relation": "contains",
@@ -15368,9 +15422,9 @@
       "source_file": "projects/ngx-core-components/ai/ng-package.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_ng_package_lib",
-      "target": "ai_ng_package_lib_entryfile",
-      "confidence_score": 1.0
+      "target": "ai_ng_package_lib_entryfile"
     },
     {
       "relation": "re_exports",
@@ -15379,9 +15433,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "confidence_score": 1.0
+      "target": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts"
     },
     {
       "relation": "re_exports",
@@ -15390,9 +15444,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "ai_chat_ai_chat_component_aichatcomponent",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent"
     },
     {
       "relation": "re_exports",
@@ -15401,9 +15455,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "projects_ngx_core_components_ai_ai_chat_models_ts",
-      "confidence_score": 1.0
+      "target": "projects_ngx_core_components_ai_ai_chat_models_ts"
     },
     {
       "relation": "re_exports",
@@ -15412,9 +15466,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "ai_chat_models_aimessage",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aimessage"
     },
     {
       "relation": "re_exports",
@@ -15423,9 +15477,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "ai_chat_models_agentstep",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_agentstep"
     },
     {
       "relation": "re_exports",
@@ -15434,9 +15488,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "ai_chat_models_aicard",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aicard"
     },
     {
       "relation": "re_exports",
@@ -15445,9 +15499,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "ai_chat_models_aicardaction",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aicardaction"
     },
     {
       "relation": "re_exports",
@@ -15456,9 +15510,9 @@
       "source_file": "projects/ngx-core-components/ai/public-api.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_public_api_ts",
-      "target": "ai_chat_models_quickreply",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_quickreply"
     },
     {
       "relation": "imports_from",
@@ -15467,9 +15521,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "target": "projects_ngx_core_components_ai_ai_chat_models_ts",
-      "confidence_score": 1.0
+      "target": "projects_ngx_core_components_ai_ai_chat_models_ts"
     },
     {
       "relation": "imports",
@@ -15478,9 +15532,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "target": "ai_chat_models_aimessage",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aimessage"
     },
     {
       "relation": "imports",
@@ -15489,9 +15543,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "target": "ai_chat_models_agentstep",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_agentstep"
     },
     {
       "relation": "imports",
@@ -15500,9 +15554,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "target": "ai_chat_models_aicard",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aicard"
     },
     {
       "relation": "imports",
@@ -15511,9 +15565,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "target": "ai_chat_models_aicardaction",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aicardaction"
     },
     {
       "relation": "imports",
@@ -15522,9 +15576,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "target": "ai_chat_models_quickreply",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_quickreply"
     },
     {
       "relation": "contains",
@@ -15532,9 +15586,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L800",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_ai_chat_component_ts",
-      "target": "ai_chat_ai_chat_component_aichatcomponent",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent"
     },
     {
       "relation": "method",
@@ -15542,9 +15596,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L822",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent",
-      "target": "ai_chat_ai_chat_component_aichatcomponent_constructor",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent_constructor"
     },
     {
       "relation": "method",
@@ -15552,9 +15606,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L831",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent",
-      "target": "ai_chat_ai_chat_component_aichatcomponent_onsubmit",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent_onsubmit"
     },
     {
       "relation": "method",
@@ -15562,9 +15616,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L838",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent",
-      "target": "ai_chat_ai_chat_component_aichatcomponent_togglestep",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent_togglestep"
     },
     {
       "relation": "method",
@@ -15572,9 +15626,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L842",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent",
-      "target": "ai_chat_ai_chat_component_aichatcomponent_getcompletedstepscount",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent_getcompletedstepscount"
     },
     {
       "relation": "method",
@@ -15582,9 +15636,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L846",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent",
-      "target": "ai_chat_ai_chat_component_aichatcomponent_getinitials",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent_getinitials"
     },
     {
       "relation": "method",
@@ -15592,9 +15646,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L855",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent",
-      "target": "ai_chat_ai_chat_component_aichatcomponent_scrolltobottom",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent_scrolltobottom"
     },
     {
       "relation": "method",
@@ -15602,9 +15656,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L864",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent",
-      "target": "ai_chat_ai_chat_component_aichatcomponent_formatmessage",
-      "confidence_score": 1.0
+      "target": "ai_chat_ai_chat_component_aichatcomponent_formatmessage"
     },
     {
       "relation": "references",
@@ -15613,9 +15667,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L838",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent_togglestep",
-      "target": "ai_chat_models_agentstep",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_agentstep"
     },
     {
       "relation": "references",
@@ -15624,9 +15678,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/ai-chat.component.ts",
       "source_location": "L842",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_chat_ai_chat_component_aichatcomponent_getcompletedstepscount",
-      "target": "ai_chat_models_agentstep",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_agentstep"
     },
     {
       "relation": "contains",
@@ -15634,9 +15688,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
-      "target": "ai_chat_models_agentstep",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_agentstep"
     },
     {
       "relation": "contains",
@@ -15644,9 +15698,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
-      "target": "ai_chat_models_aicardaction",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aicardaction"
     },
     {
       "relation": "contains",
@@ -15654,9 +15708,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
-      "target": "ai_chat_models_aicard",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aicard"
     },
     {
       "relation": "contains",
@@ -15664,9 +15718,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
-      "target": "ai_chat_models_aimessage",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_aimessage"
     },
     {
       "relation": "contains",
@@ -15674,9 +15728,9 @@
       "source_file": "projects/ngx-core-components/ai/ai-chat/models.ts",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_ai_ai_chat_models_ts",
-      "target": "ai_chat_models_quickreply",
-      "confidence_score": 1.0
+      "target": "ai_chat_models_quickreply"
     },
     {
       "relation": "contains",
@@ -24770,6 +24824,16 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
+      "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onblur",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L76",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -24805,6 +24869,46 @@
       "confidence_score": 1.0,
       "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
       "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_clamp"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
+      "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_writevalue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
+      "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registeronchange",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
+      "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registerontouched",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L134",
+      "weight": 1.0,
+      "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
+      "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setdisabledstate",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24849,6 +24953,17 @@
       "confidence_score": 1.0,
       "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setvalue",
       "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_clamp"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_writevalue",
+      "target": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_clamp",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -25275,6 +25390,16 @@
       "confidence_score": 1.0,
       "source": "projects_ngx_core_components_inputs_textbox_textbox_component_ts",
       "target": "textbox_textbox_component_textboxcomponent"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/inputs/textbox/textbox.component.ts",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "textbox_textbox_component_textboxcomponent",
+      "target": "textbox_textbox_component_textboxcomponent_togglepasswordvisibility",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",

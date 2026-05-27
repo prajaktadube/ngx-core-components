@@ -1,11 +1,11 @@
 # Graph Report - ngx-core-components  (2026-05-26)
 
 ## Corpus Check
-- 128 files · ~79,007 words
+- 128 files · ~79,551 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1204 nodes · 1669 edges · 127 communities (64 shown, 63 thin omitted)
+- 1210 nodes · 1676 edges · 124 communities (64 shown, 60 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
@@ -128,14 +128,11 @@
 - [[_COMMUNITY_Community 115|Community 115]]
 - [[_COMMUNITY_Community 116|Community 116]]
 - [[_COMMUNITY_Community 117|Community 117]]
-- [[_COMMUNITY_Community 118|Community 118]]
 - [[_COMMUNITY_Community 119|Community 119]]
 - [[_COMMUNITY_Community 120|Community 120]]
 - [[_COMMUNITY_Community 121|Community 121]]
 - [[_COMMUNITY_Community 122|Community 122]]
 - [[_COMMUNITY_Community 123|Community 123]]
-- [[_COMMUNITY_Community 124|Community 124]]
-- [[_COMMUNITY_Community 125|Community 125]]
 - [[_COMMUNITY_Community 126|Community 126]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -176,7 +173,7 @@
 - **Layout Package Components** — accordion_AccordionComponent, card_CardComponent, splitter_SplitterComponent, stepper_StepperComponent, tab_strip_TabStripComponent [EXTRACTED 1.00]
 - **Core Architectural Principles** — readme_zero_runtime_dependencies, readme_angular_signals, readme_onpush_change_detection, readme_standalone_components [INFERRED 0.95]
 
-## Communities (127 total, 63 thin omitted)
+## Communities (124 total, 60 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
@@ -184,11 +181,11 @@ Nodes (21): BarChartComponent, LineChartComponent, d, path, PieChartComponent, r
 
 ### Community 1 - "Community 1"
 Cohesion: 0.06
-Nodes (5): GanttChartComponent, getRowEnd(), getRowStart(), groups, FlatRow
+Nodes (4): flipCoord(), GanttChartComponent, groups, FlatRow
 
 ### Community 2 - "Community 2"
-Cohesion: 0.12
-Nodes (6): text, DropdownOption, f, opt, f, MultiSelectComponent
+Cohesion: 0.06
+Nodes (8): AutocompleteComponent, text, DropdownComponent, DropdownOption, f, opt, f, MultiSelectComponent
 
 ### Community 3 - "Community 3"
 Cohesion: 0.05
@@ -239,8 +236,8 @@ Cohesion: 0.10
 Nodes (10): d, date, DatePickerComponent, days, first, last, m, today (+2 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.21
-Nodes (4): RadioOption, RatingComponent, SwitchComponent, TextareaComponent
+Cohesion: 0.13
+Nodes (5): CheckboxComponent, RadioOption, RatingComponent, SwitchComponent, TextareaComponent
 
 ### Community 17 - "Community 17"
 Cohesion: 0.11
@@ -254,17 +251,13 @@ Nodes (18): BarChartComponent, Date Utilities, GanttBaselineItem, GanttChartComp
 Cohesion: 0.14
 Nodes (5): ApiRow, Employee, EmployeeProject, field, GridDemoComponent
 
-### Community 20 - "Community 20"
-Cohesion: 0.15
-Nodes (3): ColorPickerComponent, COLORS, ThemingDemoComponent
-
 ### Community 22 - "Community 22"
 Cohesion: 0.10
 Nodes (11): AppComponent, haystack, query, compiled, fixture, initialValue, appConfig, routes (+3 more)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.12
-Nodes (10): GanttBaselineItem, DEFAULT_GANTT_CONFIG, GanttColumnDef, GanttConfig, GanttLinkOptions, GanttStyleOptions, GanttThemeColors, GanttToolbarOptions (+2 more)
+Cohesion: 0.14
+Nodes (10): GanttBaselineItem, DEFAULT_GANTT_CONFIG, GanttConfig, GanttLinkOptions, GanttStyleOptions, GanttThemeColors, GanttToolbarOptions, GanttItemType (+2 more)
 
 ### Community 24 - "Community 24"
 Cohesion: 0.15
@@ -295,8 +288,8 @@ Cohesion: 0.25
 Nodes (11): AccordionComponent, AccordionItem, CardComponent, CardVariant, Layout ng-package.json, Layout Public API, SplitterComponent, StepperComponent (+3 more)
 
 ### Community 33 - "Community 33"
-Cohesion: 0.24
-Nodes (4): ApiRow, TooltipDemoComponent, PopoverComponent, TooltipPosition
+Cohesion: 0.19
+Nodes (5): ApiRow, TooltipDemoComponent, PopoverComponent, TooltipDirective, TooltipPosition
 
 ### Community 34 - "Community 34"
 Cohesion: 0.23
@@ -410,6 +403,10 @@ Nodes (8): ComponentCard, HomeComponent, BUILD_CARDS, COMPARE_TRACKS, CompareTra
 Cohesion: 0.09
 Nodes (22): Components, Contributing, Dialog, List View Pagination, 🚀 Live Demo, Local Development, Structured Inputs And Layout, Textbox (Reactive Forms) (+14 more)
 
+### Community 115 - "Community 115"
+Cohesion: 0.22
+Nodes (3): getRowEnd(), getRowStart(), GanttColumnDef
+
 ### Community 126 - "Community 126"
 Cohesion: 0.50
 Nodes (3): lib, entryFile, $schema
@@ -417,22 +414,22 @@ Nodes (3): lib, entryFile, $schema
 ## Knowledge Gaps
 - **344 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `root` (+339 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **63 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **60 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `ThemingDemoComponent` connect `Community 20` to `Community 46`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
-- **Why does `ColorPickerComponent` connect `Community 20` to `Community 16`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
-- **Why does `GanttChartComponent` connect `Community 1` to `Community 0`, `Community 36`, `Community 6`, `Community 12`, `Community 23`, `Community 124`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Why does `ColorPickerComponent` connect `Community 116` to `Community 16`?**
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **Why does `GanttChartComponent` connect `Community 1` to `Community 0`, `Community 36`, `Community 6`, `Community 12`, `Community 115`, `Community 23`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `version`, `newProjectRoot` to the rest of the system?**
   _351 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.07390648567119155 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.05697278911564626 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.057624113475177305 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.11904761904761904 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05656565656565657 - nodes in this community are weakly interconnected._

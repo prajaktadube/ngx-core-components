@@ -24,7 +24,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         }
         <input
           class="ngx-textbox-input"
-          [type]="type()"
+          [type]="_currentType()"
           [value]="_displayValue()"
           [placeholder]="isFocused() || !label() ? placeholder() : ''"
           [disabled]="disabled()"
@@ -35,6 +35,15 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
           (focus)="onFocus()"
           (blur)="onBlur()"
         />
+        @if (type() === 'password' && passwordToggle() && !disabled()) {
+          <button class="ngx-textbox-password-toggle" type="button" (click)="togglePasswordVisibility()" [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+            @if (showPassword()) {
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92C21.06 15.39 22 13.79 22 12c0-4.27-4.02-8-10-8-1.64 0-3.2.28-4.63.78l2.81 2.81c.56-.23 1.17-.36 1.82-.36zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.47 5.7c-2.76 0-5-2.24-5-5v-.06l8.06 8.06c-.92.35-1.92.56-3.06.56z"/></svg>
+            } @else {
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            }
+          </button>
+        }
         @if (clearable() && !!_displayValue() && !disabled() && !readonly()) {
           <button class="ngx-textbox-clear" type="button" (click)="clearValue()" aria-label="Clear">✕</button>
         }
@@ -96,6 +105,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       padding: 0 8px; line-height: 1; display: flex; align-items: center; flex-shrink: 0;
     }
     .ngx-textbox-clear:hover { color: #495057; }
+    .ngx-textbox-password-toggle {
+      background: none; border: none; cursor: pointer; color: #adb5bd; font-size: 14px;
+      padding: 0 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .ngx-textbox-password-toggle:hover { color: #495057; }
     .ngx-textbox-charcount { font-size: 11px; color: #adb5bd; margin-top: 3px; text-align: right; }
   `]
 })
@@ -113,11 +127,13 @@ export class TextBoxComponent implements ControlValueAccessor {
   showCharCount = input<boolean>(false);
   prefixIcon = input<string>('');
   suffixIcon = input<string>('');
+  passwordToggle = input<boolean>(false);
 
   valueChange = output<string>();
   focusChange = output<boolean>();
 
   isFocused = signal(false);
+  showPassword = signal(false);
   _cvaValue = signal<string>('');
   private _cvaActive = false;
   private _onChange: (v: string) => void = () => {};
@@ -125,6 +141,18 @@ export class TextBoxComponent implements ControlValueAccessor {
 
   /** Merges reactive-form value (CVA) with template binding (input()). CVA takes precedence. */
   _displayValue = computed(() => this._cvaActive ? this._cvaValue() : this.value());
+
+  _currentType = computed(() => {
+    if (this.type() === 'password' && this.showPassword()) {
+      return 'text';
+    }
+    return this.type();
+  });
+
+  togglePasswordVisibility(): void {
+    if (this.disabled()) return;
+    this.showPassword.update(v => !v);
+  }
 
   onInput(e: Event): void {
     const v = (e.target as HTMLInputElement).value;

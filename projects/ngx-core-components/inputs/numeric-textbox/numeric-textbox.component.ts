@@ -1,8 +1,16 @@
-import { Component, effect, input, output, signal } from '@angular/core';
+import { Component, effect, input, output, signal, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'ngx-numeric-textbox',
   standalone: true,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => NumericTextBoxComponent),
+      multi: true
+    }
+  ],
   template: `
     <div class="ngx-numeric" [class.disabled]="disabled()">
       @if (label()) { <label class="numeric-label">{{ label() }}</label> }
@@ -12,7 +20,7 @@ import { Component, effect, input, output, signal } from '@angular/core';
           type="number" class="numeric-input"
           [min]="min()" [max]="max()" [step]="step()"
           [value]="currentValue()" [disabled]="disabled()" [placeholder]="placeholder()"
-          (focus)="focused.set(true)" (blur)="focused.set(false)"
+          (focus)="focused.set(true)" (blur)="onBlur()"
           (keydown)="onKeyDown($event)"
           (change)="onChange($event)"
         />
@@ -40,7 +48,7 @@ import { Component, effect, input, output, signal } from '@angular/core';
     .spin-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   `]
 })
-export class NumericTextBoxComponent {
+export class NumericTextBoxComponent implements ControlValueAccessor {
   label = input('');
   value = input(0);
   min = input(-Infinity);
@@ -53,6 +61,9 @@ export class NumericTextBoxComponent {
   suffix = input('');
   focused = signal(false);
   valueChange = output<number>();
+
+  private onChangeFn: (v: number) => void = () => {};
+  private onTouchedFn: () => void = () => {};
 
   constructor() {
     effect(() => {
@@ -71,6 +82,11 @@ export class NumericTextBoxComponent {
     if (Number.isFinite(nextValue)) {
       this.setValue(nextValue);
     }
+  }
+
+  onBlur(): void {
+    this.focused.set(false);
+    this.onTouchedFn();
   }
 
   onKeyDown(event: KeyboardEvent): void {
@@ -94,10 +110,28 @@ export class NumericTextBoxComponent {
   setValue(v: number): void {
     const clamped = this.clamp(v);
     this.currentValue.set(clamped);
+    this.onChangeFn(clamped);
     this.valueChange.emit(clamped);
   }
 
   private clamp(value: number): number {
     return Math.max(this.min(), Math.min(this.max(), value));
+  }
+
+  // ControlValueAccessor implementation
+  writeValue(val: number): void {
+    this.currentValue.set(this.clamp(val ?? 0));
+  }
+
+  registerOnChange(fn: (v: number) => void): void {
+    this.onChangeFn = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouchedFn = fn;
+  }
+
+  setDisabledState(_isDisabled: boolean): void {
+    // Handled at form control template level
   }
 }

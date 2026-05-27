@@ -67,7 +67,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
             <div class="demo-card">
               <div class="demo-card-title">Input Types</div>
               <div class="input-stack">
-                <ngx-textbox value="" label="Password" type="password" placeholder="Enter password" />
+                <ngx-textbox value="" label="Password with Toggle" type="password" placeholder="Enter password" [passwordToggle]="true" />
                 <ngx-textbox value="" label="Number" type="number" placeholder="0" />
                 <ngx-textbox value="" label="Tel" type="tel" placeholder="+1 (555) 000-0000" />
                 <ngx-textbox value="" label="URL" type="url" placeholder="https://example.com" />
@@ -907,6 +907,7 @@ export class MyComponent {
     { name: 'error', type: 'string', default: "''", description: 'Error message. When non-empty, the input renders in error state.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input entirely.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Makes the input read-only (focusable but not editable).' },
+    { name: 'passwordToggle', type: 'boolean', default: 'false', description: 'Enables a password visibility toggle button when type is password.' },
     { name: '(valueChange)', type: 'string', default: '—', description: 'Emitted on every keystroke with the current string value.' },
     { name: '(focus)', type: 'void', default: '—', description: 'Emitted when the input receives focus.' },
     { name: '(blur)', type: 'void', default: '—', description: 'Emitted when the input loses focus.' },

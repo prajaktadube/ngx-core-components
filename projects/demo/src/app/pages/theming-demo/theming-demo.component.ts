@@ -497,6 +497,42 @@ export class ThemingDemoComponent {
       }
     },
     {
+      name: 'Crimson Coral',
+      accent: '#ff6358',
+      vars: {
+        '--ngx-chart-bg': '#ffffff', '--ngx-chart-grid': '#e4e7eb', '--ngx-chart-axis-text': '#656565', '--ngx-chart-tooltip-bg': '#2b2b2b',
+        '--ngx-input-border': '#e4e7eb', '--ngx-input-focus': '#ff6358', '--ngx-input-error': '#f3122e', '--ngx-input-bg': '#ffffff', '--ngx-input-label': '#424242', '--ngx-input-hint': '#656565',
+        '--ngx-grid-header-bg': '#f4f5f7', '--ngx-grid-border': '#e4e7eb', '--ngx-grid-hover-bg': '#ebebeb', '--ngx-grid-selected-bg': '#ff63581a', '--ngx-grid-stripe-bg': '#fafafa',
+        '--ngx-tree-hover-bg': '#ebebeb', '--ngx-tree-selected-bg': '#ff63581a', '--ngx-tree-selected-color': '#ff6358', '--ngx-tree-border': '#e4e7eb',
+        '--ngx-tooltip-bg': '#2b2b2b', '--ngx-tooltip-color': '#ffffff', '--ngx-popover-bg': '#ffffff', '--ngx-popover-border': '#e4e7eb', '--ngx-popover-header-bg': '#f4f5f7',
+        '--ngx-gantt-bg': '#ffffff', '--ngx-gantt-border': '#e4e7eb', '--ngx-gantt-bar-bg': '#ff6358', '--ngx-gantt-bar-progress-bg': '#d83a30', '--ngx-gantt-header-bg': '#f4f5f7', '--ngx-gantt-today-color': '#ff6358', '--ngx-gantt-text': '#424242',
+      }
+    },
+    {
+      name: 'Bootstrap Blue',
+      accent: '#0275d8',
+      vars: {
+        '--ngx-chart-bg': '#ffffff', '--ngx-chart-grid': '#eceeef', '--ngx-chart-axis-text': '#55595c', '--ngx-chart-tooltip-bg': '#373a3c',
+        '--ngx-input-border': '#ccc', '--ngx-input-focus': '#0275d8', '--ngx-input-error': '#d9534f', '--ngx-input-bg': '#ffffff', '--ngx-input-label': '#373a3c', '--ngx-input-hint': '#55595c',
+        '--ngx-grid-header-bg': '#eceeef', '--ngx-grid-border': '#eceeef', '--ngx-grid-hover-bg': '#f7f7f9', '--ngx-grid-selected-bg': '#0275d81a', '--ngx-grid-stripe-bg': '#f7f7f9',
+        '--ngx-tree-hover-bg': '#f7f7f9', '--ngx-tree-selected-bg': '#0275d81a', '--ngx-tree-selected-color': '#0275d8', '--ngx-tree-border': '#ccc',
+        '--ngx-tooltip-bg': '#373a3c', '--ngx-tooltip-color': '#ffffff', '--ngx-popover-bg': '#ffffff', '--ngx-popover-border': '#eceeef', '--ngx-popover-header-bg': '#eceeef',
+        '--ngx-gantt-bg': '#ffffff', '--ngx-gantt-border': '#eceeef', '--ngx-gantt-bar-bg': '#0275d8', '--ngx-gantt-bar-progress-bg': '#014c8c', '--ngx-gantt-header-bg': '#eceeef', '--ngx-gantt-today-color': '#0275d8', '--ngx-gantt-text': '#373a3c',
+      }
+    },
+    {
+      name: 'Material Indigo',
+      accent: '#3f51b5',
+      vars: {
+        '--ngx-chart-bg': '#ffffff', '--ngx-chart-grid': '#e0e0e0', '--ngx-chart-axis-text': '#757575', '--ngx-chart-tooltip-bg': '#212121',
+        '--ngx-input-border': '#e0e0e0', '--ngx-input-focus': '#3f51b5', '--ngx-input-error': '#f44336', '--ngx-input-bg': '#ffffff', '--ngx-input-label': '#212121', '--ngx-input-hint': '#757575',
+        '--ngx-grid-header-bg': '#fafafa', '--ngx-grid-border': '#e0e0e0', '--ngx-grid-hover-bg': '#f5f5f5', '--ngx-grid-selected-bg': '#3f51b51a', '--ngx-grid-stripe-bg': '#fafafa',
+        '--ngx-tree-hover-bg': '#f5f5f5', '--ngx-tree-selected-bg': '#3f51b51a', '--ngx-tree-selected-color': '#3f51b5', '--ngx-tree-border': '#e0e0e0',
+        '--ngx-tooltip-bg': '#212121', '--ngx-tooltip-color': '#ffffff', '--ngx-popover-bg': '#ffffff', '--ngx-popover-border': '#e0e0e0', '--ngx-popover-header-bg': '#fafafa',
+        '--ngx-gantt-bg': '#ffffff', '--ngx-gantt-border': '#e0e0e0', '--ngx-gantt-bar-bg': '#3f51b5', '--ngx-gantt-bar-progress-bg': '#283593', '--ngx-gantt-header-bg': '#fafafa', '--ngx-gantt-today-color': '#3f51b5', '--ngx-gantt-text': '#212121',
+      }
+    },
+    {
       name: 'Dark',
       accent: '#5a9fd4',
       vars: {
