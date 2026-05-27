@@ -82,7 +82,10 @@ jobs:
 
       - name: Commit and Tag Version
         run: |
-          npm version ${{ steps.version_bump.outputs.next_version }} -m "chore: release version %s [skip ci]"
+          npm version ${{ steps.version_bump.outputs.next_version }} --no-git-tag-version
+          git add package.json package-lock.json projects/ngx-core-components/package.json
+          git commit -m "chore: release version ${{ steps.version_bump.outputs.next_version }} [skip ci]"
+          git tag v${{ steps.version_bump.outputs.next_version }}
 
       - name: Build the Angular Library
         run: npx ng build ngx-core-components
