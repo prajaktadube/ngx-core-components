@@ -33,12 +33,56 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Bump Version in Library
-        # Navigates to your library folder and bumps the patch version (e.g., 0.0.5 -> 0.0.6)
-        # The [skip ci] tag is CRITICAL: it prevents this commit from triggering an infinite loop of workflows
+      - name: Bump Version Dynamically
+        id: version_bump
         run: |
-          cd projects/ngx-core-components
-          npm version patch -m "chore: release version %s [skip ci]"
+          node -e "
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+            
+            const libPath = 'projects/ngx-core-components/package.json';
+            const rootPath = 'package.json';
+            
+            const libPkg = JSON.parse(fs.readFileSync(libPath, 'utf8'));
+            const rootPkg = JSON.parse(fs.readFileSync(rootPath, 'utf8'));
+            
+            let npmVersion = '0.0.0';
+            try {
+              npmVersion = execSync('npm view ngx-core-components version', { encoding: 'utf8' }).trim();
+            } catch (e) {
+              console.log('Package not found on npm or error. Using local version.');
+            }
+            
+            const parse = v => v.split('.').map(Number);
+            const compare = (v1, v2) => {
+              const p1 = parse(v1), p2 = parse(v2);
+              for (let i = 0; i < 3; i++) {
+                if (p1[i] > p2[i]) return 1;
+                if (p1[i] < p2[i]) return -1;
+              }
+              return 0;
+            };
+            
+            let base = libPkg.version;
+            if (compare(npmVersion, base) >= 0) {
+              base = npmVersion;
+            }
+            
+            const p = parse(base);
+            p[2]++;
+            const next = p.join('.');
+            console.log('Bumping version to:', next);
+            
+            libPkg.version = next;
+            fs.writeFileSync(libPath, JSON.stringify(libPkg, null, 2) + '\n', 'utf8');
+            
+            const fsOutput = require('fs');
+            fsOutput.appendFileSync(process.env.GITHUB_OUTPUT, 'next_version=' + next + '\n');
+          "
+
+      - name: Commit and Tag Version
+        run: |
+          npm version ${{ steps.version_bump.outputs.next_version }} -m "chore: release version %s [skip ci]"
 
       - name: Build the Angular Library
         run: npx ng build ngx-core-components
