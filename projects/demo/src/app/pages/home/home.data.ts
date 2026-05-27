@@ -10,6 +10,7 @@ export interface CompareTrack {
   name: string;
   bestFor: string;
   route: string;
+  queryParams?: Record<string, string>;
   note: string;
 }
 
@@ -79,19 +80,22 @@ export const COMPARE_TRACKS: CompareTrack[] = [
   {
     name: 'Gantt Basic',
     bestFor: 'Simple scheduling walkthroughs',
-    route: '/basic',
+    route: '/gantt',
+    queryParams: { tab: 'basic' },
     note: 'Fast intro to timeline interactions',
   },
   {
     name: 'Gantt Large Dataset',
     bestFor: 'Performance and virtualization checks',
-    route: '/large-dataset',
+    route: '/gantt',
+    queryParams: { tab: 'performance' },
     note: 'Useful for enterprise-scale scenarios',
   },
   {
     name: 'Gantt Interactive',
     bestFor: 'Edit-heavy workflows with drag and dependencies',
-    route: '/interactive',
+    route: '/gantt',
+    queryParams: { tab: 'interactive' },
     note: 'Best for power-user behavior validation',
   },
   {

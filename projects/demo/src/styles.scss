@@ -15,6 +15,10 @@
   --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   --primary-glow: rgba(79, 70, 229, 0.15);
 
+  --navbar-bg: rgba(255, 255, 255, 0.8);
+  --navbar-border: rgba(226, 232, 240, 0.8);
+  --navbar-text: #0f172a;
+
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -64,6 +68,10 @@ body.dark-theme {
   --primary-hover: #4f46e5;
   --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
   --primary-glow: rgba(99, 102, 241, 0.25);
+
+  --navbar-bg: rgba(11, 15, 25, 0.8);
+  --navbar-border: rgba(255, 255, 255, 0.08);
+  --navbar-text: #f8fafc;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
@@ -346,4 +354,14 @@ html {
   tr:last-child td {
     border-bottom: none;
   }
+}
+
+/* Glassmorphic Utility Panel */
+.glass-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }

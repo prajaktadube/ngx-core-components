@@ -1,0 +1,1309 @@
+import { Component, signal, computed, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import {
+  GanttChartComponent,
+  GanttTask,
+  GanttDependency,
+  GanttConfig,
+  ZoomLevel,
+  GanttTaskChangeEvent,
+  GanttTaskClickEvent,
+  GanttDependencyClickEvent,
+  DependencyType,
+  GanttBaselineItem,
+  GanttLinkDragEvent,
+  GanttBarClickEvent
+} from 'ngx-core-components';
+import {
+  getSampleTasks,
+  getSampleDependencies,
+  getTransportTasks,
+  getTransportDependencies
+} from '../../data/sample-tasks';
+
+interface ApiRow {
+  name: string;
+  type: string;
+  default: string;
+  description: string;
+}
+
+@Component({
+  selector: 'app-gantt-demo',
+  standalone: true,
+  imports: [CommonModule, GanttChartComponent],
+  template: `
+    <div class="demo-page">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="page-header-text">
+          <h1>Gantt Chart System</h1>
+          <p>
+            An enterprise-grade, high-performance SVG Gantt chart featuring drag-and-drop rescheduling,
+            resize bounds, predecessor dependency linking, area-drag zoom-in, custom baseline tracking,
+            and row virtualization.
+          </p>
+        </div>
+        <div class="header-badges">
+          <span class="badge badge-purple">SVG-Based</span>
+          <span class="badge badge-blue">Virtualization</span>
+          <span class="badge badge-green">Zero External Deps</span>
+          <span class="badge badge-orange">Drag-to-Zoom</span>
+        </div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button
+            class="tab-btn"
+            [class.active]="activeTab() === tab"
+            (click)="onTabChange(tab)"
+          >
+            {{ tab }}
+          </button>
+        }
+      </div>
+
+      <div class="tab-content">
+        <!-- ===== BASIC GANTT VIEW ===== -->
+        @if (activeTab() === 'Basic View') {
+          <div class="scenario-panel">
+            <div class="panel-desc-row">
+              <div class="panel-desc-text">
+                <h3>Standard Project Schedule</h3>
+                <p>A basic timeline showing project stages, task groups, and visual connections. Features collapsible task rows and alternate grid line coloring options.</p>
+              </div>
+              <div class="panel-controls">
+                <label class="toggle-control">
+                  <input type="checkbox" [checked]="basicAlternateRows()" (change)="basicAlternateRows.set($any($event.target).checked)" />
+                  Alternate Rows
+                </label>
+                <label class="toggle-control">
+                  <input type="checkbox" [checked]="basicAlternateColumns()" (change)="basicAlternateColumns.set($any($event.target).checked)" />
+                  Alternate Columns
+                </label>
+              </div>
+            </div>
+
+            <div class="demo-chart-container">
+              <ngx-gantt-chart
+                [tasks]="basicTasks()"
+                [dependencies]="basicDependencies"
+                [config]="basicConfig()"
+                (taskChange)="onBasicTaskChange($event)"
+                (taskClick)="onBasicTaskClick($event)"
+              />
+            </div>
+
+            @if (selectedBasicTask()) {
+              <div class="status-indicator">
+                <strong>Selected:</strong> {{ selectedBasicTask()?.name }}
+                <span class="separator">|</span>
+                <strong>Progress:</strong> {{ selectedBasicTask()?.progress }}%
+                <span class="separator">|</span>
+                <strong>Date Range:</strong> {{ formatDate(selectedBasicTask()?.start) }} - {{ formatDate(selectedBasicTask()?.end) }}
+              </div>
+            }
+          </div>
+        }
+
+        <!-- ===== INTERACTIVE PLAYGROUND ===== -->
+        @if (activeTab() === 'Interactive Playground') {
+          <div class="scenario-panel">
+            <div class="panel-desc-row">
+              <div class="panel-desc-text">
+                <h3>Interactive Playground &amp; Logging</h3>
+                <p>Reschedule tasks by dragging, resize durations from bar edges, double-click to drill-in, or draw dependency links. Use Shift + Drag or enable "Area Zoom" to drag a glassmorphic window to zoom directly into a timeline range.</p>
+              </div>
+              <div class="playground-toolbar">
+                <div class="btn-group">
+                  <button class="mini-btn" [class.active]="playZoom() === ZoomLevel.Day" (click)="setPlayZoom(ZoomLevel.Day)">Day</button>
+                  <button class="mini-btn" [class.active]="playZoom() === ZoomLevel.Week" (click)="setPlayZoom(ZoomLevel.Week)">Week</button>
+                  <button class="mini-btn" [class.active]="playZoom() === ZoomLevel.Month" (click)="setPlayZoom(ZoomLevel.Month)">Month</button>
+                </div>
+
+                <div class="btn-divider"></div>
+
+                <button class="action-btn" (click)="playgroundGantt.expandAll()">Expand All</button>
+                <button class="action-btn" (click)="playgroundGantt.collapseAll()">Collapse All</button>
+                <button class="action-btn" (click)="playgroundGantt.scrollToDate(today)">Go to Today</button>
+                <button class="action-btn" (click)="clearPlayLog()">Clear Logs</button>
+              </div>
+            </div>
+
+            <div class="playground-config-row">
+              <label class="select-control">
+                Snap To
+                <select [value]="playSnap()" (change)="playSnap.set($any($event.target).value)">
+                  <option value="none">None (Smooth)</option>
+                  <option value="day">Day</option>
+                  <option value="hour">Hour</option>
+                </select>
+              </label>
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="playShowGrid()" (change)="playShowGrid.set($any($event.target).checked)" />
+                Grid Lines
+              </label>
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="playLinkable()" (change)="playLinkable.set($any($event.target).checked)" />
+                Linkable
+              </label>
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="playSelectable()" (change)="playSelectable.set($any($event.target).checked)" />
+                Selectable
+              </label>
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="playShowBaseline()" (change)="playShowBaseline.set($any($event.target).checked)" />
+                Baselines
+              </label>
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="playDragToZoom()" (change)="playDragToZoom.set($any($event.target).checked)" />
+                Drag to Zoom
+              </label>
+            </div>
+
+            <div class="demo-chart-container">
+              <ngx-gantt-chart
+                #playgroundGantt
+                [tasks]="playTasks()"
+                [dependencies]="playDependencies()"
+                [config]="playConfig()"
+                [baselineItems]="playBaselineItems"
+                (taskChange)="onPlayTaskChange($event)"
+                (taskClick)="onPlayTaskClick($event)"
+                (taskDblClick)="onPlayTaskDblClick($event)"
+                (dependencyClick)="onPlayDependencyClick($event)"
+                (linkDragEnded)="onPlayLinkDragEnded($event)"
+              />
+            </div>
+
+            <!-- Event Log Feed -->
+            <div class="log-panel">
+              <div class="log-header">
+                <span>Timeline Emitted Events Stream</span>
+                <span class="log-count">{{ playLog.length }} Log Entries</span>
+              </div>
+              <div class="log-entries">
+                @if (playLog.length === 0) {
+                  <div class="log-empty">No interaction logs yet. Try dragging, resizing, or linking tasks...</div>
+                }
+                @for (log of playLog; track $index) {
+                  <div class="log-line">{{ log }}</div>
+                }
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- ===== ENTERPRISE PERFORMANCE ===== -->
+        @if (activeTab() === 'Enterprise Performance') {
+          <div class="scenario-panel">
+            <div class="panel-desc-row">
+              <div class="panel-desc-text">
+                <h3>Virtualized Row Rendering</h3>
+                <p>Stress test the scheduler component. Only rows visible within the container viewport are rendered in the DOM, allowing thousands of tasks to render seamlessly at 60fps.</p>
+              </div>
+              <div class="panel-controls">
+                <div class="btn-group">
+                  <button class="mini-btn" [class.active]="perfCount() === 100" (click)="generatePerfTasks(100)">100 Rows</button>
+                  <button class="mini-btn" [class.active]="perfCount() === 500" (click)="generatePerfTasks(500)">500 Rows</button>
+                  <button class="mini-btn" [class.active]="perfCount() === 1000" (click)="generatePerfTasks(1000)">1000 Rows</button>
+                </div>
+                <span class="perf-stats">Render Count: <strong>{{ perfCount() }} tasks</strong></span>
+              </div>
+            </div>
+
+            <div class="demo-chart-container">
+              <ngx-gantt-chart
+                [tasks]="perfTasks()"
+                [config]="perfConfig"
+              />
+            </div>
+          </div>
+        }
+
+        <!-- ===== FLEET VOYAGE TRACKER ===== -->
+        @if (activeTab() === 'Fleet Voyage Tracker') {
+          <div class="scenario-panel">
+            <div class="panel-desc-row">
+              <div class="panel-desc-text">
+                <h3>🚚 Fleet Voyage Tracker</h3>
+                <p>Real-time vehicle logistics tracking. Shows multiple independent task blocks sharing a single row (rowId representation) representing voyages, depart station indicators, transit periods, and hub layovers.</p>
+              </div>
+              <div class="playground-toolbar">
+                <div class="btn-group">
+                  <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Hour" (click)="setTransportZoom(ZoomLevel.Hour)">🕒 Hour</button>
+                  <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Day" (click)="setTransportZoom(ZoomLevel.Day)">📅 Day</button>
+                  <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Week" (click)="setTransportZoom(ZoomLevel.Week)">📆 Week</button>
+                </div>
+
+                <div class="btn-divider"></div>
+
+                <button class="action-btn" [class.active]="transportGantt.isAreaZoomMode()" (click)="transportGantt.toggleAreaZoomMode()">
+                  🔍 Area Zoom Mode
+                </button>
+                @if (transportGantt.isZoomed()) {
+                  <button class="action-btn accent-action" (click)="transportGantt.resetZoom()">
+                    Reset Zoom
+                  </button>
+                }
+              </div>
+            </div>
+
+            <div class="playground-config-row">
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="transportAlternateRows()" (change)="transportAlternateRows.set($any($event.target).checked)" />
+                Alternate Rows
+              </label>
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="transportAlternateColumns()" (change)="transportAlternateColumns.set($any($event.target).checked)" />
+                Alternate Columns
+              </label>
+
+              <!-- Custom Legend -->
+              <div class="logistics-legend">
+                <span class="leg-item"><span class="leg-dot color-station"></span>Station Stop</span>
+                <span class="leg-item"><span class="leg-dot color-transit"></span>Transit Leg</span>
+                <span class="leg-item"><span class="leg-dot color-hub"></span>Hub Layover</span>
+              </div>
+            </div>
+
+            <div class="demo-chart-container transport-container">
+              <ngx-gantt-chart
+                #transportGantt
+                [tasks]="transportTasks"
+                [dependencies]="transportDependencies"
+                [config]="transportConfig()"
+              />
+            </div>
+          </div>
+        }
+
+        <!-- ===== HOW TO USE ===== -->
+        @if (activeTab() === 'How to Use') {
+          <div class="doc-panel">
+            <div class="doc-section">
+              <h3>1. Import Subpackage Library</h3>
+              <p>Import the Gantt components and interfaces from the core package library. It compiles as a standalone Angular component:</p>
+              <div class="code-wrapper">
+                <pre><code>{{ importCode }}</code></pre>
+                <button class="copy-code-btn" (click)="copyCode(importCode, $event)">Copy Snippet</button>
+              </div>
+            </div>
+
+            <div class="doc-section">
+              <h3>2. Add Template Markup</h3>
+              <p>Declare the directive component selector in your HTML markup, specifying input and output bindings:</p>
+              <div class="code-wrapper">
+                <pre><code>{{ templateCode }}</code></pre>
+                <button class="copy-code-btn" (click)="copyCode(templateCode, $event)">Copy Snippet</button>
+              </div>
+            </div>
+
+            <div class="doc-section">
+              <h3>3. Bind Component Properties</h3>
+              <p>Configure task arrays and setup basic configuration variables in your Typescript controller:</p>
+              <div class="code-wrapper">
+                <pre><code>{{ bindCode }}</code></pre>
+                <button class="copy-code-btn" (click)="copyCode(bindCode, $event)">Copy Snippet</button>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- ===== API REFERENCE ===== -->
+        @if (activeTab() === 'API Reference') {
+          <div class="doc-panel">
+            <h3>API Reference Documentation</h3>
+            
+            <div class="section-label">ngx-gantt-chart Inputs</div>
+            <div class="api-table-wrapper">
+              <table class="api-table">
+                <thead>
+                  <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                  @for (row of ganttInputs; track row.name) {
+                    <tr>
+                      <td class="api-name">{{ row.name }}</td>
+                      <td class="api-type">{{ row.type }}</td>
+                      <td class="api-default">{{ row.default }}</td>
+                      <td>{{ row.description }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section-label">ngx-gantt-chart Outputs</div>
+            <div class="api-table-wrapper">
+              <table class="api-table">
+                <thead>
+                  <tr><th>Output Event</th><th>Payload Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                  @for (row of ganttOutputs; track row.name) {
+                    <tr>
+                      <td class="api-name">{{ row.name }}</td>
+                      <td class="api-type">{{ row.type }}</td>
+                      <td>{{ row.description }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section-label">GanttConfig Properties</div>
+            <div class="api-table-wrapper">
+              <table class="api-table">
+                <thead>
+                  <tr><th>Field Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                  @for (row of configFields; track row.name) {
+                    <tr>
+                      <td class="api-name">{{ row.name }}</td>
+                      <td class="api-type">{{ row.type }}</td>
+                      <td class="api-default">{{ row.default }}</td>
+                      <td>{{ row.description }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section-label">CSS Theme Customization (Variables)</div>
+            <div class="api-table-wrapper">
+              <table class="api-table">
+                <thead>
+                  <tr><th>Variable Name</th><th>Default fallback value</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                  @for (row of cssVars; track row.name) {
+                    <tr>
+                      <td class="api-name">{{ row.name }}</td>
+                      <td class="api-default">{{ row.default }}</td>
+                      <td>{{ row.description }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  `,
+  styles: [`
+    :host {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .demo-page {
+      padding: 32px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid rgba(226, 232, 240, 0.8);
+    }
+    .page-header-text h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+    .page-header-text p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 750px;
+    }
+    .header-badges {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    /* Tabs Nav */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border-color);
+      overflow-x: auto;
+      padding-bottom: 0;
+    }
+    .tab-btn {
+      padding: 12px 20px;
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(79, 70, 229, 0.05);
+    }
+    .tab-btn.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+      font-weight: 600;
+      background: rgba(79, 70, 229, 0.04);
+    }
+
+    /* Tab Contents */
+    .tab-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .scenario-panel, .doc-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .panel-desc-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .panel-desc-text h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .panel-desc-text p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+      max-width: 700px;
+      line-height: 1.5;
+    }
+
+    /* Toolbars & Controls */
+    .panel-controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .playground-toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .playground-config-row {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 14px 16px;
+      background: var(--border-light);
+      border-radius: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-group {
+      display: inline-flex;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .mini-btn {
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--bg-secondary);
+      border: none;
+      border-right: 1px solid var(--border-color);
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .mini-btn:last-child {
+      border-right: none;
+    }
+    .mini-btn:hover {
+      background: var(--border-light);
+      color: var(--text-primary);
+    }
+    .mini-btn.active {
+      background: var(--primary-color) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border-color);
+      margin: 0 4px;
+    }
+
+    .action-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+    .action-btn:hover, .action-btn.active {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      background: var(--primary-glow);
+    }
+    .action-btn.accent-action {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+    .action-btn.accent-action:hover {
+      background: #dc2626;
+      border-color: #dc2626;
+      color: #ffffff;
+    }
+
+    .toggle-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .toggle-control input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary-color);
+      cursor: pointer;
+    }
+
+    .select-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .select-control select {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 12px;
+      outline: none;
+      cursor: pointer;
+    }
+    .select-control select:focus {
+      border-color: var(--primary-color);
+    }
+
+    /* Logistics Legend */
+    .logistics-legend {
+      display: flex;
+      gap: 16px;
+      margin-left: auto;
+    }
+    .leg-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .leg-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .color-station { background: #10b981; }
+    .color-transit { background: #3b82f6; }
+    .color-hub { background: #f59e0b; }
+
+    /* Performance Stats */
+    .perf-stats {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Gantt Chart Container Box */
+    .demo-chart-container {
+      height: 480px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+    .demo-chart-container ngx-gantt-chart {
+      width: 100%;
+      height: 100%;
+    }
+    .transport-container {
+      height: 400px;
+    }
+
+    /* Selected Details Panel */
+    .status-indicator {
+      padding: 12px 18px;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+    }
+    .separator {
+      color: var(--border-color);
+      margin: 0 4px;
+    }
+
+    /* Event Logs */
+    .log-panel {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      display: flex;
+      flex-direction: column;
+      height: 150px;
+    }
+    .log-header {
+      background: var(--border-light);
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    .log-count {
+      color: var(--primary-color);
+    }
+    .log-entries {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 16px;
+      font-family: 'SF Mono', Consolas, Monaco, monospace;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .log-line {
+      padding: 3px 0;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .log-line:last-child {
+      border-bottom: none;
+    }
+    .log-empty {
+      font-style: italic;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* How to Use Section */
+    .doc-section {
+      margin-bottom: 32px;
+    }
+    .doc-section:last-child {
+      margin-bottom: 0;
+    }
+    .doc-section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text-primary);
+    }
+    .doc-section p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin: 0 0 12px;
+    }
+    
+    .code-wrapper {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #2d3748;
+    }
+    .code-wrapper pre {
+      margin: 0;
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 18px 24px;
+      font-family: 'Fira Code', Consolas, Monaco, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    .copy-code-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      color: #f8fafc;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .copy-code-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    /* API Documentation Tables */
+    .section-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 6px;
+      margin: 28px 0 12px;
+    }
+    .section-label:first-of-type {
+      margin-top: 0;
+    }
+    
+    .api-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+    }
+    .api-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .api-table thead tr {
+      background: var(--border-light);
+    }
+    .api-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+    .api-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-primary);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .api-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .api-table tbody tr:hover td {
+      background: rgba(79, 70, 229, 0.02);
+    }
+    .api-name {
+      color: var(--primary-color) !important;
+      font-family: monospace;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .api-type {
+      color: #8e44ad !important;
+      font-family: monospace;
+      white-space: nowrap;
+    }
+    .api-default {
+      color: #ef4444;
+      font-family: monospace;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+  `]
+})
+export class GanttDemoComponent {
+  @ViewChild('playgroundGantt') playgroundGantt!: GanttChartComponent;
+  @ViewChild('transportGantt') transportGantt!: GanttChartComponent;
+
+  tabs = [
+    'Basic View',
+    'Interactive Playground',
+    'Enterprise Performance',
+    'Fleet Voyage Tracker',
+    'How to Use',
+    'API Reference'
+  ];
+
+  activeTab = signal('Basic View');
+
+  protected readonly ZoomLevel = ZoomLevel;
+  today = new Date();
+
+  // Basic Gantt Signals/Properties
+  basicAlternateRows = signal(false);
+  basicAlternateColumns = signal(false);
+  basicTasks = signal<GanttTask[]>([]);
+  basicDependencies: GanttDependency[] = getSampleDependencies();
+  selectedBasicTask = signal<GanttTask | null>(null);
+
+  basicConfig = computed<Partial<GanttConfig>>(() => ({
+    zoomLevel: ZoomLevel.Day,
+    rowHeight: 44,
+    columnWidth: 36,
+    headerHeight: 56,
+    sidebarWidth: 320,
+    showTodayMarker: true,
+    showGrid: true,
+    snapTo: 'day',
+    collapsible: true,
+    enableAlternateRowColor: this.basicAlternateRows(),
+    enableAlternateColumnColor: this.basicAlternateColumns(),
+  }));
+
+  // Interactive Playground Signals/Properties
+  playTasks = signal<GanttTask[]>([]);
+  playDependencies = signal<GanttDependency[]>([]);
+  playZoom = signal<ZoomLevel>(ZoomLevel.Day);
+  playSnap = signal<'none' | 'day' | 'hour'>('day');
+  playShowGrid = signal(true);
+  playLinkable = signal(true);
+  playSelectable = signal(true);
+  playShowBaseline = signal(false);
+  playDragToZoom = signal(true);
+  playLog: string[] = [];
+
+  playBaselineItems: GanttBaselineItem[] = [];
+
+  playConfig = computed<Partial<GanttConfig>>(() => {
+    const widthMap: Record<string, number> = {
+      [ZoomLevel.Day]: 36,
+      [ZoomLevel.Week]: 120,
+      [ZoomLevel.Month]: 180,
+    };
+
+    return {
+      zoomLevel: this.playZoom(),
+      rowHeight: 38,
+      columnWidth: widthMap[this.playZoom()],
+      headerHeight: 56,
+      sidebarWidth: 320,
+      showTodayMarker: true,
+      showGrid: this.playShowGrid(),
+      snapTo: this.playSnap(),
+      linkable: this.playLinkable(),
+      selectable: this.playSelectable(),
+      enableAlternateRowColor: true,
+      enableDragToZoom: this.playDragToZoom()
+    };
+  });
+
+  // Enterprise Performance Signals
+  perfCount = signal(100);
+  perfTasks = signal<GanttTask[]>([]);
+  perfConfig: Partial<GanttConfig> = {
+    zoomLevel: ZoomLevel.Day,
+    rowHeight: 32,
+    columnWidth: 30,
+    headerHeight: 56,
+    sidebarWidth: 300,
+    showTodayMarker: true,
+    showGrid: true,
+    snapTo: 'day',
+    collapsible: true,
+  };
+
+  // Fleet Voyage Tracker Signals
+  transportTasks: GanttTask[] = getTransportTasks();
+  transportDependencies: GanttDependency[] = getTransportDependencies();
+  transportZoom = signal<ZoomLevel>(ZoomLevel.Hour);
+  transportAlternateRows = signal(true);
+  transportAlternateColumns = signal(false);
+
+  transportConfig = computed<Partial<GanttConfig>>(() => {
+    const widthMap: Record<string, number> = {
+      [ZoomLevel.Hour]: 48,
+      [ZoomLevel.Day]: 120,
+      [ZoomLevel.Week]: 240,
+    };
+    return {
+      zoomLevel: this.transportZoom(),
+      rowHeight: 64,
+      columnWidth: widthMap[this.transportZoom()],
+      headerHeight: 56,
+      sidebarWidth: 260,
+      showTodayMarker: false,
+      showGrid: true,
+      collapsible: false,
+      enableAlternateRowColor: this.transportAlternateRows(),
+      enableAlternateColumnColor: this.transportAlternateColumns(),
+    };
+  });
+
+  constructor(private route: ActivatedRoute) {
+    this.resetBasicTasks();
+    this.resetPlayTasks();
+    this.generatePerfTasks(100);
+
+    this.route.queryParams.subscribe(params => {
+      const tab = params['tab'];
+      if (tab) {
+        const tabMap: Record<string, string> = {
+          'basic': 'Basic View',
+          'interactive': 'Interactive Playground',
+          'performance': 'Enterprise Performance',
+          'fleet': 'Fleet Voyage Tracker',
+          'how-to-use': 'How to Use',
+          'api': 'API Reference'
+        };
+        if (tabMap[tab]) {
+          this.activeTab.set(tabMap[tab]);
+        }
+      }
+    });
+  }
+
+  onTabChange(tab: string): void {
+    this.activeTab.set(tab);
+    if (tab === 'Basic View') {
+      this.resetBasicTasks();
+    } else if (tab === 'Interactive Playground') {
+      this.resetPlayTasks();
+    }
+  }
+
+  // Basic handlers
+  resetBasicTasks(): void {
+    this.basicTasks.set(getSampleTasks());
+    this.selectedBasicTask.set(null);
+  }
+
+  onBasicTaskChange(event: GanttTaskChangeEvent): void {
+    this.basicTasks.update(tasks =>
+      tasks.map(t =>
+        t.id === event.task.id
+          ? { ...t, start: event.task.start, end: event.task.end, subtasks: event.task.subtasks }
+          : t
+      )
+    );
+  }
+
+  onBasicTaskClick(event: GanttTaskClickEvent): void {
+    this.selectedBasicTask.set(event.task);
+  }
+
+  // Interactive handlers
+  resetPlayTasks(): void {
+    const tasks = getSampleTasks();
+    this.playTasks.set(tasks);
+    this.playDependencies.set(getSampleDependencies());
+
+    // Generate matching baseline items (scheduled offset by -1 to -2 days to show deviations)
+    this.playBaselineItems = tasks
+      .filter(t => !t.parentId && !t.isMilestone)
+      .map(t => {
+        const start = new Date(t.start);
+        start.setDate(start.getDate() - 2);
+        const end = new Date(t.end);
+        end.setDate(end.getDate() - 1);
+        return { id: t.id, start, end };
+      });
+  }
+
+  setPlayZoom(level: ZoomLevel): void {
+    this.playZoom.set(level);
+    this.logPlayEvent(`Zoom level changed to "${level}"`);
+  }
+
+  onPlayTaskChange(event: GanttTaskChangeEvent): void {
+    this.playTasks.update(tasks =>
+      tasks.map(t =>
+        t.id === event.task.id
+          ? { ...t, start: event.task.start, end: event.task.end, subtasks: event.task.subtasks }
+          : t
+      )
+    );
+    this.logPlayEvent(
+      `Task Rescheduled: "${event.task.name}" from ${this.fmtDate(event.previousStart)} to ${this.fmtDate(event.task.start)}`
+    );
+  }
+
+  onPlayTaskClick(event: GanttTaskClickEvent): void {
+    this.logPlayEvent(`Task Clicked: "${event.task.name}" (${event.task.progress}% done)`);
+  }
+
+  onPlayTaskDblClick(event: GanttTaskClickEvent): void {
+    this.logPlayEvent(`Task Double-Clicked: "${event.task.name}"`);
+  }
+
+  onPlayDependencyClick(event: GanttDependencyClickEvent): void {
+    this.logPlayEvent(`Dependency Clicked: "${event.dependency.fromId}" ➔ "${event.dependency.toId}"`);
+  }
+
+  onPlayLinkDragEnded(event: GanttLinkDragEvent): void {
+    if (event.source?.id && event.target?.id) {
+      const fromId = event.source.id;
+      const toId = event.target.id;
+      const exists = this.playDependencies().some(d => d.fromId === fromId && d.toId === toId);
+      if (!exists) {
+        const newDep: GanttDependency = {
+          fromId: fromId,
+          toId: toId,
+          type: event.type ?? DependencyType.FinishToStart
+        };
+        this.playDependencies.update(d => [...d, newDep]);
+        this.logPlayEvent(`Predecessor Link Created: "${fromId}" ➔ "${toId}"`);
+      }
+    }
+  }
+
+  clearPlayLog(): void {
+    this.playLog = [];
+  }
+
+  private logPlayEvent(msg: string): void {
+    const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+    this.playLog = [`[${time}] ${msg}`, ...this.playLog.slice(0, 24)];
+  }
+
+  // Performance generator
+  generatePerfTasks(count: number): void {
+    this.perfCount.set(count);
+    const startBase = new Date();
+    startBase.setHours(0, 0, 0, 0);
+
+    const colors = ['#4a90d9', '#27ae60', '#8e44ad', '#e67e22', '#e74c3c', '#1abc9c', '#34495e'];
+    const tasks: GanttTask[] = [];
+    const phases = Math.ceil(count / 8);
+
+    for (let p = 0; p < phases; p++) {
+      const phaseStartOffset = p * 10;
+      const phaseId = `perf-phase-${p}`;
+
+      const pStart = new Date(startBase);
+      pStart.setDate(pStart.getDate() + phaseStartOffset);
+      const pEnd = new Date(pStart);
+      pEnd.setDate(pEnd.getDate() + 12);
+
+      tasks.push({
+        id: phaseId,
+        name: `Group Phase ${p + 1}`,
+        start: pStart,
+        end: pEnd,
+        progress: Math.floor(Math.random() * 80) + 10,
+        parentId: null,
+        collapsed: p > 3,
+        isMilestone: false,
+      });
+
+      const children = Math.min(8, count - tasks.length);
+      for (let c = 0; c < children; c++) {
+        const cStart = new Date(startBase);
+        cStart.setDate(cStart.getDate() + phaseStartOffset + c);
+        const cEnd = new Date(cStart);
+        cEnd.setDate(cEnd.getDate() + Math.floor(Math.random() * 6) + 3);
+
+        tasks.push({
+          id: `perf-task-${p}-${c}`,
+          name: `Task Item ${p + 1}.${c + 1}`,
+          start: cStart,
+          end: cEnd,
+          progress: Math.floor(Math.random() * 100),
+          parentId: phaseId,
+          collapsed: false,
+          isMilestone: false,
+          color: colors[(p + c) % colors.length]
+        });
+      }
+
+      if (tasks.length >= count) break;
+    }
+    this.perfTasks.set(tasks.slice(0, count));
+  }
+
+  // Transport handlers
+  setTransportZoom(level: ZoomLevel): void {
+    this.transportZoom.set(level);
+  }
+
+  // Shared date utilities
+  formatDate(date: Date | undefined): string {
+    if (!date) return '';
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  private fmtDate(date: Date): string {
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  copyCode(text: string, event: MouseEvent): void {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target as HTMLButtonElement;
+      const original = btn.innerText;
+      btn.innerText = 'Copied!';
+      btn.style.background = '#27ae60';
+      btn.style.borderColor = '#27ae60';
+      setTimeout(() => {
+        btn.innerText = original;
+        btn.style.background = '';
+        btn.style.borderColor = '';
+      }, 1500);
+    });
+  }
+
+  // Code snippets for docs
+  importCode = `import { Component } from '@angular/core';
+import { GanttChartComponent } from 'ngx-core-components';
+
+@Component({
+  selector: 'app-my-schedule',
+  standalone: true,
+  imports: [GanttChartComponent],
+  templateUrl: './my-schedule.component.html',
+})
+export class MyScheduleComponent {}`;
+
+  templateCode = `<ngx-gantt-chart
+  [tasks]="tasks"
+  [dependencies]="dependencies"
+  [config]="config"
+  [baselineItems]="baselines"
+  (taskChange)="onTaskChange($event)"
+  (taskClick)="onTaskClick($event)"
+  (linkDragEnded)="onLinkDragEnded($event)"
+/>`;
+
+  bindCode = `import { Component, signal } from '@angular/core';
+import { GanttTask, GanttDependency, GanttConfig, ZoomLevel } from 'ngx-core-components';
+
+@Component({ ... })
+export class MyScheduleComponent {
+  tasks: GanttTask[] = [
+    {
+      id: '1',
+      name: 'Planning Stage',
+      start: new Date(2026, 4, 1),
+      end: new Date(2026, 4, 10),
+      progress: 60,
+      parentId: null,
+      collapsed: false,
+      isMilestone: false,
+    }
+  ];
+
+  dependencies: GanttDependency[] = [];
+  baselines = [
+    { taskId: '1', start: new Date(2026, 4, 1), end: new Date(2026, 4, 9) }
+  ];
+
+  config: Partial<GanttConfig> = {
+    zoomLevel: ZoomLevel.Day,
+    rowHeight: 40,
+    sidebarWidth: 320,
+    enableDragToZoom: true
+  };
+
+  onTaskChange(event: GanttTaskChangeEvent): void {
+    console.log('Task rescheduled', event.task);
+  }
+}`;
+
+  // API Reference Data
+  ganttInputs: ApiRow[] = [
+    { name: 'tasks', type: 'GanttTask[]', default: 'required', description: 'Collection of tasks to render in the grid hierarchy and timeline.' },
+    { name: 'dependencies', type: 'GanttDependency[]', default: '[]', description: 'Connection links depicting task predecessor/successor relationships.' },
+    { name: 'config', type: 'Partial<GanttConfig>', default: '{}', description: 'Configuration object to control row height, snapping, linking permissions, and drag zoom.' },
+    { name: 'baselineItems', type: 'GanttBaselineItem[]', default: '[]', description: 'Reference schedule baselines shown as lower-bar tracks on task rows.' }
+  ];
+
+  ganttOutputs: ApiRow[] = [
+    { name: '(taskChange)', type: 'GanttTaskChangeEvent', default: '', description: 'Fired when a task is moved or resized horizontally in the timeline. Contains previousStart.' },
+    { name: '(taskClick)', type: 'GanttTaskClickEvent', default: '', description: 'Fired when the user clicks a task row or Gantt bar.' },
+    { name: '(taskDblClick)', type: 'GanttTaskClickEvent', default: '', description: 'Fired when a Gantt bar is double-clicked.' },
+    { name: '(dependencyClick)', type: 'GanttDependencyClickEvent', default: '', description: 'Fired when a predecessor dependency connection line is clicked.' },
+    { name: '(linkDragEnded)', type: 'GanttLinkDragEvent', default: '', description: 'Fired when a user drags a link handle and releases it onto another task.' }
+  ];
+
+  configFields: ApiRow[] = [
+    { name: 'zoomLevel', type: 'ZoomLevel', default: "'day'", description: 'Active zoom magnification: "hour" | "day" | "week" | "month" | "quarter" | "year"' },
+    { name: 'rowHeight', type: 'number', default: '40', description: 'Height of each row in pixels.' },
+    { name: 'columnWidth', type: 'number', default: '40', description: 'Width of a single unit of time column at the active zoom.' },
+    { name: 'sidebarWidth', type: 'number', default: '300', description: 'Width of the left sidebar grid.' },
+    { name: 'showTodayMarker', type: 'boolean', default: 'true', description: 'Draws a red vertical line over the current date.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Shows column and row grid lines in the timeline view.' },
+    { name: 'snapTo', type: "'day' | 'hour' | 'none'", default: "'day'", description: 'Grid snaps rescheduling movements to exact days or hours.' },
+    { name: 'linkable', type: 'boolean', default: 'true', description: 'Allows users to draw connections between task bars.' },
+    { name: 'selectable', type: 'boolean', default: 'true', description: 'Allows rows to be highlighted and selected.' },
+    { name: 'enableAlternateRowColor', type: 'boolean', default: 'false', description: 'Alternates row colors for enhanced visual scanning.' },
+    { name: 'enableAlternateColumnColor', type: 'boolean', default: 'false', description: 'Alternates column colors for enhanced visual scanning.' },
+    { name: 'enableDragToZoom', type: 'boolean', default: 'true', description: 'Enables Shift + drag and Area Selection Zoom timeline modes.' }
+  ];
+
+  cssVars = [
+    { name: '--ngx-gantt-bg', default: '#ffffff', description: 'Background of the Gantt container.' },
+    { name: '--ngx-gantt-border', default: '#e2e8f0', description: 'Border of the Gantt components.' },
+    { name: '--ngx-gantt-header-bg', default: '#f8fafc', description: 'Background color of the timeline headers.' },
+    { name: '--ngx-gantt-bar-bg', default: '#4f46e5', description: 'Background fill color of the task bars.' },
+    { name: '--ngx-gantt-bar-progress-bg', default: '#3730a3', description: 'Background fill color of task progress completion.' },
+    { name: '--ngx-gantt-today-color', default: '#ef4444', description: 'Color of today indicator line.' },
+    { name: '--ngx-gantt-weekend-bg', default: 'transparent', description: 'Overlay background tint for Saturday & Sunday columns.' }
+  ];
+}

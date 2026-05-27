@@ -12,6 +12,10 @@ import { DEMO_NAV_GROUPS } from './core/demo-nav.config';
 })
 export class AppComponent {
   private readonly isBrowser = typeof window !== 'undefined';
+  isDarkMode = signal(false);
+  sidebarOpen = signal(true);
+  searchQuery = signal('');
+  currentUrl = signal('/home');
 
   constructor(private router: Router) {
     this.currentUrl.set(this.normalizePath(this.router.url));
@@ -25,11 +29,9 @@ export class AppComponent {
     if (this.isMobileView()) {
       this.sidebarOpen.set(false);
     }
-  }
 
-  sidebarOpen = signal(true);
-  searchQuery = signal('');
-  currentUrl = signal('/home');
+    this.initTheme();
+  }
 
   navGroups = DEMO_NAV_GROUPS;
 
@@ -90,6 +92,33 @@ export class AppComponent {
   private onRouteChanged(): void {
     if (this.isMobileView()) {
       this.closeSidebar();
+    }
+  }
+
+  toggleTheme(): void {
+    const nextDark = !this.isDarkMode();
+    this.isDarkMode.set(nextDark);
+    if (this.isBrowser) {
+      localStorage.setItem('ngx-demo-theme', nextDark ? 'dark' : 'light');
+    }
+    this.applyTheme(nextDark);
+  }
+
+  private initTheme(): void {
+    if (!this.isBrowser) return;
+    const saved = localStorage.getItem('ngx-demo-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = saved ? saved === 'dark' : prefersDark;
+    this.isDarkMode.set(isDark);
+    this.applyTheme(isDark);
+  }
+
+  private applyTheme(isDark: boolean): void {
+    if (!this.isBrowser) return;
+    if (isDark) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
     }
   }
 

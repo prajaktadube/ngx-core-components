@@ -1,25 +1,22 @@
 import { Component, signal } from '@angular/core';
 import {
   BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
-  GanttChartComponent, GanttTask, GanttDependency, GanttConfig, ZoomLevel,
-  GanttTaskChangeEvent, GanttGroup, GanttBaselineItem, GanttLinkDragEvent, GanttBarClickEvent,
-  ChartSeries, ChartDataPoint, CHART_COLORS, GanttTooltipContext
+  ChartSeries, ChartDataPoint, CHART_COLORS
 } from 'ngx-core-components';
-import { getSampleTasks, getSampleDependencies, getTransportTasks, getTransportDependencies } from '../../data/sample-tasks';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
 @Component({
   selector: 'app-charts-demo',
   standalone: true,
-  imports: [BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent, GanttChartComponent],
+  imports: [BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent],
   template: `
     <div class="demo-page">
 
       <!-- Page Header -->
       <div class="page-header">
         <div class="page-header-text">
-          <h1>Charts</h1>
+          <h1>Standard Charts</h1>
           <p>SVG-based chart components with tooltips, legends, and smooth animations. No external dependencies.
              All charts use CSS custom properties for full theming control.</p>
         </div>
@@ -188,169 +185,6 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
       }
 
-      <!-- ===== GANTT ===== -->
-      @if (activeTab() === 'Gantt') {
-        <div class="tab-content">
-          <div class="section-label">Live Demo</div>
-          <div class="chart-card gantt-card">
-            <div class="chart-card-title">Project timeline with subtasks &amp; dependencies</div>
-            <div class="gantt-toolbar">
-              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Hour" (click)="setGanttZoom(ZoomLevel.Hour)">Hour</button>
-              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Day" (click)="setGanttZoom(ZoomLevel.Day)">Day</button>
-              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Week" (click)="setGanttZoom(ZoomLevel.Week)">Week</button>
-              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Month" (click)="setGanttZoom(ZoomLevel.Month)">Month</button>
-              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Quarter" (click)="setGanttZoom(ZoomLevel.Quarter)">Quarter</button>
-              <button class="mini-btn" [class.active]="ganttZoom() === ZoomLevel.Year" (click)="setGanttZoom(ZoomLevel.Year)">Year</button>
-
-              <label class="gantt-control">
-                Snap
-                <select [value]="ganttSnap()" (change)="setGanttSnap($any($event.target).value)">
-                  <option value="none">None</option>
-                  <option value="day">Day</option>
-                  <option value="hour">Hour</option>
-                </select>
-              </label>
-
-              <label class="gantt-control gantt-toggle">
-                <input type="checkbox" [checked]="ganttShowGrid()" (change)="setGanttGrid($any($event.target).checked)" />
-                Show Grid
-              </label>
-              <label class="gantt-control gantt-toggle">
-                <input type="checkbox" [checked]="ganttLinkable()" (change)="setGanttLinkable($any($event.target).checked)" />
-                Linkable
-              </label>
-              <label class="gantt-control gantt-toggle">
-                <input type="checkbox" [checked]="ganttSelectable()" (change)="setGanttSelectable($any($event.target).checked)" />
-                Selectable
-              </label>
-              <label class="gantt-control gantt-toggle">
-                <input type="checkbox" [checked]="ganttShowBaseline()" (change)="setGanttBaseline($any($event.target).checked)" />
-                Baseline
-              </label>
-              <label class="gantt-control gantt-toggle">
-                <input type="checkbox" [checked]="ganttDragToZoom()" (change)="setGanttDragToZoom($any($event.target).checked)" />
-                Drag to Zoom
-              </label>
-            </div>
-            <div class="gantt-demo-wrap">
-              <ngx-gantt-chart [tasks]="ganttTasks" [dependencies]="ganttDependencies" [config]="ganttConfig()" [baselineItems]="ganttBaseline"
-                (taskChange)="onGanttTaskChange($event)" (linkDragEnded)="onLinkDragEnded($event)" (barClick)="onBarClick($event)" />
-            </div>
-          </div>
-
-          <div class="section-label">How to Use</div>
-          <pre class="code-block">{{ ganttCode }}</pre>
-
-          <div class="section-label">API Reference — Inputs</div>
-          <div class="api-table-wrap">
-            <table class="api-table">
-              <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-              <tbody>
-                @for (row of ganttInputs; track row.name) {
-                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      }
-
-      <!-- ===== TRANSPORT GANTT ===== -->
-      @if (activeTab() === 'Transport') {
-        <div class="tab-content">
-          <div class="section-label">Live Demo — Transport &amp; Logistics</div>
-          <div class="chart-card gantt-card transport-card">
-            <div class="transport-header">
-              <div class="transport-header-text">
-                <h3>🚚 Fleet Voyage Tracker</h3>
-                <p>Real-time vehicle tracking — station departures, transit legs, hub stops &amp; arrivals</p>
-              </div>
-              <div class="transport-badges">
-                <span class="t-badge t-badge-live">● Live</span>
-                <span class="t-badge t-badge-count">3 Vehicles</span>
-                <span class="t-badge t-badge-count">9 Voyages</span>
-              </div>
-            </div>
-            <div class="transport-controls">
-              <div class="gantt-toolbar">
-                <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Hour" (click)="setTransportZoom(ZoomLevel.Hour)">🕒 Hour</button>
-                <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Day" (click)="setTransportZoom(ZoomLevel.Day)">📅 Day</button>
-                <button class="mini-btn" [class.active]="transportZoom() === ZoomLevel.Week" (click)="setTransportZoom(ZoomLevel.Week)">📆 Week</button>
-              </div>
-              <div style="display: flex; gap: 8px; align-items: center;">
-                <button class="mini-btn" [class.active]="transportGantt.isAreaZoomMode()" (click)="transportGantt.toggleAreaZoomMode()" title="Toggle Area Selection Zoom">
-                  🔍 Area Zoom
-                </button>
-                @if (transportGantt.isZoomed()) {
-                  <button class="mini-btn reset-zoom-btn" (click)="transportGantt.resetZoom()" title="Reset to full timeline">
-                    Reset Zoom
-                  </button>
-                }
-              </div>
-              <div style="display: flex; gap: 12px; margin-left: auto;">
-                <label style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
-                  <input type="checkbox" [checked]="transportConfig().enableAlternateRowColor" (change)="toggleTransportAlternateRows($event)" />
-                  Alternate Rows
-                </label>
-                <label style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
-                  <input type="checkbox" [checked]="transportConfig().enableAlternateColumnColor" (change)="toggleTransportAlternateColumns($event)" />
-                  Alternate Columns
-                </label>
-              </div>
-              <div class="transport-legend">
-                <span class="legend-pill station-pill">🟢 Station</span>
-                <span class="legend-pill transit-pill">➡️ Transit</span>
-                <span class="legend-pill hub-pill">🟡 Hub Stop</span>
-              </div>
-            </div>
-            <div class="gantt-demo-wrap">
-              <ngx-gantt-chart #transportGantt [tasks]="transportTasks" [dependencies]="transportDeps" [config]="transportConfig()"
-                [tooltipTemplate]="transportTooltip"
-                [enableDragToZoom]="true"
-                (barClick)="onTransportBarClick($event)" />
-            </div>
-
-            <ng-template #transportTooltip let-ctx>
-              @if (ctx.subtask) {
-                <div class="tt-phase" [class.tt-station]="ctx.subtask.cssClass === 'station-pill'" [class.tt-hub]="ctx.subtask.cssClass === 'hub-badge'" [class.tt-transit]="ctx.subtask.cssClass === 'transit-arrow'">
-                  <div class="tt-phase-icon">{{ ctx.subtask.cssClass === 'station-pill' ? '🟢' : ctx.subtask.cssClass === 'hub-badge' ? '🟡' : '➡️' }}</div>
-                  <div class="tt-phase-body">
-                    <div class="tt-phase-name">{{ ctx.subtask.name }}</div>
-                    <div class="tt-phase-desc">{{ ctx.subtask.description }}</div>
-                    <div class="tt-phase-times">
-                      <span>{{ formatTime(ctx.subtask.start) }}</span>
-                      <span class="tt-arrow">→</span>
-                      <span>{{ formatTime(ctx.subtask.end) }}</span>
-                    </div>
-                    @if (ctx.subtask.progress != null) {
-                      <div class="tt-progress-bar" style="margin-bottom: 6px;"><div class="tt-progress-fill" [style.width.%]="ctx.subtask.progress"></div></div>
-                    }
-                    <div class="tt-phase-meta" style="font-size: 10px; opacity: 0.75; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 5px; margin-top: 5px; display: flex; flex-direction: column; gap: 2px;">
-                      <div style="display: flex; justify-content: space-between;"><span>Voyage ID:</span><span>{{ ctx.task.meta?.['voyageId'] }}</span></div>
-                      <div style="display: flex; justify-content: space-between;"><span>Vehicle No:</span><span>{{ ctx.task.meta?.['vehicleNo'] }}</span></div>
-                    </div>
-                  </div>
-                </div>
-              } @else {
-                <div class="tt-voyage">
-                  <div class="tt-voyage-title">🚚 {{ ctx.task.meta?.['vehicle'] }}</div>
-                  <div class="tt-voyage-route">{{ ctx.task.meta?.['origin'] }} → {{ ctx.task.meta?.['destination'] }}</div>
-                  <div class="tt-voyage-row"><span>Voyage ID</span><span>{{ ctx.task.meta?.['voyageId'] }}</span></div>
-                  <div class="tt-voyage-row"><span>Vehicle No</span><span>{{ ctx.task.meta?.['vehicleNo'] }}</span></div>
-                  <div class="tt-voyage-row"><span>Voyage</span><span>#{{ ctx.task.meta?.['voyageNo'] }}</span></div>
-                  <div class="tt-voyage-row"><span>Departs</span><span>{{ formatTime(ctx.task.start) }}</span></div>
-                  <div class="tt-voyage-row"><span>Arrives</span><span>{{ formatTime(ctx.task.end) }}</span></div>
-                  <div class="tt-voyage-row"><span>Progress</span><span>{{ ctx.task.progress }}%</span></div>
-                </div>
-              }
-            </ng-template>
-          </div>
-
-          <div class="section-label">How to Use</div>
-          <pre class="code-block">{{ transportCode }}</pre>
-        </div>
-      }
-
     </div>
   `,
   styles: [`
@@ -382,206 +216,24 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .chart-card { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 16px; }
     .chart-card-full { grid-column: 1 / -1; }
     .chart-card-title { font-size: 12px; font-weight: 600; color: #6c757d; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
-    .gantt-card {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      overflow: hidden;
-      position: relative;
-      isolation: isolate;
-    }
-    .gantt-toolbar { display: flex; gap: 8px; }
-    .gantt-demo-wrap {
-      position: relative;
-      flex: 0 0 var(--ngx-gantt-min-height, 520px);
-      height: var(--ngx-gantt-min-height, 520px);
-      min-height: var(--ngx-gantt-min-height, 520px);
-      max-height: var(--ngx-gantt-min-height, 520px);
-      border: 1px solid #f1f3f5;
-      border-radius: 8px;
-      overflow: clip;
-      contain: layout paint;
-    }
-    .gantt-demo-wrap ngx-gantt-chart {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 100%;
-      max-height: 100%;
-      --ngx-gantt-min-height: 520px;
-    }
-    .mini-btn { padding: 6px 12px; border: 1px solid #ced4da; border-radius: 999px; background: #fff; color: #495057; font-size: 12px; cursor: pointer; font-family: inherit; }
-    .mini-btn.active { background: #1a73e8; border-color: #1a73e8; color: #fff; }
-    .gantt-control { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #495057; margin-left: 8px; }
-    .gantt-control select { border: 1px solid #ced4da; border-radius: 4px; padding: 3px 6px; font-size: 12px; }
-    .gantt-toggle { margin-left: 0; }
-
-    /* Transport legend */
-    .transport-card {
-      background: #fff;
-      border: none;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .transport-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .transport-header-text h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
-    .transport-header-text p { margin: 0; font-size: 12px; color: rgba(255,255,255,0.7); }
-    .transport-badges { display: flex; gap: 8px; }
-    .t-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
-    .t-badge-live { background: rgba(16,185,129,0.2); color: #34d399; animation: pulse-live 2s ease-in-out infinite; }
-    .t-badge-count { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
-    @keyframes pulse-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-    .transport-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 24px;
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .transport-legend { display: flex; gap: 10px; }
-    .legend-pill {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .station-pill { background: #ecfdf5; color: #059669; }
-    .transit-pill { background: #eff6ff; color: #2563eb; }
-    .hub-pill { background: #fffbeb; color: #d97706; }
-
-    /* Transit arrow shape */
-    :host ::ng-deep .transport-card .k-task-with-subtasks {
-      overflow: visible;
-      background: transparent !important;
-    }
-    :host ::ng-deep .k-subtask-segment.transit-arrow {
-      clip-path: polygon(
-        0% 20%,
-        4px 0%,
-        calc(100% - 10px) 0%,
-        100% 50%,
-        calc(100% - 10px) 100%,
-        4px 100%,
-        0% 80%
-      );
-      border-radius: 0;
-      box-shadow: none;
-      background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 40%, #2563eb 100%) !important;
-      transition: filter 0.2s ease, clip-path 0.2s ease;
-    }
-    :host ::ng-deep .k-subtask-segment.transit-arrow .k-subtask-text {
-      padding: 0 14px 0 10px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    :host ::ng-deep .k-subtask-segment.transit-arrow:hover {
-      clip-path: polygon(
-        0% 12%,
-        4px 0%,
-        calc(100% - 12px) 0%,
-        100% 50%,
-        calc(100% - 12px) 100%,
-        4px 100%,
-        0% 88%
-      );
-      filter: brightness(1.18) drop-shadow(0 2px 4px rgba(37,99,235,0.35));
-      transform: none;
-      z-index: 2;
-    }
-    /* Station rounded pills */
-    :host ::ng-deep .k-subtask-segment.station-pill {
-      border-radius: 999px;
-      background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%) !important;
-      box-shadow: 0 2px 6px rgba(16,185,129,0.35);
-      transition: box-shadow 0.2s ease, transform 0.15s ease;
-    }
-    :host ::ng-deep .k-subtask-segment.station-pill .k-subtask-text {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-    :host ::ng-deep .k-subtask-segment.station-pill:hover {
-      box-shadow: 0 4px 14px rgba(16,185,129,0.45);
-      transform: scale(1.06);
-      z-index: 2;
-    }
-    /* Hub diamond badges */
-    :host ::ng-deep .k-subtask-segment.hub-badge {
-      clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
-      border-radius: 0;
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%) !important;
-      box-shadow: none;
-      transition: filter 0.2s ease, transform 0.15s ease;
-    }
-    :host ::ng-deep .k-subtask-segment.hub-badge .k-subtask-text {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      padding: 0 10px;
-    }
-    :host ::ng-deep .k-subtask-segment.hub-badge:hover {
-      filter: brightness(1.12) drop-shadow(0 2px 4px rgba(245,158,11,0.4));
-      transform: scaleY(1.1);
-      z-index: 2;
-    }
-    .legend-item { display: inline-flex; align-items: center; gap: 5px; }
-    .legend-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
-    .legend-swatch.arrow { clip-path: polygon(0 20%, 75% 20%, 75% 0, 100% 50%, 75% 100%, 75% 80%, 0 80%); width: 18px; }
-
-    /* Transport custom tooltip */
-    .tt-voyage { min-width: 200px; }
-    .tt-voyage-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-    .tt-voyage-route { font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
-    .tt-voyage-row { display: flex; justify-content: space-between; gap: 16px; font-size: 12px; margin-top: 3px; }
-    .tt-voyage-row span:first-child { color: rgba(255,255,255,0.6); }
-    .tt-voyage-row span:last-child { font-weight: 600; }
-    .tt-phase { display: flex; gap: 10px; align-items: flex-start; min-width: 200px; }
-    .tt-phase-icon { font-size: 18px; line-height: 1; padding-top: 2px; }
-    .tt-phase-body { flex: 1; }
-    .tt-phase-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
-    .tt-phase-desc { font-size: 11px; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
-    .tt-phase-times { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; margin-bottom: 6px; }
-    .tt-arrow { color: rgba(255,255,255,0.4); }
-    .tt-progress-bar { height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden; }
-    .tt-progress-fill { height: 100%; border-radius: 2px; background: #34d399; }
-    .tt-station .tt-progress-fill { background: #34d399; }
-    .tt-hub .tt-progress-fill { background: #fbbf24; }
-    .tt-transit .tt-progress-fill { background: #60a5fa; }
 
     /* Sparkline table */
-    .sparkline-table { display: flex; flex-direction: column; gap: 12px; }
-    .sl-row { display: flex; align-items: center; gap: 20px; border-bottom: 1px solid #f1f3f5; padding-bottom: 12px; }
-    .sl-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .sl-name { width: 120px; font-size: 13px; font-weight: 500; }
-    .sl-value { width: 50px; font-size: 13px; font-weight: 600; text-align: right; }
-    .sl-trend { font-size: 12px; font-weight: 600; width: 60px; }
+    .sparkline-table { display: flex; flex-direction: column; gap: 8px; }
+    .sl-row { display: flex; align-items: center; gap: 16px; padding: 8px 12px; border-radius: 6px; background: #f8f9fa; }
+    .sl-name { width: 120px; font-size: 13px; font-weight: 500; color: #343a40; }
+    .sl-value { font-size: 14px; font-weight: 700; color: #1a1a2e; min-width: 50px; text-align: right; }
+    .sl-trend { font-size: 11px; font-weight: 700; min-width: 60px; text-align: right; }
     .sl-trend.up { color: #27ae60; }
     .sl-trend.down { color: #e74c3c; }
 
-    /* Code */
-    .code-block { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 8px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; }
+    /* Code block */
+    .code-block { background: #1e1e2e; color: #a6e3a1; border-radius: 8px; padding: 16px 20px; font-size: 12px; line-height: 1.6; overflow-x: auto; white-space: pre; font-family: 'SF Mono', Consolas, 'Liberation Mono', monospace; }
 
-    /* API Table */
-    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 8px; }
-    .api-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .api-table thead tr { background: #f8f9fa; }
-    .api-table th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #6c757d; border-bottom: 1px solid #e9ecef; white-space: nowrap; }
-    .api-table td { padding: 10px 14px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
+    /* API table */
+    .api-table-wrap { overflow-x: auto; }
+    .api-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .api-table thead th { background: #f8f9fa; font-weight: 700; color: #495057; text-align: left; padding: 10px 12px; border-bottom: 2px solid #e9ecef; text-transform: uppercase; letter-spacing: 0.3px; font-size: 11px; }
+    .api-table tbody td { padding: 10px 12px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; line-height: 1.5; }
     .api-table tbody tr:last-child td { border-bottom: none; }
     .api-table tbody tr:hover td { background: #f8f9fa; }
     .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 600; white-space: nowrap; }
@@ -591,14 +243,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
 })
 export class ChartsDemoComponent {
   activeTab = signal('Bar Chart');
-  tabs = ['Bar Chart', 'Line Chart', 'Pie / Donut', 'Sparkline', 'Gantt', 'Transport'];
-  ganttZoom = signal(ZoomLevel.Week);
-  ganttSnap = signal<'none' | 'day' | 'hour'>('day');
-  ganttShowGrid = signal(true);
-  ganttLinkable = signal(false);
-  ganttSelectable = signal(true);
-  ganttShowBaseline = signal(false);
-  ganttDragToZoom = signal(true);
+  tabs = ['Bar Chart', 'Line Chart', 'Pie / Donut', 'Sparkline'];
 
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
@@ -627,65 +272,6 @@ export class ChartsDemoComponent {
     { name: 'Bounce Rate', data: [48,51,44,47,43,46,42], type: 'bar' as const, color: '#ff6358', up: false, change: 2 },
     { name: 'Avg. Session', data: [2.1,1.9,2.3,2.0,2.4,2.6,2.5], type: 'line' as const, color: '#8e44ad', up: true, change: 5 },
   ];
-
-  ganttTasks: GanttTask[] = getSampleTasks().map(task => ({ ...task }));
-  ganttDependencies: GanttDependency[] = getSampleDependencies().filter(dep => {
-    const taskIds = new Set(this.ganttTasks.map(task => task.id));
-    return taskIds.has(dep.fromId) && taskIds.has(dep.toId);
-  });
-  ganttConfig = signal<Partial<GanttConfig>>({
-    zoomLevel: ZoomLevel.Week,
-    rowHeight: 40,
-    columnWidth: 120,
-    headerHeight: 56,
-    sidebarWidth: 320,
-    showTodayMarker: true,
-    showGrid: true,
-    collapsible: true,
-    snapTo: 'day',
-    linkable: false,
-    selectable: true,
-    multiple: true,
-    showBaseline: false,
-    showToolbar: true,
-    enableDragToZoom: true,
-    sidebarColumns: [
-      { field: 'name', header: 'Task Name', width: 180 },
-      { field: 'start', header: 'Start', width: 80 },
-      { field: 'end', header: 'End', width: 80 },
-      { field: 'progress', header: '%', width: 50 },
-    ],
-  });
-
-  ganttBaseline: GanttBaselineItem[] = this.ganttTasks.slice(0, 3).map(t => ({
-    id: t.id,
-    start: new Date(t.start.getTime() - 2 * 86400000),
-    end: new Date(t.end.getTime() - 1 * 86400000),
-  }));
-
-  // ===== TRANSPORT GANTT =====
-  transportZoom = signal(ZoomLevel.Hour);
-  transportTasks: GanttTask[] = getTransportTasks();
-  transportDeps: GanttDependency[] = getTransportDependencies();
-  transportConfig = signal<Partial<GanttConfig>>({
-    zoomLevel: ZoomLevel.Hour,
-    rowHeight: 48,
-    columnWidth: 60,
-    headerHeight: 56,
-    sidebarWidth: 200,
-    showTodayMarker: true,
-    showGrid: true,
-    collapsible: false,
-    snapTo: 'hour',
-    linkable: false,
-    selectable: false,
-    showToolbar: false,
-    enableAlternateRowColor: false,
-    enableAlternateColumnColor: false,
-    sidebarColumns: [
-      { field: 'name', header: 'Vehicle', width: 200 },
-    ],
-  });
 
   // ===== CODE SNIPPETS =====
   barChartCode = `import { BarChartComponent, ChartSeries } from 'ngx-core-components';
@@ -774,65 +360,6 @@ export class MyComponent {
   trend = [42, 38, 55, 61, 48, 70, 66];
 }`;
 
-  ganttCode = `import { GanttChartComponent, type GanttTask, type GanttSubtask, type GanttDependency } from 'ngx-core-components';
-
-@Component({
-  imports: [GanttChartComponent],
-  template: \`
-    <ngx-gantt-chart
-      [tasks]="tasks"
-      [dependencies]="dependencies"
-      [config]="{ zoomLevel: 'week', rowHeight: 40, showGrid: true }"
-    />
-  \`
-})
-export class MyComponent {
-  tasks: GanttTask[] = [
-    {
-      id: 'task-1', name: 'Backend API', start: new Date(), end: addDays(8),
-      progress: 60, parentId: 'phase-1', collapsed: false, isMilestone: false,
-      color: '#e9ecef', rowId: 'row-1',
-      subtasks: [
-        { id: 'sub-1', name: 'Auth Service', start: new Date(), end: addDays(3),
-          color: '#27ae60', description: 'JWT authentication', progress: 100 },
-        { id: 'sub-2', name: 'CRUD Endpoints', start: addDays(3), end: addDays(6),
-          color: '#f39c12', description: 'Core endpoints', progress: 50 },
-        { id: 'sub-3', name: 'Validation', start: addDays(6), end: addDays(8),
-          color: '#e74c3c', description: 'Input validation', progress: 0 },
-      ]
-    },
-    // Multiple tasks in same row via shared rowId
-    { id: 'task-2', name: 'DB Schema', rowId: 'row-1', /* ... */ subtasks: [...] }
-  ];
-}`;
-
-  transportCode = `import { GanttChartComponent, GanttTask } from 'ngx-core-components';
-
-// Each vehicle = 1 row (shared rowId). Each voyage = 1 bar with 7 subtask phases.
-// Voyage: Station Start → Transit → Hub1 → Transit → Hub2 → Transit → Station End
-tasks: GanttTask[] = [
-  {
-    id: 'v1-voyage-1', name: 'Vehicle TRK-1001',
-    start: new Date('...'), end: new Date('...'),
-    progress: 100, parentId: null, collapsed: false, isMilestone: false,
-    rowId: 'vehicle-1', color: '#f1f3f5',
-    subtasks: [
-      { id: '...-stn-start', name: 'Mumbai Station',  start: ..., end: ..., color: '#27ae60' },
-      { id: '...-transit-1', name: 'Transit',          start: ..., end: ..., color: '#2980b9' },
-      { id: '...-hub-1',     name: 'Delhi Hub',        start: ..., end: ..., color: '#8e44ad' },
-      { id: '...-transit-2', name: 'Transit',          start: ..., end: ..., color: '#2980b9' },
-      { id: '...-hub-2',     name: 'Jaipur Hub',       start: ..., end: ..., color: '#8e44ad' },
-      { id: '...-transit-3', name: 'Transit',          start: ..., end: ..., color: '#2980b9' },
-      { id: '...-stn-end',   name: 'Ahmedabad Station',start: ..., end: ..., color: '#27ae60' },
-    ],
-  },
-  // More voyages on same rowId appear side-by-side
-  { id: 'v1-voyage-2', rowId: 'vehicle-1', ... },
-  { id: 'v1-voyage-3', rowId: 'vehicle-1', ... },
-  // Next vehicle row
-  { id: 'v2-voyage-1', rowId: 'vehicle-2', ... },
-];`;
-
   // ===== API TABLES =====
   barInputs: ApiRow[] = [
     { name: 'series', type: 'ChartSeries[]', default: '[]', description: 'Array of data series. Each series has a name and an array of numeric values.' },
@@ -873,96 +400,6 @@ tasks: GanttTask[] = [
     { name: 'width', type: 'number', default: '100', description: 'Width in pixels.' },
     { name: 'height', type: 'number', default: '32', description: 'Height in pixels.' },
   ];
-
-  ganttInputs: ApiRow[] = [
-    { name: 'tasks', type: 'GanttTask[]', default: 'required', description: 'Task rows rendered in the sidebar and timeline. Each task can have a subtasks[] array.' },
-    { name: 'dependencies', type: 'GanttDependency[]', default: '[]', description: 'Dependency links between tasks.' },
-    { name: 'config', type: 'Partial<GanttConfig>', default: '{}', description: 'Zoom, sizing, grid, and interaction configuration.' },
-    { name: 'enableDragToZoom', type: 'boolean', default: 'false', description: 'Enables area-selection zooming by dragging the mouse while holding Shift or toggling Zoom Mode.' },
-    { name: 'task.subtasks', type: 'GanttSubtask[]', default: '[]', description: 'Subtasks rendered as colored segments inside the task bar. Each has id, name, start, end, color, description?, progress?.' },
-    { name: 'task.rowId', type: 'string', default: 'undefined', description: 'Tasks sharing the same rowId (and parentId) are rendered in a single row.' },
-  ];
-
-  protected readonly ZoomLevel = ZoomLevel;
-
-  setGanttZoom(level: ZoomLevel): void {
-    const widths: Record<string, number> = { hour: 24, day: 36, week: 120, month: 180, quarter: 220, year: 280 };
-    const columnWidth = widths[level] || 120;
-    this.ganttZoom.set(level);
-    this.ganttConfig.set({ ...this.ganttConfig(), zoomLevel: level, columnWidth });
-  }
-
-  setGanttSnap(value: 'none' | 'day' | 'hour'): void {
-    this.ganttSnap.set(value);
-    this.ganttConfig.set({ ...this.ganttConfig(), snapTo: value });
-  }
-
-  setGanttGrid(show: boolean): void {
-    this.ganttShowGrid.set(show);
-    this.ganttConfig.set({ ...this.ganttConfig(), showGrid: show });
-  }
-
-  onGanttTaskChange(event: GanttTaskChangeEvent): void {
-    this.ganttTasks = this.ganttTasks.map(t =>
-      t.id === event.task.id ? { ...t, start: event.task.start, end: event.task.end, subtasks: event.task.subtasks } : t
-    );
-  }
-
-  onLinkDragEnded(event: GanttLinkDragEvent): void {
-    if (event.target && event.type) {
-      const newDep: GanttDependency = { fromId: event.source.id, toId: event.target.id, type: event.type };
-      this.ganttDependencies = [...this.ganttDependencies, newDep];
-    }
-  }
-
-  onBarClick(event: GanttBarClickEvent): void {
-    console.log('Bar clicked:', event.task.name);
-  }
-
-  setGanttLinkable(val: boolean): void {
-    this.ganttLinkable.set(val);
-    this.ganttConfig.set({ ...this.ganttConfig(), linkable: val });
-  }
-  setGanttSelectable(val: boolean): void {
-    this.ganttSelectable.set(val);
-    this.ganttConfig.set({ ...this.ganttConfig(), selectable: val });
-  }
-  setGanttBaseline(val: boolean): void {
-    this.ganttShowBaseline.set(val);
-    this.ganttConfig.set({ ...this.ganttConfig(), showBaseline: val });
-  }
-  setGanttDragToZoom(val: boolean): void {
-    this.ganttDragToZoom.set(val);
-    this.ganttConfig.set({ ...this.ganttConfig(), enableDragToZoom: val });
-  }
-
-  // Transport helpers
-  setTransportZoom(level: ZoomLevel): void {
-    const widths: Record<string, number> = { hour: 60, day: 120, week: 360 };
-    this.transportZoom.set(level);
-    this.transportConfig.set({ ...this.transportConfig(), zoomLevel: level, columnWidth: widths[level] || 60 });
-  }
-
-  onTransportBarClick(event: GanttBarClickEvent): void {
-    const m = event.task.meta;
-    if (m) {
-      console.log(`[Transport] ${m['vehicle']} — Voyage ${m['voyageNo']}: ${m['route']}`);
-    }
-  }
-
-  toggleTransportAlternateRows(event: Event): void {
-    const checked = (event.target as HTMLInputElement).checked;
-    this.transportConfig.set({ ...this.transportConfig(), enableAlternateRowColor: checked });
-  }
-
-  toggleTransportAlternateColumns(event: Event): void {
-    const checked = (event.target as HTMLInputElement).checked;
-    this.transportConfig.set({ ...this.transportConfig(), enableAlternateColumnColor: checked });
-  }
-
-  formatTime(date: Date): string {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
 
   chartCssVars: { name: string; default: string; description: string }[] = [
     { name: '--ngx-chart-bg', default: '#ffffff', description: 'Chart background color.' },

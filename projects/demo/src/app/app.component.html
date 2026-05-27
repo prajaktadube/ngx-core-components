@@ -17,6 +17,13 @@
       <a href="https://github.com/prajaktadube/ngx-core-components" target="_blank" class="nav-link" title="GitHub Repository">
         <span>GitHub</span>
       </a>
+      <button class="theme-toggle-btn" (click)="toggleTheme()" [title]="isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        @if (isDarkMode()) {
+          <span class="theme-icon">☀️</span>
+        } @else {
+          <span class="theme-icon">🌙</span>
+        }
+      </button>
     </div>
   </header>
 
@@ -80,10 +87,6 @@
     </nav>
 
     <main class="app-content">
-      <section class="content-header">
-        <h1>{{ currentTitle() }}</h1>
-        <p>{{ currentDescription() }}</p>
-      </section>
       <section class="content-body">
         <router-outlet />
       </section>

@@ -44,12 +44,12 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
     ],
   },
   {
-    title: 'Input And Actions',
+    title: 'Inputs & Actions',
     icon: '🖱️',
     items: [
       {
         path: '/buttons',
-        label: 'Buttons And Chips',
+        label: 'Buttons & Chips',
         icon: '🔘',
         desc: 'Buttons, split actions, and chips',
         keywords: 'button chip split dropdown action',
@@ -66,12 +66,12 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
     ],
   },
   {
-    title: 'Structure And Navigation',
+    title: 'Layout & Overlays',
     icon: '🧩',
     items: [
       {
         path: '/layout',
-        label: 'Layout',
+        label: 'Layout & Containers',
         icon: '📐',
         desc: 'Card, tabs, accordion, splitter, stepper',
         keywords: 'layout card tabs accordion splitter stepper',
@@ -79,20 +79,34 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
       },
       {
         path: '/navigation',
-        label: 'Navigation',
+        label: 'Navigation Menus',
         icon: '🧭',
         desc: 'Menus and breadcrumb patterns',
         keywords: 'navigation menu breadcrumb',
       },
+      {
+        path: '/tooltip',
+        label: 'Tooltip & Popover',
+        icon: '💬',
+        desc: 'Contextual overlay messaging',
+        keywords: 'tooltip popover hint info',
+      },
+      {
+        path: '/dialog',
+        label: 'Dialog Modals',
+        icon: '🪟',
+        desc: 'Programmatic overlays and modal flows',
+        keywords: 'dialog modal overlay',
+      },
     ],
   },
   {
-    title: 'Data Exploration',
+    title: 'Data Presentation',
     icon: '🗂️',
     items: [
       {
         path: '/grid',
-        label: 'Data Grid',
+        label: 'Data Grid Enterprise',
         icon: '📑',
         desc: 'Sorting, filtering, paging, and editing',
         keywords: 'grid table sorting filtering paging',
@@ -100,77 +114,14 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
       },
       {
         path: '/tree-list',
-        label: 'Tree And List',
+        label: 'Tree & List Views',
         icon: '🌳',
         desc: 'Hierarchical and list rendering demos',
         keywords: 'tree list hierarchy',
       },
       {
-        path: '/tooltip',
-        label: 'Tooltip And Popover',
-        icon: '💬',
-        desc: 'Contextual overlay messaging',
-        keywords: 'tooltip popover hint info',
-      },
-    ],
-  },
-  {
-    title: 'Charts And Timelines',
-    icon: '📊',
-    items: [
-      {
-        path: '/charts',
-        label: 'Charts',
-        icon: '📈',
-        desc: 'Bar, line, pie, and sparkline charts',
-        keywords: 'chart bar line pie sparkline',
-        featured: true,
-      },
-      {
-        path: '/basic',
-        label: 'Gantt Basic',
-        icon: '📅',
-        desc: 'Core timeline scheduling workflows',
-        keywords: 'gantt basic timeline schedule',
-      },
-      {
-        path: '/large-dataset',
-        label: 'Gantt Large Dataset',
-        icon: '⚡',
-        desc: 'Performance behavior under load',
-        keywords: 'gantt performance large data',
-        featured: true,
-      },
-      {
-        path: '/interactive',
-        label: 'Gantt Interactive',
-        icon: '🖱️',
-        desc: 'Drag, resize, and dependency interactions',
-        keywords: 'gantt interactive drag resize',
-      },
-    ],
-  },
-  {
-    title: 'Feedback And Utilities',
-    icon: '🔔',
-    items: [
-      {
-        path: '/feedback',
-        label: 'Feedback',
-        icon: '📣',
-        desc: 'Badge, notifications, progress, skeleton',
-        keywords: 'feedback notification progress badge skeleton',
-      },
-      {
-        path: '/dialog',
-        label: 'Dialog',
-        icon: '🪟',
-        desc: 'Programmatic overlays and modal flows',
-        keywords: 'dialog modal overlay',
-      },
-      {
         path: '/barcodes',
-        label: 'Barcodes And QR',
+        label: 'Barcodes & QR',
         icon: '▦',
         desc: 'Barcode and QR generation demos',
         keywords: 'barcode qr code128',
@@ -178,7 +129,29 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
     ],
   },
   {
-    title: 'Agentic AI',
+    title: 'Visualizations',
+    icon: '📊',
+    items: [
+      {
+        path: '/charts',
+        label: 'Standard Charts',
+        icon: '📈',
+        desc: 'Bar, line, pie, and sparkline charts',
+        keywords: 'chart bar line pie sparkline',
+        featured: true,
+      },
+      {
+        path: '/gantt',
+        label: 'Gantt Chart System',
+        icon: '📅',
+        desc: 'Enterprise interactive timeline scheduler',
+        keywords: 'gantt timeline schedule drag resize zoom performance fleet',
+        featured: true,
+      },
+    ],
+  },
+  {
+    title: 'Intelligence',
     icon: '🤖',
     items: [
       {
@@ -188,6 +161,19 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
         desc: 'Structured steps, card carousels, and replies',
         keywords: 'ai agent chat console LLM structured tool call prompt',
         featured: true,
+      },
+    ],
+  },
+  {
+    title: 'Feedback',
+    icon: '🔔',
+    items: [
+      {
+        path: '/feedback',
+        label: 'Feedback & Progress',
+        icon: '📣',
+        desc: 'Badge, notifications, progress, skeleton',
+        keywords: 'feedback notification progress badge skeleton',
       },
     ],
   },

@@ -8,25 +8,17 @@ export const routes: Routes = [
       import('./pages/home/home.component').then(m => m.HomeComponent),
   },
   {
-    path: 'basic',
+    path: 'gantt',
     loadComponent: () =>
-      import('./pages/basic-demo/basic-demo.component').then(m => m.BasicDemoComponent),
+      import('./pages/gantt-demo/gantt-demo.component').then(m => m.GanttDemoComponent),
   },
-  {
-    path: 'large-dataset',
-    loadComponent: () =>
-      import('./pages/large-dataset-demo/large-dataset-demo.component').then(m => m.LargeDatasetDemoComponent),
-  },
+
   {
     path: 'theming',
     loadComponent: () =>
       import('./pages/theming-demo/theming-demo.component').then(m => m.ThemingDemoComponent),
   },
-  {
-    path: 'interactive',
-    loadComponent: () =>
-      import('./pages/interactive-demo/interactive-demo.component').then(m => m.InteractiveDemoComponent),
-  },
+
   {
     path: 'getting-started',
     loadComponent: () =>
