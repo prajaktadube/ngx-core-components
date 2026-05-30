@@ -80,6 +80,17 @@ export const routes: Routes = [
         import('./pages/barcodes-demo/barcodes-demo.component').then(m => m.BarcodesDemoComponent),
     },
     {
+      path: 'kanban',
+      loadComponent: () =>
+        import('./pages/kanban-demo/kanban-demo.component').then(m => m.KanbanDemoComponent),
+    },
+    {
+      path: 'timeline',
+      loadComponent: () =>
+        import('./pages/timeline-demo/timeline-demo.component').then(m => m.TimelineDemoComponent),
+    },
+
+    {
       path: 'ai',
       loadComponent: () =>
         import('./pages/ai-demo/ai-demo.component').then(m => m.AiDemoComponent),

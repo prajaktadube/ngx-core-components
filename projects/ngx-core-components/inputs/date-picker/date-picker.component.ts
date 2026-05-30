@@ -75,54 +75,56 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       display: block;
     }
     .ngx-date-picker { position: relative; font-family: inherit; }
-    .dp-label { display: block; font-size: 13px; color: var(--ngx-input-label, #6c757d); margin-bottom: 4px; font-weight: 500; }
+    .dp-label { display: block; font-size: 12px; font-weight: 600; color: var(--ngx-input-label, #475569); margin-bottom: 6px; }
     .dp-input-wrap {
       display: flex; align-items: center;
-      border: 1px solid var(--ngx-input-border, #ced4da); border-radius: var(--ngx-input-radius, 4px);
+      border: 1px solid var(--ngx-input-border, #cbd5e1); border-radius: var(--ngx-input-radius, 8px);
       background: var(--ngx-input-bg, #fff); cursor: pointer;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .dp-input-wrap:hover { border-color: #adb5bd; }
-    .open .dp-input-wrap { border-color: var(--ngx-input-focus, #4a90d9); box-shadow: 0 0 0 2px rgba(74,144,217,0.18); }
-    .disabled .dp-input-wrap { background: #f8f9fa; cursor: not-allowed; }
+    .dp-input-wrap:hover { border-color: var(--primary-color, #4f46e5); }
+    .open .dp-input-wrap { border-color: var(--primary-color, #4f46e5); box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15)); }
+    .disabled .dp-input-wrap { background: var(--ngx-input-disabled-bg, #f8f9fa); cursor: not-allowed; opacity: 0.7; }
     .dp-input {
-      flex: 1; padding: 8px 12px; border: none; outline: none; background: transparent;
-      font-size: 14px; color: var(--ngx-input-text, #212529); cursor: pointer; font-family: inherit;
+      flex: 1; padding: 10px 14px; border: none; outline: none; background: transparent;
+      font-size: 14px; color: var(--ngx-input-text, #0f172a); cursor: pointer; font-family: inherit;
     }
-    .dp-icon { padding: 0 12px; color: #6c757d; }
+    .dp-input:disabled { cursor: not-allowed; color: #94a3b8; }
+    .dp-icon { padding: 0 12px; color: #64748b; font-size: 14px; }
     .dp-popup {
-      position: absolute; top: calc(100% + 4px); left: 0; z-index: 1000;
-      background: var(--ngx-input-bg, #fff); border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: var(--ngx-input-radius, 4px); box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      padding: 12px; width: 260px;
+      position: absolute; top: calc(100% + 6px); left: 0; z-index: 1000;
+      background: var(--bg-secondary, #fff); border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--ngx-input-radius, 12px); box-shadow: var(--shadow-lg, 0 10px 25px rgba(0,0,0,0.08));
+      padding: 16px; width: 280px;
     }
-    .dp-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .dp-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .dp-nav-btn {
-      background: none; border: none; cursor: pointer; font-size: 20px; color: #6c757d;
-      padding: 2px 8px; border-radius: 3px; line-height: 1;
+      background: none; border: none; cursor: pointer; font-size: 20px; color: #64748b;
+      padding: 2px 8px; border-radius: 6px; line-height: 1; transition: background 0.15s;
     }
-    .dp-nav-btn:hover { background: #f1f3f5; }
-    .dp-nav-title { font-size: 14px; font-weight: 600; color: var(--ngx-input-text, #212529); }
-    .dp-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
-    .dp-wd { text-align: center; font-size: 11px; color: #adb5bd; font-weight: 600; padding: 4px 0; }
-    .dp-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .dp-nav-btn:hover { background: var(--border-light, #f1f5f9); color: var(--text-primary, #0f172a); }
+    .dp-nav-title { font-size: 14px; font-weight: 750; color: var(--text-primary, #0f172a); font-family: var(--ngx-heading-font-family, inherit); }
+    .dp-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 6px; }
+    .dp-wd { text-align: center; font-size: 11px; color: #94a3b8; font-weight: 700; padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .dp-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .dp-day {
       aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-      font-size: 13px; border: none; background: none; cursor: pointer; border-radius: 50%;
-      color: var(--ngx-input-text, #212529); transition: background 0.1s;
+      font-size: 13px; font-weight: 500; border: none; background: none; cursor: pointer; border-radius: 50%;
+      color: var(--text-primary, #0f172a); transition: all 0.15s;
     }
-    .dp-day:hover:not(.disabled):not(.selected) { background: #f1f3f5; }
-    .dp-day.other-month { color: #ced4da; }
-    .dp-day.today { font-weight: 700; color: var(--ngx-input-focus, #4a90d9); }
-    .dp-day.selected { background: var(--ngx-input-focus, #4a90d9); color: #fff; }
-    .dp-day.disabled { color: #ced4da; cursor: not-allowed; }
-    .dp-footer { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f1f3f5; }
+    .dp-day:hover:not(.disabled):not(.selected) { background: var(--border-light, #f1f5f9); }
+    .dp-day.other-month { color: #cbd5e1; }
+    .dp-day.today { font-weight: 700; color: var(--primary-color, #4f46e5); border: 1.5px solid var(--primary-color, #4f46e5); }
+    .dp-day.selected { background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)); color: #fff; font-weight: 600; box-shadow: 0 3px 8px rgba(79, 70, 229, 0.3); }
+    .dp-day.disabled { color: #e2e8f0; cursor: not-allowed; text-decoration: line-through; opacity: 0.4; }
+    .dp-footer { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color, #e2e8f0); }
     .dp-today-btn, .dp-clear-btn {
-      background: none; border: none; cursor: pointer; font-size: 12px; color: var(--ngx-input-focus, #4a90d9);
-      padding: 4px 8px; border-radius: 3px; font-family: inherit;
+      background: none; border: none; cursor: pointer; font-size: 12px; font-weight: 700; color: var(--primary-color, #4f46e5);
+      padding: 6px 12px; border-radius: 6px; font-family: inherit; transition: background 0.15s;
     }
-    .dp-today-btn:hover, .dp-clear-btn:hover { background: #f1f3f5; }
-    .dp-clear-btn { color: #6c757d; }
+    .dp-today-btn:hover { background: var(--primary-glow, rgba(79, 70, 229, 0.08)); }
+    .dp-clear-btn { color: var(--text-secondary, #64748b); }
+    .dp-clear-btn:hover { background: var(--border-light, #f1f5f9); }
   `]
 })
 export class DatePickerComponent implements ControlValueAccessor {
@@ -172,7 +174,13 @@ export class DatePickerComponent implements ControlValueAccessor {
     // Leading blanks
     for (let i = 0; i < first.getDay(); i++) {
       const d = new Date(y, m, -first.getDay() + i + 1);
-      days.push({ date: d, label: d.getDate().toString(), current: false, isToday: false, isSelected: false, disabled: true });
+      const isDisabled = (this.min() && d < this.min()!) || (this.max() && d > this.max()!) || false;
+      days.push({
+        date: d, label: d.getDate().toString(), current: false,
+        isToday: false,
+        isSelected: d.setHours(0,0,0,0) === selectedTime,
+        disabled: isDisabled
+      });
     }
     // Days in month
     for (let d = 1; d <= last.getDate(); d++) {
@@ -189,7 +197,13 @@ export class DatePickerComponent implements ControlValueAccessor {
     const remaining = 42 - days.length;
     for (let i = 1; i <= remaining; i++) {
       const d = new Date(y, m + 1, i);
-      days.push({ date: d, label: i.toString(), current: false, isToday: false, isSelected: false, disabled: true });
+      const isDisabled = (this.min() && d < this.min()!) || (this.max() && d > this.max()!) || false;
+      days.push({
+        date: d, label: i.toString(), current: false,
+        isToday: false,
+        isSelected: d.setHours(0,0,0,0) === selectedTime,
+        disabled: isDisabled
+      });
     }
     return days;
   });

@@ -126,6 +126,22 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
         desc: 'Barcode and QR generation demos',
         keywords: 'barcode qr code128',
       },
+      {
+        path: '/kanban',
+        label: 'Kanban Board',
+        icon: '📋',
+        desc: 'Interactive drag-and-drop workflow tracking board',
+        keywords: 'kanban board drag drop card list column workflow project tracker',
+        featured: true,
+      },
+      {
+        path: '/timeline',
+        label: 'Timeline Events',
+        icon: '⏳',
+        desc: 'Vertical and horizontal chronological event streams',
+        keywords: 'timeline events chronology history audit trace release notes',
+        featured: true,
+      },
     ],
   },
   {
@@ -148,6 +164,7 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
         keywords: 'gantt timeline schedule drag resize zoom performance fleet',
         featured: true,
       },
+
     ],
   },
   {

@@ -1,12 +1,18 @@
 import { Component, signal, computed } from '@angular/core';
-import { ButtonComponent, ButtonGroupComponent, ChipComponent, ChipListComponent, SplitButtonComponent, DropDownButtonComponent } from 'ngx-core-components/buttons';
+import {
+  ButtonComponent, ButtonGroupComponent, ChipComponent, ChipListComponent,
+  SplitButtonComponent, DropDownButtonComponent, SpeedDialComponent, SpeedDialItem
+} from 'ngx-core-components';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
 @Component({
   selector: 'app-buttons-demo',
   standalone: true,
-  imports: [ButtonComponent, ButtonGroupComponent, ChipComponent, ChipListComponent, SplitButtonComponent, DropDownButtonComponent],
+  imports: [
+    ButtonComponent, ButtonGroupComponent, ChipComponent, ChipListComponent,
+    SplitButtonComponent, DropDownButtonComponent, SpeedDialComponent
+  ],
   template: `
     <div class="demo-page">
       <!-- Page Header -->
@@ -226,6 +232,90 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
       }
 
+      <!-- ===== SPEED DIAL FAB ===== -->
+      @if (activeTab() === 'Speed Dial FAB') {
+        <div class="tab-content">
+          <div class="section-label">Floating Action Button (FAB) Speed Dial Demos</div>
+          
+          <div class="playground-card" style="min-height: 380px; position: relative;">
+            <div class="playground-preview" style="height: 300px; display: flex; align-items: center; justify-content: center; gap: 40px; position: relative;">
+              
+              <!-- TOP DIRECTION -->
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; font-weight: 750; color: var(--text-secondary);">Top FAB</span>
+                <ngx-speed-dial
+                  [items]="speedDialItems"
+                  direction="top"
+                  theme="primary"
+                  (itemClick)="onSpeedDialClick($event)"
+                />
+              </div>
+
+              <!-- BOTTOM DIRECTION -->
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; font-weight: 750; color: var(--text-secondary);">Bottom FAB</span>
+                <ngx-speed-dial
+                  [items]="speedDialItems"
+                  direction="bottom"
+                  theme="accent"
+                  (itemClick)="onSpeedDialClick($event)"
+                />
+              </div>
+
+              <!-- LEFT DIRECTION -->
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; font-weight: 750; color: var(--text-secondary);">Left FAB</span>
+                <ngx-speed-dial
+                  [items]="speedDialItems"
+                  direction="left"
+                  theme="dark"
+                  (itemClick)="onSpeedDialClick($event)"
+                />
+              </div>
+
+              <!-- RIGHT DIRECTION -->
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; font-weight: 750; color: var(--text-secondary);">Right FAB</span>
+                <ngx-speed-dial
+                  [items]="speedDialItems"
+                  direction="right"
+                  theme="secondary"
+                  (itemClick)="onSpeedDialClick($event)"
+                />
+              </div>
+
+            </div>
+            
+            <div class="playground-controls" style="border-top: 1px solid var(--border-color);">
+              @if (lastSpeedDialAction()) {
+                <div class="demo-log" style="margin: 0;">
+                  Last Action Triggered: <strong>{{ lastSpeedDialAction() }}</strong>
+                </div>
+              } @else {
+                <div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 4px;">
+                  Hover or click one of the Floating Action Buttons above to expand sub-menu commands.
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block" style="background:#1e1e2e;color:#a6e3a1;border-radius:8px;padding:16px 20px;font-size:12px;line-height:1.6;overflow-x:auto;">{{ speedDialHowToCode }}</pre>
+
+          <div class="section-label">API Reference — Inputs</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of speedDialApi; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+
       <!-- ===== API REFERENCE ===== -->
       @if (activeTab() === 'API Reference') {
         <div class="tab-content">
@@ -295,6 +385,18 @@ interface ApiRow { name: string; type: string; default: string; description: str
               <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
               <tbody>
                 @for (row of dropdownApi; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-label">Speed Dial FAB</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of speedDialApi; track row.name) {
                   <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
                 }
               </tbody>
@@ -455,10 +557,9 @@ interface ApiRow { name: string; type: string; default: string; description: str
     }
   `]
 })
-
 export class ButtonsDemoComponent {
   activeTab = signal('Demo');
-  tabs = ['Demo', 'API Reference'];
+  tabs = ['Demo', 'Speed Dial FAB', 'API Reference'];
   loading = signal(false);
   lastAction = signal('');
   tags = signal(['Angular', 'TypeScript', 'Enterprise', 'UI Library']);
@@ -507,6 +608,47 @@ export class ExampleComponent {
   splitItems = [{ label: 'Save Draft', icon: '📝' }, { label: 'Save & Publish', icon: '🚀' }, { separator: true }, { label: 'Discard Changes', icon: '🗑' }];
   dropdownItems = [{ label: 'Edit', icon: '✏️' }, { label: 'Duplicate', icon: '📋' }, { label: 'Archive', icon: '📦' }, { separator: true }, { label: 'Delete', icon: '🗑', variant: 'danger' }];
 
+  // ===== SPEED DIAL STATE =====
+  speedDialItems: SpeedDialItem[] = [
+    { id: 'share', icon: '🔗', label: 'Share Link' },
+    { id: 'email', icon: '✉️', label: 'Send Email' },
+    { id: 'print', icon: '🖨️', label: 'Print Page' },
+    { id: 'delete', icon: '🗑️', label: 'Delete Item' }
+  ];
+
+  lastSpeedDialAction = signal('');
+  onSpeedDialClick(item: SpeedDialItem): void {
+    this.lastSpeedDialAction.set(`"${item.label}" (id: ${item.id})`);
+  }
+
+  speedDialHowToCode = `import { Component } from '@angular/core';
+import { SpeedDialComponent, SpeedDialItem } from 'ngx-core-components/buttons';
+
+@Component({
+  selector: 'app-my-fab',
+  standalone: true,
+  imports: [SpeedDialComponent],
+  template: \`
+    <ngx-speed-dial
+      [items]="items"
+      direction="top"
+      theme="primary"
+      (itemClick)="onAction($event)"
+    />
+  \`
+})
+export class MyFabComponent {
+  items: SpeedDialItem[] = [
+    { id: 'share', icon: '🔗', label: 'Share Link' },
+    { id: 'email', icon: '✉️', label: 'Send Email' }
+  ];
+
+  onAction(item: SpeedDialItem) {
+    console.log('Action clicked:', item);
+  }
+}`;
+
+  // ===== API REFERENCE =====
   buttonApi: ApiRow[] = [
     { name: 'variant', type: "'primary'|'secondary'|'success'|'danger'|'warning'|'info'|'ghost'|'link'", default: "'primary'", description: 'Visual style of the button.' },
     { name: 'size', type: "'sm'|'md'|'lg'", default: "'md'", description: 'Button size.' },
@@ -554,6 +696,18 @@ export class ExampleComponent {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the dropdown button.' },
     { name: 'items', type: 'DropDownButtonItem[]', default: '[]', description: 'Menu items shown when the button opens.' },
     { name: '(itemClicked)', type: 'DropDownButtonItem', default: 'n/a', description: 'Emitted when a dropdown menu item is selected.' },
+  ];
+
+  speedDialApi: ApiRow[] = [
+    { name: 'items', type: 'SpeedDialItem[]', default: 'required', description: 'Array of sub-action items shown when expanded.' },
+    { name: 'icon', type: 'string', default: "'+'", description: 'Trigger button icon when collapsed.' },
+    { name: 'activeIcon', type: 'string', default: "'✕'", description: 'Trigger button icon when expanded.' },
+    { name: 'direction', type: "'top'|'bottom'|'left'|'right'", default: "'top'", description: 'Direction in which the speed dial items expand.' },
+    { name: 'theme', type: "'primary'|'secondary'|'accent'|'dark'", default: "'primary'", description: 'Color theme of the main floating trigger button.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Show textual hints next to the sub-action buttons (only supported in vertical layouts).' },
+    { name: 'closeOnSelect', type: 'boolean', default: 'true', description: 'Collapses the menu automatically once any action is clicked.' },
+    { name: 'collapseOnLeaveMouse', type: 'boolean', default: 'true', description: 'Collapses the menu automatically when the mouse leaves the FAB container.' },
+    { name: '(itemClick)', type: 'Output<SpeedDialItem>', default: 'n/a', description: 'Emitted when a sub-action item is clicked.' }
   ];
 
   log(msg: string): void { this.lastAction.set(msg); }

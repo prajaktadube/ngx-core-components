@@ -48,3 +48,8 @@ export { TimePickerComponent } from './time-picker/time-picker.component';
 
 // Date Range Picker
 export { DateRangePickerComponent } from './date-range-picker/date-range-picker.component';
+
+// File Upload
+export { FileUploadComponent } from './file-upload/file-upload.component';
+export type { UploadFileItem } from './file-upload/file-upload.component';
+

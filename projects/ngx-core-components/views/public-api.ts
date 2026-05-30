@@ -13,3 +13,11 @@ export type {
   ListViewSelectionEvent,
   ListViewPageChangeEvent,
 } from './list-view/list-view.component';
+
+// Kanban Board — visual drag-and-drop workflow task board
+export { KanbanComponent } from './kanban/kanban.component';
+export type { KanbanCard, KanbanColumn } from './kanban/models';
+
+// Timeline Component — chronological events list vertical/horizontal
+export { TimelineComponent } from './timeline/timeline.component';
+export type { TimelineItem } from './timeline/timeline.component';

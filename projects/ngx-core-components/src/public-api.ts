@@ -26,6 +26,16 @@ export { BarChartComponent } from 'ngx-core-components/charts';
 export { LineChartComponent } from 'ngx-core-components/charts';
 export { PieChartComponent } from 'ngx-core-components/charts';
 export { SparklineComponent } from 'ngx-core-components/charts';
+export { GaugeChartComponent } from 'ngx-core-components/charts';
+export type { GaugeThreshold } from 'ngx-core-components/charts';
+export { RadarChartComponent } from 'ngx-core-components/charts';
+export type { RadarSeries } from 'ngx-core-components/charts';
+export { HeatmapChartComponent } from 'ngx-core-components/charts';
+export { TreemapChartComponent } from 'ngx-core-components/charts';
+export type { TreemapItem } from 'ngx-core-components/charts';
+export { AreaChartComponent } from 'ngx-core-components/charts';
+export { FunnelChartComponent } from 'ngx-core-components/charts';
+export type { FunnelItem } from 'ngx-core-components/charts';
 export type { ChartSeries, ChartDataPoint } from 'ngx-core-components/charts';
 export { CHART_COLORS } from 'ngx-core-components/charts';
 export { GanttChartComponent } from 'ngx-core-components/charts';
@@ -89,13 +99,18 @@ export type {
   ListViewSelectionEvent,
   ListViewPageChangeEvent,
 } from 'ngx-core-components/views';
+export { KanbanComponent } from 'ngx-core-components/views';
+export type { KanbanCard, KanbanColumn } from 'ngx-core-components/views';
+export { TimelineComponent } from 'ngx-core-components/views';
+export type { TimelineItem } from 'ngx-core-components/views';
+
+
 
 // ===== Dialog (also available via ngx-core-components/dialog) =====
 export { DialogService } from 'ngx-core-components/dialog';
 export type { DialogRef, DialogConfig } from 'ngx-core-components/dialog';
 export { DialogContainerComponent } from 'ngx-core-components/dialog';
 
-// ===== Buttons (also available via ngx-core-components/buttons) =====
 export {
   ButtonComponent,
   ButtonGroupComponent,
@@ -103,6 +118,7 @@ export {
   ChipListComponent,
   SplitButtonComponent,
   DropDownButtonComponent,
+  SpeedDialComponent,
 } from 'ngx-core-components/buttons';
 export type {
   ButtonVariant,
@@ -111,6 +127,7 @@ export type {
   ChipVariant,
   SplitButtonItem,
   DropDownButtonItem,
+  SpeedDialItem,
 } from 'ngx-core-components/buttons';
 
 // ===== Layout (also available via ngx-core-components/layout) =====
@@ -143,8 +160,16 @@ export type {
 } from 'ngx-core-components/feedback';
 
 // ===== Navigation (also available via ngx-core-components/navigation) =====
-export { BreadcrumbComponent, MenuComponent } from 'ngx-core-components/navigation';
-export type { BreadcrumbItem, MenuItem } from 'ngx-core-components/navigation';
+export {
+  BreadcrumbComponent,
+  MenuComponent,
+  CommandPaletteComponent,
+} from 'ngx-core-components/navigation';
+export type {
+  BreadcrumbItem,
+  MenuItem,
+  CommandItem,
+} from 'ngx-core-components/navigation';
 
 // ===== Additional Inputs (also available via ngx-core-components/inputs) =====
 export {
@@ -170,5 +195,7 @@ export type {
   AICardAction,
   QuickReply,
 } from 'ngx-core-components/ai';
+export { AIChatWidgetComponent } from 'ngx-core-components/ai';
+export { AIPromptEditorComponent } from 'ngx-core-components/ai';
 
 

@@ -494,7 +494,7 @@ import {
 
     .compare-grid-modern {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
       margin-top: 10px;
     }

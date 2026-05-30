@@ -4,7 +4,7 @@ import {
   CheckboxComponent, RadioGroupComponent, AutocompleteComponent,
   DropdownOption, RadioOption
 } from 'ngx-core-components';
-import { SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent, TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent } from 'ngx-core-components/inputs';
+import { SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent, TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent, FileUploadComponent } from 'ngx-core-components/inputs';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
@@ -16,6 +16,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
     CheckboxComponent, RadioGroupComponent, AutocompleteComponent,
       SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent,
       TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent,
+      FileUploadComponent,
   ],
   template: `
     <div class="demo-page">
@@ -573,6 +574,64 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
       }
 
+      <!-- ===== FILE UPLOAD ===== -->
+      @if (activeTab() === 'FileUpload') {
+        <div class="tab-content">
+          <div class="section-label">Live Demo</div>
+          <div class="demo-cards-grid">
+            <div class="demo-card">
+              <div class="demo-card-title">Standard File Uploader</div>
+              <div class="input-stack">
+                <ngx-file-upload 
+                  [multiple]="true" 
+                  [accept]="'image/*, .pdf, .zip'" 
+                  [maxSize]="10485760" 
+                  (filesSelected)="onFilesSelected($event)"
+                  (fileRemoved)="onFileRemoved($event)"
+                  (uploadComplete)="onUploadComplete($event)"
+                  (uploadError)="onUploadError($event)"
+                />
+              </div>
+              <div class="value-display">
+                Last event: {{ lastUploadEvent() || 'none' }}
+              </div>
+            </div>
+            
+            <div class="demo-card">
+              <div class="demo-card-title">Single File Mode & Disabled State</div>
+              <div class="input-stack">
+                <ngx-file-upload 
+                  [multiple]="false" 
+                  [accept]="'.png, .jpg'" 
+                  [maxSize]="2097152" 
+                />
+                <div style="margin-top: 16px;">
+                  <ngx-file-upload 
+                    [disabled]="true" 
+                    [multiple]="true"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ fileUploadCode }}</pre>
+
+          <div class="section-label">API Reference</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of fileUploadApi; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+
     </div>
   `,
   styles: [`
@@ -651,11 +710,12 @@ interface ApiRow { name: string; type: string; default: string; description: str
 })
 export class InputsDemoComponent {
   activeTab = signal('TextBox');
-  tabs = ['TextBox', 'Dropdown', 'DatePicker', 'MultiSelect', 'Checkbox', 'Radio', 'Autocomplete', 'Slider', 'Switch', 'Rating', 'NumericTextBox', 'Textarea', 'ColorPicker', 'TimePicker', 'DateRangePicker'];
+  tabs = ['TextBox', 'Dropdown', 'DatePicker', 'MultiSelect', 'Checkbox', 'Radio', 'Autocomplete', 'Slider', 'Switch', 'Rating', 'NumericTextBox', 'Textarea', 'ColorPicker', 'TimePicker', 'DateRangePicker', 'FileUpload'];
 
   textValue = signal('');
   emailValue = signal('');
   emailError = signal('');
+  lastUploadEvent = signal<string>('');
   selectedCountry = signal<unknown>(null);
   filteredCountry = signal<unknown>(null);
   selectedDate = signal<Date | null>(null);
@@ -761,6 +821,22 @@ export class InputsDemoComponent {
 
   formatDate(d: Date): string {
     return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  onFilesSelected(files: File[]): void {
+    this.lastUploadEvent.set(`Selected: ${files.map(f => f.name).join(', ')}`);
+  }
+
+  onFileRemoved(file: File): void {
+    this.lastUploadEvent.set(`Removed: ${file.name}`);
+  }
+
+  onUploadComplete(event: { file: File; response: any }): void {
+    this.lastUploadEvent.set(`Uploaded: ${event.file.name}`);
+  }
+
+  onUploadError(event: { file: File; error: any }): void {
+    this.lastUploadEvent.set(`Error uploading ${event.file.name}: ${event.error}`);
   }
 
   // ===== CODE SNIPPETS =====
@@ -1248,5 +1324,54 @@ export class MyComponent {
     { name: '--ngx-input-disabled-bg', default: '#f8f9fa', description: 'Background when disabled.' },
     { name: '--ngx-input-label', default: '#495057', description: 'Label text color.' },
     { name: '--ngx-input-hint', default: '#6c757d', description: 'Hint and placeholder text color.' },
+  ];
+
+  fileUploadCode = `import { FileUploadComponent } from 'ngx-core-components/inputs';
+
+@Component({
+  imports: [FileUploadComponent],
+  template: \\\`
+    <!-- Standard uploader supporting images & PDFs up to 10MB -->
+    <ngx-file-upload
+      [multiple]="true"
+      accept="image/*, .pdf"
+      [maxSize]="10485760"
+      (filesSelected)="onFilesSelected($event)"
+      (fileRemoved)="onFileRemoved($event)"
+      (uploadComplete)="onUploadComplete($event)"
+      (uploadError)="onUploadError($event)"
+    />
+  \\\`
+})
+export class MyComponent {
+  onFilesSelected(files: File[]) {
+    console.log('Files added to queue:', files);
+  }
+
+  onFileRemoved(file: File) {
+    console.log('File removed from queue:', file);
+  }
+
+  onUploadComplete(event: { file: File; response: any }) {
+    console.log('Upload complete for:', event.file.name);
+  }
+
+  onUploadError(event: { file: File; error: any }) {
+    console.error('Upload failed for:', event.file.name, event.error);
+  }
+}`;
+
+  fileUploadApi: ApiRow[] = [
+    { name: 'multiple', type: 'boolean', default: 'false', description: 'Allows selecting/dropping multiple files.' },
+    { name: 'accept', type: 'string', default: "''", description: 'Comma-separated list of allowed file extensions or MIME types (e.g. "image/*, .pdf").' },
+    { name: 'maxSize', type: 'number', default: '0', description: 'Maximum file size in bytes. 0 means unlimited size.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables drag-and-drop and clicks.' },
+    { name: 'theme', type: "'light' | 'dark'", default: "'light'", description: 'Color scheme variant.' },
+    { name: 'uploadUrl', type: 'string', default: "''", description: 'Endpoint destination for files (currently simulates upload progress).' },
+    { name: '(filesSelected)', type: 'File[]', default: '—', description: 'Emitted when new valid files are selected/dropped.' },
+    { name: '(fileRemoved)', type: 'File', default: '—', description: 'Emitted when a file is removed from the queue.' },
+    { name: '(uploadProgress)', type: '{ file: File, progress: number }', default: '—', description: 'Emitted during upload progress tick.' },
+    { name: '(uploadComplete)', type: '{ file: File, response: any }', default: '—', description: 'Emitted on successful upload completion.' },
+    { name: '(uploadError)', type: '{ file: File, error: any }', default: '—', description: 'Emitted when the file upload fails.' },
   ];
 }

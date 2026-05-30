@@ -41,23 +41,25 @@ import { Component, input, output, signal, computed } from '@angular/core';
   `,
   styles: [`
     :host { display: block; position: relative; }
-    .drp-label { display: block; font-size: 12px; font-weight: 600; color: var(--ngx-input-label, #495057); margin-bottom: 4px; }
-    .drp-inputs { display: flex; align-items: center; gap: 6px; padding: 7px 10px; border: 1px solid var(--ngx-input-border, #ced4da); border-radius: var(--ngx-input-radius, 6px); cursor: pointer; background: var(--ngx-input-bg, #fff); }
-    .drp-input { border: none; background: transparent; font-size: 13px; color: var(--ngx-input-text, #212529); outline: none; cursor: pointer; width: 90px; }
-    .drp-sep { color: #adb5bd; }
-    .drp-icon { font-size: 14px; }
-    .drp-calendar-wrap { position: absolute; top: calc(100% + 4px); left: 0; background: var(--ngx-input-bg, #fff); border: 1px solid var(--ngx-input-border, #ced4da); border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 1000; padding: 12px; }
-    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-    .cal-nav { background: none; border: 1px solid #dee2e6; border-radius: 4px; cursor: pointer; padding: 3px 8px; font-size: 14px; }
-    .cal-title { font-weight: 600; font-size: 13px; }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 32px); gap: 2px; }
-    .cal-weekday { text-align: center; font-size: 10px; font-weight: 700; color: #adb5bd; padding: 4px 0; }
-    .cal-day { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 12px; border-radius: 4px; cursor: pointer; transition: background 0.1s; }
-    .cal-day:hover { background: #f1f3f5; }
-    .cal-day.other-month { color: #ced4da; }
-    .cal-day.in-range { background: #e8f0fe; color: #1a73e8; }
-    .cal-day.range-start, .cal-day.range-end { background: #1a73e8; color: #fff; border-radius: 50%; }
-    .cal-day.today { font-weight: 700; border: 1px solid #1a73e8; }
+    .drp-label { display: block; font-size: 12px; font-weight: 600; color: var(--ngx-input-label, #475569); margin-bottom: 6px; }
+    .drp-inputs { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--ngx-input-border, #cbd5e1); border-radius: var(--ngx-input-radius, 8px); cursor: pointer; background: var(--ngx-input-bg, #fff); transition: all 0.2s; }
+    .drp-inputs:hover { border-color: var(--primary-color, #4f46e5); }
+    .drp-input { border: none; background: transparent; font-size: 13px; color: var(--ngx-input-text, #0f172a); outline: none; cursor: pointer; width: 85px; font-family: inherit; }
+    .drp-sep { color: #94a3b8; font-weight: 650; }
+    .drp-icon { font-size: 14px; color: #64748b; margin-left: auto; }
+    .drp-calendar-wrap { position: absolute; top: calc(100% + 6px); left: 0; background: var(--bg-secondary, #fff); border: 1px solid var(--border-color, #e2e8f0); border-radius: var(--ngx-input-radius, 12px); box-shadow: var(--shadow-lg, 0 10px 25px rgba(0,0,0,0.08)); z-index: 1000; padding: 14px; }
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .cal-nav { background: none; border: 1px solid var(--border-color, #e2e8f0); border-radius: 6px; cursor: pointer; padding: 3px 8px; font-size: 14px; color: #64748b; transition: all 0.15s; }
+    .cal-nav:hover { background: var(--border-light, #f1f5f9); color: var(--text-primary, #0f172a); }
+    .cal-title { font-weight: 750; font-size: 13px; color: var(--text-primary, #0f172a); font-family: var(--ngx-heading-font-family, inherit); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 34px); gap: 3px; }
+    .cal-weekday { text-align: center; font-size: 10px; font-weight: 700; color: #94a3b8; padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .cal-day { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 550; border-radius: 6px; cursor: pointer; transition: all 0.15s; color: var(--text-primary, #0f172a); }
+    .cal-day:hover:not(.range-start):not(.range-end) { background: var(--border-light, #f1f5f9); }
+    .cal-day.other-month { color: #cbd5e1; }
+    .cal-day.in-range { background: var(--primary-glow, rgba(79, 70, 229, 0.08)); color: var(--primary-color, #4f46e5); border-radius: 0; }
+    .cal-day.range-start, .cal-day.range-end { background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)); color: #fff; font-weight: 700; border-radius: 50%; box-shadow: 0 2px 6px rgba(79, 70, 229, 0.35); }
+    .cal-day.today:not(.range-start):not(.range-end) { font-weight: 700; border: 1.5px solid var(--primary-color, #4f46e5); color: var(--primary-color, #4f46e5); }
   `]
 })
 export class DateRangePickerComponent {
@@ -104,6 +106,6 @@ export class DateRangePickerComponent {
     e.stopPropagation();
     const ds = date.toISOString().split('T')[0];
     if (this.picking() === 'start') { this.startDate.set(ds); this.endDate.set(''); this.picking.set('end'); }
-    else { if (date >= new Date(this.startDate())) { this.endDate.set(ds); this.picking.set('start'); this.rangeChange.emit({ start: this.startDate(), end: ds }); this.open.set(false); } else { this.startDate.set(ds); } }
+    else { if (ds >= this.startDate()) { this.endDate.set(ds); this.picking.set('start'); this.rangeChange.emit({ start: this.startDate(), end: ds }); this.open.set(false); } else { this.startDate.set(ds); } }
   }
 }

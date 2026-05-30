@@ -99,6 +99,13 @@ export const COMPARE_TRACKS: CompareTrack[] = [
     note: 'Best for power-user behavior validation',
   },
   {
+    name: 'Transport Gantt',
+    bestFor: 'Real-time vehicle logistics and multi-segment tracking',
+    route: '/gantt',
+    queryParams: { tab: 'fleet' },
+    note: 'Allows multiple task blocks per row',
+  },
+  {
     name: 'Theming',
     bestFor: 'Visual consistency and token alignment',
     route: '/theming',

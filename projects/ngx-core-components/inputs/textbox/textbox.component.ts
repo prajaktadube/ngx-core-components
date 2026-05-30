@@ -67,50 +67,59 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
     .ngx-textbox { position: relative; font-family: inherit; }
     .ngx-textbox-label {
-      display: block; font-size: 13px; color: var(--ngx-input-label, #6c757d);
-      margin-bottom: 4px; font-weight: 500; transition: all 0.15s;
+      display: block; font-size: 12px; font-weight: 600; color: var(--ngx-input-label, #475569);
+      margin-bottom: 6px; transition: color 0.15s;
     }
     .ngx-textbox-wrap {
       position: relative;
-      border: 1px solid var(--ngx-input-border, #ced4da);
-      border-radius: var(--ngx-input-radius, 4px);
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--ngx-input-border, #cbd5e1);
+      border-radius: var(--ngx-input-radius, 8px);
       background: var(--ngx-input-bg, #fff);
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .focused .ngx-textbox-wrap {
-      border-color: var(--ngx-input-focus, #4a90d9);
-      box-shadow: 0 0 0 2px rgba(74,144,217,0.18);
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
     .has-error .ngx-textbox-wrap {
-      border-color: var(--ngx-input-error, #e74c3c);
+      border-color: var(--ngx-input-error, #ef4444);
     }
     .has-error.focused .ngx-textbox-wrap {
-      box-shadow: 0 0 0 2px rgba(231,76,60,0.18);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
     }
     .disabled .ngx-textbox-wrap {
       background: var(--ngx-input-disabled-bg, #f8f9fa);
       cursor: not-allowed;
+      opacity: 0.7;
     }
     .ngx-textbox-input {
-      display: block; width: 100%; padding: 8px 12px;
-      border: none; outline: none; background: transparent;
-      font-size: 14px; color: var(--ngx-input-text, #212529); font-family: inherit;
+      flex: 1;
+      min-width: 0;
+      padding: 10px 14px;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 14px;
+      color: var(--ngx-input-text, #0f172a);
+      font-family: inherit;
     }
-    .ngx-textbox-input:disabled { cursor: not-allowed; color: #adb5bd; }
-    .ngx-textbox-error { font-size: 12px; color: var(--ngx-input-error, #e74c3c); margin-top: 4px; }
-    .ngx-textbox-hint { font-size: 12px; color: var(--ngx-input-label, #6c757d); margin-top: 4px; }
-    .ngx-textbox-affix { display: flex; align-items: center; padding: 0 10px; color: #6c757d; font-size: 14px; flex-shrink: 0; }
+    .ngx-textbox-input:disabled { cursor: not-allowed; color: #94a3b8; }
+    .ngx-textbox-error { font-size: 12px; color: var(--ngx-input-error, #ef4444); margin-top: 4px; font-weight: 550; }
+    .ngx-textbox-hint { font-size: 12px; color: var(--ngx-input-label, #64748b); margin-top: 4px; }
+    .ngx-textbox-affix { display: flex; align-items: center; padding: 0 10px; color: #64748b; font-size: 14px; flex-shrink: 0; }
     .ngx-textbox-clear {
-      background: none; border: none; cursor: pointer; color: #adb5bd; font-size: 12px;
+      background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 12px;
       padding: 0 8px; line-height: 1; display: flex; align-items: center; flex-shrink: 0;
     }
-    .ngx-textbox-clear:hover { color: #495057; }
+    .ngx-textbox-clear:hover { color: #475569; }
     .ngx-textbox-password-toggle {
-      background: none; border: none; cursor: pointer; color: #adb5bd; font-size: 14px;
+      background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 14px;
       padding: 0 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .ngx-textbox-password-toggle:hover { color: #495057; }
-    .ngx-textbox-charcount { font-size: 11px; color: #adb5bd; margin-top: 3px; text-align: right; }
+    .ngx-textbox-password-toggle:hover { color: #475569; }
+    .ngx-textbox-charcount { font-size: 11px; color: #94a3b8; margin-top: 3px; text-align: right; }
   `]
 })
 export class TextBoxComponent implements ControlValueAccessor {

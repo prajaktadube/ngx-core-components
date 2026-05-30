@@ -15,3 +15,6 @@ export type { SplitButtonItem } from './split-button/split-button.component';
 
 export { DropDownButtonComponent } from './dropdown-button/dropdown-button.component';
 export type { DropDownButtonItem } from './dropdown-button/dropdown-button.component';
+
+export { SpeedDialComponent } from './speed-dial/speed-dial.component';
+export type { SpeedDialItem } from './speed-dial/speed-dial.component';

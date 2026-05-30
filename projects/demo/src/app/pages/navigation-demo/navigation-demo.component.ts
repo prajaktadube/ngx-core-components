@@ -1,24 +1,27 @@
 import { Component, signal } from '@angular/core';
-import { BreadcrumbComponent, BreadcrumbItem, MenuComponent, MenuItem } from 'ngx-core-components/navigation';
+import {
+  BreadcrumbComponent, BreadcrumbItem, MenuComponent, MenuItem,
+  CommandPaletteComponent, CommandItem
+} from 'ngx-core-components';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
 @Component({
   selector: 'app-navigation-demo',
   standalone: true,
-  imports: [BreadcrumbComponent, MenuComponent],
+  imports: [BreadcrumbComponent, MenuComponent, CommandPaletteComponent],
   template: `
     <div class="demo-page">
       <!-- Page Header -->
       <div class="page-header">
         <div class="page-header-text">
           <h1>Navigation Components</h1>
-          <p>Breadcrumbs and Menu components for application navigation and command hierarchies.</p>
+          <p>Breadcrumbs, Menu, and Spotlight search palette components for application command hierarchies.</p>
         </div>
         <div class="header-badges">
           <span class="badge badge-orange">Breadcrumb</span>
           <span class="badge badge-orange">Menu</span>
-          <span class="badge badge-orange">Hierarchy</span>
+          <span class="badge badge-orange">Command Palette</span>
         </div>
       </div>
 
@@ -55,6 +58,53 @@ interface ApiRow { name: string; type: string; default: string; description: str
 
           <div class="section-label">How to Use</div>
           <pre style="margin:0;background:#1e1e1e;color:#d4d4d4;padding:16px;border-radius:8px;font-size:12px;line-height:1.5;overflow:auto">{{ howToCode }}</pre>
+        </div>
+      }
+
+      <!-- ===== COMMAND PALETTE ===== -->
+      @if (activeTab() === 'Command Palette') {
+        <div class="tab-content">
+          <div class="section-label">Command Palette Demo</div>
+          <div class="playground-card" style="background:#fff; border:1px solid #e9ecef; border-radius:8px; padding:24px; display:flex; flex-direction:column; gap:16px;">
+            <div class="panel-desc-row" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+              <div class="panel-desc-text">
+                <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Spotlight Search Overlay Console</h3>
+                <p style="margin:0; font-size:13px; color:#6c757d;">Press <kbd style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-family:monospace; font-weight:700;">Ctrl + K</kbd> (or Cmd + K on macOS) anywhere on this page, or click the button below to launch the spotlight search console.</p>
+              </div>
+              <div>
+                <button class="action-btn" (click)="palette.toggleOpen()" style="font-weight:700; color:#1a73e8; border:1px solid #1a73e8; background:#e8f0fe; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:inherit; transition:all 0.2s;">
+                  ⌨️ Trigger Command Console
+                </button>
+              </div>
+            </div>
+
+            <ngx-command-palette
+              #palette
+              [commands]="paletteCommands"
+              (commandSelected)="onCommandSelected($event)"
+            />
+
+            @if (lastCommandAction()) {
+              <div class="nav-log" style="margin-top:12px; background:linear-gradient(135deg, #f8f9fa 0%, #f3f5f9 100%); border:1px solid #e0e5ed; border-radius:8px; padding:12px 16px; font-size:12px; font-family:monospace; color:#495057; border-left:3px solid #1a73e8;">
+                Last Command Executed: <strong>{{ lastCommandAction() }}</strong>
+              </div>
+            }
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre style="margin:0;background:#1e1e1e;color:#d4d4d4;padding:16px;border-radius:8px;font-size:12px;line-height:1.5;overflow:auto">{{ commandPaletteCode }}</pre>
+
+          <div class="section-label">API Reference — Inputs</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of paletteApi; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       }
 
@@ -108,6 +158,18 @@ interface ApiRow { name: string; type: string; default: string; description: str
               </tbody>
             </table>
           </div>
+
+          <div class="section-label">Command Palette</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of paletteApi; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       }
     </div>
@@ -144,7 +206,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
 })
 export class NavigationDemoComponent {
   activeTab = signal('Demo');
-  tabs = ['Demo', 'API Reference'];
+  tabs = ['Demo', 'Command Palette', 'API Reference'];
   lastNav = signal('');
 
   howToCode = `import { Component } from '@angular/core';
@@ -182,6 +244,54 @@ export class ExampleComponent {
     { label: 'Help & Support', icon: '❓' },
   ];
 
+  // ===== COMMAND PALETTE STATE =====
+  lastCommandAction = signal('');
+  paletteCommands: CommandItem[] = [
+    { id: 'home', label: 'Go to Home', desc: 'Navigate to the overview page', shortcut: 'G + H', icon: '🏠', category: 'Navigation' },
+    { id: 'charts', label: 'View Charts Showcase', desc: 'Explore charts component demos', shortcut: 'G + C', icon: '📈', category: 'Navigation' },
+    { id: 'maps', label: 'View Maps Showcase', desc: 'Explore interactive vector maps', shortcut: 'G + M', icon: '🗺️', category: 'Navigation' },
+    { id: 'theme-light', label: 'Set Light Theme', desc: 'Switch system layout to light theme mode', icon: '☀️', category: 'Preferences' },
+    { id: 'theme-dark', label: 'Set Dark Theme', desc: 'Switch system layout to dark theme mode', icon: '🌙', category: 'Preferences' },
+    { id: 'feedback-notif', label: 'Show Demo Notification', desc: 'Triggers a toast message popup banner', icon: '🔔', category: 'Actions' },
+    { id: 'reset-logs', label: 'Clear Logs', desc: 'Resets the command action logs window', icon: '🗑️', category: 'Actions' }
+  ];
+
+  onCommandSelected(cmd: CommandItem): void {
+    this.lastCommandAction.set(`"${cmd.label}" (id: ${cmd.id}, category: ${cmd.category})`);
+    if (cmd.id === 'reset-logs') {
+      this.lastCommandAction.set('');
+    }
+  }
+
+  commandPaletteCode = `import { Component, ViewChild } from '@angular/core';
+import { CommandPaletteComponent, CommandItem } from 'ngx-core-components/navigation';
+
+@Component({
+  selector: 'app-my-app',
+  standalone: true,
+  imports: [CommandPaletteComponent],
+  template: \`
+    <button (click)="palette.toggleOpen()">Open Console</button>
+
+    <ngx-command-palette
+      #palette
+      [commands]="commands"
+      (commandSelected)="onCommand($event)"
+    />
+  \`
+})
+export class MyAppComponent {
+  @ViewChild('palette') palette!: CommandPaletteComponent;
+
+  commands: CommandItem[] = [
+    { id: 'home', label: 'Go to Home', desc: 'Navigate to overview', shortcut: 'Ctrl+H', icon: '🏠' }
+  ];
+
+  onCommand(cmd: CommandItem) {
+    console.log('Command executed:', cmd);
+  }
+}`;
+
   breadcrumbApi: ApiRow[] = [
     { name: 'items', type: 'BreadcrumbItem[]', default: '[]', description: 'Array of breadcrumb items to display.' },
     { name: 'separator', type: 'string', default: "'/'", description: 'Character or string between items.' },
@@ -208,6 +318,12 @@ export class ExampleComponent {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable item interaction.' },
     { name: 'separator', type: 'boolean', default: 'false', description: 'Render as visual separator/divider.' },
     { name: 'children', type: 'MenuItem[]', default: 'undefined', description: 'Submenu items (creates dropdown).' },
+  ];
+
+  paletteApi: ApiRow[] = [
+    { name: 'commands', type: 'CommandItem[]', default: 'required', description: 'Array of commands accessible via the console search.' },
+    { name: 'placeholder', type: 'string', default: "'Type a command or search...'", description: 'Placeholder label printed inside search console input.' },
+    { name: '(commandSelected)', type: 'Output<CommandItem>', default: 'n/a', description: 'Emitted when a command row item is executed (via click or Enter key).' }
   ];
 
   log(label: string): void { this.lastNav.set(label); }

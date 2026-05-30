@@ -13,3 +13,7 @@ export type { SkeletonShape } from './skeleton/skeleton.component';
 
 export { NotificationService, NotificationContainerComponent } from './notification/notification.service';
 export type { NotificationOptions, NotificationItem, NotificationType, NotificationPosition } from './notification/notification.service';
+
+export { AlertComponent } from './alert/alert.component';
+export type { AlertVariant } from './alert/alert.component';
+

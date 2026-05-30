@@ -33,8 +33,7 @@
       "ngx-core-components/dialog": [
         "./projects/ngx-core-components/dialog/public-api.ts",
         "./dist/ngx-core-components/dialog"
-      ]
-        ,
+      ],
         "ngx-core-components/buttons": [
           "./projects/ngx-core-components/buttons/public-api.ts",
           "./dist/ngx-core-components/buttons"

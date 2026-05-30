@@ -17,3 +17,19 @@ export { GanttScaleService } from './gantt-chart/services/gantt-scale.service';
 export { GanttPrintService } from './gantt-chart/services/gantt-print.service';
 export type { FlatRow } from './gantt-chart/services/gantt-layout.service';
 export * from './gantt-chart/utils/date-utils';
+
+// Gauge & Radar charts
+export { GaugeChartComponent } from './gauge-chart/gauge-chart.component';
+export type { GaugeThreshold } from './gauge-chart/gauge-chart.component';
+export { RadarChartComponent } from './radar-chart/radar-chart.component';
+export type { RadarSeries } from './radar-chart/radar-chart.component';
+
+// Heatmap & Treemap charts
+export { HeatmapChartComponent } from './heatmap-chart/heatmap-chart.component';
+export { TreemapChartComponent } from './treemap-chart/treemap-chart.component';
+export type { TreemapItem } from './treemap-chart/treemap-chart.component';
+
+// Area & Funnel charts
+export { AreaChartComponent } from './area-chart/area-chart.component';
+export { FunnelChartComponent } from './funnel-chart/funnel-chart.component';
+export type { FunnelItem } from './funnel-chart/funnel-chart.component';

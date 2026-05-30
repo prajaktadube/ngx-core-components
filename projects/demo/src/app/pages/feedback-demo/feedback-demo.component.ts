@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { BadgeComponent, ProgressBarComponent, SkeletonComponent, NotificationService } from 'ngx-core-components/feedback';
+import { BadgeComponent, ProgressBarComponent, SkeletonComponent, NotificationService, AlertComponent } from 'ngx-core-components/feedback';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
 @Component({
   selector: 'app-feedback-demo',
   standalone: true,
-  imports: [BadgeComponent, ProgressBarComponent, SkeletonComponent],
+  imports: [BadgeComponent, ProgressBarComponent, SkeletonComponent, AlertComponent],
   template: `
     <div class="demo-page">
       <!-- Page Header -->
@@ -92,6 +92,17 @@ interface ApiRow { name: string; type: string; default: string; description: str
             <button class="notif-btn warning" (click)="showNotif('warning')">⚠️ Warning Toast</button>
           </div>
 
+          <div class="section-label">Callout Alerts (ngx-alert)</div>
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+            <ngx-alert variant="info" title="Information Update" message="A new software update is available. Please review the changelog for details." actionLabel="Changelog" (actionClick)="logAlertAction('Changelog button clicked')" />
+            <ngx-alert variant="success" title="Changes Saved" message="Your profile information has been successfully updated on our servers." [dismissible]="true" (dismissed)="logAlertAction('Success alert dismissed')" />
+            <ngx-alert variant="warning" title="API Rate Limit Warning" message="You have used 85% of your API quota for this billing period." actionLabel="Upgrade Plan" (actionClick)="logAlertAction('Upgrade Plan clicked')" />
+            <ngx-alert variant="error" title="Critical Server Issue" message="Failed to connect to the database. Retrying in 10 seconds." [dismissible]="false" />
+          </div>
+          <div class="value-display">
+            Last Alert Event: {{ alertLog() || 'none' }}
+          </div>
+
           <div class="section-label">How to Use</div>
           <pre style="margin:0;background:#1e1e1e;color:#d4d4d4;padding:16px;border-radius:8px;font-size:12px;line-height:1.5;overflow:auto">{{ howToCode }}</pre>
         </div>
@@ -147,6 +158,18 @@ interface ApiRow { name: string; type: string; default: string; description: str
               </tbody>
             </table>
           </div>
+
+          <div class="section-label">Alert</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of alertApi; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       }
     </div>
@@ -189,21 +212,31 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .notif-btn.error { background: #f8d7da; color: #721c24; }
     .notif-btn.info { background: #d1ecf1; color: #0c5460; }
     .notif-btn.warning { background: #fff3cd; color: #856404; }
+    .value-display { margin-top: 14px; padding: 12px 14px; background: var(--bg-primary, #f8fafc); border-radius: 8px; font-size: 12px; font-family: 'Courier New', monospace; color: var(--text-primary, #0f172a); border-left: 3px solid var(--primary-color, #1a73e8); transition: all 0.2s ease; margin-bottom: 24px; }
   `]
 })
 export class FeedbackDemoComponent {
   private notif = inject(NotificationService);
   activeTab = signal('Demo');
   tabs = ['Demo', 'API Reference'];
+  alertLog = signal<string>('');
+
+  logAlertAction(msg: string): void {
+    this.alertLog.set(msg);
+  }
 
   howToCode = `import { Component, inject } from '@angular/core';
-import { BadgeComponent, ProgressBarComponent, NotificationService } from 'ngx-core-components/feedback';
+import { BadgeComponent, ProgressBarComponent, AlertComponent, NotificationService } from 'ngx-core-components/feedback';
 
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [BadgeComponent, ProgressBarComponent],
-  template: '<ngx-badge content="5" variant="danger" /><ngx-progress-bar [value]="75" label="Upload" [showValue]="true" />'
+  imports: [BadgeComponent, ProgressBarComponent, AlertComponent],
+  template: \`
+    <ngx-badge content="5" variant="danger" />
+    <ngx-progress-bar [value]="75" label="Upload" [showValue]="true" />
+    <ngx-alert variant="success" title="Success" message="Done successfully!" />
+  \`
 })
 export class ExampleComponent {
   private notifications = inject(NotificationService);
@@ -241,6 +274,17 @@ export class ExampleComponent {
     { name: 'info(msg, title?)', type: 'string', default: 'n/a', description: 'Show info notification.' },
     { name: 'warning(msg, title?)', type: 'string', default: 'n/a', description: 'Show warning notification.' },
     { name: 'dismissAll()', type: 'void', default: 'n/a', description: 'Close all active notifications.' },
+  ];
+
+  alertApi: ApiRow[] = [
+    { name: 'variant', type: "'info' | 'success' | 'warning' | 'error'", default: "'info'", description: 'Alert styling variant.' },
+    { name: 'title', type: 'string', default: "''", description: 'Bold header text displayed above the message.' },
+    { name: 'message', type: 'string', default: "''", description: 'Body text content.' },
+    { name: 'dismissible', type: 'boolean', default: 'true', description: 'Shows close button for dismissing.' },
+    { name: 'actionLabel', type: 'string', default: "''", description: 'Text label for secondary action button.' },
+    { name: 'theme', type: "'light' | 'dark'", default: "'light'", description: 'Alert theme styling variant.' },
+    { name: '(dismissed)', type: 'void', default: '—', description: 'Emitted after alert dismissal animation completes.' },
+    { name: '(actionClick)', type: 'void', default: '—', description: 'Emitted when action button is clicked.' },
   ];
 
   showNotif(type: 'success' | 'error' | 'info' | 'warning'): void {
