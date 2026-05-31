@@ -33,3 +33,8 @@ export type { TreemapItem } from './treemap-chart/treemap-chart.component';
 export { AreaChartComponent } from './area-chart/area-chart.component';
 export { FunnelChartComponent } from './funnel-chart/funnel-chart.component';
 export type { FunnelItem } from './funnel-chart/funnel-chart.component';
+
+// Combo & Scatter charts
+export { ComboChartComponent } from './combo-chart/combo-chart.component';
+export { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
+export type { ScatterPoint } from './scatter-plot/scatter-plot.component';

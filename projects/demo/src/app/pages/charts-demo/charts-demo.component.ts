@@ -3,7 +3,8 @@ import {
   BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
   GaugeChartComponent, RadarChartComponent, HeatmapChartComponent, TreemapChartComponent,
   AreaChartComponent, FunnelChartComponent, FunnelItem,
-  ChartSeries, ChartDataPoint, CHART_COLORS, GaugeThreshold, RadarSeries, TreemapItem
+  ChartSeries, ChartDataPoint, CHART_COLORS, GaugeThreshold, RadarSeries, TreemapItem,
+  ComboChartComponent, ScatterPlotComponent, ScatterPoint
 } from 'ngx-core-components';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
@@ -14,7 +15,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
   imports: [
     BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
     GaugeChartComponent, RadarChartComponent, HeatmapChartComponent, TreemapChartComponent,
-    AreaChartComponent, FunnelChartComponent
+    AreaChartComponent, FunnelChartComponent, ComboChartComponent, ScatterPlotComponent
   ],
   template: `
     <div class="demo-page">
@@ -424,6 +425,78 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
       }
 
+      <!-- ===== COMBO CHART ===== -->
+      @if (activeTab() === 'Combo Chart') {
+        <div class="tab-content">
+          <div class="section-label">Live Demo</div>
+          <div class="charts-grid">
+            <div class="chart-card chart-card-full">
+              <div class="chart-card-title">Dual Y-Axis Combo Chart (Sales Volume vs Gross Margin)</div>
+              <ngx-combo-chart
+                [barSeries]="comboBarSeries"
+                [lineSeries]="comboLineSeries"
+                [categories]="months"
+                [barYTitle]="'Sales ($K)'"
+                [lineYTitle]="'Margin (%)'"
+                [showLegend]="true"
+                [showGrid]="true"
+                [height]="300"
+              />
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ comboChartCode }}</pre>
+
+          <div class="section-label">API Reference — Inputs</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of comboInputs; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+
+      <!-- ===== SCATTER PLOT ===== -->
+      @if (activeTab() === 'Scatter Plot') {
+        <div class="tab-content">
+          <div class="section-label">Live Demo</div>
+          <div class="charts-grid">
+            <div class="chart-card chart-card-full">
+              <div class="chart-card-title">Product Distribution (Price vs Sales Volume)</div>
+              <ngx-scatter-plot
+                [data]="scatterData"
+                [xTitle]="'Unit Price ($)'"
+                [yTitle]="'Units Sold'"
+                [showLegend]="true"
+                [showGrid]="true"
+                [height]="320"
+              />
+            </div>
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ scatterPlotCode }}</pre>
+
+          <div class="section-label">API Reference — Inputs</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of scatterInputs; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+
     </div>
   `,
   styles: [`
@@ -482,7 +555,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
 })
 export class ChartsDemoComponent {
   activeTab = signal('Bar Chart');
-  tabs = ['Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 'Sparkline', 'Gauge Chart', 'Radar Chart', 'Heatmap Chart', 'Treemap Chart', 'Funnel Chart'];
+  tabs = ['Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 'Combo Chart', 'Scatter Plot', 'Sparkline', 'Gauge Chart', 'Radar Chart', 'Heatmap Chart', 'Treemap Chart', 'Funnel Chart'];
 
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
@@ -880,4 +953,95 @@ export class ExampleComponent {
     { name: 'height', type: 'number', default: '300', description: 'Height of the SVG drawing canvas in pixels.' },
     { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'List of colors to cycle through for funnel stages.' }
   ];
+
+  // ===== COMBO CHART STATE =====
+  comboBarSeries: ChartSeries[] = [
+    { name: 'Sales Volume', data: [450, 620, 580, 810, 940, 880] }
+  ];
+  comboLineSeries: ChartSeries[] = [
+    { name: 'Gross Margin %', data: [28, 32, 30, 35, 38, 36] }
+  ];
+
+  comboInputs: ApiRow[] = [
+    { name: 'barSeries', type: 'ChartSeries[]', default: '[]', description: 'Array of series data represented as bars (Left Y-Axis).' },
+    { name: 'lineSeries', type: 'ChartSeries[]', default: '[]', description: 'Array of series data represented as lines (Right Y-Axis).' },
+    { name: 'categories', type: 'string[]', default: '[]', description: 'Category labels for the X-axis.' },
+    { name: 'barYTitle', type: 'string', default: "'Volume'", description: 'Title label for the Left Y-axis.' },
+    { name: 'lineYTitle', type: 'string', default: "'Percentage'", description: 'Title label for the Right Y-axis.' },
+    { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show the color-coded chart legend.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Show horizontal background grid lines.' },
+    { name: 'height', type: 'number', default: '300', description: 'Chart height in pixels.' }
+  ];
+
+  comboChartCode = `import { Component } from '@angular/core';
+import { ComboChartComponent, ChartSeries } from 'ngx-core-components';
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [ComboChartComponent],
+  template: \`
+    <ngx-combo-chart
+      [barSeries]="salesData"
+      [lineSeries]="marginData"
+      [categories]="months"
+      barYTitle="Sales ($K)"
+      lineYTitle="Margin (%)"
+      [showLegend]="true"
+      [height]="300"
+    />
+  \`
+})
+export class ExampleComponent {
+  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+  salesData: ChartSeries[] = [{ name: 'Sales Volume', data: [450, 620, 580, 810, 940, 880] }];
+  marginData: ChartSeries[] = [{ name: 'Gross Margin %', data: [28, 32, 30, 35, 38, 36] }];
+}`;
+
+  // ===== SCATTER PLOT STATE =====
+  scatterData: ScatterPoint[] = [
+    { x: 15, y: 85, label: 'Standard-1', group: 'Basic' },
+    { x: 25, y: 75, label: 'Standard-2', group: 'Basic' },
+    { x: 35, y: 65, label: 'Standard-3', group: 'Basic' },
+    { x: 50, y: 150, label: 'Premium-1', group: 'Pro' },
+    { x: 65, y: 180, label: 'Premium-2', group: 'Pro' },
+    { x: 75, y: 210, label: 'Premium-3', group: 'Pro' },
+    { x: 110, y: 320, label: 'Enterprise-1', group: 'Ultra' },
+    { x: 130, y: 380, label: 'Enterprise-2', group: 'Ultra' },
+    { x: 150, y: 450, label: 'Enterprise-3', group: 'Ultra' }
+  ];
+
+  scatterInputs: ApiRow[] = [
+    { name: 'data', type: 'ScatterPoint[]', default: '[]', description: 'List of data points containing x, y coordinates, label, group, and size.' },
+    { name: 'xTitle', type: 'string', default: "'X Axis'", description: 'Label title for the X-axis.' },
+    { name: 'yTitle', type: 'string', default: "'Y Axis'", description: 'Label title for the Y-axis.' },
+    { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show the group categorization legend.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Show vertical and horizontal background grid lines.' },
+    { name: 'height', type: 'number', default: '300', description: 'Chart height in pixels.' }
+  ];
+
+  scatterPlotCode = `import { Component } from '@angular/core';
+import { ScatterPlotComponent, ScatterPoint } from 'ngx-core-components';
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [ScatterPlotComponent],
+  template: \`
+    <ngx-scatter-plot
+      [data]="scatterPoints"
+      xTitle="Unit Price ($)"
+      yTitle="Units Sold"
+      [showLegend]="true"
+      [height]="320"
+    />
+  \`
+})
+export class ExampleComponent {
+  scatterPoints: ScatterPoint[] = [
+    { x: 15, y: 85, label: 'Standard-1', group: 'Basic' },
+    { x: 50, y: 150, label: 'Premium-1', group: 'Pro' },
+    { x: 110, y: 320, label: 'Enterprise-1', group: 'Ultra' }
+  ];
+}`;
 }

@@ -51,15 +51,17 @@ interface ApiRow {
         <div class="page-header-text">
           <h1>Data Grid Enterprise</h1>
           <p>
-            Enterprise-ready grid with client/server filtering, sorting, grouping, inline editing,
-            nested detail rows, plus header, cell, and row templating.
+            Enterprise-ready grid featuring interactive column resizing, Excel-style column popover filters,
+            automatic totals/aggregations footer, client/server sorting/grouping, inline editing, and detail templates.
           </p>
         </div>
         <div class="header-badges">
-          <span class="badge badge-orange">Client/Server</span>
-          <span class="badge badge-orange">Grouping</span>
-          <span class="badge badge-orange">Templates</span>
-          <span class="badge badge-orange">Inline Edit</span>
+          <span class="badge badge-orange">Column Resizing</span>
+          <span class="badge badge-orange">Checklist Filters</span>
+          <span class="badge badge-orange">Summary Footers</span>
+          <span class="badge badge-orange">Grouping & Details</span>
+          <span class="badge badge-orange">Column Reordering</span>
+          <span class="badge badge-orange">Multi-Column Sort</span>
         </div>
       </div>
 
@@ -102,6 +104,16 @@ interface ApiRow {
               Inline editing
             </label>
 
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="showSearch()" (change)="showSearch.set($any($event.target).checked)" />
+              Global Search
+            </label>
+
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="rowReorderable()" (change)="rowReorderable.set($any($event.target).checked)" />
+              Row Drag & Drop
+            </label>
+
             <label class="ctrl-item">
               Page Size
               <select [value]="gridPageSize()" (change)="onPageSizeChange(+$any($event.target).value)">
@@ -133,10 +145,17 @@ interface ApiRow {
             [groupedData]="processingMode() === 'server' ? serverGroups() : []"
             [rowTemplate]="useRowTemplate() ? rowTpl : null"
             [detailRowTemplate]="detailTpl"
+            [stateKey]="'demo-grid'"
+            [reorderable]="true"
+            [multiSort]="true"
+            [showGlobalSearch]="showSearch()"
+            [rowReorderable]="rowReorderable()"
             (rowClick)="onRowClick($event)"
             (selectionChange)="onSelectionChange($event)"
             (dataStateChange)="onDataStateChange($event)"
             (rowUpdate)="onRowUpdate($event)"
+            (columnReorder)="onColumnReorder($event)"
+            (rowReorder)="onRowReorder($event)"
           />
 
           <ng-template #headerTpl let-column="column" let-sort="sort">
@@ -246,7 +265,7 @@ interface ApiRow {
     </div>
   `,
   styles: [`
-    :host { display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
+    :host { display: block; }
     .demo-page { padding: 32px 40px; max-width: 1200px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 28px; }
     .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 2px solid var(--border-color); }
     .page-header-text h1 { margin: 0 0 8px; font-size: 28px; font-weight: 900; color: var(--text-primary); letter-spacing: -0.5px; font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif); }
@@ -314,6 +333,8 @@ export class GridDemoComponent implements AfterViewInit {
   groupField = signal('');
   useRowTemplate = signal(false);
   editable = signal(true);
+  showSearch = signal(true);
+  rowReorderable = signal(true);
   loading = signal(false);
   gridPage = signal(1);
   gridPageSize = signal(8);
@@ -329,13 +350,13 @@ export class GridDemoComponent implements AfterViewInit {
   serverFilters = signal<{ field: string; value: string }[]>([]);
 
   columns: GridColumnDef<Employee>[] = [
-    { field: 'id', title: '#', width: 56, sortable: true, align: 'right' },
-    { field: 'name', title: 'Name', sortable: true, filterable: true, groupable: true, editable: true, width: 190 },
+    { field: 'id', title: '#', width: 56, sortable: true, align: 'right', aggregation: 'count', pinned: 'left' },
+    { field: 'name', title: 'Name', sortable: true, filterable: true, groupable: true, editable: true, width: 190, pinned: 'left' },
     { field: 'title', title: 'Title', sortable: true, filterable: true, groupable: true, editable: true, width: 170 },
     { field: 'department', title: 'Department', sortable: true, filterable: true, groupable: true, editable: true, width: 140 },
     { field: 'city', title: 'City', sortable: true, filterable: true, groupable: true, editable: true, width: 120 },
     { field: 'email', title: 'Email', filterable: true, editable: true, width: 220 },
-    { field: 'salary', title: 'Salary', sortable: true, align: 'right', editable: true, width: 120 },
+    { field: 'salary', title: 'Salary', sortable: true, align: 'right', editable: true, width: 120, aggregation: 'sum' },
     { field: 'status', title: 'Status', sortable: true, filterable: true, groupable: true, editable: true, width: 110 },
     { field: 'startDate', title: 'Start Date', sortable: true, width: 120 },
   ];
@@ -455,6 +476,15 @@ export class GridDemoComponent implements AfterViewInit {
     this.employees.set(update(this.employees()));
     this.serverRows.set(update(this.serverRows()));
     this.lastEvent.set(`Inline edit saved for ${event.updated.name}`);
+  }
+
+  onColumnReorder(event: { columns: GridColumnDef<Employee>[] }): void {
+    this.lastEvent.set(`Columns reordered: ${event.columns.map(c => c.title).join(', ')}`);
+  }
+
+  onRowReorder(event: { previousIndex: number; currentIndex: number; data: Employee[] }): void {
+    this.employees.set(event.data);
+    this.lastEvent.set(`Row moved from index ${event.previousIndex} to ${event.currentIndex}`);
   }
 
   private refreshServerData(state: GridDataStateChangeEvent): void {
@@ -618,6 +648,8 @@ export class MyServerGridComponent {
   align?: 'left' | 'center' | 'right';
   headerTemplate?: TemplateRef<GridHeaderTemplateContext<T>>;
   cellTemplate?: TemplateRef<GridCellTemplateContext<T>>;
+  aggregation?: 'sum' | 'avg' | 'count' | 'min' | 'max';
+  pinned?: 'left';
 }`;
 
   gridInputs: ApiRow[] = [
@@ -637,6 +669,12 @@ export class MyServerGridComponent {
     { name: 'rowTemplate', type: 'TemplateRef<GridRowTemplateContext<T>> | null', default: 'null', description: 'Custom row template.' },
     { name: 'detailRowTemplate', type: 'TemplateRef<GridDetailTemplateContext<T>> | null', default: 'null', description: 'Nested/detail row template.' },
     { name: 'editable', type: 'boolean', default: 'false', description: 'Enables inline row editing controls.' },
+    { name: 'stateKey', type: 'string', default: "''", description: 'Unique key to enable grid layout, sort, page, and filter persistence in localStorage.' },
+    { name: 'reorderable', type: 'boolean', default: 'false', description: 'Allows users to drag and drop column headers to reorder columns.' },
+    { name: 'multiSort', type: 'boolean', default: 'false', description: 'Enables sorting by multiple columns sequentially by holding Ctrl or Shift.' },
+    { name: 'rowReorderable', type: 'boolean', default: 'false', description: 'Enables interactive drag-and-drop handles on rows to reorder them.' },
+    { name: 'showGlobalSearch', type: 'boolean', default: 'false', description: 'Renders a global search input in the toolbar to filter rows.' },
+    { name: 'globalSearchPlaceholder', type: 'string', default: "'Search...'", description: 'Placeholder for the global search input.' },
   ];
 
   gridOutputs: ApiRow[] = [
@@ -648,5 +686,7 @@ export class MyServerGridComponent {
     { name: '(rowClick)', type: 'GridRowClickEvent<T>', default: '—', description: 'Row clicked.' },
     { name: '(selectionChange)', type: 'T[]', default: '—', description: 'Selected rows changed.' },
     { name: '(rowUpdate)', type: 'GridRowUpdateEvent<T>', default: '—', description: 'Inline edit saved with previous and updated rows.' },
+    { name: '(columnReorder)', type: '{ columns: GridColumnDef<T>[] }', default: '—', description: 'Emitted when a column is dragged and reordered.' },
+    { name: '(rowReorder)', type: '{ previousIndex: number, currentIndex: number, data: T[] }', default: '—', description: 'Emitted when a row is dragged and reordered.' },
   ];
 }

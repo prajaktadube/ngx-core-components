@@ -1787,6 +1787,24 @@
       "norm_label": ".onslidechange()"
     },
     {
+      "label": "charts-demo.component.spec.ts",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.spec.ts",
+      "source_location": "L1",
+      "id": "projects_demo_src_app_pages_charts_demo_charts_demo_component_spec_ts",
+      "community": 33,
+      "norm_label": "charts-demo.component.spec.ts"
+    },
+    {
+      "label": "TestChartsWrapperComponent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.spec.ts",
+      "source_location": "L5",
+      "id": "charts_demo_charts_demo_component_spec_testchartswrappercomponent",
+      "community": 33,
+      "norm_label": "testchartswrappercomponent"
+    },
+    {
       "label": "charts-demo.component.ts",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
@@ -1799,7 +1817,7 @@
       "label": "ApiRow",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "charts_demo_charts_demo_component_apirow",
       "community": 28,
       "norm_label": "apirow"
@@ -1808,7 +1826,7 @@
       "label": "ChartsDemoComponent",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
-      "source_location": "L483",
+      "source_location": "L556",
       "id": "charts_demo_charts_demo_component_chartsdemocomponent",
       "community": 27,
       "norm_label": "chartsdemocomponent"
@@ -1817,7 +1835,7 @@
       "label": ".onGaugeValueChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
-      "source_location": "L526",
+      "source_location": "L599",
       "id": "charts_demo_charts_demo_component_chartsdemocomponent_ongaugevaluechange",
       "community": 27,
       "norm_label": ".ongaugevaluechange()"
@@ -1826,7 +1844,7 @@
       "label": ".onGaugeTypeChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.ts",
-      "source_location": "L531",
+      "source_location": "L604",
       "id": "charts_demo_charts_demo_component_chartsdemocomponent_ongaugetypechange",
       "community": 27,
       "norm_label": ".ongaugetypechange()"
@@ -1909,7 +1927,7 @@
       "source_file": "projects/demo/src/app/pages/dashboard-layout-demo/dashboard-layout-demo.component.ts",
       "source_location": "L1",
       "id": "projects_demo_src_app_pages_dashboard_layout_demo_dashboard_layout_demo_component_ts",
-      "community": 33,
+      "community": 152,
       "norm_label": "dashboard-layout-demo.component.ts"
     },
     {
@@ -2341,7 +2359,7 @@
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1197",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_resetplaytasks",
-      "community": 115,
+      "community": 28,
       "norm_label": ".resetplaytasks()"
     },
     {
@@ -2498,6 +2516,114 @@
       "norm_label": "gettingstartedcomponent"
     },
     {
+      "label": "grid-demo.component.spec.ts",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L1",
+      "id": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "community": 186,
+      "norm_label": "grid-demo.component.spec.ts"
+    },
+    {
+      "label": "TestGridWrapperComponent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L5",
+      "id": "grid_demo_grid_demo_component_spec_testgridwrappercomponent",
+      "community": 186,
+      "norm_label": "testgridwrappercomponent"
+    },
+    {
+      "label": "distinct",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L73",
+      "id": "grid_demo_grid_demo_component_spec_distinct",
+      "community": 186,
+      "norm_label": "distinct"
+    },
+    {
+      "label": "store",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L101",
+      "id": "grid_demo_grid_demo_component_spec_store",
+      "community": 186,
+      "norm_label": "store"
+    },
+    {
+      "label": "newFixture",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L111",
+      "id": "grid_demo_grid_demo_component_spec_newfixture",
+      "community": 186,
+      "norm_label": "newfixture"
+    },
+    {
+      "label": "newGrid",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L116",
+      "id": "grid_demo_grid_demo_component_spec_newgrid",
+      "community": 186,
+      "norm_label": "newgrid"
+    },
+    {
+      "label": "cols",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L130",
+      "id": "grid_demo_grid_demo_component_spec_cols",
+      "community": 186,
+      "norm_label": "cols"
+    },
+    {
+      "label": "dragStartEvent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L133",
+      "id": "grid_demo_grid_demo_component_spec_dragstartevent",
+      "community": 186,
+      "norm_label": "dragstartevent"
+    },
+    {
+      "label": "dropEvent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L142",
+      "id": "grid_demo_grid_demo_component_spec_dropevent",
+      "community": 186,
+      "norm_label": "dropevent"
+    },
+    {
+      "label": "newCols",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L147",
+      "id": "grid_demo_grid_demo_component_spec_newcols",
+      "community": 186,
+      "norm_label": "newcols"
+    },
+    {
+      "label": "ctrlEvent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L185",
+      "id": "grid_demo_grid_demo_component_spec_ctrlevent",
+      "community": 186,
+      "norm_label": "ctrlevent"
+    },
+    {
+      "label": "rendered",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L194",
+      "id": "grid_demo_grid_demo_component_spec_rendered",
+      "community": 186,
+      "norm_label": "rendered"
+    },
+    {
       "label": "grid-demo.component.ts",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
@@ -2537,7 +2663,7 @@
       "label": "GridDemoComponent",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L306",
+      "source_location": "L312",
       "id": "grid_demo_grid_demo_component_griddemocomponent",
       "community": 19,
       "norm_label": "griddemocomponent"
@@ -2546,7 +2672,7 @@
       "label": "field",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L344",
+      "source_location": "L350",
       "id": "grid_demo_grid_demo_component_field",
       "community": 19,
       "norm_label": "field"
@@ -2555,7 +2681,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L352",
+      "source_location": "L358",
       "id": "grid_demo_grid_demo_component_griddemocomponent_constructor",
       "community": 19,
       "norm_label": ".constructor()"
@@ -2564,7 +2690,7 @@
       "label": ".ngAfterViewInit()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L362",
+      "source_location": "L368",
       "id": "grid_demo_grid_demo_component_griddemocomponent_ngafterviewinit",
       "community": 19,
       "norm_label": ".ngafterviewinit()"
@@ -2573,7 +2699,7 @@
       "label": ".formatCurrency()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L375",
+      "source_location": "L381",
       "id": "grid_demo_grid_demo_component_griddemocomponent_formatcurrency",
       "community": 19,
       "norm_label": ".formatcurrency()"
@@ -2582,7 +2708,7 @@
       "label": ".onProcessingModeChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L379",
+      "source_location": "L385",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onprocessingmodechange",
       "community": 19,
       "norm_label": ".onprocessingmodechange()"
@@ -2591,7 +2717,7 @@
       "label": ".onGroupFieldChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L396",
+      "source_location": "L402",
       "id": "grid_demo_grid_demo_component_griddemocomponent_ongroupfieldchange",
       "community": 19,
       "norm_label": ".ongroupfieldchange()"
@@ -2600,7 +2726,7 @@
       "label": ".onPageSizeChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L410",
+      "source_location": "L416",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onpagesizechange",
       "community": 19,
       "norm_label": ".onpagesizechange()"
@@ -2609,7 +2735,7 @@
       "label": ".onRowClick()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L427",
+      "source_location": "L433",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onrowclick",
       "community": 19,
       "norm_label": ".onrowclick()"
@@ -2618,7 +2744,7 @@
       "label": ".onSelectionChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L431",
+      "source_location": "L437",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onselectionchange",
       "community": 19,
       "norm_label": ".onselectionchange()"
@@ -2627,7 +2753,7 @@
       "label": ".onDataStateChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L436",
+      "source_location": "L442",
       "id": "grid_demo_grid_demo_component_griddemocomponent_ondatastatechange",
       "community": 19,
       "norm_label": ".ondatastatechange()"
@@ -2636,16 +2762,25 @@
       "label": ".onRowUpdate()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L451",
+      "source_location": "L457",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onrowupdate",
       "community": 19,
       "norm_label": ".onrowupdate()"
     },
     {
+      "label": ".onColumnReorder()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L466",
+      "id": "grid_demo_grid_demo_component_griddemocomponent_oncolumnreorder",
+      "community": 19,
+      "norm_label": ".oncolumnreorder()"
+    },
+    {
       "label": ".refreshServerData()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L460",
+      "source_location": "L470",
       "id": "grid_demo_grid_demo_component_griddemocomponent_refreshserverdata",
       "community": 19,
       "norm_label": ".refreshserverdata()"
@@ -2654,7 +2789,7 @@
       "label": ".seedEmployees()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L520",
+      "source_location": "L530",
       "id": "grid_demo_grid_demo_component_griddemocomponent_seedemployees",
       "community": 19,
       "norm_label": ".seedemployees()"
@@ -5005,7 +5140,7 @@
       "source_file": "projects/ngx-core-components/charts/area-chart/area-chart.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_area_chart_area_chart_component_ts",
-      "community": 0,
+      "community": 124,
       "norm_label": "area-chart.component.ts"
     },
     {
@@ -5077,7 +5212,7 @@
       "source_file": "projects/ngx-core-components/charts/bar-chart/bar-chart.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_bar_chart_bar_chart_component_ts",
-      "community": 0,
+      "community": 124,
       "norm_label": "bar-chart.component.ts"
     },
     {
@@ -5169,6 +5304,123 @@
       "id": "bar_chart_bar_chart_component_barchartcomponent_onmousemove",
       "community": 125,
       "norm_label": ".onmousemove()"
+    },
+    {
+      "label": "combo-chart.component.ts",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L1",
+      "id": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "community": 124,
+      "norm_label": "combo-chart.component.ts"
+    },
+    {
+      "label": "ComboChartComponent",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L346",
+      "id": "combo_chart_combo_chart_component_combochartcomponent",
+      "community": 128,
+      "norm_label": "combochartcomponent"
+    },
+    {
+      "label": ".leftYPos()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L388",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_leftypos",
+      "community": 128,
+      "norm_label": ".leftypos()"
+    },
+    {
+      "label": ".barY()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L391",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_bary",
+      "community": 128,
+      "norm_label": ".bary()"
+    },
+    {
+      "label": ".barH()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L392",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_barh",
+      "community": 128,
+      "norm_label": ".barh()"
+    },
+    {
+      "label": ".rightYPos()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L400",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_rightypos",
+      "community": 0,
+      "norm_label": ".rightypos()"
+    },
+    {
+      "label": ".catMidX()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L411",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_catmidx",
+      "community": 128,
+      "norm_label": ".catmidx()"
+    },
+    {
+      "label": ".barX()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L415",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_barx",
+      "community": 128,
+      "norm_label": ".barx()"
+    },
+    {
+      "label": ".barSeriesColor()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L421",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_barseriescolor",
+      "community": 128,
+      "norm_label": ".barseriescolor()"
+    },
+    {
+      "label": ".lineSeriesColor()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L425",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_lineseriescolor",
+      "community": 128,
+      "norm_label": ".lineseriescolor()"
+    },
+    {
+      "label": ".linePath()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L432",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_linepath",
+      "community": 128,
+      "norm_label": ".linepath()"
+    },
+    {
+      "label": ".onMouseMove()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L446",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_onmousemove",
+      "community": 128,
+      "norm_label": ".onmousemove()"
+    },
+    {
+      "label": ".onMouseLeave()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L492",
+      "id": "combo_chart_combo_chart_component_combochartcomponent_onmouseleave",
+      "community": 128,
+      "norm_label": ".onmouseleave()"
     },
     {
       "label": "funnel-chart.component.ts",
@@ -5671,7 +5923,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L962",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontogglegroupcollapse",
-      "community": 160,
+      "community": 148,
       "norm_label": ".ontogglegroupcollapse()"
     },
     {
@@ -6364,7 +6616,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-group.model.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_gantt_chart_models_gantt_group_model_ts",
-      "community": 160,
+      "community": 148,
       "norm_label": "gantt-group.model.ts"
     },
     {
@@ -6373,7 +6625,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-group.model.ts",
       "source_location": "L1",
       "id": "models_gantt_group_model_ganttgroup",
-      "community": 160,
+      "community": 148,
       "norm_label": "ganttgroup"
     },
     {
@@ -6481,7 +6733,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_gantt_chart_services_gantt_layout_service_ts",
-      "community": 160,
+      "community": 148,
       "norm_label": "gantt-layout.service.ts"
     },
     {
@@ -6499,7 +6751,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L19",
       "id": "services_gantt_layout_service_rowgroup",
-      "community": 160,
+      "community": 148,
       "norm_label": "rowgroup"
     },
     {
@@ -6508,7 +6760,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L25",
       "id": "services_gantt_layout_service_ganttlayoutservice",
-      "community": 160,
+      "community": 148,
       "norm_label": "ganttlayoutservice"
     },
     {
@@ -6517,7 +6769,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L26",
       "id": "services_gantt_layout_service_ganttlayoutservice_flattentasks",
-      "community": 160,
+      "community": 148,
       "norm_label": ".flattentasks()"
     },
     {
@@ -6526,7 +6778,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L33",
       "id": "services_gantt_layout_service_ganttlayoutservice_flattentree",
-      "community": 160,
+      "community": 148,
       "norm_label": ".flattentree()"
     },
     {
@@ -6535,7 +6787,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L82",
       "id": "services_gantt_layout_service_ganttlayoutservice_flattenwithgroups",
-      "community": 160,
+      "community": 148,
       "norm_label": ".flattenwithgroups()"
     },
     {
@@ -7066,7 +7318,7 @@
       "source_file": "projects/ngx-core-components/charts/line-chart/line-chart.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_line_chart_line_chart_component_ts",
-      "community": 0,
+      "community": 124,
       "norm_label": "line-chart.component.ts"
     },
     {
@@ -7147,7 +7399,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L91",
       "id": "pie_chart_pie_chart_component_piechartcomponent",
-      "community": 124,
+      "community": 185,
       "norm_label": "piechartcomponent"
     },
     {
@@ -7192,7 +7444,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L140",
       "id": "pie_chart_pie_chart_component_piechartcomponent_arcpath",
-      "community": 124,
+      "community": 185,
       "norm_label": ".arcpath()"
     },
     {
@@ -7201,7 +7453,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L149",
       "id": "pie_chart_pie_chart_component_piechartcomponent_labelx",
-      "community": 124,
+      "community": 185,
       "norm_label": ".labelx()"
     },
     {
@@ -7210,7 +7462,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L150",
       "id": "pie_chart_pie_chart_component_piechartcomponent_labely",
-      "community": 124,
+      "community": 185,
       "norm_label": ".labely()"
     },
     {
@@ -7219,7 +7471,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L152",
       "id": "pie_chart_pie_chart_component_piechartcomponent_onslicehover",
-      "community": 124,
+      "community": 185,
       "norm_label": ".onslicehover()"
     },
     {
@@ -7246,7 +7498,7 @@
       "source_file": "projects/ngx-core-components/charts/radar-chart/radar-chart.component.ts",
       "source_location": "L239",
       "id": "radar_chart_radar_chart_component_radarchartcomponent",
-      "community": 128,
+      "community": 133,
       "norm_label": "radarchartcomponent"
     },
     {
@@ -7255,7 +7507,7 @@
       "source_file": "projects/ngx-core-components/charts/radar-chart/radar-chart.component.ts",
       "source_location": "L289",
       "id": "radar_chart_radar_chart_component_radarchartcomponent_getringpoints",
-      "community": 128,
+      "community": 133,
       "norm_label": ".getringpoints()"
     },
     {
@@ -7264,7 +7516,7 @@
       "source_file": "projects/ngx-core-components/charts/radar-chart/radar-chart.component.ts",
       "source_location": "L305",
       "id": "radar_chart_radar_chart_component_radarchartcomponent_getseriespoints",
-      "community": 128,
+      "community": 133,
       "norm_label": ".getseriespoints()"
     },
     {
@@ -7273,7 +7525,7 @@
       "source_file": "projects/ngx-core-components/charts/radar-chart/radar-chart.component.ts",
       "source_location": "L324",
       "id": "radar_chart_radar_chart_component_radarchartcomponent_getseriespointlist",
-      "community": 128,
+      "community": 133,
       "norm_label": ".getseriespointlist()"
     },
     {
@@ -7282,7 +7534,7 @@
       "source_file": "projects/ngx-core-components/charts/radar-chart/radar-chart.component.ts",
       "source_location": "L343",
       "id": "radar_chart_radar_chart_component_radarchartcomponent_getseriescolor",
-      "community": 128,
+      "community": 133,
       "norm_label": ".getseriescolor()"
     },
     {
@@ -7291,7 +7543,7 @@
       "source_file": "projects/ngx-core-components/charts/radar-chart/radar-chart.component.ts",
       "source_location": "L358",
       "id": "radar_chart_radar_chart_component_radarchartcomponent_onpointenter",
-      "community": 128,
+      "community": 133,
       "norm_label": ".onpointenter()"
     },
     {
@@ -7300,8 +7552,125 @@
       "source_file": "projects/ngx-core-components/charts/radar-chart/radar-chart.component.ts",
       "source_location": "L380",
       "id": "radar_chart_radar_chart_component_radarchartcomponent_onpointleave",
-      "community": 128,
+      "community": 133,
       "norm_label": ".onpointleave()"
+    },
+    {
+      "label": "scatter-plot.component.ts",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L1",
+      "id": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "community": 124,
+      "norm_label": "scatter-plot.component.ts"
+    },
+    {
+      "label": "ScatterPoint",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L8",
+      "id": "scatter_plot_scatter_plot_component_scatterpoint",
+      "community": 124,
+      "norm_label": "scatterpoint"
+    },
+    {
+      "label": "ScatterPlotComponent",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L257",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "community": 160,
+      "norm_label": "scatterplotcomponent"
+    },
+    {
+      "label": "grps",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L296",
+      "id": "scatter_plot_scatter_plot_component_grps",
+      "community": 124,
+      "norm_label": "grps"
+    },
+    {
+      "label": ".groupColor()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L303",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent_groupcolor",
+      "community": 160,
+      "norm_label": ".groupcolor()"
+    },
+    {
+      "label": ".xPos()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L321",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent_xpos",
+      "community": 160,
+      "norm_label": ".xpos()"
+    },
+    {
+      "label": ".yPos()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L325",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent_ypos",
+      "community": 160,
+      "norm_label": ".ypos()"
+    },
+    {
+      "label": "cx",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L331",
+      "id": "scatter_plot_scatter_plot_component_cx",
+      "community": 124,
+      "norm_label": "cx"
+    },
+    {
+      "label": "cy",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L332",
+      "id": "scatter_plot_scatter_plot_component_cy",
+      "community": 124,
+      "norm_label": "cy"
+    },
+    {
+      "label": ".onPointHover()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L344",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent_onpointhover",
+      "community": 160,
+      "norm_label": ".onpointhover()"
+    },
+    {
+      "label": ".onMouseLeave()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L363",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent_onmouseleave",
+      "community": 160,
+      "norm_label": ".onmouseleave()"
+    },
+    {
+      "label": ".ptX()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L368",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent_ptx",
+      "community": 160,
+      "norm_label": ".ptx()"
+    },
+    {
+      "label": ".ptY()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L369",
+      "id": "scatter_plot_scatter_plot_component_scatterplotcomponent_pty",
+      "community": 160,
+      "norm_label": ".pty()"
     },
     {
       "label": "chart-utils.ts",
@@ -7309,7 +7678,7 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-utils.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_shared_chart_utils_ts",
-      "community": 0,
+      "community": 124,
       "norm_label": "chart-utils.ts"
     },
     {
@@ -7318,7 +7687,7 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-utils.ts",
       "source_location": "L3",
       "id": "shared_chart_utils_chart_colors",
-      "community": 0,
+      "community": 124,
       "norm_label": "chart_colors"
     },
     {
@@ -7354,7 +7723,7 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-utils.ts",
       "source_location": "L27",
       "id": "shared_chart_utils_niceticks",
-      "community": 0,
+      "community": 124,
       "norm_label": "niceticks()"
     },
     {
@@ -7363,7 +7732,7 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-utils.ts",
       "source_location": "L39",
       "id": "shared_chart_utils_nicestep",
-      "community": 0,
+      "community": 124,
       "norm_label": "nicestep()"
     },
     {
@@ -7381,7 +7750,7 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-utils.ts",
       "source_location": "L62",
       "id": "shared_chart_utils_fmtnum",
-      "community": 0,
+      "community": 124,
       "norm_label": "fmtnum()"
     },
     {
@@ -7390,7 +7759,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_sparkline_sparkline_component_ts",
-      "community": 133,
+      "community": 187,
       "norm_label": "sparkline.component.ts"
     },
     {
@@ -7399,7 +7768,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L49",
       "id": "sparkline_sparkline_component_sparklinecomponent",
-      "community": 133,
+      "community": 187,
       "norm_label": "sparklinecomponent"
     },
     {
@@ -7408,7 +7777,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L65",
       "id": "sparkline_sparkline_component_d",
-      "community": 133,
+      "community": 187,
       "norm_label": "d"
     },
     {
@@ -7417,7 +7786,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L77",
       "id": "sparkline_sparkline_component_pts",
-      "community": 133,
+      "community": 187,
       "norm_label": "pts"
     },
     {
@@ -7426,7 +7795,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L79",
       "id": "sparkline_sparkline_component_line",
-      "community": 133,
+      "community": 187,
       "norm_label": "line"
     },
     {
@@ -7435,7 +7804,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L97",
       "id": "sparkline_sparkline_component_bw",
-      "community": 133,
+      "community": 187,
       "norm_label": "bw"
     },
     {
@@ -8360,7 +8729,7 @@
       "label": "GridColumnDef",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L13",
+      "source_location": "L17",
       "id": "data_grid_data_grid_component_gridcolumndef",
       "community": 5,
       "norm_label": "gridcolumndef"
@@ -8369,7 +8738,7 @@
       "label": "GridSortState",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L26",
+      "source_location": "L32",
       "id": "data_grid_data_grid_component_gridsortstate",
       "community": 5,
       "norm_label": "gridsortstate"
@@ -8378,7 +8747,7 @@
       "label": "GridFilterState",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L31",
+      "source_location": "L37",
       "id": "data_grid_data_grid_component_gridfilterstate",
       "community": 5,
       "norm_label": "gridfilterstate"
@@ -8387,7 +8756,7 @@
       "label": "GridGroupState",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L37",
+      "source_location": "L44",
       "id": "data_grid_data_grid_component_gridgroupstate",
       "community": 5,
       "norm_label": "gridgroupstate"
@@ -8396,7 +8765,7 @@
       "label": "GridPageChangeEvent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L42",
+      "source_location": "L49",
       "id": "data_grid_data_grid_component_gridpagechangeevent",
       "community": 5,
       "norm_label": "gridpagechangeevent"
@@ -8405,7 +8774,7 @@
       "label": "GridSortChangeEvent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L47",
+      "source_location": "L54",
       "id": "data_grid_data_grid_component_gridsortchangeevent",
       "community": 5,
       "norm_label": "gridsortchangeevent"
@@ -8414,7 +8783,7 @@
       "label": "GridFilterChangeEvent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L51",
+      "source_location": "L58",
       "id": "data_grid_data_grid_component_gridfilterchangeevent",
       "community": 5,
       "norm_label": "gridfilterchangeevent"
@@ -8423,7 +8792,7 @@
       "label": "GridGroupChangeEvent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L55",
+      "source_location": "L62",
       "id": "data_grid_data_grid_component_gridgroupchangeevent",
       "community": 5,
       "norm_label": "gridgroupchangeevent"
@@ -8432,7 +8801,7 @@
       "label": "GridDataStateChangeEvent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L59",
+      "source_location": "L66",
       "id": "data_grid_data_grid_component_griddatastatechangeevent",
       "community": 5,
       "norm_label": "griddatastatechangeevent"
@@ -8441,7 +8810,7 @@
       "label": "GridRowClickEvent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L67",
+      "source_location": "L74",
       "id": "data_grid_data_grid_component_gridrowclickevent",
       "community": 5,
       "norm_label": "gridrowclickevent"
@@ -8450,7 +8819,7 @@
       "label": "GridRowUpdateEvent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L72",
+      "source_location": "L79",
       "id": "data_grid_data_grid_component_gridrowupdateevent",
       "community": 5,
       "norm_label": "gridrowupdateevent"
@@ -8459,7 +8828,7 @@
       "label": "GridGroupResult",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L78",
+      "source_location": "L85",
       "id": "data_grid_data_grid_component_gridgroupresult",
       "community": 5,
       "norm_label": "gridgroupresult"
@@ -8468,7 +8837,7 @@
       "label": "GridHeaderTemplateContext",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L86",
+      "source_location": "L93",
       "id": "data_grid_data_grid_component_gridheadertemplatecontext",
       "community": 5,
       "norm_label": "gridheadertemplatecontext"
@@ -8477,7 +8846,7 @@
       "label": "GridCellTemplateContext",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L94",
+      "source_location": "L101",
       "id": "data_grid_data_grid_component_gridcelltemplatecontext",
       "community": 5,
       "norm_label": "gridcelltemplatecontext"
@@ -8486,7 +8855,7 @@
       "label": "GridRowTemplateContext",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L103",
+      "source_location": "L110",
       "id": "data_grid_data_grid_component_gridrowtemplatecontext",
       "community": 5,
       "norm_label": "gridrowtemplatecontext"
@@ -8495,7 +8864,7 @@
       "label": "GridDetailTemplateContext",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L111",
+      "source_location": "L118",
       "id": "data_grid_data_grid_component_griddetailtemplatecontext",
       "community": 5,
       "norm_label": "griddetailtemplatecontext"
@@ -8504,7 +8873,7 @@
       "label": "DataGridComponent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L665",
+      "source_location": "L1017",
       "id": "data_grid_data_grid_component_datagridcomponent",
       "community": 4,
       "norm_label": "datagridcomponent"
@@ -8513,34 +8882,142 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L709",
+      "source_location": "L1087",
       "id": "data_grid_data_grid_component_datagridcomponent_constructor",
       "community": 4,
       "norm_label": ".constructor()"
     },
     {
+      "label": ".ngOnInit()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1148",
+      "id": "data_grid_data_grid_component_datagridcomponent_ngoninit",
+      "community": 4,
+      "norm_label": ".ngoninit()"
+    },
+    {
+      "label": ".loadState()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1152",
+      "id": "data_grid_data_grid_component_datagridcomponent_loadstate",
+      "community": 4,
+      "norm_label": ".loadstate()"
+    },
+    {
+      "label": "cols",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1191",
+      "id": "data_grid_data_grid_component_cols",
+      "community": 5,
+      "norm_label": "cols"
+    },
+    {
+      "label": "order",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1192",
+      "id": "data_grid_data_grid_component_order",
+      "community": 5,
+      "norm_label": "order"
+    },
+    {
+      "label": "mapped",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1194",
+      "id": "data_grid_data_grid_component_mapped",
+      "community": 5,
+      "norm_label": "mapped"
+    },
+    {
+      "label": "idxA",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1197",
+      "id": "data_grid_data_grid_component_idxa",
+      "community": 5,
+      "norm_label": "idxa"
+    },
+    {
+      "label": "idxB",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1198",
+      "id": "data_grid_data_grid_component_idxb",
+      "community": 5,
+      "norm_label": "idxb"
+    },
+    {
+      "label": "pinned",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1206",
+      "id": "data_grid_data_grid_component_pinned",
+      "community": 5,
+      "norm_label": "pinned"
+    },
+    {
+      "label": "normal",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1207",
+      "id": "data_grid_data_grid_component_normal",
+      "community": 5,
+      "norm_label": "normal"
+    },
+    {
+      "label": "offsets",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1219",
+      "id": "data_grid_data_grid_component_offsets",
+      "community": 5,
+      "norm_label": "offsets"
+    },
+    {
       "label": "rows",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L743",
+      "source_location": "L1257",
       "id": "data_grid_data_grid_component_rows",
       "community": 5,
       "norm_label": "rows"
     },
     {
+      "label": "cellVal",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1263",
+      "id": "data_grid_data_grid_component_cellval",
+      "community": 5,
+      "norm_label": "cellval"
+    },
+    {
       "label": "query",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L748",
+      "source_location": "L1272",
       "id": "data_grid_data_grid_component_query",
       "community": 5,
       "norm_label": "query"
     },
     {
+      "label": "activeSorts",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1292",
+      "id": "data_grid_data_grid_component_activesorts",
+      "community": 5,
+      "norm_label": "activesorts"
+    },
+    {
       "label": "compared",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L764",
+      "source_location": "L1301",
       "id": "data_grid_data_grid_component_compared",
       "community": 5,
       "norm_label": "compared"
@@ -8549,7 +9026,7 @@
       "label": "pageSize",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L784",
+      "source_location": "L1325",
       "id": "data_grid_data_grid_component_pagesize",
       "community": 119,
       "norm_label": "pagesize"
@@ -8558,7 +9035,7 @@
       "label": "group",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L811",
+      "source_location": "L1352",
       "id": "data_grid_data_grid_component_group",
       "community": 5,
       "norm_label": "group"
@@ -8567,7 +9044,7 @@
       "label": "map",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L820",
+      "source_location": "L1361",
       "id": "data_grid_data_grid_component_map",
       "community": 122,
       "norm_label": "map"
@@ -8576,7 +9053,7 @@
       "label": "key",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L823",
+      "source_location": "L1364",
       "id": "data_grid_data_grid_component_key",
       "community": 5,
       "norm_label": "key"
@@ -8585,7 +9062,7 @@
       "label": "existing",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L824",
+      "source_location": "L1365",
       "id": "data_grid_data_grid_component_existing",
       "community": 5,
       "norm_label": "existing"
@@ -8594,7 +9071,7 @@
       "label": "groups",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L833",
+      "source_location": "L1374",
       "id": "data_grid_data_grid_component_groups",
       "community": 5,
       "norm_label": "groups"
@@ -8603,7 +9080,7 @@
       "label": "selected",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L847",
+      "source_location": "L1388",
       "id": "data_grid_data_grid_component_selected",
       "community": 5,
       "norm_label": "selected"
@@ -8612,7 +9089,7 @@
       "label": "total",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L872",
+      "source_location": "L1413",
       "id": "data_grid_data_grid_component_total",
       "community": 5,
       "norm_label": "total"
@@ -8621,7 +9098,7 @@
       "label": "current",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L873",
+      "source_location": "L1414",
       "id": "data_grid_data_grid_component_current",
       "community": 5,
       "norm_label": "current"
@@ -8630,7 +9107,7 @@
       "label": "pages",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L874",
+      "source_location": "L1415",
       "id": "data_grid_data_grid_component_pages",
       "community": 5,
       "norm_label": "pages"
@@ -8639,16 +9116,16 @@
       "label": "from",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L875",
+      "source_location": "L1416",
       "id": "data_grid_data_grid_component_from",
-      "community": 5,
+      "community": 184,
       "norm_label": "from"
     },
     {
       "label": "to",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L876",
+      "source_location": "L1417",
       "id": "data_grid_data_grid_component_to",
       "community": 5,
       "norm_label": "to"
@@ -8657,7 +9134,7 @@
       "label": ".getFilter()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L892",
+      "source_location": "L1433",
       "id": "data_grid_data_grid_component_datagridcomponent_getfilter",
       "community": 4,
       "norm_label": ".getfilter()"
@@ -8666,7 +9143,7 @@
       "label": ".exportToJson()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L896",
+      "source_location": "L1437",
       "id": "data_grid_data_grid_component_datagridcomponent_exporttojson",
       "community": 4,
       "norm_label": ".exporttojson()"
@@ -8675,7 +9152,7 @@
       "label": ".exportToCsv()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L906",
+      "source_location": "L1447",
       "id": "data_grid_data_grid_component_datagridcomponent_exporttocsv",
       "community": 122,
       "norm_label": ".exporttocsv()"
@@ -8684,25 +9161,169 @@
       "label": ".setFilter()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L930",
+      "source_location": "L1471",
       "id": "data_grid_data_grid_component_datagridcomponent_setfilter",
       "community": 119,
       "norm_label": ".setfilter()"
     },
     {
+      "label": ".getColumnWidth()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1487",
+      "id": "data_grid_data_grid_component_datagridcomponent_getcolumnwidth",
+      "community": 4,
+      "norm_label": ".getcolumnwidth()"
+    },
+    {
+      "label": ".onResizeStart()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1491",
+      "id": "data_grid_data_grid_component_datagridcomponent_onresizestart",
+      "community": 4,
+      "norm_label": ".onresizestart()"
+    },
+    {
+      "label": ".openFilterPopover()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1518",
+      "id": "data_grid_data_grid_component_datagridcomponent_openfilterpopover",
+      "community": 184,
+      "norm_label": ".openfilterpopover()"
+    },
+    {
+      "label": ".getDistinctValues()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1553",
+      "id": "data_grid_data_grid_component_datagridcomponent_getdistinctvalues",
+      "community": 184,
+      "norm_label": ".getdistinctvalues()"
+    },
+    {
+      "label": ".toggleChecklistItem()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1562",
+      "id": "data_grid_data_grid_component_datagridcomponent_togglechecklistitem",
+      "community": 4,
+      "norm_label": ".togglechecklistitem()"
+    },
+    {
+      "label": ".toggleSelectAllChecklist()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1572",
+      "id": "data_grid_data_grid_component_datagridcomponent_toggleselectallchecklist",
+      "community": 184,
+      "norm_label": ".toggleselectallchecklist()"
+    },
+    {
+      "label": ".applyPopoverFilter()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1583",
+      "id": "data_grid_data_grid_component_datagridcomponent_applypopoverfilter",
+      "community": 184,
+      "norm_label": ".applypopoverfilter()"
+    },
+    {
+      "label": ".clearPopoverFilter()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1623",
+      "id": "data_grid_data_grid_component_datagridcomponent_clearpopoverfilter",
+      "community": 119,
+      "norm_label": ".clearpopoverfilter()"
+    },
+    {
+      "label": ".getAggregationValue()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1641",
+      "id": "data_grid_data_grid_component_datagridcomponent_getaggregationvalue",
+      "community": 122,
+      "norm_label": ".getaggregationvalue()"
+    },
+    {
+      "label": ".formatAggValue()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1677",
+      "id": "data_grid_data_grid_component_datagridcomponent_formataggvalue",
+      "community": 122,
+      "norm_label": ".formataggvalue()"
+    },
+    {
       "label": ".onSort()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L946",
+      "source_location": "L1681",
       "id": "data_grid_data_grid_component_datagridcomponent_onsort",
       "community": 119,
       "norm_label": ".onsort()"
     },
     {
+      "label": ".onDragStart()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1716",
+      "id": "data_grid_data_grid_component_datagridcomponent_ondragstart",
+      "community": 4,
+      "norm_label": ".ondragstart()"
+    },
+    {
+      "label": ".onDragOver()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1725",
+      "id": "data_grid_data_grid_component_datagridcomponent_ondragover",
+      "community": 4,
+      "norm_label": ".ondragover()"
+    },
+    {
+      "label": ".onDrop()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1731",
+      "id": "data_grid_data_grid_component_datagridcomponent_ondrop",
+      "community": 122,
+      "norm_label": ".ondrop()"
+    },
+    {
+      "label": ".onDragEnd()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1753",
+      "id": "data_grid_data_grid_component_datagridcomponent_ondragend",
+      "community": 4,
+      "norm_label": ".ondragend()"
+    },
+    {
+      "label": ".getSortIndex()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1758",
+      "id": "data_grid_data_grid_component_datagridcomponent_getsortindex",
+      "community": 4,
+      "norm_label": ".getsortindex()"
+    },
+    {
+      "label": ".getSortDirection()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1762",
+      "id": "data_grid_data_grid_component_datagridcomponent_getsortdirection",
+      "community": 4,
+      "norm_label": ".getsortdirection()"
+    },
+    {
       "label": ".setGroup()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L959",
+      "source_location": "L1767",
       "id": "data_grid_data_grid_component_datagridcomponent_setgroup",
       "community": 119,
       "norm_label": ".setgroup()"
@@ -8711,7 +9332,7 @@
       "label": ".toggleGroup()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L965",
+      "source_location": "L1773",
       "id": "data_grid_data_grid_component_datagridcomponent_togglegroup",
       "community": 4,
       "norm_label": ".togglegroup()"
@@ -8720,7 +9341,7 @@
       "label": ".isGroupCollapsed()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L975",
+      "source_location": "L1783",
       "id": "data_grid_data_grid_component_datagridcomponent_isgroupcollapsed",
       "community": 4,
       "norm_label": ".isgroupcollapsed()"
@@ -8729,7 +9350,7 @@
       "label": ".goPage()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L979",
+      "source_location": "L1787",
       "id": "data_grid_data_grid_component_datagridcomponent_gopage",
       "community": 119,
       "norm_label": ".gopage()"
@@ -8738,7 +9359,7 @@
       "label": ".onRowClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L986",
+      "source_location": "L1794",
       "id": "data_grid_data_grid_component_datagridcomponent_onrowclick",
       "community": 4,
       "norm_label": ".onrowclick()"
@@ -8747,7 +9368,7 @@
       "label": ".isRowSelected()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L990",
+      "source_location": "L1798",
       "id": "data_grid_data_grid_component_datagridcomponent_isrowselected",
       "community": 4,
       "norm_label": ".isrowselected()"
@@ -8756,7 +9377,7 @@
       "label": ".toggleRow()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L994",
+      "source_location": "L1802",
       "id": "data_grid_data_grid_component_datagridcomponent_togglerow",
       "community": 4,
       "norm_label": ".togglerow()"
@@ -8765,7 +9386,7 @@
       "label": ".toggleAll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1006",
+      "source_location": "L1814",
       "id": "data_grid_data_grid_component_datagridcomponent_toggleall",
       "community": 4,
       "norm_label": ".toggleall()"
@@ -8774,7 +9395,7 @@
       "label": ".toggleDetail()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1022",
+      "source_location": "L1830",
       "id": "data_grid_data_grid_component_datagridcomponent_toggledetail",
       "community": 4,
       "norm_label": ".toggledetail()"
@@ -8783,7 +9404,7 @@
       "label": ".isExpanded()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1033",
+      "source_location": "L1841",
       "id": "data_grid_data_grid_component_datagridcomponent_isexpanded",
       "community": 4,
       "norm_label": ".isexpanded()"
@@ -8792,7 +9413,7 @@
       "label": ".beginEdit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1037",
+      "source_location": "L1845",
       "id": "data_grid_data_grid_component_datagridcomponent_beginedit",
       "community": 4,
       "norm_label": ".beginedit()"
@@ -8801,7 +9422,7 @@
       "label": ".isEditing()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1047",
+      "source_location": "L1855",
       "id": "data_grid_data_grid_component_datagridcomponent_isediting",
       "community": 4,
       "norm_label": ".isediting()"
@@ -8810,7 +9431,7 @@
       "label": ".updateDraft()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1051",
+      "source_location": "L1859",
       "id": "data_grid_data_grid_component_datagridcomponent_updatedraft",
       "community": 4,
       "norm_label": ".updatedraft()"
@@ -8819,7 +9440,7 @@
       "label": ".getDraftValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1055",
+      "source_location": "L1863",
       "id": "data_grid_data_grid_component_datagridcomponent_getdraftvalue",
       "community": 4,
       "norm_label": ".getdraftvalue()"
@@ -8828,7 +9449,7 @@
       "label": ".saveEdit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1066",
+      "source_location": "L1874",
       "id": "data_grid_data_grid_component_datagridcomponent_saveedit",
       "community": 4,
       "norm_label": ".saveedit()"
@@ -8837,7 +9458,7 @@
       "label": ".cancelEdit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1072",
+      "source_location": "L1880",
       "id": "data_grid_data_grid_component_datagridcomponent_canceledit",
       "community": 4,
       "norm_label": ".canceledit()"
@@ -8846,7 +9467,7 @@
       "label": ".getCellValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1077",
+      "source_location": "L1885",
       "id": "data_grid_data_grid_component_datagridcomponent_getcellvalue",
       "community": 4,
       "norm_label": ".getcellvalue()"
@@ -8855,7 +9476,7 @@
       "label": ".resolveHeaderTemplate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1081",
+      "source_location": "L1889",
       "id": "data_grid_data_grid_component_datagridcomponent_resolveheadertemplate",
       "community": 4,
       "norm_label": ".resolveheadertemplate()"
@@ -8864,7 +9485,7 @@
       "label": ".resolveCellTemplate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1085",
+      "source_location": "L1893",
       "id": "data_grid_data_grid_component_datagridcomponent_resolvecelltemplate",
       "community": 4,
       "norm_label": ".resolvecelltemplate()"
@@ -8873,7 +9494,7 @@
       "label": ".toStringSafe()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1089",
+      "source_location": "L1897",
       "id": "data_grid_data_grid_component_datagridcomponent_tostringsafe",
       "community": 4,
       "norm_label": ".tostringsafe()"
@@ -8882,7 +9503,7 @@
       "label": ".getKey()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1093",
+      "source_location": "L1901",
       "id": "data_grid_data_grid_component_datagridcomponent_getkey",
       "community": 4,
       "norm_label": ".getkey()"
@@ -8891,7 +9512,7 @@
       "label": ".hasGrouping()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1098",
+      "source_location": "L1906",
       "id": "data_grid_data_grid_component_datagridcomponent_hasgrouping",
       "community": 4,
       "norm_label": ".hasgrouping()"
@@ -8900,7 +9521,7 @@
       "label": ".paginateRows()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1102",
+      "source_location": "L1910",
       "id": "data_grid_data_grid_component_datagridcomponent_paginaterows",
       "community": 119,
       "norm_label": ".paginaterows()"
@@ -8909,7 +9530,7 @@
       "label": ".compareValues()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1112",
+      "source_location": "L1920",
       "id": "data_grid_data_grid_component_datagridcomponent_comparevalues",
       "community": 4,
       "norm_label": ".comparevalues()"
@@ -8918,7 +9539,7 @@
       "label": ".visibleSelectionRows()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1130",
+      "source_location": "L1938",
       "id": "data_grid_data_grid_component_datagridcomponent_visibleselectionrows",
       "community": 4,
       "norm_label": ".visibleselectionrows()"
@@ -8927,7 +9548,7 @@
       "label": ".resolveSelectedRows()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1144",
+      "source_location": "L1952",
       "id": "data_grid_data_grid_component_datagridcomponent_resolveselectedrows",
       "community": 4,
       "norm_label": ".resolveselectedrows()"
@@ -8936,7 +9557,7 @@
       "label": ".keyOf()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1149",
+      "source_location": "L1957",
       "id": "data_grid_data_grid_component_datagridcomponent_keyof",
       "community": 4,
       "norm_label": ".keyof()"
@@ -8945,7 +9566,7 @@
       "label": ".emitDataState()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1154",
+      "source_location": "L1962",
       "id": "data_grid_data_grid_component_datagridcomponent_emitdatastate",
       "community": 119,
       "norm_label": ".emitdatastate()"
@@ -12484,7 +13105,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_scheduler_models_ts",
-      "community": 148,
+      "community": 147,
       "norm_label": "models.ts"
     },
     {
@@ -12493,7 +13114,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L1",
       "id": "scheduler_models_schedulerevent",
-      "community": 148,
+      "community": 147,
       "norm_label": "schedulerevent"
     },
     {
@@ -12502,7 +13123,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L11",
       "id": "scheduler_models_schedulerslotclickevent",
-      "community": 148,
+      "community": 147,
       "norm_label": "schedulerslotclickevent"
     },
     {
@@ -12511,7 +13132,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L16",
       "id": "scheduler_models_schedulereventchangeevent",
-      "community": 148,
+      "community": 147,
       "norm_label": "schedulereventchangeevent"
     },
     {
@@ -12520,7 +13141,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_scheduler_scheduler_component_ts",
-      "community": 148,
+      "community": 147,
       "norm_label": "scheduler.component.ts"
     },
     {
@@ -12547,7 +13168,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L717",
       "id": "scheduler_scheduler_component_list",
-      "community": 148,
+      "community": 147,
       "norm_label": "list"
     },
     {
@@ -12556,7 +13177,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L718",
       "id": "scheduler_scheduler_component_start",
-      "community": 148,
+      "community": 147,
       "norm_label": "start"
     },
     {
@@ -12565,7 +13186,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L719",
       "id": "scheduler_scheduler_component_end",
-      "community": 148,
+      "community": 147,
       "norm_label": "end"
     },
     {
@@ -12574,7 +13195,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L728",
       "id": "scheduler_scheduler_component_mode",
-      "community": 148,
+      "community": 147,
       "norm_label": "mode"
     },
     {
@@ -12583,7 +13204,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L729",
       "id": "scheduler_scheduler_component_date",
-      "community": 148,
+      "community": 147,
       "norm_label": "date"
     },
     {
@@ -12592,7 +13213,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L750",
       "id": "scheduler_scheduler_component_cols",
-      "community": 148,
+      "community": 147,
       "norm_label": "cols"
     },
     {
@@ -12619,7 +13240,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L782",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventsfordate",
-      "community": 148,
+      "community": 147,
       "norm_label": ".geteventsfordate()"
     },
     {
@@ -12628,7 +13249,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L786",
       "id": "scheduler_scheduler_component_schedulercomponent_clickevent",
-      "community": 148,
+      "community": 147,
       "norm_label": ".clickevent()"
     },
     {
@@ -18663,9 +19284,9 @@
       "source_file": "projects/demo/src/app/pages/back-to-top-demo/back-to-top-demo.component.ts",
       "source_location": "L261",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_back_to_top_demo_back_to_top_demo_component_ts",
-      "target": "back_to_top_demo_back_to_top_demo_component_backtotopdemocomponent",
-      "confidence_score": 1.0
+      "target": "back_to_top_demo_back_to_top_demo_component_backtotopdemocomponent"
     },
     {
       "relation": "contains",
@@ -18818,6 +19439,27 @@
       "confidence_score": 1.0,
       "source": "carousel_demo_carousel_demo_component_carouseldemocomponent",
       "target": "carousel_demo_carousel_demo_component_carouseldemocomponent_onslidechange"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_charts_demo_component_spec_ts",
+      "target": "projects_ngx_core_components_src_public_api_ts"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/charts-demo.component.spec.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_charts_demo_component_spec_ts",
+      "target": "charts_demo_charts_demo_component_spec_testchartswrappercomponent"
     },
     {
       "relation": "imports_from",
@@ -19437,9 +20079,9 @@
       "source_file": "projects/demo/src/app/pages/empty-state-demo/empty-state-demo.component.ts",
       "source_location": "L257",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_empty_state_demo_empty_state_demo_component_ts",
-      "target": "empty_state_demo_empty_state_demo_component_emptystatedemocomponent",
-      "confidence_score": 1.0
+      "target": "empty_state_demo_empty_state_demo_component_emptystatedemocomponent"
     },
     {
       "relation": "method",
@@ -19447,9 +20089,9 @@
       "source_file": "projects/demo/src/app/pages/empty-state-demo/empty-state-demo.component.ts",
       "source_location": "L289",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "empty_state_demo_empty_state_demo_component_emptystatedemocomponent",
-      "target": "empty_state_demo_empty_state_demo_component_emptystatedemocomponent_onaction",
-      "confidence_score": 1.0
+      "target": "empty_state_demo_empty_state_demo_component_emptystatedemocomponent_onaction"
     },
     {
       "relation": "contains",
@@ -19969,6 +20611,127 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "projects_ngx_core_components_src_public_api_ts"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_testgridwrappercomponent"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_distinct"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L97",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_store"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_newfixture"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L112",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_newgrid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_cols",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_dragstartevent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L159",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_dropevent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L164",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_newcols",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L185",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_ctrlevent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
+      "source_location": "L194",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
+      "target": "grid_demo_grid_demo_component_spec_rendered",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
       "source_location": "L2",
       "weight": 1.0,
@@ -20125,6 +20888,16 @@
       "confidence_score": 1.0,
       "source": "grid_demo_grid_demo_component_griddemocomponent",
       "target": "grid_demo_grid_demo_component_griddemocomponent_onrowupdate"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L466",
+      "weight": 1.0,
+      "source": "grid_demo_grid_demo_component_griddemocomponent",
+      "target": "grid_demo_grid_demo_component_griddemocomponent_oncolumnreorder",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -20660,9 +21433,9 @@
       "source_file": "projects/demo/src/app/pages/key-value-list-demo/key-value-list-demo.component.ts",
       "source_location": "L260",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_key_value_list_demo_key_value_list_demo_component_ts",
-      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent",
-      "confidence_score": 1.0
+      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent"
     },
     {
       "relation": "method",
@@ -20670,9 +21443,9 @@
       "source_file": "projects/demo/src/app/pages/key-value-list-demo/key-value-list-demo.component.ts",
       "source_location": "L312",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent",
-      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent_onpropertyclicked",
-      "confidence_score": 1.0
+      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent_onpropertyclicked"
     },
     {
       "relation": "method",
@@ -20680,9 +21453,9 @@
       "source_file": "projects/demo/src/app/pages/key-value-list-demo/key-value-list-demo.component.ts",
       "source_location": "L316",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent",
-      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent_logevent",
-      "confidence_score": 1.0
+      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent_logevent"
     },
     {
       "relation": "calls",
@@ -20691,9 +21464,9 @@
       "source_file": "projects/demo/src/app/pages/key-value-list-demo/key-value-list-demo.component.ts",
       "source_location": "L313",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent_onpropertyclicked",
-      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent_logevent",
-      "confidence_score": 1.0
+      "target": "key_value_list_demo_key_value_list_demo_component_keyvaluelistdemocomponent_logevent"
     },
     {
       "relation": "contains",
@@ -23968,6 +24741,61 @@
       "target": "funnel_chart_funnel_chart_component_funnelitem"
     },
     {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/public-api.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_public_api_ts",
+      "target": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts"
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/public-api.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_public_api_ts",
+      "target": "combo_chart_combo_chart_component_combochartcomponent"
+    },
+    {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/public-api.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_public_api_ts",
+      "target": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts"
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/public-api.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_public_api_ts",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent"
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/public-api.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_public_api_ts",
+      "target": "scatter_plot_scatter_plot_component_scatterpoint"
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -24432,6 +25260,247 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "bar_chart_bar_chart_component_barchartcomponent_barcolor",
+      "target": "shared_chart_utils_chartseries"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "target": "projects_ngx_core_components_charts_shared_chart_utils_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "target": "shared_chart_utils_chart_colors"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "target": "shared_chart_utils_chartseries"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "target": "shared_chart_utils_niceticks"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "target": "shared_chart_utils_scale"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "target": "shared_chart_utils_fmtnum"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L346",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_combo_chart_combo_chart_component_ts",
+      "target": "combo_chart_combo_chart_component_combochartcomponent"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L388",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_leftypos"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L391",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_bary"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L392",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_barh"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L400",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_rightypos"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L411",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_catmidx"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L415",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_barx"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L421",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_barseriescolor"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L425",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_lineseriescolor"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L432",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_linepath"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L446",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_onmousemove"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L492",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_onmouseleave"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L391",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent_bary",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_leftypos"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L392",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent_barh",
+      "target": "combo_chart_combo_chart_component_combochartcomponent_leftypos"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L389",
+      "weight": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent_leftypos",
+      "target": "shared_chart_utils_scale"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L401",
+      "weight": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent_rightypos",
+      "target": "shared_chart_utils_scale"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/combo-chart/combo-chart.component.ts",
+      "source_location": "L432",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "combo_chart_combo_chart_component_combochartcomponent_linepath",
       "target": "shared_chart_utils_chartseries"
     },
     {
@@ -29306,6 +30375,214 @@
       "target": "radar_chart_radar_chart_component_radarchartcomponent_onpointleave"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "projects_ngx_core_components_charts_shared_chart_utils_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "shared_chart_utils_chart_colors"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "shared_chart_utils_niceticks"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "shared_chart_utils_scale"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "shared_chart_utils_fmtnum"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "scatter_plot_scatter_plot_component_scatterpoint"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L257",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L296",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "scatter_plot_scatter_plot_component_grps"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L331",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "scatter_plot_scatter_plot_component_cx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L332",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_scatter_plot_scatter_plot_component_ts",
+      "target": "scatter_plot_scatter_plot_component_cy"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L303",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_groupcolor"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L321",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_xpos"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L325",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_ypos"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L344",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_onpointhover"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L363",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_onmouseleave"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L368",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_ptx"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L369",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_pty"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L359",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent_onpointhover",
+      "target": "scatter_plot_scatter_plot_component_scatterplotcomponent_groupcolor"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L322",
+      "weight": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent_xpos",
+      "target": "shared_chart_utils_scale"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts",
+      "source_location": "L326",
+      "weight": 1.0,
+      "source": "scatter_plot_scatter_plot_component_scatterplotcomponent_ypos",
+      "target": "shared_chart_utils_scale"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/charts/shared/chart-utils.ts",
@@ -30198,9 +31475,9 @@
       "source_file": "projects/ngx-core-components/feedback/public-api.ts",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_feedback_public_api_ts",
-      "target": "projects_ngx_core_components_feedback_empty_state_empty_state_component_ts",
-      "confidence_score": 1.0
+      "target": "projects_ngx_core_components_feedback_empty_state_empty_state_component_ts"
     },
     {
       "relation": "re_exports",
@@ -30209,9 +31486,9 @@
       "source_file": "projects/ngx-core-components/feedback/public-api.ts",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_feedback_public_api_ts",
-      "target": "empty_state_empty_state_component_emptystatecomponent",
-      "confidence_score": 1.0
+      "target": "empty_state_empty_state_component_emptystatecomponent"
     },
     {
       "relation": "contains",
@@ -30470,9 +31747,9 @@
       "source_file": "projects/ngx-core-components/feedback/countdown/countdown.component.ts",
       "source_location": "L445",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "countdown_countdown_component_countdowncomponent",
-      "target": "countdown_countdown_component_countdowncomponent_constructor",
-      "confidence_score": 1.0
+      "target": "countdown_countdown_component_countdowncomponent_constructor"
     },
     {
       "relation": "method",
@@ -30605,9 +31882,9 @@
       "source_file": "projects/ngx-core-components/feedback/empty-state/empty-state.component.ts",
       "source_location": "L249",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_feedback_empty_state_empty_state_component_ts",
-      "target": "empty_state_empty_state_component_emptystatecomponent",
-      "confidence_score": 1.0
+      "target": "empty_state_empty_state_component_emptystatecomponent"
     },
     {
       "relation": "contains",
@@ -31317,6 +32594,86 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1135",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_cols"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1192",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_order",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1194",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_mapped",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1197",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_idxa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1198",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_idxb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1120",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_pinned"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1113",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_normal"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1125",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_offsets"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L758",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -31327,11 +32684,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1004",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_cellval"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L654",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
       "target": "data_grid_data_grid_component_query"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1292",
+      "weight": 1.0,
+      "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
+      "target": "data_grid_data_grid_component_activesorts",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -31477,6 +32854,26 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1075",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_ngoninit"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1079",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_loadstate"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L798",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -31517,11 +32914,171 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1207",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_getcolumnwidth"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1211",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_onresizestart"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1238",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_openfilterpopover"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1273",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_getdistinctvalues"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1282",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_togglechecklistitem"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1292",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_toggleselectallchecklist"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1303",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_applypopoverfilter"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1343",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_clearpopoverfilter"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1361",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_getaggregationvalue"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1397",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_formataggvalue"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L818",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "data_grid_data_grid_component_datagridcomponent",
       "target": "data_grid_data_grid_component_datagridcomponent_onsort"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1716",
+      "weight": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_ondragstart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1725",
+      "weight": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_ondragover",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1731",
+      "weight": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_ondrop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1753",
+      "weight": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_ondragend",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1758",
+      "weight": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_getsortindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1762",
+      "weight": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent",
+      "target": "data_grid_data_grid_component_datagridcomponent_getsortdirection",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -31808,6 +33365,17 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1076",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_ngoninit",
+      "target": "data_grid_data_grid_component_datagridcomponent_loadstate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L854",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -31852,11 +33420,121 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1365",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_getaggregationvalue",
+      "target": "data_grid_data_grid_component_map"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1738",
+      "weight": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_ondrop",
+      "target": "data_grid_data_grid_component_map",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1279",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_getdistinctvalues",
+      "target": "data_grid_data_grid_component_from"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1324",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_applypopoverfilter",
+      "target": "data_grid_data_grid_component_from"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L815",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "data_grid_data_grid_component_datagridcomponent_setfilter",
       "target": "data_grid_data_grid_component_datagridcomponent_emitdatastate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1251",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_openfilterpopover",
+      "target": "data_grid_data_grid_component_datagridcomponent_getdistinctvalues"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1295",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_toggleselectallchecklist",
+      "target": "data_grid_data_grid_component_datagridcomponent_getdistinctvalues"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1308",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_applypopoverfilter",
+      "target": "data_grid_data_grid_component_datagridcomponent_getdistinctvalues"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1340",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_applypopoverfilter",
+      "target": "data_grid_data_grid_component_datagridcomponent_emitdatastate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1356",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_clearpopoverfilter",
+      "target": "data_grid_data_grid_component_datagridcomponent_emitdatastate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
+      "source_location": "L1379",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_grid_data_grid_component_datagridcomponent_getaggregationvalue",
+      "target": "data_grid_data_grid_component_datagridcomponent_formataggvalue"
     },
     {
       "relation": "calls",
@@ -35433,9 +37111,9 @@
       "source_file": "projects/ngx-core-components/layout/carousel/carousel.component.ts",
       "source_location": "L373",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "carousel_carousel_component_carouselcomponent",
-      "target": "carousel_carousel_component_carouselcomponent_constructor",
-      "confidence_score": 1.0
+      "target": "carousel_carousel_component_carouselcomponent_constructor"
     },
     {
       "relation": "method",
@@ -36078,9 +37756,9 @@
       "source_file": "projects/ngx-core-components/layout/drawer/drawer.component.ts",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "drawer_drawer_component_drawercomponent",
-      "target": "drawer_drawer_component_drawercomponent_constructor",
-      "confidence_score": 1.0
+      "target": "drawer_drawer_component_drawercomponent_constructor"
     },
     {
       "relation": "method",
@@ -36088,9 +37766,9 @@
       "source_file": "projects/ngx-core-components/layout/drawer/drawer.component.ts",
       "source_location": "L276",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "drawer_drawer_component_drawercomponent",
-      "target": "drawer_drawer_component_drawercomponent_ngondestroy",
-      "confidence_score": 1.0
+      "target": "drawer_drawer_component_drawercomponent_ngondestroy"
     },
     {
       "relation": "method",
@@ -36463,9 +38141,9 @@
       "source_file": "projects/ngx-core-components/navigation/public-api.ts",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_navigation_public_api_ts",
-      "target": "projects_ngx_core_components_navigation_back_to_top_back_to_top_component_ts",
-      "confidence_score": 1.0
+      "target": "projects_ngx_core_components_navigation_back_to_top_back_to_top_component_ts"
     },
     {
       "relation": "re_exports",
@@ -36474,9 +38152,9 @@
       "source_file": "projects/ngx-core-components/navigation/public-api.ts",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_navigation_public_api_ts",
-      "target": "back_to_top_back_to_top_component_backtotopcomponent",
-      "confidence_score": 1.0
+      "target": "back_to_top_back_to_top_component_backtotopcomponent"
     },
     {
       "relation": "contains",
@@ -36484,9 +38162,9 @@
       "source_file": "projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts",
       "source_location": "L146",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_navigation_back_to_top_back_to_top_component_ts",
-      "target": "back_to_top_back_to_top_component_backtotopcomponent",
-      "confidence_score": 1.0
+      "target": "back_to_top_back_to_top_component_backtotopcomponent"
     },
     {
       "relation": "method",
@@ -36494,9 +38172,9 @@
       "source_file": "projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts",
       "source_location": "L164",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "back_to_top_back_to_top_component_backtotopcomponent",
-      "target": "back_to_top_back_to_top_component_backtotopcomponent_constructor",
-      "confidence_score": 1.0
+      "target": "back_to_top_back_to_top_component_backtotopcomponent_constructor"
     },
     {
       "relation": "method",
@@ -36504,9 +38182,9 @@
       "source_file": "projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts",
       "source_location": "L195",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "back_to_top_back_to_top_component_backtotopcomponent",
-      "target": "back_to_top_back_to_top_component_backtotopcomponent_checkscroll",
-      "confidence_score": 1.0
+      "target": "back_to_top_back_to_top_component_backtotopcomponent_checkscroll"
     },
     {
       "relation": "method",
@@ -36514,9 +38192,9 @@
       "source_file": "projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "back_to_top_back_to_top_component_backtotopcomponent",
-      "target": "back_to_top_back_to_top_component_backtotopcomponent_scrolltotop",
-      "confidence_score": 1.0
+      "target": "back_to_top_back_to_top_component_backtotopcomponent_scrolltotop"
     },
     {
       "relation": "contains",
@@ -37402,9 +39080,9 @@
       "source_file": "projects/ngx-core-components/views/public-api.ts",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_public_api_ts",
-      "target": "projects_ngx_core_components_views_key_value_list_key_value_list_component_ts",
-      "confidence_score": 1.0
+      "target": "projects_ngx_core_components_views_key_value_list_key_value_list_component_ts"
     },
     {
       "relation": "re_exports",
@@ -37413,9 +39091,9 @@
       "source_file": "projects/ngx-core-components/views/public-api.ts",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_public_api_ts",
-      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent"
     },
     {
       "relation": "re_exports",
@@ -37424,9 +39102,9 @@
       "source_file": "projects/ngx-core-components/views/public-api.ts",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_public_api_ts",
-      "target": "key_value_list_key_value_list_component_keyvalueitem",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvalueitem"
     },
     {
       "relation": "contains",
@@ -37534,9 +39212,9 @@
       "source_file": "projects/ngx-core-components/views/image-compare/image-compare.component.ts",
       "source_location": "L347",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "image_compare_image_compare_component_imagecomparecomponent",
-      "target": "image_compare_image_compare_component_imagecomparecomponent_onkeydown",
-      "confidence_score": 1.0
+      "target": "image_compare_image_compare_component_imagecomparecomponent_onkeydown"
     },
     {
       "relation": "calls",
@@ -37845,9 +39523,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_key_value_list_key_value_list_component_ts",
-      "target": "key_value_list_key_value_list_component_keyvalueitem",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvalueitem"
     },
     {
       "relation": "contains",
@@ -37855,9 +39533,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L488",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_key_value_list_key_value_list_component_ts",
-      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent"
     },
     {
       "relation": "contains",
@@ -37865,9 +39543,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L507",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_key_value_list_key_value_list_component_ts",
-      "target": "key_value_list_key_value_list_component_term",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_term"
     },
     {
       "relation": "contains",
@@ -37875,9 +39553,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L519",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_key_value_list_key_value_list_component_ts",
-      "target": "key_value_list_key_value_list_component_list",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_list"
     },
     {
       "relation": "contains",
@@ -37885,9 +39563,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_views_key_value_list_key_value_list_component_ts",
-      "target": "key_value_list_key_value_list_component_groups",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_groups"
     },
     {
       "relation": "method",
@@ -37895,9 +39573,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L537",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "key_value_list_key_value_list_component_keyvaluelistcomponent",
-      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_togglegroup",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_togglegroup"
     },
     {
       "relation": "method",
@@ -37905,9 +39583,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L549",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "key_value_list_key_value_list_component_keyvaluelistcomponent",
-      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_isgroupexpanded",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_isgroupexpanded"
     },
     {
       "relation": "method",
@@ -37915,9 +39593,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L553",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "key_value_list_key_value_list_component_keyvaluelistcomponent",
-      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_copyvalue",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_copyvalue"
     },
     {
       "relation": "method",
@@ -37925,9 +39603,9 @@
       "source_file": "projects/ngx-core-components/views/key-value-list/key-value-list.component.ts",
       "source_location": "L567",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "key_value_list_key_value_list_component_keyvaluelistcomponent",
-      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_onrowclick",
-      "confidence_score": 1.0
+      "target": "key_value_list_key_value_list_component_keyvaluelistcomponent_onrowclick"
     },
     {
       "relation": "contains",
@@ -41739,5 +43417,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "a20efee080003787c0c9febc291d30f1e54611d7"
+  "built_at_commit": "3154f35618be71c9d553cbe48dab97894e8ea83e"
 }
