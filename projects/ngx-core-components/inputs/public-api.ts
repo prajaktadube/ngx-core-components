@@ -53,3 +53,15 @@ export { DateRangePickerComponent } from './date-range-picker/date-range-picker.
 export { FileUploadComponent } from './file-upload/file-upload.component';
 export type { UploadFileItem } from './file-upload/file-upload.component';
 
+// Tag Input
+export { TagInputComponent } from './tag-input/tag-input.component';
+
+// File Preview
+export { FilePreviewComponent } from './file-preview/file-preview.component';
+export type { PreviewFileItem } from './file-preview/file-preview.component';
+
+// Segmented Control Selector
+export { SegmentedControlComponent } from './segmented-control/segmented-control.component';
+export type { SegmentedOption } from './segmented-control/segmented-control.component';
+
+

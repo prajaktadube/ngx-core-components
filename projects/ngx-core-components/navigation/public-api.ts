@@ -10,3 +10,7 @@ export type { MenuItem } from './menu/menu.component';
 
 export { CommandPaletteComponent } from './command-palette/command-palette.component';
 export type { CommandItem } from './command-palette/command-palette.component';
+
+// Back to Top Indicator
+export { BackToTopComponent } from './back-to-top/back-to-top.component';
+

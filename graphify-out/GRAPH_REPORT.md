@@ -1,16 +1,16 @@
-# Graph Report - ngx-core-components  (2026-05-30)
+# Graph Report - ngx-core-components  (2026-05-31)
 
 ## Corpus Check
-- 140 files · ~109,135 words
+- 179 files · ~153,096 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1435 nodes · 2001 edges · 138 communities (70 shown, 68 thin omitted)
+- 1745 nodes · 2423 edges · 183 communities (82 shown, 101 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ecb915f2`
+- Built from commit: `a20efee0`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -147,18 +147,63 @@
 - [[_COMMUNITY_Community 134|Community 134]]
 - [[_COMMUNITY_Community 136|Community 136]]
 - [[_COMMUNITY_Community 137|Community 137]]
+- [[_COMMUNITY_Community 138|Community 138]]
+- [[_COMMUNITY_Community 139|Community 139]]
+- [[_COMMUNITY_Community 140|Community 140]]
+- [[_COMMUNITY_Community 141|Community 141]]
+- [[_COMMUNITY_Community 142|Community 142]]
+- [[_COMMUNITY_Community 143|Community 143]]
+- [[_COMMUNITY_Community 144|Community 144]]
+- [[_COMMUNITY_Community 145|Community 145]]
+- [[_COMMUNITY_Community 146|Community 146]]
+- [[_COMMUNITY_Community 147|Community 147]]
+- [[_COMMUNITY_Community 148|Community 148]]
+- [[_COMMUNITY_Community 149|Community 149]]
+- [[_COMMUNITY_Community 150|Community 150]]
+- [[_COMMUNITY_Community 151|Community 151]]
+- [[_COMMUNITY_Community 152|Community 152]]
+- [[_COMMUNITY_Community 153|Community 153]]
+- [[_COMMUNITY_Community 154|Community 154]]
+- [[_COMMUNITY_Community 155|Community 155]]
+- [[_COMMUNITY_Community 156|Community 156]]
+- [[_COMMUNITY_Community 157|Community 157]]
+- [[_COMMUNITY_Community 158|Community 158]]
+- [[_COMMUNITY_Community 159|Community 159]]
+- [[_COMMUNITY_Community 160|Community 160]]
+- [[_COMMUNITY_Community 161|Community 161]]
+- [[_COMMUNITY_Community 162|Community 162]]
+- [[_COMMUNITY_Community 163|Community 163]]
+- [[_COMMUNITY_Community 164|Community 164]]
+- [[_COMMUNITY_Community 165|Community 165]]
+- [[_COMMUNITY_Community 166|Community 166]]
+- [[_COMMUNITY_Community 167|Community 167]]
+- [[_COMMUNITY_Community 168|Community 168]]
+- [[_COMMUNITY_Community 169|Community 169]]
+- [[_COMMUNITY_Community 170|Community 170]]
+- [[_COMMUNITY_Community 171|Community 171]]
+- [[_COMMUNITY_Community 172|Community 172]]
+- [[_COMMUNITY_Community 173|Community 173]]
+- [[_COMMUNITY_Community 174|Community 174]]
+- [[_COMMUNITY_Community 175|Community 175]]
+- [[_COMMUNITY_Community 176|Community 176]]
+- [[_COMMUNITY_Community 177|Community 177]]
+- [[_COMMUNITY_Community 178|Community 178]]
+- [[_COMMUNITY_Community 179|Community 179]]
+- [[_COMMUNITY_Community 180|Community 180]]
+- [[_COMMUNITY_Community 181|Community 181]]
+- [[_COMMUNITY_Community 182|Community 182]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `GanttChartComponent` - 67 edges
 2. `DataGridComponent` - 36 edges
 3. `GanttTask` - 33 edges
 4. `GanttDemoComponent` - 22 edges
-5. `VectorMapComponent` - 20 edges
-6. `AppComponent` - 18 edges
-7. `ChartsDemoComponent` - 18 edges
-8. `KanbanComponent` - 17 edges
-9. `FlatRow` - 15 edges
-10. `getColumnDates()` - 15 edges
+5. `AiDemoComponent` - 20 edges
+6. `VectorMapComponent` - 20 edges
+7. `AppComponent` - 18 edges
+8. `ChartsDemoComponent` - 18 edges
+9. `CarouselComponent` - 17 edges
+10. `KanbanComponent` - 17 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `ngx-core-components` --references--> `ListViewComponent`  [EXTRACTED]
@@ -186,7 +231,7 @@
 - **Layout Package Components** — accordion_AccordionComponent, card_CardComponent, splitter_SplitterComponent, stepper_StepperComponent, tab_strip_TabStripComponent [EXTRACTED 1.00]
 - **Core Architectural Principles** — readme_zero_runtime_dependencies, readme_angular_signals, readme_onpush_change_detection, readme_standalone_components [INFERRED 0.95]
 
-## Communities (138 total, 68 thin omitted)
+## Communities (183 total, 101 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.20
@@ -213,24 +258,20 @@ Cohesion: 0.17
 Nodes (20): ZoomLevel, GanttScaleService, addDays(), addHours(), addMonths(), addQuarters(), addWeeks(), addYears() (+12 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.11
-Nodes (15): BadgeComponent, BadgePosition, BadgeVariant, cls, NotificationContainerComponent, NotificationItem, NotificationOptions, NotificationPosition (+7 more)
+Cohesion: 0.13
+Nodes (18): AvatarComponent, AvatarGroupComponent, AvatarItem, AvatarShape, AvatarSize, AvatarStatus, hue, initials() (+10 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.06
-Nodes (11): KanbanComponent, KanbanCard, KanbanColumn, ListViewComponent, ListViewItemClickEvent, ListViewPageChangeEvent, ListViewSelectionEvent, size (+3 more)
+Cohesion: 0.13
+Nodes (3): KanbanComponent, KanbanCard, KanbanColumn
 
 ### Community 9 - "Community 9"
 Cohesion: 0.09
 Nodes (19): AppComponent, appConfig, routes, BarcodesDemoComponent, BasicDemoComponent, ButtonsDemoComponent, ChartsDemoComponent, ConfirmDialogContent (+11 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.08
-Nodes (13): AIChatComponent, AgentStep, AICard, AICardAction, AIMessage, QuickReply, AIChatWidgetComponent, WidgetMessage (+5 more)
-
-### Community 11 - "Community 11"
-Cohesion: 0.10
-Nodes (9): AccordionComponent, AccordionItem, CardComponent, CardVariant, SplitterComponent, StepperComponent, StepperStep, TabComponent (+1 more)
+Cohesion: 0.17
+Nodes (5): AIPromptEditorComponent, dict, t, text, unique
 
 ### Community 12 - "Community 12"
 Cohesion: 0.14
@@ -250,7 +291,7 @@ Nodes (10): d, date, DatePickerComponent, days, first, last, m, today (+2 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.13
-Nodes (5): CheckboxComponent, RadioOption, RatingComponent, SwitchComponent, TextareaComponent
+Nodes (9): PreviewFileItem, UploadFileItem, RadioOption, RatingComponent, SegmentedControlComponent, SegmentedOption, val, SwitchComponent (+1 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.11
@@ -263,6 +304,10 @@ Nodes (18): BarChartComponent, Date Utilities, GanttBaselineItem, GanttChartComp
 ### Community 19 - "Community 19"
 Cohesion: 0.14
 Nodes (5): ApiRow, Employee, EmployeeProject, field, GridDemoComponent
+
+### Community 20 - "Community 20"
+Cohesion: 0.15
+Nodes (3): ColorPickerComponent, COLORS, ThemingDemoComponent
 
 ### Community 22 - "Community 22"
 Cohesion: 0.09
@@ -285,7 +330,7 @@ Cohesion: 0.24
 Nodes (12): options, assets, browser, index, inlineStyleLanguage, outputPath, polyfills, project (+4 more)
 
 ### Community 28 - "Community 28"
-Cohesion: 0.20
+Cohesion: 0.21
 Nodes (11): ApiRow, ApiRow, base, taskIds, getSampleDependencies(), getSampleTasks(), getTransportDependencies(), getTransportTasks() (+3 more)
 
 ### Community 30 - "Community 30"
@@ -301,20 +346,20 @@ Cohesion: 0.25
 Nodes (11): AccordionComponent, AccordionItem, CardComponent, CardVariant, Layout ng-package.json, Layout Public API, SplitterComponent, StepperComponent (+3 more)
 
 ### Community 33 - "Community 33"
-Cohesion: 0.19
+Cohesion: 0.18
 Nodes (5): ApiRow, TooltipDemoComponent, PopoverComponent, TooltipDirective, TooltipPosition
 
 ### Community 34 - "Community 34"
-Cohesion: 0.11
-Nodes (11): BreadcrumbComponent, BreadcrumbItem, CommandItem, CommandPaletteComponent, flat, groups, grp, list (+3 more)
+Cohesion: 0.09
+Nodes (12): BackToTopComponent, BreadcrumbComponent, BreadcrumbItem, CommandItem, CommandPaletteComponent, flat, groups, grp (+4 more)
 
 ### Community 35 - "Community 35"
 Cohesion: 0.18
 Nodes (4): ApiRow, Employee, query, TreeListDemoComponent
 
 ### Community 36 - "Community 36"
-Cohesion: 0.39
-Nodes (3): GanttGroup, GanttLayoutService, RowGroup
+Cohesion: 0.22
+Nodes (8): ListViewItemClickEvent, ListViewPageChangeEvent, ListViewSelectionEvent, size, TimelineComponent, TimelineItem, TreeNode, TreeNodeEvent
 
 ### Community 37 - "Community 37"
 Cohesion: 0.33
@@ -432,6 +477,10 @@ Nodes (3): lib, entryFile, $schema
 Cohesion: 0.15
 Nodes (8): colorsList, items, LayoutItem, layoutList, rawData, totalVal, TreemapChartComponent, TreemapItem
 
+### Community 130 - "Community 130"
+Cohesion: 0.14
+Nodes (9): all, arr, end, raw, start, VirtualListComponent, VirtualListItem, VirtualListItemClickEvent (+1 more)
+
 ### Community 131 - "Community 131"
 Cohesion: 0.29
 Nodes (6): ApiRow, CssVar, lines, result, ThemePreset, vars
@@ -444,22 +493,66 @@ Nodes (10): FunnelChartComponent, FunnelItem, items, sorted, RadarSeries, bw, d,
 Cohesion: 0.50
 Nodes (3): lib, entryFile, $schema
 
+### Community 142 - "Community 142"
+Cohesion: 0.64
+Nodes (5): AgentStep, AICard, AICardAction, AIMessage, QuickReply
+
+### Community 143 - "Community 143"
+Cohesion: 0.29
+Nodes (4): AIModel, AIModelCompareComponent, query, tag
+
+### Community 148 - "Community 148"
+Cohesion: 0.19
+Nodes (9): SchedulerEvent, SchedulerEventChangeEvent, SchedulerSlotClickEvent, cols, date, end, list, mode (+1 more)
+
+### Community 151 - "Community 151"
+Cohesion: 0.31
+Nodes (3): ApiRow, d, SchedulerDemoComponent
+
+### Community 158 - "Community 158"
+Cohesion: 0.17
+Nodes (7): AccordionComponent, AccordionItem, CardComponent, CardVariant, StepperComponent, StepperStep, TabComponent
+
+### Community 159 - "Community 159"
+Cohesion: 0.20
+Nodes (6): NotificationContainerComponent, NotificationItem, NotificationOptions, NotificationPosition, NotificationType, POSITIONS
+
+### Community 160 - "Community 160"
+Cohesion: 0.39
+Nodes (3): GanttGroup, GanttLayoutService, RowGroup
+
+### Community 167 - "Community 167"
+Cohesion: 0.33
+Nodes (5): CountdownVariant, d, h, m, s
+
+### Community 169 - "Community 169"
+Cohesion: 0.20
+Nodes (5): groups, KeyValueItem, KeyValueListComponent, list, term
+
+### Community 171 - "Community 171"
+Cohesion: 0.40
+Nodes (3): CarouselDemoComponent, FeatureSlide, ImageSlide
+
+### Community 176 - "Community 176"
+Cohesion: 0.38
+Nodes (5): cells, cols, rows, DashboardLayoutChangeEvent, DashboardPanelActionEvent
+
 ## Knowledge Gaps
-- **384 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `root` (+379 more)
+- **422 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `root` (+417 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **68 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **101 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `ThemingDemoComponent` connect `Community 20` to `Community 131`?**
-  _High betweenness centrality (0.023) - this node is a cross-community bridge._
-- **Why does `ColorPickerComponent` connect `Community 130` to `Community 16`?**
-  _High betweenness centrality (0.023) - this node is a cross-community bridge._
-- **Why does `GanttChartComponent` connect `Community 1` to `Community 36`, `Community 133`, `Community 6`, `Community 137`, `Community 12`, `Community 55`?**
-  _High betweenness centrality (0.010) - this node is a cross-community bridge._
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Why does `ColorPickerComponent` connect `Community 20` to `Community 16`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Why does `GanttChartComponent` connect `Community 1` to `Community 160`, `Community 133`, `Community 6`, `Community 137`, `Community 12`, `Community 55`?**
+  _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **What connects `$schema`, `version`, `newProjectRoot` to the rest of the system?**
-  _391 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _429 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.05224963715529753 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**

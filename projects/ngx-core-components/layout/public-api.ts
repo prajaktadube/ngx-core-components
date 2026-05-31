@@ -14,3 +14,19 @@ export { StepperComponent } from './stepper/stepper.component';
 export type { StepperStep } from './stepper/stepper.component';
 
 export { SplitterComponent } from './splitter/splitter.component';
+
+// Dashboard Layout - Grid widget panel orchestrator
+export { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component';
+export type {
+  DashboardItem,
+  DashboardLayoutChangeEvent,
+  DashboardPanelActionEvent,
+} from './dashboard-layout/models';
+
+// Carousel Slider
+export { CarouselComponent } from './carousel/carousel.component';
+
+// Side Drawer Container
+export { DrawerComponent } from './drawer/drawer.component';
+
+

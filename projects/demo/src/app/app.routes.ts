@@ -65,6 +65,11 @@ export const routes: Routes = [
         import('./pages/layout-demo/layout-demo.component').then(m => m.LayoutDemoComponent),
     },
     {
+      path: 'dashboard-layout',
+      loadComponent: () =>
+        import('./pages/dashboard-layout-demo/dashboard-layout-demo.component').then(m => m.DashboardLayoutDemoComponent),
+    },
+    {
       path: 'feedback',
       loadComponent: () =>
         import('./pages/feedback-demo/feedback-demo.component').then(m => m.FeedbackDemoComponent),
@@ -94,5 +99,75 @@ export const routes: Routes = [
       path: 'ai',
       loadComponent: () =>
         import('./pages/ai-demo/ai-demo.component').then(m => m.AiDemoComponent),
+    },
+    {
+      path: 'scheduler',
+      loadComponent: () =>
+        import('./pages/scheduler-demo/scheduler-demo.component').then(m => m.SchedulerDemoComponent),
+    },
+    {
+      path: 'avatars',
+      loadComponent: () =>
+        import('./pages/avatars-demo/avatars-demo.component').then(m => m.AvatarsDemoComponent),
+    },
+    {
+      path: 'virtual-list',
+      loadComponent: () =>
+        import('./pages/virtual-list-demo/virtual-list-demo.component').then(m => m.VirtualListDemoComponent),
+    },
+    {
+      path: 'stat-cards',
+      loadComponent: () =>
+        import('./pages/stat-cards-demo/stat-cards-demo.component').then(m => m.StatCardsDemoComponent),
+    },
+    {
+      path: 'tag-input',
+      loadComponent: () =>
+        import('./pages/tag-input-demo/tag-input-demo.component').then(m => m.TagInputDemoComponent),
+    },
+    {
+      path: 'countdown',
+      loadComponent: () =>
+        import('./pages/countdown-demo/countdown-demo.component').then(m => m.CountdownDemoComponent),
+    },
+    {
+      path: 'carousel',
+      loadComponent: () =>
+        import('./pages/carousel-demo/carousel-demo.component').then(m => m.CarouselDemoComponent),
+    },
+    {
+      path: 'file-preview',
+      loadComponent: () =>
+        import('./pages/file-preview-demo/file-preview-demo.component').then(m => m.FilePreviewDemoComponent),
+    },
+    {
+      path: 'drawer',
+      loadComponent: () =>
+        import('./pages/drawer-demo/drawer-demo.component').then(m => m.DrawerDemoComponent),
+    },
+    {
+      path: 'segmented-control',
+      loadComponent: () =>
+        import('./pages/segmented-control-demo/segmented-control-demo.component').then(m => m.SegmentedControlDemoComponent),
+    },
+    {
+      path: 'image-compare',
+      loadComponent: () =>
+        import('./pages/image-compare-demo/image-compare-demo.component').then(m => m.ImageCompareDemoComponent),
+    },
+    {
+      path: 'key-value-list',
+      loadComponent: () =>
+        import('./pages/key-value-list-demo/key-value-list-demo.component').then(m => m.KeyValueListDemoComponent),
+    },
+    {
+      path: 'empty-state',
+      loadComponent: () =>
+        import('./pages/empty-state-demo/empty-state-demo.component').then(m => m.EmptyStateDemoComponent),
+    },
+    {
+      path: 'back-to-top',
+      loadComponent: () =>
+        import('./pages/back-to-top-demo/back-to-top-demo.component').then(m => m.BackToTopDemoComponent),
     },
 ];

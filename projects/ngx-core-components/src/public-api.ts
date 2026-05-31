@@ -103,6 +103,14 @@ export { KanbanComponent } from 'ngx-core-components/views';
 export type { KanbanCard, KanbanColumn } from 'ngx-core-components/views';
 export { TimelineComponent } from 'ngx-core-components/views';
 export type { TimelineItem } from 'ngx-core-components/views';
+export { SchedulerComponent } from 'ngx-core-components/views';
+export type { SchedulerEvent, SchedulerSlotClickEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';
+export { VirtualListComponent } from 'ngx-core-components/views';
+export type { VirtualListItem, VirtualListItemClickEvent } from 'ngx-core-components/views';
+export { ImageCompareComponent } from 'ngx-core-components/views';
+export { KeyValueListComponent } from 'ngx-core-components/views';
+export type { KeyValueItem } from 'ngx-core-components/views';
+
 
 
 
@@ -138,8 +146,18 @@ export {
   AccordionComponent,
   StepperComponent,
   SplitterComponent,
+  DashboardLayoutComponent,
+  CarouselComponent,
+  DrawerComponent,
 } from 'ngx-core-components/layout';
-export type { CardVariant, AccordionItem, StepperStep } from 'ngx-core-components/layout';
+export type {
+  CardVariant,
+  AccordionItem,
+  StepperStep,
+  DashboardItem,
+  DashboardLayoutChangeEvent,
+  DashboardPanelActionEvent,
+} from 'ngx-core-components/layout';
 
 // ===== Feedback (also available via ngx-core-components/feedback) =====
 export {
@@ -148,6 +166,11 @@ export {
   SkeletonComponent,
   NotificationService,
   NotificationContainerComponent,
+  AvatarComponent,
+  AvatarGroupComponent,
+  StatCardComponent,
+  CountdownComponent,
+  EmptyStateComponent,
 } from 'ngx-core-components/feedback';
 export type {
   BadgeVariant,
@@ -157,6 +180,12 @@ export type {
   NotificationOptions,
   NotificationType,
   NotificationPosition,
+  AvatarSize,
+  AvatarShape,
+  AvatarStatus,
+  AvatarItem,
+  StatCardVariant,
+  CountdownVariant,
 } from 'ngx-core-components/feedback';
 
 // ===== Navigation (also available via ngx-core-components/navigation) =====
@@ -164,6 +193,7 @@ export {
   BreadcrumbComponent,
   MenuComponent,
   CommandPaletteComponent,
+  BackToTopComponent,
 } from 'ngx-core-components/navigation';
 export type {
   BreadcrumbItem,
@@ -181,7 +211,12 @@ export {
   ColorPickerComponent,
   TimePickerComponent,
   DateRangePickerComponent,
+  FileUploadComponent,
+  TagInputComponent,
+  FilePreviewComponent,
+  SegmentedControlComponent,
 } from 'ngx-core-components/inputs';
+export type { UploadFileItem, PreviewFileItem, SegmentedOption } from 'ngx-core-components/inputs';
 
 // ===== Barcodes (also available via ngx-core-components/barcodes) =====
 export { QrCodeComponent, BarcodeComponent } from 'ngx-core-components/barcodes';

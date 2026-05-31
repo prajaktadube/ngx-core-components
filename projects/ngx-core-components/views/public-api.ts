@@ -21,3 +21,18 @@ export type { KanbanCard, KanbanColumn } from './kanban/models';
 // Timeline Component — chronological events list vertical/horizontal
 export { TimelineComponent } from './timeline/timeline.component';
 export type { TimelineItem } from './timeline/timeline.component';
+
+// Scheduler Component — Day/Week/Month appointment planner
+export { SchedulerComponent } from './scheduler/scheduler.component';
+export type { SchedulerEvent, SchedulerSlotClickEvent, SchedulerEventChangeEvent } from './scheduler/models';
+
+// Virtual List — high-performance windowed list for large datasets
+export { VirtualListComponent } from './virtual-list/virtual-list.component';
+export type { VirtualListItem, VirtualListItemClickEvent } from './virtual-list/virtual-list.component';
+
+// Image Compare Slider
+export { ImageCompareComponent } from './image-compare/image-compare.component';
+
+// Key Value Details List
+export { KeyValueListComponent } from './key-value-list/key-value-list.component';
+export type { KeyValueItem } from './key-value-list/key-value-list.component';
