@@ -73,7 +73,7 @@ export type {
 export { ZoomLevel, DependencyType } from 'ngx-core-components/charts';
 
 // ===== Data Grid (also available via ngx-core-components/grid) =====
-export { DataGridComponent } from 'ngx-core-components/grid';
+export { DataGridComponent, PivotGridComponent } from 'ngx-core-components/grid';
 export type {
   GridColumnDef,
   GridFilterState,
@@ -91,6 +91,7 @@ export type {
   GridCellTemplateContext,
   GridRowTemplateContext,
   GridDetailTemplateContext,
+  PivotValueDef,
 } from 'ngx-core-components/grid';
 
 // ===== Hierarchical Views (also available via ngx-core-components/views) =====
@@ -103,16 +104,24 @@ export type {
   ListViewPageChangeEvent,
 } from 'ngx-core-components/views';
 export { KanbanComponent } from 'ngx-core-components/views';
-export type { KanbanCard, KanbanColumn } from 'ngx-core-components/views';
+export type {
+  KanbanCard,
+  KanbanColumn,
+  KanbanSwimlane,
+  KanbanCardMoveEvent,
+  KanbanMoveRejectedEvent,
+} from 'ngx-core-components/views';
 export { TimelineComponent } from 'ngx-core-components/views';
 export type { TimelineItem } from 'ngx-core-components/views';
 export { SchedulerComponent } from 'ngx-core-components/views';
-export type { SchedulerEvent, SchedulerSlotClickEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';
+export type { SchedulerEvent, SchedulerRecurrence, SchedulerSlotClickEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';
 export { VirtualListComponent } from 'ngx-core-components/views';
 export type { VirtualListItem, VirtualListItemClickEvent } from 'ngx-core-components/views';
 export { ImageCompareComponent } from 'ngx-core-components/views';
 export { KeyValueListComponent } from 'ngx-core-components/views';
 export type { KeyValueItem } from 'ngx-core-components/views';
+export { OrgChartComponent, JsonViewerComponent } from 'ngx-core-components/views';
+export type { OrgChartNode } from 'ngx-core-components/views';
 
 
 
@@ -196,12 +205,14 @@ export {
   BreadcrumbComponent,
   MenuComponent,
   CommandPaletteComponent,
+  ContextMenuComponent,
   BackToTopComponent,
 } from 'ngx-core-components/navigation';
 export type {
   BreadcrumbItem,
   MenuItem,
   CommandItem,
+  ContextMenuItem,
 } from 'ngx-core-components/navigation';
 
 // ===== Additional Inputs (also available via ngx-core-components/inputs) =====
@@ -218,8 +229,16 @@ export {
   TagInputComponent,
   FilePreviewComponent,
   SegmentedControlComponent,
+  FormBuilderComponent,
+  SignaturePadComponent,
 } from 'ngx-core-components/inputs';
-export type { UploadFileItem, PreviewFileItem, SegmentedOption } from 'ngx-core-components/inputs';
+export type {
+  UploadFileItem,
+  PreviewFileItem,
+  SegmentedOption,
+  FormBuilderField,
+  FormBuilderOption,
+} from 'ngx-core-components/inputs';
 
 // ===== Barcodes (also available via ngx-core-components/barcodes) =====
 export { QrCodeComponent, BarcodeComponent } from 'ngx-core-components/barcodes';

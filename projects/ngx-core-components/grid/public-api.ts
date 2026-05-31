@@ -21,3 +21,6 @@ export type {
   GridRowTemplateContext,
   GridDetailTemplateContext,
 } from './data-grid/data-grid.component';
+
+export { PivotGridComponent } from './pivot-grid/pivot-grid.component';
+export type { PivotValueDef } from './pivot-grid/pivot-grid.component';

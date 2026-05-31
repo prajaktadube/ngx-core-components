@@ -64,4 +64,11 @@ export type { PreviewFileItem } from './file-preview/file-preview.component';
 export { SegmentedControlComponent } from './segmented-control/segmented-control.component';
 export type { SegmentedOption } from './segmented-control/segmented-control.component';
 
+// Dynamic Form Builder
+export { FormBuilderComponent } from './form-builder/form-builder.component';
+export type { FormBuilderField, FormBuilderOption } from './form-builder/form-builder.component';
+
+// Signature Pad
+export { SignaturePadComponent } from './signature-pad/signature-pad.component';
+
 

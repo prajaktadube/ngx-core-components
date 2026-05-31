@@ -16,7 +16,13 @@ export type {
 
 // Kanban Board — visual drag-and-drop workflow task board
 export { KanbanComponent } from './kanban/kanban.component';
-export type { KanbanCard, KanbanColumn } from './kanban/models';
+export type {
+  KanbanCard,
+  KanbanColumn,
+  KanbanSwimlane,
+  KanbanCardMoveEvent,
+  KanbanMoveRejectedEvent,
+} from './kanban/models';
 
 // Timeline Component — chronological events list vertical/horizontal
 export { TimelineComponent } from './timeline/timeline.component';
@@ -24,7 +30,12 @@ export type { TimelineItem } from './timeline/timeline.component';
 
 // Scheduler Component — Day/Week/Month appointment planner
 export { SchedulerComponent } from './scheduler/scheduler.component';
-export type { SchedulerEvent, SchedulerSlotClickEvent, SchedulerEventChangeEvent } from './scheduler/models';
+export type {
+  SchedulerEvent,
+  SchedulerRecurrence,
+  SchedulerSlotClickEvent,
+  SchedulerEventChangeEvent,
+} from './scheduler/models';
 
 // Virtual List — high-performance windowed list for large datasets
 export { VirtualListComponent } from './virtual-list/virtual-list.component';
@@ -36,3 +47,10 @@ export { ImageCompareComponent } from './image-compare/image-compare.component';
 // Key Value Details List
 export { KeyValueListComponent } from './key-value-list/key-value-list.component';
 export type { KeyValueItem } from './key-value-list/key-value-list.component';
+
+// Org Chart
+export { OrgChartComponent } from './org-chart/org-chart.component';
+export type { OrgChartNode } from './org-chart/org-chart.component';
+
+// JSON Viewer
+export { JsonViewerComponent } from './json-viewer/json-viewer.component';
