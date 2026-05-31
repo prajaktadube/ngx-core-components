@@ -11,6 +11,12 @@ import {
   ElementRef,
   OnInit,
   untracked,
+  DestroyRef,
+  HostListener,
+  ContentChildren,
+  Directive,
+  Input,
+  QueryList,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
@@ -25,8 +31,13 @@ export interface GridColumnDef<T = Record<string, unknown>> {
   align?: 'left' | 'center' | 'right';
   headerTemplate?: TemplateRef<GridHeaderTemplateContext<T>>;
   cellTemplate?: TemplateRef<GridCellTemplateContext<T>>;
+  editCellTemplate?: TemplateRef<GridCellTemplateContext<T>>;
+  footerTemplate?: TemplateRef<GridFooterTemplateContext<T>>;
   aggregation?: 'sum' | 'avg' | 'count' | 'min' | 'max';
-  pinned?: 'left';
+  pinned?: 'left' | 'right' | null;
+  hidden?: boolean;
+  category?: string;
+  mergeRows?: boolean;
 }
 
 export interface GridSortState {
@@ -105,6 +116,8 @@ export interface GridCellTemplateContext<T = Record<string, unknown>> {
   column: GridColumnDef<T>;
   index: number;
   editing: boolean;
+  draftValue?: unknown;
+  updateDraft?: (val: unknown) => void;
 }
 
 export interface GridRowTemplateContext<T = Record<string, unknown>> {
@@ -121,10 +134,55 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
   index: number;
 }
 
+export interface GridFooterTemplateContext<T = Record<string, unknown>> {
+  $implicit: GridColumnDef<T>;
+  column: GridColumnDef<T>;
+  aggregationValue: string;
+  data: T[];
+}
+
+@Directive({
+  selector: '[ngxGridCellTemplate]',
+  standalone: true
+})
+export class NgxGridCellTemplateDirective {
+  @Input('ngxGridCellTemplate') columnField!: string;
+  templateRef = inject(TemplateRef);
+}
+
+@Directive({
+  selector: '[ngxGridEditCellTemplate]',
+  standalone: true
+})
+export class NgxGridEditCellTemplateDirective {
+  @Input('ngxGridEditCellTemplate') columnField!: string;
+  templateRef = inject(TemplateRef);
+}
+
+@Directive({
+  selector: '[ngxGridHeaderTemplate]',
+  standalone: true
+})
+export class NgxGridHeaderTemplateDirective {
+  @Input('ngxGridHeaderTemplate') columnField!: string;
+  templateRef = inject(TemplateRef);
+}
+
+@Directive({
+  selector: '[ngxGridFooterTemplate]',
+  standalone: true
+})
+export class NgxGridFooterTemplateDirective {
+  @Input('ngxGridFooterTemplate') columnField!: string;
+  templateRef = inject(TemplateRef);
+}
+
 @Component({
   selector: 'ngx-data-grid',
   standalone: true,
-  imports: [NgTemplateOutlet],
+  imports: [
+    NgTemplateOutlet
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-data-grid" [class.loading]="loading()">
@@ -146,6 +204,9 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
               }
             </div>
           }
+          @if (showColumnChooser()) {
+            <button class="grid-action-btn" (click)="openColumnChooser($event)" title="Choose columns">Columns</button>
+          }
           <button class="grid-action-btn" (click)="exportToJson()" title="Export JSON">JSON</button>
           <button class="grid-action-btn" (click)="exportToCsv()" title="Export CSV">CSV</button>
         </div>
@@ -153,77 +214,157 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
 
       <div class="grid-table-wrap">
         <table class="grid-table" [class.striped]="striped()">
+          <colgroup>
+            @if (rowReorderable()) {
+              <col style="width: 44px" />
+            }
+            @if (showDetailToggle()) {
+              <col style="width: 44px" />
+            }
+            @if (selectable()) {
+              <col style="width: 44px" />
+            }
+            @for (col of orderedColumns(); track col.field) {
+              <col [style.width.px]="getColumnWidth(col)" />
+            }
+            @if (editable()) {
+              <col style="width: 120px" />
+            }
+          </colgroup>
           <thead>
-            <tr>
+            <ng-template #headerCellContent let-col="col">
+              <div class="th-content-wrapper">
+                @if (resolveHeaderTemplate(col); as activeHeaderTemplate) {
+                  <ng-container *ngTemplateOutlet="activeHeaderTemplate; context: {
+                    $implicit: col,
+                    column: col,
+                    sort: sortState(),
+                    filters: activeFilters(),
+                    isServerMode: isAnyServerMode()
+                  }" />
+                } @else {
+                  <span class="th-text">{{ col.title }}</span>
+                  @if (col.sortable) {
+                    @if (getSortDirection(col); as dir) {
+                      <span class="sort-icon active">
+                        {{ dir === 'asc' ? '↑' : '↓' }}
+                        @if (multiSort() && sortStates().length > 1) {
+                          <sub class="sort-order-badge">{{ getSortIndex(col) }}</sub>
+                        }
+                      </span>
+                    } @else {
+                      <span class="sort-icon">↕</span>
+                    }
+                  }
+                }
+                @if (col.filterable) {
+                  <button class="grid-filter-btn" [class.active]="filterStates().has(col.field)" (click)="openFilterPopover($event, col.field); $event.stopPropagation()" title="Filter column">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                  </button>
+                }
+              </div>
+              <div class="grid-resize-handle" (mousedown)="onResizeStart($event, col)" (click)="$event.stopPropagation()"></div>
+            </ng-template>
+
+            <tr class="grid-header-row">
               @if (rowReorderable()) {
-                <th class="grid-th grid-th-reorder pinned-left" style="width:44px; left:0px"></th>
+                <th class="grid-th grid-th-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" style="width:44px; left:0px"></th>
               }
               @if (showDetailToggle()) {
-                <th class="grid-th grid-th-toggle pinned-left" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></th>
+                <th class="grid-th grid-th-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></th>
               }
               @if (selectable()) {
-                <th class="grid-th grid-th-check pinned-left" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px">
+                <th class="grid-th grid-th-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px">
                   <input type="checkbox" [checked]="allSelected()" [indeterminate]="someSelected() && !allSelected()" (change)="toggleAll()" />
                 </th>
               }
-              @for (col of orderedColumns(); track col.field) {
-                <th
-                  class="grid-th"
-                  [class.pinned-left]="col.pinned === 'left'"
-                  [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
-                  [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
-                  [style.width.px]="getColumnWidth(col)"
-                  [class.sortable]="col.sortable"
-                  [class.sort-asc]="getSortDirection(col) === 'asc'"
-                  [class.sort-desc]="getSortDirection(col) === 'desc'"
-                  [class.dragging]="draggingField() === col.field"
-                  [class.drag-over]="dragOverField() === col.field"
-                  [attr.draggable]="reorderable() ? true : null"
-                  (dragstart)="onDragStart($event, col)"
-                  (dragover)="onDragOver($event, col)"
-                  (drop)="onDrop($event, col)"
-                  (dragend)="onDragEnd()"
-                  (click)="col.sortable ? onSort(col, $event) : null"
-                >
-                  <div class="th-content-wrapper">
-                    @if (resolveHeaderTemplate(col); as activeHeaderTemplate) {
-                      <ng-container *ngTemplateOutlet="activeHeaderTemplate; context: {
-                        $implicit: col,
-                        column: col,
-                        sort: sortState(),
-                        filters: activeFilters(),
-                        isServerMode: isAnyServerMode()
-                      }" />
-                    } @else {
-                      <span class="th-text">{{ col.title }}</span>
-                      @if (col.sortable) {
-                        @if (getSortDirection(col); as dir) {
-                          <span class="sort-icon active">
-                            {{ dir === 'asc' ? '↑' : '↓' }}
-                            @if (multiSort() && sortStates().length > 1) {
-                              <sub class="sort-order-badge">{{ getSortIndex(col) }}</sub>
-                            }
-                          </span>
-                        } @else {
-                          <span class="sort-icon">↕</span>
-                        }
-                      }
-                    }
-                    @if (col.filterable) {
-                      <button class="grid-filter-btn" [class.active]="filterStates().has(col.field)" (click)="openFilterPopover($event, col.field); $event.stopPropagation()" title="Filter column">
-                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                        </svg>
-                      </button>
-                    }
-                  </div>
-                  <div class="grid-resize-handle" (mousedown)="onResizeStart($event, col)" (click)="$event.stopPropagation()"></div>
-                </th>
+              @for (cell of headerRows().row1; track cell.field) {
+                @if (cell.isCategory) {
+                  <th
+                    class="grid-th grid-category-th"
+                    [class.pinned-left]="cell.pinned === 'left'"
+                    [class.pinned-left-last]="cell.isPinnedLast"
+                    [class.pinned-right]="cell.pinned === 'right'"
+                    [class.pinned-right-first]="cell.isPinnedFirst"
+                    [style.left.px]="cell.pinned === 'left' ? cell.leftOffset : null"
+                    [style.right.px]="cell.pinned === 'right' ? cell.rightOffset : null"
+                    [attr.colspan]="cell.colSpan"
+                    [attr.rowspan]="cell.rowSpan"
+                  >
+                    <span class="category-title">{{ cell.title }}</span>
+                  </th>
+                } @else {
+                  <th
+                    class="grid-th"
+                    [class.pinned-left]="cell.column.pinned === 'left'"
+                    [class.pinned-left-last]="cell.isPinnedLast"
+                    [class.pinned-right]="cell.column.pinned === 'right'"
+                    [class.pinned-right-first]="cell.isPinnedFirst"
+                    [style.left.px]="cell.column.pinned === 'left' ? cell.leftOffset : null"
+                    [style.right.px]="cell.column.pinned === 'right' ? cell.rightOffset : null"
+                    [style.width.px]="getColumnWidth(cell.column)"
+                    [class.sortable]="cell.column.sortable"
+                    [class.sort-asc]="getSortDirection(cell.column) === 'asc'"
+                    [class.sort-desc]="getSortDirection(cell.column) === 'desc'"
+                    [class.dragging]="draggingField() === cell.column.field"
+                    [class.drag-over]="dragOverField() === cell.column.field"
+                    [attr.draggable]="reorderable() ? true : null"
+                    (dragstart)="onDragStart($event, cell.column)"
+                    (dragover)="onDragOver($event, cell.column)"
+                    (drop)="onDrop($event, cell.column)"
+                    (dragend)="onDragEnd()"
+                    (click)="cell.column.sortable ? onSort(cell.column, $event) : null"
+                    [attr.colspan]="cell.colSpan"
+                    [attr.rowspan]="cell.rowSpan"
+                  >
+                    <ng-container *ngTemplateOutlet="headerCellContent; context: { col: cell.column }" />
+                  </th>
+                }
               }
               @if (editable()) {
-                <th class="grid-th" style="width:120px">Actions</th>
+                <th
+                  class="grid-th"
+                  [class.pinned-right]="firstPinnedRightColumnField() !== null"
+                  [class.pinned-right-first]="firstPinnedRightColumnField() === null"
+                  [style.right.px]="firstPinnedRightColumnField() !== null ? 0 : null"
+                  [attr.rowspan]="hasColumnCategories() ? 2 : 1"
+                  style="width:120px"
+                >Actions</th>
               }
             </tr>
+            @if (hasColumnCategories()) {
+              <tr class="grid-header-row sub-header-row">
+                @for (cell of headerRows().row2; track cell.field) {
+                  <th
+                    class="grid-th"
+                    [class.pinned-left]="cell.column.pinned === 'left'"
+                    [class.pinned-left-last]="cell.isPinnedLast"
+                    [class.pinned-right]="cell.column.pinned === 'right'"
+                    [class.pinned-right-first]="cell.isPinnedFirst"
+                    [style.left.px]="cell.column.pinned === 'left' ? cell.leftOffset : null"
+                    [style.right.px]="cell.column.pinned === 'right' ? cell.rightOffset : null"
+                    [style.width.px]="getColumnWidth(cell.column)"
+                    [class.sortable]="cell.column.sortable"
+                    [class.sort-asc]="getSortDirection(cell.column) === 'asc'"
+                    [class.sort-desc]="getSortDirection(cell.column) === 'desc'"
+                    [class.dragging]="draggingField() === cell.column.field"
+                    [class.drag-over]="dragOverField() === cell.column.field"
+                    [attr.draggable]="reorderable() ? true : null"
+                    (dragstart)="onDragStart($event, cell.column)"
+                    (dragover)="onDragOver($event, cell.column)"
+                    (drop)="onDrop($event, cell.column)"
+                    (dragend)="onDragEnd()"
+                    (click)="cell.column.sortable ? onSort(cell.column, $event) : null"
+                    [attr.colspan]="cell.colSpan"
+                    [attr.rowspan]="cell.rowSpan"
+                  >
+                    <ng-container *ngTemplateOutlet="headerCellContent; context: { col: cell.column }" />
+                  </th>
+                }
+              </tr>
+            }
           </thead>
           <tbody>
             @if (loading()) {
@@ -239,13 +380,59 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
             } @else if (groupedRows().length > 0) {
               @for (group of groupedRows(); track group.key) {
                 <tr class="grid-group-row" (click)="toggleGroup(group.key)">
-                  <td [attr.colspan]="renderColumnCount()">
-                    <button class="group-toggle" type="button" (click)="toggleGroup(group.key); $event.stopPropagation()">
-                      {{ isGroupCollapsed(group.key) ? '▸' : '▾' }}
-                    </button>
-                    <strong>{{ group.field }}</strong>: {{ group.value }}
-                    <span class="group-count">({{ group.count }})</span>
-                  </td>
+                  @if (groupAggregations()) {
+                    @if (rowReorderable()) {
+                      <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; width:44px"></td>
+                    }
+                    @if (showDetailToggle()) {
+                      <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></td>
+                    }
+                    @if (selectable()) {
+                      <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px">
+                        <input type="checkbox" [checked]="isGroupAllSelected(group)" (change)="toggleGroupSelection(group, $event)" (click)="$event.stopPropagation()" />
+                      </td>
+                    }
+                    @for (col of orderedColumns(); track col.field; let first = $first) {
+                      <td
+                        class="grid-td"
+                        [class.pinned-left]="col.pinned === 'left'"
+                        [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
+                        [class.pinned-right]="col.pinned === 'right'"
+                        [class.pinned-right-first]="col.pinned === 'right' && firstPinnedRightColumnField() === col.field"
+                        [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
+                        [style.right.px]="col.pinned === 'right' ? columnRightOffsets()[col.field] : null"
+                        [style.text-align]="col.align ?? 'left'"
+                        [style.width.px]="getColumnWidth(col)"
+                      >
+                        @if (first) {
+                          <div style="display: flex; align-items: center; gap: 4px;">
+                            <button class="group-toggle" type="button" (click)="toggleGroup(group.key); $event.stopPropagation()" style="background: transparent; border: none; cursor: pointer; padding: 0 4px; font-weight: bold; color: inherit; outline: none;">
+                              {{ isGroupCollapsed(group.key) ? '▸' : '▾' }}
+                            </button>
+                            <strong>{{ col.category ? '' : group.field + ': ' }}</strong>{{ group.value }} <span class="group-count">({{ group.count }})</span>
+                          </div>
+                        } @else if (col.aggregation) {
+                          <span class="agg-label">{{ col.aggregation }}: </span>
+                          <strong class="agg-value">{{ getGroupAggregationValue(group, col) }}</strong>
+                        }
+                      </td>
+                    }
+                    @if (editable()) {
+                      <td
+                        [class.pinned-right]="firstPinnedRightColumnField() !== null"
+                        [class.pinned-right-first]="firstPinnedRightColumnField() === null"
+                        [style.right.px]="firstPinnedRightColumnField() !== null ? 0 : null"
+                      ></td>
+                    }
+                  } @else {
+                    <td [attr.colspan]="renderColumnCount()">
+                      <button class="group-toggle" type="button" (click)="toggleGroup(group.key); $event.stopPropagation()">
+                        {{ isGroupCollapsed(group.key) ? '▸' : '▾' }}
+                      </button>
+                      <strong>{{ group.field }}</strong>: {{ group.value }}
+                      <span class="group-count">({{ group.count }})</span>
+                    </td>
+                  }
                 </tr>
 
                 @if (!isGroupCollapsed(group.key)) {
@@ -262,7 +449,7 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                       (dblclick)="editable() ? beginEdit(row, i) : null"
                     >
                       @if (rowReorderable()) {
-                        <td class="grid-td grid-td-reorder pinned-left" style="left:0px; text-align:center; width:44px">
+                        <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
                           <span
                             class="row-drag-handle"
                             draggable="true"
@@ -273,7 +460,7 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                       }
 
                       @if (showDetailToggle()) {
-                        <td class="grid-td grid-td-toggle pinned-left" [style.left.px]="rowReorderable() ? 44 : 0">
+                        <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
                           <button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">
                             {{ isExpanded(row) ? '▾' : '▸' }}
                           </button>
@@ -281,7 +468,7 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                       }
 
                       @if (selectable()) {
-                        <td class="grid-td grid-td-check pinned-left" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)">
+                        <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)">
                           <input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" />
                         </td>
                       }
@@ -298,42 +485,74 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                         </td>
                       } @else {
                         @for (col of orderedColumns(); track col.field) {
-                          <td
-                            class="grid-td"
-                            [class.pinned-left]="col.pinned === 'left'"
-                            [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
-                            [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
-                            [style.text-align]="col.align ?? 'left'"
-                            [style.width.px]="getColumnWidth(col)"
-                          >
-                            @if (isEditing(row) && editable() && col.editable) {
-                              <input
-                                class="grid-edit-input"
-                                [value]="toStringSafe(getDraftValue(row, col.field))"
-                                (input)="updateDraft(col.field, $any($event.target).value)"
-                                (click)="$event.stopPropagation()"
-                              />
-                            } @else if (resolveCellTemplate(col)) {
-                              <ng-container *ngTemplateOutlet="resolveCellTemplate(col)!; context: {
-                                $implicit: getCellValue(row, col.field),
-                                value: getCellValue(row, col.field),
-                                row: row,
-                                column: col,
-                                index: i,
-                                editing: isEditing(row)
-                              }" />
-                            } @else {
-                              @if (showGlobalSearch() && searchText()) {
-                                <span [innerHTML]="highlightSearchText(getCellValue(row, col.field))"></span>
+                          @if (getCellRowSpan(row, col.field, i, group.items) > 0) {
+                            <td
+                              class="grid-td"
+                              [attr.rowspan]="getCellRowSpan(row, col.field, i, group.items)"
+                              [class.pinned-left]="col.pinned === 'left'"
+                              [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
+                              [class.pinned-right]="col.pinned === 'right'"
+                              [class.pinned-right-first]="col.pinned === 'right' && firstPinnedRightColumnField() === col.field"
+                              [class.cell-focused]="focusedCell()?.row === row && focusedCell()?.colField === col.field"
+                              [class.cell-focused-editing]="focusedCell()?.row === row && focusedCell()?.colField === col.field && focusedCellEditActive()"
+                              [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
+                              [style.right.px]="col.pinned === 'right' ? columnRightOffsets()[col.field] : null"
+                              [style.text-align]="col.align ?? 'left'"
+                              [style.width.px]="getColumnWidth(col)"
+                              [class.cell-selected]="isCellSelected(row, col.field)"
+                              (mousedown)="onCellMouseDown($event, row, col.field)"
+                              (mouseenter)="onCellMouseEnter(row, col.field)"
+                              (contextmenu)="onCellContextMenu($event, row, col.field)"
+                              (click)="onCellClick(row, col.field)"
+                            >
+                              @if (isEditing(row) && editable() && col.editable) {
+                                @if (resolveEditCellTemplate(col); as activeEditTemplate) {
+                                  <ng-container *ngTemplateOutlet="activeEditTemplate; context: {
+                                    $implicit: getDraftValue(row, col.field),
+                                    value: getCellValue(row, col.field),
+                                    row: row,
+                                    column: col,
+                                    index: i,
+                                    editing: true,
+                                    draftValue: getDraftValue(row, col.field),
+                                    updateDraft: getUpdateDraftCallback(col.field)
+                                  }" />
+                                } @else {
+                                  <input
+                                    class="grid-edit-input"
+                                    [value]="toStringSafe(getDraftValue(row, col.field))"
+                                    (input)="updateDraft(col.field, $any($event.target).value)"
+                                    (click)="$event.stopPropagation()"
+                                  />
+                                }
+                              } @else if (resolveCellTemplate(col)) {
+                                <ng-container *ngTemplateOutlet="resolveCellTemplate(col)!; context: {
+                                  $implicit: getCellValue(row, col.field),
+                                  value: getCellValue(row, col.field),
+                                  row: row,
+                                  column: col,
+                                  index: i,
+                                  editing: isEditing(row)
+                                }" />
                               } @else {
-                                {{ getCellValue(row, col.field) }}
+                                @if (showGlobalSearch() && searchText()) {
+                                  <span [innerHTML]="highlightSearchText(getCellValue(row, col.field))"></span>
+                                } @else {
+                                  {{ getCellValue(row, col.field) }}
+                                }
                               }
-                            }
-                          </td>
+                            </td>
+                          }
                         }
 
                         @if (editable()) {
-                          <td class="grid-td grid-actions" style="width:120px">
+                          <td
+                            class="grid-td grid-actions"
+                            [class.pinned-right]="firstPinnedRightColumnField() !== null"
+                            [class.pinned-right-first]="firstPinnedRightColumnField() === null"
+                            [style.right.px]="firstPinnedRightColumnField() !== null ? 0 : null"
+                            style="width:120px"
+                          >
                             @if (!isEditing(row)) {
                               <button class="action-btn" type="button" (click)="beginEdit(row, i); $event.stopPropagation()">Edit</button>
                             } @else {
@@ -373,7 +592,7 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                   (dblclick)="editable() ? beginEdit(row, i) : null"
                 >
                   @if (rowReorderable()) {
-                    <td class="grid-td grid-td-reorder pinned-left" style="left:0px; text-align:center; width:44px">
+                    <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
                       <span
                         class="row-drag-handle"
                         draggable="true"
@@ -384,7 +603,7 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                   }
 
                   @if (showDetailToggle()) {
-                    <td class="grid-td grid-td-toggle pinned-left" [style.left.px]="rowReorderable() ? 44 : 0">
+                    <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
                       <button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">
                         {{ isExpanded(row) ? '▾' : '▸' }}
                       </button>
@@ -392,7 +611,7 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                   }
 
                   @if (selectable()) {
-                    <td class="grid-td grid-td-check pinned-left" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)">
+                    <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)">
                       <input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" />
                     </td>
                   }
@@ -409,42 +628,74 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
                     </td>
                   } @else {
                     @for (col of orderedColumns(); track col.field) {
-                      <td
-                        class="grid-td"
-                        [class.pinned-left]="col.pinned === 'left'"
-                        [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
-                        [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
-                        [style.text-align]="col.align ?? 'left'"
-                        [style.width.px]="getColumnWidth(col)"
-                      >
-                        @if (isEditing(row) && editable() && col.editable) {
-                          <input
-                            class="grid-edit-input"
-                            [value]="toStringSafe(getDraftValue(row, col.field))"
-                            (input)="updateDraft(col.field, $any($event.target).value)"
-                            (click)="$event.stopPropagation()"
-                          />
-                        } @else if (resolveCellTemplate(col)) {
-                          <ng-container *ngTemplateOutlet="resolveCellTemplate(col)!; context: {
-                            $implicit: getCellValue(row, col.field),
-                            value: getCellValue(row, col.field),
-                            row: row,
-                            column: col,
-                            index: i,
-                            editing: isEditing(row)
-                          }" />
-                        } @else {
-                          @if (showGlobalSearch() && searchText()) {
-                            <span [innerHTML]="highlightSearchText(getCellValue(row, col.field))"></span>
+                      @if (getCellRowSpan(row, col.field, i) > 0) {
+                        <td
+                          class="grid-td"
+                          [attr.rowspan]="getCellRowSpan(row, col.field, i)"
+                          [class.pinned-left]="col.pinned === 'left'"
+                          [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
+                          [class.pinned-right]="col.pinned === 'right'"
+                          [class.pinned-right-first]="col.pinned === 'right' && firstPinnedRightColumnField() === col.field"
+                          [class.cell-focused]="focusedCell()?.row === row && focusedCell()?.colField === col.field"
+                          [class.cell-focused-editing]="focusedCell()?.row === row && focusedCell()?.colField === col.field && focusedCellEditActive()"
+                          [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
+                          [style.right.px]="col.pinned === 'right' ? columnRightOffsets()[col.field] : null"
+                          [style.text-align]="col.align ?? 'left'"
+                          [style.width.px]="getColumnWidth(col)"
+                          [class.cell-selected]="isCellSelected(row, col.field)"
+                          (mousedown)="onCellMouseDown($event, row, col.field)"
+                          (mouseenter)="onCellMouseEnter(row, col.field)"
+                          (contextmenu)="onCellContextMenu($event, row, col.field)"
+                          (click)="onCellClick(row, col.field)"
+                        >
+                          @if (isEditing(row) && editable() && col.editable) {
+                            @if (resolveEditCellTemplate(col); as activeEditTemplate) {
+                              <ng-container *ngTemplateOutlet="activeEditTemplate; context: {
+                                $implicit: getDraftValue(row, col.field),
+                                value: getCellValue(row, col.field),
+                                row: row,
+                                column: col,
+                                index: i,
+                                editing: true,
+                                draftValue: getDraftValue(row, col.field),
+                                updateDraft: getUpdateDraftCallback(col.field)
+                              }" />
+                            } @else {
+                              <input
+                                class="grid-edit-input"
+                                [value]="toStringSafe(getDraftValue(row, col.field))"
+                                (input)="updateDraft(col.field, $any($event.target).value)"
+                                (click)="$event.stopPropagation()"
+                              />
+                            }
+                          } @else if (resolveCellTemplate(col)) {
+                            <ng-container *ngTemplateOutlet="resolveCellTemplate(col)!; context: {
+                              $implicit: getCellValue(row, col.field),
+                              value: getCellValue(row, col.field),
+                              row: row,
+                              column: col,
+                              index: i,
+                              editing: isEditing(row)
+                            }" />
                           } @else {
-                            {{ getCellValue(row, col.field) }}
+                            @if (showGlobalSearch() && searchText()) {
+                              <span [innerHTML]="highlightSearchText(getCellValue(row, col.field))"></span>
+                            } @else {
+                              {{ getCellValue(row, col.field) }}
+                            }
                           }
-                        }
-                      </td>
+                        </td>
+                      }
                     }
 
                     @if (editable()) {
-                      <td class="grid-td grid-actions" style="width:120px">
+                      <td
+                        class="grid-td grid-actions"
+                        [class.pinned-right]="firstPinnedRightColumnField() !== null"
+                        [class.pinned-right-first]="firstPinnedRightColumnField() === null"
+                        [style.right.px]="firstPinnedRightColumnField() !== null ? 0 : null"
+                        style="width:120px"
+                      >
                         @if (!isEditing(row)) {
                           <button class="action-btn" type="button" (click)="beginEdit(row, i); $event.stopPropagation()">Edit</button>
                         } @else {
@@ -474,28 +725,42 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
             <tfoot>
               <tr class="grid-footer-row">
                 @if (showDetailToggle()) {
-                  <td class="grid-td-toggle" [class.sticky-toggle]="hasPinnedColumns()" style="left:0px"></td>
+                  <td class="grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" style="left:0px; width:44px"></td>
                 }
                 @if (selectable()) {
-                  <td class="grid-td-check" [class.sticky-check]="hasPinnedColumns()" [style.left.px]="showDetailToggle() ? 44 : 0"></td>
+                  <td class="grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="showDetailToggle() ? 44 : 0" style="width:44px"></td>
                 }
                 @for (col of orderedColumns(); track col.field) {
                   <td
                     class="grid-td grid-footer-cell"
                     [class.pinned-left]="col.pinned === 'left'"
                     [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
+                    [class.pinned-right]="col.pinned === 'right'"
+                    [class.pinned-right-first]="col.pinned === 'right' && firstPinnedRightColumnField() === col.field"
                     [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
+                    [style.right.px]="col.pinned === 'right' ? columnRightOffsets()[col.field] : null"
                     [style.text-align]="col.align ?? 'left'"
                     [style.width.px]="getColumnWidth(col)"
                   >
-                    @if (col.aggregation) {
+                    @if (resolveFooterTemplate(col); as activeFooterTemplate) {
+                      <ng-container *ngTemplateOutlet="activeFooterTemplate; context: {
+                        $implicit: col,
+                        column: col,
+                        aggregationValue: getAggregationValue(col),
+                        data: flatRenderedRows()
+                      }" />
+                    } @else if (col.aggregation) {
                       <span class="agg-label">{{ col.aggregation }}: </span>
                       <strong class="agg-value">{{ getAggregationValue(col) }}</strong>
                     }
                   </td>
                 }
                 @if (editable()) {
-                  <td></td>
+                  <td
+                    [class.pinned-right]="firstPinnedRightColumnField() !== null"
+                    [class.pinned-right-first]="firstPinnedRightColumnField() === null"
+                    [style.right.px]="firstPinnedRightColumnField() !== null ? 0 : null"
+                  ></td>
                 }
               </tr>
             </tfoot>
@@ -561,6 +826,53 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
               <button class="popover-btn apply" (click)="applyPopoverFilter()">Apply</button>
             </div>
           </div>
+        </div>
+      }
+
+      <!-- Column Chooser Popover Overlay -->
+      @if (activeColumnChooserPopover(); as pop) {
+        <div class="grid-column-chooser-popover" [style.top.px]="pop.top" [style.left.px]="pop.left" (click)="$event.stopPropagation()">
+          <div class="popover-section checklist-section" style="border-top: none; padding-top: 0;">
+            <label class="popover-label">Visible Columns</label>
+            <div class="checklist-scroll">
+              @for (col of columns(); track col.field) {
+                <label class="checklist-item">
+                  <input type="checkbox" [checked]="!hiddenColumns().has(col.field)" (change)="toggleColumnVisibility(col.field)" />
+                  <span>{{ col.title }}</span>
+                </label>
+              }
+            </div>
+          </div>
+          <div class="popover-footer">
+            <button class="popover-btn apply" (click)="activeColumnChooserPopover.set(null)">Close</button>
+          </div>
+        </div>
+      }
+
+      <!-- Custom Context Menu Overlay -->
+      @if (activeContextMenu(); as menu) {
+        <div class="grid-context-menu" [style.top.px]="menu.y" [style.left.px]="menu.x" (click)="$event.stopPropagation()">
+          <button class="menu-item" [disabled]="!selectedCellStart()" (click)="contextMenuCopy()">
+            <span class="menu-icon">📋</span> Copy Selection
+          </button>
+          <div class="menu-divider"></div>
+          <button class="menu-item" (click)="contextMenuTogglePin(menu.colField)">
+            <span class="menu-icon">📌</span> {{ isColumnPinned(menu.colField) ? 'Unpin Column' : 'Pin Column Left' }}
+          </button>
+          <button class="menu-item" (click)="contextMenuHideColumn(menu.colField)">
+            <span class="menu-icon">👁️</span> Hide Column
+          </button>
+          <div class="menu-divider"></div>
+          <button class="menu-item" [disabled]="filterStates().size === 0" (click)="contextMenuClearFilters()">
+            <span class="menu-icon">🧹</span> Clear All Filters
+          </button>
+          <div class="menu-divider"></div>
+          <button class="menu-item" (click)="exportToJson(); activeContextMenu.set(null)">
+            <span class="menu-icon">📄</span> Export to JSON
+          </button>
+          <button class="menu-item" (click)="exportToCsv(); activeContextMenu.set(null)">
+            <span class="menu-icon">📊</span> Export to CSV
+          </button>
         </div>
       }
     </div>
@@ -636,6 +948,15 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
       letter-spacing: 0.05em;
       font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
     }
+    .grid-category-th {
+      text-align: center;
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-right: 1px solid var(--ngx-grid-border, #e2e8f0);
+    }
+    .sub-header-row .grid-th {
+      border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
+      border-right: 1px solid var(--ngx-grid-border, #f1f5f9);
+    }
     .grid-th.sortable { cursor: pointer; transition: background-color 0.2s; }
     .grid-th.sortable:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); }
     .grid-th.sort-asc, .grid-th.sort-desc { color: var(--ngx-input-focus, #4f46e5); }
@@ -686,7 +1007,8 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
       background: var(--ngx-input-focus, #4f46e5);
     }
     
-    .grid-filter-popover {
+    .grid-filter-popover,
+    .grid-column-chooser-popover {
       position: absolute;
       width: 250px;
       background: var(--ngx-grid-bg, #ffffff);
@@ -1017,7 +1339,8 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
     .pinned-left-last,
     .sticky-toggle-last,
     .sticky-check-last {
-      border-right: 2px solid var(--ngx-grid-border, #cbd5e1) !important;
+      border-right: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
+      box-shadow: 4px 0 8px -3px rgba(0, 0, 0, 0.15);
     }
     .grid-table.striped .grid-row:nth-child(even) .pinned-left,
     .grid-table.striped .grid-row:nth-child(even) .sticky-toggle,
@@ -1038,6 +1361,54 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
     .grid-footer-row .sticky-toggle,
     .grid-footer-row .sticky-check {
       background: var(--ngx-grid-header-bg, #f8fafc);
+    }
+
+    .pinned-right {
+      position: sticky !important;
+      z-index: 2;
+      background: var(--ngx-grid-bg, #ffffff);
+    }
+    th.pinned-right {
+      z-index: 4;
+      background: var(--ngx-grid-header-bg, #f8fafc);
+    }
+    .pinned-right-first {
+      border-left: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
+      box-shadow: -4px 0 8px -3px rgba(0, 0, 0, 0.15);
+    }
+    .grid-table.striped .grid-row:nth-child(even) .pinned-right {
+      background: var(--ngx-grid-stripe-bg, #f8fafc);
+    }
+    .grid-row:hover .pinned-right {
+      background: var(--ngx-grid-hover-bg, #f1f5f9) !important;
+    }
+    .grid-row.selected .pinned-right {
+      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
+    }
+    .grid-footer-row .pinned-right {
+      background: var(--ngx-grid-header-bg, #f8fafc);
+    }
+
+    /* Keyboard Navigation Styles */
+    .grid-td.cell-focused {
+      outline: 2px solid var(--ngx-input-focus, #4f46e5) !important;
+      outline-offset: -2px;
+      z-index: 5;
+    }
+    .grid-td.cell-focused-editing {
+      padding: 0 !important;
+    }
+    .grid-td.cell-focused-editing .grid-edit-input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      padding: 12px 16px;
+      box-sizing: border-box;
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      font-family: inherit;
+      font-size: inherit;
     }
     
     /* Drag & Drop Reordering Styles */
@@ -1119,6 +1490,11 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
       padding: 1px 2px;
       border-radius: 4px;
     }
+    .grid-td.cell-selected {
+      background: var(--ngx-grid-cell-selected-bg, rgba(79, 70, 229, 0.12)) !important;
+      outline: 1.5px solid var(--ngx-grid-cell-selected-border, #4f46e5);
+      outline-offset: -1.5px;
+    }
 
     /* Row Drag & Drop Styles */
     .row-drag-handle {
@@ -1145,9 +1521,69 @@ export interface GridDetailTemplateContext<T = Record<string, unknown>> {
     .grid-row.drag-over-row {
       border-top: 2px solid var(--ngx-input-focus, #4f46e5) !important;
     }
+
+    .grid-context-menu {
+      position: absolute;
+      width: 180px;
+      background: var(--ngx-grid-bg, rgba(255, 255, 255, 0.95));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-radius: 10px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      z-index: 2000;
+      padding: 6px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-family: inherit;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: none;
+      background: transparent;
+      color: var(--ngx-grid-text, #0f172a);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .menu-item:hover:not(:disabled) {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      color: var(--ngx-btn-primary-bg, #4f46e5);
+    }
+    .menu-item:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .menu-icon {
+      font-size: 14px;
+      width: 16px;
+      text-align: center;
+    }
+    .menu-divider {
+      height: 1px;
+      background: var(--ngx-grid-border, #e2e8f0);
+      margin: 4px 6px;
+    }
   `],
 })
 export class DataGridComponent<T extends object = Record<string, unknown>> implements OnInit {
+  @ContentChildren(NgxGridCellTemplateDirective) cellTemplates!: QueryList<NgxGridCellTemplateDirective>;
+  @ContentChildren(NgxGridEditCellTemplateDirective) editCellTemplates!: QueryList<NgxGridEditCellTemplateDirective>;
+  @ContentChildren(NgxGridHeaderTemplateDirective) headerTemplates!: QueryList<NgxGridHeaderTemplateDirective>;
+  @ContentChildren(NgxGridFooterTemplateDirective) footerTemplates!: QueryList<NgxGridFooterTemplateDirective>;
+
   data = input<T[]>([]);
   columns = input<GridColumnDef<T>[]>([]);
   stateKey = input<string>('');
@@ -1178,8 +1614,10 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
   headerTemplate = input<TemplateRef<GridHeaderTemplateContext<T>> | null>(null);
   cellTemplate = input<TemplateRef<GridCellTemplateContext<T>> | null>(null);
+  editCellTemplate = input<TemplateRef<GridCellTemplateContext<T>> | null>(null);
   rowTemplate = input<TemplateRef<GridRowTemplateContext<T>> | null>(null);
   detailRowTemplate = input<TemplateRef<GridDetailTemplateContext<T>> | null>(null);
+  footerTemplate = input<TemplateRef<GridFooterTemplateContext<T>> | null>(null);
 
   rowClick = output<GridRowClickEvent<T>>();
   selectionChange = output<T[]>();
@@ -1189,6 +1627,14 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   pageChange = output<GridPageChangeEvent>();
   dataStateChange = output<GridDataStateChangeEvent>();
   rowUpdate = output<GridRowUpdateEvent<T>>();
+
+  // New Enterprise Features
+  showColumnChooser = input<boolean>(false);
+  cellSelection = input<boolean>(false);
+  cellSelectionChange = output<{ start: { row: T; colField: string }; end: { row: T; colField: string } } | null>();
+  enableContextMenu = input<boolean>(false);
+  keyboardNavigation = input<boolean>(false);
+  groupAggregations = input<boolean>(false);
 
   sortState = signal<GridSortState | null>(null);
   currentPage = signal(1);
@@ -1200,11 +1646,29 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   
   // Enterprise Extensions
   private elementRef = inject(ElementRef);
+  destroyRef = inject(DestroyRef);
   columnWidths = signal<Record<string, number>>({});
   filterStates = signal<Map<string, GridFilterState>>(new Map());
   sortStates = signal<GridSortState[]>([]);
   columnOrder = signal<string[]>([]);
   
+  // Column Chooser state
+  hiddenColumns = signal<Set<string>>(new Set());
+  activeColumnChooserPopover = signal<{ top: number; left: number } | null>(null);
+
+  // Cell Selection state
+  selectedCellStart = signal<{ row: T; colField: string } | null>(null);
+  selectedCellEnd = signal<{ row: T; colField: string } | null>(null);
+  isCellDragging = signal<boolean>(false);
+
+  // Context Menu state
+  activeContextMenu = signal<{ x: number; y: number; row: T | null; colField: string | null } | null>(null);
+  columnPinnedOverrides = signal<Record<string, 'left' | 'right' | null>>({});
+
+  // Keyboard Navigation state
+  focusedCell = signal<{ row: T; colField: string } | null>(null);
+  focusedCellEditActive = signal<boolean>(false);
+
   // Drag and drop state
   draggingField = signal<string | null>(null);
   dragOverField = signal<string | null>(null);
@@ -1266,6 +1730,25 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       }
     });
 
+    // Initialize hidden columns from definitions
+    effect(() => {
+      const cols = this.columns();
+      untracked(() => {
+        const currentHidden = this.hiddenColumns();
+        if (currentHidden.size === 0 && !this.stateKey()) {
+          const initialHidden = new Set<string>();
+          cols.forEach(c => {
+            if (c.hidden) {
+              initialHidden.add(c.field);
+            }
+          });
+          if (initialHidden.size > 0) {
+            this.hiddenColumns.set(initialHidden);
+          }
+        }
+      });
+    }, { allowSignalWrites: true });
+
     effect(() => {
       const key = this.stateKey();
       if (!key || typeof window === 'undefined' || typeof localStorage === 'undefined') {
@@ -1278,7 +1761,9 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         columnOrder: this.columnOrder(),
         currentPage: this.currentPage(),
         filters: Array.from(this.filterStates().values()),
-        searchText: this.searchText()
+        searchText: this.searchText(),
+        hiddenColumns: Array.from(this.hiddenColumns()),
+        columnPinnedOverrides: this.columnPinnedOverrides()
       };
       try {
         localStorage.setItem(`ngx_grid_state_${key}`, JSON.stringify(state));
@@ -1286,6 +1771,51 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         console.warn('Failed to save grid state to localStorage', e);
       }
     });
+
+    // Window event listeners for closing popovers and copy behavior
+    if (typeof window !== 'undefined') {
+      const clickListener = () => {
+        this.activeFilterPopover.set(null);
+        this.activeColumnChooserPopover.set(null);
+        this.activeContextMenu.set(null);
+      };
+      const mouseUpListener = () => {
+        if (this.isCellDragging()) {
+          this.isCellDragging.set(false);
+        }
+      };
+      const keydownListener = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          this.activeFilterPopover.set(null);
+          this.activeColumnChooserPopover.set(null);
+          this.activeContextMenu.set(null);
+        }
+        if (!this.cellSelection()) return;
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
+          const start = this.selectedCellStart();
+          const end = this.selectedCellEnd();
+          if (!start || !end) return;
+
+          const text = this.getSelectedCellsText();
+          if (text) {
+            e.preventDefault();
+            navigator.clipboard.writeText(text).catch(err => {
+              console.error('Failed to copy grid cell range to clipboard', err);
+            });
+          }
+        }
+      };
+
+      window.addEventListener('click', clickListener);
+      window.addEventListener('mouseup', mouseUpListener);
+      window.addEventListener('keydown', keydownListener);
+
+      this.destroyRef.onDestroy(() => {
+        window.removeEventListener('click', clickListener);
+        window.removeEventListener('mouseup', mouseUpListener);
+        window.removeEventListener('keydown', keydownListener);
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -1327,6 +1857,12 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         if (state.searchText !== undefined) {
           this.searchText.set(state.searchText);
         }
+        if (state.hiddenColumns) {
+          this.hiddenColumns.set(new Set(state.hiddenColumns));
+        }
+        if (state.columnPinnedOverrides) {
+          this.columnPinnedOverrides.set(state.columnPinnedOverrides);
+        }
       }
     } catch (e) {
       console.warn('Failed to load grid state from localStorage', e);
@@ -1336,8 +1872,19 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   orderedColumns = computed(() => {
     const cols = this.columns();
     const order = this.columnOrder();
+    const hidden = this.hiddenColumns();
+    const pinOverrides = this.columnPinnedOverrides();
     
-    let mapped = [...cols];
+    let mapped = cols
+      .filter(c => !hidden.has(c.field))
+      .map(c => {
+        const pinOverride = pinOverrides[c.field];
+        if (pinOverride !== undefined) {
+          return { ...c, pinned: pinOverride === null ? undefined : pinOverride };
+        }
+        return c;
+      });
+
     if (order.length > 0) {
       mapped.sort((a, b) => {
         const idxA = order.indexOf(a.field);
@@ -1349,16 +1896,57 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       });
     }
     
-    const pinned = mapped.filter(c => c.pinned === 'left');
-    const normal = mapped.filter(c => c.pinned !== 'left');
-    return [...pinned, ...normal];
+    const pinnedLeft = mapped.filter(c => c.pinned === 'left');
+    const pinnedRight = mapped.filter(c => c.pinned === 'right');
+    const normal = mapped.filter(c => c.pinned !== 'left' && c.pinned !== 'right');
+    return [...pinnedLeft, ...normal, ...pinnedRight];
   });
 
-  hasPinnedColumns = computed(() => this.columns().some(c => c.pinned === 'left'));
+  hasPinnedColumns = computed(() => this.orderedColumns().some(c => c.pinned === 'left' || c.pinned === 'right'));
 
   lastPinnedColumnField = computed(() => {
     const pinned = this.orderedColumns().filter(c => c.pinned === 'left');
     return pinned.length > 0 ? pinned[pinned.length - 1].field : null;
+  });
+
+  isSelectableLastPinned = computed(() => {
+    const hasPinnedCols = this.orderedColumns().some(c => c.pinned === 'left');
+    return this.selectable() && !hasPinnedCols;
+  });
+
+  isDetailToggleLastPinned = computed(() => {
+    const hasPinnedCols = this.orderedColumns().some(c => c.pinned === 'left');
+    return this.showDetailToggle() && !this.selectable() && !hasPinnedCols;
+  });
+
+  isRowReorderableLastPinned = computed(() => {
+    const hasPinnedCols = this.orderedColumns().some(c => c.pinned === 'left');
+    return this.rowReorderable() && !this.showDetailToggle() && !this.selectable() && !hasPinnedCols;
+  });
+
+  firstPinnedRightColumnField = computed(() => {
+    const pinned = this.orderedColumns().filter(c => c.pinned === 'right');
+    return pinned.length > 0 ? pinned[0].field : null;
+  });
+
+  columnRightOffsets = computed(() => {
+    const offsets: Record<string, number> = {};
+    let currentOffset = 0;
+    
+    if (this.editable()) {
+      offsets['__actions'] = currentOffset;
+      currentOffset += 120;
+    }
+    
+    const cols = this.orderedColumns();
+    for (let i = cols.length - 1; i >= 0; i--) {
+      const col = cols[i];
+      if (col.pinned === 'right') {
+        offsets[col.field] = currentOffset;
+        currentOffset += this.getColumnWidth(col) ?? 120;
+      }
+    }
+    return offsets;
   });
 
   columnOffsets = computed(() => {
@@ -1383,6 +1971,93 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       }
     }
     return offsets;
+  });
+
+  hasColumnCategories = computed(() => {
+    return this.orderedColumns().some(c => !!c.category);
+  });
+
+  headerRows = computed(() => {
+    const cols = this.orderedColumns();
+    const hasCat = this.hasColumnCategories();
+    if (!hasCat) {
+      return {
+        row1: cols.map(c => ({
+          title: c.title,
+          column: c,
+          colSpan: 1,
+          rowSpan: 1,
+          isCategory: false,
+          field: c.field,
+          pinned: c.pinned,
+          leftOffset: c.pinned === 'left' ? this.columnOffsets()[c.field] : null,
+          rightOffset: c.pinned === 'right' ? this.columnRightOffsets()[c.field] : null,
+          isPinnedLast: c.pinned === 'left' && this.lastPinnedColumnField() === c.field,
+          isPinnedFirst: c.pinned === 'right' && this.firstPinnedRightColumnField() === c.field
+        })),
+        row2: [] as any[]
+      };
+    }
+
+    const row1: any[] = [];
+    const row2: any[] = [];
+
+    let i = 0;
+    while (i < cols.length) {
+      const col = cols[i];
+      if (!col.category) {
+        row1.push({
+          title: col.title,
+          column: col,
+          colSpan: 1,
+          rowSpan: 2,
+          isCategory: false,
+          field: col.field,
+          pinned: col.pinned,
+          leftOffset: col.pinned === 'left' ? this.columnOffsets()[col.field] : null,
+          rightOffset: col.pinned === 'right' ? this.columnRightOffsets()[col.field] : null,
+          isPinnedLast: col.pinned === 'left' && this.lastPinnedColumnField() === col.field,
+          isPinnedFirst: col.pinned === 'right' && this.firstPinnedRightColumnField() === col.field
+        });
+        i++;
+      } else {
+        const cat = col.category;
+        const startIdx = i;
+        while (i < cols.length && cols[i].category === cat && cols[i].pinned === col.pinned) {
+          const currentCol = cols[i];
+          row2.push({
+            title: currentCol.title,
+            column: currentCol,
+            colSpan: 1,
+            rowSpan: 1,
+            isCategory: false,
+            field: currentCol.field,
+            pinned: currentCol.pinned,
+            leftOffset: currentCol.pinned === 'left' ? this.columnOffsets()[currentCol.field] : null,
+            rightOffset: currentCol.pinned === 'right' ? this.columnRightOffsets()[currentCol.field] : null,
+            isPinnedLast: currentCol.pinned === 'left' && this.lastPinnedColumnField() === currentCol.field,
+            isPinnedFirst: currentCol.pinned === 'right' && this.firstPinnedRightColumnField() === currentCol.field
+          });
+          i++;
+        }
+        const groupCount = i - startIdx;
+        const lastColInGroup = cols[i - 1];
+        row1.push({
+          title: cat,
+          colSpan: groupCount,
+          rowSpan: 1,
+          isCategory: true,
+          pinned: col.pinned,
+          leftOffset: col.pinned === 'left' ? this.columnOffsets()[col.field] : null,
+          rightOffset: col.pinned === 'right' ? this.columnRightOffsets()[lastColInGroup.field] : null,
+          isPinnedLast: col.pinned === 'left' && this.lastPinnedColumnField() === lastColInGroup.field,
+          isPinnedFirst: col.pinned === 'right' && this.firstPinnedRightColumnField() === col.field,
+          field: `__cat_${cat}_${startIdx}`
+        });
+      }
+    }
+
+    return { row1, row2 };
   });
 
   hasFilterableColumns = computed(() => this.columns().some(column => column.filterable));
@@ -1589,6 +2264,224 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   );
 
   showPager = computed(() => this.totalItems() > 0);
+
+  renderedRowsList = computed(() => {
+    if (this.hasGrouping()) {
+      const list: T[] = [];
+      this.groupedRows().forEach(group => {
+        if (!this.isGroupCollapsed(group.key)) {
+          list.push(...group.items);
+        }
+      });
+      return list;
+    }
+    return this.flatRenderedRows();
+  });
+
+  isCellSelected(row: T, colField: string): boolean {
+    const start = this.selectedCellStart();
+    const end = this.selectedCellEnd();
+    if (!start || !end) return false;
+
+    const rows = this.renderedRowsList();
+    const cols = this.orderedColumns();
+
+    const startRowIndex = rows.indexOf(start.row);
+    const endRowIndex = rows.indexOf(end.row);
+    const rowIndex = rows.indexOf(row);
+
+    const startColIndex = cols.findIndex(c => c.field === start.colField);
+    const endColIndex = cols.findIndex(c => c.field === end.colField);
+    const colIndex = cols.findIndex(c => c.field === colField);
+
+    if (startRowIndex === -1 || endRowIndex === -1 || rowIndex === -1 ||
+        startColIndex === -1 || endColIndex === -1 || colIndex === -1) {
+      return false;
+    }
+
+    const minRow = Math.min(startRowIndex, endRowIndex);
+    const maxRow = Math.max(startRowIndex, endRowIndex);
+    const minCol = Math.min(startColIndex, endColIndex);
+    const maxCol = Math.max(startColIndex, endColIndex);
+
+    return rowIndex >= minRow && rowIndex <= maxRow && colIndex >= minCol && colIndex <= maxCol;
+  }
+
+  onCellContextMenu(event: MouseEvent, row: T, colField: string): void {
+    if (!this.enableContextMenu()) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    const gridEl = this.elementRef.nativeElement.querySelector('.ngx-data-grid') as HTMLElement;
+    const gridRect = gridEl.getBoundingClientRect();
+
+    const x = event.clientX - gridRect.left;
+    const y = event.clientY - gridRect.top;
+
+    this.activeFilterPopover.set(null);
+    this.activeColumnChooserPopover.set(null);
+
+    this.activeContextMenu.set({
+      x: Math.min(x, gridRect.width - 190),
+      y: y,
+      row,
+      colField
+    });
+  }
+
+  isColumnPinned(field: string | null): boolean {
+    if (!field) return false;
+    const pinOverride = this.columnPinnedOverrides()[field];
+    if (pinOverride !== undefined) {
+      return pinOverride === 'left';
+    }
+    const col = this.columns().find(c => c.field === field);
+    return col?.pinned === 'left';
+  }
+
+  contextMenuTogglePin(field: string | null): void {
+    if (!field) return;
+    const currentlyPinned = this.isColumnPinned(field);
+    const overrides = { ...this.columnPinnedOverrides() };
+    overrides[field] = currentlyPinned ? null : 'left';
+    this.columnPinnedOverrides.set(overrides);
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuHideColumn(field: string | null): void {
+    if (field) {
+      this.toggleColumnVisibility(field);
+    }
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuClearFilters(): void {
+    this.filterStates.set(new Map());
+    this.currentPage.set(1);
+    this.filterChange.emit({ filters: [] });
+    this.emitDataState();
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuCopy(): void {
+    const text = this.getSelectedCellsText();
+    if (text) {
+      navigator.clipboard.writeText(text).catch(err => {
+        console.error('Failed to copy to clipboard', err);
+      });
+    }
+    this.activeContextMenu.set(null);
+  }
+
+  onCellMouseDown(event: MouseEvent, row: T, colField: string): void {
+    if (!this.cellSelection()) return;
+    if (event.button !== 0) return;
+
+    const target = event.target as HTMLElement;
+    if (target && (target.closest('.grid-edit-input') || target.closest('.action-btn') || target.closest('.toggle-btn') || target.closest('input[type="checkbox"]'))) {
+      return;
+    }
+
+    event.preventDefault();
+    
+    this.selectedCellStart.set({ row, colField });
+    this.selectedCellEnd.set({ row, colField });
+    this.isCellDragging.set(true);
+
+    this.cellSelectionChange.emit({
+      start: { row, colField },
+      end: { row, colField }
+    });
+  }
+
+  onCellMouseEnter(row: T, colField: string): void {
+    if (!this.cellSelection() || !this.isCellDragging()) return;
+
+    this.selectedCellEnd.set({ row, colField });
+
+    const start = this.selectedCellStart();
+    if (start) {
+      this.cellSelectionChange.emit({
+        start,
+        end: { row, colField }
+      });
+    }
+  }
+
+  openColumnChooser(event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.activeColumnChooserPopover()) {
+      this.activeColumnChooserPopover.set(null);
+      return;
+    }
+
+    this.activeFilterPopover.set(null);
+
+    const buttonEl = event.currentTarget as HTMLElement;
+    const gridEl = this.elementRef.nativeElement.querySelector('.ngx-data-grid') as HTMLElement;
+    const buttonRect = buttonEl.getBoundingClientRect();
+    const gridRect = gridEl.getBoundingClientRect();
+
+    const top = buttonRect.bottom - gridRect.top;
+    const left = buttonRect.left - gridRect.left;
+
+    this.activeColumnChooserPopover.set({
+      top,
+      left: Math.min(left, gridRect.width - 260)
+    });
+  }
+
+  toggleColumnVisibility(field: string): void {
+    const hidden = new Set(this.hiddenColumns());
+    if (hidden.has(field)) {
+      hidden.delete(field);
+    } else {
+      if (hidden.size < this.columns().length - 1) {
+        hidden.add(field);
+      }
+    }
+    this.hiddenColumns.set(hidden);
+  }
+
+  getSelectedCellsText(): string | null {
+    const start = this.selectedCellStart();
+    const end = this.selectedCellEnd();
+    if (!start || !end) return null;
+
+    const rows = this.renderedRowsList();
+    const cols = this.orderedColumns();
+
+    const startRowIndex = rows.indexOf(start.row);
+    const endRowIndex = rows.indexOf(end.row);
+
+    const startColIndex = cols.findIndex(c => c.field === start.colField);
+    const endColIndex = cols.findIndex(c => c.field === end.colField);
+
+    if (startRowIndex === -1 || endRowIndex === -1 || startColIndex === -1 || endColIndex === -1) {
+      return null;
+    }
+
+    const minRow = Math.min(startRowIndex, endRowIndex);
+    const maxRow = Math.max(startRowIndex, endRowIndex);
+    const minCol = Math.min(startColIndex, endColIndex);
+    const maxCol = Math.max(startColIndex, endColIndex);
+
+    const selectedCols = cols.slice(minCol, maxCol + 1);
+
+    const textLines: string[] = [];
+    for (let r = minRow; r <= maxRow; r++) {
+      if (r >= 0 && r < rows.length) {
+        const rowData = rows[r];
+        const rowValues = selectedCols.map(col => {
+          const val = this.getCellValue(rowData, col.field);
+          return val !== null && val !== undefined ? String(val) : '';
+        });
+        textLines.push(rowValues.join('\t'));
+      }
+    }
+
+    return textLines.join('\n');
+  }
 
   getFilter(field: string): string {
     return this.filterStates().get(field)?.value ?? '';
@@ -2093,11 +2986,51 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   }
 
   resolveHeaderTemplate(column: GridColumnDef<T>): TemplateRef<GridHeaderTemplateContext<T>> | null {
-    return column.headerTemplate ?? this.headerTemplate();
+    if (column.headerTemplate) {
+      return column.headerTemplate;
+    }
+    const match = this.headerTemplates?.find(t => t.columnField === column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.headerTemplate();
   }
 
   resolveCellTemplate(column: GridColumnDef<T>): TemplateRef<GridCellTemplateContext<T>> | null {
-    return column.cellTemplate ?? this.cellTemplate();
+    if (column.cellTemplate) {
+      return column.cellTemplate;
+    }
+    const match = this.cellTemplates?.find(t => t.columnField === column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.cellTemplate();
+  }
+
+  resolveEditCellTemplate(column: GridColumnDef<T>): TemplateRef<GridCellTemplateContext<T>> | null {
+    if (column.editCellTemplate) {
+      return column.editCellTemplate;
+    }
+    const match = this.editCellTemplates?.find(t => t.columnField === column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.editCellTemplate();
+  }
+
+  resolveFooterTemplate(column: GridColumnDef<T>): TemplateRef<GridFooterTemplateContext<T>> | null {
+    if (column.footerTemplate) {
+      return column.footerTemplate;
+    }
+    const match = this.footerTemplates?.find(t => t.columnField === column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.footerTemplate();
+  }
+
+  getUpdateDraftCallback(field: string): (val: unknown) => void {
+    return (val: unknown) => this.updateDraft(field, val);
   }
 
   toStringSafe(value: unknown): string {
@@ -2203,5 +3136,216 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       filters: this.activeFilters(),
       group: overrideGroup === undefined ? this.groupBy() : overrideGroup,
     });
+  }
+
+  onCellClick(row: T, colField: string): void {
+    if (!this.keyboardNavigation()) return;
+    this.focusedCell.set({ row, colField });
+    this.focusedCellEditActive.set(this.isEditing(row));
+  }
+
+  @HostListener('keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent): void {
+    if (!this.keyboardNavigation()) return;
+    const key = event.key;
+    const focused = this.focusedCell();
+    if (!focused) {
+      if (key === 'ArrowDown' || key === 'ArrowUp' || key === 'ArrowLeft' || key === 'ArrowRight') {
+        const rows = this.flatRenderedRows();
+        const cols = this.orderedColumns();
+        if (rows.length > 0 && cols.length > 0) {
+          this.focusedCell.set({ row: rows[0], colField: cols[0].field });
+          event.preventDefault();
+        }
+      }
+      return;
+    }
+
+    const rows = this.flatRenderedRows();
+    const cols = this.orderedColumns();
+    const rowIndex = rows.indexOf(focused.row);
+    const colIndex = cols.findIndex(c => c.field === focused.colField);
+
+    if (rowIndex === -1 || colIndex === -1) return;
+
+    if (this.focusedCellEditActive()) {
+      if (key === 'Enter') {
+        this.saveEdit(focused.row, rowIndex);
+        this.focusedCellEditActive.set(false);
+        if (rowIndex < rows.length - 1) {
+          this.focusedCell.set({ row: rows[rowIndex + 1], colField: focused.colField });
+        }
+        event.preventDefault();
+      } else if (key === 'Escape') {
+        this.cancelEdit();
+        this.focusedCellEditActive.set(false);
+        event.preventDefault();
+      }
+      return;
+    }
+
+    switch (key) {
+      case 'ArrowUp':
+        if (rowIndex > 0) {
+          this.focusedCell.set({ row: rows[rowIndex - 1], colField: focused.colField });
+          event.preventDefault();
+        }
+        break;
+      case 'ArrowDown':
+        if (rowIndex < rows.length - 1) {
+          this.focusedCell.set({ row: rows[rowIndex + 1], colField: focused.colField });
+          event.preventDefault();
+        }
+        break;
+      case 'ArrowLeft':
+        if (colIndex > 0) {
+          this.focusedCell.set({ row: focused.row, colField: cols[colIndex - 1].field });
+          event.preventDefault();
+        }
+        break;
+      case 'ArrowRight':
+        if (colIndex < cols.length - 1) {
+          this.focusedCell.set({ row: focused.row, colField: cols[colIndex + 1].field });
+          event.preventDefault();
+        }
+        break;
+      case 'Tab':
+        if (event.shiftKey) {
+          if (colIndex > 0) {
+            this.focusedCell.set({ row: focused.row, colField: cols[colIndex - 1].field });
+          } else if (rowIndex > 0) {
+            this.focusedCell.set({ row: rows[rowIndex - 1], colField: cols[cols.length - 1].field });
+          }
+        } else {
+          if (colIndex < cols.length - 1) {
+            this.focusedCell.set({ row: focused.row, colField: cols[colIndex + 1].field });
+          } else if (rowIndex < rows.length - 1) {
+            this.focusedCell.set({ row: rows[rowIndex + 1], colField: cols[0].field });
+          }
+        }
+        event.preventDefault();
+        break;
+      case 'Enter': {
+        const col = cols[colIndex];
+        if (this.editable() && col.editable) {
+          this.beginEdit(focused.row, rowIndex);
+          this.focusedCellEditActive.set(true);
+          setTimeout(() => {
+            const inputEl = this.elementRef.nativeElement.querySelector('.grid-edit-input') as HTMLInputElement;
+            if (inputEl) inputEl.focus();
+          }, 0);
+          event.preventDefault();
+        }
+        break;
+      }
+      case 'Escape':
+        this.focusedCell.set(null);
+        event.preventDefault();
+        break;
+      default:
+        if (key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
+          const currentCol = cols[colIndex];
+          if (this.editable() && currentCol.editable) {
+            this.beginEdit(focused.row, rowIndex);
+            this.focusedCellEditActive.set(true);
+            this.updateDraft(focused.colField, key);
+            setTimeout(() => {
+              const inputEl = this.elementRef.nativeElement.querySelector('.grid-edit-input') as HTMLInputElement;
+              if (inputEl) {
+                inputEl.focus();
+                inputEl.value = key;
+              }
+            }, 0);
+            event.preventDefault();
+          }
+        }
+        break;
+    }
+  }
+
+  getCellRowSpan(row: T, colField: string, rowIndex: number, groupItems?: T[]): number {
+    const col = this.columns().find(c => c.field === colField);
+    if (!col || !col.mergeRows) {
+      return 1;
+    }
+
+    const items = groupItems ? groupItems : this.flatRenderedRows();
+    const currentValue = this.getCellValue(row, colField);
+
+    if (rowIndex > 0) {
+      const prevValue = this.getCellValue(items[rowIndex - 1], colField);
+      if (prevValue === currentValue) {
+        return 0;
+      }
+    }
+
+    let span = 1;
+    for (let i = rowIndex + 1; i < items.length; i++) {
+      if (this.getCellValue(items[i], colField) === currentValue) {
+        span++;
+      } else {
+        break;
+      }
+    }
+    return span;
+  }
+
+  isGroupAllSelected(group: GridGroupResult<T>): boolean {
+    const rows = group.items;
+    if (rows.length === 0) return false;
+    const selected = this.selectedRows();
+    return rows.every(row => selected.has(this.keyOf(row)));
+  }
+
+  toggleGroupSelection(group: GridGroupResult<T>, event: Event): void {
+    event.stopPropagation();
+    const checked = (event.target as HTMLInputElement).checked;
+    const selected = new Set(this.selectedRows());
+    group.items.forEach(row => {
+      const key = this.keyOf(row);
+      if (checked) {
+        selected.add(key);
+      } else {
+        selected.delete(key);
+      }
+    });
+    this.selectedRows.set(selected);
+    this.selectionChange.emit(this.resolveSelectedRows(selected));
+  }
+
+  getGroupAggregationValue(group: GridGroupResult<T>, col: GridColumnDef<T>): string {
+    const rows = group.items;
+    if (rows.length === 0) return '-';
+
+    const values = rows.map(r => {
+      const val = (r as Record<string, unknown>)[col.field];
+      return typeof val === 'number' ? val : Number(val);
+    }).filter(v => !isNaN(v));
+
+    if (col.aggregation === 'count') {
+      return String(rows.length);
+    }
+
+    if (values.length === 0) return '-';
+
+    switch (col.aggregation) {
+      case 'sum': {
+        const sum = values.reduce((acc, v) => acc + v, 0);
+        return this.formatAggValue(sum);
+      }
+      case 'avg': {
+        const sum = values.reduce((acc, v) => acc + v, 0);
+        const avg = sum / values.length;
+        return this.formatAggValue(avg);
+      }
+      case 'min': {
+        return this.formatAggValue(Math.min(...values));
+      }
+      case 'max': {
+        return this.formatAggValue(Math.max(...values));
+      }
+      default:
+        return '-';
+    }
   }
 }

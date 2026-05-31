@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, TemplateRef, ViewChild, computed, signal } from '@angular/core';
+import { AfterViewInit, Component, TemplateRef, ViewChild, computed, signal, effect, untracked } from '@angular/core';
 import {
   DataGridComponent,
   GridCellTemplateContext,
@@ -12,6 +12,7 @@ import {
   GridRowTemplateContext,
   GridRowUpdateEvent,
   GridSortState,
+  AvatarComponent,
 } from 'ngx-core-components';
 
 interface EmployeeProject {
@@ -44,7 +45,7 @@ interface ApiRow {
 @Component({
   selector: 'app-grid-demo',
   standalone: true,
-  imports: [DataGridComponent],
+  imports: [DataGridComponent, AvatarComponent],
   template: `
     <div class="demo-page">
       <div class="page-header">
@@ -100,6 +101,11 @@ interface ApiRow {
             </label>
 
             <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="useCustomTemplates()" (change)="onCustomTemplatesChange($any($event.target).checked)" />
+              Custom cell templates
+            </label>
+
+            <label class="ctrl-item toggle-item">
               <input type="checkbox" [checked]="editable()" (change)="editable.set($any($event.target).checked)" />
               Inline editing
             </label>
@@ -112,6 +118,31 @@ interface ApiRow {
             <label class="ctrl-item toggle-item">
               <input type="checkbox" [checked]="rowReorderable()" (change)="rowReorderable.set($any($event.target).checked)" />
               Row Drag & Drop
+            </label>
+
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="showColumnChooser()" (change)="showColumnChooser.set($any($event.target).checked)" />
+              Column Chooser
+            </label>
+
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="cellSelection()" (change)="cellSelection.set($any($event.target).checked)" />
+              Cell Selection
+            </label>
+
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="enableContextMenu()" (change)="enableContextMenu.set($any($event.target).checked)" />
+              Context Menu
+            </label>
+
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="keyboardNavigation()" (change)="keyboardNavigation.set($any($event.target).checked)" />
+              Keyboard Nav
+            </label>
+
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="groupAggregations()" (change)="groupAggregations.set($any($event.target).checked)" />
+              Group Aggregations
             </label>
 
             <label class="ctrl-item">
@@ -129,7 +160,7 @@ interface ApiRow {
 
           <ngx-data-grid
             [data]="displayRows()"
-            [columns]="columns"
+            [columns]="columns()"
             [page]="gridPage()"
             [pageSize]="gridPageSize()"
             [total]="processingMode() === 'server' ? serverTotal() : 0"
@@ -150,12 +181,18 @@ interface ApiRow {
             [multiSort]="true"
             [showGlobalSearch]="showSearch()"
             [rowReorderable]="rowReorderable()"
+            [showColumnChooser]="showColumnChooser()"
+            [cellSelection]="cellSelection()"
+            [enableContextMenu]="enableContextMenu()"
+            [keyboardNavigation]="keyboardNavigation()"
+            [groupAggregations]="groupAggregations()"
             (rowClick)="onRowClick($event)"
             (selectionChange)="onSelectionChange($event)"
             (dataStateChange)="onDataStateChange($event)"
             (rowUpdate)="onRowUpdate($event)"
             (columnReorder)="onColumnReorder($event)"
             (rowReorder)="onRowReorder($event)"
+            (cellSelectionChange)="onCellSelectionChange($event)"
           />
 
           <ng-template #headerTpl let-column="column" let-sort="sort">
@@ -175,10 +212,33 @@ interface ApiRow {
                 {{ value }}
               </span>
             } @else if (column.field === 'name') {
-              <span class="name-cell">{{ value }}<small>{{ row.title }}</small></span>
+              <div class="name-cell-wrap" style="display: flex; align-items: center; gap: 10px;">
+                <ngx-avatar [name]="value" size="sm"></ngx-avatar>
+                <span class="name-cell" style="display: inline-flex; flex-direction: column; gap: 2px;">
+                  {{ value }}
+                  <small style="color: var(--text-secondary); font-size: 11px; font-weight: 500;">{{ row.title }}</small>
+                </span>
+              </div>
             } @else {
               {{ value }}
             }
+          </ng-template>
+
+          <!-- Custom Edit Cell Template -->
+          <ng-template #statusEditTpl let-value let-update="updateDraft" let-draft="draftValue">
+            <select [value]="draft" (change)="update($any($event.target).value)" (click)="$event.stopPropagation()" style="padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit; font-size: 12px; outline: none;">
+              <option value="Active">Active</option>
+              <option value="On Leave">On Leave</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </ng-template>
+
+          <!-- Custom Footer Cell Template -->
+          <ng-template #salaryFooterTpl let-val="aggregationValue">
+            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+              <span style="font-size: 10px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Payroll</span>
+              <strong style="color: #10b981; font-size: 14px;">{{ val }}</strong>
+            </div>
           </ng-template>
 
           <ng-template #rowTpl let-row="row" let-editing="editing">
@@ -325,6 +385,8 @@ interface ApiRow {
 export class GridDemoComponent implements AfterViewInit {
   @ViewChild('headerTpl', { static: true }) private headerTplRef?: TemplateRef<GridHeaderTemplateContext<Employee>>;
   @ViewChild('cellTpl', { static: true }) private cellTplRef?: TemplateRef<GridCellTemplateContext<Employee>>;
+  @ViewChild('statusEditTpl', { static: true }) private statusEditTplRef?: TemplateRef<GridCellTemplateContext<Employee>>;
+  @ViewChild('salaryFooterTpl', { static: true }) private salaryFooterTplRef?: TemplateRef<any>;
 
   activeTab = signal('Demo');
   tabs = ['Demo', 'How to Use', 'API Reference'];
@@ -332,9 +394,15 @@ export class GridDemoComponent implements AfterViewInit {
   processingMode = signal<'client' | 'server'>('client');
   groupField = signal('');
   useRowTemplate = signal(false);
+  useCustomTemplates = signal(true);
   editable = signal(true);
   showSearch = signal(true);
   rowReorderable = signal(true);
+  showColumnChooser = signal(true);
+  cellSelection = signal(true);
+  enableContextMenu = signal(true);
+  keyboardNavigation = signal(true);
+  groupAggregations = signal(true);
   loading = signal(false);
   gridPage = signal(1);
   gridPageSize = signal(8);
@@ -349,17 +417,17 @@ export class GridDemoComponent implements AfterViewInit {
   serverSort = signal<GridSortState | null>(null);
   serverFilters = signal<{ field: string; value: string }[]>([]);
 
-  columns: GridColumnDef<Employee>[] = [
+  columns = signal<GridColumnDef<Employee>[]>([
     { field: 'id', title: '#', width: 56, sortable: true, align: 'right', aggregation: 'count', pinned: 'left' },
     { field: 'name', title: 'Name', sortable: true, filterable: true, groupable: true, editable: true, width: 190, pinned: 'left' },
-    { field: 'title', title: 'Title', sortable: true, filterable: true, groupable: true, editable: true, width: 170 },
-    { field: 'department', title: 'Department', sortable: true, filterable: true, groupable: true, editable: true, width: 140 },
-    { field: 'city', title: 'City', sortable: true, filterable: true, groupable: true, editable: true, width: 120 },
-    { field: 'email', title: 'Email', filterable: true, editable: true, width: 220 },
-    { field: 'salary', title: 'Salary', sortable: true, align: 'right', editable: true, width: 120, aggregation: 'sum' },
-    { field: 'status', title: 'Status', sortable: true, filterable: true, groupable: true, editable: true, width: 110 },
-    { field: 'startDate', title: 'Start Date', sortable: true, width: 120 },
-  ];
+    { field: 'title', title: 'Title', sortable: true, filterable: true, groupable: true, editable: true, width: 170, category: 'Employee Details' },
+    { field: 'department', title: 'Department', sortable: true, filterable: true, groupable: true, editable: true, width: 140, category: 'Employee Details' },
+    { field: 'city', title: 'City', sortable: true, filterable: true, groupable: true, editable: true, width: 120, category: 'Contact & Location', mergeRows: true },
+    { field: 'email', title: 'Email', filterable: true, editable: true, width: 220, category: 'Contact & Location' },
+    { field: 'salary', title: 'Salary', sortable: true, align: 'right', editable: true, width: 120, aggregation: 'sum', category: 'Employment', pinned: 'right' },
+    { field: 'status', title: 'Status', sortable: true, filterable: true, groupable: true, editable: true, width: 110, category: 'Employment' },
+    { field: 'startDate', title: 'Start Date', sortable: true, width: 120, hidden: true, category: 'Employment' },
+  ]);
 
   gridGroup = computed<GridGroupState | null>(() => {
     const field = this.groupField();
@@ -381,16 +449,34 @@ export class GridDemoComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.updateColumnsTemplates(this.useCustomTemplates());
+  }
+
+  onCustomTemplatesChange(checked: boolean): void {
+    this.useCustomTemplates.set(checked);
+    this.updateColumnsTemplates(checked);
+  }
+
+  private updateColumnsTemplates(showTpls: boolean): void {
     if (!this.headerTplRef || !this.cellTplRef) {
       return;
     }
 
     const cellTemplateFields = new Set(['name', 'salary', 'status']);
-    this.columns = this.columns.map(column => ({
-      ...column,
-      headerTemplate: this.headerTplRef,
-      cellTemplate: cellTemplateFields.has(column.field) ? this.cellTplRef : undefined,
-    }));
+    const updated = this.columns().map(column => {
+      let cellTemplate = showTpls && cellTemplateFields.has(column.field) ? this.cellTplRef : undefined;
+      let editCellTemplate = showTpls && column.field === 'status' ? this.statusEditTplRef : undefined;
+      let footerTemplate = showTpls && column.field === 'salary' ? this.salaryFooterTplRef : undefined;
+
+      return {
+        ...column,
+        headerTemplate: this.headerTplRef,
+        cellTemplate,
+        editCellTemplate,
+        footerTemplate,
+      };
+    });
+    this.columns.set(updated);
   }
 
   formatCurrency(value: number): string {
@@ -485,6 +571,14 @@ export class GridDemoComponent implements AfterViewInit {
   onRowReorder(event: { previousIndex: number; currentIndex: number; data: Employee[] }): void {
     this.employees.set(event.data);
     this.lastEvent.set(`Row moved from index ${event.previousIndex} to ${event.currentIndex}`);
+  }
+
+  onCellSelectionChange(event: { start: { row: Employee; colField: string }; end: { row: Employee; colField: string } } | null): void {
+    if (event) {
+      this.lastEvent.set(`Cell selected from [${event.start.row.name}, ${event.start.colField}] to [${event.end.row.name}, ${event.end.colField}] (Press Ctrl+C to copy selected cells)`);
+    } else {
+      this.lastEvent.set(`Cell selection cleared`);
+    }
   }
 
   private refreshServerData(state: GridDataStateChangeEvent): void {
@@ -649,7 +743,8 @@ export class MyServerGridComponent {
   headerTemplate?: TemplateRef<GridHeaderTemplateContext<T>>;
   cellTemplate?: TemplateRef<GridCellTemplateContext<T>>;
   aggregation?: 'sum' | 'avg' | 'count' | 'min' | 'max';
-  pinned?: 'left';
+  pinned?: 'left' | 'right' | null;
+  mergeRows?: boolean;
 }`;
 
   gridInputs: ApiRow[] = [
@@ -675,6 +770,11 @@ export class MyServerGridComponent {
     { name: 'rowReorderable', type: 'boolean', default: 'false', description: 'Enables interactive drag-and-drop handles on rows to reorder them.' },
     { name: 'showGlobalSearch', type: 'boolean', default: 'false', description: 'Renders a global search input in the toolbar to filter rows.' },
     { name: 'globalSearchPlaceholder', type: 'string', default: "'Search...'", description: 'Placeholder for the global search input.' },
+    { name: 'showColumnChooser', type: 'boolean', default: 'false', description: 'Enables Column Chooser dropdown button in the toolbar to toggle column visibility.' },
+    { name: 'cellSelection', type: 'boolean', default: 'false', description: 'Enables Excel-like click-and-drag cell range selection.' },
+    { name: 'enableContextMenu', type: 'boolean', default: 'false', description: 'Enables custom glassmorphism context menu with context-aware actions.' },
+    { name: 'keyboardNavigation', type: 'boolean', default: 'false', description: 'Enables Excel-style keyboard navigation and cell editing.' },
+    { name: 'groupAggregations', type: 'boolean', default: 'false', description: 'Enables aggregation subtotals directly inside the grouped header row cells.' },
   ];
 
   gridOutputs: ApiRow[] = [
@@ -688,5 +788,6 @@ export class MyServerGridComponent {
     { name: '(rowUpdate)', type: 'GridRowUpdateEvent<T>', default: '—', description: 'Inline edit saved with previous and updated rows.' },
     { name: '(columnReorder)', type: '{ columns: GridColumnDef<T>[] }', default: '—', description: 'Emitted when a column is dragged and reordered.' },
     { name: '(rowReorder)', type: '{ previousIndex: number, currentIndex: number, data: T[] }', default: '—', description: 'Emitted when a row is dragged and reordered.' },
+    { name: '(cellSelectionChange)', type: '{ start: { row: T, colField: string }, end: { row: T, colField: string } } | null', default: '—', description: 'Emitted when cell selection range coordinates change.' },
   ];
 }

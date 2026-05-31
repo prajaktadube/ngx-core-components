@@ -73,7 +73,14 @@ export type {
 export { ZoomLevel, DependencyType } from 'ngx-core-components/charts';
 
 // ===== Data Grid (also available via ngx-core-components/grid) =====
-export { DataGridComponent, PivotGridComponent } from 'ngx-core-components/grid';
+export {
+  DataGridComponent,
+  PivotGridComponent,
+  NgxGridCellTemplateDirective,
+  NgxGridEditCellTemplateDirective,
+  NgxGridHeaderTemplateDirective,
+  NgxGridFooterTemplateDirective,
+} from 'ngx-core-components/grid';
 export type {
   GridColumnDef,
   GridFilterState,
@@ -91,6 +98,7 @@ export type {
   GridCellTemplateContext,
   GridRowTemplateContext,
   GridDetailTemplateContext,
+  GridFooterTemplateContext,
   PivotValueDef,
 } from 'ngx-core-components/grid';
 
