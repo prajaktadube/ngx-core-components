@@ -84,11 +84,16 @@ interface ApiRow {
                   <input type="checkbox" [checked]="basicAlternateColumns()" (change)="basicAlternateColumns.set($any($event.target).checked)" />
                   Alternate Columns
                 </label>
+                <label class="toggle-control">
+                  <input type="checkbox" [checked]="basicGantt?.showCriticalPath()" (change)="basicGantt?.toggleCriticalPath()" />
+                  📌 Critical Path
+                </label>
               </div>
             </div>
 
             <div class="demo-chart-container">
               <ngx-gantt-chart
+                #basicGantt
                 [tasks]="basicTasks()"
                 [dependencies]="basicDependencies"
                 [config]="basicConfig()"
@@ -130,6 +135,7 @@ interface ApiRow {
                 <button class="action-btn" (click)="playgroundGantt.collapseAll()">Collapse All</button>
                 <button class="action-btn" (click)="playgroundGantt.scrollToDate(today)">Go to Today</button>
                 <button class="action-btn" (click)="clearPlayLog()">Clear Logs</button>
+                <button class="action-btn primary-action" (click)="openAddTaskModal()">➕ Add Task</button>
               </div>
             </div>
 
@@ -161,6 +167,10 @@ interface ApiRow {
               <label class="toggle-control">
                 <input type="checkbox" [checked]="playDragToZoom()" (change)="playDragToZoom.set($any($event.target).checked)" />
                 Drag to Zoom
+              </label>
+              <label class="toggle-control">
+                <input type="checkbox" [checked]="playgroundGantt?.showCriticalPath()" (change)="playgroundGantt?.toggleCriticalPath()" />
+                📌 Critical Path
               </label>
             </div>
 
@@ -274,7 +284,7 @@ interface ApiRow {
               <ngx-gantt-chart
                 #transportGantt
                 [tasks]="transportTasks"
-                [dependencies]="transportDependencies"
+                [dependencies]="[]"
                 [config]="transportConfig()"
                 [tooltipTemplate]="transportTooltip"
                 (barClick)="onTransportBarClick($event)"
@@ -431,6 +441,98 @@ interface ApiRow {
           </div>
         }
       </div>
+
+      <!-- Edit/Create Task Modal Overlay -->
+      @if (editingTask()) {
+        <div class="modal-overlay" (click)="closeEditModal()">
+          <div class="modal-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>{{ isAddingTask() ? 'Add New Task' : 'Edit Task Details' }}</h3>
+              <button class="modal-close-btn" (click)="closeEditModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Task Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="editName()"
+                  (input)="editName.set($any($event.target).value)"
+                  placeholder="e.g. Design Database"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Progress (%)</label>
+                <div class="slider-row">
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="5"
+                    [value]="editProgress()"
+                    (input)="editProgress.set(+$any($event.target).value)"
+                  />
+                  <span class="slider-value">{{ editProgress() }}%</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Assignee</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="editAssignee()"
+                  (input)="editAssignee.set($any($event.target).value)"
+                  placeholder="e.g. Alice Smith"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Priority</label>
+                <select
+                  class="form-control"
+                  [value]="editPriority()"
+                  (change)="editPriority.set($any($event.target).value)"
+                >
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Bar Color</label>
+                <div class="color-picker-row">
+                  <input
+                    type="color"
+                    class="color-picker-input"
+                    [value]="editColor()"
+                    (input)="editColor.set($any($event.target).value)"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="flex: 1;"
+                    [value]="editColor()"
+                    (input)="editColor.set($any($event.target).value)"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              @if (!isAddingTask()) {
+                <button class="modal-btn modal-btn-danger" (click)="deleteTask()">Delete Task</button>
+              }
+              <button class="modal-btn modal-btn-secondary" (click)="closeEditModal()">Cancel</button>
+              <button class="modal-btn modal-btn-primary" (click)="saveTask()">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   `,
   styles: [`
@@ -1015,9 +1117,205 @@ interface ApiRow {
       transform: scaleY(1.1);
       z-index: 2;
     }
+
+    /* Modal overlay and glassmorphism styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      animation: fadeIn 0.25s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-card {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      width: 480px;
+      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(20px);
+      animation: slideUp 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary, #0f172a);
+    }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary, #64748b);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+    .modal-close-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+    }
+
+    .modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary, #64748b);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-control {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: var(--bg-secondary, #ffffff);
+      color: var(--text-primary, #0f172a);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+
+    .color-picker-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .color-picker-input {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      cursor: pointer;
+      background: none;
+    }
+    
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--primary-color, #4f46e5);
+    }
+    .slider-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary, #0f172a);
+      width: 36px;
+      text-align: right;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: var(--border-light, #f8fafc);
+    }
+    
+    .modal-btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .modal-btn-secondary {
+      background: var(--bg-secondary, #ffffff);
+      border-color: var(--border-color, #e2e8f0);
+      color: var(--text-primary, #0f172a);
+    }
+    .modal-btn-secondary:hover {
+      background: var(--border-light, #f1f5f9);
+    }
+    .modal-btn-primary {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .modal-btn-primary:hover {
+      filter: brightness(1.05);
+    }
+    .modal-btn-danger {
+      background: #ef4444;
+      color: #ffffff;
+      margin-right: auto;
+    }
+    .modal-btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .action-btn.primary-action {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .action-btn.primary-action:hover {
+      filter: brightness(1.05);
+      color: #ffffff;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      to { transform: translateY(0); }
+    }
   `]
 })
 export class GanttDemoComponent {
+  @ViewChild('basicGantt') basicGantt!: GanttChartComponent;
   @ViewChild('playgroundGantt') playgroundGantt!: GanttChartComponent;
   @ViewChild('transportGantt') transportGantt!: GanttChartComponent;
 
@@ -1069,6 +1367,15 @@ export class GanttDemoComponent {
   playLog: string[] = [];
 
   playBaselineItems: GanttBaselineItem[] = [];
+
+  // Edit Task modal state
+  editingTask = signal<GanttTask | null>(null);
+  isAddingTask = signal(false);
+  editName = signal('');
+  editProgress = signal(0);
+  editColor = signal('#4f46e5');
+  editAssignee = signal('');
+  editPriority = signal<string>('Medium');
 
   playConfig = computed<Partial<GanttConfig>>(() => {
     const widthMap: Record<string, number> = {
@@ -1135,6 +1442,7 @@ export class GanttDemoComponent {
       selectable: false,
       enableAlternateRowColor: this.transportAlternateRows(),
       enableAlternateColumnColor: this.transportAlternateColumns(),
+      enableDragToZoom: true,
       sidebarColumns: [
         { field: 'name', header: 'Vehicle', width: 260 },
       ],
@@ -1235,6 +1543,81 @@ export class GanttDemoComponent {
 
   onPlayTaskDblClick(event: GanttTaskClickEvent): void {
     this.logPlayEvent(`Task Double-Clicked: "${event.task.name}"`);
+    this.isAddingTask.set(false);
+    this.editingTask.set(event.task);
+    this.editName.set(event.task.name);
+    this.editProgress.set(event.task.progress);
+    this.editColor.set(event.task.color || '#4f46e5');
+    this.editAssignee.set((event.task.meta?.['assignee'] as string) || '');
+    this.editPriority.set((event.task.meta?.['priority'] as string) || 'Medium');
+  }
+
+  openAddTaskModal(): void {
+    this.isAddingTask.set(true);
+    const newTask: GanttTask = {
+      id: `task-${Date.now()}`,
+      name: 'New Task',
+      start: new Date(this.today),
+      end: new Date(this.today.getTime() + 5 * 24 * 60 * 60 * 1000), // + 5 days
+      progress: 0,
+      parentId: null,
+      collapsed: false,
+      isMilestone: false,
+      color: '#4f46e5',
+      meta: { assignee: '', priority: 'Medium' }
+    };
+    this.editingTask.set(newTask);
+    this.editName.set(newTask.name);
+    this.editProgress.set(newTask.progress);
+    this.editColor.set(newTask.color || '#4f46e5');
+    this.editAssignee.set('');
+    this.editPriority.set('Medium');
+  }
+
+  closeEditModal(): void {
+    this.editingTask.set(null);
+    this.isAddingTask.set(false);
+  }
+
+  saveTask(): void {
+    const taskToSave = this.editingTask();
+    if (!taskToSave) return;
+
+    const updatedTask: GanttTask = {
+      ...taskToSave,
+      name: this.editName(),
+      progress: Number(this.editProgress()),
+      color: this.editColor(),
+      meta: {
+        ...(taskToSave.meta || {}),
+        assignee: this.editAssignee(),
+        priority: this.editPriority()
+      }
+    };
+
+    if (this.isAddingTask()) {
+      this.playTasks.update(tasks => [...tasks, updatedTask]);
+      this.logPlayEvent(`Task Added: "${updatedTask.name}"`);
+    } else {
+      this.playTasks.update(tasks =>
+        tasks.map(t => (t.id === updatedTask.id ? updatedTask : t))
+      );
+      this.logPlayEvent(`Task Updated: "${updatedTask.name}"`);
+    }
+    this.closeEditModal();
+  }
+
+  deleteTask(): void {
+    const taskToDelete = this.editingTask();
+    if (!taskToDelete) return;
+
+    this.playTasks.update(tasks => tasks.filter(t => t.id !== taskToDelete.id));
+    this.playDependencies.update(deps =>
+      deps.filter(d => d.fromId !== taskToDelete.id && d.toId !== taskToDelete.id)
+    );
+
+    this.logPlayEvent(`Task Deleted: "${taskToDelete.name}"`);
+    this.closeEditModal();
   }
 
   onPlayDependencyClick(event: GanttDependencyClickEvent): void {

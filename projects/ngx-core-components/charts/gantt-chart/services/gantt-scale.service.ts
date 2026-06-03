@@ -13,10 +13,12 @@ export class GanttScaleService {
         const hours = diffHours(date, startOfHour(startDate));
         return hours * columnWidth;
       }
-      case ZoomLevel.Day:
-        return diffDays(startOfDay(date), startOfDay(startDate)) * columnWidth;
+      case ZoomLevel.Day: {
+        const hours = diffHours(date, startOfDay(startDate));
+        return (hours / 24) * columnWidth;
+      }
       case ZoomLevel.Week: {
-        const totalDays = diffDays(date, startOfWeek(startDate));
+        const totalDays = (date.getTime() - startOfWeek(startDate).getTime()) / 86400000;
         return (totalDays / 7) * columnWidth;
       }
       case ZoomLevel.Month: {
@@ -24,9 +26,11 @@ export class GanttScaleService {
         const months =
           (date.getFullYear() - start.getFullYear()) * 12 +
           (date.getMonth() - start.getMonth());
-        const dayInMonth = date.getDate() - 1;
+        const monthStart = startOfMonth(date);
+        const msInMonth = date.getTime() - monthStart.getTime();
         const dim = daysInMonth(date);
-        return (months + dayInMonth / dim) * columnWidth;
+        const monthFraction = msInMonth / (dim * 86400000);
+        return (months + monthFraction) * columnWidth;
       }
       case ZoomLevel.Quarter: {
         const start = startOfQuarter(startDate);
@@ -56,15 +60,15 @@ export class GanttScaleService {
     switch (zoomLevel) {
       case ZoomLevel.Hour: {
         const hours = x / columnWidth;
-        return addHours(startOfHour(startDate), Math.round(hours));
+        return addHours(startOfHour(startDate), hours);
       }
       case ZoomLevel.Day: {
         const days = x / columnWidth;
-        return addDays(startOfDay(startDate), Math.round(days));
+        return new Date(startOfDay(startDate).getTime() + days * 86400000);
       }
       case ZoomLevel.Week: {
         const weeks = x / columnWidth;
-        return addDays(startOfWeek(startDate), Math.round(weeks * 7));
+        return new Date(startOfWeek(startDate).getTime() + weeks * 604800000);
       }
       case ZoomLevel.Month: {
         const months = x / columnWidth;
@@ -73,8 +77,7 @@ export class GanttScaleService {
         result.setMonth(result.getMonth() + Math.floor(months));
         const fraction = months - Math.floor(months);
         const dim = daysInMonth(result);
-        result.setDate(1 + Math.round(fraction * dim));
-        return result;
+        return new Date(result.getTime() + fraction * dim * 86400000);
       }
       case ZoomLevel.Quarter: {
         const quarters = x / columnWidth;
@@ -85,7 +88,7 @@ export class GanttScaleService {
         const qStart = new Date(result.getFullYear(), Math.floor(result.getMonth() / 3) * 3, 1);
         const qEnd = new Date(result.getFullYear(), Math.floor(result.getMonth() / 3) * 3 + 3, 1);
         const qDays = (qEnd.getTime() - qStart.getTime()) / 86400000;
-        return new Date(qStart.getTime() + Math.round(fraction * qDays) * 86400000);
+        return new Date(qStart.getTime() + fraction * qDays * 86400000);
       }
       case ZoomLevel.Year: {
         const years = x / columnWidth;
@@ -96,7 +99,7 @@ export class GanttScaleService {
         const yearStart = new Date(result.getFullYear(), 0, 1);
         const yearEnd = new Date(result.getFullYear() + 1, 0, 1);
         const yDays = (yearEnd.getTime() - yearStart.getTime()) / 86400000;
-        return new Date(yearStart.getTime() + Math.round(fraction * yDays) * 86400000);
+        return new Date(yearStart.getTime() + fraction * yDays * 86400000);
       }
     }
   }

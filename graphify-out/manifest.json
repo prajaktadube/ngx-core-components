@@ -5,8 +5,8 @@
     "semantic_hash": "eb91c3db6183a27eae11f34c2061c9e2"
   },
   "C:\\Work\\ngx-core-components\\package.json": {
-    "mtime": 1780222918.3965223,
-    "ast_hash": "5c801339b3e792c33596f60cd6e9cd08",
+    "mtime": 1780289240.1775453,
+    "ast_hash": "4a351ad6e3376b28e5cd2f5ead39a5fb",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\tsconfig.json": {
@@ -65,8 +65,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\data\\sample-tasks.ts": {
-    "mtime": 1779788974.5243886,
-    "ast_hash": "11462817bc3af6f320f237a1437d6636",
+    "mtime": 1780331325.627126,
+    "ast_hash": "0d5dce76f6a340a9e12f29ea01b81878",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\barcodes-demo\\barcodes-demo.component.ts": {
@@ -100,8 +100,8 @@
     "semantic_hash": "306318969798347811baba17d54c76db"
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\grid-demo\\grid-demo.component.ts": {
-    "mtime": 1780235490.6126273,
-    "ast_hash": "aa0ceb02809e24b16e3a92f8dda4cf79",
+    "mtime": 1780236119.9622588,
+    "ast_hash": "99f84d9ef26dfed7a7b4789a0beb3b74",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\home\\home.component.ts": {
@@ -115,7 +115,7 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\layout-demo\\layout-demo.component.ts": {
-    "mtime": 1780222445.8565166,
+    "mtime": 1780289230.4038312,
     "ast_hash": "09ff52e51c70157144c6dbe634f6699f",
     "semantic_hash": "09ff52e51c70157144c6dbe634f6699f"
   },
@@ -145,8 +145,8 @@
     "semantic_hash": "d7d11eb6bde5f57a26e5d8fd94e387cf"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\package.json": {
-    "mtime": 1780222918.3975198,
-    "ast_hash": "063afafbac2657eb20a923022380ab6f",
+    "mtime": 1780289240.179137,
+    "ast_hash": "a449a7eeffcbcbb0c53f6b29edea6f33",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\tsconfig.lib.json": {
@@ -235,8 +235,8 @@
     "semantic_hash": "5eaf8080a3e0b14c6ed46ed0c4d67e26"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\gantt-chart.component.ts": {
-    "mtime": 1779858449.6630538,
-    "ast_hash": "036c69a722267f86163ad232b29900f4",
+    "mtime": 1780333235.6269128,
+    "ast_hash": "9649c814e1c906785c14689f5d65c300",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-baseline.model.ts": {
@@ -290,9 +290,9 @@
     "semantic_hash": "3fc870ed9d95d416fd43e17f5c788d90"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-scale.service.ts": {
-    "mtime": 1776944186.333509,
-    "ast_hash": "cc0fa50eec2136ed2c06d9cdf478ca43",
-    "semantic_hash": "cc0fa50eec2136ed2c06d9cdf478ca43"
+    "mtime": 1780331318.7797902,
+    "ast_hash": "9f867ee962dc12bd8301d70d85f9b6fb",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\utils\\date-utils.ts": {
     "mtime": 1776944186.3345141,
@@ -645,8 +645,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\gantt-demo\\gantt-demo.component.ts": {
-    "mtime": 1780122496.8572834,
-    "ast_hash": "4d5bcd1c64c14a7756b11be38211565a",
+    "mtime": 1780331709.8468032,
+    "ast_hash": "739d66b1b983656ed9a4b28a5454eaf8",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\kanban-demo\\kanban-demo.component.ts": {
@@ -972,6 +972,11 @@
   "C:\\Work\\ngx-core-components\\.github\\ISSUE_TEMPLATE\\feature_request.md": {
     "mtime": 1780222918.3891175,
     "ast_hash": "2c95cb00ebd7546ccec06638cd813767",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\charts-demo\\gantt-chart.component.spec.ts": {
+    "mtime": 1780333230.4022927,
+    "ast_hash": "0ab6f86ab89381bc99fdd3b8cc0bd198",
     "semantic_hash": ""
   }
 }

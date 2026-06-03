@@ -1403,7 +1403,7 @@
       "label": "getSampleTasks()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/data/sample-tasks.ts",
-      "source_location": "L158",
+      "source_location": "L165",
       "id": "data_sample_tasks_getsampletasks",
       "community": 28,
       "norm_label": "getsampletasks()"
@@ -1412,7 +1412,7 @@
       "label": "getSampleDependencies()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/data/sample-tasks.ts",
-      "source_location": "L230",
+      "source_location": "L237",
       "id": "data_sample_tasks_getsampledependencies",
       "community": 28,
       "norm_label": "getsampledependencies()"
@@ -1850,6 +1850,96 @@
       "norm_label": ".ongaugetypechange()"
     },
     {
+      "label": "gantt-chart.component.spec.ts",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L1",
+      "id": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "community": 137,
+      "norm_label": "gantt-chart.component.spec.ts"
+    },
+    {
+      "label": "TestGanttWrapperComponent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L5",
+      "id": "charts_demo_gantt_chart_component_spec_testganttwrappercomponent",
+      "community": 137,
+      "norm_label": "testganttwrappercomponent"
+    },
+    {
+      "label": "info",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L85",
+      "id": "charts_demo_gantt_chart_component_spec_info",
+      "community": 137,
+      "norm_label": "info"
+    },
+    {
+      "label": "event",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L133",
+      "id": "charts_demo_gantt_chart_component_spec_event",
+      "community": 137,
+      "norm_label": "event"
+    },
+    {
+      "label": "expectedStart",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L138",
+      "id": "charts_demo_gantt_chart_component_spec_expectedstart",
+      "community": 137,
+      "norm_label": "expectedstart"
+    },
+    {
+      "label": "resizeEvent",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L143",
+      "id": "charts_demo_gantt_chart_component_spec_resizeevent",
+      "community": 137,
+      "norm_label": "resizeevent"
+    },
+    {
+      "label": "startDate",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L161",
+      "id": "charts_demo_gantt_chart_component_spec_startdate",
+      "community": 137,
+      "norm_label": "startdate"
+    },
+    {
+      "label": "targetDate",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L162",
+      "id": "charts_demo_gantt_chart_component_spec_targetdate",
+      "community": 137,
+      "norm_label": "targetdate"
+    },
+    {
+      "label": "x",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L165",
+      "id": "charts_demo_gantt_chart_component_spec_x",
+      "community": 137,
+      "norm_label": "x"
+    },
+    {
+      "label": "reversedDate",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L169",
+      "id": "charts_demo_gantt_chart_component_spec_reverseddate",
+      "community": 137,
+      "norm_label": "reverseddate"
+    },
+    {
       "label": "old-charts-demo.ts",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/charts-demo/old-charts-demo.ts",
@@ -1927,7 +2017,7 @@
       "source_file": "projects/demo/src/app/pages/dashboard-layout-demo/dashboard-layout-demo.component.ts",
       "source_location": "L1",
       "id": "projects_demo_src_app_pages_dashboard_layout_demo_dashboard_layout_demo_component_ts",
-      "community": 33,
+      "community": 152,
       "norm_label": "dashboard-layout-demo.component.ts"
     },
     {
@@ -2294,7 +2384,7 @@
       "label": "GanttDemoComponent",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1020",
+      "source_location": "L1321",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent",
       "community": 115,
       "norm_label": "ganttdemocomponent"
@@ -2303,7 +2393,7 @@
       "label": "widthMap",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1074",
+      "source_location": "L1385",
       "id": "gantt_demo_gantt_demo_component_widthmap",
       "community": 28,
       "norm_label": "widthmap"
@@ -2312,7 +2402,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1144",
+      "source_location": "L1456",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_constructor",
       "community": 115,
       "norm_label": ".constructor()"
@@ -2321,7 +2411,7 @@
       "label": ".onTabChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1167",
+      "source_location": "L1479",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_ontabchange",
       "community": 115,
       "norm_label": ".ontabchange()"
@@ -2330,7 +2420,7 @@
       "label": ".resetBasicTasks()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1177",
+      "source_location": "L1489",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_resetbasictasks",
       "community": 115,
       "norm_label": ".resetbasictasks()"
@@ -2339,7 +2429,7 @@
       "label": ".onBasicTaskChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1182",
+      "source_location": "L1494",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_onbasictaskchange",
       "community": 115,
       "norm_label": ".onbasictaskchange()"
@@ -2348,7 +2438,7 @@
       "label": ".onBasicTaskClick()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1192",
+      "source_location": "L1504",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_onbasictaskclick",
       "community": 115,
       "norm_label": ".onbasictaskclick()"
@@ -2357,7 +2447,7 @@
       "label": ".resetPlayTasks()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1197",
+      "source_location": "L1509",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_resetplaytasks",
       "community": 115,
       "norm_label": ".resetplaytasks()"
@@ -2366,7 +2456,7 @@
       "label": ".setPlayZoom()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1214",
+      "source_location": "L1526",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_setplayzoom",
       "community": 115,
       "norm_label": ".setplayzoom()"
@@ -2375,7 +2465,7 @@
       "label": ".onPlayTaskChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1219",
+      "source_location": "L1531",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_onplaytaskchange",
       "community": 115,
       "norm_label": ".onplaytaskchange()"
@@ -2384,7 +2474,7 @@
       "label": ".onPlayTaskClick()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1232",
+      "source_location": "L1544",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_onplaytaskclick",
       "community": 115,
       "norm_label": ".onplaytaskclick()"
@@ -2393,16 +2483,52 @@
       "label": ".onPlayTaskDblClick()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1236",
+      "source_location": "L1548",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_onplaytaskdblclick",
       "community": 115,
       "norm_label": ".onplaytaskdblclick()"
     },
     {
+      "label": ".openAddTaskModal()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1559",
+      "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_openaddtaskmodal",
+      "community": 115,
+      "norm_label": ".openaddtaskmodal()"
+    },
+    {
+      "label": ".closeEditModal()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1581",
+      "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_closeeditmodal",
+      "community": 115,
+      "norm_label": ".closeeditmodal()"
+    },
+    {
+      "label": ".saveTask()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1586",
+      "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_savetask",
+      "community": 115,
+      "norm_label": ".savetask()"
+    },
+    {
+      "label": ".deleteTask()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1614",
+      "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_deletetask",
+      "community": 115,
+      "norm_label": ".deletetask()"
+    },
+    {
       "label": ".onPlayDependencyClick()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1240",
+      "source_location": "L1627",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_onplaydependencyclick",
       "community": 115,
       "norm_label": ".onplaydependencyclick()"
@@ -2411,7 +2537,7 @@
       "label": ".onPlayLinkDragEnded()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1244",
+      "source_location": "L1631",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_onplaylinkdragended",
       "community": 115,
       "norm_label": ".onplaylinkdragended()"
@@ -2420,7 +2546,7 @@
       "label": ".clearPlayLog()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1261",
+      "source_location": "L1648",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_clearplaylog",
       "community": 115,
       "norm_label": ".clearplaylog()"
@@ -2429,7 +2555,7 @@
       "label": ".logPlayEvent()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1265",
+      "source_location": "L1652",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_logplayevent",
       "community": 115,
       "norm_label": ".logplayevent()"
@@ -2438,7 +2564,7 @@
       "label": ".generatePerfTasks()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1271",
+      "source_location": "L1658",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_generateperftasks",
       "community": 115,
       "norm_label": ".generateperftasks()"
@@ -2447,7 +2573,7 @@
       "label": ".setTransportZoom()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1326",
+      "source_location": "L1713",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_settransportzoom",
       "community": 115,
       "norm_label": ".settransportzoom()"
@@ -2456,7 +2582,7 @@
       "label": ".onTransportBarClick()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1330",
+      "source_location": "L1717",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_ontransportbarclick",
       "community": 115,
       "norm_label": ".ontransportbarclick()"
@@ -2465,7 +2591,7 @@
       "label": ".formatTime()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1337",
+      "source_location": "L1724",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_formattime",
       "community": 115,
       "norm_label": ".formattime()"
@@ -2474,7 +2600,7 @@
       "label": ".formatDate()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1342",
+      "source_location": "L1729",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_formatdate",
       "community": 115,
       "norm_label": ".formatdate()"
@@ -2483,7 +2609,7 @@
       "label": ".fmtDate()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1347",
+      "source_location": "L1734",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_fmtdate",
       "community": 115,
       "norm_label": ".fmtdate()"
@@ -2492,7 +2618,7 @@
       "label": ".copyCode()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
-      "source_location": "L1351",
+      "source_location": "L1738",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_copycode",
       "community": 115,
       "norm_label": ".copycode()"
@@ -2825,7 +2951,7 @@
       "label": "GridDemoComponent",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L380",
+      "source_location": "L385",
       "id": "grid_demo_grid_demo_component_griddemocomponent",
       "community": 19,
       "norm_label": "griddemocomponent"
@@ -2834,7 +2960,7 @@
       "label": "field",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L427",
+      "source_location": "L433",
       "id": "grid_demo_grid_demo_component_field",
       "community": 19,
       "norm_label": "field"
@@ -2843,7 +2969,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L435",
+      "source_location": "L441",
       "id": "grid_demo_grid_demo_component_griddemocomponent_constructor",
       "community": 19,
       "norm_label": ".constructor()"
@@ -2852,16 +2978,34 @@
       "label": ".ngAfterViewInit()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L445",
+      "source_location": "L451",
       "id": "grid_demo_grid_demo_component_griddemocomponent_ngafterviewinit",
       "community": 19,
       "norm_label": ".ngafterviewinit()"
     },
     {
+      "label": ".onCustomTemplatesChange()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L455",
+      "id": "grid_demo_grid_demo_component_griddemocomponent_oncustomtemplateschange",
+      "community": 19,
+      "norm_label": ".oncustomtemplateschange()"
+    },
+    {
+      "label": ".updateColumnsTemplates()",
+      "file_type": "code",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L460",
+      "id": "grid_demo_grid_demo_component_griddemocomponent_updatecolumnstemplates",
+      "community": 19,
+      "norm_label": ".updatecolumnstemplates()"
+    },
+    {
       "label": ".formatCurrency()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L467",
+      "source_location": "L482",
       "id": "grid_demo_grid_demo_component_griddemocomponent_formatcurrency",
       "community": 19,
       "norm_label": ".formatcurrency()"
@@ -2870,7 +3014,7 @@
       "label": ".onProcessingModeChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L471",
+      "source_location": "L486",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onprocessingmodechange",
       "community": 19,
       "norm_label": ".onprocessingmodechange()"
@@ -2879,7 +3023,7 @@
       "label": ".onGroupFieldChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L488",
+      "source_location": "L503",
       "id": "grid_demo_grid_demo_component_griddemocomponent_ongroupfieldchange",
       "community": 19,
       "norm_label": ".ongroupfieldchange()"
@@ -2888,7 +3032,7 @@
       "label": ".onPageSizeChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L502",
+      "source_location": "L517",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onpagesizechange",
       "community": 19,
       "norm_label": ".onpagesizechange()"
@@ -2897,7 +3041,7 @@
       "label": ".onRowClick()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L519",
+      "source_location": "L534",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onrowclick",
       "community": 19,
       "norm_label": ".onrowclick()"
@@ -2906,7 +3050,7 @@
       "label": ".onSelectionChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L523",
+      "source_location": "L538",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onselectionchange",
       "community": 19,
       "norm_label": ".onselectionchange()"
@@ -2915,7 +3059,7 @@
       "label": ".onDataStateChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L528",
+      "source_location": "L543",
       "id": "grid_demo_grid_demo_component_griddemocomponent_ondatastatechange",
       "community": 19,
       "norm_label": ".ondatastatechange()"
@@ -2924,7 +3068,7 @@
       "label": ".onRowUpdate()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L543",
+      "source_location": "L558",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onrowupdate",
       "community": 19,
       "norm_label": ".onrowupdate()"
@@ -2933,7 +3077,7 @@
       "label": ".onColumnReorder()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L552",
+      "source_location": "L567",
       "id": "grid_demo_grid_demo_component_griddemocomponent_oncolumnreorder",
       "community": 19,
       "norm_label": ".oncolumnreorder()"
@@ -2942,7 +3086,7 @@
       "label": ".onRowReorder()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L556",
+      "source_location": "L571",
       "id": "grid_demo_grid_demo_component_griddemocomponent_onrowreorder",
       "community": 19,
       "norm_label": ".onrowreorder()"
@@ -2951,7 +3095,7 @@
       "label": ".onCellSelectionChange()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L561",
+      "source_location": "L576",
       "id": "grid_demo_grid_demo_component_griddemocomponent_oncellselectionchange",
       "community": 19,
       "norm_label": ".oncellselectionchange()"
@@ -2960,7 +3104,7 @@
       "label": ".refreshServerData()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L569",
+      "source_location": "L584",
       "id": "grid_demo_grid_demo_component_griddemocomponent_refreshserverdata",
       "community": 19,
       "norm_label": ".refreshserverdata()"
@@ -2969,7 +3113,7 @@
       "label": ".seedEmployees()",
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
-      "source_location": "L629",
+      "source_location": "L644",
       "id": "grid_demo_grid_demo_component_griddemocomponent_seedemployees",
       "community": 19,
       "norm_label": ".seedemployees()"
@@ -5669,16 +5813,25 @@
       "label": "GanttChartComponent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L491",
+      "source_location": "L600",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent",
       "community": 1,
       "norm_label": "ganttchartcomponent"
     },
     {
+      "label": ".toggleCriticalPath()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L680",
+      "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_togglecriticalpath",
+      "community": 1,
+      "norm_label": ".togglecriticalpath()"
+    },
+    {
       "label": "start",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L566",
+      "source_location": "L688",
       "id": "gantt_chart_gantt_chart_component_start",
       "community": 55,
       "norm_label": "start"
@@ -5687,7 +5840,7 @@
       "label": "current",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L567",
+      "source_location": "L689",
       "id": "gantt_chart_gantt_chart_component_current",
       "community": 55,
       "norm_label": "current"
@@ -5696,7 +5849,7 @@
       "label": "leftX",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L583",
+      "source_location": "L705",
       "id": "gantt_chart_gantt_chart_component_leftx",
       "community": 55,
       "norm_label": "leftx"
@@ -5705,7 +5858,7 @@
       "label": "rightX",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L584",
+      "source_location": "L706",
       "id": "gantt_chart_gantt_chart_component_rightx",
       "community": 55,
       "norm_label": "rightx"
@@ -5714,7 +5867,7 @@
       "label": "cfg",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L586",
+      "source_location": "L708",
       "id": "gantt_chart_gantt_chart_component_cfg",
       "community": 55,
       "norm_label": "cfg"
@@ -5723,7 +5876,7 @@
       "label": "baseRange",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L587",
+      "source_location": "L709",
       "id": "gantt_chart_gantt_chart_component_baserange",
       "community": 55,
       "norm_label": "baserange"
@@ -5732,7 +5885,7 @@
       "label": "date1",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L590",
+      "source_location": "L712",
       "id": "gantt_chart_gantt_chart_component_date1",
       "community": 55,
       "norm_label": "date1"
@@ -5741,7 +5894,7 @@
       "label": "date2",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L591",
+      "source_location": "L713",
       "id": "gantt_chart_gantt_chart_component_date2",
       "community": 55,
       "norm_label": "date2"
@@ -5750,7 +5903,7 @@
       "label": "format()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L593",
+      "source_location": "L715",
       "id": "gantt_chart_gantt_chart_component_format",
       "community": 55,
       "norm_label": "format()"
@@ -5759,7 +5912,7 @@
       "label": "base",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L598",
+      "source_location": "L720",
       "id": "gantt_chart_gantt_chart_component_base",
       "community": 55,
       "norm_label": "base"
@@ -5768,7 +5921,7 @@
       "label": "sbOverride",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L599",
+      "source_location": "L721",
       "id": "gantt_chart_gantt_chart_component_sboverride",
       "community": 55,
       "norm_label": "sboverride"
@@ -5777,7 +5930,7 @@
       "label": "intZoom",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L602",
+      "source_location": "L724",
       "id": "gantt_chart_gantt_chart_component_intzoom",
       "community": 55,
       "norm_label": "intzoom"
@@ -5786,7 +5939,7 @@
       "label": "customColWidth",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L605",
+      "source_location": "L727",
       "id": "gantt_chart_gantt_chart_component_customcolwidth",
       "community": 55,
       "norm_label": "customcolwidth"
@@ -5795,7 +5948,7 @@
       "label": "v",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L617",
+      "source_location": "L739",
       "id": "gantt_chart_gantt_chart_component_v",
       "community": 55,
       "norm_label": "v"
@@ -5804,7 +5957,7 @@
       "label": "collapsed",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L631",
+      "source_location": "L753",
       "id": "gantt_chart_gantt_chart_component_collapsed",
       "community": 55,
       "norm_label": "collapsed"
@@ -5813,7 +5966,7 @@
       "label": "m",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L636",
+      "source_location": "L758",
       "id": "gantt_chart_gantt_chart_component_m",
       "community": 55,
       "norm_label": "m"
@@ -5822,7 +5975,7 @@
       "label": "rows",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L647",
+      "source_location": "L769",
       "id": "gantt_chart_gantt_chart_component_rows",
       "community": 55,
       "norm_label": "rows"
@@ -5831,7 +5984,7 @@
       "label": "range",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L649",
+      "source_location": "L771",
       "id": "gantt_chart_gantt_chart_component_range",
       "community": 55,
       "norm_label": "range"
@@ -5840,7 +5993,7 @@
       "label": "customStart",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L654",
+      "source_location": "L776",
       "id": "gantt_chart_gantt_chart_component_customstart",
       "community": 55,
       "norm_label": "customstart"
@@ -5849,7 +6002,7 @@
       "label": "customEnd",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L655",
+      "source_location": "L777",
       "id": "gantt_chart_gantt_chart_component_customend",
       "community": 55,
       "norm_label": "customend"
@@ -5858,7 +6011,7 @@
       "label": "today",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L667",
+      "source_location": "L789",
       "id": "gantt_chart_gantt_chart_component_today",
       "community": 55,
       "norm_label": "today"
@@ -5867,7 +6020,7 @@
       "label": "dates",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L677",
+      "source_location": "L799",
       "id": "gantt_chart_gantt_chart_component_dates",
       "community": 55,
       "norm_label": "dates"
@@ -5876,7 +6029,7 @@
       "label": "groups",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L679",
+      "source_location": "L801",
       "id": "gantt_chart_gantt_chart_component_groups",
       "community": 1,
       "norm_label": "groups"
@@ -5885,16 +6038,25 @@
       "label": "currentLabel",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L680",
+      "source_location": "L802",
       "id": "gantt_chart_gantt_chart_component_currentlabel",
       "community": 55,
       "norm_label": "currentlabel"
     },
     {
+      "label": "critInfo",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L825",
+      "id": "gantt_chart_gantt_chart_component_critinfo",
+      "community": 55,
+      "norm_label": "critinfo"
+    },
+    {
       "label": "makeBar()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L703",
+      "source_location": "L828",
       "id": "gantt_chart_gantt_chart_component_makebar",
       "community": 55,
       "norm_label": "makebar()"
@@ -5903,7 +6065,7 @@
       "label": "bars",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L708",
+      "source_location": "L841",
       "id": "gantt_chart_gantt_chart_component_bars",
       "community": 55,
       "norm_label": "bars"
@@ -5912,7 +6074,7 @@
       "label": "rowMap",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L725",
+      "source_location": "L858",
       "id": "gantt_chart_gantt_chart_component_rowmap",
       "community": 55,
       "norm_label": "rowmap"
@@ -5921,7 +6083,7 @@
       "label": "barMap",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L741",
+      "source_location": "L874",
       "id": "gantt_chart_gantt_chart_component_barmap",
       "community": 55,
       "norm_label": "barmap"
@@ -5930,7 +6092,7 @@
       "label": "fromRect",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L748",
+      "source_location": "L882",
       "id": "gantt_chart_gantt_chart_component_fromrect",
       "community": 55,
       "norm_label": "fromrect"
@@ -5939,16 +6101,34 @@
       "label": "toRect",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L749",
+      "source_location": "L883",
       "id": "gantt_chart_gantt_chart_component_torect",
       "community": 55,
       "norm_label": "torect"
     },
     {
+      "label": "isCrit",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L885",
+      "id": "gantt_chart_gantt_chart_component_iscrit",
+      "community": 55,
+      "norm_label": "iscrit"
+    },
+    {
+      "label": ".computeCriticalPath()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L891",
+      "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_computecriticalpath",
+      "community": 12,
+      "norm_label": ".computecriticalpath()"
+    },
+    {
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L755",
+      "source_location": "L1082",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_constructor",
       "community": 1,
       "norm_label": ".constructor()"
@@ -5957,7 +6137,7 @@
       "label": ".isTaskSelected()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L772",
+      "source_location": "L1099",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_istaskselected",
       "community": 1,
       "norm_label": ".istaskselected()"
@@ -5966,7 +6146,7 @@
       "label": ".toggleSelection()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L774",
+      "source_location": "L1101",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_toggleselection",
       "community": 12,
       "norm_label": ".toggleselection()"
@@ -5975,7 +6155,7 @@
       "label": ".onTimelineScroll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L787",
+      "source_location": "L1114",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontimelinescroll",
       "community": 1,
       "norm_label": ".ontimelinescroll()"
@@ -5984,7 +6164,7 @@
       "label": ".onTreelistWheel()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L810",
+      "source_location": "L1137",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontreelistwheel",
       "community": 1,
       "norm_label": ".ontreelistwheel()"
@@ -5993,7 +6173,7 @@
       "label": ".onSplitBarDown()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L823",
+      "source_location": "L1150",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_onsplitbardown",
       "community": 1,
       "norm_label": ".onsplitbardown()"
@@ -6002,25 +6182,25 @@
       "label": ".onBarPointerDown()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L833",
+      "source_location": "L1160",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_onbarpointerdown",
-      "community": 12,
+      "community": 1,
       "norm_label": ".onbarpointerdown()"
     },
     {
       "label": ".onLinkDragStart()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L878",
+      "source_location": "L1206",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_onlinkdragstart",
-      "community": 12,
+      "community": 1,
       "norm_label": ".onlinkdragstart()"
     },
     {
       "label": ".onTableDragStart()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L915",
+      "source_location": "L1244",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontabledragstart",
       "community": 1,
       "norm_label": ".ontabledragstart()"
@@ -6029,7 +6209,7 @@
       "label": ".onTableDragEnd()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L920",
+      "source_location": "L1249",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontabledragend",
       "community": 1,
       "norm_label": ".ontabledragend()"
@@ -6038,7 +6218,7 @@
       "label": ".onTableDragOver()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L924",
+      "source_location": "L1253",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontabledragover",
       "community": 1,
       "norm_label": ".ontabledragover()"
@@ -6047,7 +6227,7 @@
       "label": ".onTableDrop()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L927",
+      "source_location": "L1256",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontabledrop",
       "community": 1,
       "norm_label": ".ontabledrop()"
@@ -6056,7 +6236,7 @@
       "label": ".onRowClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L938",
+      "source_location": "L1267",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_onrowclick",
       "community": 12,
       "norm_label": ".onrowclick()"
@@ -6065,7 +6245,7 @@
       "label": ".onTaskBarClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L942",
+      "source_location": "L1271",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontaskbarclick",
       "community": 12,
       "norm_label": ".ontaskbarclick()"
@@ -6074,16 +6254,16 @@
       "label": ".onTaskBarDblClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L946",
+      "source_location": "L1275",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontaskbardblclick",
-      "community": 12,
+      "community": 1,
       "norm_label": ".ontaskbardblclick()"
     },
     {
       "label": ".onDependencyClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L947",
+      "source_location": "L1276",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ondependencyclick",
       "community": 12,
       "norm_label": ".ondependencyclick()"
@@ -6092,7 +6272,7 @@
       "label": ".onToggleCollapse()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L953",
+      "source_location": "L1282",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontogglecollapse",
       "community": 1,
       "norm_label": ".ontogglecollapse()"
@@ -6101,25 +6281,25 @@
       "label": ".onToggleGroupCollapse()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L962",
+      "source_location": "L1291",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontogglegroupcollapse",
-      "community": 12,
+      "community": 187,
       "norm_label": ".ontogglegroupcollapse()"
     },
     {
       "label": ".onToolbarViewChange()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L969",
+      "source_location": "L1298",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontoolbarviewchange",
-      "community": 1,
+      "community": 6,
       "norm_label": ".ontoolbarviewchange()"
     },
     {
       "label": ".toggleAreaZoomMode()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L975",
+      "source_location": "L1304",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_toggleareazoommode",
       "community": 1,
       "norm_label": ".toggleareazoommode()"
@@ -6128,7 +6308,7 @@
       "label": ".resetZoom()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L979",
+      "source_location": "L1308",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_resetzoom",
       "community": 1,
       "norm_label": ".resetzoom()"
@@ -6137,16 +6317,16 @@
       "label": ".getBestZoomLevel()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L996",
+      "source_location": "L1325",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getbestzoomlevel",
-      "community": 1,
+      "community": 6,
       "norm_label": ".getbestzoomlevel()"
     },
     {
       "label": ".zoomToRange()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1008",
+      "source_location": "L1337",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_zoomtorange",
       "community": 6,
       "norm_label": ".zoomtorange()"
@@ -6155,7 +6335,7 @@
       "label": ".onTimelinePointerDown()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1054",
+      "source_location": "L1387",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontimelinepointerdown",
       "community": 1,
       "norm_label": ".ontimelinepointerdown()"
@@ -6164,25 +6344,43 @@
       "label": ".getViewLabel()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1111",
+      "source_location": "L1489",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getviewlabel",
-      "community": 1,
+      "community": 6,
       "norm_label": ".getviewlabel()"
     },
     {
       "label": ".onKeyDown()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1115",
+      "source_location": "L1493",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_onkeydown",
       "community": 1,
       "norm_label": ".onkeydown()"
     },
     {
+      "label": ".getTaskSlackDays()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L1560",
+      "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_gettaskslackdays",
+      "community": 1,
+      "norm_label": ".gettaskslackdays()"
+    },
+    {
+      "label": ".isTaskCritical()",
+      "file_type": "code",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L1565",
+      "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_istaskcritical",
+      "community": 1,
+      "norm_label": ".istaskcritical()"
+    },
+    {
       "label": ".scrollToToday()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1123",
+      "source_location": "L1569",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_scrolltotoday",
       "community": 1,
       "norm_label": ".scrolltotoday()"
@@ -6191,7 +6389,7 @@
       "label": ".scrollToDate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1124",
+      "source_location": "L1570",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_scrolltodate",
       "community": 1,
       "norm_label": ".scrolltodate()"
@@ -6200,7 +6398,7 @@
       "label": ".scrollToTask()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1130",
+      "source_location": "L1576",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_scrolltotask",
       "community": 1,
       "norm_label": ".scrolltotask()"
@@ -6209,7 +6407,7 @@
       "label": ".expandAll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1136",
+      "source_location": "L1582",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_expandall",
       "community": 1,
       "norm_label": ".expandall()"
@@ -6218,7 +6416,7 @@
       "label": ".collapseAll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1144",
+      "source_location": "L1590",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_collapseall",
       "community": 1,
       "norm_label": ".collapseall()"
@@ -6227,7 +6425,7 @@
       "label": ".exportAsImage()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1152",
+      "source_location": "L1598",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_exportasimage",
       "community": 1,
       "norm_label": ".exportasimage()"
@@ -6236,7 +6434,7 @@
       "label": ".getImageDataUrl()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1153",
+      "source_location": "L1599",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getimagedataurl",
       "community": 1,
       "norm_label": ".getimagedataurl()"
@@ -6245,7 +6443,7 @@
       "label": ".isSelected()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1154",
+      "source_location": "L1600",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isselected",
       "community": 1,
       "norm_label": ".isselected()"
@@ -6254,7 +6452,7 @@
       "label": ".getSelectedIds()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1155",
+      "source_location": "L1601",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getselectedids",
       "community": 1,
       "norm_label": ".getselectedids()"
@@ -6263,7 +6461,7 @@
       "label": ".rerenderView()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1156",
+      "source_location": "L1602",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_rerenderview",
       "community": 1,
       "norm_label": ".rerenderview()"
@@ -6272,7 +6470,7 @@
       "label": ".formatDateShort()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1158",
+      "source_location": "L1604",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_formatdateshort",
       "community": 1,
       "norm_label": ".formatdateshort()"
@@ -6281,7 +6479,7 @@
       "label": ".formatDateFull()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1159",
+      "source_location": "L1605",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_formatdatefull",
       "community": 1,
       "norm_label": ".formatdatefull()"
@@ -6290,7 +6488,7 @@
       "label": ".isNameColumn()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1160",
+      "source_location": "L1606",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isnamecolumn",
       "community": 1,
       "norm_label": ".isnamecolumn()"
@@ -6299,7 +6497,7 @@
       "label": ".isDateColumn()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1161",
+      "source_location": "L1607",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isdatecolumn",
       "community": 1,
       "norm_label": ".isdatecolumn()"
@@ -6308,7 +6506,7 @@
       "label": ".isProgressColumn()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1162",
+      "source_location": "L1608",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_isprogresscolumn",
       "community": 1,
       "norm_label": ".isprogresscolumn()"
@@ -6317,7 +6515,7 @@
       "label": ".getSidebarCellValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1163",
+      "source_location": "L1609",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getsidebarcellvalue",
       "community": 1,
       "norm_label": ".getsidebarcellvalue()"
@@ -6326,34 +6524,34 @@
       "label": ".showTooltip()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1172",
+      "source_location": "L1618",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_showtooltip",
-      "community": 137,
+      "community": 148,
       "norm_label": ".showtooltip()"
     },
     {
       "label": ".showSubtaskTooltip()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1176",
+      "source_location": "L1622",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_showsubtasktooltip",
-      "community": 137,
+      "community": 148,
       "norm_label": ".showsubtasktooltip()"
     },
     {
       "label": ".updateTooltipPosition()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1180",
+      "source_location": "L1626",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_updatetooltipposition",
-      "community": 137,
+      "community": 148,
       "norm_label": ".updatetooltipposition()"
     },
     {
       "label": ".hideTooltip()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1191",
+      "source_location": "L1637",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_hidetooltip",
       "community": 1,
       "norm_label": ".hidetooltip()"
@@ -6362,7 +6560,7 @@
       "label": ".getRowAvgProgress()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1192",
+      "source_location": "L1638",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getrowavgprogress",
       "community": 1,
       "norm_label": ".getrowavgprogress()"
@@ -6371,7 +6569,7 @@
       "label": ".getRowProgressTitle()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1193",
+      "source_location": "L1639",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getrowprogresstitle",
       "community": 1,
       "norm_label": ".getrowprogresstitle()"
@@ -6380,7 +6578,7 @@
       "label": ".getUniqueExtraTasks()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1194",
+      "source_location": "L1640",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getuniqueextratasks",
       "community": 1,
       "norm_label": ".getuniqueextratasks()"
@@ -6389,7 +6587,7 @@
       "label": ".getMetaEntries()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1195",
+      "source_location": "L1641",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getmetaentries",
       "community": 1,
       "norm_label": ".getmetaentries()"
@@ -6398,34 +6596,34 @@
       "label": ".getSubtaskBars()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1199",
+      "source_location": "L1645",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getsubtaskbars",
-      "community": 137,
+      "community": 148,
       "norm_label": ".getsubtaskbars()"
     },
     {
       "label": ".showRowTooltip()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1209",
+      "source_location": "L1655",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_showrowtooltip",
-      "community": 1,
+      "community": 148,
       "norm_label": ".showrowtooltip()"
     },
     {
       "label": ".updateRowTooltip()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1210",
+      "source_location": "L1656",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_updaterowtooltip",
-      "community": 1,
+      "community": 148,
       "norm_label": ".updaterowtooltip()"
     },
     {
       "label": ".hideRowTooltip()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1211",
+      "source_location": "L1657",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_hiderowtooltip",
       "community": 1,
       "norm_label": ".hiderowtooltip()"
@@ -6434,7 +6632,7 @@
       "label": ".toStyleStr()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1212",
+      "source_location": "L1658",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_tostylestr",
       "community": 1,
       "norm_label": ".tostylestr()"
@@ -6443,52 +6641,52 @@
       "label": ".positionRowTooltip()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1213",
+      "source_location": "L1659",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_positionrowtooltip",
-      "community": 1,
+      "community": 148,
       "norm_label": ".positionrowtooltip()"
     },
     {
       "label": ".getPrimaryLabel()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1218",
+      "source_location": "L1664",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getprimarylabel",
-      "community": 1,
+      "community": 6,
       "norm_label": ".getprimarylabel()"
     },
     {
       "label": ".getSecondaryLabel()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1226",
+      "source_location": "L1672",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getsecondarylabel",
-      "community": 1,
+      "community": 6,
       "norm_label": ".getsecondarylabel()"
     },
     {
       "label": ".getMsPerUnit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1236",
+      "source_location": "L1682",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_getmsperunit",
-      "community": 1,
+      "community": 6,
       "norm_label": ".getmsperunit()"
     },
     {
       "label": "flipCoord()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1242",
+      "source_location": "L1688",
       "id": "gantt_chart_gantt_chart_component_flipcoord",
-      "community": 137,
+      "community": 148,
       "norm_label": "flipcoord()"
     },
     {
       "label": "getRowStart()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1243",
+      "source_location": "L1689",
       "id": "gantt_chart_gantt_chart_component_getrowstart",
       "community": 1,
       "norm_label": "getrowstart()"
@@ -6497,7 +6695,7 @@
       "label": "getRowEnd()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
-      "source_location": "L1244",
+      "source_location": "L1690",
       "id": "gantt_chart_gantt_chart_component_getrowend",
       "community": 1,
       "norm_label": "getrowend()"
@@ -6535,7 +6733,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-config.model.ts",
       "source_location": "L3",
       "id": "models_gantt_config_model_zoomlevel",
-      "community": 1,
+      "community": 6,
       "norm_label": "zoomlevel"
     },
     {
@@ -6544,7 +6742,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-config.model.ts",
       "source_location": "L12",
       "id": "models_gantt_config_model_ganttlinklinetype",
-      "community": 55,
+      "community": 23,
       "norm_label": "ganttlinklinetype"
     },
     {
@@ -6769,7 +6967,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-event.model.ts",
       "source_location": "L88",
       "id": "models_gantt_event_model_ganttvirtualscrolledindexchangeevent",
-      "community": 12,
+      "community": 55,
       "norm_label": "ganttvirtualscrolledindexchangeevent"
     },
     {
@@ -6796,7 +6994,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-group.model.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_gantt_chart_models_gantt_group_model_ts",
-      "community": 12,
+      "community": 187,
       "norm_label": "gantt-group.model.ts"
     },
     {
@@ -6805,7 +7003,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-group.model.ts",
       "source_location": "L1",
       "id": "models_gantt_group_model_ganttgroup",
-      "community": 12,
+      "community": 187,
       "norm_label": "ganttgroup"
     },
     {
@@ -6841,7 +7039,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/models/gantt-task.model.ts",
       "source_location": "L12",
       "id": "models_gantt_task_model_ganttsubtask",
-      "community": 137,
+      "community": 148,
       "norm_label": "ganttsubtask"
     },
     {
@@ -6913,7 +7111,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_gantt_chart_services_gantt_layout_service_ts",
-      "community": 12,
+      "community": 187,
       "norm_label": "gantt-layout.service.ts"
     },
     {
@@ -6931,7 +7129,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L19",
       "id": "services_gantt_layout_service_rowgroup",
-      "community": 12,
+      "community": 187,
       "norm_label": "rowgroup"
     },
     {
@@ -6940,7 +7138,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L25",
       "id": "services_gantt_layout_service_ganttlayoutservice",
-      "community": 12,
+      "community": 187,
       "norm_label": "ganttlayoutservice"
     },
     {
@@ -6949,7 +7147,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L26",
       "id": "services_gantt_layout_service_ganttlayoutservice_flattentasks",
-      "community": 12,
+      "community": 187,
       "norm_label": ".flattentasks()"
     },
     {
@@ -6958,7 +7156,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L33",
       "id": "services_gantt_layout_service_ganttlayoutservice_flattentree",
-      "community": 12,
+      "community": 187,
       "norm_label": ".flattentree()"
     },
     {
@@ -6967,7 +7165,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts",
       "source_location": "L82",
       "id": "services_gantt_layout_service_ganttlayoutservice_flattenwithgroups",
-      "community": 12,
+      "community": 187,
       "norm_label": ".flattenwithgroups()"
     },
     {
@@ -7064,7 +7262,7 @@
       "label": ".xToDate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
-      "source_location": "L55",
+      "source_location": "L59",
       "id": "services_gantt_scale_service_ganttscaleservice_xtodate",
       "community": 6,
       "norm_label": ".xtodate()"
@@ -7073,7 +7271,7 @@
       "label": ".snapDate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
-      "source_location": "L104",
+      "source_location": "L107",
       "id": "services_gantt_scale_service_ganttscaleservice_snapdate",
       "community": 6,
       "norm_label": ".snapdate()"
@@ -7082,7 +7280,7 @@
       "label": ".getBarWidth()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
-      "source_location": "L118",
+      "source_location": "L121",
       "id": "services_gantt_scale_service_ganttscaleservice_getbarwidth",
       "community": 6,
       "norm_label": ".getbarwidth()"
@@ -7228,7 +7426,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/utils/date-utils.ts",
       "source_location": "L86",
       "id": "utils_date_utils_isweekend",
-      "community": 6,
+      "community": 55,
       "norm_label": "isweekend()"
     },
     {
@@ -7273,7 +7471,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/utils/svg-utils.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_gantt_chart_utils_svg_utils_ts",
-      "community": 55,
+      "community": 23,
       "norm_label": "svg-utils.ts"
     },
     {
@@ -7282,7 +7480,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/utils/svg-utils.ts",
       "source_location": "L3",
       "id": "utils_svg_utils_rect",
-      "community": 55,
+      "community": 23,
       "norm_label": "rect"
     },
     {
@@ -7291,7 +7489,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/utils/svg-utils.ts",
       "source_location": "L10",
       "id": "utils_svg_utils_computedependencypath",
-      "community": 55,
+      "community": 23,
       "norm_label": "computedependencypath()"
     },
     {
@@ -7300,7 +7498,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/utils/svg-utils.ts",
       "source_location": "L56",
       "id": "utils_svg_utils_computestraightpath",
-      "community": 55,
+      "community": 23,
       "norm_label": "computestraightpath()"
     },
     {
@@ -7309,7 +7507,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/utils/svg-utils.ts",
       "source_location": "L71",
       "id": "utils_svg_utils_computecurvepath",
-      "community": 55,
+      "community": 23,
       "norm_label": "computecurvepath()"
     },
     {
@@ -7939,7 +8137,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_sparkline_sparkline_component_ts",
-      "community": 187,
+      "community": 199,
       "norm_label": "sparkline.component.ts"
     },
     {
@@ -7948,7 +8146,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L49",
       "id": "sparkline_sparkline_component_sparklinecomponent",
-      "community": 187,
+      "community": 199,
       "norm_label": "sparklinecomponent"
     },
     {
@@ -7957,7 +8155,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L65",
       "id": "sparkline_sparkline_component_d",
-      "community": 187,
+      "community": 199,
       "norm_label": "d"
     },
     {
@@ -7966,7 +8164,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L77",
       "id": "sparkline_sparkline_component_pts",
-      "community": 187,
+      "community": 199,
       "norm_label": "pts"
     },
     {
@@ -7975,7 +8173,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L79",
       "id": "sparkline_sparkline_component_line",
-      "community": 187,
+      "community": 199,
       "norm_label": "line"
     },
     {
@@ -7984,7 +8182,7 @@
       "source_file": "projects/ngx-core-components/charts/sparkline/sparkline.component.ts",
       "source_location": "L97",
       "id": "sparkline_sparkline_component_bw",
-      "community": 187,
+      "community": 199,
       "norm_label": "bw"
     },
     {
@@ -10315,7 +10513,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L116",
       "id": "autocomplete_autocomplete_component_autocompletecomponent",
-      "community": 131,
+      "community": 2,
       "norm_label": "autocompletecomponent"
     },
     {
@@ -10342,7 +10540,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L146",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_oninput",
-      "community": 131,
+      "community": 2,
       "norm_label": ".oninput()"
     },
     {
@@ -10351,7 +10549,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L154",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onfocus",
-      "community": 131,
+      "community": 2,
       "norm_label": ".onfocus()"
     },
     {
@@ -10360,7 +10558,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L161",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onblur",
-      "community": 131,
+      "community": 2,
       "norm_label": ".onblur()"
     },
     {
@@ -10369,7 +10567,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L167",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_onkeydown",
-      "community": 131,
+      "community": 2,
       "norm_label": ".onkeydown()"
     },
     {
@@ -10378,7 +10576,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L183",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_selectoption",
-      "community": 131,
+      "community": 2,
       "norm_label": ".selectoption()"
     },
     {
@@ -10387,7 +10585,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L193",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_clear",
-      "community": 131,
+      "community": 2,
       "norm_label": ".clear()"
     },
     {
@@ -10396,7 +10594,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L202",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_ondocclick",
-      "community": 131,
+      "community": 2,
       "norm_label": ".ondocclick()"
     },
     {
@@ -10405,7 +10603,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L209",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_writevalue",
-      "community": 131,
+      "community": 2,
       "norm_label": ".writevalue()"
     },
     {
@@ -10414,7 +10612,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L220",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_registeronchange",
-      "community": 131,
+      "community": 2,
       "norm_label": ".registeronchange()"
     },
     {
@@ -10423,7 +10621,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L224",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_registerontouched",
-      "community": 131,
+      "community": 2,
       "norm_label": ".registerontouched()"
     },
     {
@@ -10432,7 +10630,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L228",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_setdisabledstate",
-      "community": 131,
+      "community": 2,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -11053,7 +11251,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L159",
       "id": "dropdown_dropdown_component_dropdowncomponent",
-      "community": 197,
+      "community": 2,
       "norm_label": "dropdowncomponent"
     },
     {
@@ -11080,7 +11278,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L194",
       "id": "dropdown_dropdown_component_dropdowncomponent_isselected",
-      "community": 197,
+      "community": 2,
       "norm_label": ".isselected()"
     },
     {
@@ -11089,7 +11287,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L196",
       "id": "dropdown_dropdown_component_dropdowncomponent_toggle",
-      "community": 197,
+      "community": 2,
       "norm_label": ".toggle()"
     },
     {
@@ -11098,7 +11296,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L210",
       "id": "dropdown_dropdown_component_dropdowncomponent_selectoption",
-      "community": 197,
+      "community": 2,
       "norm_label": ".selectoption()"
     },
     {
@@ -11107,7 +11305,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L221",
       "id": "dropdown_dropdown_component_dropdowncomponent_ontriggerkey",
-      "community": 197,
+      "community": 2,
       "norm_label": ".ontriggerkey()"
     },
     {
@@ -11116,7 +11314,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L228",
       "id": "dropdown_dropdown_component_dropdowncomponent_onfilterkey",
-      "community": 197,
+      "community": 2,
       "norm_label": ".onfilterkey()"
     },
     {
@@ -11125,7 +11323,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L239",
       "id": "dropdown_dropdown_component_dropdowncomponent_movefocus",
-      "community": 197,
+      "community": 2,
       "norm_label": ".movefocus()"
     },
     {
@@ -11134,7 +11332,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L249",
       "id": "dropdown_dropdown_component_dropdowncomponent_ondocclick",
-      "community": 197,
+      "community": 2,
       "norm_label": ".ondocclick()"
     },
     {
@@ -11143,7 +11341,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L261",
       "id": "dropdown_dropdown_component_dropdowncomponent_writevalue",
-      "community": 197,
+      "community": 2,
       "norm_label": ".writevalue()"
     },
     {
@@ -11152,7 +11350,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L266",
       "id": "dropdown_dropdown_component_dropdowncomponent_registeronchange",
-      "community": 197,
+      "community": 2,
       "norm_label": ".registeronchange()"
     },
     {
@@ -11161,7 +11359,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L270",
       "id": "dropdown_dropdown_component_dropdowncomponent_registerontouched",
-      "community": 197,
+      "community": 2,
       "norm_label": ".registerontouched()"
     },
     {
@@ -11170,7 +11368,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L274",
       "id": "dropdown_dropdown_component_dropdowncomponent_setdisabledstate",
-      "community": 197,
+      "community": 2,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -12304,7 +12502,7 @@
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_time_picker_time_picker_component_ts",
-      "community": 29,
+      "community": 16,
       "norm_label": "time-picker.component.ts"
     },
     {
@@ -14428,7 +14626,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_scheduler_models_ts",
-      "community": 148,
+      "community": 131,
       "norm_label": "models.ts"
     },
     {
@@ -14437,7 +14635,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L1",
       "id": "scheduler_models_schedulerevent",
-      "community": 148,
+      "community": 131,
       "norm_label": "schedulerevent"
     },
     {
@@ -14446,7 +14644,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L12",
       "id": "scheduler_models_schedulerrecurrence",
-      "community": 148,
+      "community": 131,
       "norm_label": "schedulerrecurrence"
     },
     {
@@ -14455,7 +14653,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L20",
       "id": "scheduler_models_schedulerslotclickevent",
-      "community": 148,
+      "community": 131,
       "norm_label": "schedulerslotclickevent"
     },
     {
@@ -14464,7 +14662,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L26",
       "id": "scheduler_models_schedulereventchangeevent",
-      "community": 148,
+      "community": 131,
       "norm_label": "schedulereventchangeevent"
     },
     {
@@ -14473,7 +14671,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_scheduler_scheduler_component_ts",
-      "community": 148,
+      "community": 131,
       "norm_label": "scheduler.component.ts"
     },
     {
@@ -14482,7 +14680,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L5",
       "id": "scheduler_scheduler_component_timeslot",
-      "community": 148,
+      "community": 131,
       "norm_label": "timeslot"
     },
     {
@@ -14491,7 +14689,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L11",
       "id": "scheduler_scheduler_component_resolvedschedulerevent",
-      "community": 148,
+      "community": 131,
       "norm_label": "resolvedschedulerevent"
     },
     {
@@ -14500,7 +14698,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L18",
       "id": "scheduler_scheduler_component_schedulereventlayout",
-      "community": 148,
+      "community": 131,
       "norm_label": "schedulereventlayout"
     },
     {
@@ -14509,7 +14707,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L25",
       "id": "scheduler_scheduler_component_resizestate",
-      "community": 148,
+      "community": 131,
       "norm_label": "resizestate"
     },
     {
@@ -14536,7 +14734,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L301",
       "id": "scheduler_scheduler_component_start",
-      "community": 148,
+      "community": 131,
       "norm_label": "start"
     },
     {
@@ -14545,7 +14743,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L302",
       "id": "scheduler_scheduler_component_end",
-      "community": 148,
+      "community": 131,
       "norm_label": "end"
     },
     {
@@ -14554,7 +14752,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L303",
       "id": "scheduler_scheduler_component_list",
-      "community": 148,
+      "community": 131,
       "norm_label": "list"
     },
     {
@@ -14563,7 +14761,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L309",
       "id": "scheduler_scheduler_component_slots",
-      "community": 148,
+      "community": 131,
       "norm_label": "slots"
     },
     {
@@ -14572,7 +14770,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L310",
       "id": "scheduler_scheduler_component_minutes",
-      "community": 148,
+      "community": 131,
       "norm_label": "minutes"
     },
     {
@@ -14581,7 +14779,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L320",
       "id": "scheduler_scheduler_component_mode",
-      "community": 148,
+      "community": 131,
       "norm_label": "mode"
     },
     {
@@ -14590,7 +14788,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L321",
       "id": "scheduler_scheduler_component_date",
-      "community": 148,
+      "community": 131,
       "norm_label": "date"
     },
     {
@@ -14599,7 +14797,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L329",
       "id": "scheduler_scheduler_component_base",
-      "community": 148,
+      "community": 131,
       "norm_label": "base"
     },
     {
@@ -14608,7 +14806,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L343",
       "id": "scheduler_scheduler_component_cols",
-      "community": 148,
+      "community": 131,
       "norm_label": "cols"
     },
     {
@@ -14662,7 +14860,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L399",
       "id": "scheduler_scheduler_component_schedulercomponent_clickevent",
-      "community": 148,
+      "community": 131,
       "norm_label": ".clickevent()"
     },
     {
@@ -21340,6 +21538,107 @@
       "target": "charts_demo_charts_demo_component_chartsdemocomponent_formattime"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "projects_ngx_core_components_src_public_api_ts"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_testganttwrappercomponent"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L105",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_info"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_event",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_expectedstart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_resizeevent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L133",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_startdate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L134",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_targetdate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L137",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_x"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/charts-demo/gantt-chart.component.spec.ts",
+      "source_location": "L141",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_demo_src_app_pages_charts_demo_gantt_chart_component_spec_ts",
+      "target": "charts_demo_gantt_chart_component_spec_reverseddate"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "projects/demo/src/app/pages/charts-demo/old-charts-demo.ts",
@@ -22006,6 +22305,46 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1559",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_openaddtaskmodal"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1581",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_closeeditmodal"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1586",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_savetask"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1614",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_deletetask"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1079",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -22220,6 +22559,50 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "gantt_demo_gantt_demo_component_ganttdemocomponent_onplaytaskdblclick",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_logplayevent"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1611",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent_savetask",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_closeeditmodal"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1624",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent_deletetask",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_closeeditmodal"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1604",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent_savetask",
+      "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_logplayevent"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
+      "source_location": "L1623",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_demo_gantt_demo_component_ganttdemocomponent_deletetask",
       "target": "gantt_demo_gantt_demo_component_ganttdemocomponent_logplayevent"
     },
     {
@@ -22511,9 +22894,9 @@
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
       "source_location": "L525",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
-      "target": "grid_demo_grid_demo_component_spec_testgriddirectiveswrappercomponent",
-      "confidence_score": 1.0
+      "target": "grid_demo_grid_demo_component_spec_testgriddirectiveswrappercomponent"
     },
     {
       "relation": "contains",
@@ -22521,9 +22904,9 @@
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
       "source_location": "L581",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
-      "target": "grid_demo_grid_demo_component_spec_celltpl",
-      "confidence_score": 1.0
+      "target": "grid_demo_grid_demo_component_spec_celltpl"
     },
     {
       "relation": "contains",
@@ -22531,9 +22914,9 @@
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
       "source_location": "L584",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
-      "target": "grid_demo_grid_demo_component_spec_editcelltpl",
-      "confidence_score": 1.0
+      "target": "grid_demo_grid_demo_component_spec_editcelltpl"
     },
     {
       "relation": "contains",
@@ -22541,9 +22924,9 @@
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
       "source_location": "L587",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
-      "target": "grid_demo_grid_demo_component_spec_headertpl",
-      "confidence_score": 1.0
+      "target": "grid_demo_grid_demo_component_spec_headertpl"
     },
     {
       "relation": "contains",
@@ -22551,9 +22934,9 @@
       "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.spec.ts",
       "source_location": "L590",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_demo_src_app_pages_grid_demo_grid_demo_component_spec_ts",
-      "target": "grid_demo_grid_demo_component_spec_footertpl",
-      "confidence_score": 1.0
+      "target": "grid_demo_grid_demo_component_spec_footertpl"
     },
     {
       "relation": "imports_from",
@@ -22635,6 +23018,26 @@
       "confidence_score": 1.0,
       "source": "grid_demo_grid_demo_component_griddemocomponent",
       "target": "grid_demo_grid_demo_component_griddemocomponent_ngafterviewinit"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L455",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "grid_demo_grid_demo_component_griddemocomponent",
+      "target": "grid_demo_grid_demo_component_griddemocomponent_oncustomtemplateschange"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L460",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "grid_demo_grid_demo_component_griddemocomponent",
+      "target": "grid_demo_grid_demo_component_griddemocomponent_updatecolumnstemplates"
     },
     {
       "relation": "method",
@@ -22776,6 +23179,28 @@
       "confidence_score": 1.0,
       "source": "grid_demo_grid_demo_component_griddemocomponent_constructor",
       "target": "grid_demo_grid_demo_component_griddemocomponent_refreshserverdata"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L452",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "grid_demo_grid_demo_component_griddemocomponent_ngafterviewinit",
+      "target": "grid_demo_grid_demo_component_griddemocomponent_updatecolumnstemplates"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/demo/src/app/pages/grid-demo/grid-demo.component.ts",
+      "source_location": "L457",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "grid_demo_grid_demo_component_griddemocomponent_oncustomtemplateschange",
+      "target": "grid_demo_grid_demo_component_griddemocomponent_updatecolumnstemplates"
     },
     {
       "relation": "calls",
@@ -27896,6 +28321,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L831",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_gantt_chart_gantt_chart_component_ts",
+      "target": "gantt_chart_gantt_chart_component_critinfo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L609",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -27951,6 +28386,16 @@
       "confidence_score": 1.0,
       "source": "projects_ngx_core_components_charts_gantt_chart_gantt_chart_component_ts",
       "target": "gantt_chart_gantt_chart_component_torect"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L841",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "projects_ngx_core_components_charts_gantt_chart_gantt_chart_component_ts",
+      "target": "gantt_chart_gantt_chart_component_iscrit"
     },
     {
       "relation": "contains",
@@ -28304,6 +28749,26 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L647",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_chart_gantt_chart_component_ganttchartcomponent",
+      "target": "gantt_chart_gantt_chart_component_ganttchartcomponent_togglecriticalpath"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L847",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_chart_gantt_chart_component_ganttchartcomponent",
+      "target": "gantt_chart_gantt_chart_component_ganttchartcomponent_computecriticalpath"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L661",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -28559,6 +29024,26 @@
       "confidence_score": 1.0,
       "source": "gantt_chart_gantt_chart_component_ganttchartcomponent",
       "target": "gantt_chart_gantt_chart_component_ganttchartcomponent_onkeydown"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L1560",
+      "weight": 1.0,
+      "source": "gantt_chart_gantt_chart_component_ganttchartcomponent",
+      "target": "gantt_chart_gantt_chart_component_ganttchartcomponent_gettaskslackdays",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L1565",
+      "weight": 1.0,
+      "source": "gantt_chart_gantt_chart_component_ganttchartcomponent",
+      "target": "gantt_chart_gantt_chart_component_ganttchartcomponent_istaskcritical",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -28973,6 +29458,28 @@
       "confidence_score": 1.0,
       "source": "gantt_chart_gantt_chart_component_ganttchartcomponent_collapseall",
       "target": "gantt_chart_gantt_chart_component_groups"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L847",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_chart_gantt_chart_component_ganttchartcomponent_computecriticalpath",
+      "target": "models_gantt_task_model_gantttask"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
+      "source_location": "L847",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "gantt_chart_gantt_chart_component_ganttchartcomponent_computecriticalpath",
+      "target": "models_gantt_dependency_model_ganttdependency"
     },
     {
       "relation": "calls",
@@ -30917,17 +31424,6 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
-      "source_location": "L17",
-      "weight": 1.0,
-      "source": "services_gantt_scale_service_ganttscaleservice_datetox",
-      "target": "utils_date_utils_diffdays"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
       "source_location": "L19",
       "weight": 1.0,
       "source": "services_gantt_scale_service_ganttscaleservice_datetox",
@@ -30986,6 +31482,17 @@
       "source_location": "L17",
       "weight": 1.0,
       "source": "services_gantt_scale_service_ganttscaleservice_datetox",
+      "target": "utils_date_utils_diffdays"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "services_gantt_scale_service_ganttscaleservice_datetox",
       "target": "utils_date_utils_startofday"
     },
     {
@@ -31009,17 +31516,6 @@
       "weight": 1.0,
       "source": "services_gantt_scale_service_ganttscaleservice_xtodate",
       "target": "utils_date_utils_startofhour"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
-      "source_location": "L63",
-      "weight": 1.0,
-      "source": "services_gantt_scale_service_ganttscaleservice_xtodate",
-      "target": "utils_date_utils_adddays"
     },
     {
       "relation": "calls",
@@ -31075,6 +31571,17 @@
       "weight": 1.0,
       "source": "services_gantt_scale_service_ganttscaleservice_xtodate",
       "target": "utils_date_utils_startofyear"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "projects/ngx-core-components/charts/gantt-chart/services/gantt-scale.service.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "services_gantt_scale_service_ganttscaleservice_xtodate",
+      "target": "utils_date_utils_adddays"
     },
     {
       "relation": "calls",
@@ -34098,9 +34605,9 @@
       "source_file": "projects/ngx-core-components/grid/public-api.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_public_api_ts",
-      "target": "data_grid_data_grid_component_ngxgridcelltemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgridcelltemplatedirective"
     },
     {
       "relation": "re_exports",
@@ -34109,9 +34616,9 @@
       "source_file": "projects/ngx-core-components/grid/public-api.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_public_api_ts",
-      "target": "data_grid_data_grid_component_ngxgrideditcelltemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgrideditcelltemplatedirective"
     },
     {
       "relation": "re_exports",
@@ -34120,9 +34627,9 @@
       "source_file": "projects/ngx-core-components/grid/public-api.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_public_api_ts",
-      "target": "data_grid_data_grid_component_ngxgridheadertemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgridheadertemplatedirective"
     },
     {
       "relation": "re_exports",
@@ -34131,9 +34638,9 @@
       "source_file": "projects/ngx-core-components/grid/public-api.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_public_api_ts",
-      "target": "data_grid_data_grid_component_ngxgridfootertemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgridfootertemplatedirective"
     },
     {
       "relation": "re_exports",
@@ -34531,9 +35038,9 @@
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L148",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
-      "target": "data_grid_data_grid_component_ngxgridcelltemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgridcelltemplatedirective"
     },
     {
       "relation": "contains",
@@ -34541,9 +35048,9 @@
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L157",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
-      "target": "data_grid_data_grid_component_ngxgrideditcelltemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgrideditcelltemplatedirective"
     },
     {
       "relation": "contains",
@@ -34551,9 +35058,9 @@
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L166",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
-      "target": "data_grid_data_grid_component_ngxgridheadertemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgridheadertemplatedirective"
     },
     {
       "relation": "contains",
@@ -34561,9 +35068,9 @@
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
       "source_location": "L175",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_grid_data_grid_data_grid_component_ts",
-      "target": "data_grid_data_grid_component_ngxgridfootertemplatedirective",
-      "confidence_score": 1.0
+      "target": "data_grid_data_grid_component_ngxgridfootertemplatedirective"
     },
     {
       "relation": "contains",
@@ -47980,5 +48487,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "7e3134b1f30c64b582b0bfde1d3ead3762ad1f53"
+  "built_at_commit": "6f5242f338901eba2f7f9e19c8a0c2eb1e3c298f"
 }

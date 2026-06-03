@@ -62,7 +62,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
   providers: [GanttScaleService, GanttLayoutService, GanttKeyboardService, GanttPrintService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="k-gantt" [class.k-gantt-dark]="false" [class.k-no-grid]="!mergedConfig().showGrid" [style]="themeVars()" (keydown)="onKeyDown($event)">
+    <div class="k-gantt" [class.k-gantt-dark]="mergedConfig().styleOptions.defaultTheme === 'dark'" [class.k-no-grid]="!mergedConfig().showGrid" [style]="themeVars()" (keydown)="onKeyDown($event)">
 
       @if (mergedConfig().showToolbar) {
         <div class="k-gantt-toolbar">
@@ -77,6 +77,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               <button class="k-toolbar-btn" (click)="expandAll()">Expand</button>
               <button class="k-toolbar-btn" (click)="collapseAll()">Collapse</button>
             }
+          </div>
+          <div class="k-toolbar-group">
+            <button class="k-toolbar-btn" [class.k-active]="showCriticalPath()" (click)="toggleCriticalPath()" title="Toggle Critical Path Highlighting">📌 Critical Path</button>
           </div>
           @if (isDragToZoomEnabled()) {
             <div class="k-toolbar-group k-toolbar-zoom" style="margin-left: auto;">
@@ -219,14 +222,14 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                   <div class="k-task-wrap" [style.top.px]="bar.top" [style.height.px]="mergedConfig().rowHeight" [class]="bar.task.cssClass || ''">
                     @if (bar.isGroupHeader) {
                     } @else if (bar.task.isMilestone) {
-                      <div class="k-milestone" [style.left.px]="bar.left - 8" [class.k-focused]="keyboardService.focusedTaskId() === bar.task.id" [class.k-selected]="isTaskSelected(bar.task.id)"
+                      <div class="k-milestone" [style.left.px]="bar.left - 8" [class.k-focused]="keyboardService.focusedTaskId() === bar.task.id" [class.k-selected]="isTaskSelected(bar.task.id)" [class.k-critical-task]="criticalPathInfo().criticalTaskIds.has(bar.task.id)"
                         (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (click)="onTaskBarClick(bar.task, $event)" (dblclick)="onTaskBarDblClick(bar.task, $event)" tabindex="0" [attr.aria-label]="'Milestone: ' + bar.task.name">
                         <div class="k-milestone-diamond" [style.background]="bar.task.color || '#e74c3c'"></div>
                       </div>
                     } @else if (bar.task.type === 'range') {
                       <div class="k-task k-task-range" [style.left.px]="bar.left" [style.width.px]="bar.width" [style.background]="bar.task.color || '#ff9f73'"
-                        [class.k-selected]="isTaskSelected(bar.task.id)"
+                        [class.k-selected]="isTaskSelected(bar.task.id)" [class.k-critical-task]="criticalPathInfo().criticalTaskIds.has(bar.task.id)"
                         (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (click)="onTaskBarClick(bar.task, $event)" tabindex="0" [attr.aria-label]="bar.task.name">
                         <span class="k-task-text">{{ bar.task.name }}</span>
@@ -236,7 +239,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                         }
                       </div>
                     } @else if (bar.isSummary) {
-                      <div class="k-task-summary" [style.left.px]="bar.left" [style.width.px]="bar.width" [class.k-selected]="isTaskSelected(bar.task.id)"
+                      <div class="k-task-summary" [style.left.px]="bar.left" [style.width.px]="bar.width" [class.k-selected]="isTaskSelected(bar.task.id)" [class.k-critical-task]="criticalPathInfo().criticalTaskIds.has(bar.task.id)"
                         (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (click)="onTaskBarClick(bar.task, $event)" tabindex="0">
                         <div class="k-summary-bar"><div class="k-summary-progress" [style.width.%]="bar.task.progress"></div></div>
@@ -244,7 +247,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                       </div>
                     } @else if (bar.task.subtasks && bar.task.subtasks.length > 0) {
                       <div class="k-task k-task-with-subtasks" [style.left.px]="bar.left" [style.width.px]="bar.width" [style.background]="bar.task.color || '#e9ecef'"
-                        [class.k-selected]="isTaskSelected(bar.task.id)"
+                        [class.k-selected]="isTaskSelected(bar.task.id)" [class.k-critical-task]="criticalPathInfo().criticalTaskIds.has(bar.task.id)"
                         (mouseenter)="hoveredTaskId.set(bar.primaryTaskId)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (pointerdown)="onBarPointerDown($event, bar.task, 'move')" (click)="onTaskBarClick(bar.task, $event)"
                         tabindex="0" role="img" [attr.aria-label]="bar.task.name + ' with ' + bar.task.subtasks.length + ' subtasks'">
@@ -267,7 +270,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                       </div>
                     } @else {
                       <div class="k-task" [style.left.px]="bar.left" [style.width.px]="bar.width" [style.background]="bar.task.color || 'var(--k-primary, #4a90d9)'"
-                        [class.k-focused]="keyboardService.focusedTaskId() === bar.task.id" [class.k-selected]="isTaskSelected(bar.task.id)"
+                        [class.k-focused]="keyboardService.focusedTaskId() === bar.task.id" [class.k-selected]="isTaskSelected(bar.task.id)" [class.k-critical-task]="criticalPathInfo().criticalTaskIds.has(bar.task.id)"
                         (mouseenter)="hoveredTaskId.set(bar.primaryTaskId); showTooltip(bar.task, $event)" (mousemove)="updateTooltipPosition($event)" (mouseleave)="hoveredTaskId.set(null); hideTooltip()"
                         (pointerdown)="onBarPointerDown($event, bar.task, 'move')" (click)="onTaskBarClick(bar.task, $event)" (dblclick)="onTaskBarDblClick(bar.task, $event)"
                         tabindex="0" role="img" [attr.aria-label]="bar.task.name + ' - ' + bar.task.progress + '% complete'">
@@ -282,6 +285,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                           <div class="k-link-connector k-link-end" (pointerdown)="onLinkDragStart($event, bar.task, 'end')"></div>
                         }
                       </div>
+                    }
+                    @if (bar.slackWidth > 0) {
+                      <div class="k-task-slack-trail" [style.left.px]="bar.left + bar.width" [style.width.px]="bar.slackWidth"></div>
                     }
                   </div>
                 }
@@ -298,7 +304,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                 @for (dep of dependencyPaths(); track dep.key) {
                   <path class="k-dep-line" [attr.d]="dep.path" [attr.stroke]="dep.color"
                     [attr.marker-end]="mergedConfig().linkOptions.showArrow !== false ? 'url(#k-arrowhead)' : null"
-                    [class]="dep.dependency.cssClass || ''" (click)="onDependencyClick(dep.dependency, $event)"/>
+                    [class]="dep.dependency.cssClass || ''" [class.k-critical-dep]="dep.isCritical" (click)="onDependencyClick(dep.dependency, $event)"/>
                 }
                 @if (linkDragLine()) {
                   <line class="k-link-drag-line" [attr.x1]="linkDragLine()!.x1" [attr.y1]="linkDragLine()!.y1" [attr.x2]="linkDragLine()!.x2" [attr.y2]="linkDragLine()!.y2"
@@ -335,6 +341,14 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
             <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Start</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.start) }}</span></div>
             <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">End</span><span class="k-bar-tooltip-value">{{ formatDateFull(tooltipTask()!.end) }}</span></div>
             <div class="k-bar-tooltip-row"><span class="k-bar-tooltip-label">Progress</span><span class="k-bar-tooltip-value">{{ tooltipTask()!.progress }}%</span></div>
+            @if (showCriticalPath()) {
+              <div class="k-bar-tooltip-row">
+                <span class="k-bar-tooltip-label">Slack</span>
+                <span class="k-bar-tooltip-value" [style.color]="isTaskCritical(tooltipTask()!.id) ? 'var(--k-danger, #ff6358)' : 'inherit'">
+                  {{ isTaskCritical(tooltipTask()!.id) ? '0 days (Critical)' : getTaskSlackDays(tooltipTask()!.id) + ' days' }}
+                </span>
+              </div>
+            }
           }
         }
       </div>
@@ -409,7 +423,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-header-tick-cell.k-weekend { background: var(--ngx-gantt-weekend-bg, rgba(0,0,0,0.02)); color: #adb5bd; }
     .k-header-tick-cell.k-today-header { color: var(--k-danger, #ff6358); font-weight: 700; }
     .k-timeline-content { flex: 1; overflow: auto; }
-    .k-timeline-canvas { position: relative; }
+    .k-timeline-canvas { position: relative; overflow: hidden; }
     .k-gantt-rows { position: absolute; top: 0; left: 0; right: 0; }
     .k-gantt-row { position: absolute; left: 0; right: 0; border-bottom: 1px solid var(--ngx-gantt-grid-line, #ebedf0); }
     .k-gantt-row.k-alt { background: var(--ngx-gantt-alt-bg, #f8f9fa); }
@@ -486,6 +500,101 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-zoom-overlay-badge { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); background: #2d3748; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.1); }
     .k-timeline-content.k-zoom-mode-cursor { cursor: crosshair !important; }
     .k-timeline-content.k-zoom-mode-cursor .k-task, .k-timeline-content.k-zoom-mode-cursor .k-milestone, .k-timeline-content.k-zoom-mode-cursor .k-task-summary { cursor: crosshair !important; pointer-events: none !important; }
+
+    /* Dark Mode variables override */
+    :host-context(.dark-theme) .k-gantt,
+    .k-gantt-dark,
+    .k-gantt.k-gantt-dark {
+      --ngx-gantt-bg: #1e1e24;
+      --ngx-gantt-text: #e5e7eb;
+      --ngx-gantt-border: #374151;
+      --ngx-gantt-header-bg: #111827;
+      --ngx-gantt-header-text: #9ca3af;
+      --ngx-gantt-grid-line: #2d3748;
+      --ngx-gantt-alt-bg: #1f2937;
+      --ngx-gantt-hover-bg: rgba(37, 99, 235, 0.2);
+      --ngx-gantt-selected-bg: rgba(37, 99, 235, 0.4);
+      --ngx-gantt-weekend-bg: rgba(255, 255, 255, 0.02);
+      --ngx-gantt-alt-col-bg: rgba(255, 255, 255, 0.03);
+      --ngx-gantt-tooltip-bg: #111827;
+      --ngx-gantt-tooltip-text: #f3f4f6;
+      --ngx-gantt-tooltip-label: rgba(243, 244, 246, 0.65);
+    }
+
+    /* Additional dark mode adjustments for inner button borders and headers */
+    :host-context(.dark-theme) .k-toolbar-btn,
+    .k-gantt-dark .k-toolbar-btn {
+      background: #1f2937;
+      color: #e5e7eb;
+      border-color: #374151;
+    }
+    :host-context(.dark-theme) .k-toolbar-btn:hover,
+    .k-gantt-dark .k-toolbar-btn:hover {
+      background: #374151;
+    }
+    :host-context(.dark-theme) .k-toolbar-btn.k-active,
+    .k-gantt-dark .k-toolbar-btn.k-active {
+      background: var(--k-primary, #4a90d9);
+      color: #fff;
+      border-color: var(--k-primary, #4a90d9);
+    }
+    :host-context(.dark-theme) .k-splitbar,
+    .k-gantt-dark .k-splitbar {
+      background: #111827;
+      border-color: #374151;
+    }
+    :host-context(.dark-theme) .k-collapse-btn:hover,
+    .k-gantt-dark .k-collapse-btn:hover {
+      background: #374151;
+    }
+
+    /* Critical Path Highlighting */
+    .k-task.k-critical-task {
+      border: 1.5px solid var(--k-danger, #ff6358) !important;
+      box-shadow: 0 0 8px rgba(255, 99, 88, 0.4), 0 1px 3px rgba(0,0,0,0.12) !important;
+    }
+    .k-milestone.k-critical-task .k-milestone-diamond {
+      background: var(--k-danger, #ff6358) !important;
+      border: 1.5px solid var(--k-danger, #ff6358) !important;
+      box-shadow: 0 0 8px rgba(255, 99, 88, 0.5) !important;
+    }
+    .k-task-summary.k-critical-task .k-summary-bar {
+      background: var(--k-danger, #ff6358) !important;
+    }
+    .k-task-summary.k-critical-task .k-summary-left-cap,
+    .k-task-summary.k-critical-task .k-summary-right-cap {
+      border-top-color: var(--k-danger, #ff6358) !important;
+    }
+    .k-dep-line.k-critical-dep {
+      stroke: var(--k-danger, #ff6358) !important;
+      stroke-width: 2.5 !important;
+      filter: drop-shadow(0 0 2px rgba(255, 99, 88, 0.6));
+    }
+    .k-dep-line.k-critical-dep:hover {
+      stroke-width: 4 !important;
+    }
+
+    /* Slack Float Trail */
+    .k-task-slack-trail {
+      position: absolute;
+      top: 50%;
+      height: 2px;
+      border-top: 2px dashed var(--k-warning, #f59e0b);
+      transform: translateY(-50%);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.75;
+    }
+    .k-task-slack-trail::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -4px;
+      width: 2px;
+      height: 8px;
+      background: var(--k-warning, #f59e0b);
+      border-radius: 1px;
+    }
   `]
 })
 export class GanttChartComponent {
@@ -558,6 +667,19 @@ export class GanttChartComponent {
   isDraggingZoom = signal(false);
   zoomDragStart = signal<{ x: number, y: number } | null>(null);
   zoomDragCurrent = signal<{ x: number, y: number } | null>(null);
+
+  showCriticalPath = signal(false);
+
+  criticalPathInfo = computed(() => {
+    if (!this.showCriticalPath()) {
+      return { criticalTaskIds: new Set<string>(), criticalDepKeys: new Set<string>(), taskSlacks: new Map<string, number>() };
+    }
+    return this.computeCriticalPath(this.tasks(), this.dependencies());
+  });
+
+  toggleCriticalPath(): void {
+    this.showCriticalPath.update(v => !v);
+  }
 
   isDragToZoomEnabled = computed(() => this.enableDragToZoom() || this.mergedConfig().enableDragToZoom || false);
   isZoomed = computed(() => this.zoomStart() !== null);
@@ -700,11 +822,22 @@ export class GanttChartComponent {
   taskBars = computed(() => {
     const cfg = this.mergedConfig();
     const range = this.dateRange();
-    const makeBar = (task: GanttTask, top: number, rowIndex: number, isSummary: boolean, primaryTaskId: string, isGroupHeader: boolean) => ({
-      task, left: isGroupHeader ? 0 : this.scaleService.dateToX(task.start, range.start, cfg.columnWidth, cfg.zoomLevel),
-      width: isGroupHeader || task.isMilestone ? 0 : this.scaleService.getBarWidth(task.start, task.end, range.start, cfg.columnWidth, cfg.zoomLevel),
-      top, isSummary, barHeight: cfg.barHeight, rowIndex, primaryTaskId, isGroupHeader,
-    });
+    const critInfo = this.criticalPathInfo();
+    const pxPerMs = cfg.columnWidth / this.getMsPerUnit(cfg.zoomLevel);
+
+    const makeBar = (task: GanttTask, top: number, rowIndex: number, isSummary: boolean, primaryTaskId: string, isGroupHeader: boolean) => {
+      const slackMs = critInfo.taskSlacks?.get(task.id) || 0;
+      const slackWidth = !isGroupHeader && !task.isMilestone && !isSummary && slackMs > 1000
+        ? slackMs * pxPerMs
+        : 0;
+
+      return {
+        task, left: isGroupHeader ? 0 : this.scaleService.dateToX(task.start, range.start, cfg.columnWidth, cfg.zoomLevel),
+        width: isGroupHeader || task.isMilestone ? 0 : this.scaleService.getBarWidth(task.start, task.end, range.start, cfg.columnWidth, cfg.zoomLevel),
+        top, isSummary, barHeight: cfg.barHeight, rowIndex, primaryTaskId, isGroupHeader,
+        slackWidth
+      };
+    };
     const bars: ReturnType<typeof makeBar>[] = [];
     this.renderedRows().forEach((row, idx) => {
       const top = idx * cfg.rowHeight;
@@ -739,6 +872,7 @@ export class GanttChartComponent {
     const cfg = this.mergedConfig();
     const lineType = cfg.linkOptions.lineType || GanttLinkLineType.Straight;
     const barMap = new Map(bars.map(b => [b.task.id, b]));
+    const critInfo = this.criticalPathInfo();
     return this.dependencies().filter(dep => barMap.has(dep.fromId) && barMap.has(dep.toId)).map(dep => {
       const from = barMap.get(dep.fromId)!;
       const to = barMap.get(dep.toId)!;
@@ -747,10 +881,203 @@ export class GanttChartComponent {
       const toCY = to.top + cfg.rowHeight / 2;
       const fromRect: Rect = { x: from.left, y: fromCY - barH / 2, width: from.width || 16, height: barH };
       const toRect: Rect = { x: to.left, y: toCY - (to.isSummary ? 5 : cfg.barHeight / 2), width: to.width || 16, height: to.isSummary ? 10 : cfg.barHeight };
-      const depColor = typeof dep.color === 'string' ? dep.color : (typeof dep.color === 'object' ? dep.color.default : '#ff6358');
-      return { dependency: dep, path: computeDependencyPath(fromRect, toRect, dep.type, 12, lineType), key: dep.fromId + '-' + dep.toId, color: depColor };
+      const key = dep.fromId + '-' + dep.toId;
+      const isCrit = critInfo.criticalDepKeys.has(key);
+      const depColor = isCrit ? 'var(--k-danger, #ff6358)' : (typeof dep.color === 'string' ? dep.color : (typeof dep.color === 'object' ? dep.color.default : '#ff6358'));
+      return { dependency: dep, path: computeDependencyPath(fromRect, toRect, dep.type, 12, lineType), key, color: depColor, isCritical: isCrit };
     });
   });
+
+  private computeCriticalPath(
+    tasks: GanttTask[],
+    dependencies: GanttDependency[]
+  ): { criticalTaskIds: Set<string>; criticalDepKeys: Set<string>; taskSlacks: Map<string, number> } {
+    const taskMap = new Map<string, GanttTask>();
+    for (const task of tasks) {
+      taskMap.set(task.id, task);
+    }
+
+    const validDeps = dependencies.filter(
+      (dep) => taskMap.has(dep.fromId) && taskMap.has(dep.toId)
+    );
+
+    const adj = new Map<string, string[]>();
+    const revAdj = new Map<string, string[]>();
+
+    for (const dep of validDeps) {
+      if (!adj.has(dep.fromId)) adj.set(dep.fromId, []);
+      adj.get(dep.fromId)!.push(dep.toId);
+
+      if (!revAdj.has(dep.toId)) revAdj.set(dep.toId, []);
+      revAdj.get(dep.toId)!.push(dep.fromId);
+    }
+
+    const visited = new Map<string, 'visiting' | 'visited'>();
+    const order: string[] = [];
+    let hasCycle = false;
+
+    const dfs = (nodeId: string) => {
+      if (hasCycle) return;
+      if (visited.get(nodeId) === 'visiting') {
+        hasCycle = true;
+        return;
+      }
+      if (visited.get(nodeId) === 'visited') return;
+
+      visited.set(nodeId, 'visiting');
+      const neighbors = adj.get(nodeId) || [];
+      for (const neighbor of neighbors) {
+        dfs(neighbor);
+      }
+      visited.set(nodeId, 'visited');
+      order.push(nodeId);
+    };
+
+    for (const task of tasks) {
+      if (!visited.has(task.id)) {
+        dfs(task.id);
+      }
+    }
+
+    if (hasCycle) {
+      return { criticalTaskIds: new Set(), criticalDepKeys: new Set(), taskSlacks: new Map() };
+    }
+
+    const topoOrder = [...order].reverse();
+
+    const ES = new Map<string, number>();
+    const EF = new Map<string, number>();
+
+    for (const task of tasks) {
+      ES.set(task.id, task.start.getTime());
+      EF.set(task.id, task.end.getTime());
+    }
+
+    for (const u of topoOrder) {
+      const taskU = taskMap.get(u)!;
+      const durationU = taskU.end.getTime() - taskU.start.getTime();
+      const esVal = ES.get(u)!;
+      EF.set(u, esVal + durationU);
+
+      const successors = adj.get(u) || [];
+      for (const v of successors) {
+        const dep = validDeps.find((d) => d.fromId === u && d.toId === v)!;
+        const taskV = taskMap.get(v)!;
+        const durationV = taskV.end.getTime() - taskV.start.getTime();
+        const efVal = EF.get(u)!;
+        const esValU = ES.get(u)!;
+
+        let candES = ES.get(v)!;
+        if (dep.type === DependencyType.FinishToStart) {
+          candES = Math.max(candES, efVal);
+        } else if (dep.type === DependencyType.StartToStart) {
+          candES = Math.max(candES, esValU);
+        } else if (dep.type === DependencyType.FinishToFinish) {
+          candES = Math.max(candES, efVal - durationV);
+        } else if (dep.type === DependencyType.StartToFinish) {
+          candES = Math.max(candES, esValU - durationV);
+        }
+        ES.set(v, candES);
+      }
+    }
+
+    let maxEF = 0;
+    for (const task of tasks) {
+      maxEF = Math.max(maxEF, EF.get(task.id) || 0);
+    }
+
+    const LF = new Map<string, number>();
+    const LS = new Map<string, number>();
+
+    for (const task of tasks) {
+      LF.set(task.id, maxEF);
+      LS.set(task.id, maxEF - (task.end.getTime() - task.start.getTime()));
+    }
+
+    for (const u of order) {
+      const taskU = taskMap.get(u)!;
+      const durationU = taskU.end.getTime() - taskU.start.getTime();
+      const lfVal = LF.get(u)!;
+      LS.set(u, lfVal - durationU);
+
+      const successors = adj.get(u) || [];
+      let minLF = LF.get(u)!;
+
+      for (const v of successors) {
+        const dep = validDeps.find((d) => d.fromId === u && d.toId === v)!;
+        const lsValV = LS.get(v)!;
+        const lfValV = LF.get(v)!;
+
+        if (dep.type === DependencyType.FinishToStart) {
+          minLF = Math.min(minLF, lsValV);
+        } else if (dep.type === DependencyType.StartToStart) {
+          minLF = Math.min(minLF, lsValV + durationU);
+        } else if (dep.type === DependencyType.FinishToFinish) {
+          minLF = Math.min(minLF, lfValV);
+        } else if (dep.type === DependencyType.StartToFinish) {
+          minLF = Math.min(minLF, lfValV + durationU);
+        }
+      }
+      LF.set(u, minLF);
+      LS.set(u, minLF - durationU);
+    }
+
+    const criticalTaskIds = new Set<string>();
+    const threshold = 1000;
+
+    for (const task of tasks) {
+      const isConnected = adj.has(task.id) || revAdj.has(task.id);
+      if (isConnected) {
+        const esVal = ES.get(task.id)!;
+        const lsVal = LS.get(task.id)!;
+        const slack = lsVal - esVal;
+        if (slack <= threshold) {
+          criticalTaskIds.add(task.id);
+        }
+      }
+    }
+
+    const criticalDepKeys = new Set<string>();
+    for (const dep of validDeps) {
+      if (criticalTaskIds.has(dep.fromId) && criticalTaskIds.has(dep.toId)) {
+        const esU = ES.get(dep.fromId)!;
+        const efU = EF.get(dep.fromId)!;
+        const esV = ES.get(dep.toId)!;
+        const efV = EF.get(dep.toId)!;
+        let isActive = false;
+
+        switch (dep.type) {
+          case DependencyType.FinishToStart:
+            isActive = Math.abs(efU - esV) <= threshold;
+            break;
+          case DependencyType.StartToStart:
+            isActive = Math.abs(esU - esV) <= threshold;
+            break;
+          case DependencyType.FinishToFinish:
+            isActive = Math.abs(efU - efV) <= threshold;
+            break;
+          case DependencyType.StartToFinish:
+            isActive = Math.abs(esU - efV) <= threshold;
+            break;
+        }
+
+        if (isActive) {
+          criticalDepKeys.add(dep.fromId + '-' + dep.toId);
+        }
+      }
+    }
+
+    const taskSlacks = new Map<string, number>();
+    for (const task of tasks) {
+      const esVal = ES.get(task.id);
+      const lsVal = LS.get(task.id);
+      if (esVal !== undefined && lsVal !== undefined) {
+        taskSlacks.set(task.id, Math.max(0, lsVal - esVal));
+      }
+    }
+
+    return { criticalTaskIds, criticalDepKeys, taskSlacks };
+  }
 
   constructor() {
     effect(() => {
@@ -832,6 +1159,7 @@ export class GanttChartComponent {
 
   onBarPointerDown(event: PointerEvent, task: GanttTask, mode: 'move' | 'resize-left' | 'resize-right'): void {
     if (task.draggable === false) return;
+    if (event.shiftKey && this.isDragToZoomEnabled()) return;
     event.preventDefault(); event.stopPropagation();
     const startX = event.clientX;
     const cfg = this.mergedConfig();
@@ -876,6 +1204,7 @@ export class GanttChartComponent {
   }
 
   onLinkDragStart(event: PointerEvent, task: GanttTask, side: 'start' | 'end'): void {
+    if (event.shiftKey && this.isDragToZoomEnabled()) return;
     event.preventDefault(); event.stopPropagation();
     this.linkDragSource = task;
     const timelineEl = this.timelineContent()?.nativeElement;
@@ -1020,6 +1349,10 @@ export class GanttChartComponent {
     const startD = date1 < date2 ? date1 : date2;
     const endD = date1 < date2 ? date2 : date1;
 
+    if (Math.abs(endD.getTime() - startD.getTime()) < 60000) {
+      return;
+    }
+
     // Select the best scale for this range
     const bestZoom = this.getBestZoomLevel(startD, endD);
 
@@ -1053,24 +1386,34 @@ export class GanttChartComponent {
 
   onTimelinePointerDown(event: PointerEvent): void {
     if (!this.isDragToZoomEnabled()) return;
+    if (event.button !== 0) return;
 
     const isZoomButtonActive = this.isAreaZoomMode();
     const isShiftPressed = event.shiftKey;
 
+    if (!isZoomButtonActive && !isShiftPressed) {
+      return;
+    }
+
+    const timelineEl = this.timelineContent()?.nativeElement;
+    if (!timelineEl) return;
+
+    const rect = timelineEl.getBoundingClientRect();
+    const isScrollbarClick =
+      event.clientX - rect.left >= timelineEl.clientWidth ||
+      event.clientY - rect.top >= timelineEl.clientHeight;
+    if (isScrollbarClick) return;
+
     const target = event.target as HTMLElement;
     const isTaskClick = target.closest('.k-task, .k-milestone, .k-task-summary, .k-link-connector, .k-resize-handle, .k-subtask-segment');
 
-    if (!isZoomButtonActive && !isShiftPressed && isTaskClick) {
+    if (isTaskClick && !isZoomButtonActive && !isShiftPressed) {
       return;
     }
 
     event.preventDefault();
     event.stopPropagation();
 
-    const timelineEl = this.timelineContent()?.nativeElement;
-    if (!timelineEl) return;
-
-    const rect = timelineEl.getBoundingClientRect();
     const startX = event.clientX - rect.left + timelineEl.scrollLeft;
     const startY = event.clientY - rect.top + timelineEl.scrollTop;
 
@@ -1078,13 +1421,48 @@ export class GanttChartComponent {
     this.zoomDragStart.set({ x: startX, y: startY });
     this.zoomDragCurrent.set({ x: startX, y: startY });
 
+    let lastDragClientX = event.clientX;
+    const scrollSpeed = 10;
+    const edgeThreshold = 40;
+    let autoScrollInterval: any = setInterval(() => {
+      const currentTimelineEl = this.timelineContent()?.nativeElement;
+      if (!currentTimelineEl) return;
+
+      const currentRect = currentTimelineEl.getBoundingClientRect();
+      const pointerX = lastDragClientX - currentRect.left;
+      const width = currentTimelineEl.clientWidth;
+
+      let dx = 0;
+      if (pointerX < edgeThreshold) {
+        dx = -scrollSpeed;
+      } else if (pointerX > width - edgeThreshold) {
+        dx = scrollSpeed;
+      }
+
+      if (dx !== 0) {
+        const oldScroll = currentTimelineEl.scrollLeft;
+        currentTimelineEl.scrollLeft += dx;
+        const actualDx = currentTimelineEl.scrollLeft - oldScroll;
+        if (actualDx !== 0) {
+          const updatedX = lastDragClientX - currentRect.left + currentTimelineEl.scrollLeft;
+          const updatedY = event.clientY - currentRect.top + currentTimelineEl.scrollTop;
+          this.zoomDragCurrent.set({ x: updatedX, y: updatedY });
+        }
+      }
+    }, 16);
+
     const onMove = (e: PointerEvent) => {
+      lastDragClientX = e.clientX;
       const currentX = e.clientX - rect.left + timelineEl.scrollLeft;
       const currentY = e.clientY - rect.top + timelineEl.scrollTop;
       this.zoomDragCurrent.set({ x: currentX, y: currentY });
     };
 
     const onUp = (e: PointerEvent) => {
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = null;
+      }
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
 
@@ -1113,11 +1491,79 @@ export class GanttChartComponent {
     return m[vt] || vt;
   }
   onKeyDown(event: KeyboardEvent): void {
+    const focusedId = this.keyboardService.focusedTaskId();
+    const task = focusedId ? this.tasks().find(t => t.id === focusedId) : null;
+
+    if (task && task.draggable !== false && ['ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      // Rescheduling or resizing via keyboard
+      event.preventDefault();
+      const cfg = this.mergedConfig();
+      const isHour = cfg.zoomLevel === ZoomLevel.Hour;
+      const msUnit = isHour ? 3600000 : 86400000;
+      
+      const ps = task.start;
+      const pe = task.end;
+      let ns = new Date(ps);
+      let ne = new Date(pe);
+
+      const direction = event.key === 'ArrowRight' ? 1 : -1;
+      const deltaMs = direction * msUnit;
+
+      const isResize = event.altKey || event.shiftKey;
+      if (isResize) {
+        // Alt or Shift + ArrowRight/Left: Resize from the right edge
+        ne = new Date(pe.getTime() + deltaMs);
+      } else {
+        // Move entire task bar
+        ns = new Date(ps.getTime() + deltaMs);
+        ne = new Date(pe.getTime() + deltaMs);
+      }
+
+      if (ne <= ns) {
+        ne = new Date(ns.getTime() + msUnit);
+      }
+
+      if (cfg.snapTo !== 'none') {
+        ns = this.scaleService.snapDate(ns, cfg.snapTo);
+        ne = this.scaleService.snapDate(ne, cfg.snapTo);
+      }
+
+      let subs = task.subtasks;
+      if (subs && subs.length > 0) {
+        const od = pe.getTime() - ps.getTime(), nd = ne.getTime() - ns.getTime();
+        if (!isResize) {
+          const sh = ns.getTime() - ps.getTime();
+          subs = subs.map(s => ({ ...s, start: new Date(s.start.getTime() + sh), end: new Date(s.end.getTime() + sh) }));
+        } else if (od > 0) {
+          subs = subs.map(s => {
+            const sr = (s.start.getTime() - ps.getTime()) / od, er = (s.end.getTime() - ps.getTime()) / od;
+            return { ...s, start: new Date(ns.getTime() + sr * nd), end: new Date(ns.getTime() + er * nd) };
+          });
+        }
+      }
+
+      this.taskChange.emit({
+        task: { ...task, start: ns, end: ne, subtasks: subs },
+        previousStart: ps,
+        previousEnd: pe
+      });
+      return;
+    }
+
     const ids = this.renderedRows().map(r => r.task.id);
     this.keyboardService.handleKeyDown(event, ids, {
       onSelect: (taskId) => { const task = this.tasks().find(t => t.id === taskId); if (task) { this.toggleSelection(task, event as unknown as Event); this.taskClick.emit({ task, originalEvent: event as unknown as MouseEvent }); } },
       onEscape: () => { this.selectedTaskIds.set(new Set()); },
     });
+  }
+
+  getTaskSlackDays(taskId: string): number {
+    const slackMs = this.criticalPathInfo().taskSlacks?.get(taskId) || 0;
+    return Math.round((slackMs / 86400000) * 10) / 10;
+  }
+
+  isTaskCritical(taskId: string): boolean {
+    return this.criticalPathInfo().criticalTaskIds.has(taskId);
   }
 
   scrollToToday(): void { this.scrollToDate(new Date()); }

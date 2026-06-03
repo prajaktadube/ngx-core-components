@@ -150,9 +150,16 @@ export function getTransportTasks(): GanttTask[] {
   return tasks;
 }
 
-/** No inter-voyage dependencies — transit arrows visually connect the phases. */
+/** Inter-voyage sequences & coordination dependencies. */
 export function getTransportDependencies(): GanttDependency[] {
-  return [];
+  return [
+    { fromId: 'vehicle-1-voyage-1', toId: 'vehicle-1-voyage-2', type: DependencyType.FinishToStart },
+    { fromId: 'vehicle-1-voyage-2', toId: 'vehicle-1-voyage-3', type: DependencyType.FinishToStart },
+    { fromId: 'vehicle-2-voyage-1', toId: 'vehicle-2-voyage-2', type: DependencyType.FinishToStart },
+    { fromId: 'vehicle-2-voyage-2', toId: 'vehicle-2-voyage-3', type: DependencyType.FinishToStart },
+    { fromId: 'vehicle-1-voyage-1', toId: 'vehicle-4-voyage-2', type: DependencyType.FinishToStart },
+    { fromId: 'vehicle-3-voyage-1', toId: 'vehicle-5-voyage-2', type: DependencyType.FinishToStart },
+  ];
 }
 
 export function getSampleTasks(): GanttTask[] {

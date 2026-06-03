@@ -1,16 +1,16 @@
-# Graph Report - ngx-core-components  (2026-05-31)
+# Graph Report - ngx-core-components  (2026-06-01)
 
 ## Corpus Check
-- 191 files · ~170,343 words
+- 192 files · ~173,433 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1997 nodes · 2806 edges · 199 communities (89 shown, 110 thin omitted)
+- 2019 nodes · 2836 edges · 199 communities (91 shown, 108 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7e3134b1`
+- Built from commit: `6f5242f3`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -200,16 +200,16 @@
 - [[_COMMUNITY_Community 189|Community 189]]
 - [[_COMMUNITY_Community 191|Community 191]]
 - [[_COMMUNITY_Community 192|Community 192]]
-- [[_COMMUNITY_Community 197|Community 197]]
 - [[_COMMUNITY_Community 198|Community 198]]
+- [[_COMMUNITY_Community 199|Community 199]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `DataGridComponent` - 82 edges
-2. `GanttChartComponent` - 67 edges
+2. `GanttChartComponent` - 71 edges
 3. `SchedulerComponent` - 39 edges
-4. `GanttTask` - 33 edges
+4. `GanttTask` - 34 edges
 5. `KanbanComponent` - 29 edges
-6. `GanttDemoComponent` - 22 edges
+6. `GanttDemoComponent` - 26 edges
 7. `AiDemoComponent` - 20 edges
 8. `VectorMapComponent` - 20 edges
 9. `AppComponent` - 18 edges
@@ -241,7 +241,7 @@
 - **Layout Package Components** — accordion_AccordionComponent, card_CardComponent, splitter_SplitterComponent, stepper_StepperComponent, tab_strip_TabStripComponent [EXTRACTED 1.00]
 - **Core Architectural Principles** — readme_zero_runtime_dependencies, readme_angular_signals, readme_onpush_change_detection, readme_standalone_components [INFERRED 0.95]
 
-## Communities (199 total, 110 thin omitted)
+## Communities (199 total, 108 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.20
@@ -249,11 +249,11 @@ Nodes (5): AreaChartComponent, LineChartComponent, ChartSeries, scale(), smoothP
 
 ### Community 1 - "Community 1"
 Cohesion: 0.05
-Nodes (7): GanttChartComponent, getRowEnd(), getRowStart(), groups, GanttColumnDef, ZoomLevel, FlatRow
+Nodes (6): GanttChartComponent, getRowEnd(), getRowStart(), groups, GanttColumnDef, FlatRow
 
 ### Community 2 - "Community 2"
-Cohesion: 0.12
-Nodes (6): text, DropdownOption, f, opt, f, MultiSelectComponent
+Cohesion: 0.06
+Nodes (8): AutocompleteComponent, text, DropdownComponent, DropdownOption, f, opt, f, MultiSelectComponent
 
 ### Community 3 - "Community 3"
 Cohesion: 0.05
@@ -264,8 +264,8 @@ Cohesion: 0.06
 Nodes (32): activeSorts, cellVal, cols, compared, current, existing, group, groups (+24 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.22
-Nodes (20): GanttScaleService, addDays(), addHours(), addMonths(), addQuarters(), addWeeks(), addYears(), daysInMonth() (+12 more)
+Cohesion: 0.17
+Nodes (20): ZoomLevel, GanttScaleService, addDays(), addHours(), addMonths(), addQuarters(), addWeeks(), addYears() (+12 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.13
@@ -280,8 +280,8 @@ Cohesion: 0.17
 Nodes (5): AIPromptEditorComponent, dict, t, text, unique
 
 ### Community 12 - "Community 12"
-Cohesion: 0.10
-Nodes (22): DependencyType, GanttDependency, GanttBarClickEvent, GanttDependencyClickEvent, GanttDragEvent, GanttExpandChangeEvent, GanttLineClickEvent, GanttLinkDragEvent (+14 more)
+Cohesion: 0.14
+Nodes (18): DependencyType, GanttDependency, GanttBarClickEvent, GanttDependencyClickEvent, GanttDragEvent, GanttExpandChangeEvent, GanttLineClickEvent, GanttLinkDragEvent (+10 more)
 
 ### Community 13 - "Community 13"
 Cohesion: 0.11
@@ -296,7 +296,7 @@ Cohesion: 0.10
 Nodes (10): d, date, DatePickerComponent, days, first, last, m, today (+2 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.12
+Cohesion: 0.11
 Nodes (12): PreviewFileItem, UploadFileItem, FormBuilderField, FormBuilderOption, fromFields, RadioOption, RatingComponent, SegmentedControlComponent (+4 more)
 
 ### Community 17 - "Community 17"
@@ -308,7 +308,7 @@ Cohesion: 0.13
 Nodes (18): BarChartComponent, Date Utilities, GanttBaselineItem, GanttChartComponent, DEFAULT_GANTT_CONFIG, GanttConfig, ZoomLevel, DependencyType (+10 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.12
+Cohesion: 0.11
 Nodes (5): ApiRow, Employee, EmployeeProject, field, GridDemoComponent
 
 ### Community 20 - "Community 20"
@@ -320,8 +320,8 @@ Cohesion: 0.09
 Nodes (11): AppComponent, haystack, query, compiled, fixture, initialValue, appConfig, routes (+3 more)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.17
-Nodes (9): GanttBaselineItem, DEFAULT_GANTT_CONFIG, GanttConfig, GanttLinkOptions, GanttStyleOptions, GanttThemeColors, GanttToolbarOptions, GanttItemType (+1 more)
+Cohesion: 0.13
+Nodes (14): GanttBaselineItem, DEFAULT_GANTT_CONFIG, GanttConfig, GanttLinkLineType, GanttLinkOptions, GanttStyleOptions, GanttThemeColors, GanttToolbarOptions (+6 more)
 
 ### Community 24 - "Community 24"
 Cohesion: 0.09
@@ -413,7 +413,7 @@ Nodes (4): dest, lib, entryFile, $schema
 
 ### Community 55 - "Community 55"
 Cohesion: 0.06
-Nodes (33): barMap, bars, base, baseRange, cfg, collapsed, current, currentLabel (+25 more)
+Nodes (32): barMap, bars, base, baseRange, cfg, collapsed, critInfo, current (+24 more)
 
 ### Community 57 - "Community 57"
 Cohesion: 0.50
@@ -487,6 +487,10 @@ Nodes (8): colorsList, items, LayoutItem, layoutList, rawData, totalVal, Treemap
 Cohesion: 0.14
 Nodes (9): all, arr, end, raw, start, VirtualListComponent, VirtualListItem, VirtualListItemClickEvent (+1 more)
 
+### Community 131 - "Community 131"
+Cohesion: 0.13
+Nodes (17): SchedulerEvent, SchedulerEventChangeEvent, SchedulerRecurrence, SchedulerSlotClickEvent, base, cols, date, end (+9 more)
+
 ### Community 133 - "Community 133"
 Cohesion: 0.16
 Nodes (6): FunnelChartComponent, FunnelItem, items, sorted, RadarChartComponent, RadarSeries
@@ -495,6 +499,10 @@ Nodes (6): FunnelChartComponent, FunnelItem, items, sorted, RadarChartComponent,
 Cohesion: 0.50
 Nodes (3): lib, entryFile, $schema
 
+### Community 137 - "Community 137"
+Cohesion: 0.20
+Nodes (9): event, expectedStart, info, resizeEvent, reversedDate, startDate, targetDate, TestGanttWrapperComponent (+1 more)
+
 ### Community 142 - "Community 142"
 Cohesion: 0.64
 Nodes (5): AgentStep, AICard, AICardAction, AIMessage, QuickReply
@@ -502,10 +510,6 @@ Nodes (5): AgentStep, AICard, AICardAction, AIMessage, QuickReply
 ### Community 143 - "Community 143"
 Cohesion: 0.29
 Nodes (4): AIModel, AIModelCompareComponent, query, tag
-
-### Community 148 - "Community 148"
-Cohesion: 0.13
-Nodes (17): SchedulerEvent, SchedulerEventChangeEvent, SchedulerRecurrence, SchedulerSlotClickEvent, base, cols, date, end (+9 more)
 
 ### Community 151 - "Community 151"
 Cohesion: 0.31
@@ -540,8 +544,8 @@ Cohesion: 0.07
 Nodes (29): cellTpl, col, cols, ctrlEvent, distinct, downEvent, dragStartEvent, dropEvent (+21 more)
 
 ### Community 187 - "Community 187"
-Cohesion: 0.33
-Nodes (5): bw, d, line, pts, SparklineComponent
+Cohesion: 0.39
+Nodes (3): GanttGroup, GanttLayoutService, RowGroup
 
 ### Community 188 - "Community 188"
 Cohesion: 0.09
@@ -551,10 +555,14 @@ Nodes (21): GridCellTemplateContext, GridColumnDef, GridDataStateChangeEvent, Gr
 Cohesion: 0.18
 Nodes (7): key, keys, PivotColumn, PivotGridComponent, PivotRow, PivotValueDef, rows
 
+### Community 199 - "Community 199"
+Cohesion: 0.33
+Nodes (5): bw, d, line, pts, SparklineComponent
+
 ## Knowledge Gaps
-- **496 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `root` (+491 more)
+- **507 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `root` (+502 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **110 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **108 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -562,14 +570,14 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `ThemingDemoComponent` connect `Community 20` to `Community 33`?**
   _High betweenness centrality (0.031) - this node is a cross-community bridge._
 - **Why does `ColorPickerComponent` connect `Community 20` to `Community 16`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+- **Why does `GanttChartComponent` connect `Community 1` to `Community 133`, `Community 6`, `Community 12`, `Community 148`, `Community 55`, `Community 187`?**
+  _High betweenness centrality (0.007) - this node is a cross-community bridge._
 - **What connects `$schema`, `version`, `newProjectRoot` to the rest of the system?**
-  _503 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _514 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.05075187969924812 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.050072568940493466 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.11904761904761904 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05656565656565657 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.05 - nodes in this community are weakly interconnected._
-- **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.05365853658536585 - nodes in this community are weakly interconnected._
