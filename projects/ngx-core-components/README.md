@@ -436,6 +436,23 @@ This README focuses on the primary Gantt API because it is the largest surface i
 | `cssClass?` | `string` | Custom CSS class |
 | `meta?` | `Record<string, unknown>` | Arbitrary data |
 
+## Advanced Features
+
+### Draggable Zoom & Area Selection
+The Gantt Chart component supports zooming directly into a specific time range by selecting a window on the timeline.
+- **Enable Feature**: Add `enableDragToZoom: true` in the `config` object or pass `[enableDragToZoom]="true"`.
+- **Keyboard Shortcut**: Hold **Shift** and click-and-drag across the timeline background to draw a glassmorphic zoom selection window.
+- **Area Zoom Mode**: Click the **Area Zoom Mode** button (or call `toggleAreaZoomMode()` programmatically) to change the cursor to a crosshair and drag-select without holding Shift.
+- **Outputs**:
+  - `(zoomRangeChange)`: Emitted when a drag-zoom selection completes. Emits `{ start: Date, end: Date }`.
+  - `(zoomChange)`: Emitted with the new active `ZoomLevel` (e.g., `ZoomLevel.Hour`, `ZoomLevel.Day`, `ZoomLevel.Week`, `ZoomLevel.Month`, `ZoomLevel.Quarter`, `ZoomLevel.Year`).
+- **Resetting**: Call the public `resetZoom()` method (or trigger via a button) to reset the timeline back to full scale.
+
+### Keyboard Rescheduling & Resizing
+Tasks can be adjusted using only the keyboard:
+- **Rescheduling**: Focus a task bar and use the `ArrowLeft` or `ArrowRight` keys to shift the task start and end dates by 1 unit (1 hour in Hour view, otherwise 1 day).
+- **Resizing**: Focus a task bar and hold `Alt` or `Shift` alongside `ArrowLeft` or `ArrowRight` to extend or shrink the task's duration from the right boundary.
+
 ## Theming
 
 Override CSS custom properties on the `ngx-gantt-chart` element:

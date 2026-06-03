@@ -53,6 +53,8 @@ export class MyComponent {
 }
 ```
 
+*Supports advanced features like draggable glassmorphic zoom (Shift + drag), predecessor dependency linking, row virtualization, critical path calculations, and keyboard rescheduling/resizing. Refer to the [library README](projects/ngx-core-components/README.md) for full documentation.*
+
 ### Dialog
 
 ```typescript

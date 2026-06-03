@@ -1850,7 +1850,9 @@ export class MyScheduleComponent {
     { name: '(taskClick)', type: 'GanttTaskClickEvent', default: '', description: 'Fired when the user clicks a task row or Gantt bar.' },
     { name: '(taskDblClick)', type: 'GanttTaskClickEvent', default: '', description: 'Fired when a Gantt bar is double-clicked.' },
     { name: '(dependencyClick)', type: 'GanttDependencyClickEvent', default: '', description: 'Fired when a predecessor dependency connection line is clicked.' },
-    { name: '(linkDragEnded)', type: 'GanttLinkDragEvent', default: '', description: 'Fired when a user drags a link handle and releases it onto another task.' }
+    { name: '(linkDragEnded)', type: 'GanttLinkDragEvent', default: '', description: 'Fired when a user drags a link handle and releases it onto another task.' },
+    { name: '(zoomChange)', type: 'ZoomLevel', default: '', description: 'Fired when the active zoom scale granularity level is changed.' },
+    { name: '(zoomRangeChange)', type: '{ start: Date; end: Date }', default: '', description: 'Fired when a custom drag-zoom selection completes.' }
   ];
 
   configFields: ApiRow[] = [

@@ -213,20 +213,20 @@ describe('GanttChartComponent Precision Drag & Visual Dependency Customizations'
 
     const task = fixture.componentInstance.tasks()[0];
     const barEl = document.createElement('div');
-    barEl.style.left = '100px';
-    barEl.style.width = '200px';
+    barEl.style.left = '2880px';
+    barEl.style.width = '2880px';
     barEl.className = 'k-task';
     document.body.appendChild(barEl);
 
     let emittedEvent: any = null;
     ganttComponent.taskChange.subscribe(ev => emittedEvent = ev);
 
-    const pointerDownEvent = new PointerEvent('pointerdown', { bubbles: true, clientX: 100 });
+    const pointerDownEvent = new PointerEvent('pointerdown', { bubbles: true, clientX: 2880 });
     Object.defineProperty(pointerDownEvent, 'target', { value: barEl });
 
     ganttComponent.onBarPointerDown(pointerDownEvent, task, 'resize-left');
     
-    const pointerUpEvent = new PointerEvent('pointerup', { clientX: 400 });
+    const pointerUpEvent = new PointerEvent('pointerup', { clientX: 6000 });
     document.dispatchEvent(pointerUpEvent);
 
     expect(emittedEvent).not.toBeNull();
