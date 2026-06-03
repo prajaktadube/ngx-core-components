@@ -9,10 +9,12 @@ import { Component, signal } from '@angular/core';
     <ngx-gantt-chart
       [tasks]="tasks()"
       [dependencies]="dependencies()"
+      [config]="config()"
     />
   `
 })
 class TestGanttWrapperComponent {
+  config = signal<any>({});
   tasks = signal<GanttTask[]>([
     {
       id: 'task-a',
@@ -181,5 +183,82 @@ describe('GanttScaleService Precision & Continuous Alignment', () => {
 
     const reversedDate = scaleService.xToDate(x, startDate, colWidth, ZoomLevel.Month);
     expect(reversedDate.getTime()).toBeCloseTo(targetDate.getTime(), 1);
+  });
+});
+
+describe('GanttChartComponent Precision Drag & Visual Dependency Customizations', () => {
+  let fixture: ComponentFixture<TestGanttWrapperComponent>;
+  let ganttComponent: GanttChartComponent;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestGanttWrapperComponent, GanttChartComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TestGanttWrapperComponent);
+    fixture.detectChanges();
+
+    ganttComponent = fixture.debugElement.query(
+      el => el.componentInstance instanceof GanttChartComponent
+    ).componentInstance as GanttChartComponent;
+  });
+
+  it('should enforce a 1-hour minimum duration when resizing in Hour zoom level', () => {
+    fixture.componentInstance.config.set({
+      zoomLevel: ZoomLevel.Hour,
+      columnWidth: 60,
+      snapTo: 'none'
+    });
+    fixture.detectChanges();
+
+    const task = fixture.componentInstance.tasks()[0];
+    const barEl = document.createElement('div');
+    barEl.style.left = '100px';
+    barEl.style.width = '200px';
+    barEl.className = 'k-task';
+    document.body.appendChild(barEl);
+
+    let emittedEvent: any = null;
+    ganttComponent.taskChange.subscribe(ev => emittedEvent = ev);
+
+    const pointerDownEvent = new PointerEvent('pointerdown', { bubbles: true, clientX: 100 });
+    Object.defineProperty(pointerDownEvent, 'target', { value: barEl });
+
+    ganttComponent.onBarPointerDown(pointerDownEvent, task, 'resize-left');
+    
+    const pointerUpEvent = new PointerEvent('pointerup', { clientX: 400 });
+    document.dispatchEvent(pointerUpEvent);
+
+    expect(emittedEvent).not.toBeNull();
+    const durationHours = (emittedEvent.task.end.getTime() - emittedEvent.task.start.getTime()) / 3600000;
+    expect(durationHours).toBe(1);
+
+    document.body.removeChild(barEl);
+  });
+
+  it('should map critical and default dependency paths to correct SVG colors', () => {
+    ganttComponent.showCriticalPath.set(true);
+    fixture.detectChanges();
+
+    const paths = ganttComponent.dependencyPaths();
+    expect(paths.length).toBe(1);
+
+    const depPath = paths[0];
+    expect(depPath.isCritical).toBeTrue();
+    expect(depPath.color).toBe('var(--k-danger, #ff6358)');
+
+    fixture.componentInstance.dependencies.set([
+      { fromId: 'task-a', toId: 'task-b', type: DependencyType.FinishToStart },
+      { fromId: 'task-c', toId: 'task-b', type: DependencyType.FinishToStart }
+    ]);
+    fixture.detectChanges();
+
+    const updatedPaths = ganttComponent.dependencyPaths();
+    expect(updatedPaths.length).toBe(2);
+
+    const nonCritDep = updatedPaths.find(p => p.dependency.fromId === 'task-c');
+    expect(nonCritDep).toBeDefined();
+    expect(nonCritDep!.isCritical).toBeFalse();
+    expect(nonCritDep!.color).toBe('var(--k-dependency-line, #a0aec0)');
   });
 });

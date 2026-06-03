@@ -110,6 +110,9 @@ export class GanttScaleService {
         return snapToDay(date);
       case 'hour': {
         const result = new Date(date);
+        if (result.getMinutes() >= 30) {
+          result.setHours(result.getHours() + 1);
+        }
         result.setMinutes(0, 0, 0);
         return result;
       }

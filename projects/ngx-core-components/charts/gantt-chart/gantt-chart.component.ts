@@ -52,6 +52,7 @@ import {
   isWeekend,
   startOfDay,
   addDays,
+  addHours,
 } from './utils/date-utils';
 import { Rect, computeDependencyPath } from './utils/svg-utils';
 
@@ -184,6 +185,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
 
           <div class="k-timeline-content" #timelineContent (scroll)="onTimelineScroll()"
             [class.k-zoom-mode-cursor]="isAreaZoomMode()"
+            [class.k-zoom-dragging]="isDraggingZoom()"
             (pointerdown)="onTimelinePointerDown($event)">
             <div class="k-timeline-canvas" [style.width.px]="totalWidth()" [style.height.px]="totalHeight()">
               <div class="k-gantt-rows">
@@ -296,14 +298,17 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
               <svg class="k-gantt-dependencies" [attr.width]="totalWidth()" [attr.height]="totalHeight()">
                 <defs>
                   @if (mergedConfig().linkOptions.showArrow !== false) {
-                    <marker id="k-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                    <marker id="k-arrowhead-default" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#a0aec0"/>
+                    </marker>
+                    <marker id="k-arrowhead-critical" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
                       <polygon points="0 0, 10 3.5, 0 7" fill="var(--k-danger, #ff6358)"/>
                     </marker>
                   }
                 </defs>
                 @for (dep of dependencyPaths(); track dep.key) {
                   <path class="k-dep-line" [attr.d]="dep.path" [attr.stroke]="dep.color"
-                    [attr.marker-end]="mergedConfig().linkOptions.showArrow !== false ? 'url(#k-arrowhead)' : null"
+                    [attr.marker-end]="mergedConfig().linkOptions.showArrow !== false ? (dep.isCritical ? 'url(#k-arrowhead-critical)' : 'url(#k-arrowhead-default)') : null"
                     [class]="dep.dependency.cssClass || ''" [class.k-critical-dep]="dep.isCritical" (click)="onDependencyClick(dep.dependency, $event)"/>
                 }
                 @if (linkDragLine()) {
@@ -311,7 +316,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                     stroke="#ff6358" stroke-width="2" stroke-dasharray="4 3"/>
                 }
               </svg>
-              @if (isDraggingZoom() && zoomDragStart() && zoomDragCurrent()) {
+              @if (isDraggingZoom() && zoomDragStart() && zoomDragCurrent() && zoomOverlayWidth() > 5) {
                 <div class="k-gantt-zoom-overlay" [style.left.px]="zoomOverlayLeft()" [style.width.px]="zoomOverlayWidth()" [style.height.px]="totalHeight()">
                   <div class="k-zoom-overlay-badge">{{ zoomOverlayDateRangeText() }}</div>
                 </div>
@@ -477,7 +482,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-milestone.k-selected { outline: 2px solid var(--k-primary, #4a90d9); outline-offset: 4px; border-radius: 2px; }
     .k-milestone-diamond { width: 16px; height: 16px; background: var(--ngx-gantt-milestone-color, #e74c3c); transform: rotate(45deg); border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
     .k-gantt-dependencies { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
-    .k-dep-line { fill: none; stroke: var(--k-danger, #ff6358); stroke-width: 1.5; pointer-events: stroke; cursor: pointer; }
+    .k-dep-line { fill: none; stroke: var(--k-dependency-line, #a0aec0); stroke-width: 1.5; pointer-events: stroke; cursor: pointer; }
     .k-dep-line:hover { stroke-width: 3; }
     .k-loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.7); z-index: 100; display: flex; align-items: center; justify-content: center; }
     .k-loading-spinner { display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -496,8 +501,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
     .k-row-tooltip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .k-row-tooltip-name { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .k-gantt.k-no-grid .k-header-cell, .k-gantt.k-no-grid .k-treelist-cell, .k-gantt.k-no-grid .k-treelist-row, .k-gantt.k-no-grid .k-header-group-cell, .k-gantt.k-no-grid .k-header-tick-cell, .k-gantt.k-no-grid .k-gantt-row, .k-gantt.k-no-grid .k-gantt-column { border: none !important; }
-    .k-gantt-zoom-overlay { position: absolute; top: 0; background: rgba(26, 115, 232, 0.12); border-left: 2px solid var(--k-primary, #1a73e8); border-right: 2px solid var(--k-primary, #1a73e8); z-index: 10; pointer-events: none; backdrop-filter: blur(1px); }
-    .k-zoom-overlay-badge { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); background: #2d3748; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.1); }
+    .k-gantt-zoom-overlay { position: absolute; top: 0; background: rgba(37, 99, 235, 0.15); border-left: 3px solid var(--k-primary, #3b82f6); border-right: 3px solid var(--k-primary, #3b82f6); z-index: 10; pointer-events: none; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); box-sizing: border-box; }
+    .k-zoom-overlay-badge { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.1); }
+    .k-timeline-content.k-zoom-dragging * { pointer-events: none !important; }
     .k-timeline-content.k-zoom-mode-cursor { cursor: crosshair !important; }
     .k-timeline-content.k-zoom-mode-cursor .k-task, .k-timeline-content.k-zoom-mode-cursor .k-milestone, .k-timeline-content.k-zoom-mode-cursor .k-task-summary { cursor: crosshair !important; pointer-events: none !important; }
 
@@ -702,8 +708,9 @@ export class GanttChartComponent {
     const start = this.zoomDragStart();
     const current = this.zoomDragCurrent();
     if (!start || !current) return '';
-    const leftX = Math.min(start.x, current.x);
-    const rightX = Math.max(start.x, current.x);
+    const maxVal = this.totalWidth();
+    const leftX = Math.max(0, Math.min(maxVal, Math.min(start.x, current.x)));
+    const rightX = Math.max(0, Math.min(maxVal, Math.max(start.x, current.x)));
 
     const cfg = this.mergedConfig();
     const baseRange = getDateRange(this.tasks());
@@ -711,6 +718,7 @@ export class GanttChartComponent {
 
     const date1 = this.scaleService.xToDate(leftX, currentStart, cfg.columnWidth, cfg.zoomLevel);
     const date2 = this.scaleService.xToDate(rightX, currentStart, cfg.columnWidth, cfg.zoomLevel);
+
 
     const format = (d: Date) => d.toLocaleDateString(cfg.locale, { month: 'short', day: 'numeric' });
     return `${format(date1)} \u2013 ${format(date2)}`;
@@ -823,13 +831,15 @@ export class GanttChartComponent {
     const cfg = this.mergedConfig();
     const range = this.dateRange();
     const critInfo = this.criticalPathInfo();
-    const pxPerMs = cfg.columnWidth / this.getMsPerUnit(cfg.zoomLevel);
 
     const makeBar = (task: GanttTask, top: number, rowIndex: number, isSummary: boolean, primaryTaskId: string, isGroupHeader: boolean) => {
       const slackMs = critInfo.taskSlacks?.get(task.id) || 0;
-      const slackWidth = !isGroupHeader && !task.isMilestone && !isSummary && slackMs > 1000
-        ? slackMs * pxPerMs
-        : 0;
+      let slackWidth = 0;
+      if (!isGroupHeader && !task.isMilestone && !isSummary && slackMs > 1000) {
+        const endX = this.scaleService.dateToX(new Date(task.end.getTime() + slackMs), range.start, cfg.columnWidth, cfg.zoomLevel);
+        const startX = this.scaleService.dateToX(task.end, range.start, cfg.columnWidth, cfg.zoomLevel);
+        slackWidth = Math.max(0, endX - startX);
+      }
 
       return {
         task, left: isGroupHeader ? 0 : this.scaleService.dateToX(task.start, range.start, cfg.columnWidth, cfg.zoomLevel),
@@ -883,7 +893,7 @@ export class GanttChartComponent {
       const toRect: Rect = { x: to.left, y: toCY - (to.isSummary ? 5 : cfg.barHeight / 2), width: to.width || 16, height: to.isSummary ? 10 : cfg.barHeight };
       const key = dep.fromId + '-' + dep.toId;
       const isCrit = critInfo.criticalDepKeys.has(key);
-      const depColor = isCrit ? 'var(--k-danger, #ff6358)' : (typeof dep.color === 'string' ? dep.color : (typeof dep.color === 'object' ? dep.color.default : '#ff6358'));
+      const depColor = isCrit ? 'var(--k-danger, #ff6358)' : (typeof dep.color === 'string' ? dep.color : (typeof dep.color === 'object' ? dep.color.default : 'var(--k-dependency-line, #a0aec0)'));
       return { dependency: dep, path: computeDependencyPath(fromRect, toRect, dep.type, 12, lineType), key, color: depColor, isCritical: isCrit };
     });
   });
@@ -1183,20 +1193,70 @@ export class GanttChartComponent {
       this.dragEnded.emit({ task });
       const deltaX = e.clientX - startX;
       if (Math.abs(deltaX) < 2) return;
-      const pxPerMs = cfg.columnWidth / this.getMsPerUnit(cfg.zoomLevel);
-      const deltaMs = deltaX / pxPerMs;
+
+      const range = this.dateRange();
       const ps = task.start, pe = task.end;
       let ns: Date, ne: Date;
-      if (mode === 'move') { ns = new Date(ps.getTime() + deltaMs); ne = new Date(pe.getTime() + deltaMs); }
-      else if (mode === 'resize-right') { ns = ps; ne = new Date(pe.getTime() + deltaMs); }
-      else { ns = new Date(ps.getTime() + deltaMs); ne = pe; }
-      if (cfg.snapTo !== 'none') { ns = this.scaleService.snapDate(ns, cfg.snapTo); ne = this.scaleService.snapDate(ne, cfg.snapTo); }
-      if (ne <= ns) ne = addDays(ns, 1);
+
+      let newLeft = origLeft;
+      let newWidth = origWidth;
+
+      if (mode === 'move') {
+        newLeft = origLeft + deltaX;
+      } else if (mode === 'resize-right') {
+        newWidth = Math.max(10, origWidth + deltaX);
+      } else {
+        const nw = origWidth - deltaX;
+        if (nw > 10) {
+          newLeft = origLeft + deltaX;
+          newWidth = nw;
+        } else {
+          newLeft = origLeft + origWidth - 10;
+          newWidth = 10;
+        }
+      }
+
+      if (mode === 'move') {
+        ns = this.scaleService.xToDate(newLeft, range.start, cfg.columnWidth, cfg.zoomLevel);
+        const duration = pe.getTime() - ps.getTime();
+        ne = new Date(ns.getTime() + duration);
+      } else if (mode === 'resize-right') {
+        ns = ps;
+        ne = this.scaleService.xToDate(newLeft + newWidth, range.start, cfg.columnWidth, cfg.zoomLevel);
+      } else {
+        ns = this.scaleService.xToDate(newLeft, range.start, cfg.columnWidth, cfg.zoomLevel);
+        ne = pe;
+      }
+
+      if (cfg.snapTo !== 'none') {
+        ns = this.scaleService.snapDate(ns, cfg.snapTo);
+        ne = this.scaleService.snapDate(ne, cfg.snapTo);
+      }
+
+      const minDurationMs = cfg.zoomLevel === ZoomLevel.Hour ? 3600000 : 86400000;
+      if (mode !== 'move' && ne.getTime() - ns.getTime() < minDurationMs) {
+        if (mode === 'resize-left') {
+          ns = new Date(ne.getTime() - minDurationMs);
+        } else {
+          ne = new Date(ns.getTime() + minDurationMs);
+        }
+      } else if (ne <= ns) {
+        ne = cfg.zoomLevel === ZoomLevel.Hour ? addHours(ns, 1) : addDays(ns, 1);
+      }
+
+
       let subs = task.subtasks;
       if (subs && subs.length > 0) {
         const od = pe.getTime() - ps.getTime(), nd = ne.getTime() - ns.getTime();
-        if (mode === 'move') { const sh = ns.getTime() - ps.getTime(); subs = subs.map(s => ({ ...s, start: new Date(s.start.getTime() + sh), end: new Date(s.end.getTime() + sh) })); }
-        else if (od > 0) { subs = subs.map(s => { const sr = (s.start.getTime() - ps.getTime()) / od, er = (s.end.getTime() - ps.getTime()) / od; return { ...s, start: new Date(ns.getTime() + sr * nd), end: new Date(ns.getTime() + er * nd) }; }); }
+        if (mode === 'move') {
+          const sh = ns.getTime() - ps.getTime();
+          subs = subs.map(s => ({ ...s, start: new Date(s.start.getTime() + sh), end: new Date(s.end.getTime() + sh) }));
+        } else if (od > 0) {
+          subs = subs.map(s => {
+            const sr = (s.start.getTime() - ps.getTime()) / od, er = (s.end.getTime() - ps.getTime()) / od;
+            return { ...s, start: new Date(ns.getTime() + sr * nd), end: new Date(ns.getTime() + er * nd) };
+          });
+        }
       }
       this.taskChange.emit({ task: { ...task, start: ns, end: ne, subtasks: subs }, previousStart: ps, previousEnd: pe });
     };
@@ -1310,6 +1370,8 @@ export class GanttChartComponent {
     this.zoomEnd.set(null);
     this.zoomColumnWidth.set(null);
     this.internalZoomLevel.set(null);
+    this.isAreaZoomMode.set(false);
+
 
     // Scroll to first task start date or today
     setTimeout(() => {
@@ -1342,9 +1404,14 @@ export class GanttChartComponent {
     const baseRange = getDateRange(this.tasks());
     const currentStart = this.zoomStart() || baseRange.start;
 
+    const maxVal = this.totalWidth();
+    const boundedX1 = Math.max(0, Math.min(maxVal, x1));
+    const boundedX2 = Math.max(0, Math.min(maxVal, x2));
+
     // Convert pixels to Dates
-    const date1 = this.scaleService.xToDate(x1, currentStart, cfg.columnWidth, cfg.zoomLevel);
-    const date2 = this.scaleService.xToDate(x2, currentStart, cfg.columnWidth, cfg.zoomLevel);
+    const date1 = this.scaleService.xToDate(boundedX1, currentStart, cfg.columnWidth, cfg.zoomLevel);
+    const date2 = this.scaleService.xToDate(boundedX2, currentStart, cfg.columnWidth, cfg.zoomLevel);
+
 
     const startD = date1 < date2 ? date1 : date2;
     const endD = date1 < date2 ? date2 : date1;
@@ -1645,12 +1712,28 @@ export class GanttChartComponent {
   getSubtaskBars(bar: { task: GanttTask; left: number; width: number }): { subtask: GanttSubtask; left: number; width: number }[] {
     const subs = bar.task.subtasks; if (!subs || subs.length === 0) return [];
     const cfg = this.mergedConfig(), range = this.dateRange();
-    return subs.map(sub => {
-      const sl = this.scaleService.dateToX(sub.start, range.start, cfg.columnWidth, cfg.zoomLevel) - bar.left;
-      const sw = this.scaleService.getBarWidth(sub.start, sub.end, range.start, cfg.columnWidth, cfg.zoomLevel);
-      const cl = Math.max(0, Math.min(sl, bar.width));
-      return { subtask: sub, left: cl, width: Math.max(4, Math.min(sw, bar.width - cl)) };
-    });
+    const bars: { subtask: GanttSubtask; left: number; width: number }[] = [];
+
+    for (const sub of subs) {
+      if (sub.end.getTime() <= bar.task.start.getTime() || sub.start.getTime() >= bar.task.end.getTime()) {
+        continue;
+      }
+      const subStartX = this.scaleService.dateToX(sub.start, range.start, cfg.columnWidth, cfg.zoomLevel);
+      const subEndX = this.scaleService.dateToX(sub.end, range.start, cfg.columnWidth, cfg.zoomLevel);
+      const parentStartX = bar.left;
+      const parentEndX = bar.left + bar.width;
+      const clipStartX = Math.max(parentStartX, subStartX);
+      const clipEndX = Math.min(parentEndX, subEndX);
+
+      if (clipEndX > clipStartX) {
+        bars.push({
+          subtask: sub,
+          left: clipStartX - parentStartX,
+          width: clipEndX - clipStartX
+        });
+      }
+    }
+    return bars;
   }
   showRowTooltip(row: FlatRow, event: MouseEvent): void { this.rowTooltipData.set({ allTasks: [row.task, ...row.extraTasks] }); this.positionRowTooltip(event); }
   updateRowTooltip(event: MouseEvent): void { if (this.rowTooltipData()) this.positionRowTooltip(event); }
@@ -1679,10 +1762,7 @@ export class GanttChartComponent {
       case ZoomLevel.Year: return date.getFullYear().toString();
     }
   }
-  private getMsPerUnit(zoom: ZoomLevel): number {
-    const m: Record<string, number> = { hour: 3600000, day: 86400000, week: 604800000, month: 2592000000, quarter: 7776000000, year: 31536000000 };
-    return m[zoom] || 86400000;
-  }
+
 }
 
 function flipCoord(cursor: number, size: number, viewport: number): number { const O = 14; return cursor + O + size > viewport ? cursor - size - O : cursor + O; }

@@ -129,6 +129,15 @@ interface ApiRow {
                   <button class="mini-btn" [class.active]="playZoom() === ZoomLevel.Month" (click)="setPlayZoom(ZoomLevel.Month)">Month</button>
                 </div>
 
+                <button class="action-btn" [class.active]="playgroundGantt?.isAreaZoomMode()" (click)="playgroundGantt?.toggleAreaZoomMode()">
+                  🔍 Area Zoom Mode
+                </button>
+                @if (playgroundGantt?.isZoomed()) {
+                  <button class="action-btn accent-action" (click)="playgroundGantt?.resetZoom()">
+                    Reset Zoom
+                  </button>
+                }
+
                 <div class="btn-divider"></div>
 
                 <button class="action-btn" (click)="playgroundGantt.expandAll()">Expand All</button>
@@ -1622,10 +1631,37 @@ export class GanttDemoComponent {
     this.logPlayEvent(`Dependency Clicked: "${event.dependency.fromId}" ➔ "${event.dependency.toId}"`);
   }
 
+  wouldCreateCycle(fromId: string, toId: string, dependencies: GanttDependency[]): boolean {
+    if (fromId === toId) return true;
+    const visited = new Set<string>();
+    const adj = new Map<string, string[]>();
+    for (const d of dependencies) {
+      if (!adj.has(d.fromId)) adj.set(d.fromId, []);
+      adj.get(d.fromId)!.push(d.toId);
+    }
+    const dfs = (node: string): boolean => {
+      if (node === fromId) return true;
+      if (visited.has(node)) return false;
+      visited.add(node);
+      const neighbors = adj.get(node) || [];
+      for (const n of neighbors) {
+        if (dfs(n)) return true;
+      }
+      return false;
+    };
+    return dfs(toId);
+  }
+
   onPlayLinkDragEnded(event: GanttLinkDragEvent): void {
     if (event.source?.id && event.target?.id) {
       const fromId = event.source.id;
       const toId = event.target.id;
+
+      if (this.wouldCreateCycle(fromId, toId, this.playDependencies())) {
+        this.logPlayEvent(`⚠️ Cyclic Warning: Link "${fromId}" ➔ "${toId}" is rejected to prevent deadlock.`);
+        return;
+      }
+
       const exists = this.playDependencies().some(d => d.fromId === fromId && d.toId === toId);
       if (!exists) {
         const newDep: GanttDependency = {
