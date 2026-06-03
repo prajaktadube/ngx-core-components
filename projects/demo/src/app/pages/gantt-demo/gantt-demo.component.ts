@@ -1083,7 +1083,6 @@ interface ApiRow {
     }
     /* Station rounded pills */
     :host ::ng-deep .k-subtask-segment.station-pill {
-      border-radius: 999px;
       background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%) !important;
       box-shadow: 0 2px 6px rgba(16,185,129,0.35);
       transition: box-shadow 0.2s ease, transform 0.15s ease;
@@ -1100,7 +1099,6 @@ interface ApiRow {
     }
     /* Hub diamond badges */
     :host ::ng-deep .k-subtask-segment.hub-badge {
-      clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
       border-radius: 0;
       background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%) !important;
       box-shadow: none;
