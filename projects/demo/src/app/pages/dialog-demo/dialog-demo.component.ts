@@ -93,79 +93,103 @@ export class InfoDialogContent {
         </div>
       </div>
 
-      <!-- Demo cards -->
-      <div class="section-label">Live Demo</div>
-      <div class="demo-cards-grid">
+      <!-- TAB NAV -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button class="tab-btn" [class.active]="activeTab() === tab" (click)="activeTab.set(tab)">{{ tab }}</button>
+        }
+      </div>
 
-        <!-- Confirmation dialog -->
-        <div class="demo-card">
-          <div class="demo-card-title">Confirmation Dialog</div>
-          <p class="card-desc">Opens a destructive-action confirmation. Result is delivered via the reactive <code>closed</code> signal.</p>
-          <button class="btn-danger-outline" (click)="openConfirm()">Delete Item</button>
-          @if (confirmResult()) {
-            <div class="result-chip" [class.chip-success]="confirmResult() === 'cancel'" [class.chip-danger]="confirmResult() === 'confirm'">
-              Result: <strong>{{ confirmResult() }}</strong>
+      <!-- ===== DEMO ===== -->
+      @if (activeTab() === 'Demo') {
+        <div class="tab-content">
+          <!-- Demo cards -->
+          <div class="section-label">Live Demo</div>
+          <div class="demo-cards-grid">
+
+            <!-- Confirmation dialog -->
+            <div class="demo-card">
+              <div class="demo-card-title">Confirmation Dialog</div>
+              <p class="card-desc">Opens a destructive-action confirmation. Result is delivered via the reactive <code>closed</code> signal.</p>
+              <button class="btn-danger-outline" (click)="openConfirm()">Delete Item</button>
+              @if (confirmResult()) {
+                <div class="result-chip" [class.chip-success]="confirmResult() === 'cancel'" [class.chip-danger]="confirmResult() === 'confirm'">
+                  Result: <strong>{{ confirmResult() }}</strong>
+                </div>
+              }
             </div>
-          }
+
+            <!-- Informational dialog -->
+            <div class="demo-card">
+              <div class="demo-card-title">Informational Dialog</div>
+              <p class="card-desc">Opens a wide informational dialog with custom title and a close button inside the content component.</p>
+              <button class="btn-primary" (click)="openInfo()">Open Dialog</button>
+              @if (infoResult()) {
+                <div class="result-chip chip-success">Result: <strong>{{ infoResult() }}</strong></div>
+              }
+            </div>
+
+            <!-- Persistent dialog (no backdrop close) -->
+            <div class="demo-card">
+              <div class="demo-card-title">Persistent Dialog</div>
+              <p class="card-desc">Sets <code>closeOnBackdrop: false</code> so the user must explicitly close it via the button inside.</p>
+              <button class="btn-secondary" (click)="openPersistent()">Open Persistent</button>
+              @if (persistentResult() !== null) {
+                <div class="result-chip chip-success">Result: <strong>{{ persistentResult() }}</strong></div>
+              }
+            </div>
+
+          </div>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ codeExample }}</pre>
         </div>
+      }
 
-        <!-- Informational dialog -->
-        <div class="demo-card">
-          <div class="demo-card-title">Informational Dialog</div>
-          <p class="card-desc">Opens a wide informational dialog with custom title and a close button inside the content component.</p>
-          <button class="btn-primary" (click)="openInfo()">Open Dialog</button>
-          @if (infoResult()) {
-            <div class="result-chip chip-success">Result: <strong>{{ infoResult() }}</strong></div>
-          }
+      <!-- ===== API REFERENCE ===== -->
+      @if (activeTab() === 'API Reference') {
+        <div class="tab-content">
+          <div class="section-label">API Reference — DialogService.open()</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Config Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of apiRows; track row.name) {
+                  <tr>
+                    <td class="api-name">{{ row.name }}</td>
+                    <td class="api-type">{{ row.type }}</td>
+                    <td class="api-default">{{ row.default }}</td>
+                    <td>{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
-
-        <!-- Persistent dialog (no backdrop close) -->
-        <div class="demo-card">
-          <div class="demo-card-title">Persistent Dialog</div>
-          <p class="card-desc">Sets <code>closeOnBackdrop: false</code> so the user must explicitly close it via the button inside.</p>
-          <button class="btn-secondary" (click)="openPersistent()">Open Persistent</button>
-          @if (persistentResult() !== null) {
-            <div class="result-chip chip-success">Result: <strong>{{ persistentResult() }}</strong></div>
-          }
-        </div>
-
-      </div>
-
-      <div class="section-label">How to Use</div>
-      <pre class="code-block">{{ codeExample }}</pre>
-
-      <div class="section-label">API Reference — DialogService.open()</div>
-      <div class="api-table-wrap">
-        <table class="api-table">
-          <thead><tr><th>Config Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-          <tbody>
-            @for (row of apiRows; track row.name) {
-              <tr>
-                <td class="api-name">{{ row.name }}</td>
-                <td class="api-type">{{ row.type }}</td>
-                <td class="api-default">{{ row.default }}</td>
-                <td>{{ row.description }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+      }
 
     </div>
   `,
   styles: [`
     :host { display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
-    .demo-page { padding: 24px 28px; max-width: 1000px; display: flex; flex-direction: column; gap: 20px; }
-    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef; }
-    .page-header-text h1 { margin: 0 0 6px; font-size: 24px; font-weight: 800; color: #1a1a2e; }
-    .page-header-text p { margin: 0; font-size: 13px; color: #6c757d; line-height: 1.6; max-width: 600px; }
+    .demo-page { padding: 32px 40px; max-width: 1200px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 28px; }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 2px solid rgba(230, 230, 245, 0.6); }
+    .page-header-text h1 { margin: 0 0 8px; font-size: 28px; font-weight: 900; color: #1a1a2e; letter-spacing: -0.5px; }
+    .page-header-text p { margin: 0; font-size: 14px; color: #6c757d; line-height: 1.7; max-width: 600px; }
     .page-header-text code { background: #f1f3f5; padding: 1px 5px; border-radius: 3px; font-family: monospace; font-size: 12px; }
-    .header-badges { display: flex; gap: 8px; flex-shrink: 0; }
-    .badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
-    .badge-green { background: #dcfce7; color: #166534; }
-    .badge-blue { background: #e8f0fe; color: #1a73e8; }
-    .badge-purple { background: #f3e8ff; color: #7c3aed; }
-    .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #adb5bd; border-bottom: 1px solid #f1f3f5; padding-bottom: 6px; }
+    .header-badges { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+    .badge { font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 16px; transition: all 0.2s ease; }
+    .badge-green { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); color: #166534; border: 1px solid rgba(22, 101, 52, 0.1); }
+    .badge-blue { background: linear-gradient(135deg, #e8f0fe 0%, #d1e3ff 100%); color: #1a73e8; border: 1px solid rgba(26, 115, 232, 0.1); }
+    .badge-purple { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); color: #6b21a8; border: 1px solid rgba(107, 33, 168, 0.1); }
+    
+    .tab-nav { display: flex; gap: 0; border-bottom: 2px solid #e9ecef; overflow-x: auto; padding-bottom: 0; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 500; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s ease; white-space: nowrap; }
+    .tab-btn:hover { color: #495057; background: rgba(26, 115, 232, 0.05); }
+    .tab-btn.active { color: #1a73e8; border-bottom-color: #1a73e8; font-weight: 600; background: rgba(26, 115, 232, 0.04); }
+    
+    .tab-content { display: flex; flex-direction: column; gap: 20px; }
+    .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #8892a0; border-bottom: 2px solid #e9ecef; padding-bottom: 12px; margin-top: 16px; }
     .demo-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
     .demo-card { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
     .demo-card-title { font-size: 12px; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 0.4px; }
@@ -181,19 +205,23 @@ export class InfoDialogContent {
     .chip-success { background: #dcfce7; color: #166534; }
     .chip-danger { background: #fee2e2; color: #991b1b; }
     .code-block { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 8px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; }
-    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 8px; }
+    
+    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 10px; margin-bottom: 24px; }
     .api-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .api-table thead tr { background: #f8f9fa; }
-    .api-table th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #6c757d; border-bottom: 1px solid #e9ecef; white-space: nowrap; }
-    .api-table td { padding: 10px 14px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
-    .api-table tbody tr:last-child td { border-bottom: none; }
+    .api-table thead tr { background: linear-gradient(135deg, #f8f9fa 0%, #f3f5f9 100%); }
+    .api-table th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #495057; border-bottom: 2px solid #e9ecef; white-space: nowrap; }
+    .api-table td { padding: 12px 16px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
     .api-table tbody tr:hover td { background: #f8f9fa; }
-    .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 600; white-space: nowrap; }
+    .api-table tbody tr:last-child td { border-bottom: none; }
+    .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
     .api-type { color: #8e44ad !important; font-family: monospace; white-space: nowrap; }
-    .api-default { font-family: monospace; white-space: nowrap; }
+    .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
   `],
 })
 export class DialogDemoComponent {
+  activeTab = signal('Demo');
+  tabs = ['Demo', 'API Reference'];
+
   private dialog = inject(DialogService);
 
   confirmResult = signal<string>('');

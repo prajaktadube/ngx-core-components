@@ -12,6 +12,8 @@ interface KpiCard {
   variant: StatCardVariant;
 }
 
+interface ApiRow { name: string; type: string; default: string; description: string; }
+
 @Component({
   selector: 'app-stat-cards-demo',
   standalone: true,
@@ -24,97 +26,127 @@ interface KpiCard {
         <p>Premium glassmorphism KPI metric cards with trend indicators, loading states, and five variants for any dashboard.</p>
       </header>
 
-      <!-- Live dashboard grid -->
-      <section class="demo-section">
-        <h2>Dashboard KPI Grid</h2>
-        <p class="section-desc">A realistic analytics dashboard with 8 stat cards. Hover to see the lift effect.</p>
-        <div class="kpi-grid">
-          @for (card of kpiCards; track card.label) {
-            <ngx-stat-card
-              [label]="card.label"
-              [value]="card.value"
-              [subtitle]="card.subtitle"
-              [trend]="card.trend"
-              [trendValue]="card.trendValue"
-              [icon]="card.icon"
-              [variant]="card.variant"
-            ></ngx-stat-card>
-          }
-        </div>
-      </section>
+      <!-- TAB NAV -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button class="tab-btn" [class.active]="activeTab() === tab" (click)="activeTab.set(tab)">{{ tab }}</button>
+        }
+      </div>
 
-      <!-- Variants -->
-      <section class="demo-section">
-        <h2>Variants</h2>
-        <div class="variants-grid">
-          @for (v of variants; track v.label) {
-            <ngx-stat-card
-              [label]="v.label"
-              [value]="v.value"
-              subtitle="vs last period"
-              [trend]="v.trend"
-              [trendValue]="v.trendValue"
-              [variant]="v.variant"
-              icon="✦"
-            ></ngx-stat-card>
-          }
-        </div>
-      </section>
+      <!-- ===== DEMO ===== -->
+      @if (activeTab() === 'Demo') {
+        <div class="tab-content">
+          <!-- Live dashboard grid -->
+          <section class="demo-section">
+            <h2>Dashboard KPI Grid</h2>
+            <p class="section-desc">A realistic analytics dashboard with 8 stat cards. Hover to see the lift effect.</p>
+            <div class="kpi-grid">
+              @for (card of kpiCards; track card.label) {
+                <ngx-stat-card
+                  [label]="card.label"
+                  [value]="card.value"
+                  [subtitle]="card.subtitle"
+                  [trend]="card.trend"
+                  [trendValue]="card.trendValue"
+                  [icon]="card.icon"
+                  [variant]="card.variant"
+                ></ngx-stat-card>
+              }
+            </div>
+          </section>
 
-      <!-- Dark theme -->
-      <section class="demo-section">
-        <h2>Dark Theme</h2>
-        <div class="dark-bg">
-          <div class="kpi-grid">
-            @for (card of darkCards; track card.label) {
-              <ngx-stat-card
-                [label]="card.label"
-                [value]="card.value"
-                [subtitle]="card.subtitle"
-                [trend]="card.trend"
-                [trendValue]="card.trendValue"
-                [icon]="card.icon"
-                [variant]="card.variant"
-                theme="dark"
-              ></ngx-stat-card>
-            }
+          <!-- Variants -->
+          <section class="demo-section">
+            <h2>Variants</h2>
+            <div class="variants-grid">
+              @for (v of variants; track v.label) {
+                <ngx-stat-card
+                  [label]="v.label"
+                  [value]="v.value"
+                  subtitle="vs last period"
+                  [trend]="v.trend"
+                  [trendValue]="v.trendValue"
+                  [variant]="v.variant"
+                  icon="✦"
+                ></ngx-stat-card>
+              }
+            </div>
+          </section>
+
+          <!-- Dark theme -->
+          <section class="demo-section">
+            <h2>Dark Theme</h2>
+            <div class="dark-bg">
+              <div class="kpi-grid">
+                @for (card of darkCards; track card.label) {
+                  <ngx-stat-card
+                    [label]="card.label"
+                    [value]="card.value"
+                    [subtitle]="card.subtitle"
+                    [trend]="card.trend"
+                    [trendValue]="card.trendValue"
+                    [icon]="card.icon"
+                    [variant]="card.variant"
+                    theme="dark"
+                  ></ngx-stat-card>
+                }
+              </div>
+            </div>
+          </section>
+
+          <!-- Loading state -->
+          <section class="demo-section">
+            <h2>Loading Skeleton</h2>
+            <p class="section-desc">When <code>loading=true</code>, an animated shimmer skeleton replaces the content.</p>
+            <div class="loading-row">
+              <div class="load-toggle">
+                <button class="toggle-btn" (click)="toggleLoading()">
+                  {{ isLoading() ? '✅ Show Data' : '⏳ Show Loading' }}
+                </button>
+              </div>
+              <div class="load-grid">
+                @for (card of kpiCards.slice(0, 4); track card.label) {
+                  <ngx-stat-card
+                    [label]="card.label"
+                    [value]="card.value"
+                    [subtitle]="card.subtitle"
+                    [trend]="card.trend"
+                    [trendValue]="card.trendValue"
+                    [icon]="card.icon"
+                    [variant]="card.variant"
+                    [loading]="isLoading()"
+                  ></ngx-stat-card>
+                }
+              </div>
+            </div>
+          </section>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ howToCode }}</pre>
+        </div>
+      }
+
+      <!-- ===== API REFERENCE ===== -->
+      @if (activeTab() === 'API Reference') {
+        <div class="tab-content">
+          <div class="section-label">Stat Card Component (ngx-stat-card)</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of apiRef; track row.name) {
+                  <tr>
+                    <td class="api-name">{{ row.name }}</td>
+                    <td class="api-type">{{ row.type }}</td>
+                    <td class="api-default">{{ row.default }}</td>
+                    <td>{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
-
-      <!-- Loading state -->
-      <section class="demo-section">
-        <h2>Loading Skeleton</h2>
-        <p class="section-desc">When <code>loading=true</code>, an animated shimmer skeleton replaces the content.</p>
-        <div class="loading-row">
-          <div class="load-toggle">
-            <button class="toggle-btn" (click)="toggleLoading()">
-              {{ isLoading() ? '✅ Show Data' : '⏳ Show Loading' }}
-            </button>
-          </div>
-          <div class="load-grid">
-            @for (card of kpiCards.slice(0, 4); track card.label) {
-              <ngx-stat-card
-                [label]="card.label"
-                [value]="card.value"
-                [subtitle]="card.subtitle"
-                [trend]="card.trend"
-                [trendValue]="card.trendValue"
-                [icon]="card.icon"
-                [variant]="card.variant"
-                [loading]="isLoading()"
-              ></ngx-stat-card>
-            }
-          </div>
-        </div>
-      </section>
-
-      <!-- How to Use -->
-      <section class="demo-section">
-        <h2>How to Use</h2>
-        <p class="section-desc">Import the standalone metric stat card component. Set values and configure trend metrics.</p>
-        <pre style="margin: 0; background: #0f172a; color: #38bdf8; padding: 18px 24px; border-radius: 12px; font-size: 13px; line-height: 1.6; overflow: auto; border: 1px solid rgba(255,255,255,0.06); font-family: monospace;">{{ howToCode }}</pre>
-      </section>
+      }
     </div>
   `,
   styles: [`
@@ -127,7 +159,7 @@ interface KpiCard {
     }
 
     .demo-header {
-      margin-bottom: 40px;
+      margin-bottom: 24px;
     }
 
     .demo-header h1 {
@@ -143,8 +175,14 @@ interface KpiCard {
       margin: 0;
     }
 
+    .tab-nav { display: flex; gap: 0; border-bottom: 2px solid #e9ecef; overflow-x: auto; padding-bottom: 0; margin-bottom: 24px; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 500; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s ease; white-space: nowrap; }
+    .tab-btn:hover { color: #495057; background: rgba(26, 115, 232, 0.05); }
+    .tab-btn.active { color: #1a73e8; border-bottom-color: #1a73e8; font-weight: 600; background: rgba(26, 115, 232, 0.04); }
+    .tab-content { display: flex; flex-direction: column; gap: 20px; }
+
     .demo-section {
-      margin-bottom: 48px;
+      margin-bottom: 20px;
     }
 
     .demo-section h2 {
@@ -212,9 +250,27 @@ interface KpiCard {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 16px;
     }
+
+    .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #8892a0; border-bottom: 2px solid #e9ecef; padding-bottom: 12px; margin-top: 16px; }
+    .code-block { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; }
+    
+    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 10px; margin-bottom: 24px; }
+    .api-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .api-table thead tr { background: linear-gradient(135deg, #f8f9fa 0%, #f3f5f9 100%); }
+    .api-table th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #495057; border-bottom: 2px solid #e9ecef; white-space: nowrap; }
+    .api-table td { padding: 12px 16px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
+    .api-table tbody tr { transition: background 0.2s ease; }
+    .api-table tbody tr:hover td { background: #f8f9fa; }
+    .api-table tbody tr:last-child td { border-bottom: none; }
+    .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
+    .api-type { color: #8e44ad !important; font-family: monospace; white-space: nowrap; }
+    .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
   `]
 })
 export class StatCardsDemoComponent {
+  activeTab = signal('Demo');
+  tabs = ['Demo', 'API Reference'];
+
   howToCode = `import { Component } from '@angular/core';
 import { StatCardComponent } from 'ngx-core-components/feedback';
 
@@ -237,6 +293,18 @@ import { StatCardComponent } from 'ngx-core-components/feedback';
 export class MyKpisComponent {}`;
 
   isLoading = signal(false);
+
+  apiRef: ApiRow[] = [
+    { name: 'label', type: 'InputSignal<string>', default: "''", description: 'Title label of the KPI metric.' },
+    { name: 'value', type: 'InputSignal<string | number>', default: "''", description: 'Primary value text to highlight in bold.' },
+    { name: 'subtitle', type: 'InputSignal<string>', default: "''", description: 'Supporting contextual info shown below the value.' },
+    { name: 'trend', type: "InputSignal<'up' | 'down' | 'neutral'>", default: "'neutral'", description: 'Directional styling and formatting indicator for the trend.' },
+    { name: 'trendValue', type: 'InputSignal<string>', default: "''", description: 'Literal change percentage or value representation (e.g. +12.3% or -5).' },
+    { name: 'icon', type: 'InputSignal<string>', default: "''", description: 'Custom unicode symbol or emoji placed inside the floating header icon circle.' },
+    { name: 'variant', type: 'InputSignal<StatCardVariant>', default: "'default'", description: 'Visual appearance variant coloring (default, success, danger, warning, info).' },
+    { name: 'theme', type: "InputSignal<'light' | 'dark'>", default: "'light'", description: 'Styling appearance theme.' },
+    { name: 'loading', type: 'InputSignal<boolean>', default: 'false', description: 'Locks the card structure inside an active shimmer skeleton loading state.' }
+  ];
 
   toggleLoading(): void {
     this.isLoading.set(!this.isLoading());
@@ -268,3 +336,4 @@ export class MyKpisComponent {}`;
     { label: 'Latency P99',   value: '142ms',     subtitle: 'Global avg',    trend: 'down', trendValue: '−18ms', icon: '⏱️', variant: 'success' },
   ];
 }
+

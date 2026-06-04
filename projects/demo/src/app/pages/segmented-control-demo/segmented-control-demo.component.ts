@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SegmentedControlComponent, SegmentedOption } from 'ngx-core-components/inputs';
 
+interface ApiRow { name: string; type: string; default: string; description: string; }
+
 @Component({
   selector: 'app-segmented-control-demo',
   standalone: true,
@@ -15,134 +17,164 @@ import { SegmentedControlComponent, SegmentedOption } from 'ngx-core-components/
         <p>A sleek, iOS-like sliding segmented selection control. Animates a glowing background indicator between selections. Perfect for toggling layouts, views, or filters.</p>
       </header>
 
-      <!-- Basic selection and event monitor -->
-      <section class="demo-section">
-        <h2>Basic Selection & Slide Transition</h2>
-        <p class="section-desc">Observe the smooth highlight slide. Toggles views in real-time.</p>
-        
-        <div class="basic-showcase">
-          <div class="selection-row">
-            <ngx-segmented-control
-              [options]="viewOptions"
-              [(value)]="activeView"
-              (valueChange)="onValueChange($event, 'View Switcher')"
-            ></ngx-segmented-control>
-          </div>
+      <!-- TAB NAV -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button class="tab-btn" [class.active]="activeTab() === tab" (click)="activeTab.set(tab)">{{ tab }}</button>
+        }
+      </div>
 
-          <div class="active-content-panel">
-            @if (activeView() === 'grid') {
-              <div class="content-box">
-                <h4>📐 Grid Layout Active</h4>
-                <p>Rendering responsive cards containing dashboard metrics and widgets.</p>
+      <!-- ===== DEMO ===== -->
+      @if (activeTab() === 'Demo') {
+        <div class="tab-content">
+          <!-- Basic selection and event monitor -->
+          <section class="demo-section">
+            <h2>Basic Selection & Slide Transition</h2>
+            <p class="section-desc">Observe the smooth highlight slide. Toggles views in real-time.</p>
+            
+            <div class="basic-showcase">
+              <div class="selection-row">
+                <ngx-segmented-control
+                  [options]="viewOptions"
+                  [(value)]="activeView"
+                  (valueChange)="onValueChange($event, 'View Switcher')"
+                ></ngx-segmented-control>
               </div>
-            } @else if (activeView() === 'list') {
-              <div class="content-box">
-                <h4>📑 List Layout Active</h4>
-                <p>Rendering detailed tabular rows optimized for bulk management.</p>
+
+              <div class="active-content-panel">
+                @if (activeView() === 'grid') {
+                  <div class="content-box">
+                    <h4>📐 Grid Layout Active</h4>
+                    <p>Rendering responsive cards containing dashboard metrics and widgets.</p>
+                  </div>
+                } @else if (activeView() === 'list') {
+                  <div class="content-box">
+                    <h4>📑 List Layout Active</h4>
+                    <p>Rendering detailed tabular rows optimized for bulk management.</p>
+                  </div>
+                } @else {
+                  <div class="content-box">
+                    <h4>🗺️ Board Layout Active</h4>
+                    <p>Rendering Kanban workflow columns for tracking drag-and-drop operations.</p>
+                  </div>
+                }
               </div>
-            } @else {
-              <div class="content-box">
-                <h4>🗺️ Board Layout Active</h4>
-                <p>Rendering Kanban workflow columns for tracking drag-and-drop operations.</p>
+            </div>
+          </section>
+
+          <!-- Badge Indicators & Accent Variants -->
+          <section class="demo-section">
+            <h2>Variants & Notification Badges</h2>
+            <p class="section-desc">Different indicator color accents. Items can contain text labels and notification count badges.</p>
+            
+            <div class="variants-stack">
+              <div class="variant-item">
+                <span>Primary Blue (Badge)</span>
+                <ngx-segmented-control
+                  [options]="statusOptions"
+                  [(value)]="activeStatus"
+                  variant="primary"
+                ></ngx-segmented-control>
               </div>
-            }
+
+              <div class="variant-item">
+                <span>Success Green</span>
+                <ngx-segmented-control
+                  [options]="severityOptions"
+                  [(value)]="activeSeverity"
+                  variant="success"
+                ></ngx-segmented-control>
+              </div>
+
+              <div class="variant-item">
+                <span>Danger Red</span>
+                <ngx-segmented-control
+                  [options]="priorityOptions"
+                  [(value)]="activePriority"
+                  variant="danger"
+                ></ngx-segmented-control>
+              </div>
+
+              <div class="variant-item">
+                <span>Warning Yellow</span>
+                <ngx-segmented-control
+                  [options]="warningOptions"
+                  [(value)]="activeWarning"
+                  variant="warning"
+                ></ngx-segmented-control>
+              </div>
+            </div>
+          </section>
+
+          <!-- Disabled State -->
+          <section class="demo-section">
+            <h2>Disabled State Toggle</h2>
+            <p class="section-desc">Lock selection controls during remote calls or permissions restrictions.</p>
+            <div class="disabled-row">
+              <button class="toggle-btn" (click)="isDisabled.set(!isDisabled())">
+                {{ isDisabled() ? '🔓 Enable Controls' : '🔒 Disable Controls' }}
+              </button>
+              
+              <ngx-segmented-control
+                [options]="viewOptions"
+                [value]="'grid'"
+                [disabled]="isDisabled()"
+              ></ngx-segmented-control>
+            </div>
+          </section>
+
+          <!-- Dark Theme Showcase -->
+          <section class="demo-section">
+            <h2>Dark Theme Showcase</h2>
+            <div class="dark-box-bg">
+              <ngx-segmented-control
+                [options]="viewOptions"
+                [(value)]="activeView"
+                theme="dark"
+                variant="info"
+              ></ngx-segmented-control>
+            </div>
+          </section>
+
+          <!-- Action logs -->
+          <section class="demo-section">
+            <h2>Change Event Log</h2>
+            <div class="event-logs">
+              <h4>Event Log Stream</h4>
+              <div class="log-lines">
+                @for (log of eventLogs(); track $index) {
+                  <div class="log-line">{{ log }}</div>
+                }
+              </div>
+            </div>
+          </section>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ howToCode }}</pre>
+        </div>
+      }
+
+      <!-- ===== API REFERENCE ===== -->
+      @if (activeTab() === 'API Reference') {
+        <div class="tab-content">
+          <div class="section-label">Segmented Control Component (ngx-segmented-control)</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of apiRef; track row.name) {
+                  <tr>
+                    <td class="api-name">{{ row.name }}</td>
+                    <td class="api-type">{{ row.type }}</td>
+                    <td class="api-default">{{ row.default }}</td>
+                    <td>{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
-
-      <!-- Badge Indicators & Accent Variants -->
-      <section class="demo-section">
-        <h2>Variants & Notification Badges</h2>
-        <p class="section-desc">Different indicator color accents. Items can contain text labels and notification count badges.</p>
-        
-        <div class="variants-stack">
-          <div class="variant-item">
-            <span>Primary Blue (Badge)</span>
-            <ngx-segmented-control
-              [options]="statusOptions"
-              [(value)]="activeStatus"
-              variant="primary"
-            ></ngx-segmented-control>
-          </div>
-
-          <div class="variant-item">
-            <span>Success Green</span>
-            <ngx-segmented-control
-              [options]="severityOptions"
-              [(value)]="activeSeverity"
-              variant="success"
-            ></ngx-segmented-control>
-          </div>
-
-          <div class="variant-item">
-            <span>Danger Red</span>
-            <ngx-segmented-control
-              [options]="priorityOptions"
-              [(value)]="activePriority"
-              variant="danger"
-            ></ngx-segmented-control>
-          </div>
-
-          <div class="variant-item">
-            <span>Warning Yellow</span>
-            <ngx-segmented-control
-              [options]="warningOptions"
-              [(value)]="activeWarning"
-              variant="warning"
-            ></ngx-segmented-control>
-          </div>
-        </div>
-      </section>
-
-      <!-- Disabled State -->
-      <section class="demo-section">
-        <h2>Disabled State Toggle</h2>
-        <p class="section-desc">Lock selection controls during remote calls or permissions restrictions.</p>
-        <div class="disabled-row">
-          <button class="toggle-btn" (click)="isDisabled.set(!isDisabled())">
-            {{ isDisabled() ? '🔓 Enable Controls' : '🔒 Disable Controls' }}
-          </button>
-          
-          <ngx-segmented-control
-            [options]="viewOptions"
-            [value]="'grid'"
-            [disabled]="isDisabled()"
-          ></ngx-segmented-control>
-        </div>
-      </section>
-
-      <!-- Dark Theme Showcase -->
-      <section class="demo-section">
-        <h2>Dark Theme Styling</h2>
-        <div class="dark-box-bg">
-          <ngx-segmented-control
-            [options]="viewOptions"
-            [(value)]="activeView"
-            theme="dark"
-            variant="info"
-          ></ngx-segmented-control>
-        </div>
-      </section>
-
-      <!-- Action logs -->
-      <section class="demo-section">
-        <h2>Change Event Log</h2>
-        <div class="event-logs">
-          <h4>Event Log Stream</h4>
-          <div class="log-lines">
-            @for (log of eventLogs(); track $index) {
-              <div class="log-line">{{ log }}</div>
-            }
-          </div>
-        </div>
-      </section>
-
-      <!-- How to Use -->
-      <section class="demo-section">
-        <h2>How to Use</h2>
-        <p class="section-desc">Import the standalone segmented control component, provide options, and bind the selected value with two-way binding.</p>
-        <pre style="margin: 0; background: #0f172a; color: #38bdf8; padding: 18px 24px; border-radius: 12px; font-size: 13px; line-height: 1.6; overflow: auto; border: 1px solid rgba(255,255,255,0.06); font-family: monospace;">{{ howToCode }}</pre>
-      </section>
+      }
     </div>
   `,
   styles: [`
@@ -155,7 +187,7 @@ import { SegmentedControlComponent, SegmentedOption } from 'ngx-core-components/
     }
 
     .demo-header {
-      margin-bottom: 40px;
+      margin-bottom: 24px;
     }
 
     .demo-header h1 {
@@ -171,8 +203,14 @@ import { SegmentedControlComponent, SegmentedOption } from 'ngx-core-components/
       margin: 0;
     }
 
+    .tab-nav { display: flex; gap: 0; border-bottom: 2px solid #e9ecef; overflow-x: auto; padding-bottom: 0; margin-bottom: 24px; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 500; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s ease; white-space: nowrap; }
+    .tab-btn:hover { color: #495057; background: rgba(26, 115, 232, 0.05); }
+    .tab-btn.active { color: #1a73e8; border-bottom-color: #1a73e8; font-weight: 600; background: rgba(26, 115, 232, 0.04); }
+    .tab-content { display: flex; flex-direction: column; gap: 20px; }
+
     .demo-section {
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     .demo-section h2 {
@@ -302,9 +340,27 @@ import { SegmentedControlComponent, SegmentedOption } from 'ngx-core-components/
     .log-line {
       white-space: pre-wrap;
     }
+
+    .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #8892a0; border-bottom: 2px solid #e9ecef; padding-bottom: 12px; margin-top: 16px; }
+    .code-block { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; }
+    
+    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 10px; margin-bottom: 24px; }
+    .api-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .api-table thead tr { background: linear-gradient(135deg, #f8f9fa 0%, #f3f5f9 100%); }
+    .api-table th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #495057; border-bottom: 2px solid #e9ecef; white-space: nowrap; }
+    .api-table td { padding: 12px 16px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
+    .api-table tbody tr { transition: background 0.2s ease; }
+    .api-table tbody tr:hover td { background: #f8f9fa; }
+    .api-table tbody tr:last-child td { border-bottom: none; }
+    .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
+    .api-type { color: #8e44ad !important; font-family: monospace; white-space: nowrap; }
+    .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
   `]
 })
 export class SegmentedControlDemoComponent {
+  activeTab = signal('Demo');
+  tabs = ['Demo', 'API Reference'];
+
   howToCode = `import { Component, signal } from '@angular/core';
 import { SegmentedControlComponent, SegmentedOption } from 'ngx-core-components/inputs';
 
@@ -370,6 +426,16 @@ export class MyTabsComponent {
   isDisabled = signal(false);
   eventLogs = signal<string[]>([]);
 
+  apiRef: ApiRow[] = [
+    { name: 'options', type: 'InputSignal<SegmentedOption[]>', default: '[]', description: 'List of segmented options. Supports labels, values, and floating notifications badge counters.' },
+    { name: 'value', type: 'ModelSignal<any>', default: 'null', description: 'Two-way bound signal [(value)] for the active chosen value.' },
+    { name: 'disabled', type: 'InputSignal<boolean>', default: 'false', description: 'Disables user click interactions.' },
+    { name: 'theme', type: "InputSignal<'light' | 'dark'>", default: "'light'", description: 'Styling appearance theme.' },
+    { name: 'variant', type: "InputSignal<'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info'>", default: "'default'", description: 'Indicator background hover variant color styles.' },
+    { name: 'id', type: 'InputSignal<string>', default: "'ngx-segmented-[random]'", description: 'Unique element identifier.' },
+    { name: 'valueChange', type: 'OutputEmitterRef<any>', default: 'output()', description: 'Fired when a new option segment is chosen. Emits the selection value.' }
+  ];
+
   onValueChange(val: any, context: string) {
     this.logEvent(`[${context}] selected value changed to "${val}"`);
   }
@@ -381,3 +447,4 @@ export class MyTabsComponent {
     ].slice(-10));
   }
 }
+

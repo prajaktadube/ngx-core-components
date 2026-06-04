@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CountdownComponent, CountdownVariant } from 'ngx-core-components/feedback';
 
+interface ApiRow { name: string; type: string; default: string; description: string; }
+
 @Component({
   selector: 'app-countdown-demo',
   standalone: true,
@@ -10,193 +12,203 @@ import { CountdownComponent, CountdownVariant } from 'ngx-core-components/feedba
   imports: [CommonModule, FormsModule, CountdownComponent],
   template: `
     <div class="demo-page">
-      <header class="demo-header">
-        <h1>⏱️ Countdown Timer</h1>
-        <p>Premium circular SVG and grid card countdown timers. Perfect for tracking events, deadlines, limits, or task progress.</p>
-      </header>
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="page-header-text">
+          <h1>⏱️ Countdown Timer</h1>
+          <p>Premium circular SVG and grid card countdown timers. Perfect for tracking events, deadlines, limits, or task progress.</p>
+        </div>
+        <div class="header-badges">
+          <span class="badge badge-purple">Circular Progress</span>
+          <span class="badge badge-purple">Milestones</span>
+          <span class="badge badge-purple">Standalone SVG</span>
+        </div>
+      </div>
 
-      <!-- Interactive Timer Configuration -->
-      <section class="demo-section">
-        <h2>Interactive Demo</h2>
-        <p class="section-desc">Test custom durations, variants, layouts, and trace outputs in real-time.</p>
-        <div class="interactive-box">
-          <div class="controls-panel">
-            <div class="control-group">
-              <label>Duration (Seconds)</label>
-              <input type="number" [(ngModel)]="customDuration" (change)="reloadTimer()" min="5" max="3600" />
-            </div>
+      <!-- TAB NAV -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button class="tab-btn" [class.active]="activeTab() === tab" (click)="activeTab.set(tab)">{{ tab }}</button>
+        }
+      </div>
 
-            <div class="control-group">
-              <label>Accent Variant</label>
-              <select [(ngModel)]="selectedVariant" (change)="reloadTimer()">
-                <option value="default">Default (Blue)</option>
-                <option value="success">Success (Green)</option>
-                <option value="danger">Danger (Red)</option>
-                <option value="warning">Warning (Yellow)</option>
-                <option value="info">Info (Cyan)</option>
-              </select>
-            </div>
+      <!-- ===== DEMO ===== -->
+      @if (activeTab() === 'Demo') {
+        <div class="tab-content">
+          <!-- Interactive Timer Configuration -->
+          <section class="demo-section">
+            <h2>Interactive Demo</h2>
+            <p class="section-desc">Test custom durations, variants, layouts, and trace outputs in real-time.</p>
+            <div class="interactive-box">
+              <div class="controls-panel">
+                <div class="control-group">
+                  <label>Duration (Seconds)</label>
+                  <input type="number" [(ngModel)]="customDuration" (change)="reloadTimer()" min="5" max="3600" />
+                </div>
 
-            <div class="control-group check-group">
-              <label>
-                <input type="checkbox" [(ngModel)]="showRing" /> Show Progress Ring
-              </label>
-            </div>
+                <div class="control-group">
+                  <label>Accent Variant</label>
+                  <select [(ngModel)]="selectedVariant" (change)="reloadTimer()">
+                    <option value="default">Default (Blue)</option>
+                    <option value="success">Success (Green)</option>
+                    <option value="danger">Danger (Red)</option>
+                    <option value="warning">Warning (Yellow)</option>
+                    <option value="info">Info (Cyan)</option>
+                  </select>
+                </div>
 
-            <div class="control-group check-group">
-              <label>
-                <input type="checkbox" [(ngModel)]="compactMode" /> Compact Only (Inside Ring)
-              </label>
-            </div>
+                <div class="control-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="showRing" /> Show Progress Ring
+                  </label>
+                </div>
 
-            <div class="control-group check-group">
-              <label>
-                <input type="checkbox" [(ngModel)]="showControls" /> Show Action Controls
-              </label>
-            </div>
+                <div class="control-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="compactMode" /> Compact Only (Inside Ring)
+                  </label>
+                </div>
 
-            <div class="control-group">
-              <button class="action-btn" (click)="reloadTimer()">🔄 Restart Timer</button>
-            </div>
-          </div>
+                <div class="control-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="showControls" /> Show Action Controls
+                  </label>
+                </div>
 
-          <div class="timer-display-panel">
-            @if (timerKey()) {
-              <ngx-countdown
-                [duration]="customDuration"
-                [variant]="selectedVariant"
-                [showRing]="showRing"
-                [compactOnly]="compactMode"
-                [showControls]="showControls"
-                (finished)="onTimerFinished()"
-                (tick)="onTimerTick($event)"
-              ></ngx-countdown>
-            }
+                <div class="control-group">
+                  <button class="action-btn" (click)="reloadTimer()">🔄 Restart Timer</button>
+                </div>
+              </div>
 
-            <div class="event-logs">
-              <h4>Event Stream</h4>
-              <div class="log-lines">
-                @for (log of eventLogs(); track $index) {
-                  <div class="log-line">{{ log }}</div>
+              <div class="timer-display-panel">
+                @if (timerKey()) {
+                  <ngx-countdown
+                    [duration]="customDuration"
+                    [variant]="selectedVariant"
+                    [showRing]="showRing"
+                    [compactOnly]="compactMode"
+                    [showControls]="showControls"
+                    (finished)="onTimerFinished()"
+                    (tick)="onTimerTick($event)"
+                  ></ngx-countdown>
                 }
+
+                <div class="event-logs">
+                  <h4>Event Stream</h4>
+                  <div class="log-lines">
+                    @for (log of eventLogs(); track $index) {
+                      <div class="log-line">{{ log }}</div>
+                    }
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
+
+          <!-- Target Date Countdown -->
+          <section class="demo-section">
+            <h2>Count down to Target Date</h2>
+            <p class="section-desc">Calculates time remaining to a specific calendar milestone (e.g. New Year 2027 or a set milestone).</p>
+            <div class="target-date-wrap">
+              <ngx-countdown
+                [targetDate]="milestoneDate"
+                [showControls]="false"
+                [forceShowDays]="true"
+                variant="info"
+              ></ngx-countdown>
+              <div class="target-info">
+                <h3>🚀 Next Core Component Release</h3>
+                <p>Target Date: <strong>{{ milestoneDate.toLocaleDateString() }} {{ milestoneDate.toLocaleTimeString() }}</strong></p>
+                <p class="desc">A standalone countdown mapping calendar schedules dynamically without manual intervals.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Variants Showcase -->
+          <section class="demo-section">
+            <h2>Variants</h2>
+            <div class="variants-row">
+              <div class="variant-item">
+                <span>Success</span>
+                <ngx-countdown [duration]="120" variant="success" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
+              </div>
+              <div class="variant-item">
+                <span>Danger</span>
+                <ngx-countdown [duration]="60" variant="danger" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
+              </div>
+              <div class="variant-item">
+                <span>Warning</span>
+                <ngx-countdown [duration]="180" variant="warning" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
+              </div>
+              <div class="variant-item">
+                <span>Info</span>
+                <ngx-countdown [duration]="300" variant="info" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
+              </div>
+            </div>
+          </section>
+
+          <!-- Dark Theme -->
+          <section class="demo-section">
+            <h2>Dark Mode Style</h2>
+            <div class="dark-box-bg">
+              <ngx-countdown
+                [duration]="1500"
+                theme="dark"
+                variant="warning"
+                [showRing]="true"
+              ></ngx-countdown>
+            </div>
+          </section>
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ howToCode }}</pre>
+        </div>
+      }
+
+      <!-- ===== API REFERENCE ===== -->
+      @if (activeTab() === 'API Reference') {
+        <div class="tab-content">
+          <div class="section-label">Countdown (ngx-countdown)</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of countdownApi; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td class="api-default">{{ row.default }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
-
-      <!-- Target Date Countdown -->
-      <section class="demo-section">
-        <h2>Count down to Target Date</h2>
-        <p class="section-desc">Calculates time remaining to a specific calendar milestone (e.g. New Year 2027 or a set milestone).</p>
-        <div class="target-date-wrap">
-          <ngx-countdown
-            [targetDate]="milestoneDate"
-            [showControls]="false"
-            [forceShowDays]="true"
-            variant="info"
-          ></ngx-countdown>
-          <div class="target-info">
-            <h3>🚀 Next Core Component Release</h3>
-            <p>Target Date: <strong>{{ milestoneDate.toLocaleDateString() }} {{ milestoneDate.toLocaleTimeString() }}</strong></p>
-            <p class="desc">A standalone countdown mapping calendar schedules dynamically without manual intervals.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Variants Showcase -->
-      <section class="demo-section">
-        <h2>Variants</h2>
-        <div class="variants-row">
-          <div class="variant-item">
-            <span>Success</span>
-            <ngx-countdown [duration]="120" variant="success" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
-          </div>
-          <div class="variant-item">
-            <span>Danger</span>
-            <ngx-countdown [duration]="60" variant="danger" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
-          </div>
-          <div class="variant-item">
-            <span>Warning</span>
-            <ngx-countdown [duration]="180" variant="warning" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
-          </div>
-          <div class="variant-item">
-            <span>Info</span>
-            <ngx-countdown [duration]="300" variant="info" [showControls]="false" [showRing]="true" [compactOnly]="true"></ngx-countdown>
-          </div>
-        </div>
-      </section>
-
-      <!-- Dark Theme -->
-      <section class="demo-section">
-        <h2>Dark Mode Style</h2>
-        <div class="dark-box-bg">
-          <ngx-countdown
-            [duration]="1500"
-            theme="dark"
-            variant="warning"
-            [showRing]="true"
-          ></ngx-countdown>
-        </div>
-      </section>
-
-      <!-- How to Use -->
-      <section class="demo-section">
-        <h2>How to Use</h2>
-        <p class="section-desc">Import the standalone countdown component and configure either a duration (in seconds) or a target date.</p>
-        <pre style="margin: 0; background: #0f172a; color: #38bdf8; padding: 18px 24px; border-radius: 12px; font-size: 13px; line-height: 1.6; overflow: auto; border: 1px solid rgba(255,255,255,0.06); font-family: monospace;">{{ howToCode }}</pre>
-      </section>
+      }
     </div>
   `,
   styles: [`
-    :host { display: block; }
-
-    .demo-page {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 32px 24px 80px;
-    }
-
-    .demo-header {
-      margin-bottom: 40px;
-    }
-
-    .demo-header h1 {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text-primary, #0f172a);
-      margin: 0 0 8px;
-    }
-
-    .demo-header p {
-      font-size: 15px;
-      color: var(--text-secondary, #64748b);
-      margin: 0;
-    }
-
-    .demo-section {
-      margin-bottom: 48px;
-    }
-
-    .demo-section h2 {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-primary, #0f172a);
-      margin: 0 0 8px;
-    }
-
-    .section-desc {
-      font-size: 13px;
-      color: var(--text-secondary, #64748b);
-      margin: 0 0 20px;
-    }
-
+    :host { display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
+    .demo-page { padding: 32px 40px; max-width: 1200px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 28px; }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 2px solid rgba(230, 230, 245, 0.6); }
+    .page-header-text h1 { margin: 0 0 8px; font-size: 28px; font-weight: 900; color: #1a1a2e; letter-spacing: -0.5px; }
+    .page-header-text p { margin: 0; font-size: 14px; color: #6c757d; line-height: 1.7; max-width: 600px; }
+    .header-badges { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+    .badge { font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 16px; transition: all 0.2s ease; }
+    .badge-purple { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); color: #6b21a8; border: 1px solid rgba(107, 33, 168, 0.1); }
+    
+    .tab-nav { display: flex; gap: 0; border-bottom: 2px solid #e9ecef; overflow-x: auto; padding-bottom: 0; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 500; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s ease; white-space: nowrap; }
+    .tab-btn:hover { color: #495057; background: rgba(26, 115, 232, 0.05); }
+    .tab-btn.active { color: #1a73e8; border-bottom-color: #1a73e8; font-weight: 600; background: rgba(26, 115, 232, 0.04); }
+    
+    .tab-content { display: flex; flex-direction: column; gap: 20px; }
+    .demo-section { margin-bottom: 20px; }
+    .demo-section h2 { font-size: 17px; font-weight: 700; color: #0f172a; margin: 0 0 8px; }
+    .section-desc { font-size: 13px; color: #64748b; margin: 0 0 16px; }
+    
     /* ── Interactive demo ── */
     .interactive-box {
       display: grid;
       grid-template-columns: 280px 1fr;
       gap: 24px;
-      background: var(--bg-secondary, #f8fafc);
+      background: #f8fafc;
       padding: 24px;
       border-radius: 16px;
       border: 1px solid rgba(0, 0, 0, 0.04);
@@ -206,7 +218,7 @@ import { CountdownComponent, CountdownVariant } from 'ngx-core-components/feedba
       display: flex;
       flex-direction: column;
       gap: 16px;
-      background: var(--bg-primary, #ffffff);
+      background: #ffffff;
       padding: 16px;
       border-radius: 12px;
       border: 1px solid rgba(0, 0, 0, 0.05);
@@ -243,7 +255,7 @@ import { CountdownComponent, CountdownVariant } from 'ngx-core-components/feedba
     }
 
     .action-btn {
-      background: var(--primary-color, #3b82f6);
+      background: #3b82f6;
       color: white;
       border: none;
       padding: 8px 12px;
@@ -359,9 +371,27 @@ import { CountdownComponent, CountdownVariant } from 'ngx-core-components/feedba
       display: flex;
       justify-content: center;
     }
+    
+    .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #8892a0; border-bottom: 2px solid #e9ecef; padding-bottom: 12px; margin-top: 16px; }
+    .code-block { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; }
+    
+    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 10px; margin-bottom: 24px; }
+    .api-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .api-table thead tr { background: linear-gradient(135deg, #f8f9fa 0%, #f3f5f9 100%); }
+    .api-table th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #495057; border-bottom: 2px solid #e9ecef; white-space: nowrap; }
+    .api-table td { padding: 12px 16px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
+    .api-table tbody tr { transition: background 0.2s ease; }
+    .api-table tbody tr:hover td { background: #f8f9fa; }
+    .api-table tbody tr:last-child td { border-bottom: none; }
+    .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
+    .api-type { color: #8e44ad !important; font-family: monospace; white-space: nowrap; }
+    .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
   `]
 })
 export class CountdownDemoComponent {
+  activeTab = signal('Demo');
+  tabs = ['Demo', 'API Reference'];
+
   customDuration = 120;
   selectedVariant: CountdownVariant = 'default';
   showRing = true;
@@ -415,4 +445,21 @@ export class MyTimerComponent {
       `⏱️ Event: tick() - ${event.totalSeconds}s remaining (${event.hours}h:${event.minutes}m:${event.seconds}s)`
     ].slice(-10)); // Keep only latest 10 logs
   }
+
+  countdownApi: ApiRow[] = [
+    { name: 'targetDate', type: 'string | Date | null', default: 'null', description: 'Milestone target date. Overrides duration if set.' },
+    { name: 'duration', type: 'number | null', default: 'null', description: 'Timer duration in seconds.' },
+    { name: 'showRing', type: 'boolean', default: 'true', description: 'Renders the circular progress outline.' },
+    { name: 'ringColor', type: 'string', default: "''", description: 'Override background fill color on the circular ring.' },
+    { name: 'theme', type: "'light' | 'dark'", default: "'light'", description: 'Styling theme mode.' },
+    { name: 'variant', type: "'default' | 'success' | 'danger' | 'warning' | 'info'", default: "'default'", description: 'Accent visual theme variation.' },
+    { name: 'autoStart', type: 'boolean', default: 'true', description: 'Starts countdown instantly upon initialization.' },
+    { name: 'showControls', type: 'boolean', default: 'true', description: 'Displays interactive play/pause/reset controls.' },
+    { name: 'compactOnly', type: 'boolean', default: 'false', description: 'Hides grid cards, showing only value in central circle.' },
+    { name: 'forceShowDays', type: 'boolean', default: 'false', description: 'Forces days rendering panel even when duration is under 24 hours.' },
+    { name: 'id', type: 'string', default: 'auto-generated', description: 'Unique element identifier for target mapping.' },
+    { name: 'finished', type: 'Output<void>', default: 'n/a', description: 'Emitted when the timer reaches 0.' },
+    { name: 'tick', type: 'Output<CountdownTick>', default: 'n/a', description: 'Emitted every second containing the tick object details.' }
+  ];
 }
+

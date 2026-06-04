@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KeyValueListComponent, KeyValueItem } from 'ngx-core-components/views';
 
+interface ApiRow { name: string; type: string; default: string; description: string; }
+
 @Component({
   selector: 'app-key-value-list-demo',
   standalone: true,
@@ -15,87 +17,117 @@ import { KeyValueListComponent, KeyValueItem } from 'ngx-core-components/views';
         <p>A details grids optimized for showing metadata, configurations, or inspection lists. Supports group sections, text copy triggers, search bars, and styling.</p>
       </header>
 
-      <!-- Interactive Playground Configurations -->
-      <section class="demo-section">
-        <h2>Interactive Playground</h2>
-        <p class="section-desc">Observe search filtering, copy events, list striping, and column alignments.</p>
+      <!-- TAB NAV -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button class="tab-btn" [class.active]="activeTab() === tab" (click)="activeTab.set(tab)">{{ tab }}</button>
+        }
+      </div>
 
-        <div class="playground-layout">
-          <div class="settings-sidebar">
-            <div class="setting-group">
-              <label>Alignment Layout</label>
-              <div class="btn-group">
-                <button
-                  class="layout-btn"
-                  [class.active]="selectedLayout === 'horizontal'"
-                  (click)="selectedLayout = 'horizontal'"
-                >
-                  Horizontal (Left-Right)
-                </button>
-                <button
-                  class="layout-btn"
-                  [class.active]="selectedLayout === 'vertical'"
-                  (click)="selectedLayout = 'vertical'"
-                >
-                  Vertical (Stacked)
-                </button>
+      <!-- ===== DEMO ===== -->
+      @if (activeTab() === 'Demo') {
+        <div class="tab-content">
+          <!-- Interactive Playground Configurations -->
+          <section class="demo-section">
+            <h2>Interactive Playground</h2>
+            <p class="section-desc">Observe search filtering, copy events, list striping, and column alignments.</p>
+
+            <div class="playground-layout">
+              <div class="settings-sidebar">
+                <div class="setting-group">
+                  <label>Alignment Layout</label>
+                  <div class="btn-group">
+                    <button
+                      class="layout-btn"
+                      [class.active]="selectedLayout === 'horizontal'"
+                      (click)="selectedLayout = 'horizontal'"
+                    >
+                      Horizontal (Left-Right)
+                    </button>
+                    <button
+                      class="layout-btn"
+                      [class.active]="selectedLayout === 'vertical'"
+                      (click)="selectedLayout = 'vertical'"
+                    >
+                      Vertical (Stacked)
+                    </button>
+                  </div>
+                </div>
+
+                <div class="setting-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="stripedRows" /> Striped Table Rows
+                  </label>
+                </div>
+
+                <div class="setting-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="searchable" /> Show Search Filter Bar
+                  </label>
+                </div>
+              </div>
+
+              <div class="display-board">
+                <ngx-key-value-list
+                  [items]="metaItems"
+                  [layout]="selectedLayout"
+                  [striped]="stripedRows"
+                  [searchable]="searchable"
+                  (valueClick)="onPropertyClicked($event)"
+                ></ngx-key-value-list>
+
+                <div class="event-logs">
+                  <h4>Action Logs</h4>
+                  <div class="log-lines">
+                    @for (log of actionLogs(); track $index) {
+                      <div class="log-line">{{ log }}</div>
+                    }
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
 
-            <div class="setting-group check-group">
-              <label>
-                <input type="checkbox" [(ngModel)]="stripedRows" /> Striped Table Rows
-              </label>
+          <!-- Dark mode Showcase -->
+          <section class="demo-section">
+            <h2>Dark Theme Panel</h2>
+            <div class="dark-box-bg">
+              <ngx-key-value-list
+                [items]="serverSpecs"
+                layout="horizontal"
+                [striped]="true"
+                [searchable]="true"
+                theme="dark"
+              ></ngx-key-value-list>
             </div>
+          </section>
 
-            <div class="setting-group check-group">
-              <label>
-                <input type="checkbox" [(ngModel)]="searchable" /> Show Search Filter Bar
-              </label>
-            </div>
-          </div>
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ howToCode }}</pre>
+        </div>
+      }
 
-          <div class="display-board">
-            <ngx-key-value-list
-              [items]="metaItems"
-              [layout]="selectedLayout"
-              [striped]="stripedRows"
-              [searchable]="searchable"
-              (valueClick)="onPropertyClicked($event)"
-            ></ngx-key-value-list>
-
-            <div class="event-logs">
-              <h4>Action Logs</h4>
-              <div class="log-lines">
-                @for (log of actionLogs(); track $index) {
-                  <div class="log-line">{{ log }}</div>
+      <!-- ===== API REFERENCE ===== -->
+      @if (activeTab() === 'API Reference') {
+        <div class="tab-content">
+          <div class="section-label">Key-Value List Component (ngx-key-value-list)</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of apiRef; track row.name) {
+                  <tr>
+                    <td class="api-name">{{ row.name }}</td>
+                    <td class="api-type">{{ row.type }}</td>
+                    <td class="api-default">{{ row.default }}</td>
+                    <td>{{ row.description }}</td>
+                  </tr>
                 }
-              </div>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
-
-      <!-- Dark mode Showcase -->
-      <section class="demo-section">
-        <h2>Dark Theme Panel</h2>
-        <div class="dark-box-bg">
-          <ngx-key-value-list
-            [items]="serverSpecs"
-            layout="horizontal"
-            [striped]="true"
-            [searchable]="true"
-            theme="dark"
-          ></ngx-key-value-list>
-        </div>
-      </section>
-
-      <!-- How to Use -->
-      <section class="demo-section">
-        <h2>How to Use</h2>
-        <p class="section-desc">Import the standalone key-value property list component. Build a list of items of type <code>KeyValueItem[]</code> and customize layout/styling inputs.</p>
-        <pre style="margin: 0; background: #0f172a; color: #38bdf8; padding: 18px 24px; border-radius: 12px; font-size: 13px; line-height: 1.6; overflow: auto; border: 1px solid rgba(255,255,255,0.06); font-family: monospace;">{{ howToCode }}</pre>
-      </section>
+      }
     </div>
   `,
   styles: [`
@@ -108,7 +140,7 @@ import { KeyValueListComponent, KeyValueItem } from 'ngx-core-components/views';
     }
 
     .demo-header {
-      margin-bottom: 40px;
+      margin-bottom: 24px;
     }
 
     .demo-header h1 {
@@ -124,8 +156,14 @@ import { KeyValueListComponent, KeyValueItem } from 'ngx-core-components/views';
       margin: 0;
     }
 
+    .tab-nav { display: flex; gap: 0; border-bottom: 2px solid #e9ecef; overflow-x: auto; padding-bottom: 0; margin-bottom: 24px; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 500; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s ease; white-space: nowrap; }
+    .tab-btn:hover { color: #495057; background: rgba(26, 115, 232, 0.05); }
+    .tab-btn.active { color: #1a73e8; border-bottom-color: #1a73e8; font-weight: 600; background: rgba(26, 115, 232, 0.04); }
+    .tab-content { display: flex; flex-direction: column; gap: 20px; }
+
     .demo-section {
-      margin-bottom: 48px;
+      margin-bottom: 20px;
     }
 
     .demo-section h2 {
@@ -255,9 +293,27 @@ import { KeyValueListComponent, KeyValueItem } from 'ngx-core-components/views';
       padding: 32px;
       border-radius: 16px;
     }
+
+    .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #8892a0; border-bottom: 2px solid #e9ecef; padding-bottom: 12px; margin-top: 16px; }
+    .code-block { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; }
+    
+    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 10px; margin-bottom: 24px; }
+    .api-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .api-table thead tr { background: linear-gradient(135deg, #f8f9fa 0%, #f3f5f9 100%); }
+    .api-table th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #495057; border-bottom: 2px solid #e9ecef; white-space: nowrap; }
+    .api-table td { padding: 12px 16px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
+    .api-table tbody tr { transition: background 0.2s ease; }
+    .api-table tbody tr:hover td { background: #f8f9fa; }
+    .api-table tbody tr:last-child td { border-bottom: none; }
+    .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
+    .api-type { color: #8e44ad !important; font-family: monospace; white-space: nowrap; }
+    .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
   `]
 })
 export class KeyValueListDemoComponent {
+  activeTab = signal('Demo');
+  tabs = ['Demo', 'API Reference'];
+
   howToCode = `import { Component } from '@angular/core';
 import { KeyValueListComponent, KeyValueItem } from 'ngx-core-components/views';
 
@@ -287,6 +343,16 @@ export class MySpecsComponent {
   searchable = true;
 
   actionLogs = signal<string[]>([]);
+
+  apiRef: ApiRow[] = [
+    { name: 'items', type: 'InputSignal<KeyValueItem[]>', default: '[]', description: 'List of items to render. Each KeyValueItem supports groups, labels, badge layouts, code styles, and text-copy actions.' },
+    { name: 'layout', type: "InputSignal<'horizontal' | 'vertical'>", default: "'horizontal'", description: 'Sets standard left-to-right columns or vertical layout blocks.' },
+    { name: 'striped', type: 'InputSignal<boolean>', default: 'false', description: 'Displays zebra-striping colors on alternating rows.' },
+    { name: 'searchable', type: 'InputSignal<boolean>', default: 'false', description: 'Renders an interactive search input to filter items by label/value details.' },
+    { name: 'theme', type: "InputSignal<'light' | 'dark'>", default: "'light'", description: 'Styling appearance theme.' },
+    { name: 'id', type: 'InputSignal<string>', default: "'ngx-kv-list-[random]'", description: 'Unique element identifier.' },
+    { name: 'valueClick', type: 'OutputEmitterRef<{ key: string; value: any }>', default: 'output()', description: 'Emits key and value details when any property list item is clicked.' }
+  ];
 
   // Metadata properties list (grouped)
   metaItems: KeyValueItem[] = [
@@ -320,3 +386,4 @@ export class MySpecsComponent {
     ].slice(-10));
   }
 }
+

@@ -520,6 +520,65 @@ describe('DataGridComponent Enterprise Features', () => {
     expect(gridComponent.resolveEditCellTemplate(col)).toBe(editCellTemplateRef);
     expect(gridComponent.resolveFooterTemplate(col)).toBe(footerTemplateRef);
   });
+
+  it('should auto-size column on double click or autoSizeColumn call', () => {
+    const nameCol = component.testColumns.find(c => c.field === 'name')!;
+    gridComponent.autoSizeColumn(nameCol);
+    expect(gridComponent.columnWidths()['name']).toBe(100);
+
+    const mockEvent = new MouseEvent('dblclick');
+    spyOn(mockEvent, 'stopPropagation');
+    spyOn(mockEvent, 'preventDefault');
+    gridComponent.onResizeDoubleClick(mockEvent, nameCol);
+    expect(mockEvent.stopPropagation).toHaveBeenCalled();
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
+    expect(gridComponent.columnWidths()['name']).toBe(100);
+  });
+
+  it('should filter checklist values and handle toggle select all correctly with query', () => {
+    gridComponent.activeFilterPopover.set({
+      field: 'name',
+      top: 0,
+      left: 0
+    });
+    
+    gridComponent.filterSearchQuery.set('a');
+    const filteredDistinct = gridComponent.getFilteredDistinctValues('name');
+    expect(filteredDistinct).toEqual(['Alice', 'Charlie']);
+    
+    gridComponent.tempSelectedValues.set(new Set());
+    gridComponent.toggleSelectAllChecklist();
+    expect(gridComponent.tempSelectedValues()).toEqual(new Set(['Alice', 'Charlie']));
+    
+    gridComponent.toggleSelectAllChecklist();
+    expect(gridComponent.tempSelectedValues()).toEqual(new Set());
+  });
+
+  it('should generate spreadsheet blob and trigger download on exportToExcel', () => {
+    const dummyAnchor = document.createElement('a');
+    spyOn(dummyAnchor, 'click');
+    spyOn(dummyAnchor, 'setAttribute');
+    
+    const originalCreateElement = document.createElement;
+    spyOn(document, 'createElement').and.callFake((tagName: string) => {
+      if (tagName === 'a') {
+        return dummyAnchor;
+      }
+      return originalCreateElement.call(document, tagName);
+    });
+
+    const mockObjectUrl = 'blob:mock-url';
+    spyOn(URL, 'createObjectURL').and.returnValue(mockObjectUrl);
+    
+    gridComponent.exportToExcel();
+    
+    expect(URL.createObjectURL).toHaveBeenCalled();
+    const createdBlob: Blob = (URL.createObjectURL as jasmine.Spy).calls.first().args[0];
+    expect(createdBlob.type).toBe('application/vnd.ms-excel;charset=utf-8;');
+    expect(dummyAnchor.setAttribute).toHaveBeenCalledWith('href', mockObjectUrl);
+    expect(dummyAnchor.setAttribute).toHaveBeenCalledWith('download', 'grid-data.xls');
+    expect(dummyAnchor.click).toHaveBeenCalled();
+  });
 });
 
 @Component({

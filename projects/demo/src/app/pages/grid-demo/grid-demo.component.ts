@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, TemplateRef, ViewChild, computed, signal, effect, untracked } from '@angular/core';
+import { Component, computed, signal, effect, untracked } from '@angular/core';
 import {
   DataGridComponent,
-  GridCellTemplateContext,
+  NgxGridCellTemplateDirective,
+  NgxGridEditCellTemplateDirective,
+  NgxGridFooterTemplateDirective,
   GridColumnDef,
   GridDataStateChangeEvent,
   GridDetailTemplateContext,
   GridGroupResult,
   GridGroupState,
-  GridHeaderTemplateContext,
   GridRowClickEvent,
   GridRowTemplateContext,
   GridRowUpdateEvent,
@@ -45,7 +46,13 @@ interface ApiRow {
 @Component({
   selector: 'app-grid-demo',
   standalone: true,
-  imports: [DataGridComponent, AvatarComponent],
+  imports: [
+    DataGridComponent,
+    AvatarComponent,
+    NgxGridCellTemplateDirective,
+    NgxGridEditCellTemplateDirective,
+    NgxGridFooterTemplateDirective
+  ],
   template: `
     <div class="demo-page">
       <div class="page-header">
@@ -57,8 +64,9 @@ interface ApiRow {
           </p>
         </div>
         <div class="header-badges">
-          <span class="badge badge-orange">Column Resizing</span>
-          <span class="badge badge-orange">Checklist Filters</span>
+          <span class="badge badge-orange">Column Auto-Sizing</span>
+          <span class="badge badge-orange">Checklist Filters Search</span>
+          <span class="badge badge-orange">Excel Spreadsheet Export</span>
           <span class="badge badge-orange">Summary Footers</span>
           <span class="badge badge-orange">Grouping & Details</span>
           <span class="badge badge-orange">Column Reordering</span>
@@ -193,53 +201,72 @@ interface ApiRow {
             (columnReorder)="onColumnReorder($event)"
             (rowReorder)="onRowReorder($event)"
             (cellSelectionChange)="onCellSelectionChange($event)"
-          />
-
-          <ng-template #headerTpl let-column="column" let-sort="sort">
-            <div class="header-tpl">
-              <span>{{ column.title }}</span>
-              @if (sort?.field === column.field) {
-                <span class="header-sort">{{ sort.dir === 'asc' ? '▲' : '▼' }}</span>
-              }
-            </div>
-          </ng-template>
-
-          <ng-template #cellTpl let-value let-row="row" let-column="column">
-            @if (column.field === 'salary') {
-              <span class="salary-cell">{{ formatCurrency($any(value)) }}</span>
-            } @else if (column.field === 'status') {
-              <span class="status-pill" [class.active]="value === 'Active'" [class.leave]="value === 'On Leave'" [class.inactive]="value === 'Inactive'">
+          >
+            <!-- Custom Cell Template for Name (includes Avatar) -->
+            <ng-template ngxGridCellTemplate="name" let-value let-row="row">
+              @if (useCustomTemplates()) {
+                <div class="name-cell-wrap" style="display: flex; align-items: center; gap: 10px;">
+                  <ngx-avatar [name]="value" size="sm"></ngx-avatar>
+                  <span class="name-cell" style="display: inline-flex; flex-direction: column; gap: 2px;">
+                    {{ value }}
+                    <small style="color: var(--text-secondary); font-size: 11px; font-weight: 500;">{{ row.title }}</small>
+                  </span>
+                </div>
+              } @else {
                 {{ value }}
-              </span>
-            } @else if (column.field === 'name') {
-              <div class="name-cell-wrap" style="display: flex; align-items: center; gap: 10px;">
-                <ngx-avatar [name]="value" size="sm"></ngx-avatar>
-                <span class="name-cell" style="display: inline-flex; flex-direction: column; gap: 2px;">
+              }
+            </ng-template>
+
+            <!-- Custom Cell Template for Salary -->
+            <ng-template ngxGridCellTemplate="salary" let-value>
+              @if (useCustomTemplates()) {
+                <span class="salary-cell">{{ formatCurrency($any(value)) }}</span>
+              } @else {
+                {{ value }}
+              }
+            </ng-template>
+
+            <!-- Custom Cell Template for Status -->
+            <ng-template ngxGridCellTemplate="status" let-value>
+              @if (useCustomTemplates()) {
+                <span class="status-pill" [class.active]="value === 'Active'" [class.leave]="value === 'On Leave'" [class.inactive]="value === 'Inactive'">
                   {{ value }}
-                  <small style="color: var(--text-secondary); font-size: 11px; font-weight: 500;">{{ row.title }}</small>
                 </span>
-              </div>
-            } @else {
-              {{ value }}
-            }
-          </ng-template>
+              } @else {
+                {{ value }}
+              }
+            </ng-template>
 
-          <!-- Custom Edit Cell Template -->
-          <ng-template #statusEditTpl let-value let-update="updateDraft" let-draft="draftValue">
-            <select [value]="draft" (change)="update($any($event.target).value)" (click)="$event.stopPropagation()" style="padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit; font-size: 12px; outline: none;">
-              <option value="Active">Active</option>
-              <option value="On Leave">On Leave</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </ng-template>
+            <!-- Custom Edit Cell Template for Status -->
+            <ng-template ngxGridEditCellTemplate="status" let-value let-update="updateDraft" let-draft="draftValue">
+              @if (useCustomTemplates()) {
+                <select [value]="draft" (change)="update($any($event.target).value)" (click)="$event.stopPropagation()" style="padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit; font-size: 12px; outline: none;">
+                  <option value="Active">Active</option>
+                  <option value="On Leave">On Leave</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              } @else {
+                <input
+                  class="grid-edit-input"
+                  [value]="draft"
+                  (input)="update($any($event.target).value)"
+                  (click)="$event.stopPropagation()"
+                />
+              }
+            </ng-template>
 
-          <!-- Custom Footer Cell Template -->
-          <ng-template #salaryFooterTpl let-val="aggregationValue">
-            <div style="display: flex; flex-direction: column; align-items: flex-end;">
-              <span style="font-size: 10px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Payroll</span>
-              <strong style="color: #10b981; font-size: 14px;">{{ val }}</strong>
-            </div>
-          </ng-template>
+            <!-- Custom Footer Cell Template for Salary -->
+            <ng-template ngxGridFooterTemplate="salary" let-val="aggregationValue">
+              @if (useCustomTemplates()) {
+                <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                  <span style="font-size: 10px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Payroll</span>
+                  <strong style="color: #10b981; font-size: 14px;">{{ val }}</strong>
+                </div>
+              } @else {
+                {{ val }}
+              }
+            </ng-template>
+          </ngx-data-grid>
 
           <ng-template #rowTpl let-row="row" let-editing="editing">
             <div class="row-template-wrap" [class.editing]="editing">
@@ -289,6 +316,12 @@ interface ApiRow {
 
           <div class="section-label">Server Mode (Simulated)</div>
           <pre class="code-block">{{ serverCode }}</pre>
+
+          <div class="section-label">Enterprise Capabilities (Excel Export & Auto-Sizing)</div>
+          <pre class="code-block">{{ enterpriseCode }}</pre>
+
+          <div class="section-label">Declarative Custom Cell Templates</div>
+          <pre class="code-block">{{ cellTemplateCode }}</pre>
         </div>
       }
 
@@ -312,6 +345,18 @@ interface ApiRow {
               <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
               <tbody>
                 @for (row of gridOutputs; track row.name) {
+                  <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td>{{ row.description }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-label">Public Methods</div>
+          <div class="api-table-wrap" style="margin-bottom: 24px;">
+            <table class="api-table">
+              <thead><tr><th>Method</th><th>Signature</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of gridMethods; track row.name) {
                   <tr><td class="api-name">{{ row.name }}</td><td class="api-type">{{ row.type }}</td><td>{{ row.description }}</td></tr>
                 }
               </tbody>
@@ -382,12 +427,7 @@ interface ApiRow {
     .api-default { font-family: monospace; white-space: nowrap; color: #f43f5e; font-weight: 500; }
   `],
 })
-export class GridDemoComponent implements AfterViewInit {
-  @ViewChild('headerTpl', { static: true }) private headerTplRef?: TemplateRef<GridHeaderTemplateContext<Employee>>;
-  @ViewChild('cellTpl', { static: true }) private cellTplRef?: TemplateRef<GridCellTemplateContext<Employee>>;
-  @ViewChild('statusEditTpl', { static: true }) private statusEditTplRef?: TemplateRef<GridCellTemplateContext<Employee>>;
-  @ViewChild('salaryFooterTpl', { static: true }) private salaryFooterTplRef?: TemplateRef<any>;
-
+export class GridDemoComponent {
   activeTab = signal('Demo');
   tabs = ['Demo', 'How to Use', 'API Reference'];
 
@@ -418,7 +458,7 @@ export class GridDemoComponent implements AfterViewInit {
   serverFilters = signal<{ field: string; value: string }[]>([]);
 
   columns = signal<GridColumnDef<Employee>[]>([
-    { field: 'id', title: '#', width: 56, sortable: true, align: 'right', aggregation: 'count', pinned: 'left' },
+    { field: 'id', title: '#', width: 156, sortable: true, align: 'right', aggregation: 'count', pinned: 'left' },
     { field: 'name', title: 'Name', sortable: true, filterable: true, groupable: true, editable: true, width: 190, pinned: 'left' },
     { field: 'title', title: 'Title', sortable: true, filterable: true, groupable: true, editable: true, width: 170, category: 'Employee Details' },
     { field: 'department', title: 'Department', sortable: true, filterable: true, groupable: true, editable: true, width: 140, category: 'Employee Details' },
@@ -448,35 +488,8 @@ export class GridDemoComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.updateColumnsTemplates(this.useCustomTemplates());
-  }
-
   onCustomTemplatesChange(checked: boolean): void {
     this.useCustomTemplates.set(checked);
-    this.updateColumnsTemplates(checked);
-  }
-
-  private updateColumnsTemplates(showTpls: boolean): void {
-    if (!this.headerTplRef || !this.cellTplRef) {
-      return;
-    }
-
-    const cellTemplateFields = new Set(['name', 'salary', 'status']);
-    const updated = this.columns().map(column => {
-      let cellTemplate = showTpls && cellTemplateFields.has(column.field) ? this.cellTplRef : undefined;
-      let editCellTemplate = showTpls && column.field === 'status' ? this.statusEditTplRef : undefined;
-      let footerTemplate = showTpls && column.field === 'salary' ? this.salaryFooterTplRef : undefined;
-
-      return {
-        ...column,
-        headerTemplate: this.headerTplRef,
-        cellTemplate,
-        editCellTemplate,
-        footerTemplate,
-      };
-    });
-    this.columns.set(updated);
   }
 
   formatCurrency(value: number): string {
@@ -543,6 +556,12 @@ export class GridDemoComponent implements AfterViewInit {
   onDataStateChange(state: GridDataStateChangeEvent): void {
     this.gridPage.set(state.page);
     this.gridPageSize.set(state.pageSize);
+    if (state.group) {
+      this.groupField.set(state.group.field);
+    } else {
+      this.groupField.set('');
+    }
+
     if (this.processingMode() === 'server') {
       this.refreshServerData(state);
       const filterInfo = state.filters.length ? `${state.filters.length} filter(s)` : 'no filters';
@@ -551,7 +570,8 @@ export class GridDemoComponent implements AfterViewInit {
       this.lastEvent.set(`Server request: page ${state.page}, ${sortInfo}, ${filterInfo}, ${groupInfo}`);
     } else {
       const sortInfo = state.sort ? `${state.sort.field} ${state.sort.dir}` : 'none';
-      this.lastEvent.set(`Client state changed: page ${state.page}, sort ${sortInfo}`);
+      const groupInfo = state.group ? `, grouped by ${state.group.field}` : '';
+      this.lastEvent.set(`Client state changed: page ${state.page}, size ${state.pageSize}${groupInfo}, sort ${sortInfo}`);
     }
   }
 
@@ -747,6 +767,85 @@ export class MyServerGridComponent {
   mergeRows?: boolean;
 }`;
 
+  enterpriseCode = `import { Component, ViewChild } from '@angular/core';
+import { DataGridComponent } from 'ngx-core-components';
+
+@Component({
+  standalone: true,
+  imports: [DataGridComponent],
+  template: \`
+    <div class="toolbar">
+      <button (click)="grid.exportToExcel()">Export to Excel</button>
+      <button (click)="grid.autoSizeColumn(columns[1])">Auto-size Name Column</button>
+    </div>
+
+    <ngx-data-grid
+      #grid
+      [data]="rows"
+      [columns]="columns"
+    />
+  \`
+})
+export class MyEnterpriseGridComponent {
+  @ViewChild('grid') grid!: DataGridComponent;
+  // ... data and columns defined
+}`;
+
+  cellTemplateCode = `import { Component } from '@angular/core';
+import { 
+  DataGridComponent, 
+  NgxGridCellTemplateDirective, 
+  NgxGridEditCellTemplateDirective, 
+  NgxGridFooterTemplateDirective,
+  type GridColumnDef 
+} from 'ngx-core-components';
+
+@Component({
+  standalone: true,
+  imports: [
+    DataGridComponent, 
+    NgxGridCellTemplateDirective, 
+    NgxGridEditCellTemplateDirective, 
+    NgxGridFooterTemplateDirective
+  ],
+  template: \`
+    <ngx-data-grid [data]="rows" [columns]="columns">
+      <!-- 1. Custom Cell Template (e.g. rendering custom layout or Avatars) -->
+      <ng-template ngxGridCellTemplate="name" let-value let-row="row">
+        <div class="user-cell">
+          <ngx-avatar [name]="value" size="sm"></ngx-avatar>
+          <span class="user-name">{{ value }}</span>
+        </div>
+      </ng-template>
+
+      <!-- 2. Custom Edit Cell Template -->
+      <ng-template ngxGridEditCellTemplate="status" let-value let-update="updateDraft" let-draft="draftValue">
+        <select [value]="draft" (change)="update($any($event.target).value)">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </ng-template>
+
+      <!-- 3. Custom Footer / Summary Cell Template -->
+      <ng-template ngxGridFooterTemplate="salary" let-val="aggregationValue">
+        <strong>Total Payroll: {{ val }}</strong>
+      </ng-template>
+    </ngx-data-grid>
+  \`
+})
+export class MyCellTemplateComponent {
+  columns: GridColumnDef[] = [
+    { field: 'name', title: 'Name' },
+    { field: 'status', title: 'Status', editable: true },
+    { field: 'salary', title: 'Salary', aggregation: 'sum' }
+  ];
+
+  rows = [
+    { id: 1, name: 'Alice', status: 'Active', salary: 120000 },
+    { id: 2, name: 'Bob', status: 'Inactive', salary: 95000 }
+  ];
+}`;
+
   gridInputs: ApiRow[] = [
     { name: 'data', type: 'T[]', default: '[]', description: 'Rows to render. In server paging mode, pass current page rows.' },
     { name: 'columns', type: 'GridColumnDef[]', default: '[]', description: 'Column metadata including sorting/filter/edit flags.' },
@@ -789,5 +888,16 @@ export class MyServerGridComponent {
     { name: '(columnReorder)', type: '{ columns: GridColumnDef<T>[] }', default: '—', description: 'Emitted when a column is dragged and reordered.' },
     { name: '(rowReorder)', type: '{ previousIndex: number, currentIndex: number, data: T[] }', default: '—', description: 'Emitted when a row is dragged and reordered.' },
     { name: '(cellSelectionChange)', type: '{ start: { row: T, colField: string }, end: { row: T, colField: string } } | null', default: '—', description: 'Emitted when cell selection range coordinates change.' },
+  ];
+
+  gridMethods: ApiRow[] = [
+    { name: 'exportToJson', type: '(): void', default: '—', description: 'Triggers a client-side JSON format data download of all grid records.' },
+    { name: 'exportToCsv', type: '(): void', default: '—', description: 'Triggers a client-side CSV format data download of all grid records.' },
+    { name: 'exportToExcel', type: '(): void', default: '—', description: 'Triggers a client-side styled Excel Spreadsheet (.xls) format data download.' },
+    { name: 'autoSizeColumn', type: '(col: GridColumnDef): void', default: '—', description: 'Automatically calculates and sets the column width based on its longest data value.' },
+    { name: 'goPage', type: '(page: number): void', default: '—', description: 'Programmatically navigates the grid to a specific page index.' },
+    { name: 'beginEdit', type: '(row: T, index: number): void', default: '—', description: 'Places the specified row in inline editing mode.' },
+    { name: 'saveEdit', type: '(row: T, index: number): void', default: '—', description: 'Commits inline row editing changes and saves data state.' },
+    { name: 'cancelEdit', type: '(): void', default: '—', description: 'Cancels active inline row edit session, restoring previous cell values.' }
   ];
 }

@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { FilePreviewComponent } from 'ngx-core-components/inputs';
 import { UploadFileItem } from 'ngx-core-components/inputs';
 
+interface ApiRow { name: string; type: string; default: string; description: string; }
+
 @Component({
   selector: 'app-file-preview-demo',
   standalone: true,
@@ -16,104 +18,134 @@ import { UploadFileItem } from 'ngx-core-components/inputs';
         <p>A specialized companion component for uploading queues or folder explorers. Visualizes thumbnails, sizes, types, and progress tracking.</p>
       </header>
 
-      <!-- Layout & Sizing Configuration -->
-      <section class="demo-section">
-        <h2>Interactive Preview Queue Dashboard</h2>
-        <p class="section-desc">Add mock files, change the layout display from grid to list, toggle permissions, and trace actions.</p>
-        
-        <div class="playground-layout">
-          <div class="settings-sidebar">
-            <div class="setting-group">
-              <label>Layout Style</label>
-              <div class="btn-group">
-                <button
-                  class="layout-btn"
-                  [class.active]="selectedLayout === 'grid'"
-                  (click)="selectedLayout = 'grid'"
-                >
-                  Grid Cards
-                </button>
-                <button
-                  class="layout-btn"
-                  [class.active]="selectedLayout === 'list'"
-                  (click)="selectedLayout = 'list'"
-                >
-                  Compact List
-                </button>
+      <!-- TAB NAV -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button class="tab-btn" [class.active]="activeTab() === tab" (click)="activeTab.set(tab)">{{ tab }}</button>
+        }
+      </div>
+
+      <!-- ===== DEMO ===== -->
+      @if (activeTab() === 'Demo') {
+        <div class="tab-content">
+          <!-- Layout & Sizing Configuration -->
+          <section class="demo-section">
+            <h2>Interactive Preview Queue Dashboard</h2>
+            <p class="section-desc">Add mock files, change the layout display from grid to list, toggle permissions, and trace actions.</p>
+            
+            <div class="playground-layout">
+              <div class="settings-sidebar">
+                <div class="setting-group">
+                  <label>Layout Style</label>
+                  <div class="btn-group">
+                    <button
+                      class="layout-btn"
+                      [class.active]="selectedLayout === 'grid'"
+                      (click)="selectedLayout = 'grid'"
+                    >
+                      Grid Cards
+                    </button>
+                    <button
+                      class="layout-btn"
+                      [class.active]="selectedLayout === 'list'"
+                      (click)="selectedLayout = 'list'"
+                    >
+                      Compact List
+                    </button>
+                  </div>
+                </div>
+
+                <div class="setting-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="allowDelete" /> Allow Deletion
+                  </label>
+                </div>
+
+                <div class="setting-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="allowDownload" /> Allow Download
+                  </label>
+                </div>
+
+                <div class="setting-group">
+                  <label>Simulation Actions</label>
+                  <div class="action-buttons">
+                    <button class="mock-action-btn btn-add" (click)="addMockFile()">
+                      ➕ Add Random File
+                    </button>
+                    <button class="mock-action-btn btn-progress" (click)="simulateUpload()">
+                      ⚡ Simulate Upload Progress
+                    </button>
+                    <button class="mock-action-btn btn-clear" (click)="clearFiles()">
+                      🗑️ Clear All
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="display-board">
+                <ngx-file-preview
+                  [files]="filesList()"
+                  [layout]="selectedLayout"
+                  [allowDelete]="allowDelete"
+                  [allowDownload]="allowDownload"
+                  (delete)="onFileDeleted($event)"
+                  (download)="onFileDownloaded($event)"
+                ></ngx-file-preview>
+
+                <div class="event-logs">
+                  <h4>Action Event Listener Logs</h4>
+                  <div class="log-lines">
+                    @for (log of actionLogs(); track $index) {
+                      <div class="log-line">{{ log }}</div>
+                    }
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
 
-            <div class="setting-group check-group">
-              <label>
-                <input type="checkbox" [(ngModel)]="allowDelete" /> Allow Deletion
-              </label>
+          <!-- Standard Files Showcase -->
+          <section class="demo-section">
+            <h2>Rendering standard Javascript <code>File</code> items</h2>
+            <p class="section-desc">Pass raw Javascript <code>File[]</code> collections (e.g. from <code>&lt;input type="file"&gt;</code>) directly into the component. It standardizes formats and creates safe object URLs dynamically.</p>
+            
+            <div class="std-files-box">
+              <ngx-file-preview
+                [files]="standardFiles"
+                [allowDelete]="false"
+                [allowDownload]="false"
+                layout="grid"
+              ></ngx-file-preview>
             </div>
+          </section>
 
-            <div class="setting-group check-group">
-              <label>
-                <input type="checkbox" [(ngModel)]="allowDownload" /> Allow Download
-              </label>
-            </div>
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ howToCode }}</pre>
+        </div>
+      }
 
-            <div class="setting-group">
-              <label>Simulation Actions</label>
-              <div class="action-buttons">
-                <button class="mock-action-btn btn-add" (click)="addMockFile()">
-                  ➕ Add Random File
-                </button>
-                <button class="mock-action-btn btn-progress" (click)="simulateUpload()">
-                  ⚡ Simulate Upload Progress
-                </button>
-                <button class="mock-action-btn btn-clear" (click)="clearFiles()">
-                  🗑️ Clear All
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="display-board">
-            <ngx-file-preview
-              [files]="filesList()"
-              [layout]="selectedLayout"
-              [allowDelete]="allowDelete"
-              [allowDownload]="allowDownload"
-              (delete)="onFileDeleted($event)"
-              (download)="onFileDownloaded($event)"
-            ></ngx-file-preview>
-
-            <div class="event-logs">
-              <h4>Action Event Listener Logs</h4>
-              <div class="log-lines">
-                @for (log of actionLogs(); track $index) {
-                  <div class="log-line">{{ log }}</div>
+      <!-- ===== API REFERENCE ===== -->
+      @if (activeTab() === 'API Reference') {
+        <div class="tab-content">
+          <div class="section-label">File Preview Component (ngx-file-preview)</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                @for (row of apiRef; track row.name) {
+                  <tr>
+                    <td class="api-name">{{ row.name }}</td>
+                    <td class="api-type">{{ row.type }}</td>
+                    <td class="api-default">{{ row.default }}</td>
+                    <td>{{ row.description }}</td>
+                  </tr>
                 }
-              </div>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
-
-      <!-- Standard Files Showcase -->
-      <section class="demo-section">
-        <h2>Rendering standard Javascript <code>File</code> items</h2>
-        <p class="section-desc">Pass raw Javascript <code>File[]</code> collections (e.g. from <code>&lt;input type="file"&gt;</code>) directly into the component. It standardizes formats and creates safe object URLs dynamically.</p>
-        
-        <div class="std-files-box">
-          <ngx-file-preview
-            [files]="standardFiles"
-            [allowDelete]="false"
-            [allowDownload]="false"
-            layout="grid"
-          ></ngx-file-preview>
-        </div>
-      </section>
-
-      <!-- How to Use -->
-      <section class="demo-section">
-        <h2>How to Use</h2>
-        <p class="section-desc">Import the standalone file preview component. Provide a list of Javascript <code>File[]</code> objects or structured <code>UploadFileItem[]</code> queue objects to render upload metrics and controls.</p>
-        <pre style="margin: 0; background: #0f172a; color: #38bdf8; padding: 18px 24px; border-radius: 12px; font-size: 13px; line-height: 1.6; overflow: auto; border: 1px solid rgba(255,255,255,0.06); font-family: monospace;">{{ howToCode }}</pre>
-      </section>
+      }
     </div>
   `,
   styles: [`
@@ -126,7 +158,7 @@ import { UploadFileItem } from 'ngx-core-components/inputs';
     }
 
     .demo-header {
-      margin-bottom: 40px;
+      margin-bottom: 24px;
     }
 
     .demo-header h1 {
@@ -142,8 +174,14 @@ import { UploadFileItem } from 'ngx-core-components/inputs';
       margin: 0;
     }
 
+    .tab-nav { display: flex; gap: 0; border-bottom: 2px solid #e9ecef; overflow-x: auto; padding-bottom: 0; margin-bottom: 24px; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 500; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s ease; white-space: nowrap; }
+    .tab-btn:hover { color: #495057; background: rgba(26, 115, 232, 0.05); }
+    .tab-btn.active { color: #1a73e8; border-bottom-color: #1a73e8; font-weight: 600; background: rgba(26, 115, 232, 0.04); }
+    .tab-content { display: flex; flex-direction: column; gap: 20px; }
+
     .demo-section {
-      margin-bottom: 48px;
+      margin-bottom: 20px;
     }
 
     .demo-section h2 {
@@ -318,9 +356,27 @@ import { UploadFileItem } from 'ngx-core-components/inputs';
       border-radius: 16px;
       border: 1.5px solid rgba(0, 0, 0, 0.05);
     }
+
+    .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #8892a0; border-bottom: 2px solid #e9ecef; padding-bottom: 12px; margin-top: 16px; }
+    .code-block { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; }
+    
+    .api-table-wrap { overflow-x: auto; border: 1px solid #e9ecef; border-radius: 10px; margin-bottom: 24px; }
+    .api-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .api-table thead tr { background: linear-gradient(135deg, #f8f9fa 0%, #f3f5f9 100%); }
+    .api-table th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #495057; border-bottom: 2px solid #e9ecef; white-space: nowrap; }
+    .api-table td { padding: 12px 16px; border-bottom: 1px solid #f1f3f5; color: #495057; vertical-align: top; }
+    .api-table tbody tr { transition: background 0.2s ease; }
+    .api-table tbody tr:hover td { background: #f8f9fa; }
+    .api-table tbody tr:last-child td { border-bottom: none; }
+    .api-name { color: #1a73e8 !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
+    .api-type { color: #8e44ad !important; font-family: monospace; white-space: nowrap; }
+    .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
   `]
 })
 export class FilePreviewDemoComponent {
+  activeTab = signal('Demo');
+  tabs = ['Demo', 'API Reference'];
+
   selectedLayout: 'grid' | 'list' = 'grid';
   allowDelete = true;
   allowDownload = true;
@@ -359,6 +415,16 @@ export class MyFileQueueComponent {
     window.open(file.url);
   }
 }`;
+
+  apiRef: ApiRow[] = [
+    { name: 'files', type: 'InputSignal<UploadFileItem[] | File[] | null>', default: 'null', description: 'List of files to display inside the preview container. Accepts raw JS Files or formatted item structures.' },
+    { name: 'layout', type: "InputSignal<'grid' | 'list'>", default: "'grid'", description: 'The display template pattern for individual cards.' },
+    { name: 'allowDelete', type: 'InputSignal<boolean>', default: 'true', description: 'Renders a deletion trashcan trigger. Requires delete output subscription.' },
+    { name: 'allowDownload', type: 'InputSignal<boolean>', default: 'true', description: 'Renders a download download icon trigger. Requires download output subscription.' },
+    { name: 'theme', type: "InputSignal<'light' | 'dark'>", default: "'light'", description: 'Styling appearance theme.' },
+    { name: 'delete', type: 'OutputEmitterRef<any>', default: 'output()', description: 'Fired when a user initiates file removal. Emits the target file item.' },
+    { name: 'download', type: 'OutputEmitterRef<any>', default: 'output()', description: 'Fired when download triggers are clicked. Emits the target file item.' }
+  ];
 
   // Simulation files
   filesList = signal<UploadFileItem[]>([
@@ -502,3 +568,4 @@ export class MyFileQueueComponent {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 }
+

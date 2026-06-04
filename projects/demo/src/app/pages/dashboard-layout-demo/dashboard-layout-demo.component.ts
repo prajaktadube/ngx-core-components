@@ -47,214 +47,232 @@ import {
         </div>
       </div>
 
-      <!-- Control Toolbar Playground -->
-      <div class="playground-toolbar">
-        <div class="toolbar-section">
-          <h3>Board Configurations</h3>
-          <div class="controls-row">
-            <button class="btn btn-primary" (click)="addNewPanel()">➕ Add Widget Card</button>
-            <button class="btn btn-secondary" (click)="resetLayout()">🔄 Reset Grid Layout</button>
-            
-            <label class="toggle-checkbox">
-              <input type="checkbox" [(ngModel)]="allowDragging" />
-              <span>Allow Draggable Dragging</span>
-            </label>
-            
-            <label class="toggle-checkbox">
-              <input type="checkbox" [(ngModel)]="allowResizing" />
-              <span>Allow Corner Resizing</span>
-            </label>
-
-            <label class="select-label">
-              <span>Grid Columns:</span>
-              <select [(ngModel)]="gridColumns" class="toolbar-select">
-                <option [ngValue]="12">12 Columns</option>
-                <option [ngValue]="8">8 Columns</option>
-                <option [ngValue]="6">6 Columns</option>
-              </select>
-            </label>
-          </div>
-        </div>
+      <!-- TAB NAV -->
+      <div class="tab-nav">
+        @for (tab of tabs; track tab) {
+          <button class="tab-btn" [class.active]="activeTab() === tab" (click)="activeTab.set(tab)">{{ tab }}</button>
+        }
       </div>
 
-      <!-- Main Dashboard Playground Layout -->
-      <div class="dashboard-playground-row">
-        <!-- Interactive Layout Grid -->
-        <div class="dashboard-container">
-          <ngx-dashboard-layout
-            [items]="dashboardItems()"
-            [columns]="gridColumns"
-            [rowHeight]="'140px'"
-            [theme]="theme()"
-            [allowDragging]="allowDragging"
-            [allowResizing]="allowResizing"
-            (layoutChange)="onLayoutChange($event)"
-            (panelAction)="onPanelAction($event)"
-          >
-            <!-- Projected template content slots mapped to panel-id -->
-            
-            <!-- Revenue Line Chart -->
-            <div panel-id="revenue-velocity" class="widget-content chart-container">
-              <div class="chart-wrapper">
-                <ngx-line-chart 
-                  [series]="revenueSeries" 
-                  [categories]="chartMonths" 
-                  [showArea]="true" 
-                  [showMarkers]="true"
-                  [height]="200" 
-                />
+      <!-- ===== DEMO ===== -->
+      @if (activeTab() === 'Demo') {
+        <div class="tab-content">
+          <!-- Control Toolbar Playground -->
+          <div class="playground-toolbar">
+            <div class="toolbar-section">
+              <h3>Board Configurations</h3>
+              <div class="controls-row">
+                <button class="btn btn-primary" (click)="addNewPanel()">➕ Add Widget Card</button>
+                <button class="btn btn-secondary" (click)="resetLayout()">🔄 Reset Grid Layout</button>
+                
+                <label class="toggle-checkbox">
+                  <input type="checkbox" [(ngModel)]="allowDragging" />
+                  <span>Allow Draggable Dragging</span>
+                </label>
+                
+                <label class="toggle-checkbox">
+                  <input type="checkbox" [(ngModel)]="allowResizing" />
+                  <span>Allow Corner Resizing</span>
+                </label>
+
+                <label class="select-label">
+                  <span>Grid Columns:</span>
+                  <select [(ngModel)]="gridColumns" class="toolbar-select">
+                    <option [ngValue]="12">12 Columns</option>
+                    <option [ngValue]="8">8 Columns</option>
+                    <option [ngValue]="6">6 Columns</option>
+                  </select>
+                </label>
               </div>
             </div>
+          </div>
 
-            <!-- Customer Funnel Pie/Donut Chart -->
-            <div panel-id="acquisition-funnel" class="widget-content pie-container">
-              <div class="pie-wrapper">
-                <ngx-pie-chart 
-                  [data]="pieChannels" 
-                  [mode]="'donut'" 
-                  [centerTitle]="'Leads'" 
-                  [showLegend]="true" 
-                  [showLabels]="false" 
-                  [height]="190" 
-                />
-              </div>
-            </div>
-
-            <!-- Active task workflow log list -->
-            <div panel-id="task-tracker" class="widget-content task-list-container">
-              <div class="tasks-list">
-                @for (task of tasks(); track task.id) {
-                  <div class="task-row">
-                    <label class="task-checkbox-wrap">
-                      <input type="checkbox" [checked]="task.done" (change)="toggleTask(task.id)" />
-                      <span class="task-text" [class.done]="task.done">{{ task.text }}</span>
-                    </label>
-                    <span class="task-prio" [class]="task.priority">{{ task.priority | uppercase }}</span>
+          <!-- Main Dashboard Playground Layout -->
+          <div class="dashboard-playground-row">
+            <!-- Interactive Layout Grid -->
+            <div class="dashboard-container">
+              <ngx-dashboard-layout
+                [items]="dashboardItems()"
+                [columns]="gridColumns"
+                [rowHeight]="'140px'"
+                [theme]="theme()"
+                [allowDragging]="allowDragging"
+                [allowResizing]="allowResizing"
+                (layoutChange)="onLayoutChange($event)"
+                (panelAction)="onPanelAction($event)"
+              >
+                <!-- Projected template content slots mapped to panel-id -->
+                
+                <!-- Revenue Line Chart -->
+                <div panel-id="revenue-velocity" class="widget-content chart-container">
+                  <div class="chart-wrapper">
+                    <ngx-line-chart 
+                      [series]="revenueSeries" 
+                      [categories]="chartMonths" 
+                      [showArea]="true" 
+                      [showMarkers]="true"
+                      [height]="200" 
+                    />
                   </div>
+                </div>
+
+                <!-- Customer Funnel Pie/Donut Chart -->
+                <div panel-id="acquisition-funnel" class="widget-content pie-container">
+                  <div class="pie-wrapper">
+                    <ngx-pie-chart 
+                      [data]="pieChannels" 
+                      [mode]="'donut'" 
+                      [centerTitle]="'Leads'" 
+                      [showLegend]="true" 
+                      [showLabels]="false" 
+                      [height]="190" 
+                    />
+                  </div>
+                </div>
+
+                <!-- Active task workflow log list -->
+                <div panel-id="task-tracker" class="widget-content task-list-container">
+                  <div class="tasks-list">
+                    @for (task of tasks(); track task.id) {
+                      <div class="task-row">
+                        <label class="task-checkbox-wrap">
+                          <input type="checkbox" [checked]="task.done" (change)="toggleTask(task.id)" />
+                          <span class="task-text" [class.done]="task.done">{{ task.text }}</span>
+                        </label>
+                        <span class="task-prio" [class]="task.priority">{{ task.priority | uppercase }}</span>
+                      </div>
+                    }
+                  </div>
+                </div>
+
+                <!-- Health Status Progress Metrics -->
+                <div panel-id="health-gauge" class="widget-content metric-container">
+                  <div class="metric-card-inner">
+                    <div class="metric-score">
+                      <h2>94.2%</h2>
+                      <span class="status-indicator online"></span>
+                    </div>
+                    <div class="metric-gauge-bar">
+                      <ngx-progress-bar [value]="94.2" [variant]="'success'" />
+                    </div>
+                    <p class="metric-subtitle">API cluster load is nominal. Latency is 12ms.</p>
+                  </div>
+                </div>
+
+                <!-- Visitor count sparkline -->
+                <div panel-id="visitors-count" class="widget-content metric-container">
+                  <div class="metric-card-inner">
+                    <div class="metric-score">
+                      <h2>14,820</h2>
+                      <span class="trend-indicator upward">▲ +12%</span>
+                    </div>
+                    <div class="sparkline-wrapper">
+                      <ngx-sparkline [data]="visitorSparkline" [height]="30" [color]="'#10b981'" />
+                    </div>
+                    <p class="metric-subtitle">Real-time daily active users (DAU).</p>
+                  </div>
+                </div>
+
+                <!-- System Warnings Alerts -->
+                <div panel-id="alert-console" class="widget-content alert-console-body">
+                  <div class="console-alerts">
+                    <div class="console-alert-row warn">
+                      <span class="alert-icon">⚠️</span>
+                      <div class="alert-message">
+                        <strong>Cluster-3 Warning:</strong> Memory usage is high (84% threshold exceeded).
+                      </div>
+                      <span class="alert-time">2m ago</span>
+                    </div>
+                    <div class="console-alert-row error">
+                      <span class="alert-icon">🚨</span>
+                      <div class="alert-message">
+                        <strong>Database Failure:</strong> Latency spike detected on read replica shard-2.
+                      </div>
+                      <span class="alert-time">5m ago</span>
+                    </div>
+                  </div>
+                </div>
+
+              </ngx-dashboard-layout>
+            </div>
+
+            <!-- Sidebar Activity Event Logger -->
+            <div class="activity-logger-panel">
+              <div class="logger-header">
+                <h3>Grid Orchestration Activity Logs</h3>
+                <button class="clear-btn" (click)="clearLogs()">Clear</button>
+              </div>
+              <div class="logs-container">
+                @if (logs().length === 0) {
+                  <div class="empty-logs">No activity events yet. Drag, resize, or control panels to trigger.</div>
+                } @else {
+                  @for (log of logs(); track $index) {
+                    <div class="log-entry">
+                      <span class="log-time">[{{ log.time | date:'HH:mm:ss' }}]</span>
+                      <span class="log-msg" [class]="log.type">{{ log.msg }}</span>
+                    </div>
+                  }
                 }
               </div>
             </div>
-
-            <!-- Health Status Progress Metrics -->
-            <div panel-id="health-gauge" class="widget-content metric-container">
-              <div class="metric-card-inner">
-                <div class="metric-score">
-                  <h2>94.2%</h2>
-                  <span class="status-indicator online"></span>
-                </div>
-                <div class="metric-gauge-bar">
-                  <ngx-progress-bar [value]="94.2" [variant]="'success'" />
-                </div>
-                <p class="metric-subtitle">API cluster load is nominal. Latency is 12ms.</p>
-              </div>
-            </div>
-
-            <!-- Visitor count sparkline -->
-            <div panel-id="visitors-count" class="widget-content metric-container">
-              <div class="metric-card-inner">
-                <div class="metric-score">
-                  <h2>14,820</h2>
-                  <span class="trend-indicator upward">▲ +12%</span>
-                </div>
-                <div class="sparkline-wrapper">
-                  <ngx-sparkline [data]="visitorSparkline" [height]="30" [color]="'#10b981'" />
-                </div>
-                <p class="metric-subtitle">Real-time daily active users (DAU).</p>
-              </div>
-            </div>
-
-            <!-- System Warnings Alerts -->
-            <div panel-id="alert-console" class="widget-content alert-console-body">
-              <div class="console-alerts">
-                <div class="console-alert-row warn">
-                  <span class="alert-icon">⚠️</span>
-                  <div class="alert-message">
-                    <strong>Cluster-3 Warning:</strong> Memory usage is high (84% threshold exceeded).
-                  </div>
-                  <span class="alert-time">2m ago</span>
-                </div>
-                <div class="console-alert-row error">
-                  <span class="alert-icon">🚨</span>
-                  <div class="alert-message">
-                    <strong>Database Failure:</strong> Latency spike detected on read replica shard-2.
-                  </div>
-                  <span class="alert-time">5m ago</span>
-                </div>
-              </div>
-            </div>
-
-          </ngx-dashboard-layout>
-        </div>
-
-        <!-- Sidebar Activity Event Logger -->
-        <div class="activity-logger-panel">
-          <div class="logger-header">
-            <h3>Grid Orchestration Activity Logs</h3>
-            <button class="clear-btn" (click)="clearLogs()">Clear</button>
           </div>
-          <div class="logs-container">
-            @if (logs().length === 0) {
-              <div class="empty-logs">No activity events yet. Drag, resize, or control panels to trigger.</div>
-            } @else {
-              @for (log of logs(); track $index) {
-                <div class="log-entry">
-                  <span class="log-time">[{{ log.time | date:'HH:mm:ss' }}]</span>
-                  <span class="log-msg" [class]="log.type">{{ log.msg }}</span>
-                </div>
-              }
-            }
+
+          <div class="section-label">How to Use</div>
+          <pre class="code-block">{{ codeSnippet }}</pre>
+        </div>
+      }
+
+      <!-- ===== API REFERENCE ===== -->
+      @if (activeTab() === 'API Reference') {
+        <div class="tab-content">
+          <div class="section-label">Inputs</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead>
+                <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                @for (row of apiInputs; track row.name) {
+                  <tr>
+                    <td class="api-name">{{ row.name }}</td>
+                    <td class="api-type">{{ row.type }}</td>
+                    <td class="api-default">{{ row.default }}</td>
+                    <td>{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-label">Outputs</div>
+          <div class="api-table-wrap">
+            <table class="api-table">
+              <thead>
+                <tr><th>Output</th><th>Type</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                @for (row of apiOutputs; track row.name) {
+                  <tr>
+                    <td class="api-name">{{ row.name }}</td>
+                    <td class="api-type">{{ row.type }}</td>
+                    <td>{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
-
-      <!-- Documentation & Guidelines section -->
-      <div class="docs-section">
-        <h2>Developer Guidelines & API Reference</h2>
-        
-        <div class="section-label">ngx-dashboard-layout Usage Example</div>
-        <pre class="code-block">{{ codeSnippet }}</pre>
-
-        <div class="section-label">API Table Reference — Inputs</div>
-        <div class="api-table-wrap">
-          <table class="api-table">
-            <thead>
-              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-              @for (row of apiInputs; track row.name) {
-                <tr>
-                  <td class="api-name">{{ row.name }}</td>
-                  <td class="api-type">{{ row.type }}</td>
-                  <td class="api-default">{{ row.default }}</td>
-                  <td>{{ row.description }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-
-        <div class="section-label">API Table Reference — Outputs</div>
-        <div class="api-table-wrap">
-          <table class="api-table">
-            <thead>
-              <tr><th>Output</th><th>Type</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-              @for (row of apiOutputs; track row.name) {
-                <tr>
-                  <td class="api-name">{{ row.name }}</td>
-                  <td class="api-type">{{ row.type }}</td>
-                  <td>{{ row.description }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
+      }
 
     </div>
+
   `,
   styles: [`
+    .tab-nav { display: flex; gap: 0; border-bottom: 2px solid #e9ecef; overflow-x: auto; padding-bottom: 0; margin-bottom: 12px; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 500; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s ease; white-space: nowrap; }
+    .tab-btn:hover { color: #495057; background: rgba(26, 115, 232, 0.05); }
+    .tab-btn.active { color: #1a73e8; border-bottom-color: #1a73e8; font-weight: 600; background: rgba(26, 115, 232, 0.04); }
+
     .demo-page {
       padding: 24px 28px;
       max-width: 1300px;
@@ -834,6 +852,9 @@ import {
   `]
 })
 export class DashboardLayoutDemoComponent {
+  activeTab = signal('Demo');
+  tabs = ['Demo', 'API Reference'];
+
   theme = signal<'light' | 'dark'>('light');
   gridColumns = 12;
   allowDragging = true;

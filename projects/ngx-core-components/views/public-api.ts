@@ -35,6 +35,8 @@ export type {
   SchedulerRecurrence,
   SchedulerSlotClickEvent,
   SchedulerEventChangeEvent,
+  SchedulerResource,
+  SchedulerSlotRangeSelectEvent,
 } from './scheduler/models';
 
 // Virtual List — high-performance windowed list for large datasets

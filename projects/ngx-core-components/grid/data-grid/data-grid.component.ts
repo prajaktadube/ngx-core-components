@@ -209,6 +209,7 @@ export class NgxGridFooterTemplateDirective {
           }
           <button class="grid-action-btn" (click)="exportToJson()" title="Export JSON">JSON</button>
           <button class="grid-action-btn" (click)="exportToCsv()" title="Export CSV">CSV</button>
+          <button class="grid-action-btn" (click)="exportToExcel()" title="Export Excel">Excel</button>
         </div>
       </div>
 
@@ -265,7 +266,7 @@ export class NgxGridFooterTemplateDirective {
                   </button>
                 }
               </div>
-              <div class="grid-resize-handle" (mousedown)="onResizeStart($event, col)" (click)="$event.stopPropagation()"></div>
+              <div class="grid-resize-handle" (mousedown)="onResizeStart($event, col)" (dblclick)="onResizeDoubleClick($event, col)" (click)="$event.stopPropagation()"></div>
             </ng-template>
 
             <tr class="grid-header-row">
@@ -276,9 +277,7 @@ export class NgxGridFooterTemplateDirective {
                 <th class="grid-th grid-th-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></th>
               }
               @if (selectable()) {
-                <th class="grid-th grid-th-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px">
-                  <input type="checkbox" [checked]="allSelected()" [indeterminate]="someSelected() && !allSelected()" (change)="toggleAll()" />
-                </th>
+                <th class="grid-th grid-th-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px"><input type="checkbox" [checked]="allSelected()" [indeterminate]="someSelected() && !allSelected()" (change)="toggleAll()" /></th>
               }
               @for (cell of headerRows().row1; track cell.field) {
                 @if (cell.isCategory) {
@@ -388,9 +387,7 @@ export class NgxGridFooterTemplateDirective {
                       <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></td>
                     }
                     @if (selectable()) {
-                      <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px">
-                        <input type="checkbox" [checked]="isGroupAllSelected(group)" (change)="toggleGroupSelection(group, $event)" (click)="$event.stopPropagation()" />
-                      </td>
+                      <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px"><input type="checkbox" [checked]="isGroupAllSelected(group)" (change)="toggleGroupSelection(group, $event)" (click)="$event.stopPropagation()" /></td>
                     }
                     @for (col of orderedColumns(); track col.field; let first = $first) {
                       <td
@@ -449,28 +446,15 @@ export class NgxGridFooterTemplateDirective {
                       (dblclick)="editable() ? beginEdit(row, i) : null"
                     >
                       @if (rowReorderable()) {
-                        <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
-                          <span
-                            class="row-drag-handle"
-                            draggable="true"
-                            (dragstart)="onRowDragStart($event, i)"
-                            (dragend)="onRowDragEnd()"
-                          >⋮⋮</span>
-                        </td>
+                        <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px"><span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()">⋮⋮</span></td>
                       }
 
                       @if (showDetailToggle()) {
-                        <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
-                          <button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">
-                            {{ isExpanded(row) ? '▾' : '▸' }}
-                          </button>
-                        </td>
+                        <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0"><button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">{{ isExpanded(row) ? '▾' : '▸' }}</button></td>
                       }
 
                       @if (selectable()) {
-                        <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)">
-                          <input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" />
-                        </td>
+                        <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"><input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" /></td>
                       }
 
                       @if (rowTemplate()) {
@@ -592,28 +576,15 @@ export class NgxGridFooterTemplateDirective {
                   (dblclick)="editable() ? beginEdit(row, i) : null"
                 >
                   @if (rowReorderable()) {
-                    <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
-                      <span
-                        class="row-drag-handle"
-                        draggable="true"
-                        (dragstart)="onRowDragStart($event, i)"
-                        (dragend)="onRowDragEnd()"
-                      >⋮⋮</span>
-                    </td>
+                    <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px"><span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()">⋮⋮</span></td>
                   }
 
                   @if (showDetailToggle()) {
-                    <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
-                      <button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">
-                        {{ isExpanded(row) ? '▾' : '▸' }}
-                      </button>
-                    </td>
+                    <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0"><button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">{{ isExpanded(row) ? '▾' : '▸' }}</button></td>
                   }
 
                   @if (selectable()) {
-                    <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)">
-                      <input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" />
-                    </td>
+                    <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"><input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" /></td>
                   }
 
                   @if (rowTemplate()) {
@@ -724,11 +695,14 @@ export class NgxGridFooterTemplateDirective {
           @if (hasAggregation()) {
             <tfoot>
               <tr class="grid-footer-row">
+                @if (rowReorderable()) {
+                  <td class="grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; width:44px"></td>
+                }
                 @if (showDetailToggle()) {
-                  <td class="grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" style="left:0px; width:44px"></td>
+                  <td class="grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></td>
                 }
                 @if (selectable()) {
-                  <td class="grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="showDetailToggle() ? 44 : 0" style="width:44px"></td>
+                  <td class="grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px"></td>
                 }
                 @for (col of orderedColumns(); track col.field) {
                   <td
@@ -770,17 +744,52 @@ export class NgxGridFooterTemplateDirective {
 
       @if (showPager()) {
         <div class="grid-pagination">
-          <span class="page-info">
-            {{ pagerRangeStart() }}–{{ pagerRangeEnd() }} of {{ totalItems() }}
-          </span>
+          <div class="pagination-left">
+            <span class="page-info">
+              Showing <strong class="page-info-highlight">{{ pagerRangeStart() }}–{{ pagerRangeEnd() }}</strong> of <strong class="page-info-highlight">{{ totalItems() }}</strong> items
+            </span>
+            <div class="page-size-selector">
+              <span class="page-size-label">Items per page:</span>
+              <select [value]="internalPageSize()" (change)="changePageSize(+$any($event.target).value)" class="page-size-select">
+                <option [value]="5">5</option>
+                <option [value]="8">8</option>
+                <option [value]="10">10</option>
+                <option [value]="20">20</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
+              </select>
+            </div>
+          </div>
           <div class="page-btns">
-            <button class="page-btn" [disabled]="currentPage() === 1" (click)="goPage(1)">&#171;</button>
-            <button class="page-btn" [disabled]="currentPage() === 1" (click)="goPage(currentPage() - 1)">&#8249;</button>
-            @for (p of pageNumbers(); track p) {
-              <button class="page-btn" [class.active]="p === currentPage()" (click)="goPage(p)">{{ p }}</button>
-            }
-            <button class="page-btn" [disabled]="currentPage() === totalPages()" (click)="goPage(currentPage() + 1)">&#8250;</button>
-            <button class="page-btn" [disabled]="currentPage() === totalPages()" (click)="goPage(totalPages())">&#187;</button>
+            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(1)" title="First Page">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="11 17 6 12 11 7"></polyline>
+                <polyline points="18 17 13 12 18 7"></polyline>
+              </svg>
+            </button>
+            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(currentPage() - 1)" title="Previous Page">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            
+            <div class="page-numbers">
+              @for (p of pageNumbers(); track p) {
+                <button class="page-btn number" [class.active]="p === currentPage()" (click)="goPage(p)">{{ p }}</button>
+              }
+            </div>
+
+            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(currentPage() + 1)" title="Next Page">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(totalPages())" title="Last Page">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="13 17 18 12 13 7"></polyline>
+                <polyline points="6 17 11 12 6 7"></polyline>
+              </svg>
+            </button>
           </div>
         </div>
       }
@@ -803,14 +812,21 @@ export class NgxGridFooterTemplateDirective {
           
           <div class="popover-section checklist-section">
             <label class="popover-label">Checklist Filter</label>
+            <input
+              class="checklist-search"
+              type="text"
+              [value]="filterSearchQuery()"
+              (input)="filterSearchQuery.set($any($event.target).value)"
+              placeholder="Search items..."
+            />
             <div class="checklist-actions">
               <label class="checklist-item select-all">
-                <input type="checkbox" [checked]="tempSelectedValues().size === getDistinctValues(pop.field).length" [indeterminate]="tempSelectedValues().size > 0 && tempSelectedValues().size < getDistinctValues(pop.field).length" (change)="toggleSelectAllChecklist()" />
+                <input type="checkbox" [checked]="tempSelectedValues().size === getFilteredDistinctValues(pop.field).length" [indeterminate]="tempSelectedValues().size > 0 && tempSelectedValues().size < getFilteredDistinctValues(pop.field).length" (change)="toggleSelectAllChecklist()" />
                 <span>(Select All)</span>
               </label>
             </div>
             <div class="checklist-scroll">
-              @for (val of getDistinctValues(pop.field); track val) {
+              @for (val of getFilteredDistinctValues(pop.field); track val) {
                 <label class="checklist-item">
                   <input type="checkbox" [checked]="tempSelectedValues().has(val)" (change)="toggleChecklistItem(val)" />
                   <span>{{ val }}</span>
@@ -856,6 +872,28 @@ export class NgxGridFooterTemplateDirective {
             <span class="menu-icon">📋</span> Copy Selection
           </button>
           <div class="menu-divider"></div>
+          @if (getColumnDef(menu.colField); as columnDef) {
+            @if (columnDef.groupable) {
+              @if (internalGroupBy()?.field === menu.colField) {
+                <button class="menu-item" (click)="contextMenuClearGrouping()">
+                  <span class="menu-icon">📁</span> Clear Grouping
+                </button>
+              } @else {
+                <button class="menu-item" (click)="contextMenuGroupBy(menu.colField)">
+                  <span class="menu-icon">🗂️</span> Group by {{ columnDef.title }}
+                </button>
+              }
+            }
+          }
+          @if (hasGrouping()) {
+            <button class="menu-item" (click)="expandAllGroups()">
+              <span class="menu-icon">↕️</span> Expand All Groups
+            </button>
+            <button class="menu-item" (click)="collapseAllGroups()">
+              <span class="menu-icon">⋯</span> Collapse All Groups
+            </button>
+          }
+          <div class="menu-divider"></div>
           <button class="menu-item" (click)="contextMenuTogglePin(menu.colField)">
             <span class="menu-icon">📌</span> {{ isColumnPinned(menu.colField) ? 'Unpin Column' : 'Pin Column Left' }}
           </button>
@@ -873,42 +911,66 @@ export class NgxGridFooterTemplateDirective {
           <button class="menu-item" (click)="exportToCsv(); activeContextMenu.set(null)">
             <span class="menu-icon">📊</span> Export to CSV
           </button>
+          <button class="menu-item" (click)="exportToExcel(); activeContextMenu.set(null)">
+            <span class="menu-icon">📈</span> Export to Excel
+          </button>
         </div>
       }
     </div>
   `,
   styles: [`
     :host { display: block; }
+    
+    /* Custom Scrollbar Styles for premium feel */
+    .grid-table-wrap::-webkit-scrollbar,
+    .checklist-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .grid-table-wrap::-webkit-scrollbar-track,
+    .checklist-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .grid-table-wrap::-webkit-scrollbar-thumb,
+    .checklist-scroll::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.2);
+      border-radius: 99px;
+    }
+    .grid-table-wrap::-webkit-scrollbar-thumb:hover,
+    .checklist-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.4);
+    }
+
     .ngx-data-grid {
       position: relative;
       font-family: inherit;
       border: 1px solid var(--ngx-grid-border, #e2e8f0);
       border-radius: var(--ngx-grid-radius, 12px);
-      overflow: visible;
+      overflow: hidden; /* Clamps inner children corners */
       background: var(--ngx-grid-bg, #ffffff);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 4px 6px -4px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.02);
       transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
     .grid-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 16px;
+      padding: 14px 18px;
       background: var(--ngx-grid-header-bg, #f8fafc);
       border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: var(--ngx-grid-radius, 12px) var(--ngx-grid-radius, 12px) 0 0;
       flex-wrap: wrap;
       gap: 12px;
     }
     .grid-toolbar-title {
       font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
       font-weight: 700;
-      font-size: 14px;
+      font-size: 15px;
       color: var(--ngx-grid-text, #0f172a);
+      letter-spacing: -0.01em;
     }
     .grid-toolbar-actions {
       display: flex;
-      gap: 6px;
+      gap: 8px;
     }
     .grid-action-btn {
       padding: 6px 14px;
@@ -917,15 +979,20 @@ export class NgxGridFooterTemplateDirective {
       background: var(--ngx-grid-bg, #ffffff);
       color: var(--ngx-grid-text, #0f172a);
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       font-family: inherit;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       outline: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .grid-action-btn:hover {
-      background: var(--ngx-grid-hover-bg, #f1f5f9);
-      border-color: var(--ngx-input-border, #cbd5e1);
+      background: var(--ngx-grid-hover-bg, #f8fafc);
+      border-color: var(--ngx-input-focus, #4f46e5);
+      color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.08);
       transform: translateY(-0.5px);
     }
     .grid-action-btn:active {
@@ -935,18 +1002,19 @@ export class NgxGridFooterTemplateDirective {
     .grid-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
     .grid-th {
       position: relative;
-      padding: 12px 16px;
+      padding: 14px 18px;
       text-align: left;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 750;
       color: var(--ngx-grid-text-secondary, #64748b);
       background: var(--ngx-grid-header-bg, #f8fafc);
       border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
       white-space: nowrap;
       user-select: none;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
+      transition: background-color 0.2s ease;
     }
     .grid-category-th {
       text-align: center;
@@ -957,11 +1025,11 @@ export class NgxGridFooterTemplateDirective {
       border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
       border-right: 1px solid var(--ngx-grid-border, #f1f5f9);
     }
-    .grid-th.sortable { cursor: pointer; transition: background-color 0.2s; }
-    .grid-th.sortable:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); }
-    .grid-th.sort-asc, .grid-th.sort-desc { color: var(--ngx-input-focus, #4f46e5); }
+    .grid-th.sortable { cursor: pointer; }
+    .grid-th.sortable:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); color: var(--ngx-grid-text, #0f172a); }
+    .grid-th.sort-asc, .grid-th.sort-desc { color: var(--ngx-input-focus, #4f46e5); background: rgba(79, 70, 229, 0.02); }
     .th-text { margin-right: 4px; }
-    .sort-icon { font-size: 10px; color: #cbd5e1; }
+    .sort-icon { font-size: 10px; color: #cbd5e1; transition: color 0.2s ease; }
     .sort-asc .sort-icon, .sort-desc .sort-icon { color: var(--ngx-input-focus, #4f46e5); }
     
     .th-content-wrapper {
@@ -974,17 +1042,17 @@ export class NgxGridFooterTemplateDirective {
     .grid-filter-btn {
       background: transparent;
       border: none;
-      color: var(--ngx-grid-text-secondary, #64748b);
+      color: var(--ngx-grid-text-secondary, #94a3b8);
       cursor: pointer;
-      padding: 2px;
-      border-radius: 4px;
+      padding: 4px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
     }
     .grid-filter-btn:hover {
-      background: var(--ngx-grid-hover-bg, #e2e8f0);
+      background: var(--ngx-grid-hover-bg, #cbd5e1);
       color: var(--ngx-grid-text, #0f172a);
     }
     .grid-filter-btn.active {
@@ -1008,13 +1076,16 @@ export class NgxGridFooterTemplateDirective {
     }
     
     .grid-filter-popover,
-    .grid-column-chooser-popover {
+    .grid-column-chooser-popover,
+    .grid-context-menu {
       position: absolute;
       width: 250px;
-      background: var(--ngx-grid-bg, #ffffff);
-      border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      background: var(--ngx-grid-bg-glass, rgba(255, 255, 255, 0.8));
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 14px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
       z-index: 1000;
       padding: 12px;
       box-sizing: border-box;
@@ -1022,6 +1093,35 @@ export class NgxGridFooterTemplateDirective {
       flex-direction: column;
       gap: 12px;
       font-family: inherit;
+      animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: top center;
+    }
+    .grid-context-menu {
+      width: 190px;
+      padding: 6px;
+      gap: 2px;
+    }
+    @keyframes popoverFadeIn {
+      from { opacity: 0; transform: scale(0.95) translateY(-5px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .checklist-search {
+      padding: 8px 12px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 4px;
+      transition: all 0.2s ease;
+    }
+    .checklist-search:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
     .popover-section {
       display: flex;
@@ -1029,11 +1129,11 @@ export class NgxGridFooterTemplateDirective {
       gap: 6px;
     }
     .popover-label {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 800;
       color: var(--ngx-grid-text-secondary, #64748b);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
     .text-filter-row {
       display: flex;
@@ -1041,38 +1141,45 @@ export class NgxGridFooterTemplateDirective {
       gap: 6px;
     }
     .popover-select {
-      padding: 6px;
+      padding: 6px 10px;
       border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 12px;
       font-family: inherit;
       outline: none;
       background: var(--ngx-input-bg, #ffffff);
       color: var(--ngx-grid-text, #0f172a);
+      cursor: pointer;
     }
     .popover-input {
       padding: 6px 10px;
       border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 12px;
       font-family: inherit;
       outline: none;
       background: var(--ngx-input-bg, #ffffff);
       color: var(--ngx-grid-text, #0f172a);
+      transition: all 0.2s;
+    }
+    .popover-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
     .checklist-section {
       border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
       padding-top: 10px;
     }
     .checklist-scroll {
-      max-height: 120px;
+      max-height: 140px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 4px;
       border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: 6px;
-      padding: 6px;
+      border-radius: 8px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.45);
     }
     .checklist-item {
       display: flex;
@@ -1082,9 +1189,6 @@ export class NgxGridFooterTemplateDirective {
       color: var(--ngx-grid-text, #0f172a);
       cursor: pointer;
       user-select: none;
-    }
-    .checklist-item input {
-      margin: 0;
     }
     .popover-footer {
       display: flex;
@@ -1099,7 +1203,7 @@ export class NgxGridFooterTemplateDirective {
       gap: 6px;
     }
     .popover-btn {
-      padding: 5px 10px;
+      padding: 5px 12px;
       font-size: 11px;
       font-weight: 600;
       border-radius: 6px;
@@ -1107,10 +1211,12 @@ export class NgxGridFooterTemplateDirective {
       border: 1px solid var(--ngx-grid-border, #cbd5e1);
       background: var(--ngx-grid-bg, #ffffff);
       color: var(--ngx-grid-text, #0f172a);
-      transition: all 0.2s;
+      transition: all 0.2s ease;
+      font-family: inherit;
     }
     .popover-btn:hover {
-      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      background: var(--ngx-grid-hover-bg, #f8fafc);
+      border-color: var(--ngx-input-border, #cbd5e1);
     }
     .popover-btn.apply {
       background: var(--ngx-btn-primary-bg, #4f46e5);
@@ -1120,6 +1226,7 @@ export class NgxGridFooterTemplateDirective {
     .popover-btn.apply:hover {
       background: var(--ngx-btn-primary-hover, #4338ca);
       border-color: var(--ngx-btn-primary-hover, #4338ca);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
     }
     .popover-btn.clear {
       color: #ef4444;
@@ -1136,7 +1243,7 @@ export class NgxGridFooterTemplateDirective {
       color: var(--ngx-grid-text, #0f172a);
       font-size: 12px;
       font-weight: 600;
-      padding: 11px 16px;
+      padding: 12px 18px;
       cursor: pointer;
     }
     .group-toggle {
@@ -1146,19 +1253,21 @@ export class NgxGridFooterTemplateDirective {
       cursor: pointer;
       color: var(--ngx-grid-text-secondary, #64748b);
       font-size: 12px;
+      transition: transform 0.2s ease;
     }
     .group-count { color: var(--ngx-grid-text-secondary, #64748b); margin-left: 6px; font-weight: 500; }
     .grid-row {
-      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
-      transition: background-color 0.15s;
+      border-bottom: 1px solid var(--ngx-grid-border, #f1f5f9);
+      transition: background-color 0.15s ease;
     }
-    .grid-row:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); }
-    .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
+    .grid-row:hover { background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important; }
+    .grid-row.selected { background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important; }
+    .grid-row.selected:hover { background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.1)) !important; }
     .grid-table.striped .grid-row:nth-child(even) { background: var(--ngx-grid-stripe-bg, #f8fafc); }
-    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, #f1f5f9); }
-    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
+    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important; }
+    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important; }
     .grid-td {
-      padding: 11px 16px;
+      padding: 12px 18px;
       color: var(--ngx-grid-text, #0f172a);
       white-space: nowrap;
       overflow: hidden;
@@ -1167,9 +1276,12 @@ export class NgxGridFooterTemplateDirective {
       box-sizing: border-box;
     }
     .grid-th-check, .grid-td-check,
-    .grid-th-toggle, .grid-td-toggle {
+    .grid-th-toggle, .grid-td-toggle,
+    .grid-td-reorder, .grid-th-reorder {
       width: 44px !important;
       text-align: center;
+      padding: 0 !important;
+      text-overflow: clip !important;
     }
     .toggle-btn {
       border: none;
@@ -1177,7 +1289,7 @@ export class NgxGridFooterTemplateDirective {
       color: var(--ngx-grid-text-secondary, #64748b);
       cursor: pointer;
       font-size: 13px;
-      transition: color 0.15s;
+      transition: color 0.15s ease, transform 0.15s ease;
     }
     .toggle-btn:hover { color: var(--ngx-grid-text, #0f172a); }
     .grid-detail-row td {
@@ -1185,7 +1297,7 @@ export class NgxGridFooterTemplateDirective {
       border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
     }
     .grid-detail-cell {
-      padding: 16px 24px;
+      padding: 18px 24px;
       white-space: normal;
     }
     .grid-edit-input {
@@ -1193,7 +1305,7 @@ export class NgxGridFooterTemplateDirective {
       min-width: 80px;
       padding: 6px 10px;
       border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 12px;
       font-family: inherit;
       background: var(--ngx-input-bg, #ffffff);
@@ -1211,17 +1323,17 @@ export class NgxGridFooterTemplateDirective {
       border: 1px solid var(--ngx-grid-border, #cbd5e1);
       background: var(--ngx-grid-bg, #ffffff);
       color: var(--ngx-grid-text, #0f172a);
-      border-radius: 6px;
-      padding: 5px 10px;
+      border-radius: 8px;
+      padding: 6px 12px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       margin-right: 6px;
       cursor: pointer;
       transition: all 0.2s;
       outline: none;
     }
     .action-btn:hover {
-      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      background: var(--ngx-grid-hover-bg, #f8fafc);
       border-color: var(--ngx-input-border, #cbd5e1);
     }
     .action-btn.save {
@@ -1232,6 +1344,7 @@ export class NgxGridFooterTemplateDirective {
     .action-btn.save:hover {
       background: var(--ngx-btn-primary-hover, #4338ca);
       border-color: var(--ngx-btn-primary-hover, #4338ca);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
     }
     .action-btn:last-child { margin-right: 0; }
     .grid-loading-cell, .grid-empty-cell {
@@ -1254,52 +1367,121 @@ export class NgxGridFooterTemplateDirective {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 16px;
+      padding: 14px 20px;
       border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
-      background: var(--ngx-grid-bg, #ffffff);
-      border-radius: 0 0 var(--ngx-grid-radius, 12px) var(--ngx-grid-radius, 12px);
+      background: var(--ngx-grid-header-bg, #f8fafc);
       flex-wrap: wrap;
+      gap: 16px;
+    }
+    .pagination-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .page-info {
+      font-size: 13px;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-weight: 500;
+    }
+    .page-info-highlight {
+      color: var(--ngx-grid-text, #0f172a);
+      font-weight: 600;
+    }
+    .page-size-selector {
+      display: flex;
+      align-items: center;
       gap: 8px;
     }
-    .page-info { font-size: 12px; color: var(--ngx-grid-text-secondary, #64748b); font-weight: 500; }
-    .page-btns { display: flex; gap: 4px; }
+    .page-size-label {
+      font-size: 12px;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-weight: 500;
+    }
+    .page-size-select {
+      padding: 4px 28px 4px 10px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 12px;
+    }
+    .page-size-select:hover {
+      border-color: var(--ngx-input-border-hover, #94a3b8);
+    }
+    .page-size-select:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+    .page-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-numbers {
+      display: flex;
+      gap: 4px;
+    }
     .page-btn {
       min-width: 32px;
       height: 32px;
       padding: 0 8px;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 13px;
+      font-weight: 600;
       border: 1px solid var(--ngx-grid-border, #e2e8f0);
       background: var(--ngx-grid-bg, #ffffff);
       border-radius: 8px;
       cursor: pointer;
       font-family: inherit;
       color: var(--ngx-grid-text, #0f172a);
-      transition: all 0.2s;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-btn.ctrl {
+      color: var(--ngx-grid-text-secondary, #64748b);
+      background: var(--ngx-grid-bg, #ffffff);
     }
     .page-btn:hover:not(:disabled) {
       background: var(--ngx-grid-hover-bg, #f1f5f9);
-      border-color: var(--ngx-input-border, #cbd5e1);
+      border-color: var(--ngx-input-border-hover, #cbd5e1);
+      color: var(--ngx-input-focus, #4f46e5);
+      transform: translateY(-0.5px);
     }
     .page-btn.active {
       background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff;
+      color: #ffffff !important;
       border-color: var(--ngx-btn-primary-bg, #4f46e5);
-      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.25);
     }
-    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none !important;
+    }
     
     .grid-footer-row td {
       background: var(--ngx-grid-header-bg, #f8fafc);
       border-top: 2px solid var(--ngx-grid-border, #e2e8f0);
       font-size: 12px;
-      padding: 12px 16px;
+      padding: 12px 18px;
       color: var(--ngx-grid-text, #0f172a);
     }
     .agg-label {
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--ngx-grid-text-secondary, #64748b);
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -1340,7 +1522,7 @@ export class NgxGridFooterTemplateDirective {
     .sticky-toggle-last,
     .sticky-check-last {
       border-right: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
-      box-shadow: 4px 0 8px -3px rgba(0, 0, 0, 0.15);
+      box-shadow: 4px 0 10px -3px rgba(0, 0, 0, 0.08);
     }
     .grid-table.striped .grid-row:nth-child(even) .pinned-left,
     .grid-table.striped .grid-row:nth-child(even) .sticky-toggle,
@@ -1350,12 +1532,12 @@ export class NgxGridFooterTemplateDirective {
     .grid-row:hover .pinned-left,
     .grid-row:hover .sticky-toggle,
     .grid-row:hover .sticky-check {
-      background: var(--ngx-grid-hover-bg, #f1f5f9) !important;
+      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important;
     }
     .grid-row.selected .pinned-left,
     .grid-row.selected .sticky-toggle,
     .grid-row.selected .sticky-check {
-      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
+      background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important;
     }
     .grid-footer-row .pinned-left,
     .grid-footer-row .sticky-toggle,
@@ -1374,16 +1556,16 @@ export class NgxGridFooterTemplateDirective {
     }
     .pinned-right-first {
       border-left: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
-      box-shadow: -4px 0 8px -3px rgba(0, 0, 0, 0.15);
+      box-shadow: -4px 0 10px -3px rgba(0, 0, 0, 0.08);
     }
     .grid-table.striped .grid-row:nth-child(even) .pinned-right {
       background: var(--ngx-grid-stripe-bg, #f8fafc);
     }
     .grid-row:hover .pinned-right {
-      background: var(--ngx-grid-hover-bg, #f1f5f9) !important;
+      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important;
     }
     .grid-row.selected .pinned-right {
-      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
+      background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important;
     }
     .grid-footer-row .pinned-right {
       background: var(--ngx-grid-header-bg, #f8fafc);
@@ -1403,12 +1585,13 @@ export class NgxGridFooterTemplateDirective {
       height: 100%;
       border: none;
       outline: none;
-      padding: 12px 16px;
+      padding: 12px 18px;
       box-sizing: border-box;
       background: var(--ngx-grid-bg, #ffffff);
       color: var(--ngx-grid-text, #0f172a);
       font-family: inherit;
       font-size: inherit;
+      border-radius: 0;
     }
     
     /* Drag & Drop Reordering Styles */
@@ -1437,10 +1620,11 @@ export class NgxGridFooterTemplateDirective {
       line-height: 1;
       background: var(--ngx-input-focus, #4f46e5);
       color: #ffffff;
-      padding: 1px 3.5px;
+      padding: 2px 4px;
       border-radius: 4px;
       vertical-align: super;
       margin-left: 2px;
+      font-weight: 700;
     }
     
     /* Global Search Styles */
@@ -1484,14 +1668,14 @@ export class NgxGridFooterTemplateDirective {
       color: var(--ngx-grid-text, #0f172a);
     }
     .search-highlight {
-      background-color: rgba(251, 191, 36, 0.3);
+      background-color: rgba(251, 191, 36, 0.25);
       color: inherit;
       font-weight: 600;
       padding: 1px 2px;
       border-radius: 4px;
     }
     .grid-td.cell-selected {
-      background: var(--ngx-grid-cell-selected-bg, rgba(79, 70, 229, 0.12)) !important;
+      background: var(--ngx-grid-cell-selected-bg, rgba(79, 70, 229, 0.1)) !important;
       outline: 1.5px solid var(--ngx-grid-cell-selected-border, #4f46e5);
       outline-offset: -1.5px;
     }
@@ -1524,7 +1708,7 @@ export class NgxGridFooterTemplateDirective {
 
     .grid-context-menu {
       position: absolute;
-      width: 180px;
+      width: 215px;
       background: var(--ngx-grid-bg, rgba(255, 255, 255, 0.95));
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -1575,6 +1759,62 @@ export class NgxGridFooterTemplateDirective {
       height: 1px;
       background: var(--ngx-grid-border, #e2e8f0);
       margin: 4px 6px;
+    }
+
+    /* Checkbox Custom Styling for Premium Look */
+    .grid-th-check input[type="checkbox"],
+    .grid-td-check input[type="checkbox"],
+    .checklist-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ngx-grid-bg, #ffffff);
+      transition: all 0.2s ease;
+      margin: 0;
+      position: relative;
+    }
+    .grid-th-check input[type="checkbox"]:hover,
+    .grid-td-check input[type="checkbox"]:hover,
+    .checklist-item input[type="checkbox"]:hover {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 2.5px rgba(79, 70, 229, 0.15);
+    }
+    .grid-th-check input[type="checkbox"]:checked,
+    .grid-td-check input[type="checkbox"]:checked,
+    .checklist-item input[type="checkbox"]:checked {
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+    }
+    .grid-th-check input[type="checkbox"]:checked::after,
+    .grid-td-check input[type="checkbox"]:checked::after,
+    .checklist-item input[type="checkbox"]:checked::after {
+      content: "";
+      display: block;
+      width: 4px;
+      height: 8px;
+      border: solid #ffffff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      margin-bottom: 2px;
+    }
+    .grid-th-check input[type="checkbox"]:indeterminate {
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+    }
+    .grid-th-check input[type="checkbox"]:indeterminate::after {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 2px;
+      background: #ffffff;
     }
   `],
 })
@@ -1643,6 +1883,8 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   collapsedGroups = signal<Set<string>>(new Set());
   editingRowKey = signal<string | null>(null);
   editingDraft = signal<Record<string, unknown>>({});
+  internalPageSize = signal<number>(10);
+  internalGroupBy = signal<GridGroupState | null>(null);
   
   // Enterprise Extensions
   private elementRef = inject(ElementRef);
@@ -1686,6 +1928,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   tempFilterValue = signal<string>('');
   tempFilterOperator = signal<'contains' | 'startsWith' | 'endsWith' | 'eq'>('contains');
   tempSelectedValues = signal<Set<string>>(new Set());
+  filterSearchQuery = signal<string>('');
 
   // Global search state
   searchText = signal<string>('');
@@ -1710,6 +1953,16 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       if (this.currentPage() > max) {
         this.currentPage.set(max);
       }
+    });
+
+    effect(() => {
+      const externalPageSize = this.pageSize();
+      untracked(() => this.internalPageSize.set(externalPageSize));
+    });
+
+    effect(() => {
+      const externalGroupBy = this.groupBy();
+      untracked(() => this.internalGroupBy.set(externalGroupBy));
     });
 
     effect(() => {
@@ -1819,6 +2072,8 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   }
 
   ngOnInit(): void {
+    this.internalPageSize.set(this.pageSize());
+    this.internalGroupBy.set(this.groupBy());
     this.loadState();
   }
 
@@ -2156,7 +2411,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   });
 
   totalPages = computed(() => {
-    const pageSize = Math.max(1, this.pageSize());
+    const pageSize = Math.max(1, this.internalPageSize());
     return Math.max(1, Math.ceil(this.totalItems() / pageSize));
   });
 
@@ -2169,7 +2424,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       return this.data();
     }
 
-    const pageSize = Math.max(1, this.pageSize());
+    const pageSize = Math.max(1, this.internalPageSize());
     const start = (this.currentPage() - 1) * pageSize;
     return this.baseFlatData().slice(start, start + pageSize);
   });
@@ -2183,7 +2438,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       return this.groupedData();
     }
 
-    const group = this.groupBy();
+    const group = this.internalGroupBy();
     if (!group) {
       return [];
     }
@@ -2233,14 +2488,14 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     if (this.totalItems() === 0) {
       return 0;
     }
-    return (this.currentPage() - 1) * this.pageSize() + 1;
+    return (this.currentPage() - 1) * this.internalPageSize() + 1;
   });
 
   pagerRangeEnd = computed(() => {
     if (this.totalItems() === 0) {
       return 0;
     }
-    return Math.min(this.currentPage() * this.pageSize(), this.totalItems());
+    return Math.min(this.currentPage() * this.internalPageSize(), this.totalItems());
   });
 
   pageNumbers = computed(() => {
@@ -2521,6 +2776,72 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     downloadAnchor.remove();
   }
 
+  exportToExcel(): void {
+    if (this.data().length === 0) return;
+    const cols = this.orderedColumns();
+    
+    let tableHtml = '<table><thead><tr>';
+    cols.forEach(c => {
+      tableHtml += `<th>${c.title}</th>`;
+    });
+    tableHtml += '</tr></thead><tbody>';
+
+    this.data().forEach(row => {
+      const r = row as Record<string, unknown>;
+      tableHtml += '<tr>';
+      cols.forEach(c => {
+        const val = r[c.field] ?? '';
+        const valStr = typeof val === 'object' ? JSON.stringify(val) : String(val);
+        const alignClass = c.align ? ` class="text-${c.align}"` : '';
+        tableHtml += `<td${alignClass}>${valStr}</td>`;
+      });
+      tableHtml += '</tr>';
+    });
+    tableHtml += '</tbody></table>';
+
+    const worksheetName = 'Grid Export';
+    const template = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+      <head>
+      <!--[if gte mso 9]>
+      <xml>
+       <x:ExcelWorkbook>
+        <x:ExcelWorksheets>
+         <x:ExcelWorksheet>
+          <x:Name>${worksheetName}</x:Name>
+          <x:WorksheetOptions>
+           <x:DisplayGridlines/>
+          </x:WorksheetOptions>
+         </x:ExcelWorksheet>
+        </x:ExcelWorksheets>
+       </x:ExcelWorkbook>
+      </xml>
+      <![endif]-->
+      <style>
+        table { border-collapse: collapse; font-family: sans-serif; font-size: 11pt; }
+        th { background-color: #f1f5f9; color: #1e293b; font-weight: bold; border: 1px solid #cbd5e1; padding: 6px; }
+        td { border: 1px solid #cbd5e1; padding: 6px; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+      </style>
+      </head>
+      <body>
+      ${tableHtml}
+      </body>
+      </html>
+    `;
+
+    const blob = new Blob([template], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", url);
+    downloadAnchor.setAttribute("download", "grid-data.xls");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+
   setFilter(field: string, value: string): void {
     const nextStates = new Map(this.filterStates());
     if (value) {
@@ -2568,12 +2889,46 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     window.addEventListener('mouseup', onMouseUp);
   }
 
+  onResizeDoubleClick(event: MouseEvent, col: GridColumnDef<T>): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.autoSizeColumn(col);
+  }
+
+  autoSizeColumn(col: GridColumnDef<T>): void {
+    const colField = col.field;
+    let longestText = '';
+
+    if (col.title && col.title.length > longestText.length) {
+      longestText = col.title;
+    }
+
+    const rows = this.clientFilteredData();
+    for (const row of rows) {
+      const val = this.getCellValue(row, colField);
+      const strVal = val != null ? String(val) : '';
+      if (strVal.length > longestText.length) {
+        longestText = strVal;
+      }
+    }
+
+    const padding = col.filterable ? 44 : 24;
+    const computedWidth = Math.max(60, Math.min(600, longestText.length * 8 + padding));
+
+    this.columnWidths.update(widths => ({
+      ...widths,
+      [colField]: computedWidth
+    }));
+  }
+
   openFilterPopover(event: MouseEvent, field: string): void {
     event.stopPropagation();
     if (this.activeFilterPopover()?.field === field) {
       this.activeFilterPopover.set(null);
       return;
     }
+
+    this.filterSearchQuery.set('');
 
     const current = this.filterStates().get(field);
     this.tempFilterValue.set(current?.value ?? '');
@@ -2612,6 +2967,13 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     return Array.from(vals).sort();
   }
 
+  getFilteredDistinctValues(field: string): string[] {
+    const distinct = this.getDistinctValues(field);
+    const search = this.filterSearchQuery().trim().toLowerCase();
+    if (!search) return distinct;
+    return distinct.filter(v => v.toLowerCase().includes(search));
+  }
+
   toggleChecklistItem(val: string): void {
     const next = new Set(this.tempSelectedValues());
     if (next.has(val)) {
@@ -2625,12 +2987,16 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   toggleSelectAllChecklist(): void {
     const pop = this.activeFilterPopover();
     if (!pop) return;
-    const distinct = this.getDistinctValues(pop.field);
-    if (this.tempSelectedValues().size === distinct.length) {
-      this.tempSelectedValues.set(new Set());
+    const distinct = this.getFilteredDistinctValues(pop.field);
+    const current = new Set(this.tempSelectedValues());
+    const allSelected = distinct.every(val => current.has(val));
+    
+    if (allSelected) {
+      distinct.forEach(val => current.delete(val));
     } else {
-      this.tempSelectedValues.set(new Set(distinct));
+      distinct.forEach(val => current.add(val));
     }
+    this.tempSelectedValues.set(current);
   }
 
   applyPopoverFilter(): void {
@@ -2886,8 +3252,48 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   goPage(page: number): void {
     const safePage = Math.max(1, Math.min(this.totalPages(), page));
     this.currentPage.set(safePage);
-    this.pageChange.emit({ page: safePage, pageSize: this.pageSize() });
+    this.pageChange.emit({ page: safePage, pageSize: this.internalPageSize() });
     this.emitDataState();
+  }
+
+  changePageSize(size: number): void {
+    this.internalPageSize.set(size);
+    this.currentPage.set(1);
+    this.pageChange.emit({ page: 1, pageSize: size });
+    this.emitDataState();
+  }
+
+  getColumnDef(field: string | null): GridColumnDef<T> | null {
+    if (!field) return null;
+    return this.columns().find(c => c.field === field) ?? null;
+  }
+
+
+  contextMenuGroupBy(field: string | null): void {
+    if (!field) return;
+    const groupState = { field, dir: 'asc' as const };
+    this.internalGroupBy.set(groupState);
+    this.groupChange.emit({ group: groupState });
+    this.emitDataState(groupState);
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuClearGrouping(): void {
+    this.internalGroupBy.set(null);
+    this.groupChange.emit({ group: null });
+    this.emitDataState(null);
+    this.activeContextMenu.set(null);
+  }
+
+  collapseAllGroups(): void {
+    const keys = this.groupedRows().map(g => g.key);
+    this.collapsedGroups.set(new Set(keys));
+    this.activeContextMenu.set(null);
+  }
+
+  expandAllGroups(): void {
+    this.collapsedGroups.set(new Set());
+    this.activeContextMenu.set(null);
   }
 
   onRowClick(row: T, index: number): void {
@@ -3072,8 +3478,8 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     return String(source['id'] ?? source['key'] ?? index);
   }
 
-  private hasGrouping(): boolean {
-    return this.groupBy() !== null;
+  hasGrouping(): boolean {
+    return this.internalGroupBy() !== null;
   }
 
   private paginateRows(rows: T[]): T[] {
@@ -3081,7 +3487,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       return rows;
     }
 
-    const pageSize = Math.max(1, this.pageSize());
+    const pageSize = Math.max(1, this.internalPageSize());
     const start = (this.currentPage() - 1) * pageSize;
     return rows.slice(start, start + pageSize);
   }
@@ -3131,10 +3537,10 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   private emitDataState(overrideGroup?: GridGroupState | null): void {
     this.dataStateChange.emit({
       page: this.currentPage(),
-      pageSize: this.pageSize(),
+      pageSize: this.internalPageSize(),
       sort: this.sortState(),
       filters: this.activeFilters(),
-      group: overrideGroup === undefined ? this.groupBy() : overrideGroup,
+      group: overrideGroup === undefined ? this.internalGroupBy() : overrideGroup,
     });
   }
 

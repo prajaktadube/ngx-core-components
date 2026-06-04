@@ -5,8 +5,8 @@
     "semantic_hash": "eb91c3db6183a27eae11f34c2061c9e2"
   },
   "C:\\Work\\ngx-core-components\\package.json": {
-    "mtime": 1780289240.1775453,
-    "ast_hash": "4a351ad6e3376b28e5cd2f5ead39a5fb",
+    "mtime": 1780488908.9425888,
+    "ast_hash": "8d454ed1f6a1f02c03b21ae68dec832b",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\tsconfig.json": {
@@ -85,9 +85,9 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\dialog-demo\\dialog-demo.component.ts": {
-    "mtime": 1776674923.798798,
-    "ast_hash": "b5d53653c4e00baec26037f46e6cdbbc",
-    "semantic_hash": "b5d53653c4e00baec26037f46e6cdbbc"
+    "mtime": 1780504016.5375192,
+    "ast_hash": "68f3f6448f7fcb4f664c1c23440771a5",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\feedback-demo\\feedback-demo.component.ts": {
     "mtime": 1780138082.8876436,
@@ -100,8 +100,8 @@
     "semantic_hash": "306318969798347811baba17d54c76db"
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\grid-demo\\grid-demo.component.ts": {
-    "mtime": 1780236119.9622588,
-    "ast_hash": "99f84d9ef26dfed7a7b4789a0beb3b74",
+    "mtime": 1780564253.6296425,
+    "ast_hash": "32450e567554627b293abe65da0bbea7",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\home\\home.component.ts": {
@@ -145,8 +145,8 @@
     "semantic_hash": "d7d11eb6bde5f57a26e5d8fd94e387cf"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\package.json": {
-    "mtime": 1780289240.179137,
-    "ast_hash": "a449a7eeffcbcbb0c53f6b29edea6f33",
+    "mtime": 1780488908.9445858,
+    "ast_hash": "ecbcd7b61141f0ca1dd704406137ab1a",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\tsconfig.lib.json": {
@@ -235,8 +235,8 @@
     "semantic_hash": "5eaf8080a3e0b14c6ed46ed0c4d67e26"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\gantt-chart.component.ts": {
-    "mtime": 1780333235.6269128,
-    "ast_hash": "9649c814e1c906785c14689f5d65c300",
+    "mtime": 1780482598.4578135,
+    "ast_hash": "316e3d4bccde230c7d6bca0c9e619d66",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\models\\gantt-baseline.model.ts": {
@@ -290,8 +290,8 @@
     "semantic_hash": "3fc870ed9d95d416fd43e17f5c788d90"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-scale.service.ts": {
-    "mtime": 1780331318.7797902,
-    "ast_hash": "9f867ee962dc12bd8301d70d85f9b6fb",
+    "mtime": 1780477345.190628,
+    "ast_hash": "a3e57a370a1f2b9c93424675990151ad",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\utils\\date-utils.ts": {
@@ -385,8 +385,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\data-grid\\data-grid.component.ts": {
-    "mtime": 1780235830.160318,
-    "ast_hash": "78c2ea3f1955b6a760c1b4e56a23e386",
+    "mtime": 1780564565.6814332,
+    "ast_hash": "67d3a55369ac92c7d8eb932b973bbc88",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\ng-package.json": {
@@ -550,8 +550,8 @@
     "semantic_hash": "ae7461dbe62bfb51f56a83e6389cba48"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\public-api.ts": {
-    "mtime": 1780222368.0592072,
-    "ast_hash": "0763533ce929be746561c802760b1cbc",
+    "mtime": 1780509445.3187394,
+    "ast_hash": "6e378c18a5d61d3f847efb45549fccd3",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\list-view\\list-view.component.ts": {
@@ -565,9 +565,9 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\README.md": {
-    "mtime": 1776944186.3115106,
-    "ast_hash": "9dcafcf0d4abed088496184b96377a0b",
-    "semantic_hash": "9dcafcf0d4abed088496184b96377a0b"
+    "mtime": 1780503177.0451753,
+    "ast_hash": "4faa27733c19dd31cd8dff8b2e2b855d",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.agents\\rules\\graphify.md": {
     "mtime": 1779767252.7441635,
@@ -600,9 +600,9 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\README.md": {
-    "mtime": 1776680537.8952801,
-    "ast_hash": "e3f8953f0b8cf2dbf905b379dbcf6bb1",
-    "semantic_hash": "e3f8953f0b8cf2dbf905b379dbcf6bb1"
+    "mtime": 1780509250.035037,
+    "ast_hash": "8c0c76470517c137846b0b5480ee4839",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\core\\demo-nav.config.ts": {
     "mtime": 1780205512.3557327,
@@ -645,8 +645,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\gantt-demo\\gantt-demo.component.ts": {
-    "mtime": 1780331709.8468032,
-    "ast_hash": "739d66b1b983656ed9a4b28a5454eaf8",
+    "mtime": 1780488544.7920358,
+    "ast_hash": "82a6844adf3dd22c00efddfaafce18b5",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\kanban-demo\\kanban-demo.component.ts": {
@@ -755,23 +755,23 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\scheduler-demo\\scheduler-demo.component.ts": {
-    "mtime": 1780139327.0613244,
-    "ast_hash": "588c53f5896db54f97dc5a0dc22be2eb",
+    "mtime": 1780510574.4469857,
+    "ast_hash": "6d57192b22dfc07cb2aa4f3ac7941a94",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\scheduler\\models.ts": {
-    "mtime": 1780221957.4024172,
-    "ast_hash": "962293ba8a3ac3bb39462c146660e649",
+    "mtime": 1780510302.9525402,
+    "ast_hash": "5db4096127d49da2cf4d608358d2f233",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\scheduler\\scheduler.component.ts": {
-    "mtime": 1780222128.850565,
-    "ast_hash": "49dfcefa3d4983acb717c9a4a2a9a178",
+    "mtime": 1780510325.014114,
+    "ast_hash": "8272cae29722dad71c1a7c099c6bb4d2",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\dashboard-layout-demo\\dashboard-layout-demo.component.ts": {
-    "mtime": 1780139588.9674146,
-    "ast_hash": "9d72e455120d62493000e3585d82a011",
+    "mtime": 1780503997.2353563,
+    "ast_hash": "d826f62892746e251f89d6b45c21dec8",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\dashboard-layout\\dashboard-layout.component.ts": {
@@ -785,23 +785,23 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\avatars-demo\\avatars-demo.component.ts": {
-    "mtime": 1780147164.9853768,
-    "ast_hash": "65eac192dba2e175e2323189d044ec00",
+    "mtime": 1780503924.6649392,
+    "ast_hash": "af479db088287a0fb5c5b9c1be84842d",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\stat-cards-demo\\stat-cards-demo.component.ts": {
-    "mtime": 1780205959.136335,
-    "ast_hash": "2b06ac5862f18c14695b7555871a33ef",
+    "mtime": 1780504227.9690323,
+    "ast_hash": "2638445ad788f9c35c336579fbb95dec",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\tag-input-demo\\tag-input-demo.component.ts": {
-    "mtime": 1780205965.1504369,
-    "ast_hash": "3ccb8b7235a28663c8480a99282419e3",
+    "mtime": 1780504242.2524192,
+    "ast_hash": "8c0e69d636501cd9d6ce8caef44d2921",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\virtual-list-demo\\virtual-list-demo.component.ts": {
-    "mtime": 1780147208.690732,
-    "ast_hash": "9c61e85b9a739d220ed9f362c66d19f3",
+    "mtime": 1780504261.5184965,
+    "ast_hash": "f4b925cae5d7d8a0a60d58ddf10c3966",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\avatar\\avatar.component.ts": {
@@ -825,18 +825,18 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\carousel-demo\\carousel-demo.component.ts": {
-    "mtime": 1780205909.78979,
-    "ast_hash": "4ca31c7a0343450c7dbf12e816564daa",
+    "mtime": 1780503951.4773135,
+    "ast_hash": "a064483c047537063aa81f21881f2345",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\countdown-demo\\countdown-demo.component.ts": {
-    "mtime": 1780205906.6796472,
-    "ast_hash": "3714f97f44f269f5e8ac527d70f76b02",
+    "mtime": 1780503965.082232,
+    "ast_hash": "83739c42073ae76be03dfa086e28c647",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\file-preview-demo\\file-preview-demo.component.ts": {
-    "mtime": 1780205912.8710148,
-    "ast_hash": "0ec8c908f7f9c74b2a4a35682da66653",
+    "mtime": 1780504163.1042545,
+    "ast_hash": "618c6fdc2f27a58be5d20eaa052f18c8",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\countdown\\countdown.component.ts": {
@@ -855,18 +855,18 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\drawer-demo\\drawer-demo.component.ts": {
-    "mtime": 1780205924.7610035,
-    "ast_hash": "bb00a587fbc514297f0c1962293f3045",
+    "mtime": 1780504132.4400735,
+    "ast_hash": "0d8c8da5056a593ef40eda831626a0a3",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\image-compare-demo\\image-compare-demo.component.ts": {
-    "mtime": 1780205935.941149,
-    "ast_hash": "980f890484ad373dd6ce07bfb7d1b6e8",
+    "mtime": 1780504178.2791815,
+    "ast_hash": "891cdcfcc1152c5589a8238f7e008a64",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\segmented-control-demo\\segmented-control-demo.component.ts": {
-    "mtime": 1780205930.2322438,
-    "ast_hash": "11921c289266fbaca83752c5c639ccba",
+    "mtime": 1780504212.901951,
+    "ast_hash": "79346a9bf248e19fbfd8f16deb443088",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\segmented-control\\segmented-control.component.ts": {
@@ -885,18 +885,18 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\back-to-top-demo\\back-to-top-demo.component.ts": {
-    "mtime": 1780205952.9185638,
-    "ast_hash": "5c7a3718376dff834c86968be24d736e",
+    "mtime": 1780503937.514624,
+    "ast_hash": "95fac4a5cbfef5aef7359d83b4c5d95d",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\empty-state-demo\\empty-state-demo.component.ts": {
-    "mtime": 1780205949.502804,
-    "ast_hash": "84756cd5af68aa682a051e7fd947d422",
+    "mtime": 1780509254.328657,
+    "ast_hash": "58ed38fc666a8650c2463ec2969e8f0e",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\key-value-list-demo\\key-value-list-demo.component.ts": {
-    "mtime": 1780205943.833127,
-    "ast_hash": "63d99d859ee9f5c925b0128416084ad6",
+    "mtime": 1780504192.386062,
+    "ast_hash": "50dd0b9ce5ad2e9e4637984ec97360fa",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\empty-state\\empty-state.component.ts": {
@@ -930,8 +930,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\grid-demo\\grid-demo.component.spec.ts": {
-    "mtime": 1780235791.0253134,
-    "ast_hash": "6f0243ab7bf3260ee0a17827df9f2ce8",
+    "mtime": 1780559184.5714054,
+    "ast_hash": "6855712a81cf4481753ee25a15fa64e9",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\pivot-grid\\pivot-grid.component.ts": {
@@ -975,8 +975,13 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\charts-demo\\gantt-chart.component.spec.ts": {
-    "mtime": 1780333230.4022927,
-    "ast_hash": "0ab6f86ab89381bc99fdd3b8cc0bd198",
+    "mtime": 1780488477.0321536,
+    "ast_hash": "53f96939a0a87a0544bfde6a00475059",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\scheduler-demo\\scheduler.component.spec.ts": {
+    "mtime": 1780510700.0453184,
+    "ast_hash": "f27a1f8a151b1d35b7624073f82a8e27",
     "semantic_hash": ""
   }
 }

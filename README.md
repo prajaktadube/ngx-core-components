@@ -10,7 +10,13 @@
 **[https://prajaktadube.github.io/ngx-core-components/](https://prajaktadube.github.io/ngx-core-components/)**
 
 Browse every component interactively — no install required.
- 
+
+---
+
+## 📖 Documentation
+
+The complete, detailed API Reference tables (Inputs, Outputs, Methods, Interfaces) and "How to Use" guides for all 30+ components are available in the **[ngx-core-components Library README](projects/ngx-core-components/README.md)**.
+
 ---
 
 ## Installation

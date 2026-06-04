@@ -7,6 +7,9 @@ export interface SchedulerEvent {
   category?: 'meeting' | 'task' | 'milestone' | 'personal' | 'important' | 'warning';
   color?: string; // custom hex color override
   recurrence?: SchedulerRecurrence;
+  resourceId?: string; // resource key association
+  isAllDay?: boolean; // spans the entire day
+  completed?: boolean; // completed status (for task/checklist categories)
 }
 
 export interface SchedulerRecurrence {
@@ -21,6 +24,7 @@ export interface SchedulerSlotClickEvent {
   date: Date;
   hour: number;
   minute?: number;
+  resourceId?: string;
 }
 
 export interface SchedulerEventChangeEvent {
@@ -29,4 +33,18 @@ export interface SchedulerEventChangeEvent {
   end: Date;
   occurrenceStart?: Date;
   occurrenceEnd?: Date;
+}
+
+export interface SchedulerResource {
+  id: string;
+  name: string;
+  avatarUrl?: string;
+  color?: string;
+  description?: string;
+}
+
+export interface SchedulerSlotRangeSelectEvent {
+  start: Date;
+  end: Date;
+  resourceId?: string;
 }
