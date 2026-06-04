@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TimelineComponent, TimelineItem, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective } from 'ngx-core-components';
+import { TimelineComponent, TimelineItem, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective } from 'ngx-core-components/views';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
