@@ -1,14 +1,14 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SchedulerComponent, SchedulerEvent, SchedulerSlotClickEvent, SchedulerResource, SchedulerSlotRangeSelectEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';
+import { SchedulerComponent, NgxSchedulerEventTemplateDirective, SchedulerEvent, SchedulerSlotClickEvent, SchedulerResource, SchedulerSlotRangeSelectEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
 @Component({
   selector: 'app-scheduler-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, SchedulerComponent],
+  imports: [CommonModule, FormsModule, SchedulerComponent, NgxSchedulerEventTemplateDirective],
   template: `
     <div class="demo-page">
       
@@ -67,6 +67,19 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   </div>
                   <label class="switch">
                     <input type="checkbox" [checked]="showWorkHoursOnly()" (change)="toggleWorkHoursOnly($event)" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
+                <div class="section-divider" style="margin: 4px 0;"></div>
+
+                <div class="switch-row">
+                  <div class="switch-label-wrap">
+                    <span class="switch-title">Custom Card Template</span>
+                    <span class="switch-desc">Use project-level custom event markup</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" [checked]="useCustomTemplate()" (change)="useCustomTemplate.set($any($event.target).checked); addLog('🛠️ Custom event template toggled: ' + useCustomTemplate())" />
                     <span class="slider round"></span>
                   </label>
                 </div>
@@ -232,6 +245,19 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   }
                 }
               </div>
+
+              <div class="section-divider"></div>
+
+              <!-- Keyboard Accessibility shortcuts -->
+              <h3>Keyboard Shortcuts</h3>
+              <p class="panel-desc">Focus the grid container to trigger shortcuts:</p>
+              <div class="shortcuts-legend">
+                <div class="shortcut-row"><kbd class="demo-kbd">T</kbd> <span>Go to Today</span></div>
+                <div class="shortcut-row"><kbd class="demo-kbd">D</kbd> <span>Switch to Day View</span></div>
+                <div class="shortcut-row"><kbd class="demo-kbd">W</kbd> <span>Switch to Week View</span></div>
+                <div class="shortcut-row"><kbd class="demo-kbd">M</kbd> <span>Switch to Month View</span></div>
+                <div class="shortcut-row"><kbd class="demo-kbd">←</kbd> / <kbd class="demo-kbd">→</kbd> <span>Prev / Next period</span></div>
+              </div>
             </div>
 
             <!-- Right panel: Live Interactive Scheduler Component -->
@@ -251,7 +277,23 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 (slotRangeSelect)="onSlotRangeSelect($event)"
                 (eventDelete)="onEventDelete($event)"
                 (eventTimeChange)="onEventTimeChange($event)"
-              />
+              >
+                @if (useCustomTemplate()) {
+                  <ng-template ngxSchedulerEventTemplate let-event="event">
+                    <div class="custom-scheduler-card">
+                      <div class="custom-card-inner">
+                        <span class="custom-avatar-tag" [style.background-color]="event.color || 'var(--primary-color, #4f46e5)'">
+                          {{ getInitials(getResourceName(event.resourceId)) || '?' }}
+                        </span>
+                        <div class="custom-card-body-details">
+                          <strong class="custom-title-text">{{ event.title }}</strong>
+                          <span class="custom-category-tag" [class]="event.category">{{ event.category }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                }
+              </ngx-scheduler>
             </div>
 
           </div>
@@ -804,6 +846,26 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .api-type { color: #a855f7 !important; font-family: monospace; }
     .api-default { font-family: monospace; color: #f43f5e; font-weight: 500; }
 
+    /* Keyboard Shortcuts Legend styling */
+    .shortcuts-legend { display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border-light, #e2e8f0); background: var(--bg-primary, #f8fafc); padding: 12px; border-radius: 8px; }
+    .shortcut-row { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--text-secondary, #475569); }
+    .demo-kbd { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,0.1); color: #334155; display: inline-block; font-size: 10px; font-weight: 700; line-height: 1; padding: 2px 4px; font-family: monospace; }
+
+    /* Custom Scheduler Card Template styling */
+    .custom-scheduler-card { display: flex; flex-direction: column; width: 100%; height: 100%; justify-content: center; }
+    .custom-card-inner { display: flex; align-items: center; gap: 8px; }
+    .custom-avatar-tag { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; color: #ffffff; flex-shrink: 0; }
+    .custom-card-body-details { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .custom-title-text { font-size: 11px; font-weight: 750; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ngx-scheduler-wrapper.dark .custom-title-text { color: #f8fafc; }
+    .custom-category-tag { font-size: 8px; font-weight: 700; text-transform: uppercase; padding: 1px 4px; border-radius: 3px; align-self: flex-start; }
+    .custom-category-tag.meeting { background: #dbeafe; color: #1e40af; }
+    .custom-category-tag.task { background: #d1fae5; color: #065f46; }
+    .custom-category-tag.important { background: #fee2e2; color: #991b1b; }
+    .custom-category-tag.warning { background: #fef3c7; color: #92400e; }
+    .custom-category-tag.milestone { background: #f3e8ff; color: #6b21a8; }
+    .custom-category-tag.personal { background: #ccfbf1; color: #0f766e; }
+
     @keyframes formFade {
       from { opacity: 0; transform: translateY(-6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -821,6 +883,7 @@ export class SchedulerDemoComponent {
   // Resource mode and work hours signal
   useResources = signal<boolean>(true);
   showWorkHoursOnly = signal<boolean>(true);
+  useCustomTemplate = signal<boolean>(false);
 
   // Activity events logging
   logs = signal<{ time: Date; text: string }[]>([]);
@@ -1196,6 +1259,11 @@ export class SchedulerDemoComponent {
   getResourceName(id: string): string {
     const res = this.mockResources.find(r => r.id === id);
     return res ? res.name : id;
+  }
+
+  getInitials(name: string): string {
+    if (!name) return '';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   }
 
   addMockMeeting() {

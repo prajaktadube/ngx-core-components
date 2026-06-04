@@ -25,11 +25,11 @@ export type {
 } from './kanban/models';
 
 // Timeline Component — chronological events list vertical/horizontal
-export { TimelineComponent } from './timeline/timeline.component';
+export { TimelineComponent, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective } from './timeline/timeline.component';
 export type { TimelineItem } from './timeline/timeline.component';
 
 // Scheduler Component — Day/Week/Month appointment planner
-export { SchedulerComponent } from './scheduler/scheduler.component';
+export { SchedulerComponent, NgxSchedulerEventTemplateDirective } from './scheduler/scheduler.component';
 export type {
   SchedulerEvent,
   SchedulerRecurrence,

@@ -7,10 +7,10 @@ export type { CardVariant } from './card/card.component';
 
 export { TabStripComponent, TabComponent } from './tab-strip/tab-strip.component';
 
-export { AccordionComponent } from './accordion/accordion.component';
+export { AccordionComponent, AccordionItemComponent } from './accordion/accordion.component';
 export type { AccordionItem } from './accordion/accordion.component';
 
-export { StepperComponent } from './stepper/stepper.component';
+export { StepperComponent, NgxStepContentDirective } from './stepper/stepper.component';
 export type { StepperStep } from './stepper/stepper.component';
 
 export { SplitterComponent } from './splitter/splitter.component';

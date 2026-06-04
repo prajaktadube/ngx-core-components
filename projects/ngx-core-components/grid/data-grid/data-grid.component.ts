@@ -446,11 +446,28 @@ export class NgxGridFooterTemplateDirective {
                       (dblclick)="editable() ? beginEdit(row, i) : null"
                     >
                       @if (rowReorderable()) {
-                        <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px"><span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()">⋮⋮</span></td>
+                        <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
+                          <span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()" title="Drag row to reorder">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                              <circle cx="9" cy="5" r="1.5"></circle>
+                              <circle cx="9" cy="12" r="1.5"></circle>
+                              <circle cx="9" cy="19" r="1.5"></circle>
+                              <circle cx="15" cy="5" r="1.5"></circle>
+                              <circle cx="15" cy="12" r="1.5"></circle>
+                              <circle cx="15" cy="19" r="1.5"></circle>
+                            </svg>
+                          </span>
+                        </td>
                       }
 
                       @if (showDetailToggle()) {
-                        <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0"><button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">{{ isExpanded(row) ? '▾' : '▸' }}</button></td>
+                        <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
+                          <button class="toggle-btn" [class.expanded]="isExpanded(row)" type="button" (click)="toggleDetail(row); $event.stopPropagation()" title="Toggle Detail">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                              <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                          </button>
+                        </td>
                       }
 
                       @if (selectable()) {
@@ -548,14 +565,16 @@ export class NgxGridFooterTemplateDirective {
                       }
                     </tr>
 
-                    @if (showDetailToggle() && isExpanded(row) && detailRowTemplate()) {
-                      <tr class="grid-detail-row">
+                    @if (showDetailToggle() && detailRowTemplate()) {
+                      <tr class="grid-detail-row" [class.expanded]="isExpanded(row)">
                         <td [attr.colspan]="renderColumnCount()" class="grid-detail-cell">
-                          <ng-container *ngTemplateOutlet="detailRowTemplate(); context: {
-                            $implicit: row,
-                            row: row,
-                            index: i
-                          }" />
+                          <div class="detail-wrapper" [class.expanded]="isExpanded(row)">
+                            <ng-container *ngTemplateOutlet="detailRowTemplate(); context: {
+                              $implicit: row,
+                              row: row,
+                              index: i
+                            }" />
+                          </div>
                         </td>
                       </tr>
                     }
@@ -569,6 +588,7 @@ export class NgxGridFooterTemplateDirective {
                   [class.selected]="isRowSelected(row)"
                   [class.dragging-row]="draggingRowIndex() === i"
                   [class.drag-over-row]="dragOverRowIndex() === i"
+                  [style.transform]="getRowTranslation(i)"
                   (dragover)="onRowDragOver($event, i)"
                   (drop)="onRowDrop($event, i)"
                   (dragend)="onRowDragEnd()"
@@ -576,11 +596,28 @@ export class NgxGridFooterTemplateDirective {
                   (dblclick)="editable() ? beginEdit(row, i) : null"
                 >
                   @if (rowReorderable()) {
-                    <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px"><span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()">⋮⋮</span></td>
+                    <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
+                      <span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()" title="Drag row to reorder">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                          <circle cx="9" cy="5" r="1.5"></circle>
+                          <circle cx="9" cy="12" r="1.5"></circle>
+                          <circle cx="9" cy="19" r="1.5"></circle>
+                          <circle cx="15" cy="5" r="1.5"></circle>
+                          <circle cx="15" cy="12" r="1.5"></circle>
+                          <circle cx="15" cy="19" r="1.5"></circle>
+                        </svg>
+                      </span>
+                    </td>
                   }
 
                   @if (showDetailToggle()) {
-                    <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0"><button class="toggle-btn" type="button" (click)="toggleDetail(row); $event.stopPropagation()">{{ isExpanded(row) ? '▾' : '▸' }}</button></td>
+                    <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
+                      <button class="toggle-btn" [class.expanded]="isExpanded(row)" type="button" (click)="toggleDetail(row); $event.stopPropagation()" title="Toggle Detail">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                      </button>
+                    </td>
                   }
 
                   @if (selectable()) {
@@ -678,14 +715,16 @@ export class NgxGridFooterTemplateDirective {
                   }
                 </tr>
 
-                @if (showDetailToggle() && isExpanded(row) && detailRowTemplate()) {
-                  <tr class="grid-detail-row">
+                @if (showDetailToggle() && detailRowTemplate()) {
+                  <tr class="grid-detail-row" [class.expanded]="isExpanded(row)">
                     <td [attr.colspan]="renderColumnCount()" class="grid-detail-cell">
-                      <ng-container *ngTemplateOutlet="detailRowTemplate(); context: {
-                        $implicit: row,
-                        row: row,
-                        index: i
-                      }" />
+                      <div class="detail-wrapper" [class.expanded]="isExpanded(row)">
+                        <ng-container *ngTemplateOutlet="detailRowTemplate(); context: {
+                          $implicit: row,
+                          row: row,
+                          index: i
+                        }" />
+                      </div>
                     </td>
                   </tr>
                 }
@@ -872,6 +911,18 @@ export class NgxGridFooterTemplateDirective {
             <span class="menu-icon">📋</span> Copy Selection
           </button>
           <div class="menu-divider"></div>
+          @if (showDetailToggle() && detailRowTemplate() && menu.row) {
+            <button class="menu-item" (click)="contextMenuToggleDetail(menu.row)">
+              <span class="menu-icon">🔍</span> {{ isExpanded(menu.row) ? 'Collapse Details' : 'Expand Details' }}
+            </button>
+            <button class="menu-item" (click)="expandAllDetails()">
+              <span class="menu-icon">📂</span> Expand All Details
+            </button>
+            <button class="menu-item" (click)="collapseAllDetails()">
+              <span class="menu-icon">📁</span> Collapse All Details
+            </button>
+            <div class="menu-divider"></div>
+          }
           @if (getColumnDef(menu.colField); as columnDef) {
             @if (columnDef.groupable) {
               @if (internalGroupBy()?.field === menu.colField) {
@@ -1288,17 +1339,48 @@ export class NgxGridFooterTemplateDirective {
       background: transparent;
       color: var(--ngx-grid-text-secondary, #64748b);
       cursor: pointer;
-      font-size: 13px;
-      transition: color 0.15s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
     }
-    .toggle-btn:hover { color: var(--ngx-grid-text, #0f172a); }
-    .grid-detail-row td {
-      background: var(--ngx-grid-stripe-bg, #f8fafc);
-      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+    .toggle-btn:hover {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      color: var(--ngx-input-focus, #4f46e5);
+    }
+    .toggle-btn .chevron-icon {
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .toggle-btn.expanded .chevron-icon {
+      transform: rotate(90deg);
+      color: var(--ngx-input-focus, #4f46e5);
+    }
+    .grid-detail-row {
+      background: var(--ngx-grid-bg, #ffffff);
     }
     .grid-detail-cell {
-      padding: 18px 24px;
+      padding: 0 !important;
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
       white-space: normal;
+    }
+    .detail-wrapper {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 24px;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                  opacity 0.25s ease-out, 
+                  padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
+    }
+    .detail-wrapper.expanded {
+      max-height: 800px;
+      opacity: 1;
+      padding: 16px 24px 20px 24px;
     }
     .grid-edit-input {
       width: 100%;
@@ -1685,25 +1767,37 @@ export class NgxGridFooterTemplateDirective {
       cursor: grab;
       user-select: none;
       color: var(--ngx-grid-text-secondary, #94a3b8);
-      font-size: 15px;
-      font-weight: 700;
-      display: inline-block;
-      padding: 4px 8px;
-      transition: color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      padding: 0;
+      transition: all 0.2s ease;
     }
     .row-drag-handle:hover {
-      color: var(--ngx-grid-text, #0f172a);
+      color: var(--ngx-input-focus, #4f46e5);
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      transform: scale(1.1);
     }
     .row-drag-handle:active {
       cursor: grabbing;
+      transform: scale(0.95);
     }
-    .grid-row.dragging-row {
-      opacity: 0.4;
-      background: var(--ngx-grid-hover-bg, #f1f5f9) !important;
-      border: 1.5px dashed var(--ngx-input-border, #cbd5e1);
+    .grid-row {
+      transition: background-color 0.15s ease, opacity 0.2s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    .grid-row.drag-over-row {
-      border-top: 2px solid var(--ngx-input-focus, #4f46e5) !important;
+    .grid-row.dragging-row td {
+      opacity: 0.35;
+      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.04)) !important;
+      color: var(--ngx-grid-text-secondary, #94a3b8);
+      transition: opacity 0.2s ease;
+    }
+    .grid-row.drag-over-row td {
+      border-top: 2.5px solid var(--ngx-btn-primary-bg, #4f46e5) !important;
+      background: rgba(79, 70, 229, 0.03) !important;
+      box-shadow: inset 0 2px 4px rgba(79, 70, 229, 0.05);
     }
 
     .grid-context-menu {
@@ -3220,6 +3314,40 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     this.dragOverRowIndex.set(null);
   }
 
+  getRowTranslation(index: number): string {
+    const draggingIdx = this.draggingRowIndex();
+    const dragOverIdx = this.dragOverRowIndex();
+    
+    if (draggingIdx === null || dragOverIdx === null || draggingIdx === dragOverIdx) {
+      return '';
+    }
+    
+    // Disable sliding transforms in grouped mode as group segments render hierarchically.
+    if (this.groupedRows().length > 0) {
+      return '';
+    }
+    
+    const rowHeight = 49;
+    
+    if (draggingIdx < dragOverIdx) {
+      if (index > draggingIdx && index <= dragOverIdx) {
+        return `translateY(-${rowHeight}px)`;
+      }
+      if (index === draggingIdx) {
+        return `translateY(${(dragOverIdx - draggingIdx) * rowHeight}px)`;
+      }
+    } else if (draggingIdx > dragOverIdx) {
+      if (index >= dragOverIdx && index < draggingIdx) {
+        return `translateY(${rowHeight}px)`;
+      }
+      if (index === draggingIdx) {
+        return `translateY(-${(draggingIdx - dragOverIdx) * rowHeight}px)`;
+      }
+    }
+    
+    return '';
+  }
+
   getSortIndex(col: GridColumnDef<T>): number {
     return this.sortStates().findIndex(s => s.field === col.field) + 1;
   }
@@ -3293,6 +3421,22 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
   expandAllGroups(): void {
     this.collapsedGroups.set(new Set());
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuToggleDetail(row: T): void {
+    this.toggleDetail(row);
+    this.activeContextMenu.set(null);
+  }
+
+  expandAllDetails(): void {
+    const keys = this.flatRenderedRows().map(r => this.keyOf(r));
+    this.expandedRows.set(new Set(keys));
+    this.activeContextMenu.set(null);
+  }
+
+  collapseAllDetails(): void {
+    this.expandedRows.set(new Set());
     this.activeContextMenu.set(null);
   }
 

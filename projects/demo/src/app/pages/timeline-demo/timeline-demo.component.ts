@@ -1,14 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TimelineComponent, TimelineItem } from 'ngx-core-components';
+import { TimelineComponent, TimelineItem, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective } from 'ngx-core-components';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
 @Component({
   selector: 'app-timeline-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, TimelineComponent],
+  imports: [CommonModule, FormsModule, TimelineComponent, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective],
   template: `
     <div class="demo-page">
       <!-- Page Header -->
@@ -50,8 +50,22 @@ interface ApiRow { name: string; type: string; default: string; description: str
 
               <div class="control-group check-group">
                 <label class="control-label checkbox-label">
-                  <input type="checkbox" [ngModel]="isAlternating()" (ngModelChange)="isAlternating.set($event)" [disabled]="selectedOrientation() === 'horizontal'" />
-                  <span>Alternating Nodes (Vertical only)</span>
+                  <input type="checkbox" [ngModel]="isAlternating()" (ngModelChange)="isAlternating.set($event)" />
+                  <span>Alternating Nodes (Above/Below or Left/Right)</span>
+                </label>
+              </div>
+
+              <div class="control-group check-group">
+                <label class="control-label checkbox-label">
+                  <input type="checkbox" [ngModel]="isClickable()" (ngModelChange)="isClickable.set($event)" />
+                  <span>Interactive / Clickable Cards</span>
+                </label>
+              </div>
+
+              <div class="control-group check-group">
+                <label class="control-label checkbox-label">
+                  <input type="checkbox" [ngModel]="useCustomTemplate()" (ngModelChange)="useCustomTemplate.set($event)" />
+                  <span>Use Custom Templates</span>
                 </label>
               </div>
 
@@ -64,6 +78,15 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   <input type="text" [(ngModel)]="newEventSubtitle" placeholder="Subtitle / Tag (e.g. v1.2)..." class="form-input" />
                 </div>
                 <div class="form-field">
+                  <input type="text" [(ngModel)]="newEventDescription" placeholder="Optional Description..." class="form-input" />
+                </div>
+                <div class="form-field">
+                  <input type="text" [(ngModel)]="newEventIcon" placeholder="Optional Emoji/Icon (e.g. 🚀)..." class="form-input" />
+                </div>
+                <div class="form-field">
+                  <input type="text" [(ngModel)]="newEventColor" placeholder="Hex Color (e.g. #f43f5e)..." class="form-input" />
+                </div>
+                <div class="form-field">
                   <select [(ngModel)]="newEventStatus" class="form-select">
                     <option value="default">Status: Default</option>
                     <option value="success">Status: Success (Green)</option>
@@ -71,6 +94,12 @@ interface ApiRow { name: string; type: string; default: string; description: str
                     <option value="error">Status: Error (Red)</option>
                     <option value="info">Status: Info (Blue)</option>
                   </select>
+                </div>
+                <div class="form-field checkbox-field">
+                  <label class="control-label checkbox-label">
+                    <input type="checkbox" [(ngModel)]="newEventActive" />
+                    <span>Active Event (Pulse Glow)</span>
+                  </label>
                 </div>
                 <button type="button" (click)="addEvent()" class="add-btn">⚡ Append Event Node</button>
               </div>
@@ -84,8 +113,67 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [items]="timelineEvents()"
                   [orientation]="selectedOrientation()"
                   [alternating]="isAlternating()"
-                />
+                  [clickable]="isClickable()"
+                  [selectedItem]="selectedItem()"
+                  (itemClick)="selectedItem.set($event)"
+                >
+                  @if (useCustomTemplate()) {
+                    <ng-template ngxTimelineMarkerTemplate let-item>
+                      <div class="demo-custom-marker" [style.background-color]="item.color || 'var(--item-color)'" [class.pulse-active]="item.active">
+                        <span class="custom-marker-icon">{{ item.icon || '📍' }}</span>
+                      </div>
+                    </ng-template>
+                    
+                    <ng-template ngxTimelineCardTemplate let-item let-index="index">
+                      <div class="demo-custom-card" [class.is-selected]="selectedItem() === item">
+                        <div class="custom-card-header">
+                          <span class="custom-card-badge">{{ item.status || 'default' | uppercase }}</span>
+                          <span class="custom-card-time">{{ item.timestamp }}</span>
+                        </div>
+                        <h4 class="custom-card-title">Node #{{ index + 1 }}: {{ item.title }}</h4>
+                        @if (item.subtitle) {
+                          <div class="custom-card-sub">{{ item.subtitle }}</div>
+                        }
+                        @if (item.description) {
+                          <p class="custom-card-desc">{{ item.description }}</p>
+                        }
+                      </div>
+                    </ng-template>
+                  }
+                </ngx-timeline>
               </div>
+
+              <!-- Selected Item Detail Card -->
+              @if (selectedItem(); as selected) {
+                <div class="selected-details">
+                  <div class="details-header">
+                    <h4>Selected Node Details</h4>
+                    <button class="clear-selection" (click)="selectedItem.set(null)">Clear</button>
+                  </div>
+                  <div class="details-body">
+                    <div class="details-row">
+                      <span class="detail-label">Title:</span>
+                      <strong class="detail-value">{{ selected.title }}</strong>
+                    </div>
+                    @if (selected.subtitle) {
+                      <div class="details-row">
+                        <span class="detail-label">Subtitle:</span>
+                        <span class="detail-value">{{ selected.subtitle }}</span>
+                      </div>
+                    }
+                    <div class="details-row">
+                      <span class="detail-label">Timestamp:</span>
+                      <span class="detail-value">{{ selected.timestamp }}</span>
+                    </div>
+                    @if (selected.description) {
+                      <div class="details-row">
+                        <span class="detail-label">Description:</span>
+                        <p class="detail-value text-desc">{{ selected.description }}</p>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
             </div>
           </div>
 
@@ -147,7 +235,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
     /* Playground Layout grid */
     .playground-layout {
       display: grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 320px 1fr;
       gap: 24px;
       align-items: start;
     }
@@ -203,7 +291,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
       color: #0f172a;
     }
     .check-group {
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
     .control-select {
       padding: 8px 12px;
@@ -234,6 +322,10 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .form-field {
       width: 100%;
     }
+    .checkbox-field {
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
     .form-input, .form-select {
       width: 100%;
       padding: 8px 12px;
@@ -243,6 +335,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
       background: #f8fafc;
       outline: none;
       font-family: inherit;
+      box-sizing: border-box;
     }
     .form-input:focus, .form-select:focus {
       border-color: #1a73e8;
@@ -270,9 +363,149 @@ interface ApiRow { name: string; type: string; default: string; description: str
       min-height: 400px;
       padding: 12px;
       box-sizing: border-box;
+      background: var(--bg-primary, #f8fafc);
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
     }
     .scrollable-x {
       overflow-x: auto;
+    }
+
+    /* Selection feedback card */
+    .selected-details {
+      margin-top: 20px;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #4f46e5;
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+    }
+    .details-header h4 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 750;
+      color: #1e293b;
+    }
+    .clear-selection {
+      background: none;
+      border: none;
+      font-size: 11px;
+      color: #64748b;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .clear-selection:hover {
+      color: #0f172a;
+    }
+    .details-row {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .detail-label {
+      color: #64748b;
+      font-weight: 600;
+      min-width: 80px;
+    }
+    .detail-value {
+      color: #0f172a;
+    }
+    .text-desc {
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Custom Templates Styles */
+    .demo-custom-marker {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      border: 2px solid #fff;
+      font-size: 11px;
+      transition: all 0.25s;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+    .timeline-item:hover .demo-custom-marker {
+      transform: scale(1.2) rotate(15deg);
+    }
+    .pulse-active {
+      animation: customPulse 1.8s infinite ease-out;
+    }
+    @keyframes customPulse {
+      0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.5); }
+      100% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+    }
+    
+    .demo-custom-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      position: relative;
+      width: 100%;
+      text-align: left;
+      box-sizing: border-box;
+      transition: all 0.25s;
+    }
+    .demo-custom-card.is-selected {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+    .timeline-item:hover .demo-custom-card {
+      transform: translateY(-4px);
+      border-color: #475569;
+    }
+    .custom-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .custom-card-badge {
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .custom-card-time {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+    .custom-card-title {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .custom-card-sub {
+      font-size: 10px;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+    .custom-card-desc {
+      margin: 0;
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.4;
     }
 
     /* Code block */
@@ -296,6 +529,9 @@ export class TimelineDemoComponent {
 
   selectedOrientation = signal<'vertical' | 'horizontal'>('vertical');
   isAlternating = signal<boolean>(true);
+  isClickable = signal<boolean>(true);
+  useCustomTemplate = signal<boolean>(false);
+  selectedItem = signal<TimelineItem | null>(null);
 
   // Initial mockup events
   timelineEvents = signal<TimelineItem[]>([
@@ -329,7 +565,8 @@ export class TimelineDemoComponent {
       description: 'esbuild terminated with error TS2538 on component indexing.',
       timestamp: '3 mins ago',
       icon: '✕',
-      status: 'error'
+      status: 'error',
+      active: true
     },
     {
       title: 'Production Build Output Generated',
@@ -344,36 +581,57 @@ export class TimelineDemoComponent {
   // Form bindings
   newEventTitle = '';
   newEventSubtitle = '';
+  newEventDescription = '';
+  newEventIcon = '';
+  newEventColor = '';
   newEventStatus: TimelineItem['status'] = 'default';
+  newEventActive = false;
 
   addEvent(): void {
     if (!this.newEventTitle.trim()) return;
     const item: TimelineItem = {
       title: this.newEventTitle.trim(),
       subtitle: this.newEventSubtitle.trim() || undefined,
+      description: this.newEventDescription.trim() || undefined,
       timestamp: 'Just now',
       status: this.newEventStatus,
-      icon: this.newEventStatus === 'success' ? '✓' : this.newEventStatus === 'error' ? '✕' : 'ℹ'
+      icon: this.newEventIcon.trim() || (this.newEventStatus === 'success' ? '✓' : this.newEventStatus === 'error' ? '✕' : 'ℹ'),
+      color: this.newEventColor.trim() || undefined,
+      active: this.newEventActive
     };
     this.timelineEvents.update(items => [...items, item]);
     this.newEventTitle = '';
     this.newEventSubtitle = '';
+    this.newEventDescription = '';
+    this.newEventIcon = '';
+    this.newEventColor = '';
     this.newEventStatus = 'default';
+    this.newEventActive = false;
   }
 
   codeSnippet = `import { Component, signal } from '@angular/core';
-import { TimelineComponent, TimelineItem } from 'ngx-core-components';
+import { TimelineComponent, TimelineItem, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective } from 'ngx-core-components';
 
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [TimelineComponent],
+  imports: [TimelineComponent, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective],
   template: \`
     <ngx-timeline
       [items]="events()"
       [orientation]="'vertical'"
       [alternating]="true"
-    />
+      [clickable]="true"
+      (itemClick)="onItemClick($event)"
+    >
+      <!-- Optional: Custom Card Template -->
+      <ng-template ngxTimelineCardTemplate let-item let-index="index">
+        <div class="custom-card">
+          <h4>#\{{ index + 1 \}}: \{{ item.title \}}</h4>
+          <p>\{{ item.description \}}</p>
+        </div>
+      </ng-template>
+    </ngx-timeline>
   \`
 })
 export class ExampleComponent {
@@ -384,15 +642,22 @@ export class ExampleComponent {
       description: 'Feature checkout initiated from trunk.',
       timestamp: new Date(),
       status: 'success',
-      icon: '🌿'
+      icon: '🌿',
+      active: true
     }
   ]);
+
+  onItemClick(item: TimelineItem) {
+    console.log('Clicked event node:', item.title);
+  }
 }`;
 
   timelineInputs: ApiRow[] = [
     { name: 'items', type: 'TimelineItem[]', default: '[]', description: 'Chronological list of event data nodes to render.' },
     { name: 'orientation', type: "'vertical' | 'horizontal'", default: "'vertical'", description: 'Arrangement direction of the timeline track.' },
-    { name: 'alternating', type: 'boolean', default: 'false', description: 'Position elements left/right of the vertical track alternately.' }
+    { name: 'alternating', type: 'boolean', default: 'false', description: 'Position elements left/right (or above/below) of the track alternately.' },
+    { name: 'clickable', type: 'boolean', default: 'false', description: 'Enables cards interactive cursors, keyboard focus focus-visible outline, and click events.' },
+    { name: 'selectedItem', type: 'TimelineItem | null', default: 'null', description: 'Currently active/selected item reference for selection state class bindings.' }
   ];
 
   itemProperties: ApiRow[] = [
@@ -402,6 +667,7 @@ export class ExampleComponent {
     { name: 'timestamp', type: 'string | Date', default: 'required', description: 'Time or calendar date tag displayed on top.' },
     { name: 'icon', type: 'string', default: 'optional', description: 'Emoji symbol or letter rendered inside the marker circle.' },
     { name: 'color', type: 'string', default: 'optional', description: 'Custom CSS hex override for the marker outline track.' },
-    { name: 'status', type: "'success' | 'warning' | 'error' | 'info' | 'default'", default: "'default'", description: 'Theme coloring presets for the dot track.' }
+    { name: 'status', type: "'success' | 'warning' | 'error' | 'info' | 'default'", default: "'default'", description: 'Theme coloring presets for the dot track.' },
+    { name: 'active', type: 'boolean', default: 'optional', description: 'If true, wraps the marker dot with a pulsing outer ring indicator.' }
   ];
 }

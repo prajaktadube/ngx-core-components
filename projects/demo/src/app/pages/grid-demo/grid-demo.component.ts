@@ -164,9 +164,17 @@ interface ApiRow {
             </label>
 
             <div class="ctrl-item ctrl-summary">Selected rows: {{ selectedCount() }}</div>
+
+            <button class="grid-action-btn detail-ctrl-btn" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; font-family: inherit; font-weight: 600; cursor: pointer; transition: all 0.2s; background: rgba(79, 70, 229, 0.08); border: 1px solid rgba(79, 70, 229, 0.15); color: var(--primary-color, #4f46e5);" (click)="grid.expandAllDetails()">
+              Expand All Details
+            </button>
+            <button class="grid-action-btn detail-ctrl-btn" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.2s; background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary);" (click)="grid.collapseAllDetails()">
+              Collapse All Details
+            </button>
           </div>
 
           <ngx-data-grid
+            #grid
             [data]="displayRows()"
             [columns]="columns()"
             [page]="gridPage()"
@@ -284,18 +292,38 @@ interface ApiRow {
 
           <ng-template #detailTpl let-row="row">
             <div class="detail-card">
-              <div class="detail-title">Nested Row: Project Allocation for {{ row.name }}</div>
+              <div class="detail-header">
+                <div class="detail-header-left">
+                  <span class="detail-icon">📁</span>
+                  <div class="detail-title-wrap">
+                    <div class="detail-title">Project Allocation</div>
+                    <div class="detail-subtitle">Current assignments for {{ row.name }} · {{ row.department }}</div>
+                  </div>
+                </div>
+                <div class="detail-header-right">
+                  <span class="detail-stat"><strong>{{ row.projects?.length || 0 }}</strong> active projects</span>
+                </div>
+              </div>
               <table class="detail-table">
                 <thead>
-                  <tr><th>Code</th><th>Project</th><th>Hours</th><th>Status</th></tr>
+                  <tr>
+                    <th>Code</th>
+                    <th>Project</th>
+                    <th style="text-align: right;">Hours</th>
+                    <th style="text-align: center;">Status</th>
+                  </tr>
                 </thead>
                 <tbody>
                   @for (project of row.projects; track project.code) {
                     <tr>
-                      <td>{{ project.code }}</td>
-                      <td>{{ project.name }}</td>
-                      <td>{{ project.hours }}</td>
-                      <td>{{ project.status }}</td>
+                      <td style="font-family: monospace; font-weight: 700; color: var(--primary-color, #4f46e5);">{{ project.code }}</td>
+                      <td style="font-weight: 500;">{{ project.name }}</td>
+                      <td style="text-align: right; font-weight: 600; color: var(--text-primary);">{{ project.hours }} hrs</td>
+                      <td style="text-align: center;">
+                        <span class="status-badge" [class]="project.status.toLowerCase().replace(' ', '-')">
+                          {{ project.status }}
+                        </span>
+                      </td>
                     </tr>
                   }
                 </tbody>
@@ -406,12 +434,113 @@ interface ApiRow {
     .row-template-main strong { color: var(--text-primary); font-size: 14px; }
     .row-template-main span { font-size: 12px; color: var(--text-secondary); }
     .row-template-meta { display: flex; gap: 20px; font-size: 13px; color: var(--text-primary); font-weight: 500; }
-    .detail-card { padding: 8px 12px; background: var(--bg-primary); border-radius: 10px; border: 1px solid var(--border-color); }
-    .detail-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif); }
-    .detail-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    .detail-table th, .detail-table td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border-color); color: var(--text-primary); }
-    .detail-table th { color: var(--text-secondary); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
-    .detail-table tbody tr:last-child td { border-bottom: none; }
+    .detail-card {
+      padding: 24px;
+      background: var(--bg-secondary, rgba(255, 255, 255, 0.45));
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .detail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .detail-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .detail-icon {
+      font-size: 20px;
+    }
+    .detail-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .detail-title {
+      font-size: 14px;
+      font-weight: 750;
+      color: var(--text-primary);
+      margin: 0;
+      font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
+    }
+    .detail-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .detail-header-right {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .detail-stat strong {
+      color: var(--primary-color, #4f46e5);
+      font-size: 14px;
+    }
+    .detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .detail-table th, .detail-table td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    .detail-table th {
+      color: var(--text-secondary);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: rgba(0, 0, 0, 0.015);
+    }
+    .detail-table tbody tr {
+      transition: background-color 0.15s ease;
+    }
+    .detail-table tbody tr:hover td {
+      background: var(--ngx-grid-hover-bg, rgba(0, 0, 0, 0.015));
+    }
+    .detail-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .status-badge.planned {
+      background: rgba(148, 163, 184, 0.15);
+      color: #64748b;
+    }
+    .status-badge.in-progress {
+      background: rgba(79, 70, 229, 0.12);
+      color: #4f46e5;
+    }
+    .status-badge.completed {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+    }
+    .detail-ctrl-btn:hover {
+      transform: translateY(-0.5px);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.05);
+    }
+    .detail-ctrl-btn:active {
+      transform: scale(0.97);
+    }
     .event-info { padding: 12px 16px; background: var(--primary-glow); border-radius: 8px; font-size: 12px; font-family: monospace; color: var(--primary-color); border-left: 4px solid var(--primary-color); }
     .code-block { background: #0f172a; color: #f8fafc; padding: 20px; border-radius: 12px; font-size: 12px; font-family: 'Cascadia Code', Consolas, monospace; overflow-x: auto; white-space: pre; margin: 0; box-shadow: var(--shadow-md); border: 1px solid rgba(255,255,255,0.05); }
     .api-table-wrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-secondary); }
@@ -897,7 +1026,9 @@ export class MyCellTemplateComponent {
     { name: 'autoSizeColumn', type: '(col: GridColumnDef): void', default: '—', description: 'Automatically calculates and sets the column width based on its longest data value.' },
     { name: 'goPage', type: '(page: number): void', default: '—', description: 'Programmatically navigates the grid to a specific page index.' },
     { name: 'beginEdit', type: '(row: T, index: number): void', default: '—', description: 'Places the specified row in inline editing mode.' },
-    { name: 'saveEdit', type: '(row: T, index: number): void', default: '—', description: 'Commits inline row editing changes and saves data state.' },
-    { name: 'cancelEdit', type: '(): void', default: '—', description: 'Cancels active inline row edit session, restoring previous cell values.' }
+    { name: 'saveEdit', type: '(): void', default: '—', description: 'Commits inline row editing changes and saves data state.' },
+    { name: 'cancelEdit', type: '(): void', default: '—', description: 'Cancels active inline row edit session, restoring previous cell values.' },
+    { name: 'expandAllDetails', type: '(): void', default: '—', description: 'Expands all nested detail rows programmatically.' },
+    { name: 'collapseAllDetails', type: '(): void', default: '—', description: 'Collapses all nested detail rows programmatically.' }
   ];
 }

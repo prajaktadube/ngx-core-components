@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { SchedulerComponent } from 'ngx-core-components/views';
+import { SchedulerComponent, NgxSchedulerEventTemplateDirective } from 'ngx-core-components/views';
 import { SchedulerEvent, SchedulerResource, SchedulerSlotRangeSelectEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';
 
 @Component({
@@ -44,6 +44,24 @@ class TestSchedulerWrapperComponent {
   onEventDelete(event: SchedulerEvent) {
     this.lastDeletedEvent = event;
   }
+}
+
+@Component({
+  standalone: true,
+  imports: [SchedulerComponent, NgxSchedulerEventTemplateDirective],
+  template: `
+    <ngx-scheduler [events]="events" [currentDate]="testDate" [viewMode]="'week'">
+      <ng-template ngxSchedulerEventTemplate let-event="event">
+        <div class="custom-test-card">{{ event.title }} -- custom</div>
+      </ng-template>
+    </ngx-scheduler>
+  `
+})
+class TestSchedulerTemplateComponent {
+  testDate = new Date(2026, 5, 10);
+  events: SchedulerEvent[] = [
+    { id: 't-1', title: 'Template Evt', start: new Date(2026, 5, 10, 10, 0), end: new Date(2026, 5, 10, 11, 0) }
+  ];
 }
 
 describe('SchedulerComponent', () => {
@@ -264,5 +282,83 @@ describe('SchedulerComponent', () => {
 
     component.exportToICS();
     expect(mockLink.download).toBe('calendar.ics');
+  });
+
+  it('should render custom event templating when provided via NgxSchedulerEventTemplateDirective', async () => {
+    const templFixture = TestBed.createComponent(TestSchedulerTemplateComponent);
+    templFixture.detectChanges();
+
+    const card = templFixture.debugElement.query(By.css('.custom-test-card'));
+    expect(card).toBeTruthy();
+    expect(card.nativeElement.textContent.trim()).toBe('Template Evt -- custom');
+  });
+
+  it('should cap month day events at 2 and render a +X more button for remaining events', () => {
+    const mockEvents: SchedulerEvent[] = [
+      { id: 'm-1', title: 'Evt 1', start: new Date(2026, 5, 10, 9, 0), end: new Date(2026, 5, 10, 10, 0) },
+      { id: 'm-2', title: 'Evt 2', start: new Date(2026, 5, 10, 11, 0), end: new Date(2026, 5, 10, 12, 0) },
+      { id: 'm-3', title: 'Evt 3', start: new Date(2026, 5, 10, 13, 0), end: new Date(2026, 5, 10, 14, 0) }
+    ];
+    wrapper.events.set(mockEvents);
+    wrapper.viewMode.set('month');
+    fixture.detectChanges();
+
+    const items = fixture.debugElement.queryAll(By.css('.month-event-item'));
+    expect(items.length).toBe(2);
+
+    const moreBtn = fixture.debugElement.query(By.css('.month-more-indicator'));
+    expect(moreBtn).toBeTruthy();
+    expect(moreBtn.nativeElement.textContent.trim()).toBe('+1 more');
+  });
+
+  it('should open month popover dialog when +X more indicator is clicked', () => {
+    const mockEvents: SchedulerEvent[] = [
+      { id: 'm-1', title: 'Evt 1', start: new Date(2026, 5, 10, 9, 0), end: new Date(2026, 5, 10, 10, 0) },
+      { id: 'm-2', title: 'Evt 2', start: new Date(2026, 5, 10, 11, 0), end: new Date(2026, 5, 10, 12, 0) },
+      { id: 'm-3', title: 'Evt 3', start: new Date(2026, 5, 10, 13, 0), end: new Date(2026, 5, 10, 14, 0) }
+    ];
+    wrapper.events.set(mockEvents);
+    wrapper.viewMode.set('month');
+    fixture.detectChanges();
+
+    const moreBtn = fixture.debugElement.query(By.css('.month-more-indicator'));
+    moreBtn.nativeElement.click();
+    fixture.detectChanges();
+
+    expect(component.activeMonthPopoverDate()).not.toBeNull();
+    const popover = fixture.debugElement.query(By.css('.month-events-popover'));
+    expect(popover).toBeTruthy();
+
+    const popoverEvents = popover.queryAll(By.css('.popover-event-item'));
+    expect(popoverEvents.length).toBe(3);
+
+    const closeBtn = popover.query(By.css('.popover-close'));
+    closeBtn.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.activeMonthPopoverDate()).toBeNull();
+  });
+
+  it('should navigate views and dates on keyboard shortcut presses', () => {
+    const dispatchKey = (key: string) => {
+      const e = new KeyboardEvent('keydown', { key });
+      window.dispatchEvent(e);
+      fixture.detectChanges();
+    };
+
+    dispatchKey('d');
+    expect(component.activeMode()).toBe('day');
+
+    dispatchKey('m');
+    expect(component.activeMode()).toBe('month');
+
+    dispatchKey('w');
+    expect(component.activeMode()).toBe('week');
+
+    const initialDate = new Date(component.activeDate());
+    dispatchKey('ArrowRight');
+    
+    const nextDate = component.activeDate();
+    const diff = Math.round((nextDate.getTime() - initialDate.getTime()) / 86400000);
+    expect(diff).toBe(7);
   });
 });

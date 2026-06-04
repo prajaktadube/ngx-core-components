@@ -119,7 +119,7 @@ export type {
   KanbanCardMoveEvent,
   KanbanMoveRejectedEvent,
 } from 'ngx-core-components/views';
-export { TimelineComponent } from 'ngx-core-components/views';
+export { TimelineComponent, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective } from 'ngx-core-components/views';
 export type { TimelineItem } from 'ngx-core-components/views';
 export { SchedulerComponent } from 'ngx-core-components/views';
 export type { SchedulerEvent, SchedulerRecurrence, SchedulerSlotClickEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';

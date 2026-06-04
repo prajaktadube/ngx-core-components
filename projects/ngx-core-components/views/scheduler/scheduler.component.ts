@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, computed, effect, input, output, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, computed, effect, input, output, signal, OnInit, OnDestroy, Directive, TemplateRef, inject, contentChild } from '@angular/core';
 import { SchedulerEvent, SchedulerEventChangeEvent, SchedulerSlotClickEvent, SchedulerResource, SchedulerSlotRangeSelectEvent } from './models';
+
+@Directive({
+  selector: '[ngxSchedulerEventTemplate]',
+  standalone: true
+})
+export class NgxSchedulerEventTemplateDirective {
+  templateRef = inject(TemplateRef);
+}
 
 interface TimeSlot {
   hour: number;
@@ -119,7 +127,7 @@ interface ResizeState {
       </div>
 
       <!-- Scheduler Body -->
-      <div class="scheduler-body" (click)="showExportDropdown.set(false)">
+      <div class="scheduler-body" (click)="showExportDropdown.set(false); activeMonthPopoverDate.set(null)">
         @if (activeMode() === 'day' || activeMode() === 'week') {
           <div class="time-grid-container">
             
@@ -270,7 +278,9 @@ interface ResizeState {
                         (dragstart)="onEventDragStart($event, layout)"
                         (dragend)="onEventDragEnd()"
                         (click)="clickEvent(layout.event)"
+                        (keydown.enter)="clickEvent(layout.event)"
                         [title]="eventTitle(layout)"
+                        tabindex="0"
                       >
                         <button
                           class="resize-handle resize-start"
@@ -280,40 +290,44 @@ interface ResizeState {
                           (pointerdown)="startResize($event, layout, 'start')"
                         ></button>
                         
-                        <div class="event-color-indicator"></div>
-                        
-                        <!-- Task Completion Checkbox -->
-                        @if (layout.event.category === 'task') {
-                          <input type="checkbox"
-                                 class="task-completion-checkbox"
-                                 [checked]="layout.event.completed || false"
-                                 (click)="$event.stopPropagation()"
-                                 (change)="toggleTaskCompletion(layout.event, $event)" />
-                        }
-
-                        <div class="event-details">
-                          <div class="event-header-row">
-                            <span class="event-title">{{ layout.event.title }}</span>
-                            @if (layout.event.recurrence) {
-                              <svg class="recurrence-icon-svg" viewBox="0 0 24 24" title="Recurring series"><path fill="currentColor" d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L4.7 18.7c-1.07-1.63-1.7-3.6-1.7-5.7 0-5.52 4.48-10 10-10zm7.76 5.74L18.3 10.3c1.07 1.63 1.7 3.6 1.7 5.7 0 5.52-4.48 10-10 10v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
-                            }
-                          </div>
+                        @if (eventTemplate()) {
+                          <ng-container *ngTemplateOutlet="eventTemplate()!.templateRef; context: { $implicit: layout.event, event: layout.event, layout: layout }" />
+                        } @else {
+                          <div class="event-color-indicator"></div>
                           
-                          <span class="event-time">
-                            {{ formatEventTime(layout.start, layout.end) }}
-                            @if (layout.event.resourceId; as resId) {
-                              • {{ getResourceName(resId) }}
-                            }
-                          </span>
-                        </div>
+                          <!-- Task Completion Checkbox -->
+                          @if (layout.event.category === 'task') {
+                            <input type="checkbox"
+                                   class="task-completion-checkbox"
+                                   [checked]="layout.event.completed || false"
+                                   (click)="$event.stopPropagation()"
+                                   (change)="toggleTaskCompletion(layout.event, $event)" />
+                          }
 
-                        <!-- Card Delete Quick Action -->
-                        <button class="event-delete-btn" 
-                                type="button" 
-                                aria-label="Delete event"
-                                (click)="deleteEvent(layout.event, $event)">
-                          <svg class="delete-icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z"/></svg>
-                        </button>
+                          <div class="event-details">
+                            <div class="event-header-row">
+                              <span class="event-title">{{ layout.event.title }}</span>
+                              @if (layout.event.recurrence) {
+                                <svg class="recurrence-icon-svg" viewBox="0 0 24 24" title="Recurring series"><path fill="currentColor" d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L4.7 18.7c-1.07-1.63-1.7-3.6-1.7-5.7 0-5.52 4.48-10 10-10zm7.76 5.74L18.3 10.3c1.07 1.63 1.7 3.6 1.7 5.7 0 5.52-4.48 10-10 10v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
+                              }
+                            </div>
+                            
+                            <span class="event-time">
+                              {{ formatEventTime(layout.start, layout.end) }}
+                              @if (layout.event.resourceId; as resId) {
+                                • {{ getResourceName(resId) }}
+                              }
+                            </span>
+                          </div>
+
+                          <!-- Card Delete Quick Action -->
+                          <button class="event-delete-btn" 
+                                  type="button" 
+                                  aria-label="Delete event"
+                                  (click)="deleteEvent(layout.event, $event)">
+                            <svg class="delete-icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z"/></svg>
+                          </button>
+                        }
 
                         <button
                           class="resize-handle resize-end"
@@ -350,7 +364,7 @@ interface ResizeState {
                   <span class="month-day-number">{{ formatDate(cell.date, { day: 'numeric' }) }}</span>
 
                   <div class="month-day-events-list">
-                    @for (evt of getEventsForDate(cell.date); track evt.id) {
+                    @for (evt of getEventsForDate(cell.date).slice(0, 2); track evt.id) {
                       <div
                         class="month-event-item"
                         [class.meeting]="evt.event.category === 'meeting'"
@@ -362,15 +376,68 @@ interface ResizeState {
                         [class.completed]="evt.event.completed"
                         [ngStyle]="getEventStyles(evt.event)"
                         (click)="clickEvent(evt.event); $event.stopPropagation()"
+                        (keydown.enter)="clickEvent(evt.event); $event.stopPropagation()"
                         [title]="evt.event.title"
+                        tabindex="0"
                       >
                         @if (evt.event.recurrence) {
                           <svg class="month-recurrence-icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L4.7 18.7c-1.07-1.63-1.7-3.6-1.7-5.7 0-5.52 4.48-10 10-10zm7.76 5.74L18.3 10.3c1.07 1.63 1.7 3.6 1.7 5.7 0 5.52-4.48 10-10 10v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
                         }
-                        {{ evt.event.title }}
+                        @if (eventTemplate()) {
+                          <ng-container *ngTemplateOutlet="eventTemplate()!.templateRef; context: { $implicit: evt.event, event: evt.event, layout: evt }" />
+                        } @else {
+                          {{ evt.event.title }}
+                        }
                       </div>
                     }
+                    @if (getEventsForDate(cell.date).length > 2) {
+                      <button 
+                        class="month-more-indicator" 
+                        type="button" 
+                        (click)="openMonthPopover($event, cell.date)"
+                      >
+                        +{{ getEventsForDate(cell.date).length - 2 }} more
+                      </button>
+                    }
                   </div>
+
+                  <!-- Month Events Popover -->
+                  @if (activeMonthPopoverDate() && isSameDate(activeMonthPopoverDate()!, cell.date)) {
+                    <div class="month-events-popover" (click)="$event.stopPropagation()">
+                      <div class="popover-header">
+                        <span class="popover-date">{{ formatDate(cell.date, { weekday: 'short', month: 'short', day: 'numeric' }) }}</span>
+                        <button class="popover-close" type="button" (click)="closeMonthPopover($event)">×</button>
+                      </div>
+                      <div class="popover-body">
+                        @for (evt of getEventsForDate(cell.date); track evt.id) {
+                          <div
+                            class="month-event-item popover-event-item"
+                            [class.meeting]="evt.event.category === 'meeting'"
+                            [class.task]="evt.event.category === 'task'"
+                            [class.important]="evt.event.category === 'important'"
+                            [class.warning]="evt.event.category === 'warning'"
+                            [class.milestone]="evt.event.category === 'milestone'"
+                            [class.personal]="evt.event.category === 'personal'"
+                            [class.completed]="evt.event.completed"
+                            [ngStyle]="getEventStyles(evt.event)"
+                            (click)="clickEvent(evt.event); activeMonthPopoverDate.set(null); $event.stopPropagation()"
+                            (keydown.enter)="clickEvent(evt.event); activeMonthPopoverDate.set(null); $event.stopPropagation()"
+                            [title]="evt.event.title"
+                            tabindex="0"
+                          >
+                            @if (evt.event.recurrence) {
+                              <svg class="month-recurrence-icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L4.7 18.7c-1.07-1.63-1.7-3.6-1.7-5.7 0-5.52 4.48-10 10-10zm7.76 5.74L18.3 10.3c1.07 1.63 1.7 3.6 1.7 5.7 0 5.52-4.48 10-10 10v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
+                            }
+                            @if (eventTemplate()) {
+                              <ng-container *ngTemplateOutlet="eventTemplate()!.templateRef; context: { $implicit: evt.event, event: evt.event, layout: evt }" />
+                            } @else {
+                              {{ evt.event.title }}
+                            }
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
                 </div>
               }
             </div>
@@ -489,7 +556,13 @@ interface ResizeState {
 
     /* Live Current Time Indicator styling */
     .current-time-line { position: absolute; left: 0; right: 0; height: 2px; background: #ef4444; z-index: 10; pointer-events: none; }
-    .line-dot { position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 4px rgba(239, 68, 68, 0.8); }
+    .line-dot { position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.8); animation: pulse-glow 2s infinite; }
+
+    @keyframes pulse-glow {
+      0% { transform: scale(1); box-shadow: 0 0 4px 0px rgba(239, 68, 68, 0.8); }
+      50% { transform: scale(1.35); box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.45); }
+      100% { transform: scale(1); box-shadow: 0 0 4px 0px rgba(239, 68, 68, 0.8); }
+    }
 
     /* Drag Selection Preview styling */
     .drag-select-preview { position: absolute; left: 4px; right: 4px; border: 2px dashed var(--primary-color, #4f46e5); border-radius: 8px; background: rgba(79, 70, 229, 0.08); z-index: 5; pointer-events: none; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
@@ -497,8 +570,9 @@ interface ResizeState {
     .plus-icon-svg { color: var(--primary-color, #4f46e5); width: 14px; height: 14px; }
 
     /* Event Cards styling */
-    .scheduler-event-card { position: absolute; right: auto; border-radius: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.4; cursor: grab; display: flex; gap: 8px; z-index: 3; box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05)); transition: transform 0.2s, box-shadow 0.2s; overflow: hidden; border: 1px solid transparent; min-height: 28px; }
+    .scheduler-event-card { position: absolute; right: auto; border-radius: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.4; cursor: grab; display: flex; gap: 8px; z-index: 3; box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05)); transition: transform 0.2s, box-shadow 0.2s; overflow: hidden; border: 1px solid transparent; min-height: 28px; outline: none; }
     .scheduler-event-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1)); z-index: 4; }
+    .scheduler-event-card:focus-visible { border-color: var(--primary-color, #4f46e5); box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25); }
     .scheduler-event-card.completed .event-title { text-decoration: line-through; opacity: 0.65; }
     .event-color-indicator { width: 3px; height: 100%; border-radius: 2px; flex-shrink: 0; background: currentColor; }
     .event-details { display: flex; flex-direction: column; gap: 2px; overflow: hidden; min-width: 0; flex: 1; }
@@ -513,7 +587,13 @@ interface ResizeState {
     .scheduler-event-card:hover .event-delete-btn { opacity: 1; }
     .delete-icon-svg { width: 12px; height: 12px; }
 
-    .resize-handle { position: absolute; left: 0; right: 0; height: 6px; border: 0; background: transparent; cursor: ns-resize; }
+    /* Resize Handles */
+    .resize-handle { position: absolute; left: 0; right: 0; height: 8px; border: 0; background: transparent; cursor: ns-resize; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.15s; }
+    .resize-handle::after { content: ''; width: 24px; height: 2px; background: rgba(0,0,0,0.15); border-radius: 1px; opacity: 0; transition: opacity 0.15s; }
+    .ngx-scheduler-wrapper.dark .resize-handle::after { background: rgba(255,255,255,0.25); }
+    .scheduler-event-card:hover .resize-handle::after { opacity: 1; }
+    .resize-handle:hover { background: rgba(0, 0, 0, 0.05); }
+    .ngx-scheduler-wrapper.dark .resize-handle:hover { background: rgba(255, 255, 255, 0.05); }
     .resize-start { top: 0; }
     .resize-end { bottom: 0; }
 
@@ -532,18 +612,36 @@ interface ResizeState {
     .month-day-number { font-size: 11px; font-weight: 650; color: var(--text-secondary, #475569); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
     
     .month-day-events-list { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; max-height: 90px; }
-    .month-event-item { font-size: 10px; font-weight: 650; padding: 2px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: transform 0.1s; display: flex; align-items: center; }
+    .month-event-item { font-size: 10px; font-weight: 650; padding: 2px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: transform 0.1s; display: flex; align-items: center; outline: none; }
     .month-event-item:hover { transform: scale(1.02); }
+    .month-event-item:focus-visible { box-shadow: 0 0 0 2px var(--primary-color, #4f46e5); }
     .month-event-item.completed { text-decoration: line-through; opacity: 0.65; }
     .month-recurrence-icon-svg { color: currentColor; opacity: 0.8; width: 11px; height: 11px; margin-right: 3px; display: inline-block; flex-shrink: 0; }
 
+    /* Month popover styles */
+    .month-more-indicator { background: var(--primary-glow, rgba(79, 70, 229, 0.08)); color: var(--primary-color, #4f46e5); border: none; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 3px 6px; cursor: pointer; text-align: left; transition: background 0.15s; width: 100%; outline: none; }
+    .month-more-indicator:hover { background: rgba(79, 70, 229, 0.15); }
+    .month-more-indicator:focus-visible { box-shadow: 0 0 0 2px var(--primary-color, #4f46e5); }
+    .month-events-popover { position: absolute; top: 4px; left: 4px; right: 4px; background: var(--bg-secondary, #ffffff); border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); z-index: 100; display: flex; flex-direction: column; padding: 8px; min-width: 180px; animation: popoverFadeIn 0.15s ease-out; }
+    .popover-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px solid var(--border-light, #e2e8f0); padding-bottom: 4px; }
+    .popover-date { font-size: 11px; font-weight: 750; color: var(--text-secondary, #475569); }
+    .popover-close { background: none; border: none; font-size: 16px; font-weight: 700; color: #94a3b8; cursor: pointer; line-height: 1; padding: 0 2px; }
+    .popover-close:hover { color: #475569; }
+    .popover-body { display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto; }
+    .popover-event-item { margin-bottom: 2px; }
+
+    @keyframes popoverFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     /* Theme Categories */
-    .meeting { background-color: var(--ngx-schedule-meeting-bg, hsl(207, 95%, 97%)); border-color: var(--ngx-schedule-meeting-border, hsl(207, 90%, 88%)); color: var(--ngx-schedule-meeting-text, hsl(207, 90%, 30%)); }
-    .task { background-color: var(--ngx-schedule-task-bg, hsl(142, 70%, 97%)); border-color: var(--ngx-schedule-task-border, hsl(142, 60%, 88%)); color: var(--ngx-schedule-task-text, hsl(142, 60%, 25%)); }
-    .important { background-color: var(--ngx-schedule-important-bg, hsl(0, 90%, 97%)); border-color: var(--ngx-schedule-important-border, hsl(0, 80%, 88%)); color: var(--ngx-schedule-important-text, hsl(0, 80%, 35%)); }
-    .warning { background-color: var(--ngx-schedule-warning-bg, hsl(38, 90%, 97%)); border-color: var(--ngx-schedule-warning-border, hsl(38, 80%, 88%)); color: var(--ngx-schedule-warning-text, hsl(38, 80%, 28%)); }
-    .milestone { background-color: var(--ngx-schedule-milestone-bg, hsl(271, 80%, 97%)); border-color: var(--ngx-schedule-milestone-border, hsl(271, 70%, 88%)); color: var(--ngx-schedule-milestone-text, hsl(271, 70%, 35%)); }
-    .personal { background-color: var(--ngx-schedule-personal-bg, hsl(180, 70%, 96%)); border-color: var(--ngx-schedule-personal-border, hsl(180, 60%, 85%)); color: var(--ngx-schedule-personal-text, hsl(180, 60%, 28%)); }
+    .meeting { background-color: var(--ngx-schedule-meeting-bg, rgba(59, 130, 246, 0.07)); border-color: var(--ngx-schedule-meeting-border, rgba(59, 130, 246, 0.15)); color: var(--ngx-schedule-meeting-text, #2563eb); border-left: 4px solid #3b82f6 !important; }
+    .task { background-color: var(--ngx-schedule-task-bg, rgba(16, 185, 129, 0.07)); border-color: var(--ngx-schedule-task-border, rgba(16, 185, 129, 0.15)); color: var(--ngx-schedule-task-text, #059669); border-left: 4px solid #10b981 !important; }
+    .important { background-color: var(--ngx-schedule-important-bg, rgba(239, 68, 68, 0.07)); border-color: var(--ngx-schedule-important-border, rgba(239, 68, 68, 0.15)); color: var(--ngx-schedule-important-text, #dc2626); border-left: 4px solid #ef4444 !important; }
+    .warning { background-color: var(--ngx-schedule-warning-bg, rgba(245, 158, 11, 0.07)); border-color: var(--ngx-schedule-warning-border, rgba(245, 158, 11, 0.15)); color: var(--ngx-schedule-warning-text, #d97706); border-left: 4px solid #f59e0b !important; }
+    .milestone { background-color: var(--ngx-schedule-milestone-bg, rgba(139, 92, 246, 0.07)); border-color: var(--ngx-schedule-milestone-border, rgba(139, 92, 246, 0.15)); color: var(--ngx-schedule-milestone-text, #7c3aed); border-left: 4px solid #8b5cf6 !important; }
+    .personal { background-color: var(--ngx-schedule-personal-bg, rgba(20, 184, 166, 0.07)); border-color: var(--ngx-schedule-personal-border, rgba(20, 184, 166, 0.15)); color: var(--ngx-schedule-personal-text, #0d9488); border-left: 4px solid #14b8a6 !important; }
     
     /* Dark Theme Support */
     .ngx-scheduler-wrapper.dark { border-color: #1f2937; background: #0f172a; color: #f8fafc; }
@@ -575,6 +673,9 @@ interface ResizeState {
     .ngx-scheduler-wrapper.dark .event-delete-btn { background: rgba(15, 23, 42, 0.6); color: #f87171; }
     .ngx-scheduler-wrapper.dark .event-delete-btn:hover { background: #1e293b; }
     .ngx-scheduler-wrapper.dark .task-completion-checkbox { border-color: #374151; background: #1f2937; }
+    .ngx-scheduler-wrapper.dark .month-events-popover { background: #1e293b; border-color: #374151; }
+    .ngx-scheduler-wrapper.dark .popover-date { color: #94a3b8; }
+    .ngx-scheduler-wrapper.dark .popover-header { border-color: #374151; }
 
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-4px); }
@@ -619,6 +720,57 @@ export class SchedulerComponent implements OnInit, OnDestroy {
   dragSelectStart = signal<{ date: Date; hour: number; minute: number; resourceId?: string } | null>(null);
   dragSelectCurrent = signal<{ date: Date; hour: number; minute: number; resourceId?: string } | null>(null);
   showExportDropdown = signal<boolean>(false);
+  activeMonthPopoverDate = signal<Date | null>(null);
+
+  eventTemplate = contentChild(NgxSchedulerEventTemplateDirective);
+
+  openMonthPopover(event: MouseEvent, date: Date): void {
+    event.stopPropagation();
+    this.activeMonthPopoverDate.set(date);
+  }
+
+  closeMonthPopover(event: MouseEvent): void {
+    event.stopPropagation();
+    this.activeMonthPopoverDate.set(null);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent): void {
+    const activeEl = document.activeElement;
+    if (activeEl) {
+      const tagName = activeEl.tagName.toLowerCase();
+      if (tagName === 'input' || tagName === 'textarea' || tagName === 'select' || activeEl.getAttribute('contenteditable') === 'true') {
+        return;
+      }
+    }
+
+    switch (event.key.toLowerCase()) {
+      case 't':
+        this.goToToday();
+        event.preventDefault();
+        break;
+      case 'd':
+        this.activeMode.set('day');
+        event.preventDefault();
+        break;
+      case 'w':
+        this.activeMode.set('week');
+        event.preventDefault();
+        break;
+      case 'm':
+        this.activeMode.set('month');
+        event.preventDefault();
+        break;
+      case 'arrowleft':
+        this.navigate(-1);
+        event.preventDefault();
+        break;
+      case 'arrowright':
+        this.navigate(1);
+        event.preventDefault();
+        break;
+    }
+  }
 
   // Live Current-Time Indicator State
   now = signal<Date>(new Date());
@@ -1315,7 +1467,7 @@ export class SchedulerComponent implements OnInit, OnDestroy {
     });
   }
 
-  private isSameDate(d1: Date, d2: Date): boolean {
+  protected isSameDate(d1: Date, d2: Date): boolean {
     return this.dateKey(d1) === this.dateKey(d2);
   }
 

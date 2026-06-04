@@ -579,6 +579,47 @@ describe('DataGridComponent Enterprise Features', () => {
     expect(dummyAnchor.setAttribute).toHaveBeenCalledWith('download', 'grid-data.xls');
     expect(dummyAnchor.click).toHaveBeenCalled();
   });
+
+  it('should toggle detail expanded state on toggleDetail call', () => {
+    const row = gridComponent.flatRenderedRows()[0];
+    expect(gridComponent.isExpanded(row)).toBe(false);
+
+    gridComponent.toggleDetail(row);
+    expect(gridComponent.isExpanded(row)).toBe(true);
+
+    gridComponent.toggleDetail(row);
+    expect(gridComponent.isExpanded(row)).toBe(false);
+  });
+
+  it('should expand and collapse all details programmatically', () => {
+    const rows = gridComponent.flatRenderedRows();
+    expect(gridComponent.expandedRows().size).toBe(0);
+
+    gridComponent.expandAllDetails();
+    expect(gridComponent.expandedRows().size).toBe(rows.length);
+
+    gridComponent.collapseAllDetails();
+    expect(gridComponent.expandedRows().size).toBe(0);
+  });
+
+  it('should compute correct row translation transforms when dragging and hovering', () => {
+    // If not dragging, translation should be empty
+    expect(gridComponent.getRowTranslation(0)).toBe('');
+
+    // Start dragging row index 0
+    gridComponent.draggingRowIndex.set(0);
+    // Hovering over row index 2
+    gridComponent.dragOverRowIndex.set(2);
+    
+    // Row 0 is the dragged row, should translate down to position 2 (2 * 49 = 98px)
+    expect(gridComponent.getRowTranslation(0)).toBe('translateY(98px)');
+    // Row 1 is between dragging and dragOver index, should slide up (-49px)
+    expect(gridComponent.getRowTranslation(1)).toBe('translateY(-49px)');
+    // Row 2 is the dragOver index, should slide up (-49px)
+    expect(gridComponent.getRowTranslation(2)).toBe('translateY(-49px)');
+    // Row 3 is outside range, should not translate
+    expect(gridComponent.getRowTranslation(3)).toBe('');
+  });
 });
 
 @Component({
