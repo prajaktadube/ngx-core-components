@@ -170,4 +170,9 @@ export const routes: Routes = [
       loadComponent: () =>
         import('./pages/back-to-top-demo/back-to-top-demo.component').then(m => m.BackToTopDemoComponent),
     },
+    {
+      path: 'calendar',
+      loadComponent: () =>
+        import('./pages/calendar-demo/calendar-demo.component').then(m => m.CalendarDemoComponent),
+    },
 ];

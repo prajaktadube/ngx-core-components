@@ -13,7 +13,9 @@ import {
   AICodeEditorComponent,
   AIAudioWaveComponent,
   AIModelCompareComponent,
-  AIModel
+  AIModel,
+  AIRagInspectorComponent,
+  RAGSource
 } from 'ngx-core-components/ai';
 
 @Component({
@@ -27,7 +29,8 @@ import {
     AIPromptEditorComponent,
     AICodeEditorComponent,
     AIAudioWaveComponent,
-    AIModelCompareComponent
+    AIModelCompareComponent,
+    AIRagInspectorComponent
   ],
   template: `
     <div class="demo-page">
@@ -85,6 +88,9 @@ import {
                 (quickReplyClick)="onQuickReplyClick($event)"
                 (cardActionClick)="onCardActionClick($event)"
                 (clearHistory)="onClearHistory()"
+                (messageFeedback)="onMessageFeedback($event)"
+                (fileAttached)="onFileAttached($event)"
+                (messageSent)="onMessageSentWithFiles($event)"
               />
             </div>
           </div>
@@ -228,7 +234,7 @@ import {
 
             <ngx-ai-code-editor
               [code]="demoCode()"
-              [suggestion]="demoSuggestion()"
+              [suggestions]="demoSuggestions()"
               [language]="demoLanguage()"
               [theme]="demoCodeTheme()"
               [explanation]="demoExplanation()"
@@ -272,6 +278,7 @@ import {
                 [state]="voiceState()"
                 [theme]="demoCodeTheme()"
                 [muted]="voiceMuted()"
+                [autoCapture]="voiceAutoCapture()"
                 (stateChange)="onVoiceStateChange($event)"
                 (mutedChange)="onVoiceMutedChange($event)"
                 (micToggle)="onVoiceMicToggle($event)"
@@ -303,6 +310,14 @@ import {
                     (ngModelChange)="voiceMuted.set($event)"
                   />
                   <span>Mute Audio Output</span>
+                </label>
+                <label class="control-label" style="cursor: pointer; margin-left: 16px;">
+                  <input
+                    type="checkbox"
+                    [ngModel]="voiceAutoCapture()"
+                    (ngModelChange)="voiceAutoCapture.set($event)"
+                  />
+                  <span>🎤 Live Audio Input Capture (Web Audio API)</span>
                 </label>
               </div>
             </div>
@@ -376,6 +391,47 @@ import {
                 Select a model row from the table above to view detailed insights.
               </div>
             }
+          </div>
+        </div>
+      }
+
+      <!-- ===== RAG CITATION INSPECTOR ===== -->
+      @if (activeTab() === 'RAG Citation Inspector') {
+        <div class="demo-layout">
+          <div class="demo-card">
+            <ngx-ai-rag-inspector
+              [sources]="ragSources()"
+              [theme]="demoCodeTheme()"
+              [title]="'Retrieval Citations Inspector'"
+            />
+          </div>
+          
+          <div class="demo-card doc-panel">
+            <h3>Enterprise RAG Citation Architecture</h3>
+            <p>
+              In large language model workflows, Hallucinations are mitigated by supplying document chunks from vector databases. 
+              The <strong>AIRagInspector</strong> parses:
+            </p>
+            <div class="feature-bullets">
+              <div class="bullet-item">
+                <div class="bullet-icon">📄</div>
+                <div>
+                  <strong>Similarity Scores:</strong> Real-time representation of vector distance relevance scores, color-coded by strength.
+                </div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon">🔎</div>
+                <div>
+                  <strong>Text Highlight Parsing:</strong> Inline dynamic highlighting matches search queries with precise citation snippets.
+                </div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon">👍</div>
+                <div>
+                  <strong>Feedback Loops:</strong> Native thumbs-up/down interaction controls allowing downstream model reinforcement learning context loops.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       }
@@ -804,7 +860,8 @@ export class AiDemoComponent {
     'Prompt Studio Playground',
     'Code Completion Editor',
     'Voice Audio Wave',
-    'Model Matrix Compare'
+    'Model Matrix Compare',
+    'RAG Citation Inspector'
   ];
 
   // Floating Chat Widget setup
@@ -858,13 +915,27 @@ function binarySearch(arr: number[], target: number): number {
       return mid;
     }
     `);
-  demoSuggestion = signal(`if (arr[mid] < target) {
+  demoSuggestions = signal<string[]>([
+    `if (arr[mid] < target) {
       left = mid + 1;
     } else {
       right = mid - 1;
     }
   }
-  return -1;`);
+  return -1;`,
+    `if (arr[mid] > target) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+  return -1;`,
+    `const val = arr[mid];
+    if (val < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return -1;`
+  ]);
   demoLanguage = signal('typescript');
   demoCodeTheme = signal<'light' | 'dark'>('light');
   demoExplanation = signal('This snippet implements the core logic of a binary search algorithm. It checks the mid-point element: if it matches the target, it returns the index. If the mid-point value is less than the target, it narrows the search space to the right half; otherwise, it narrows it to the left half. If the loop completes without finding the target, it returns -1.');
@@ -886,13 +957,18 @@ function binarySearch(arr: number[], target: number): number {
   onRegenerateSuggestion() {
     this.editorLogs.update(logs => [...logs, `⚡ Triggered AI suggestion regeneration`]);
     this.demoCode.set(`// Define a binary search function\nfunction binarySearch(arr: number[], target: number): number {\n  let left = 0;\n  let right = arr.length - 1;\n\n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    if (arr[mid] === target) {\n      return mid;\n    }\n    `);
-    this.demoSuggestion.set(`if (arr[mid] < target) {\n      left = mid + 1;\n    } else {\n      right = mid - 1;\n    }\n  }\n  return -1;`);
+    this.demoSuggestions.set([
+      `if (arr[mid] < target) {\n      left = mid + 1;\n    } else {\n      right = mid - 1;\n    }\n  }\n  return -1;`,
+      `if (arr[mid] > target) {\n      right = mid - 1;\n    } else {\n      left = mid + 1;\n    }\n  }\n  return -1;`,
+      `const val = arr[mid];\n    if (val < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;`
+    ]);
   }
 
   // Voice Equalizer Setup
   voiceState = signal<'idle' | 'listening' | 'thinking' | 'speaking'>('idle');
   voiceStates: ('idle' | 'listening' | 'thinking' | 'speaking')[] = ['idle', 'listening', 'thinking', 'speaking'];
   voiceMuted = signal<boolean>(false);
+  voiceAutoCapture = signal<boolean>(true);
   voiceColor = signal<string>('');
   voiceLogs = signal<string[]>([]);
 
@@ -907,6 +983,85 @@ function binarySearch(arr: number[], target: number): number {
   onVoiceMicToggle(mic: boolean) {
     this.voiceLogs.update(logs => [...logs, mic ? '🎙️ Mic enabled' : '🎙️ Mic disabled']);
   }
+
+  onMessageFeedback(event: any) {
+    this.voiceLogs.update(logs => [
+      ...logs,
+      `Feedback received: message ${event.messageId} rated as ${event.rating}`
+    ]);
+  }
+
+  onFileAttached(event: any) {
+    this.voiceLogs.update(logs => [
+      ...logs,
+      `File attachment registered: ${event.name} (${(event.size / 1024).toFixed(1)} KB)`
+    ]);
+  }
+
+  onMessageSentWithFiles(event: any) {
+    if (event.attachments && event.attachments.length > 0) {
+      this.messages.update(msgs => {
+        const last = msgs[msgs.length - 1];
+        if (last && last.role === 'user' && !last.attachments) {
+          return [
+            ...msgs.slice(0, -1),
+            { ...last, attachments: event.attachments }
+          ];
+        }
+        return msgs;
+      });
+    }
+  }
+
+  // RAG Citation Inspector mock data
+  ragSources = signal<RAGSource[]>([
+    {
+      id: 'src-1',
+      title: 'Angular Signals Technical Specification.pdf',
+      sourceType: 'pdf',
+      score: 0.94,
+      snippet: 'Signals are the new reactive primitive in Angular. They track consumer execution contexts automatically and schedule precise DOM updates when their underlying values change, eliminating the need for global Zone.js digest cycles.',
+      metadata: {
+        pageNumber: 4,
+        filePath: '/docs/spec/angular_signals_v16.pdf',
+        chunkIndex: 12
+      }
+    },
+    {
+      id: 'src-2',
+      title: 'Enterprise Architecture Deployment Guide.docx',
+      sourceType: 'docx',
+      score: 0.81,
+      snippet: 'For hybrid cloud deployments, it is recommended to run the ngx-core-components library in server-side rendered (SSR) mode using Angular Universal. Set the caching header max-age value to 3600 for optimized static bundle distributions.',
+      metadata: {
+        pageNumber: 27,
+        filePath: '/internal/architecture/deployment_guide_2026.docx',
+        chunkIndex: 89
+      }
+    },
+    {
+      id: 'src-3',
+      title: 'Model Sizing & Pricing Benchmarks.csv',
+      sourceType: 'csv',
+      score: 0.68,
+      snippet: 'Antigravity-Large-1.5,DeepMind,405B,2M,$3.00,$9.00,1.8s,text|code|vision,5,stable,true\\nAntigravity-Flash-2.0,DeepMind,8B,1M,$0.15,$0.60,0.45s,text|code|vision|audio,5,stable,false',
+      metadata: {
+        filePath: '/assets/data/llm_pricing_matrix.csv',
+        chunkIndex: 2
+      }
+    },
+    {
+      id: 'src-4',
+      title: 'DeepMind Antigravity Release Notes',
+      sourceType: 'web',
+      score: 0.52,
+      snippet: 'The new Antigravity series represents a leap in agentic capabilities, natively reasoning through sub-task decomposition loops, tool usages, and citation inspections for verified citation sources.',
+      metadata: {
+        filePath: 'https://deepmind.google/blog/antigravity-releases',
+        chunkIndex: 1
+      }
+    }
+  ]);
 
   // Model Compare Setup
   comparisonModels = signal<AIModel[]>([

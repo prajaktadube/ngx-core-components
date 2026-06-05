@@ -41,6 +41,10 @@ export { CHART_COLORS } from 'ngx-core-components/charts';
 export { ComboChartComponent } from 'ngx-core-components/charts';
 export { ScatterPlotComponent } from 'ngx-core-components/charts';
 export type { ScatterPoint } from 'ngx-core-components/charts';
+export { BubbleChartComponent } from 'ngx-core-components/charts';
+export type { BubblePoint } from 'ngx-core-components/charts';
+export { SunburstChartComponent } from 'ngx-core-components/charts';
+export type { SunburstNode } from 'ngx-core-components/charts';
 export { WaterfallChartComponent } from 'ngx-core-components/charts';
 export type { WaterfallItem } from 'ngx-core-components/charts';
 export { BoxPlotChartComponent } from 'ngx-core-components/charts';
@@ -136,8 +140,8 @@ export type { VirtualListItem, VirtualListItemClickEvent } from 'ngx-core-compon
 export { ImageCompareComponent } from 'ngx-core-components/views';
 export { KeyValueListComponent } from 'ngx-core-components/views';
 export type { KeyValueItem } from 'ngx-core-components/views';
-export { OrgChartComponent, JsonViewerComponent } from 'ngx-core-components/views';
-export type { OrgChartNode } from 'ngx-core-components/views';
+export { OrgChartComponent, JsonViewerComponent, CalendarComponent } from 'ngx-core-components/views';
+export type { OrgChartNode, CalendarEvent, CalendarCell } from 'ngx-core-components/views';
 
 
 

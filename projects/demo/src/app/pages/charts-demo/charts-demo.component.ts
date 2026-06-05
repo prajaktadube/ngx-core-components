@@ -6,8 +6,9 @@ import {
   GaugeChartComponent, RadarChartComponent, HeatmapChartComponent, TreemapChartComponent,
   AreaChartComponent, FunnelChartComponent, ComboChartComponent, ScatterPlotComponent,
   WaterfallChartComponent, BoxPlotChartComponent, RadialBarChartComponent, CandlestickChartComponent,
+  BubbleChartComponent, SunburstChartComponent,
   ChartSeries, ChartDataPoint, CHART_COLORS, GaugeThreshold, RadarSeries, TreemapItem, ScatterPoint,
-  WaterfallItem, BoxPlotItem, RadialBarItem, CandlestickItem, FunnelItem
+  WaterfallItem, BoxPlotItem, RadialBarItem, CandlestickItem, FunnelItem, BubblePoint, SunburstNode
 } from 'ngx-core-components';
 
 // Import source codes for StackBlitz programmatic compiler
@@ -23,7 +24,8 @@ interface ApiRow { name: string; type: string; default: string; description: str
     BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
     GaugeChartComponent, RadarChartComponent, HeatmapChartComponent, TreemapChartComponent,
     AreaChartComponent, FunnelChartComponent, ComboChartComponent, ScatterPlotComponent,
-    WaterfallChartComponent, BoxPlotChartComponent, RadialBarChartComponent, CandlestickChartComponent
+    WaterfallChartComponent, BoxPlotChartComponent, RadialBarChartComponent, CandlestickChartComponent,
+    BubbleChartComponent, SunburstChartComponent
   ],
   template: `
     <div class="demo-page" [class.dark-theme]="chartTheme() === 'dark'">
@@ -277,6 +279,34 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [height]="chartHeight()"
                   [bullishColor]="candlestickBullishColor()"
                   [bearishColor]="candlestickBearishColor()"
+                />
+              }
+
+              <!-- BUBBLE CHART -->
+              @if (activeTab() === 'Bubble Chart') {
+                <ngx-bubble-chart
+                  [data]="bubbleData()"
+                  [xTitle]="'R&D Spend ($M)'"
+                  [yTitle]="'Market Share (%)'"
+                  [zTitle]="'Revenue ($B)'"
+                  [showLegend]="showLegend()"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- SUNBURST CHART -->
+              @if (activeTab() === 'Sunburst Chart') {
+                <ngx-sunburst-chart
+                  [data]="sunburstData()"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
             </div>
@@ -1020,7 +1050,7 @@ export class ChartsDemoComponent implements OnInit {
   // Available Tabs
   tabs = [
     'Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 
-    'Combo Chart', 'Scatter Plot', 'Sparkline', 'Gauge Chart', 
+    'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Sunburst Chart', 'Sparkline', 'Gauge Chart', 
     'Radar Chart', 'Heatmap Chart', 'Treemap Chart', 'Funnel / Pyramid Chart',
     'Waterfall Chart', 'Box Plot Chart', 'Radial Bar Chart', 'Candlestick Chart'
   ];
@@ -1177,6 +1207,57 @@ export class ChartsDemoComponent implements OnInit {
     { date: 'Fri', open: 122, high: 129, low: 121, close: 128 }
   ];
 
+  bubbleData = signal<BubblePoint[]>([
+    { x: 10, y: 30, z: 150, label: 'App A', group: 'Tech' },
+    { x: 25, y: 45, z: 280, label: 'App B', group: 'Tech' },
+    { x: 45, y: 70, z: 500, label: 'App C', group: 'Health' },
+    { x: 60, y: 20, z: 120, label: 'App D', group: 'Health' },
+    { x: 75, y: 85, z: 650, label: 'App E', group: 'Finance' },
+    { x: 90, y: 60, z: 400, label: 'App F', group: 'Finance' }
+  ]);
+
+  sunburstData = signal<SunburstNode[]>([
+    {
+      label: 'North America',
+      children: [
+        {
+          label: 'USA',
+          children: [
+            { label: 'New York', value: 450 },
+            { label: 'California', value: 620 },
+            { label: 'Texas', value: 380 }
+          ]
+        },
+        {
+          label: 'Canada',
+          children: [
+            { label: 'Toronto', value: 210 },
+            { label: 'Vancouver', value: 180 }
+          ]
+        }
+      ]
+    },
+    {
+      label: 'Europe',
+      children: [
+        {
+          label: 'Germany',
+          children: [
+            { label: 'Berlin', value: 310 },
+            { label: 'Munich', value: 290 }
+          ]
+        },
+        {
+          label: 'UK',
+          children: [
+            { label: 'London', value: 420 },
+            { label: 'Manchester', value: 150 }
+          ]
+        }
+      ]
+    }
+  ]);
+
   // ===== GENERAL API DOCS DEFINITION =====
   chartCssVars = [
     { name: '--ngx-chart-bg', default: '#ffffff', description: 'Container canvas backdrop color.' },
@@ -1218,13 +1299,13 @@ export class ChartsDemoComponent implements OnInit {
   hasGeneralToggle(type: 'legend' | 'grid' | 'labels'): boolean {
     const tab = this.activeTab();
     if (type === 'legend') {
-      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 'Combo Chart', 'Scatter Plot', 'Radial Bar Chart'].includes(tab);
+      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Sunburst Chart', 'Radial Bar Chart'].includes(tab);
     }
     if (type === 'grid') {
-      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Combo Chart', 'Scatter Plot', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
+      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
     }
     if (type === 'labels') {
-      return ['Bar Chart', 'Pie / Donut', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
+      return ['Bar Chart', 'Pie / Donut', 'Bubble Chart', 'Sunburst Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
     }
     return false;
   }
@@ -1370,6 +1451,26 @@ export class ChartsDemoComponent implements OnInit {
   [showGrid]="${g}"
   [height]="${h}"
 />`;
+      case 'Bubble Chart':
+        return `<ngx-bubble-chart
+  [data]="data"
+  xTitle="R&D Spend ($M)"
+  yTitle="Market Share (%)"
+  zTitle="Revenue ($B)"
+  [showLegend]="${l}"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+  [showExport]="true"
+/>`;
+      case 'Sunburst Chart':
+        return `<ngx-sunburst-chart
+  [data]="data"
+  [showLegend]="${l}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+  [showExport]="true"
+/>`;
       case 'Waterfall Chart':
         return `<ngx-waterfall-chart
   [data]="data"
@@ -1451,6 +1552,8 @@ export class ChartExampleComponent {
       case 'Funnel / Pyramid Chart': return this.funnelInputs;
       case 'Combo Chart': return this.comboInputs;
       case 'Scatter Plot': return this.scatterInputs;
+      case 'Bubble Chart': return this.bubbleInputs;
+      case 'Sunburst Chart': return this.sunburstInputs;
       case 'Waterfall Chart': return this.waterfallInputs;
       case 'Box Plot Chart': return this.boxPlotInputs;
       case 'Radial Bar Chart': return this.radialInputs;
@@ -1474,6 +1577,8 @@ export class ChartExampleComponent {
       case 'Funnel / Pyramid Chart': return Sources.FunnelPyramidChartSource;
       case 'Combo Chart': return Sources.ComboChartSource;
       case 'Scatter Plot': return Sources.ScatterPlotSource;
+      case 'Bubble Chart': return Sources.BubbleChartSource;
+      case 'Sunburst Chart': return Sources.SunburstChartSource;
       case 'Waterfall Chart': return Sources.WaterfallChartSource;
       case 'Box Plot Chart': return Sources.BoxPlotChartSource;
       case 'Radial Bar Chart': return Sources.RadialBarChartSource;
@@ -1496,6 +1601,8 @@ export class ChartExampleComponent {
       case 'Funnel / Pyramid Chart': return 'FunnelChartComponent';
       case 'Combo Chart': return 'ComboChartComponent';
       case 'Scatter Plot': return 'ScatterPlotComponent';
+      case 'Bubble Chart': return 'BubbleChartComponent';
+      case 'Sunburst Chart': return 'SunburstChartComponent';
       case 'Waterfall Chart': return 'WaterfallChartComponent';
       case 'Box Plot Chart': return 'BoxPlotChartComponent';
       case 'Radial Bar Chart': return 'RadialBarChartComponent';
@@ -1523,6 +1630,8 @@ export class ChartExampleComponent {
       case 'Funnel / Pyramid Chart': return `<ngx-funnel-chart [data]="data" mode="${this.funnelMode()}"></ngx-funnel-chart>`;
       case 'Combo Chart': return `<ngx-combo-chart [barSeries]="barSeries" [lineSeries]="lineSeries" [categories]="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']" barYTitle="Sales" lineYTitle="Margin" [showLegend]="${l}" [showGrid]="${g}" [height]="${h}"></ngx-combo-chart>`;
       case 'Scatter Plot': return `<ngx-scatter-plot [data]="data" xTitle="Unit Price" yTitle="Units Sold" [showLegend]="${l}" [showGrid]="${g}" [height]="${h}"></ngx-scatter-plot>`;
+      case 'Bubble Chart': return `<ngx-bubble-chart [data]="data" xTitle="R&D Spend" yTitle="Market Share" zTitle="Revenue" [showLegend]="${l}" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}"></ngx-bubble-chart>`;
+      case 'Sunburst Chart': return `<ngx-sunburst-chart [data]="data" [showLegend]="${l}" [showLabels]="${valLabels}" [height]="${h}"></ngx-sunburst-chart>`;
       case 'Waterfall Chart': return `<ngx-waterfall-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}" positiveColor="${this.waterfallPositiveColor()}" negativeColor="${this.waterfallNegativeColor()}" totalColor="${this.waterfallTotalColor()}"></ngx-waterfall-chart>`;
       case 'Box Plot Chart': return `<ngx-box-plot-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}" color="${this.boxPlotColor()}" fillColor="${this.boxPlotFillColor()}" outlierColor="${this.boxPlotOutlierColor()}"></ngx-box-plot-chart>`;
       case 'Radial Bar Chart': return `<ngx-radial-bar-chart [data]="data" [showLegend]="${l}" [height]="${h}" [strokeWidth]="${this.radialStrokeWidth()}" [ringGap]="${this.radialRingGap()}"></ngx-radial-bar-chart>`;
@@ -1560,6 +1669,8 @@ export class ChartExampleComponent {
       case 'Funnel / Pyramid Chart': return JSON.stringify(this.funnelData(), null, 2);
       case 'Combo Chart': return '[]';
       case 'Scatter Plot': return JSON.stringify(this.scatterData, null, 2);
+      case 'Bubble Chart': return JSON.stringify(this.bubbleData(), null, 2);
+      case 'Sunburst Chart': return JSON.stringify(this.sunburstData(), null, 2);
       case 'Waterfall Chart': return JSON.stringify(this.waterfallData, null, 2);
       case 'Box Plot Chart': return JSON.stringify(this.boxPlotData, null, 2);
       case 'Radial Bar Chart': return JSON.stringify(this.radialData, null, 2);
@@ -1932,5 +2043,26 @@ export function fmtNum(n: number): string {
     { name: 'showGrid', type: 'boolean', default: 'true', description: 'Shows background gridlines.' },
     { name: 'bullishColor', type: 'string', default: "'#10b981'", description: 'Stroke and fill color when close price is higher than open price.' },
     { name: 'bearishColor', type: 'string', default: "'#ef4444'", description: 'Stroke and fill color when close price is lower than open price.' }
+  ];
+
+  bubbleInputs: ApiRow[] = [
+    { name: 'data', type: 'BubblePoint[]', default: '[]', description: 'List of data points containing x, y, size magnitude z, label, and group.' },
+    { name: 'xTitle', type: 'string', default: "'X Axis'", description: 'Label title for the X-axis.' },
+    { name: 'yTitle', type: 'string', default: "'Y Axis'", description: 'Label title for the Y-axis.' },
+    { name: 'zTitle', type: 'string', default: "'Size'", description: 'Label title for the size coordinate z.' },
+    { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show the group categorization legend.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Show background grid lines.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Show labels inside the bubbles for larger sizes.' },
+    { name: 'height', type: 'number', default: '300', description: 'Chart height in pixels.' },
+    { name: 'showExport', type: 'boolean', default: 'false', description: 'Enable file export dropdown menu (JSON, CSV, SVG).' }
+  ];
+
+  sunburstInputs: ApiRow[] = [
+    { name: 'data', type: 'SunburstNode[]', default: '[]', description: 'Hierarchical tree structure of nodes with label, optional children, and value.' },
+    { name: 'height', type: 'number', default: '300', description: 'Chart diameter width and height bounds.' },
+    { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show a legend listing the top-level categories.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Show label text inside the concentric rings.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Custom color palette.' },
+    { name: 'showExport', type: 'boolean', default: 'false', description: 'Enable file export dropdown menu (JSON, CSV, SVG).' }
   ];
 }

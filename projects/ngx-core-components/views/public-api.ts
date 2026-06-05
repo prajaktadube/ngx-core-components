@@ -56,3 +56,7 @@ export type { OrgChartNode } from './org-chart/org-chart.component';
 
 // JSON Viewer
 export { JsonViewerComponent } from './json-viewer/json-viewer.component';
+
+// Calendar View — interactive month calendar with event indicators
+export { CalendarComponent } from './calendar/calendar.component';
+export type { CalendarEvent, CalendarCell } from './calendar/calendar.component';

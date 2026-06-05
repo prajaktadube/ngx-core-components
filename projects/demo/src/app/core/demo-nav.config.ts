@@ -192,6 +192,14 @@ export const DEMO_NAV_GROUPS: DemoNavGroup[] = [
         featured: true,
       },
       {
+        path: '/calendar',
+        label: 'Interactive Calendar',
+        icon: '📅',
+        desc: 'Interactive monthly grid calendar with event markers',
+        keywords: 'calendar month grid event tags cell templates timeline schedule view',
+        featured: true,
+      },
+      {
         path: '/image-compare',
         label: 'Image Comparison',
         icon: '🖼️',

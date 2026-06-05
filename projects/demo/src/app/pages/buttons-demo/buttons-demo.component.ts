@@ -42,7 +42,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
           <div class="section-label">Interactive Button Playground</div>
           <div class="playground-card">
             <div class="playground-preview">
-              <div class="preview-box">
+              <div class="preview-box" [style.width]="playgroundFullWidth() ? '100%' : 'auto'">
                 <ngx-button
                   [variant]="playgroundVariant()"
                   [size]="playgroundSize()"
@@ -51,6 +51,12 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [loading]="playgroundLoading()"
                   [prefixIcon]="playgroundPrefixIcon()"
                   [suffixIcon]="playgroundSuffixIcon()"
+                  [ripple]="playgroundRipple()"
+                  [fullWidth]="playgroundFullWidth()"
+                  [selected]="playgroundSelected()"
+                  [badge]="playgroundBadge()"
+                  [badgePosition]="playgroundBadgePosition()"
+                  [badgeVariant]="playgroundBadgeVariant()"
                   (click)="log('Playground button clicked!')"
                 >
                   {{ playgroundText() }}
@@ -115,6 +121,31 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   </select>
                 </div>
               </div>
+
+              <!-- Enterprise configurable controls -->
+              <div class="control-group-grid">
+                <div class="control-group">
+                  <label>Badge Value</label>
+                  <input class="control-input" type="text" [value]="playgroundBadge()" (input)="playgroundBadge.set($any($event.target).value)" placeholder="e.g. 5, New" />
+                </div>
+                <div class="control-group">
+                  <label>Badge Position</label>
+                  <select [value]="playgroundBadgePosition()" (change)="playgroundBadgePosition.set($any($event.target).value)">
+                    <option value="top-right">Top Right (Floating)</option>
+                    <option value="inline">Inline</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Badge Variant</label>
+                  <select [value]="playgroundBadgeVariant()" (change)="playgroundBadgeVariant.set($any($event.target).value)">
+                    <option value="danger">Danger (Red)</option>
+                    <option value="warning">Warning (Amber)</option>
+                    <option value="success">Success (Green)</option>
+                    <option value="info">Info (Blue)</option>
+                  </select>
+                </div>
+              </div>
+
               <div class="control-checkboxes">
                 <label class="control-checkbox">
                   <input type="checkbox" [checked]="playgroundDisabled()" (change)="playgroundDisabled.set($any($event.target).checked)" />
@@ -123,6 +154,18 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 <label class="control-checkbox">
                   <input type="checkbox" [checked]="playgroundLoading()" (change)="playgroundLoading.set($any($event.target).checked)" />
                   Loading
+                </label>
+                <label class="control-checkbox">
+                  <input type="checkbox" [checked]="playgroundRipple()" (change)="playgroundRipple.set($any($event.target).checked)" />
+                  Ripple
+                </label>
+                <label class="control-checkbox">
+                  <input type="checkbox" [checked]="playgroundFullWidth()" (change)="playgroundFullWidth.set($any($event.target).checked)" />
+                  Full Width (Block)
+                </label>
+                <label class="control-checkbox">
+                  <input type="checkbox" [checked]="playgroundSelected()" (change)="playgroundSelected.set($any($event.target).checked)" />
+                  Selected
                 </label>
               </div>
             </div>
@@ -168,6 +211,56 @@ interface ApiRow { name: string; type: string; default: string; description: str
           </div>
           <div class="demo-row" style="margin-top:12px">
             <button class="demo-trigger" (click)="loading.set(!loading())">Toggle Loading State</button>
+          </div>
+
+          <div class="section-label">Enterprise & Configurable Features</div>
+          <div class="demo-row wrap" style="gap: 24px;">
+            <!-- Floating Badge -->
+            <ngx-button variant="primary" badge="9+" badgeVariant="danger">
+              Notifications
+            </ngx-button>
+
+            <!-- Inline Badge -->
+            <ngx-button variant="secondary" badge="Updated" badgeVariant="success" badgePosition="inline">
+              Changelog
+            </ngx-button>
+
+            <!-- Toggle Selected State -->
+            <ngx-button variant="info" [selected]="selectedState()" (click)="selectedState.set(!selectedState())">
+              {{ selectedState() ? '✓ Added to Cart' : '+ Add to Cart' }}
+            </ngx-button>
+
+            <!-- Custom Icon Libraries (Projected Inline SVGs) -->
+            <ngx-button variant="success">
+              <svg prefix viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Projected SVG Folder
+            </ngx-button>
+
+            <ngx-button variant="danger">
+              <svg prefix viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+              Delete Item
+            </ngx-button>
+
+            <ngx-button variant="ghost">
+              Next Step
+              <svg suffix viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </ngx-button>
+
+            <!-- Full Width / Block Layout -->
+            <div style="width: 280px; padding: 16px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-secondary); box-shadow: var(--shadow-sm);">
+              <span style="font-size: 11px; font-weight: 750; color: var(--text-secondary); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Login Card (Block layout)</span>
+              <ngx-button [fullWidth]="true" variant="primary" size="md">Sign In</ngx-button>
+            </div>
           </div>
 
           <div class="section-label">Button Groups</div>
@@ -574,6 +667,16 @@ export class ButtonsDemoComponent {
   playgroundSuffixIcon = signal('');
   playgroundText = signal('Interactive Button');
 
+  // Enterprise features playground signals
+  playgroundRipple = signal(true);
+  playgroundFullWidth = signal(false);
+  playgroundSelected = signal(false);
+  playgroundBadge = signal('5');
+  playgroundBadgePosition = signal<'top-right' | 'inline'>('top-right');
+  playgroundBadgeVariant = signal<'danger' | 'warning' | 'info' | 'success'>('danger');
+
+  selectedState = signal(false);
+
   playgroundCode = computed(() => {
     let code = `<ngx-button`;
     if (this.playgroundVariant() !== 'primary') code += ` variant="${this.playgroundVariant()}"`;
@@ -583,6 +686,14 @@ export class ButtonsDemoComponent {
     if (this.playgroundLoading()) code += ` [loading]="${this.playgroundLoading()}"`;
     if (this.playgroundPrefixIcon()) code += ` prefixIcon="${this.playgroundPrefixIcon()}"`;
     if (this.playgroundSuffixIcon()) code += ` suffixIcon="${this.playgroundSuffixIcon()}"`;
+    if (!this.playgroundRipple()) code += ` [ripple]="false"`;
+    if (this.playgroundFullWidth()) code += ` [fullWidth]="true"`;
+    if (this.playgroundSelected()) code += ` [selected]="true"`;
+    if (this.playgroundBadge()) {
+      code += ` badge="${this.playgroundBadge()}"`;
+      if (this.playgroundBadgePosition() !== 'top-right') code += ` badgePosition="${this.playgroundBadgePosition()}"`;
+      if (this.playgroundBadgeVariant() !== 'danger') code += ` badgeVariant="${this.playgroundBadgeVariant()}"`;
+    }
     code += `>${this.playgroundText()}</ngx-button>`;
     return code;
   });
@@ -592,18 +703,29 @@ export class ButtonsDemoComponent {
     this.log('Copied code to clipboard: ' + text);
   }
 
-  howToCode = `import { Component } from '@angular/core';
-import { ButtonComponent, SplitButtonComponent } from 'ngx-core-components/buttons';
+  howToCode = `<!-- 1. Custom SVG Icon via Content Projection (Use 'prefix' or 'suffix' attributes) -->
+<ngx-button variant="success">
+  <svg prefix viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+  </svg>
+  Projected SVG Folder
+</ngx-button>
 
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [ButtonComponent, SplitButtonComponent],
-  template: '<ngx-button variant="primary">Save</ngx-button><ngx-split-button [items]="items">Actions</ngx-split-button>'
-})
-export class ExampleComponent {
-  items = [{ label: 'Save Draft' }, { label: 'Publish' }];
-}`;
+<!-- 2. Google Material Icon via Content Projection -->
+<ngx-button variant="info">
+  <span prefix class="material-icons">star</span>
+  Favorite
+</ngx-button>
+
+<!-- 3. FontAwesome / Bootstrap class string via Input Binding (Auto-detected) -->
+<ngx-button variant="warning" prefixIcon="fa-solid fa-triangle-exclamation">
+  Warning Alert
+</ngx-button>
+
+<!-- 4. Enterprise badge, ripple, block (fullWidth), and selected states -->
+<ngx-button variant="primary" badge="9+" badgeVariant="danger" [ripple]="true" [fullWidth]="true">
+  Notifications
+</ngx-button>`;
 
   splitItems = [{ label: 'Save Draft', icon: '📝' }, { label: 'Save & Publish', icon: '🚀' }, { separator: true }, { label: 'Discard Changes', icon: '🗑' }];
   dropdownItems = [{ label: 'Edit', icon: '✏️' }, { label: 'Duplicate', icon: '📋' }, { label: 'Archive', icon: '📦' }, { separator: true }, { label: 'Delete', icon: '🗑', variant: 'danger' }];
@@ -652,11 +774,17 @@ export class MyFabComponent {
   buttonApi: ApiRow[] = [
     { name: 'variant', type: "'primary'|'secondary'|'success'|'danger'|'warning'|'info'|'ghost'|'link'", default: "'primary'", description: 'Visual style of the button.' },
     { name: 'size', type: "'sm'|'md'|'lg'", default: "'md'", description: 'Button size.' },
-    { name: 'shape', type: "'rectangle'|'rounded'|'pill'", default: "'rounded'", description: 'Button border radius style.' },
+    { name: 'shape', type: "'rectangle'|'rounded'|'pill'|'square'", default: "'rounded'", description: 'Button shape configuration.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable button interaction.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner and disable clicks.' },
-    { name: 'prefixIcon', type: 'string', default: 'undefined', description: 'Icon displayed before the label.' },
-    { name: 'suffixIcon', type: 'string', default: 'undefined', description: 'Icon displayed after the label.' },
+    { name: 'prefixIcon', type: 'string', default: 'undefined', description: 'Icon displayed before the label (can be a unicode/emoji character or CSS class like fa-solid fa-rocket).' },
+    { name: 'suffixIcon', type: 'string', default: 'undefined', description: 'Icon displayed after the label (can be a unicode/emoji character or CSS class).' },
+    { name: 'ripple', type: 'boolean', default: 'true', description: 'Enables the interactive material click ripple effect.' },
+    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Makes the button span 100% width of its container.' },
+    { name: 'selected', type: 'boolean', default: 'false', description: 'Toggles the active/selected style state.' },
+    { name: 'badge', type: 'string | number', default: "''", description: 'Badge label value displayed on the button.' },
+    { name: 'badgePosition', type: "'top-right'|'inline'", default: "'top-right'", description: 'Where to position the badge on the button.' },
+    { name: 'badgeVariant', type: "'danger'|'warning'|'info'|'success'", default: "'danger'", description: 'Badge theme accent color.' },
     { name: 'click', type: 'Output<void>', default: 'n/a', description: 'Emitted when button is clicked.' },
   ];
 

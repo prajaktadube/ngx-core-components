@@ -2,6 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 @Component({
   selector: 'ngx-textbox',
   standalone: true,
@@ -14,11 +15,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
   template: `
-    <div class="ngx-textbox" [class.focused]="isFocused()" [class.has-error]="!!error()" [class.disabled]="disabled()">
+    <div class="ngx-textbox" [class.focused]="isFocused()" [class.has-error]="_resolvedStatus() === 'error'" [class.disabled]="disabled()">
       @if (label()) {
-        <label class="ngx-textbox-label" [class.floating]="isFocused() || !!_displayValue()">{{ label() }}</label>
+        <label class="ngx-textbox-label">{{ label() }}</label>
       }
-      <div class="ngx-textbox-wrap">
+      <div class="ngx-textbox-wrap" [class]="'status-' + _resolvedStatus()">
+        <ng-content select="[prefix]" />
         @if (prefixIcon()) {
           <span class="ngx-textbox-affix ngx-textbox-prefix" aria-hidden="true">{{ prefixIcon() }}</span>
         }
@@ -30,11 +32,27 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
           [disabled]="disabled()"
           [readOnly]="readonly()"
           [attr.maxlength]="maxlength() > 0 ? maxlength() : null"
-          [attr.aria-invalid]="!!error()"
+          [attr.aria-invalid]="_resolvedStatus() === 'error' ? 'true' : null"
           (input)="onInput($event)"
           (focus)="onFocus()"
           (blur)="onBlur()"
         />
+        
+        <!-- Status Indicator Icons -->
+        @if (_resolvedStatus() === 'success') {
+          <span class="status-icon status-icon-success" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+        } @else if (_resolvedStatus() === 'warning') {
+          <span class="status-icon status-icon-warning" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </span>
+        } @else if (_resolvedStatus() === 'error') {
+          <span class="status-icon status-icon-error" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </span>
+        }
+
         @if (type() === 'password' && passwordToggle() && !disabled()) {
           <button class="ngx-textbox-password-toggle" type="button" (click)="togglePasswordVisibility()" [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
             @if (showPassword()) {
@@ -50,50 +68,126 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         @if (suffixIcon()) {
           <span class="ngx-textbox-affix ngx-textbox-suffix" aria-hidden="true">{{ suffixIcon() }}</span>
         }
+        <ng-content select="[suffix]" />
       </div>
-      @if (maxlength() > 0 && showCharCount()) {
-        <div class="ngx-textbox-charcount">{{ _displayValue().length }} / {{ maxlength() }}</div>
-      }
-      @if (error()) {
-        <div class="ngx-textbox-error">{{ error() }}</div>
-      } @else if (hint()) {
-        <div class="ngx-textbox-hint">{{ hint() }}</div>
-      }
+      <div class="ngx-textbox-footer">
+        @if (error()) {
+          <div class="ngx-textbox-error" [attr.id]="'err-' + _id">{{ error() }}</div>
+        } @else if (hint()) {
+          <div class="ngx-textbox-hint">{{ hint() }}</div>
+        } @else {
+          <div></div>
+        }
+        @if (maxlength() > 0 && showCharCount()) {
+          <div class="ngx-textbox-charcount">{{ _displayValue().length }} / {{ maxlength() }}</div>
+        }
+      </div>
     </div>
   `,
   styles: [`
     :host {
       display: block;
+      --ngx-input-bg: #ffffff;
+      --ngx-input-text: #0f172a;
+      --ngx-input-border: #cbd5e1;
+      --ngx-input-focus-border: #4f46e5;
+      --ngx-input-focus-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      --ngx-input-disabled-bg: #f1f5f9;
+      --ngx-input-label: #475569;
+      --ngx-input-label-active: #4f46e5;
+      --ngx-input-placeholder: #94a3b8;
+      
+      --ngx-input-success-border: #10b981;
+      --ngx-input-success-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+      --ngx-input-warning-border: #f59e0b;
+      --ngx-input-warning-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+      --ngx-input-error-border: #ef4444;
+      --ngx-input-error-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
     }
+    
+    :host-context(body.dark),
+    :host-context(.dark),
+    :host-context(.dark-theme) {
+      --ngx-input-bg: #0f172a;
+      --ngx-input-text: #f8fafc;
+      --ngx-input-border: #334155;
+      --ngx-input-focus-border: #818cf8;
+      --ngx-input-focus-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+      --ngx-input-disabled-bg: #1e293b;
+      --ngx-input-label: #94a3b8;
+      --ngx-input-label-active: #818cf8;
+      --ngx-input-placeholder: #475569;
+      
+      --ngx-input-success-border: #34d399;
+      --ngx-input-success-shadow: 0 0 0 3px rgba(52, 211, 153, 0.25);
+      --ngx-input-warning-border: #fbbf24;
+      --ngx-input-warning-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+      --ngx-input-error-border: #f87171;
+      --ngx-input-error-shadow: 0 0 0 3px rgba(248, 113, 113, 0.25);
+    }
+
     .ngx-textbox { position: relative; font-family: inherit; }
+    
     .ngx-textbox-label {
-      display: block; font-size: 12px; font-weight: 600; color: var(--ngx-input-label, #475569);
-      margin-bottom: 6px; transition: color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ngx-input-label);
+      margin-bottom: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    
+    .focused .ngx-textbox-label {
+      color: var(--ngx-input-label-active);
+      transform: translateX(2px);
+    }
+    
     .ngx-textbox-wrap {
       position: relative;
       display: flex;
       align-items: center;
-      border: 1px solid var(--ngx-input-border, #cbd5e1);
+      border: 1px solid var(--ngx-input-border);
       border-radius: var(--ngx-input-radius, 8px);
-      background: var(--ngx-input-bg, #fff);
+      background: var(--ngx-input-bg);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
+    
     .focused .ngx-textbox-wrap {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+      border-color: var(--ngx-input-focus-border);
+      box-shadow: var(--ngx-input-focus-shadow), 0 1px 2px rgba(0, 0, 0, 0.05);
     }
-    .has-error .ngx-textbox-wrap {
-      border-color: var(--ngx-input-error, #ef4444);
+    
+    /* Validation status outline colors */
+    .ngx-textbox-wrap.status-success {
+      border-color: var(--ngx-input-success-border);
     }
-    .has-error.focused .ngx-textbox-wrap {
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    .focused .ngx-textbox-wrap.status-success {
+      box-shadow: var(--ngx-input-success-shadow), 0 1px 2px rgba(0, 0, 0, 0.05);
     }
+    
+    .ngx-textbox-wrap.status-warning {
+      border-color: var(--ngx-input-warning-border);
+    }
+    .focused .ngx-textbox-wrap.status-warning {
+      box-shadow: var(--ngx-input-warning-shadow), 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .ngx-textbox-wrap.status-error {
+      border-color: var(--ngx-input-error-border);
+    }
+    .focused .ngx-textbox-wrap.status-error {
+      box-shadow: var(--ngx-input-error-shadow), 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    
     .disabled .ngx-textbox-wrap {
-      background: var(--ngx-input-disabled-bg, #f8f9fa);
+      background: var(--ngx-input-disabled-bg);
       cursor: not-allowed;
       opacity: 0.7;
+      box-shadow: none;
     }
+    
     .ngx-textbox-input {
       flex: 1;
       min-width: 0;
@@ -102,24 +196,75 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       outline: none;
       background: transparent;
       font-size: 14px;
-      color: var(--ngx-input-text, #0f172a);
+      color: var(--ngx-input-text);
       font-family: inherit;
     }
-    .ngx-textbox-input:disabled { cursor: not-allowed; color: #94a3b8; }
-    .ngx-textbox-error { font-size: 12px; color: var(--ngx-input-error, #ef4444); margin-top: 4px; font-weight: 550; }
-    .ngx-textbox-hint { font-size: 12px; color: var(--ngx-input-label, #64748b); margin-top: 4px; }
-    .ngx-textbox-affix { display: flex; align-items: center; padding: 0 10px; color: #64748b; font-size: 14px; flex-shrink: 0; }
+    .ngx-textbox-input::placeholder {
+      color: var(--ngx-input-placeholder);
+      opacity: 0.8;
+    }
+    .ngx-textbox-input:disabled { cursor: not-allowed; }
+    
+    /* Status indicators */
+    .status-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8px;
+      flex-shrink: 0;
+      animation: icon-scale-in 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    .status-icon-success { color: var(--ngx-input-success-border); }
+    .status-icon-warning { color: var(--ngx-input-warning-border); }
+    .status-icon-error { color: var(--ngx-input-error-border); }
+    
+    @keyframes icon-scale-in {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .ngx-textbox-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 5px;
+      font-size: 12px;
+    }
+    
+    .ngx-textbox-error {
+      color: var(--ngx-input-error-border);
+      font-weight: 550;
+      animation: slide-down 0.2s ease-out;
+    }
+    .ngx-textbox-hint {
+      color: var(--ngx-input-label);
+    }
+    .ngx-textbox-charcount {
+      color: var(--ngx-input-label);
+      font-size: 11px;
+      margin-left: auto;
+    }
+    
+    @keyframes slide-down {
+      from { transform: translateY(-4px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .ngx-textbox-affix { display: flex; align-items: center; padding: 0 10px; color: var(--ngx-input-label); font-size: 14px; flex-shrink: 0; }
+    
     .ngx-textbox-clear {
-      background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 12px;
+      background: none; border: none; cursor: pointer; color: var(--ngx-input-placeholder); font-size: 12px;
       padding: 0 8px; line-height: 1; display: flex; align-items: center; flex-shrink: 0;
+      transition: color 0.15s;
     }
-    .ngx-textbox-clear:hover { color: #475569; }
+    .ngx-textbox-clear:hover { color: var(--ngx-input-text); }
+    
     .ngx-textbox-password-toggle {
-      background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 14px;
+      background: none; border: none; cursor: pointer; color: var(--ngx-input-placeholder); font-size: 14px;
       padding: 0 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: color 0.15s;
     }
-    .ngx-textbox-password-toggle:hover { color: #475569; }
-    .ngx-textbox-charcount { font-size: 11px; color: #94a3b8; margin-top: 3px; text-align: right; }
+    .ngx-textbox-password-toggle:hover { color: var(--ngx-input-text); }
   `]
 })
 export class TextBoxComponent implements ControlValueAccessor {
@@ -138,6 +283,9 @@ export class TextBoxComponent implements ControlValueAccessor {
   suffixIcon = input<string>('');
   passwordToggle = input<boolean>(false);
 
+  // Enterprise status state
+  status = input<'default' | 'success' | 'warning' | 'error'>('default');
+
   valueChange = output<string>();
   focusChange = output<boolean>();
 
@@ -147,6 +295,13 @@ export class TextBoxComponent implements ControlValueAccessor {
   private _cvaActive = false;
   private _onChange: (v: string) => void = () => {};
   private _onTouched: () => void = () => {};
+
+  _id = 'ngx-txt-' + Math.random().toString(36).substring(2, 9);
+
+  _resolvedStatus = computed(() => {
+    if (this.error()) return 'error';
+    return this.status();
+  });
 
   /** Merges reactive-form value (CVA) with template binding (input()). CVA takes precedence. */
   _displayValue = computed(() => this._cvaActive ? this._cvaValue() : this.value());
@@ -206,4 +361,3 @@ export class TextBoxComponent implements ControlValueAccessor {
     // reactive-form disable/enable is handled at the FormControl level.
   }
 }
-

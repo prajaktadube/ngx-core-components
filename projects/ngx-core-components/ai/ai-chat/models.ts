@@ -31,6 +31,7 @@ export interface AIMessage {
   avatarUrl?: string;
   steps?: AgentStep[];
   cards?: AICard[];
+  attachments?: { name: string; url: string; type: string; size?: number }[];
 }
 
 export interface QuickReply {

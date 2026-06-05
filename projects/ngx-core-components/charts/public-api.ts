@@ -39,6 +39,12 @@ export { ComboChartComponent } from './combo-chart/combo-chart.component';
 export { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 export type { ScatterPoint } from './scatter-plot/scatter-plot.component';
 
+// Bubble & Sunburst charts
+export { BubbleChartComponent } from './bubble-chart/bubble-chart.component';
+export type { BubblePoint } from './bubble-chart/bubble-chart.component';
+export { SunburstChartComponent } from './sunburst-chart/sunburst-chart.component';
+export type { SunburstNode } from './sunburst-chart/sunburst-chart.component';
+
 // Waterfall, Box Plot, Radial Bar, and Candlestick charts
 export { WaterfallChartComponent } from './waterfall-chart/waterfall-chart.component';
 export type { WaterfallItem } from './waterfall-chart/waterfall-chart.component';

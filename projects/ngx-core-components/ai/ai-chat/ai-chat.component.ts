@@ -1,6 +1,7 @@
-import { Component, input, output, model, viewChild, ElementRef, computed, effect } from '@angular/core';
+import { Component, input, output, model, viewChild, ElementRef, computed, effect, HostListener, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models';
 
 @Component({
@@ -144,8 +145,34 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
                   </div>
                 }
 
-                <!-- Time -->
-                <span class="msg-time">{{ msg.timestamp | date:'shortTime' }}</span>
+                <!-- Attachments inside message bubble -->
+                @if (msg.attachments && msg.attachments.length > 0) {
+                  <div class="message-attachments-list">
+                    @for (att of msg.attachments; track att.name) {
+                      <a [href]="att.url" target="_blank" class="msg-attachment-item" download>
+                        @if (att.type.startsWith('image/')) {
+                          <div class="msg-attachment-img-preview">
+                            <img [src]="att.url" [alt]="att.name" />
+                          </div>
+                        } @else {
+                          <span class="msg-attachment-icon">📄</span>
+                        }
+                        <span class="msg-attachment-name" [title]="att.name">{{ att.name }}</span>
+                      </a>
+                    }
+                  </div>
+                }
+
+                <!-- Time & Feedback -->
+                <div class="msg-meta-row">
+                  <span class="msg-time">{{ msg.timestamp | date:'shortTime' }}</span>
+                  @if (msg.role !== 'user') {
+                    <div class="feedback-actions">
+                      <button type="button" class="feedback-tiny-btn" [class.selected]="msgFeedbackMap[msg.id] === 'like'" (click)="onMessageRating(msg.id, 'like')" title="Helpful">👍</button>
+                      <button type="button" class="feedback-tiny-btn" [class.selected]="msgFeedbackMap[msg.id] === 'dislike'" (click)="onMessageRating(msg.id, 'dislike')" title="Unhelpful">👎</button>
+                    </div>
+                  }
+                </div>
               </div>
             </div>
           }
@@ -188,7 +215,27 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
 
       <!-- Chat Footer / Input -->
       <div class="ngx-ai-chat-footer">
+        <!-- Attachment Previews -->
+        @if (attachedFiles().length > 0) {
+          <div class="attachments-preview-bar">
+            @for (file of attachedFiles(); track file.name) {
+              <div class="attachment-preview-tag">
+                @if (file.type.startsWith('image/')) {
+                  <img [src]="file.url" class="attachment-thumb" />
+                } @else {
+                  <span class="attachment-icon">📄</span>
+                }
+                <span class="attachment-name">{{ file.name }}</span>
+                <button type="button" class="remove-attachment-btn" (click)="removeAttachment(file)">✕</button>
+              </div>
+            }
+          </div>
+        }
         <form (ngSubmit)="onSubmit()" class="input-form">
+          <button type="button" class="attach-btn" (click)="fileInput.click()" title="Attach files" [disabled]="disabled()">
+            <svg viewBox="0 0 24 24" class="svg-icon"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5V6H9v9.5c0 2.48 2.02 4.5 4.5 4.5s4.5-2.02 4.5-4.5V5a4 4 0 0 0-8 0v12c0 3.86 3.14 7 7 7s7-3.14 7-7V6h-1.5z"/></svg>
+          </button>
+          <input #fileInput type="file" style="display: none" (change)="onFileSelected($event)" multiple />
           <input
             type="text"
             class="chat-input"
@@ -198,7 +245,7 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
             [disabled]="disabled()"
             autocomplete="off"
           />
-          <button type="submit" class="send-btn" [disabled]="!inputText.trim() || disabled()" title="Send message">
+          <button type="submit" class="send-btn" [disabled]="(!inputText.trim() && attachedFiles().length === 0) || disabled()" title="Send message">
             <svg viewBox="0 0 24 24" class="svg-icon"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
           </button>
         </form>
@@ -795,9 +842,192 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
       background-color: #94a3b8;
       cursor: not-allowed;
     }
+
+    /* Attachment Previews in Input Area */
+    .attachments-preview-bar {
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--ngx-ai-chat-border, #e2e8f0);
+      background: var(--ngx-ai-chat-bg, #ffffff);
+    }
+    .attachment-preview-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 11px;
+      max-width: 150px;
+    }
+    .attachment-thumb {
+      width: 18px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+    .attachment-icon {
+      font-size: 12px;
+    }
+    .attachment-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      color: #334155;
+    }
+    .remove-attachment-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 0 2px;
+      font-size: 10px;
+    }
+    .remove-attachment-btn:hover {
+      color: #ef4444;
+    }
+
+    /* Attachments inside bubble */
+    .message-attachments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .msg-attachment-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      max-width: 250px;
+      font-size: 12px;
+      transition: background 0.2s;
+    }
+    .msg-attachment-item:hover {
+      background: rgba(255,255,255,0.9);
+    }
+    .msg-attachment-img-preview {
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .msg-attachment-img-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .msg-attachment-icon {
+      font-size: 16px;
+    }
+    .msg-attachment-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+    }
+
+    /* Attach button */
+    .attach-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .attach-btn:hover:not(:disabled) {
+      background: rgba(100, 116, 139, 0.1);
+      color: #334155;
+    }
+    .attach-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Meta Row / Feedback Row styling */
+    .msg-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+      min-width: 80px;
+    }
+    .feedback-actions {
+      display: flex;
+      gap: 4px;
+      opacity: 0.3;
+      transition: opacity 0.2s;
+    }
+    .message-wrapper:hover .feedback-actions {
+      opacity: 1;
+    }
+    .feedback-tiny-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 10px;
+      padding: 2px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .feedback-tiny-btn:hover {
+      background: rgba(0,0,0,0.08);
+    }
+    .feedback-tiny-btn.selected {
+      background: rgba(0,0,0,0.12);
+      transform: scale(1.1);
+    }
+
+    /* Dark Mode specific overrides */
+    .dark-mode .attachments-preview-bar {
+      border-bottom-color: var(--ngx-ai-chat-border, #334155);
+      background: var(--ngx-ai-chat-bg, #1e293b);
+    }
+    .dark-mode .attachment-preview-tag {
+      background: #334155;
+      border-color: #475569;
+    }
+    .dark-mode .attachment-name {
+      color: #f8fafc;
+    }
+    .dark-mode .msg-attachment-item {
+      background: rgba(15, 23, 42, 0.4);
+      border-color: rgba(255,255,255,0.06);
+    }
+    .dark-mode .msg-attachment-item:hover {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .dark-mode .attach-btn {
+      color: #94a3b8;
+    }
+    .dark-mode .attach-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f8fafc;
+    }
+    .dark-mode .feedback-tiny-btn:hover {
+      background: rgba(255,255,255,0.08);
+    }
+    .dark-mode .feedback-tiny-btn.selected {
+      background: rgba(255,255,255,0.15);
+    }
   `]
 })
 export class AIChatComponent {
+  private sanitizer = inject(DomSanitizer);
   messages = input<AIMessage[]>([]);
   agentName = input('AI Agent');
   agentAvatarUrl = input('');
@@ -814,10 +1044,69 @@ export class AIChatComponent {
   quickReplyClick = output<QuickReply>();
   cardActionClick = output<AICardAction>();
   clearHistory = output<void>();
+  messageFeedback = output<{ messageId: string; rating: 'like' | 'dislike' }>();
+  fileAttached = output<{ name: string; type: string; size: number; file: File }>();
+  messageSent = output<{ content: string; attachments: { name: string; url: string; type: string; size?: number }[] }>();
 
   chatBody = viewChild<ElementRef>('chatBody');
 
   inputText = '';
+  attachedFiles = signal<{ name: string; type: string; size: number; url: string; rawFile: File }[]>([]);
+  msgFeedbackMap: Record<string, 'like' | 'dislike'> = {};
+
+  @HostListener('click', ['$event'])
+  onHostClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target && target.classList.contains('copy-code-btn')) {
+      const codeText = target.getAttribute('data-code');
+      if (codeText) {
+        navigator.clipboard.writeText(decodeURIComponent(codeText)).then(() => {
+          target.innerText = 'Copied!';
+          setTimeout(() => { target.innerText = 'Copy'; }, 2000);
+        });
+      }
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const inputEl = event.target as HTMLInputElement;
+    if (inputEl && inputEl.files) {
+      const filesArray = Array.from(inputEl.files);
+      filesArray.forEach(file => {
+        const fileUrl = URL.createObjectURL(file);
+        const attachment = {
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          url: fileUrl,
+          rawFile: file
+        };
+        this.attachedFiles.update(current => [...current, attachment]);
+        this.fileAttached.emit({
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          file: file
+        });
+      });
+      // Reset input value to allow selecting same file again
+      inputEl.value = '';
+    }
+  }
+
+  removeAttachment(file: any) {
+    URL.revokeObjectURL(file.url);
+    this.attachedFiles.update(current => current.filter(f => f.url !== file.url));
+  }
+
+  onMessageRating(messageId: string, rating: 'like' | 'dislike') {
+    if (this.msgFeedbackMap[messageId] === rating) {
+      delete this.msgFeedbackMap[messageId];
+    } else {
+      this.msgFeedbackMap[messageId] = rating;
+    }
+    this.messageFeedback.emit({ messageId, rating });
+  }
 
   constructor() {
     // Automatically scroll to bottom when messages or typing status changes
@@ -830,8 +1119,20 @@ export class AIChatComponent {
 
   onSubmit(): void {
     const text = this.inputText.trim();
-    if (!text || this.disabled()) return;
+    if (!text && this.attachedFiles().length === 0) return;
+    if (this.disabled()) return;
+    
+    const attachmentsData = this.attachedFiles().map(f => ({
+      name: f.name,
+      url: f.url,
+      type: f.type,
+      size: f.size
+    }));
+    
     this.sendMessage.emit(text);
+    this.messageSent.emit({ content: text, attachments: attachmentsData });
+    
+    this.attachedFiles.set([]);
     this.inputText = '';
   }
 
@@ -861,7 +1162,7 @@ export class AIChatComponent {
     }, 100);
   }
 
-  formatMessage(content: string): string {
+  formatMessage(content: string): SafeHtml {
     if (!content) return '';
     // Very basic escaping and formatting to keep it lightweight.
     // In actual project, a custom template or markdown pipe can be used.
@@ -876,10 +1177,15 @@ export class AIChatComponent {
     // Code blocks helper
     formatted = formatted.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
       const language = lang || 'code';
+      const cleanCode = code.trim();
+      const encoded = encodeURIComponent(cleanCode);
       return `
-        <div class="code-container" style="background: rgba(0,0,0,0.05); padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 12px; margin: 8px 0; border-left: 3px solid #3b82f6; overflow-x: auto;">
-          <div style="font-size: 10px; font-weight: bold; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase;">${language}</div>
-          <pre style="margin: 0; white-space: pre-wrap;"><code>${code.trim()}</code></pre>
+        <div class="code-container" style="background: rgba(0,0,0,0.05); padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 12px; margin: 8px 0; border-left: 3px solid #3b82f6; overflow-x: auto; position: relative;">
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: bold; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase;">
+            <span>${language}</span>
+            <button class="copy-code-btn" data-code="${encoded}" style="background: transparent; border: 1px solid rgba(0,0,0,0.15); padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 9px; font-family: sans-serif; transition: all 0.2s;">Copy</button>
+          </div>
+          <pre style="margin: 0; white-space: pre-wrap;"><code>${cleanCode}</code></pre>
         </div>
       `;
     });
@@ -887,6 +1193,6 @@ export class AIChatComponent {
     // Inline code helper
     formatted = formatted.replace(/`(.*?)`/g, '<code style="background: rgba(0,0,0,0.06); padding: 2px 4px; border-radius: 4px; font-family: monospace; font-size: 12px;">$1</code>');
 
-    return formatted;
+    return this.sanitizer.bypassSecurityTrustHtml(formatted);
   }
 }

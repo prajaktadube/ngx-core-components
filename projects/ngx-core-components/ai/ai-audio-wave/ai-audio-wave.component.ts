@@ -1,4 +1,4 @@
-import { Component, input, signal, output, computed } from '@angular/core';
+import { Component, input, signal, output, computed, effect, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type AIAudioState = 'idle' | 'listening' | 'thinking' | 'speaking';
@@ -22,7 +22,7 @@ export type AIAudioState = 'idle' | 'listening' | 'thinking' | 'speaking';
 
       <!-- Equalizer Wave Container -->
       <div class="equalizer-container" [class.muted]="isMuted()">
-        @for (bar of bars; track bar) {
+        @for (bar of bars(); track $index) {
           <div
             class="wave-bar"
             [class]="state()"
@@ -346,12 +346,13 @@ export type AIAudioState = 'idle' | 'listening' | 'thinking' | 'speaking';
     }
   `]
 })
-export class AIAudioWaveComponent {
+export class AIAudioWaveComponent implements OnDestroy {
   // Inputs
   state = input<AIAudioState>('idle');
   color = input<string>('');
   theme = input<'light' | 'dark'>('light');
   muted = input<boolean>(false);
+  autoCapture = input<boolean>(false);
 
   // Outputs
   stateChange = output<AIAudioState>();
@@ -364,7 +365,7 @@ export class AIAudioWaveComponent {
   speedMultiplier = signal<number>(1.0);
 
   // Pre-configured equalizer bars representation
-  bars = [
+  bars = signal<{ height: number; delay: string }[]>([
     { height: 16, delay: '0.1s' },
     { height: 28, delay: '0.3s' },
     { height: 42, delay: '0.5s' },
@@ -377,7 +378,105 @@ export class AIAudioWaveComponent {
     { height: 38, delay: '0.25s' },
     { height: 24, delay: '0.45s' },
     { height: 14, delay: '0.05s' }
-  ];
+  ]);
+
+  private defaultHeights = [16, 28, 42, 50, 36, 22, 30, 48, 52, 38, 24, 14];
+  private audioCtx?: AudioContext;
+  private analyser?: AnalyserNode;
+  private dataArray?: Uint8Array;
+  private stream?: MediaStream;
+  private animationFrameId?: number;
+
+  constructor() {
+    effect(() => {
+      const capture = this.autoCapture();
+      const stateVal = this.state();
+      const isMutedVal = this.isMuted();
+
+      if (capture && stateVal === 'listening' && !isMutedVal) {
+        this.startMicCapture();
+      } else {
+        this.stopMicCapture();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.stopMicCapture();
+  }
+
+  private startMicCapture() {
+    if (typeof window === 'undefined' || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      return;
+    }
+    
+    this.stopMicCapture();
+
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
+      this.stream = s;
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      this.audioCtx = new AudioContextClass();
+      const source = this.audioCtx.createMediaStreamSource(s);
+      this.analyser = this.audioCtx.createAnalyser();
+      this.analyser.fftSize = 64; // Small fft size for our 12 bars
+      const bufferLength = this.analyser.frequencyBinCount;
+      this.dataArray = new Uint8Array(bufferLength);
+      source.connect(this.analyser);
+      this.updateBarsFromAudio();
+    }).catch(err => {
+      console.warn('Microphone access denied or failed:', err);
+    });
+  }
+
+  private updateBarsFromAudio() {
+    if (!this.analyser || !this.dataArray) return;
+    this.analyser.getByteFrequencyData(this.dataArray);
+    
+    const barsLength = this.bars().length;
+    const binSize = Math.floor(this.dataArray.length / barsLength) || 1;
+    
+    this.bars.update(current => {
+      return current.map((bar, i) => {
+        let sum = 0;
+        for (let j = 0; j < binSize; j++) {
+          sum += this.dataArray![i * binSize + j] || 0;
+        }
+        const avg = sum / binSize;
+        const baseHeight = 10;
+        const calculatedHeight = baseHeight + (avg / 255) * 55;
+        return { ...bar, height: calculatedHeight };
+      });
+    });
+    
+    this.animationFrameId = requestAnimationFrame(() => this.updateBarsFromAudio());
+  }
+
+  private stopMicCapture() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = undefined;
+    }
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => track.stop());
+      this.stream = undefined;
+    }
+    if (this.audioCtx && this.audioCtx.state !== 'closed') {
+      this.audioCtx.close();
+      this.audioCtx = undefined;
+    }
+    this.analyser = undefined;
+    this.dataArray = undefined;
+    this.resetBars();
+  }
+
+  private resetBars() {
+    this.bars.update(current => {
+      return current.map((bar, i) => ({
+        ...bar,
+        height: this.defaultHeights[i] || 16
+      }));
+    });
+  }
 
   isMuted = computed(() => this.muted() || this.localMuted() || !this.micEnabled());
 

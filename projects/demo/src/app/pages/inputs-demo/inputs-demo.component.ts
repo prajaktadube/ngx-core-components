@@ -224,6 +224,14 @@ interface ApiRow { name: string; type: string; default: string; description: str
               </div>
               <div class="value-display">Terms: {{ termsChecked() }} · Newsletter: {{ newsletterChecked() }}</div>
             </div>
+            <div class="demo-card">
+              <div class="demo-card-title">Enterprise Validation States</div>
+              <div class="input-stack">
+                <ngx-checkbox label="Validated Checkbox" [checked]="true" status="success" hint="User has verified this option" />
+                <ngx-checkbox label="Check this value again" [checked]="false" status="warning" hint="Requires secondary authorization" />
+                <ngx-checkbox label="I confirm this action" [checked]="false" status="error" error="You must accept before continuing" />
+              </div>
+            </div>
           </div>
 
           <div class="section-label">How to Use</div>
@@ -259,6 +267,13 @@ interface ApiRow { name: string; type: string; default: string; description: str
               <ngx-radio-group label="Priority" [options]="priorityOptions" [value]="selectedPriority()"
                 [inline]="true" (valueChange)="selectedPriority.set($any($event))" />
               <div class="value-display">Priority: {{ selectedPriority() }}</div>
+            </div>
+            <div class="demo-card">
+              <div class="demo-card-title">Enterprise Validation States</div>
+              <div class="input-stack">
+                <ngx-radio-group label="Server Tier" [options]="planOptions" value="pro" status="success" hint="Perfect choice for production workloads" />
+                <ngx-radio-group label="Required Approval" [options]="priorityOptions" value="" status="error" error="Priority level must be selected" />
+              </div>
             </div>
           </div>
 
@@ -370,6 +385,14 @@ interface ApiRow { name: string; type: string; default: string; description: str
               </div>
               <div class="value-display">sm: {{ switchSmall() }} · md: {{ switchMedium() }} · lg: {{ switchLarge() }}</div>
             </div>
+            <div class="demo-card">
+              <div class="demo-card-title">Enterprise Validation States</div>
+              <div class="input-stack">
+                <ngx-switch [checked]="true" onLabel="Opt-in" offLabel="Opt-out" status="success" hint="Auto-sync verified" />
+                <ngx-switch [checked]="false" onLabel="SSL Only" offLabel="Insecure" status="warning" hint="Using unencrypted connection fallback" />
+                <ngx-switch [checked]="false" onLabel="API State" offLabel="Disabled" status="error" error="API endpoint unreachable" />
+              </div>
+            </div>
           </div>
 
           <div class="section-label">How to Use</div>
@@ -398,6 +421,13 @@ interface ApiRow { name: string; type: string; default: string; description: str
               <div class="demo-card-title">Interactive Rating</div>
               <ngx-rating label="Product Rating" [max]="5" [showValue]="true" (ratingChange)="ratingValue.set($event)" />
               <div class="value-display">Selected rating: {{ ratingValue() }}/5</div>
+            </div>
+            <div class="demo-card">
+              <div class="demo-card-title">Enterprise Validation States</div>
+              <div class="input-stack">
+                <ngx-rating label="Excellent Service" [value]="5" status="success" hint="Minimum required is 4 stars" />
+                <ngx-rating label="Security Compliance" [value]="1" status="error" error="Rating is too low!" />
+              </div>
             </div>
           </div>
 
@@ -1026,6 +1056,9 @@ export class MyComponent {
     { name: 'checked', type: 'boolean', default: 'false', description: 'Initial checked state in template-driven usage.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables interaction.' },
     { name: 'indeterminate', type: 'boolean', default: 'false', description: 'Renders the indeterminate visual state.' },
+    { name: 'status', type: "'default'|'success'|'warning'|'error'", default: "'default'", description: 'Enterprise validation status state.' },
+    { name: 'error', type: 'string', default: "''", description: 'Error message. If present, sets status to error.' },
+    { name: 'hint', type: 'string', default: "''", description: 'Helper text shown below the checkbox.' },
     { name: '(checkedChange)', type: 'boolean', default: '—', description: 'Emitted when the checked state toggles.' },
   ];
 
@@ -1035,6 +1068,9 @@ export class MyComponent {
     { name: 'value', type: 'unknown', default: 'null', description: 'Current selected value.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the full radio group.' },
     { name: 'inline', type: 'boolean', default: 'false', description: 'Displays options horizontally instead of stacked.' },
+    { name: 'status', type: "'default'|'success'|'warning'|'error'", default: "'default'", description: 'Enterprise validation status state.' },
+    { name: 'error', type: 'string', default: "''", description: 'Error message. If present, sets status to error.' },
+    { name: 'hint', type: 'string', default: "''", description: 'Helper text shown below the group.' },
     { name: '(valueChange)', type: 'unknown', default: '—', description: 'Emitted when the selected option changes.' },
   ];
 
@@ -1053,8 +1089,14 @@ export class MyComponent {
 @Component({
   imports: [CheckboxComponent],
   template: \`
-    <ngx-checkbox label="Accept terms" [checked]="checked()"
-      (checkedChange)="checked.set($event)" />
+    <!-- Standard Checkbox with Form validation -->
+    <ngx-checkbox
+      label="Accept terms"
+      [checked]="checked()"
+      status="error"
+      error="You must accept the terms before proceeding"
+      (checkedChange)="checked.set($event)"
+    />
   \`
 })
 export class MyComponent {
@@ -1066,8 +1108,14 @@ export class MyComponent {
 @Component({
   imports: [RadioGroupComponent],
   template: \`
-    <ngx-radio-group label="Plan" [options]="plans"
-      [value]="plan()" (valueChange)="plan.set($event)" />
+    <ngx-radio-group
+      label="Plan"
+      [options]="plans"
+      [value]="plan()"
+      status="success"
+      hint="Standard enterprise subscription"
+      (valueChange)="plan.set($event)"
+    />
   \`
 })
 export class MyComponent {
@@ -1130,17 +1178,19 @@ export class MyComponent {
 @Component({
   imports: [SwitchComponent],
   template: \`
+    <!-- Bound with Reactive Forms or Template Forms CVA -->
     <ngx-switch
-      onLabel="Enabled"
-      offLabel="Disabled"
+      [formControl]="switchControl"
+      onLabel="On"
+      offLabel="Off"
       size="md"
-      [checked]="enabled()"
-      (checkedChange)="enabled.set($event)"
+      status="warning"
+      hint="SSL only mode active"
     />
   \`
 })
 export class MyComponent {
-  enabled = signal(false);
+  switchControl = new FormControl(true);
 }`;
 
   ratingCode = `import { RatingComponent } from 'ngx-core-components/inputs';
@@ -1148,16 +1198,19 @@ export class MyComponent {
 @Component({
   imports: [RatingComponent],
   template: \`
+    <!-- Star rating using CVA form control -->
     <ngx-rating
+      [formControl]="ratingControl"
       label="Product Rating"
       [max]="5"
       [showValue]="true"
-      (ratingChange)="rating.set($event)"
+      status="success"
+      hint="Thank you for your rating!"
     />
   \`
 })
 export class MyComponent {
-  rating = signal(0);
+  ratingControl = new FormControl(4);
 }`;
 
   numericTextBoxCode = `import { NumericTextBoxComponent } from 'ngx-core-components/inputs';
@@ -1263,6 +1316,9 @@ export class MyComponent {
     { name: 'offLabel', type: 'string', default: "'Off'", description: 'Text shown for the disabled state.' },
     { name: 'size', type: "'sm'|'md'|'lg'", default: "'md'", description: 'Visual size of the switch.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables clicking the switch.' },
+    { name: 'status', type: "'default'|'success'|'warning'|'error'", default: "'default'", description: 'Enterprise validation status state.' },
+    { name: 'error', type: 'string', default: "''", description: 'Error message. If present, sets status to error.' },
+    { name: 'hint', type: 'string', default: "''", description: 'Helper text shown below the switch.' },
     { name: '(checkedChange)', type: 'boolean', default: '—', description: 'Emitted when the switch toggles.' },
   ];
 
@@ -1271,6 +1327,9 @@ export class MyComponent {
     { name: 'label', type: 'string', default: "''", description: 'Label shown before the stars.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Prevents the user from changing the rating.' },
     { name: 'showValue', type: 'boolean', default: 'false', description: 'Shows the numeric rating value next to the stars.' },
+    { name: 'status', type: "'default'|'success'|'warning'|'error'", default: "'default'", description: 'Enterprise validation status state.' },
+    { name: 'error', type: 'string', default: "''", description: 'Error message. If present, sets status to error.' },
+    { name: 'hint', type: 'string', default: "''", description: 'Helper text shown below the stars.' },
     { name: '(ratingChange)', type: 'number', default: '—', description: 'Emitted when the selected rating changes.' },
   ];
 

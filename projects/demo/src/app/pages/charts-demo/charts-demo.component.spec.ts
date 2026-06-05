@@ -1,7 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import {
   ComboChartComponent, ScatterPlotComponent, BarChartComponent,
-  LineChartComponent, PieChartComponent, ChartSeries, ScatterPoint, ChartDataPoint
+  LineChartComponent, PieChartComponent, BubbleChartComponent, SunburstChartComponent,
+  ChartSeries, ScatterPoint, ChartDataPoint, BubblePoint, SunburstNode
 } from 'ngx-core-components';
 import { Component, signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -10,7 +11,8 @@ import { By } from '@angular/platform-browser';
   standalone: true,
   imports: [
     ComboChartComponent, ScatterPlotComponent,
-    BarChartComponent, LineChartComponent, PieChartComponent
+    BarChartComponent, LineChartComponent, PieChartComponent,
+    BubbleChartComponent, SunburstChartComponent
   ],
   template: `
     <ngx-combo-chart
@@ -35,6 +37,14 @@ import { By } from '@angular/platform-browser';
       [data]="pieData()"
       [showExport]="showExport()"
     />
+    <ngx-bubble-chart
+      [data]="bubbleData()"
+      [showExport]="showExport()"
+    />
+    <ngx-sunburst-chart
+      [data]="sunburstData()"
+      [showExport]="showExport()"
+    />
   `
 })
 class TestChartsWrapperComponent {
@@ -56,6 +66,20 @@ class TestChartsWrapperComponent {
     { label: 'B', value: 70 }
   ]);
 
+  bubbleData = signal<BubblePoint[]>([
+    { x: 10, y: 30, z: 150, label: 'App A', group: 'Tech' },
+    { x: 25, y: 45, z: 280, label: 'App B', group: 'Tech' }
+  ]);
+
+  sunburstData = signal<SunburstNode[]>([
+    {
+      label: 'North America',
+      children: [
+        { label: 'USA', value: 100 }
+      ]
+    }
+  ]);
+
   showExport = signal(true);
 }
 
@@ -66,12 +90,15 @@ describe('Advanced Chart Components', () => {
   let barComponent: BarChartComponent;
   let lineComponent: LineChartComponent;
   let pieComponent: PieChartComponent;
+  let bubbleComponent: BubbleChartComponent;
+  let sunburstComponent: SunburstChartComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         TestChartsWrapperComponent, ComboChartComponent, ScatterPlotComponent,
-        BarChartComponent, LineChartComponent, PieChartComponent
+        BarChartComponent, LineChartComponent, PieChartComponent,
+        BubbleChartComponent, SunburstChartComponent
       ]
     }).compileComponents();
 
@@ -97,6 +124,14 @@ describe('Advanced Chart Components', () => {
     pieComponent = fixture.debugElement.query(
       el => el.componentInstance instanceof PieChartComponent
     ).componentInstance as PieChartComponent;
+
+    bubbleComponent = fixture.debugElement.query(
+      el => el.componentInstance instanceof BubbleChartComponent
+    ).componentInstance as BubbleChartComponent;
+
+    sunburstComponent = fixture.debugElement.query(
+      el => el.componentInstance instanceof SunburstChartComponent
+    ).componentInstance as SunburstChartComponent;
   });
 
   it('should render combo chart categories and scales', () => {
@@ -209,5 +244,37 @@ describe('Advanced Chart Components', () => {
     exportTrigger.nativeElement.click();
     fixture.detectChanges();
     expect(pieComponent.exportMenuOpen()).toBeTrue();
+  });
+
+  it('should render bubbles and handle hover events in bubble chart', () => {
+    const bubbleDe = fixture.debugElement.query(By.css('ngx-bubble-chart'));
+    const circles = bubbleDe.queryAll(By.css('.bubble-point'));
+    expect(circles.length).toBe(2);
+
+    expect(bubbleComponent.hoveredPointIndex()).toBeNull();
+    circles[0].nativeElement.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    fixture.detectChanges();
+    expect(bubbleComponent.hoveredPointIndex()).toBe(0);
+
+    circles[0].nativeElement.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+    fixture.detectChanges();
+    expect(bubbleComponent.hoveredPointIndex()).toBeNull();
+  });
+
+  it('should render paths and compute hierarchy depths in sunburst chart', () => {
+    const sunburstDe = fixture.debugElement.query(By.css('ngx-sunburst-chart'));
+    const slices = sunburstDe.queryAll(By.css('.sunburst-slice'));
+    // 1 root node + 1 child node = 2 slices total
+    expect(slices.length).toBe(2);
+    expect(sunburstComponent.maxDepth()).toBe(1);
+
+    expect(sunburstComponent.hoveredSliceId()).toBeNull();
+    slices[0].nativeElement.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    fixture.detectChanges();
+    expect(sunburstComponent.hoveredSliceId()).not.toBeNull();
+
+    slices[0].nativeElement.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+    fixture.detectChanges();
+    expect(sunburstComponent.hoveredSliceId()).toBeNull();
   });
 });
