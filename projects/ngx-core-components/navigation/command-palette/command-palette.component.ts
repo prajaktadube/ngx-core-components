@@ -400,11 +400,15 @@ export class CommandPaletteComponent {
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       idx = (idx + 1) % flatList.length;
-      this.activeItem.set(flatList[idx]);
+      const nextItem = flatList[idx];
+      this.activeItem.set(nextItem);
+      this.scrollToActiveItem();
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
       idx = (idx - 1 + flatList.length) % flatList.length;
-      this.activeItem.set(flatList[idx]);
+      const prevItem = flatList[idx];
+      this.activeItem.set(prevItem);
+      this.scrollToActiveItem();
     } else if (event.key === 'Enter') {
       event.preventDefault();
       if (currentActive) {
@@ -414,5 +418,14 @@ export class CommandPaletteComponent {
       event.preventDefault();
       this.closePalette();
     }
+  }
+
+  private scrollToActiveItem(): void {
+    setTimeout(() => {
+      const activeEl = document.querySelector('.ngx-palette-modal .command-row.active');
+      if (activeEl) {
+        activeEl.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }
+    }, 0);
   }
 }

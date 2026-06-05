@@ -35,10 +35,28 @@ export class AppComponent {
 
   navGroups = DEMO_NAV_GROUPS;
 
+  parseItemPath(item: any) {
+    const parts = item.path.split('?');
+    const routePath = parts[0];
+    const queryParams: Record<string, string> = {};
+    if (parts[1]) {
+      const searchParams = new URLSearchParams(parts[1]);
+      searchParams.forEach((val, key) => {
+        queryParams[key] = val;
+      });
+    }
+    return {
+      ...item,
+      routePath,
+      queryParams
+    };
+  }
+
   featuredItems = computed(() =>
     this.navGroups
       .flatMap(group => group.items)
       .filter(item => item.featured)
+      .map(item => this.parseItemPath(item))
       .slice(0, 6)
   );
 
@@ -47,18 +65,24 @@ export class AppComponent {
     return this.navGroups
       .map(group => ({
         ...group,
-        items: group.items.filter(item => {
-          if (!query) return true;
-          const haystack = `${item.label} ${item.desc} ${item.keywords ?? ''}`.toLowerCase();
-          return haystack.includes(query);
-        }),
+        items: group.items
+          .filter(item => {
+            if (!query) return true;
+            const haystack = `${item.label} ${item.desc} ${item.keywords ?? ''}`.toLowerCase();
+            return haystack.includes(query);
+          })
+          .map(item => this.parseItemPath(item)),
       }))
       .filter(group => group.items.length > 0);
   });
 
-  activeItem = computed(() =>
-    this.navGroups.flatMap(group => group.items).find(item => item.path === this.currentUrl())
-  );
+  activeItem = computed(() => {
+    const items = this.navGroups.flatMap(group => group.items).map(item => this.parseItemPath(item));
+    const exactMatch = items.find(item => item.path === this.router.url);
+    if (exactMatch) return exactMatch;
+    const currentBase = this.currentUrl().split('?')[0];
+    return items.find(item => item.routePath === currentBase);
+  });
 
   currentTitle = computed(() => this.activeItem()?.label ?? 'Component Demo');
   currentDescription = computed(

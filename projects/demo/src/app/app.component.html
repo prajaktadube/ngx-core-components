@@ -51,7 +51,7 @@
           <div class="featured-title">Quick Access</div>
           <div class="featured-list">
             @for (item of featuredItems(); track item.path) {
-              <a class="featured-item" [routerLink]="item.path" routerLinkActive="active" (click)="onNavClick()">
+              <a class="featured-item" [routerLink]="item.routePath" [queryParams]="item.queryParams" routerLinkActive="active" (click)="onNavClick()">
                 <span>{{ item.icon }}</span>
                 <span>{{ item.label }}</span>
               </a>
@@ -68,7 +68,7 @@
               <span class="nav-group-title">{{ group.title }}</span>
             </div>
             @for (item of group.items; track item.path) {
-              <a class="nav-item" [routerLink]="item.path" routerLinkActive="active" (click)="onNavClick()">
+              <a class="nav-item" [routerLink]="item.routePath" [queryParams]="item.queryParams" routerLinkActive="active" (click)="onNavClick()">
                 <span class="nav-icon">{{ item.icon }}</span>
                 <div class="nav-label-section">
                   <span class="nav-label">{{ item.label }}</span>

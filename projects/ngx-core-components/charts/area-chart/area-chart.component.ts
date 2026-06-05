@@ -1,4 +1,7 @@
-import { Component, ChangeDetectionStrategy, input, computed, signal } from '@angular/core';
+import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from '../shared/chart-utils';
 
@@ -8,7 +11,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="ngx-area-chart" (mousemove)="onMouseMove($event)" (mouseleave)="crosshair.set(null)">
+    <div class="ngx-area-chart" (mousemove)="onMouseMove($event)" (mouseleave)="crosshair.set(null); tooltip.set(null)">
       @if (showLegend()) {
         <div class="chart-legend">
           @for (s of series(); track s.name; let i = $index) {
@@ -93,21 +96,21 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
             <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #cbd5e1)"/>
           </g>
         </svg>
-
-        <!-- Hover Tooltip -->
-        @if (tooltip(); as t) {
-          <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
-            <div class="tt-cat">{{ t.cat }}</div>
-            @for (row of t.rows; track row.name) {
-              <div class="tt-row">
-                <span class="tt-dot" [style.background]="row.color"></span>
-                <span class="tt-name">{{ row.name }}</span>
-                <strong class="tt-val">{{ fmtNum(row.value) }}</strong>
-              </div>
-            }
-          </div>
-        }
       </div>
+
+      <!-- Hover Tooltip -->
+      @if (tooltip(); as t) {
+        <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
+          <div class="tt-cat">{{ t.cat }}</div>
+          @for (row of t.rows; track row.name) {
+            <div class="tt-row">
+              <span class="tt-dot" [style.background]="row.color"></span>
+              <span class="tt-name">{{ row.name }}</span>
+              <strong class="tt-val">{{ fmtNum(row.value) }}</strong>
+            </div>
+          }
+        </div>
+      }
     </div>
   `,
   styles: [`
@@ -218,9 +221,26 @@ export class AreaChartComponent {
 
   crosshair = signal<{ x: number } | null>(null);
   tooltip = signal<{ x: number; y: number; cat: string; rows: { name: string; value: number; color: string }[] } | null>(null);
+  containerWidth = signal<number>(600);
 
-  innerW = computed(() => 600 - this.PAD_LEFT - this.PAD_RIGHT);
+  innerW = computed(() => this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT);
   innerH = computed(() => this.height() - this.PAD_TOP - this.PAD_BOTTOM);
+
+  constructor() {
+    const hostEl = inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(entries => {
+        if (!entries || entries.length === 0) return;
+        const width = entries[0].contentRect.width;
+        if (width > 0) {
+          // Subtract padding of .ngx-area-chart (20px on each side = 40px)
+          this.containerWidth.set(width - 40);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() => resizeObserver.disconnect());
+    }
+  }
 
   private allValues = computed(() => this.series().flatMap(s => s.data));
   private yMin = computed(() => Math.min(0, ...this.allValues()));

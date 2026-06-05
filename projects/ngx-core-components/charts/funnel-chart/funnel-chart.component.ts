@@ -16,7 +16,7 @@ export interface FunnelItem {
   template: `
     <div class="ngx-funnel-chart">
       <div class="funnel-layout">
-        <!-- SVG Visual Funnel -->
+        <!-- SVG Visual Funnel / Pyramid -->
         <div class="funnel-graphic" (mouseleave)="hoveredIndex.set(null)">
           <svg [attr.width]="'100%'" [attr.height]="height()" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" class="funnel-svg">
             <g>
@@ -42,7 +42,10 @@ export interface FunnelItem {
                   Value: <strong>{{ fmtNum(stage.value) }}</strong>
                 </div>
                 <div class="tt-row">
-                  Conversion: <strong>{{ (stage.value / funnelStages()[0].value) | percent:'1.0-1' }}</strong>
+                  {{ mode() === 'funnel' ? 'Conversion' : 'Share' }}: 
+                  <strong>
+                    {{ (mode() === 'funnel' ? (stage.value / funnelStages()[0].value) : (stage.value / totalValue())) | percent:'1.0-1' }}
+                  </strong>
                 </div>
               </div>
             }
@@ -64,7 +67,7 @@ export interface FunnelItem {
                 <div class="legend-metrics">
                   <span class="metric-value">{{ fmtNum(stage.value) }}</span>
                   <span class="metric-pct">
-                    {{ (stage.value / funnelStages()[0].value) | percent:'1.0-1' }}
+                    {{ (mode() === 'funnel' ? (stage.value / funnelStages()[0].value) : (stage.value / totalValue())) | percent:'1.0-1' }}
                   </span>
                 </div>
               </div>
@@ -79,8 +82,8 @@ export interface FunnelItem {
       display: block;
     }
     .ngx-funnel-chart {
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
       border-radius: 12px;
       padding: 20px;
     }
@@ -108,7 +111,6 @@ export interface FunnelItem {
       cursor: pointer;
       opacity: 0.85;
       transition: opacity 0.2s, transform 0.2s, filter 0.2s;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
     }
     .funnel-polygon:hover, .funnel-polygon.active {
       opacity: 1;
@@ -155,8 +157,8 @@ export interface FunnelItem {
       cursor: pointer;
     }
     .legend-item:hover, .legend-item.active {
-      background: var(--bg-primary, #f8fafc);
-      border-color: var(--border-color, #e2e8f0);
+      background: var(--ngx-chart-grid, #f8fafc);
+      border-color: var(--ngx-chart-grid, #e2e8f0);
     }
     .legend-color-dot {
       width: 10px;
@@ -174,7 +176,7 @@ export interface FunnelItem {
     .legend-title {
       font-size: 13px;
       font-weight: 600;
-      color: var(--text-primary, #0f172a);
+      color: var(--ngx-chart-text, #0f172a);
     }
     .legend-metrics {
       display: flex;
@@ -184,12 +186,12 @@ export interface FunnelItem {
     .metric-value {
       font-size: 13px;
       font-weight: 700;
-      color: var(--text-primary, #0f172a);
+      color: var(--ngx-chart-text, #0f172a);
     }
     .metric-pct {
       font-size: 11px;
-      color: var(--text-secondary, #64748b);
-      background: var(--border-light, #f1f5f9);
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: var(--ngx-chart-grid, #f1f5f9);
       padding: 2px 6px;
       border-radius: 4px;
       font-weight: 600;
@@ -200,61 +202,93 @@ export class FunnelChartComponent {
   data = input<FunnelItem[]>([]);
   height = input<number>(300);
   colors = input<string[]>(CHART_COLORS);
+  mode = input<'funnel' | 'pyramid'>('funnel');
 
   hoveredIndex = signal<number | null>(null);
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
 
-  // Computes the SVG polygon coordinates for the funnel steps
+  totalValue = computed(() => {
+    return this.data().reduce((sum, item) => sum + item.value, 0) || 1;
+  });
+
+  // Computes the SVG polygon coordinates for the funnel / pyramid steps
   funnelStages = computed(() => {
     const items = this.data();
     if (items.length === 0) return [];
     
-    // Sort items descending so that the funnel goes from largest to smallest,
-    // or keep user's ordered sequence (normally ordered sequence is preferred for funnel steps)
-    const sorted = [...items];
-    const maxVal = sorted[0]?.value || 1;
-    const count = sorted.length;
-    
+    const count = items.length;
     const svgW = 400;
     const svgH = 300;
     const maxFunnelW = 320;
-    
-    const stepH = svgH / count;
-    
-    return sorted.map((item, idx) => {
-      // Calculate top and bottom widths based on value ratio to maxVal
-      const topPct = item.value / maxVal;
-      // Bottom percentage matches the next stage's top percentage, 
-      // or for the last stage, is scaled down to 40% of its top percentage.
-      const botPct = idx < count - 1 ? sorted[idx + 1].value / maxVal : topPct * 0.4;
+
+    if (this.mode() === 'pyramid') {
+      // Pyramid Mode: Stacks vertically to form a triangle pointing up.
+      // Slices stack: top is narrow (apex), bottom is wide (base).
+      // Each slice height represents its proportion of the total value.
+      const totalVal = this.totalValue();
+      let currentY = 0;
+
+      return items.map((item, idx) => {
+        const h = (item.value / totalVal) * svgH;
+        const yTop = currentY;
+        const yBot = currentY + h;
+
+        // Since the outer shape is a triangle from (200, 0) to (200 - maxW/2, svgH) and (200 + maxW/2, svgH):
+        // Width at any y is: w(y) = (y / svgH) * maxFunnelW
+        const wTop = (yTop / svgH) * maxFunnelW;
+        const wBot = (yBot / svgH) * maxFunnelW;
+
+        const xTopLeft = (svgW - wTop) / 2;
+        const xTopRight = (svgW + wTop) / 2;
+        const xBotLeft = (svgW - wBot) / 2;
+        const xBotRight = (svgW + wBot) / 2;
+
+        const points = `${xTopLeft},${yTop} ${xTopRight},${yTop} ${xBotRight},${yBot} ${xBotLeft},${yBot}`;
+        const color = item.color || this.colors()[idx % this.colors().length];
+
+        currentY += h;
+
+        return {
+          name: item.name,
+          value: item.value,
+          points,
+          color,
+          yCenter: (yTop + yBot) / 2
+        };
+      });
+    } else {
+      // Standard Funnel Mode
+      const maxVal = items[0]?.value || 1;
+      const stepH = svgH / count;
       
-      const topW = topPct * maxFunnelW;
-      const botW = botPct * maxFunnelW;
-      
-      // Calculate Y coords
-      const yTop = idx * stepH;
-      const yBot = (idx + 1) * stepH;
-      
-      // Calculate X coords
-      const xTopLeft = (svgW - topW) / 2;
-      const xTopRight = (svgW + topW) / 2;
-      const xBotLeft = (svgW - botW) / 2;
-      const xBotRight = (svgW + botW) / 2;
-      
-      // Construct SVG points string: "x1,y1 x2,y2 x3,y3 x4,y4"
-      const points = `${xTopLeft},${yTop} ${xTopRight},${yTop} ${xBotRight},${yBot} ${xBotLeft},${yBot}`;
-      
-      const color = item.color || this.colors()[idx % this.colors().length];
-      
-      return {
-        name: item.name,
-        value: item.value,
-        points,
-        color,
-        yCenter: (yTop + yBot) / 2
-      };
-    });
+      return items.map((item, idx) => {
+        const topPct = item.value / maxVal;
+        const botPct = idx < count - 1 ? items[idx + 1].value / maxVal : topPct * 0.4;
+        
+        const topW = topPct * maxFunnelW;
+        const botW = botPct * maxFunnelW;
+        
+        const yTop = idx * stepH;
+        const yBot = (idx + 1) * stepH;
+        
+        const xTopLeft = (svgW - topW) / 2;
+        const xTopRight = (svgW + topW) / 2;
+        const xBotLeft = (svgW - botW) / 2;
+        const xBotRight = (svgW + botW) / 2;
+        
+        const points = `${xTopLeft},${yTop} ${xTopRight},${yTop} ${xBotRight},${yBot} ${xBotLeft},${yBot}`;
+        const color = item.color || this.colors()[idx % this.colors().length];
+        
+        return {
+          name: item.name,
+          value: item.value,
+          points,
+          color,
+          yCenter: (yTop + yBot) / 2
+        };
+      });
+    }
   });
 
   onMouseMove(event: MouseEvent, index: number): void {

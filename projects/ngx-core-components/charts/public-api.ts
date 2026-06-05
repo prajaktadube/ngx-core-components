@@ -38,3 +38,13 @@ export type { FunnelItem } from './funnel-chart/funnel-chart.component';
 export { ComboChartComponent } from './combo-chart/combo-chart.component';
 export { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 export type { ScatterPoint } from './scatter-plot/scatter-plot.component';
+
+// Waterfall, Box Plot, Radial Bar, and Candlestick charts
+export { WaterfallChartComponent } from './waterfall-chart/waterfall-chart.component';
+export type { WaterfallItem } from './waterfall-chart/waterfall-chart.component';
+export { BoxPlotChartComponent } from './box-plot-chart/box-plot-chart.component';
+export type { BoxPlotItem } from './box-plot-chart/box-plot-chart.component';
+export { RadialBarChartComponent } from './radial-bar-chart/radial-bar-chart.component';
+export type { RadialBarItem } from './radial-bar-chart/radial-bar-chart.component';
+export { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
+export type { CandlestickItem } from './candlestick-chart/candlestick-chart.component';

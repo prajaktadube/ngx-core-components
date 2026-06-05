@@ -160,6 +160,8 @@ interface ApiRow {
                 <option [value]="8">8</option>
                 <option [value]="10">10</option>
                 <option [value]="20">20</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
               </select>
             </label>
 
@@ -796,7 +798,7 @@ export class GridDemoComponent {
     const statuses: Array<Employee['status']> = ['Active', 'On Leave', 'Inactive'];
     const titles = ['Software Engineer', 'Senior Engineer', 'Tech Lead', 'Product Manager', 'UX Designer', 'Data Analyst'];
 
-    return Array.from({ length: 48 }, (_, i) => {
+    return Array.from({ length: 10000 }, (_, i) => {
       const id = i + 1;
       const department = departments[i % departments.length];
       const city = cities[i % cities.length];

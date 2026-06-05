@@ -95,16 +95,21 @@ import { CommonModule } from '@angular/common';
       transform: scale(0.98) translateY(0);
     }
 
-    .dark .ngx-back-to-top {
-      background: rgba(15, 23, 42, 0.8);
-      border-color: rgba(255, 255, 255, 0.08);
+    .ngx-back-to-top.dark {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: #cbd5e1;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
     }
 
-    .dark .ngx-back-to-top:hover {
+    .ngx-back-to-top.dark:hover {
       background: #1e293b;
       color: #ffffff;
+    }
+
+    .ngx-back-to-top:focus-visible {
+      outline: 2px solid var(--primary-color, #3b82f6);
+      outline-offset: 3px;
     }
 
     /* ── SVG Progress Ring ── */
@@ -122,7 +127,7 @@ import { CommonModule } from '@angular/common';
       stroke: rgba(0, 0, 0, 0.05);
     }
 
-    .dark .ngx-back-to-top__circle-bg {
+    .ngx-back-to-top.dark .ngx-back-to-top__circle-bg {
       stroke: rgba(255, 255, 255, 0.06);
     }
 
