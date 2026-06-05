@@ -1483,7 +1483,25 @@ export class ChartExampleComponent {
   }
 
   getComponentClass(tab: string): string {
-    return tab.replace(/[^a-zA-Z]/g, '') + (tab.includes('Plot') ? '' : 'Component');
+    switch (tab) {
+      case 'Bar Chart': return 'BarChartComponent';
+      case 'Line Chart': return 'LineChartComponent';
+      case 'Pie / Donut': return 'PieChartComponent';
+      case 'Sparkline': return 'SparklineComponent';
+      case 'Gauge Chart': return 'GaugeChartComponent';
+      case 'Radar Chart': return 'RadarChartComponent';
+      case 'Heatmap Chart': return 'HeatmapChartComponent';
+      case 'Treemap Chart': return 'TreemapChartComponent';
+      case 'Area Chart': return 'AreaChartComponent';
+      case 'Funnel / Pyramid Chart': return 'FunnelChartComponent';
+      case 'Combo Chart': return 'ComboChartComponent';
+      case 'Scatter Plot': return 'ScatterPlotComponent';
+      case 'Waterfall Chart': return 'WaterfallChartComponent';
+      case 'Box Plot Chart': return 'BoxPlotChartComponent';
+      case 'Radial Bar Chart': return 'RadialBarChartComponent';
+      case 'Candlestick Chart': return 'CandlestickChartComponent';
+      default: return '';
+    }
   }
 
   getPlaygroundTemplate(tab: string): string {
@@ -1600,23 +1618,143 @@ bootstrapApplication(App).catch(err => console.error(err));`,
         version: '1.0.0',
         private: true,
         dependencies: {
-          '@angular/common': '^19.0.0',
-          '@angular/compiler': '^19.0.0',
-          '@angular/core': '^19.0.0',
-          '@angular/forms': '^19.0.0',
-          '@angular/platform-browser': '^19.0.0',
-          '@angular/platform-browser-dynamic': '^19.0.0',
-          '@angular/router': '^19.0.0',
-          'ngx-core-components': '^0.3.13',
+          '@angular/common': '^19.2.0',
+          '@angular/compiler': '^19.2.0',
+          '@angular/core': '^19.2.0',
+          '@angular/forms': '^19.2.0',
+          '@angular/platform-browser': '^19.2.0',
+          '@angular/platform-browser-dynamic': '^19.2.0',
+          '@angular/router': '^19.2.0',
           'rxjs': '~7.8.0',
-          'zone.js': '~0.14.0',
+          'zone.js': '~0.15.0',
           'tslib': '^2.3.0'
         },
         devDependencies: {
-          'typescript': '~5.4.0'
+          'typescript': '~5.7.2'
         }
-      }, null, 2)
+      }, null, 2),
+      'tsconfig.json': JSON.stringify({
+        "compileOnSave": false,
+        "compilerOptions": {
+          "target": "ES2022",
+          "module": "ES2022",
+          "moduleResolution": "bundler",
+          "esModuleInterop": true,
+          "experimentalDecorators": true,
+          "skipLibCheck": true,
+          "allowSyntheticDefaultImports": true,
+          "baseUrl": "./",
+          "paths": {
+            "ngx-core-components": [
+              "./src/app/chart.component.ts"
+            ]
+          }
+        }
+      }, null, 2),
+      'tsconfig.app.json': JSON.stringify({
+        "extends": "./tsconfig.json",
+        "compilerOptions": {
+          "outDir": "./out-tsc/app",
+          "types": [],
+          "baseUrl": "./",
+          "paths": {
+            "ngx-core-components": [
+              "./src/app/chart.component.ts"
+            ]
+          }
+        },
+        "files": [
+          "src/main.ts"
+        ],
+        "include": [
+          "src/**/*.d.ts"
+        ]
+      }, null, 2),
+      'src/tsconfig.app.json': JSON.stringify({
+        "extends": "../tsconfig.json",
+        "compilerOptions": {
+          "outDir": "../out-tsc/app",
+          "types": [],
+          "baseUrl": "./",
+          "paths": {
+            "ngx-core-components": [
+              "./app/chart.component.ts"
+            ]
+          }
+        },
+        "files": [
+          "main.ts"
+        ],
+        "include": [
+          "**/*.d.ts"
+        ]
+      }, null, 2),
+      'src/app/chart-utils.ts': `// Shared chart utilities and constants
+export const CHART_COLORS = [
+  '#4a90d9', '#ff6358', '#27ae60', '#f39c12', '#8e44ad',
+  '#1abc9c', '#e74c3c', '#3498db', '#2ecc71', '#e67e22',
+];
+
+export interface ChartSeries {
+  name: string;
+  data: (number | null)[];
+  color?: string;
+}
+
+export interface ChartDataPoint {
+  label: string;
+  value: number;
+  color?: string;
+}
+
+export function scale(value: number, min: number, max: number, rangeMin: number, rangeMax: number): number {
+  if (max === min) return rangeMin;
+  return rangeMin + ((value - min) / (max - min)) * (rangeMax - rangeMin);
+}
+
+export function niceTicks(min: number, max: number, count = 5): number[] {
+  if (min === max) return [min];
+  const range = max - min;
+  const step = niceStep(range / count);
+  const start = Math.floor(min / step) * step;
+  const ticks: number[] = [];
+  for (let v = start; v <= max + step * 0.01; v += step) {
+    ticks.push(parseFloat(v.toFixed(10)));
+  }
+  return ticks;
+}
+
+function niceStep(step: number): number {
+  const mag = Math.pow(10, Math.floor(Math.log10(step)));
+  const frac = step / mag;
+  if (frac < 1.5) return mag;
+  if (frac < 3) return 2 * mag;
+  if (frac < 7) return 5 * mag;
+  return 10 * mag;
+}
+
+export function smoothPath(points: [number, number][]): string {
+  if (points.length < 2) return '';
+  let d = \`M \${points[0][0]} \${points[0][1]}\`;
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i - 1];
+    const curr = points[i];
+    const cpx = (prev[0] + curr[0]) / 2;
+    d += \` C \${cpx} \${prev[1]}, \${cpx} \${curr[1]}, \${curr[0]} \${curr[1]}\`;
+  }
+  return d;
+}
+
+export function fmtNum(n: number): string {
+  if (Math.abs(n) >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
+  if (Math.abs(n) >= 1_000) return (n / 1_000).toFixed(1) + 'K';
+  return n % 1 === 0 ? n.toString() : n.toFixed(1);
+}
+`
     };
+
+    // Inject raw chart component source code directly
+    files['src/app/chart.component.ts'] = this.getComponentSourceCode(chartType);
 
     // Build and submit form POSTing to StackBlitz programmatic compiler
     const form = document.createElement('form');

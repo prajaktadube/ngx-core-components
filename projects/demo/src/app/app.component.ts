@@ -17,11 +17,24 @@ export class AppComponent {
   searchQuery = signal('');
   currentUrl = signal('/home');
 
+  expandedGroups = signal<Record<string, boolean>>({
+    'Foundations': true,
+    'Inputs & Actions': true,
+    'Layout & Overlays': true,
+    'Data Presentation': true,
+    'Visualizations': true,
+    'Intelligence': true,
+    'Feedback': true,
+    'Advanced Inputs': true,
+  });
+  expandedItems = signal<Record<string, boolean>>({});
+
   constructor(private router: Router) {
     this.currentUrl.set(this.normalizePath(this.router.url));
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentUrl.set(this.normalizePath(event.urlAfterRedirects));
+        this.autoExpandActive();
         this.onRouteChanged();
       }
     });
@@ -31,11 +44,12 @@ export class AppComponent {
     }
 
     this.initTheme();
+    this.autoExpandActive();
   }
 
   navGroups = DEMO_NAV_GROUPS;
 
-  parseItemPath(item: any) {
+  parseItemPath(item: any): any {
     const parts = item.path.split('?');
     const routePath = parts[0];
     const queryParams: Record<string, string> = {};
@@ -45,40 +59,86 @@ export class AppComponent {
         queryParams[key] = val;
       });
     }
-    return {
+    const parsed: any = {
       ...item,
       routePath,
       queryParams
     };
+    if (item.children) {
+      parsed.children = item.children.map((child: any) => this.parseItemPath(child));
+    }
+    return parsed;
   }
 
-  featuredItems = computed(() =>
-    this.navGroups
-      .flatMap(group => group.items)
+  featuredItems = computed(() => {
+    const flatLeafs: any[] = [];
+    const traverse = (items: any[]) => {
+      for (const item of items) {
+        if (item.children) {
+          traverse(item.children);
+        } else {
+          flatLeafs.push(item);
+        }
+      }
+    };
+    this.navGroups.forEach(group => traverse(group.items));
+    return flatLeafs
       .filter(item => item.featured)
       .map(item => this.parseItemPath(item))
-      .slice(0, 6)
-  );
+      .slice(0, 6);
+  });
 
   visibleGroups = computed(() => {
     const query = this.searchQuery().trim().toLowerCase();
     return this.navGroups
-      .map(group => ({
-        ...group,
-        items: group.items
-          .filter(item => {
-            if (!query) return true;
-            const haystack = `${item.label} ${item.desc} ${item.keywords ?? ''}`.toLowerCase();
-            return haystack.includes(query);
-          })
-          .map(item => this.parseItemPath(item)),
-      }))
+      .map(group => {
+        const filteredItems: any[] = [];
+        for (const item of group.items) {
+          if (item.children) {
+            const matchingChildren = item.children.filter(child => {
+              if (!query) return true;
+              const haystack = `${child.label} ${child.desc} ${child.keywords ?? ''}`.toLowerCase();
+              return haystack.includes(query);
+            });
+            const parentMatches = query ? `${item.label} ${item.desc} ${item.keywords ?? ''}`.toLowerCase().includes(query) : false;
+            if (matchingChildren.length > 0 || parentMatches) {
+              const parsedParent = this.parseItemPath(item);
+              parsedParent.children = (parentMatches ? item.children : matchingChildren).map(child => this.parseItemPath(child));
+              filteredItems.push(parsedParent);
+            }
+          } else {
+            if (!query) {
+              filteredItems.push(this.parseItemPath(item));
+            } else {
+              const haystack = `${item.label} ${item.desc} ${item.keywords ?? ''}`.toLowerCase();
+              if (haystack.includes(query)) {
+                filteredItems.push(this.parseItemPath(item));
+              }
+            }
+          }
+        }
+        return {
+          ...group,
+          items: filteredItems
+        };
+      })
       .filter(group => group.items.length > 0);
   });
 
   activeItem = computed(() => {
-    const items = this.navGroups.flatMap(group => group.items).map(item => this.parseItemPath(item));
-    const exactMatch = items.find(item => item.path === this.router.url);
+    const flatLeafs: any[] = [];
+    const traverse = (items: any[]) => {
+      for (const item of items) {
+        if (item.children) {
+          traverse(item.children);
+        } else {
+          flatLeafs.push(item);
+        }
+      }
+    };
+    this.navGroups.forEach(group => traverse(group.items));
+    const items = flatLeafs.map(item => this.parseItemPath(item));
+    const exactMatch = items.find(item => item.path === decodeURIComponent(this.router.url));
     if (exactMatch) return exactMatch;
     const currentBase = this.currentUrl().split('?')[0];
     return items.find(item => item.routePath === currentBase);
@@ -90,6 +150,54 @@ export class AppComponent {
   );
 
   isSearching = computed(() => this.searchQuery().trim().length > 0);
+
+  toggleGroup(title: string): void {
+    this.expandedGroups.update(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  }
+
+  isGroupExpanded(title: string): boolean {
+    return this.expandedGroups()[title] !== false || this.isSearching();
+  }
+
+  toggleItem(label: string): void {
+    this.expandedItems.update(prev => ({
+      ...prev,
+      [label]: !prev[label]
+    }));
+  }
+
+  isItemExpanded(label: string): boolean {
+    return !!this.expandedItems()[label] || this.isSearching();
+  }
+
+  private autoExpandActive(): void {
+    const url = decodeURIComponent(this.router.url);
+    const traverse = (items: any[], groupTitle: string) => {
+      for (const item of items) {
+        if (item.children) {
+          const hasActiveChild = item.children.some((child: any) => {
+            const childDecoded = decodeURIComponent(child.path);
+            return childDecoded === url || this.normalizePath(childDecoded) === this.normalizePath(url);
+          });
+          if (hasActiveChild) {
+            this.expandedItems.update(prev => ({
+              ...prev,
+              [item.label]: true
+            }));
+            this.expandedGroups.update(prev => ({
+              ...prev,
+              [groupTitle]: true
+            }));
+          }
+          traverse(item.children, groupTitle);
+        }
+      }
+    };
+    this.navGroups.forEach(group => traverse(group.items, group.title));
+  }
 
   toggleSidebar(): void {
     this.sidebarOpen.update(v => !v);

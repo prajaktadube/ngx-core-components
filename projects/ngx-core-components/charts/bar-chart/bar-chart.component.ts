@@ -52,6 +52,14 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
         [attr.height]="chartHeight()"
         class="chart-svg"
       >
+        <defs>
+          @for (s of series(); track s.name; let i = $index) {
+            <linearGradient [attr.id]="'bar-grad-' + i" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" [attr.stop-color]="seriesColor(i)" stop-opacity="1"/>
+              <stop offset="100%" [attr.stop-color]="seriesColor(i)" stop-opacity="0.75"/>
+            </linearGradient>
+          }
+        </defs>
         <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
 
           <!-- Y axis grid lines + labels -->
@@ -97,8 +105,8 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                   [attr.y]="barY(v)"
                   [attr.width]="singleBarWidth()"
                   [attr.height]="barH(v)"
-                  [attr.fill]="barColor(si, s)"
-                  [attr.rx]="3"
+                  [attr.fill]="s.color ? s.color : 'url(#bar-grad-' + si + ')'"
+                  [attr.rx]="4"
                   class="bar-rect"
                 />
                 @if (showLabels() && animateState()) {
@@ -142,36 +150,43 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
     .ngx-bar-chart { position: relative; background: var(--ngx-chart-bg, #fff); font-family: inherit; }
     .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
     .chart-legend { display: flex; gap: 16px; padding: 4px 0 12px; flex-wrap: wrap; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ngx-chart-axis-text, #6c757d); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ngx-chart-axis-text, #6c757d); font-weight: 500; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
     .chart-svg { display: block; overflow: visible; }
-    .axis-label { font-size: 11px; fill: var(--ngx-chart-axis-text, #6c757d); user-select: none; }
-    .column-ruler { fill: rgba(99, 102, 241, 0.04); border-radius: 4px; pointer-events: none; transition: x 0.15s cubic-bezier(0.16, 1, 0.3, 1); }
+    .axis-label { font-size: 11px; fill: var(--ngx-chart-axis-text, #6c757d); user-select: none; font-weight: 500; }
+    .column-ruler { fill: rgba(99, 102, 241, 0.03); stroke: rgba(99, 102, 241, 0.08); stroke-width: 1; rx: 6; ry: 6; pointer-events: none; transition: x 0.15s cubic-bezier(0.16, 1, 0.3, 1), width 0.15s cubic-bezier(0.16, 1, 0.3, 1); }
     
     .bar-rect {
       cursor: pointer;
-      transition: y 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s;
+      transition: y 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s, stroke-width 0.15s;
+      stroke: #fff;
+      stroke-width: 0.5;
     }
-    .bar-rect:hover { fill-opacity: 0.85; }
-    .bar-label { font-size: 11px; fill: var(--ngx-chart-axis-text, #6c757d); pointer-events: none; }
+    .bar-rect:hover {
+      fill-opacity: 0.9;
+      stroke-width: 1.5;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+    }
+    .bar-label { font-size: 11px; fill: var(--ngx-chart-axis-text, #6c757d); pointer-events: none; font-weight: 600; }
     
     /* Premium Glassmorphic Tooltip */
     .chart-tooltip {
       position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(30, 41, 59, 0.85));
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #fff); padding: 8px 12px;
-      border-radius: 8px; font-size: 12px; min-width: 140px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15), 0 4px 6px -4px rgba(0,0,0,0.1);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 100;
-      transition: left 0.15s cubic-bezier(0.16, 1, 0.3, 1), top 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
     }
-    .tt-cat { font-weight: 700; margin-bottom: 6px; font-size: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding-bottom: 4px; }
-    .tt-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .tt-cat { font-weight: 700; margin-bottom: 8px; font-size: 12.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; color: #38bdf8; }
+    .tt-row { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
     .tt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .tt-name { color: rgba(255, 255, 255, 0.8); flex: 1; }
-    .tt-val { font-weight: 700; }
+    .tt-name { color: rgba(248, 250, 252, 0.8); flex: 1; }
+    .tt-val { font-weight: 700; font-family: monospace; }
 
     /* Export styles */
     .chart-export-menu {

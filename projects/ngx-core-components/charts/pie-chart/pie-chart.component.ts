@@ -46,6 +46,7 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
                 stroke-width="2"
                 class="pie-slice"
                 [class.hovered]="hovered() === slice.index"
+                [style.transform]="hovered() === slice.index ? 'translate(' + (slice.cos * 8) + 'px,' + (slice.sin * 8) + 'px)' : 'translate(0, 0)'"
                 (mouseenter)="hovered.set(slice.index); onSliceHover($event, slice)"
                 (mouseleave)="hovered.set(-1); tooltip.set(null)"
               />
@@ -135,32 +136,33 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
 
     .pie-slice {
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s;
       transform-origin: 0px 0px;
     }
-    .pie-slice.hovered { transform: scale(1.04); fill-opacity: 0.9; }
+    .pie-slice.hovered { fill-opacity: 0.95; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.16)); }
     .slice-label { font-size: 11px; fill: #fff; font-weight: 600; pointer-events: none; user-select: none; }
-    .donut-center-text { font-size: 12px; fill: var(--ngx-chart-axis-text,#6c757d); font-weight: 500; }
-    .donut-center-value { font-size: 20px; font-weight: 800; fill: var(--ngx-chart-text,#212529); }
+    .donut-center-text { font-size: 11px; fill: var(--ngx-chart-axis-text,#6c757d); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .donut-center-value { font-size: 24px; font-weight: 900; fill: var(--ngx-chart-text,#0f172a); }
     .chart-legend { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
-    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.15s; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: all 0.15s; }
     .legend-item:hover { background: var(--ngx-chart-grid,#f1f3f5); }
-    .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-    .legend-label { flex: 1; color: var(--ngx-chart-axis-text,#6c757d); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .legend-label { flex: 1; color: var(--ngx-chart-axis-text,#6c757d); font-weight: 500; }
     .legend-pct { font-weight: 600; color: var(--ngx-chart-text,#212529); }
 
     /* Premium Glassmorphic Tooltip */
     .chart-tooltip {
       position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(30, 41, 59, 0.85));
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #fff); padding: 8px 12px;
-      border-radius: 8px; font-size: 12px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15), 0 4px 6px -4px rgba(0,0,0,0.1);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 100;
       display: flex; align-items: center; gap: 6px;
-      transition: left 0.15s cubic-bezier(0.16, 1, 0.3, 1), top 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
     }
     .tt-dot { width: 8px; height: 8px; border-radius: 50%; }
 
@@ -272,6 +274,8 @@ export class PieChartComponent {
       const path = this.mode() === 'donut'
         ? this.ringPath(start, end, r, this.holeR())
         : this.arcPath(start, end, r);
+      const cos = Math.cos(mid);
+      const sin = Math.sin(mid);
       start = end;
       return {
         index: i,
@@ -281,6 +285,8 @@ export class PieChartComponent {
         color: item.color || this.colors()[i % this.colors().length],
         path,
         midAngle: mid,
+        cos,
+        sin,
       };
     });
   });

@@ -24,6 +24,20 @@ export interface WaterfallItem {
           [attr.height]="height()"
           class="chart-svg"
         >
+          <defs>
+            <linearGradient id="waterfall-pos" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" [attr.stop-color]="positiveColor()" stop-opacity="1"/>
+              <stop offset="100%" [attr.stop-color]="positiveColor()" stop-opacity="0.75"/>
+            </linearGradient>
+            <linearGradient id="waterfall-neg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" [attr.stop-color]="negativeColor()" stop-opacity="1"/>
+              <stop offset="100%" [attr.stop-color]="negativeColor()" stop-opacity="0.75"/>
+            </linearGradient>
+            <linearGradient id="waterfall-tot" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" [attr.stop-color]="totalColor()" stop-opacity="1"/>
+              <stop offset="100%" [attr.stop-color]="totalColor()" stop-opacity="0.75"/>
+            </linearGradient>
+          </defs>
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Grid Lines (Horizontal) -->
             @if (showGrid()) {
@@ -81,8 +95,8 @@ export interface WaterfallItem {
                 [attr.y]="bar.y"
                 [attr.width]="bar.width"
                 [attr.height]="bar.rectH"
-                [attr.fill]="bar.color"
-                [attr.rx]="3"
+                [attr.fill]="bar.fill"
+                [attr.rx]="4"
                 class="waterfall-bar"
                 [class.hovered]="hoveredIndex() === i"
                 (mouseenter)="onBarHover($event, bar, i)"
@@ -146,11 +160,14 @@ export interface WaterfallItem {
     }
     .waterfall-bar {
       cursor: pointer;
-      transition: opacity 0.2s, filter 0.2s;
+      transition: opacity 0.2s, filter 0.2s, stroke-width 0.2s;
+      stroke: #fff;
+      stroke-width: 0.5;
     }
     .waterfall-bar.hovered {
-      opacity: 0.9;
-      filter: brightness(1.08) drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      opacity: 0.95;
+      stroke-width: 1.5;
+      filter: brightness(1.04) drop-shadow(0 4px 8px rgba(0,0,0,0.12));
     }
     .bar-value-label {
       font-size: 9px;
@@ -159,34 +176,32 @@ export interface WaterfallItem {
       pointer-events: none;
     }
     .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(8px);
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-      color: #f8fafc;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 11px;
       z-index: 100;
-      min-width: 130px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
     }
     .tooltip-header {
       font-weight: 700;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      margin-bottom: 6px;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
       color: #38bdf8;
+      font-size: 12.5px;
     }
     .tooltip-body {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 5px;
     }
     .tooltip-val {
-      color: #94a3b8;
+      color: rgba(248, 250, 252, 0.8);
     }
     .tooltip-val strong {
       color: #f8fafc;
@@ -303,8 +318,10 @@ export class WaterfallChartComponent {
       const y = Math.min(yStart, yEnd);
       const rectH = Math.max(2, Math.abs(yStart - yEnd));
 
+      let fill = 'url(#waterfall-tot)';
       let color = this.totalColor();
       if (!item.isTotal) {
+        fill = item.value >= 0 ? 'url(#waterfall-pos)' : 'url(#waterfall-neg)';
         color = item.value >= 0 ? this.positiveColor() : this.negativeColor();
       }
 
@@ -317,6 +334,7 @@ export class WaterfallChartComponent {
         rectH,
         width,
         color,
+        fill,
         connectY,
         label: item.label,
         value: item.value,

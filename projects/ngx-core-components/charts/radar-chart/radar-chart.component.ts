@@ -1,4 +1,4 @@
-import { Component, input, signal, computed } from '@angular/core';
+import { Component, input, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface RadarSeries {
@@ -10,6 +10,7 @@ export interface RadarSeries {
   selector: 'ngx-radar-chart',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-radar-wrapper">
       <!-- Radar Chart Visual Panel -->
@@ -18,13 +19,23 @@ export interface RadarSeries {
           class="ngx-radar-svg"
           viewBox="0 0 220 220"
         >
+          <defs>
+            @for (series of seriesData(); track series.label; let sIdx = $index) {
+              <linearGradient [id]="'radar-grad-' + sIdx" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" [attr.stop-color]="getSeriesColor(sIdx, 1)" stop-opacity="0.35" />
+                <stop offset="100%" [attr.stop-color]="getSeriesColor(sIdx, 1)" stop-opacity="0.05" />
+              </linearGradient>
+            }
+          </defs>
+
           <!-- Concentric polygon grids (web rings) -->
           @for (ring of gridRings(); track ring) {
             <polygon
               [attr.points]="getRingPoints(ring)"
               fill="none"
-              stroke="var(--border-light, #f1f5f9)"
-              stroke-width="1"
+              stroke="var(--border-light, rgba(226, 232, 240, 0.6))"
+              stroke-width="0.8"
+              stroke-dasharray="2,2"
             />
           }
 
@@ -35,9 +46,9 @@ export interface RadarSeries {
               [attr.y1]="110"
               [attr.x2]="axis.x"
               [attr.y2]="axis.y"
-              stroke="var(--border-color, #e2e8f0)"
-              stroke-width="1.2"
-              stroke-dasharray="2,2"
+              stroke="var(--border-color, rgba(226, 232, 240, 0.8))"
+              stroke-width="0.8"
+              stroke-dasharray="3,3"
             />
             <!-- Category Label text positions -->
             <text
@@ -54,7 +65,7 @@ export interface RadarSeries {
           @for (series of seriesData(); track series.label; let sIdx = $index) {
             <polygon
               [attr.points]="getSeriesPoints(series)"
-              [attr.fill]="getSeriesColor(sIdx, 0.15)"
+              [attr.fill]="'url(#radar-grad-' + sIdx + ')'"
               [attr.stroke]="getSeriesColor(sIdx, 1)"
               stroke-width="2.5"
               class="radar-polygon"
@@ -68,11 +79,12 @@ export interface RadarSeries {
               <circle
                 [attr.cx]="pt.x"
                 [attr.cy]="pt.y"
-                [attr.r]="hoveredPoint()?.seriesLabel === series.label && hoveredPoint()?.index === $index ? 5 : 3.5"
+                [attr.r]="hoveredPoint()?.seriesLabel === series.label && hoveredPoint()?.index === $index ? 5.5 : 3.5"
                 [attr.fill]="getSeriesColor(sIdx, 1)"
                 stroke="#ffffff"
                 stroke-width="1.5"
                 class="radar-dot"
+                [class.hovered]="hoveredPoint()?.seriesLabel === series.label && hoveredPoint()?.index === $index"
                 (mouseenter)="onPointEnter(series, $index, pt, $event)"
                 (mouseleave)="onPointLeave()"
               />
@@ -87,10 +99,11 @@ export interface RadarSeries {
             [style.left.px]="tooltip().x"
             [style.top.px]="tooltip().y"
           >
-            <div class="tooltip-series">{{ tooltip().series }}</div>
-            <div class="tooltip-row">
-              <span>{{ tooltip().category }}:</span>
-              <span>{{ tooltip().value }}</span>
+            <div class="tt-cat">{{ tooltip().series }}</div>
+            <div class="tt-row">
+              <span class="tt-dot" [style.background]="tooltip().color"></span>
+              <span class="tt-name">{{ tooltip().category }}</span>
+              <span class="tt-val">{{ tooltip().value }}</span>
             </div>
           </div>
         }
@@ -132,6 +145,7 @@ export interface RadarSeries {
       border: 1px solid var(--border-color, #e2e8f0);
       border-radius: 12px;
       box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
     }
 
     .ngx-radar-container {
@@ -150,19 +164,31 @@ export interface RadarSeries {
       overflow: visible;
     }
 
+    @keyframes radarScaleIn {
+      from { transform: scale(0.1); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
     /* Radar Polygons styling */
     .radar-polygon {
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: stroke-width 0.25s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.25s;
       cursor: pointer;
+      transform-origin: 110px 110px;
+      animation: radarScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     .radar-polygon:hover, .radar-polygon.active {
-      fill-opacity: 0.3;
       stroke-width: 3.5px;
     }
 
     .radar-dot {
       cursor: pointer;
-      transition: r 0.15s ease, stroke-width 0.15s ease;
+      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.2s;
+      transform-origin: 110px 110px;
+      animation: radarScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .radar-dot.hovered {
+      filter: drop-shadow(0 0 4px rgba(0,0,0,0.25));
+      stroke-width: 2px;
     }
 
     /* Labels styling */
@@ -178,33 +204,46 @@ export interface RadarSeries {
       position: absolute;
       z-index: 100;
       pointer-events: none;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      padding: 8px 12px;
-      color: #ffffff;
-      font-family: inherit;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 11px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       transform: translate(-50%, -115%);
-      min-width: 120px;
+      min-width: 140px;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .tooltip-series {
+    .tt-cat {
       font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 4px;
-      margin-bottom: 4px;
-      font-size: 12px;
+      color: #38bdf8;
     }
-    .tooltip-row {
+    .tt-row {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
     }
-    .tooltip-row span:last-child {
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
       font-weight: 700;
-      color: #fbbf24;
+      font-family: monospace;
     }
 
     /* Legend Layout */
@@ -246,13 +285,14 @@ export class RadarChartComponent {
   // Hover status signals
   hoveredSeries = signal<string | null>(null);
   hoveredPoint = signal<{ seriesLabel: string; index: number } | null>(null);
-  tooltip = signal<{ show: boolean; series: string; category: string; value: string; x: number; y: number }>({
+  tooltip = signal<{ show: boolean; series: string; category: string; value: string; x: number; y: number; color: string }>({
     show: false,
     series: '',
     category: '',
     value: '',
     x: 0,
-    y: 0
+    y: 0,
+    color: ''
   });
 
   // Concentric circle rings count
@@ -367,13 +407,17 @@ export class RadarChartComponent {
     const x = (pt.x / 220) * svgRect.width + (svgRect.left - containerRect.left);
     const y = (pt.y / 220) * svgRect.height + (svgRect.top - containerRect.top);
 
+    const seriesIndex = this.seriesData().indexOf(series);
+    const color = this.getSeriesColor(seriesIndex, 1);
+
     this.tooltip.set({
       show: true,
       series: series.label,
       category: this.categories()[index] ?? '',
       value: pt.value.toLocaleString(),
       x,
-      y
+      y,
+      color
     });
   }
 

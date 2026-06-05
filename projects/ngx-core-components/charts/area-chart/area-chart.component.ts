@@ -11,7 +11,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="ngx-area-chart" (mousemove)="onMouseMove($event)" (mouseleave)="crosshair.set(null); tooltip.set(null)">
+    <div class="ngx-area-chart" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
       @if (showLegend()) {
         <div class="chart-legend">
           @for (s of series(); track s.name; let i = $index) {
@@ -57,6 +57,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
                 [attr.d]="areaPath(s)"
                 [attr.fill]="'url(#area-gradient-' + si + ')'"
                 stroke="none"
+                class="area-path"
               />
               
               <!-- Border Line -->
@@ -67,18 +68,20 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
                 stroke-width="3"
                 stroke-linejoin="round"
                 stroke-linecap="round"
+                class="line-path"
               />
               
               <!-- Hover Markers -->
-              @if (showMarkers()) {
+              @if (showMarkers() && animateState()) {
                 @for (v of s.data; track $index; let ci = $index) {
                   <circle
                     [attr.cx]="xPos(ci)"
                     [attr.cy]="yPos(v)"
-                    r="4"
+                    [attr.r]="activeCategoryIndex() === ci ? 6 : 4"
                     [attr.fill]="seriesColor(si, s)"
-                    stroke="#ffffff"
-                    stroke-width="2"
+                    [attr.stroke]="activeCategoryIndex() === ci ? '#fff' : '#fff'"
+                    [attr.stroke-width]="activeCategoryIndex() === ci ? 2.5 : 2"
+                    [attr.filter]="activeCategoryIndex() === ci ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))' : null"
                     class="marker-dot"
                   />
                 }
@@ -158,51 +161,48 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
       font-weight: 600;
       fill: var(--text-secondary, #94a3b8);
     }
-    .marker-dot {
-      transition: r 0.1s ease;
+    
+    @keyframes lineDraw {
+      from { stroke-dashoffset: 1200; }
+      to { stroke-dashoffset: 0; }
     }
-    .marker-dot:hover {
-      r: 6px;
+    .line-path {
+      stroke-dasharray: 1200;
+      stroke-dashoffset: 1200;
+      animation: lineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     
+    @keyframes areaFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .area-path {
+      animation: areaFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    .marker-dot {
+      animation: areaFadeIn 0.5s ease 0.8s both;
+      transition: r 0.15s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.15s;
+    }
+    
+    /* Premium Glassmorphic Tooltip */
     .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, #0f172a);
-      color: #ffffff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      z-index: 10;
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
     }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: #ffffff;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 2px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      font-size: 11px;
-      color: #cbd5e1;
-    }
-    .tt-val {
-      margin-left: auto;
-      font-weight: 700;
-    }
+    .tt-cat { font-weight: 700; margin-bottom: 8px; font-size: 12.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; color: #38bdf8; }
+    .tt-row { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .tt-name { color: rgba(248, 250, 252, 0.8); flex: 1; }
+    .tt-val { font-weight: 700; font-family: monospace; }
   `]
 })
 export class AreaChartComponent {
@@ -220,11 +220,14 @@ export class AreaChartComponent {
   colors = input<string[]>(CHART_COLORS);
 
   crosshair = signal<{ x: number } | null>(null);
+  activeCategoryIndex = signal<number | null>(null);
   tooltip = signal<{ x: number; y: number; cat: string; rows: { name: string; value: number; color: string }[] } | null>(null);
   containerWidth = signal<number>(600);
 
   innerW = computed(() => this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT);
   innerH = computed(() => this.height() - this.PAD_TOP - this.PAD_BOTTOM);
+
+  animateState = signal(false);
 
   constructor() {
     const hostEl = inject(ElementRef).nativeElement;
@@ -240,6 +243,7 @@ export class AreaChartComponent {
       resizeObserver.observe(hostEl);
       inject(DestroyRef).onDestroy(() => resizeObserver.disconnect());
     }
+    setTimeout(() => this.animateState.set(true), 50);
   }
 
   private allValues = computed(() => this.series().flatMap(s => s.data));
@@ -279,6 +283,7 @@ export class AreaChartComponent {
     const idx = Math.round(scale(mx, 0, this.innerW(), 0, cats.length - 1));
     const ci = Math.max(0, Math.min(cats.length - 1, idx));
     this.crosshair.set({ x: this.xPos(ci) });
+    this.activeCategoryIndex.set(ci);
     const rows = this.series().map((s, si) => ({
       name: s.name,
       value: s.data[ci] ?? 0,
@@ -290,6 +295,12 @@ export class AreaChartComponent {
       cat: cats[ci],
       rows,
     });
+  }
+
+  onMouseLeave(): void {
+    this.crosshair.set(null);
+    this.activeCategoryIndex.set(null);
+    this.tooltip.set(null);
   }
 
   readonly fmtNum = fmtNum;

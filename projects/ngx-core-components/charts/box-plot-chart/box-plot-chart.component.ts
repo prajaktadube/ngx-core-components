@@ -28,6 +28,13 @@ export interface BoxPlotItem {
           [attr.height]="height()"
           class="chart-svg"
         >
+          <defs>
+            <linearGradient id="boxplot-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" [attr.stop-color]="color()" stop-opacity="0.32" />
+              <stop offset="100%" [attr.stop-color]="color()" stop-opacity="0.08" />
+            </linearGradient>
+          </defs>
+
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Grid Lines (Horizontal) -->
             @if (showGrid()) {
@@ -73,6 +80,7 @@ export interface BoxPlotItem {
                 [attr.y2]="box.yMax"
                 [attr.stroke]="color()"
                 stroke-width="1.5"
+                class="whisker-line"
               />
 
               <!-- Whisker Caps (Horizontal Lines) -->
@@ -83,6 +91,7 @@ export interface BoxPlotItem {
                 [attr.y2]="box.yMin"
                 [attr.stroke]="color()"
                 stroke-width="1.5"
+                class="whisker-line"
               />
               <line
                 [attr.x1]="box.centerX - capWidth() / 2"
@@ -91,6 +100,7 @@ export interface BoxPlotItem {
                 [attr.y2]="box.yMax"
                 [attr.stroke]="color()"
                 stroke-width="1.5"
+                class="whisker-line"
               />
 
               <!-- Interquartile Box -->
@@ -99,13 +109,16 @@ export interface BoxPlotItem {
                 [attr.y]="box.yQ3"
                 [attr.width]="box.width"
                 [attr.height]="box.boxHeight"
-                [attr.fill]="fillColor()"
+                fill="url(#boxplot-grad)"
                 [attr.stroke]="color()"
                 stroke-width="2"
-                [attr.rx]="2"
+                [attr.rx]="4"
                 class="boxplot-rect"
                 [class.hovered]="hoveredIndex() === i"
+                [style.transform-origin]="box.centerX + 'px ' + box.yMedian + 'px'"
+                [style.animation-delay]="i * 0.05 + 's'"
                 (mouseenter)="onBoxHover($event, box.raw, i)"
+                (mousemove)="onBoxHover($event, box.raw, i)"
               />
 
               <!-- Median line -->
@@ -116,6 +129,7 @@ export interface BoxPlotItem {
                 [attr.y2]="box.yMedian"
                 [attr.stroke]="color()"
                 stroke-width="2.5"
+                class="median-line"
               />
 
               <!-- Outliers (plotted as circles) -->
@@ -126,9 +140,11 @@ export interface BoxPlotItem {
                   [attr.r]="3.5"
                   [attr.fill]="outlierColor()"
                   [attr.stroke]="'#ffffff'"
-                  stroke-width="1"
+                  stroke-width="1.2"
                   class="outlier-dot"
+                  [style.transform-origin]="box.centerX + 'px ' + outlier.y + 'px'"
                   (mouseenter)="onOutlierHover($event, box.raw.label, outlier.value)"
+                  (mousemove)="onOutlierHover($event, box.raw.label, outlier.value)"
                 />
               }
             }
@@ -145,13 +161,31 @@ export interface BoxPlotItem {
             <div class="tooltip-header">{{ t.label }}</div>
             <div class="tooltip-body">
               @if (t.isOutlier) {
-                <div class="tooltip-val">Outlier Value: <strong>{{ fmtNum(t.outlierVal!) }}</strong></div>
+                <div class="tooltip-val">
+                  <span>Outlier:</span>
+                  <strong>{{ fmtNum(t.outlierVal!) }}</strong>
+                </div>
               } @else {
-                <div class="tooltip-val">Max: <strong>{{ fmtNum(t.max) }}</strong></div>
-                <div class="tooltip-val">Q3: <strong>{{ fmtNum(t.q3) }}</strong></div>
-                <div class="tooltip-val">Median: <strong style="color: #38bdf8;">{{ fmtNum(t.median) }}</strong></div>
-                <div class="tooltip-val">Q1: <strong>{{ fmtNum(t.q1) }}</strong></div>
-                <div class="tooltip-val">Min: <strong>{{ fmtNum(t.min) }}</strong></div>
+                <div class="tooltip-val">
+                  <span>Maximum:</span>
+                  <strong>{{ fmtNum(t.max) }}</strong>
+                </div>
+                <div class="tooltip-val">
+                  <span>Third Quartile (Q3):</span>
+                  <strong>{{ fmtNum(t.q3) }}</strong>
+                </div>
+                <div class="tooltip-val" style="color: #38bdf8;">
+                  <span>Median:</span>
+                  <strong>{{ fmtNum(t.median) }}</strong>
+                </div>
+                <div class="tooltip-val">
+                  <span>First Quartile (Q1):</span>
+                  <strong>{{ fmtNum(t.q1) }}</strong>
+                </div>
+                <div class="tooltip-val">
+                  <span>Minimum:</span>
+                  <strong>{{ fmtNum(t.min) }}</strong>
+                </div>
               }
             </div>
           </div>
@@ -185,55 +219,85 @@ export interface BoxPlotItem {
       fill: #64748b;
       font-weight: 500;
     }
+
+    @keyframes boxPlotGrow {
+      from { transform: scaleY(0); opacity: 0; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+
     .boxplot-rect {
       cursor: pointer;
-      transition: opacity 0.2s, fill 0.2s, filter 0.2s;
+      transition: opacity 0.2s, fill 0.2s, stroke-width 0.2s, filter 0.2s;
+      animation: boxPlotGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
-    .boxplot-rect.hovered {
-      fill: var(--ngx-chart-hover-bg, rgba(79, 70, 229, 0.25));
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    .boxplot-rect:hover, .boxplot-rect.hovered {
+      filter: brightness(1.05) drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+      stroke-width: 2.5px;
+    }
+
+    @keyframes whiskerFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .whisker-line, .median-line {
+      animation: whiskerFade 0.6s ease-out 0.2s both;
+    }
+
+    @keyframes outlierPop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
     .outlier-dot {
       cursor: crosshair;
-      transition: r 0.15s, fill 0.15s;
+      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), fill 0.2s;
+      animation: outlierPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
     }
     .outlier-dot:hover {
       r: 5.5px;
       fill: #ef4444;
     }
+
+    /* Glassmorphic Tooltip */
     .chart-tooltip {
       position: absolute;
       pointer-events: none;
       transform: translate(-50%, -100%) translateY(-10px);
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-      color: #f8fafc;
-      padding: 8px 12px;
-      border-radius: 6px;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 11px;
       z-index: 100;
-      min-width: 120px;
+      min-width: 155px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .tooltip-header {
       font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 4px;
-      margin-bottom: 6px;
       color: #38bdf8;
     }
     .tooltip-body {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
     .tooltip-val {
-      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: rgba(248, 250, 252, 0.85);
     }
     .tooltip-val strong {
       color: #f8fafc;
       font-family: monospace;
+      font-weight: 700;
     }
   `]
 })
@@ -391,7 +455,7 @@ export class BoxPlotChartComponent {
     this.tooltip.set({
       x: tooltipX,
       y: tooltipY,
-      label: `${label} (Outlier)`,
+      label: `${label} outlier`,
       min: 0,
       q1: 0,
       median: 0,

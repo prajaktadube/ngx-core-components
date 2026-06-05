@@ -101,10 +101,11 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
                 <circle
                   [attr.cx]="xPos(ci)"
                   [attr.cy]="yPos(v)"
-                  r="4"
+                  [attr.r]="activeCategoryIndex() === ci ? 6 : 4"
                   [attr.fill]="seriesColor(si, s)"
-                  stroke="#fff"
-                  stroke-width="2"
+                  [attr.stroke]="activeCategoryIndex() === ci ? '#fff' : '#fff'"
+                  [attr.stroke-width]="activeCategoryIndex() === ci ? 2.5 : 2"
+                  [attr.filter]="activeCategoryIndex() === ci ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))' : null"
                   class="marker-dot"
                 />
               }
@@ -145,10 +146,10 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
     .ngx-line-chart { position: relative; background: var(--ngx-chart-bg, #fff); }
     .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
     .chart-legend { display: flex; gap: 16px; padding: 4px 0 12px; flex-wrap: wrap; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ngx-chart-axis-text,#6c757d); }
-    .legend-line { width: 20px; height: 3px; border-radius: 2px; display: inline-block; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ngx-chart-axis-text,#6c757d); font-weight: 500; }
+    .legend-line { width: 18px; height: 4px; border-radius: 2px; display: inline-block; }
     .chart-svg { display: block; overflow: visible; cursor: crosshair; }
-    .axis-label { font-size: 11px; fill: var(--ngx-chart-axis-text,#6c757d); user-select: none; }
+    .axis-label { font-size: 11px; fill: var(--ngx-chart-axis-text,#6c757d); user-select: none; font-weight: 500; }
     .chart-crosshair { transition: x1 0.12s cubic-bezier(0.16, 1, 0.3, 1), x2 0.12s cubic-bezier(0.16, 1, 0.3, 1); }
 
     /* Keyframe Line draw transition */
@@ -172,25 +173,27 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
 
     .marker-dot {
       animation: areaFadeIn 0.5s ease 0.8s both;
+      transition: r 0.15s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.15s;
     }
 
     /* Premium Glassmorphic Tooltip */
     .chart-tooltip {
       position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(30, 41, 59, 0.85));
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #fff); padding: 8px 12px;
-      border-radius: 8px; font-size: 12px; min-width: 140px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15), 0 4px 6px -4px rgba(0,0,0,0.1);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 100;
       transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
     }
-    .tt-cat { font-weight: 700; margin-bottom: 6px; font-size: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding-bottom: 4px; }
-    .tt-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .tt-cat { font-weight: 700; margin-bottom: 8px; font-size: 12.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; color: #38bdf8; }
+    .tt-row { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
     .tt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .tt-name { color: rgba(255, 255, 255, 0.8); flex: 1; }
-    .tt-val { font-weight: 700; }
+    .tt-name { color: rgba(248, 250, 252, 0.8); flex: 1; }
+    .tt-val { font-weight: 700; font-family: monospace; }
 
     /* Export styles */
     .chart-export-menu {
@@ -272,6 +275,7 @@ export class LineChartComponent {
   containerWidth = signal<number>(600);
 
   crosshair = signal<{ x: number } | null>(null);
+  activeCategoryIndex = signal<number | null>(null);
   tooltip = signal<{ x: number; y: number; cat: string; rows: {name:string;value:number;color:string}[] } | null>(null);
 
   chartHeight = computed(() => this.height());
@@ -329,6 +333,7 @@ export class LineChartComponent {
     const idx = Math.round(scale(mx, 0, this.innerW(), 0, cats.length - 1));
     const ci = Math.max(0, Math.min(cats.length - 1, idx));
     this.crosshair.set({ x: this.xPos(ci) });
+    this.activeCategoryIndex.set(ci);
     const rows = this.series().map((s, si) => ({
       name: s.name,
       value: s.data[ci] ?? 0,
@@ -344,6 +349,7 @@ export class LineChartComponent {
 
   onMouseLeave(): void {
     this.crosshair.set(null);
+    this.activeCategoryIndex.set(null);
     this.tooltip.set(null);
   }
 

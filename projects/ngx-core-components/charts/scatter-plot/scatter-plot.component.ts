@@ -97,18 +97,47 @@ export interface ScatterPoint {
               text-anchor="middle"
             >{{ xTitle() }}</text>
 
+            <!-- Active Crosshair -->
+            @if (hoveredPointIndex() !== null) {
+              @if (scaledPoints()[hoveredPointIndex()!]; as pt) {
+                <line
+                  [attr.x1]="0"
+                  [attr.x2]="innerW()"
+                  [attr.y1]="pt.cy"
+                  [attr.y2]="pt.cy"
+                  stroke="rgba(79, 70, 229, 0.35)"
+                  stroke-width="1.2"
+                  stroke-dasharray="3,3"
+                  class="crosshair-line"
+                />
+                <line
+                  [attr.x1]="pt.cx"
+                  [attr.x2]="pt.cx"
+                  [attr.y1]="0"
+                  [attr.y2]="innerH()"
+                  stroke="rgba(79, 70, 229, 0.35)"
+                  stroke-width="1.2"
+                  stroke-dasharray="3,3"
+                  class="crosshair-line"
+                />
+              }
+            }
+
             <!-- Render Data Points -->
             @for (pt of scaledPoints(); track $index; let i = $index) {
               <circle
                 [attr.cx]="pt.cx"
                 [attr.cy]="pt.cy"
-                [attr.r]="pt.r"
+                [attr.r]="hoveredPointIndex() === i ? pt.r + 3.5 : pt.r"
                 [attr.fill]="pt.color"
                 [attr.stroke]="'#ffffff'"
                 stroke-width="1.5"
                 class="scatter-point"
                 [class.hovered]="hoveredPointIndex() === i"
+                [style.transform-origin]="pt.cx + 'px ' + pt.cy + 'px'"
+                [style.animation-delay]="(i * 0.015) + 's'"
                 (mouseenter)="onPointHover($event, pt.raw, i)"
+                (mousemove)="onPointHover($event, pt.raw, i)"
               />
             }
 
@@ -122,14 +151,24 @@ export interface ScatterPoint {
         @if (tooltip(); as t) {
           <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
             @if (t.label) {
-              <div class="tooltip-header">{{ t.label }}</div>
+              <div class="tt-cat">{{ t.label }}</div>
+            } @else {
+              <div class="tt-cat">Point Data</div>
             }
-            <div class="tooltip-body">
-              @if (t.group) {
-                <div class="tooltip-group">Group: <strong>{{ t.group }}</strong></div>
-              }
-              <div class="tooltip-val">{{ xTitle() }}: <strong>{{ fmtNum(ptX(t)) }}</strong></div>
-              <div class="tooltip-val">{{ yTitle() }}: <strong>{{ fmtNum(ptY(t)) }}</strong></div>
+            <div class="tt-row">
+              <span class="tt-dot" [style.background]="t.color"></span>
+              <span class="tt-name">Group</span>
+              <span class="tt-val">{{ t.group || 'Default' }}</span>
+            </div>
+            <div class="tt-row">
+              <span class="tt-dot" style="background: transparent;"></span>
+              <span class="tt-name">{{ xTitle() }}</span>
+              <span class="tt-val">{{ fmtNum(ptX(t)) }}</span>
+            </div>
+            <div class="tt-row">
+              <span class="tt-dot" style="background: transparent;"></span>
+              <span class="tt-name">{{ yTitle() }}</span>
+              <span class="tt-val">{{ fmtNum(ptY(t)) }}</span>
             </div>
           </div>
         }
@@ -205,51 +244,81 @@ export interface ScatterPoint {
     .dark .axis-title {
       fill: #cbd5e1;
     }
+
+    @keyframes scatterPointPop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 0.85; }
+    }
+
     .scatter-point {
       cursor: pointer;
-      transition: r 0.2s, opacity 0.2s, filter 0.2s;
+      transition: r 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.25s,
+                  filter 0.25s,
+                  stroke-width 0.2s;
+      animation: scatterPointPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     .scatter-point.hovered {
-      r: 8px;
       opacity: 0.95;
-      filter: brightness(1.1);
+      filter: drop-shadow(0 0 6px var(--ngx-chart-hover-stroke, #4f46e5));
+      stroke: #ffffff;
+      stroke-width: 2px;
     }
+
+    .crosshair-line {
+      pointer-events: none;
+      animation: fadeIn 0.15s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Glassmorphic Tooltip styling */
     .chart-tooltip {
       position: absolute;
       pointer-events: none;
       transform: translate(-50%, -100%) translateY(-10px);
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-      color: #f8fafc;
-      padding: 8px 12px;
-      border-radius: 6px;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 11px;
       z-index: 100;
-      min-width: 120px;
+      min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .tooltip-header {
+    .tt-cat {
       font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 4px;
-      margin-bottom: 6px;
       color: #38bdf8;
     }
-    .tooltip-body {
+    .tt-row {
       display: flex;
-      flex-direction: column;
-      gap: 3px;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
     }
-    .tooltip-group {
-      color: #cbd5e1;
-      margin-bottom: 3px;
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
-    .tooltip-val {
-      color: #94a3b8;
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
     }
-    .tooltip-val strong {
-      color: #f8fafc;
+    .tt-val {
+      font-weight: 700;
       font-family: monospace;
     }
   `]

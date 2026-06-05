@@ -17,7 +17,7 @@ export interface RadialBarItem {
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="ngx-radial-bar-chart" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
+    <div class="ngx-radial-bar-chart" (mouseleave)="onMouseLeave()">
       <div class="chart-layout">
         <!-- SVG Concentric Circles -->
         <div class="radial-visual">
@@ -27,6 +27,14 @@ export interface RadialBarItem {
             [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
             class="radial-svg"
           >
+            <defs>
+              @for (ring of computedRings(); track $index; let i = $index) {
+                <linearGradient [id]="'radial-grad-' + i" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" [attr.stop-color]="ring.color" />
+                  <stop offset="100%" [attr.stop-color]="ring.color" stop-opacity="0.6" />
+                </linearGradient>
+              }
+            </defs>
             <!-- Rotate group by -90deg so rings start at 12 o'clock -->
             <g [attr.transform]="'translate(' + center() + ',' + center() + ') rotate(-90)'">
               @for (ring of computedRings(); track $index; let i = $index) {
@@ -37,7 +45,7 @@ export interface RadialBarItem {
                   [attr.r]="ring.r"
                   fill="none"
                   [attr.stroke]="ring.color"
-                  stroke-opacity="0.12"
+                  stroke-opacity="0.08"
                   [attr.stroke-width]="strokeWidth()"
                 />
 
@@ -47,14 +55,15 @@ export interface RadialBarItem {
                   cy="0"
                   [attr.r]="ring.r"
                   fill="none"
-                  [attr.stroke]="ring.color"
-                  [attr.stroke-width]="strokeWidth()"
+                  [attr.stroke]="'url(#radial-grad-' + i + ')'"
+                  [attr.stroke-width]="hoveredIndex() === i ? strokeWidth() + 3 : strokeWidth()"
                   [attr.stroke-dasharray]="ring.dashArray"
-                  [attr.stroke-dashoffset]="0"
+                  [attr.stroke-dashoffset]="animateState() ? 0 : ring.circumference"
                   stroke-linecap="round"
                   class="progress-ring"
                   [class.hovered]="hoveredIndex() === i"
-                  (mouseenter)="onRingHover($event, ring.raw, i)"
+                  (mouseenter)="onRingHover(ring.raw, i)"
+                  (mousemove)="onRingMouseMove($event)"
                 />
               }
             </g>
@@ -102,6 +111,27 @@ export interface RadialBarItem {
           </div>
         }
       </div>
+
+      <!-- Glassmorphic Tooltip -->
+      @if (tooltip() && hoveredIndex() !== null) {
+        <div
+          class="chart-tooltip"
+          [style.left.px]="tooltipX()"
+          [style.top.px]="tooltipY()"
+        >
+          <div class="tt-cat">{{ tooltip().label }}</div>
+          <div class="tt-row">
+            <span class="tt-dot" [style.background]="tooltip().color"></span>
+            <span class="tt-name">Progress</span>
+            <span class="tt-val">{{ tooltip().pct }}%</span>
+          </div>
+          <div class="tt-row">
+            <span class="tt-dot" style="background: transparent;"></span>
+            <span class="tt-name">Value</span>
+            <span class="tt-val">{{ fmtNum(tooltip().value) }} / {{ fmtNum(tooltip().max) }}</span>
+          </div>
+        </div>
+      }
     </div>
   `,
   styles: [`
@@ -114,6 +144,7 @@ export interface RadialBarItem {
       padding: 16px;
       box-sizing: border-box;
       font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
     }
     .chart-layout {
       display: flex;
@@ -133,11 +164,13 @@ export interface RadialBarItem {
     }
     .progress-ring {
       cursor: pointer;
-      transition: stroke-width 0.2s, filter 0.2s, opacity 0.2s;
+      transition: stroke-width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.3s ease,
+                  opacity 0.2s;
     }
     .progress-ring.hovered {
-      stroke-width: 14px; /* thickens slightly on hover */
-      filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.15));
+      filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
     }
     .center-content {
       position: absolute;
@@ -211,6 +244,53 @@ export interface RadialBarItem {
       font-weight: 700;
       color: #1e293b;
     }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 160px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
   `]
 })
 export class RadialBarChartComponent {
@@ -225,9 +305,16 @@ export class RadialBarChartComponent {
 
   hoveredIndex = signal<number | null>(null);
   tooltip = signal<any | null>(null);
+  tooltipX = signal<number>(0);
+  tooltipY = signal<number>(0);
+  animateState = signal<boolean>(false);
 
   size = computed(() => this.height());
   center = computed(() => this.size() / 2);
+
+  constructor() {
+    setTimeout(() => this.animateState.set(true), 50);
+  }
 
   // Ring properties
   computedRings = computed(() => {
@@ -258,6 +345,7 @@ export class RadialBarChartComponent {
         pct,
         color,
         dashArray,
+        circumference: C,
         label: item.label,
         value: item.value,
         max: item.max,
@@ -274,8 +362,27 @@ export class RadialBarChartComponent {
     return Math.round((sum / raw.length) * 100);
   });
 
-  onRingHover(event: MouseEvent, item: RadialBarItem, index: number) {
+  onRingHover(item: RadialBarItem, index: number) {
     this.hoveredIndex.set(index);
+    const ring = this.computedRings()[index];
+    if (ring) {
+      this.tooltip.set(ring);
+    }
+  }
+
+  onRingMouseMove(event: MouseEvent) {
+    const el = event.currentTarget as SVGElement;
+    const container = el.closest('.ngx-radial-bar-chart');
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
   }
 
   readonly fmtNum = fmtNum;

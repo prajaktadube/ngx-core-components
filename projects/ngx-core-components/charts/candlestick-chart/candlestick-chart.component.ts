@@ -26,6 +26,17 @@ export interface CandlestickItem {
           [attr.height]="height()"
           class="chart-svg"
         >
+          <defs>
+            <linearGradient id="candle-bullish-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" [attr.stop-color]="bullishColor()" />
+              <stop offset="100%" [attr.stop-color]="bullishColor()" stop-opacity="0.8" />
+            </linearGradient>
+            <linearGradient id="candle-bearish-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" [attr.stop-color]="bearishColor()" />
+              <stop offset="100%" [attr.stop-color]="bearishColor()" stop-opacity="0.8" />
+            </linearGradient>
+          </defs>
+
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Grid Lines (Horizontal) -->
             @if (showGrid()) {
@@ -61,6 +72,32 @@ export interface CandlestickItem {
               >{{ formatDate(item.date) }}</text>
             }
 
+            <!-- Active Crosshair -->
+            @if (hoveredIndex() !== null) {
+              @if (computedCandles()[hoveredIndex()!]; as candle) {
+                <line
+                  [attr.x1]="0"
+                  [attr.x2]="innerW()"
+                  [attr.y1]="candle.yClose"
+                  [attr.y2]="candle.yClose"
+                  stroke="rgba(100, 116, 139, 0.25)"
+                  stroke-width="1.2"
+                  stroke-dasharray="3,3"
+                  class="crosshair-line"
+                />
+                <line
+                  [attr.x1]="candle.centerX"
+                  [attr.x2]="candle.centerX"
+                  [attr.y1]="0"
+                  [attr.y2]="innerH()"
+                  stroke="rgba(100, 116, 139, 0.25)"
+                  stroke-width="1.2"
+                  stroke-dasharray="3,3"
+                  class="crosshair-line"
+                />
+              }
+            }
+
             <!-- Candles -->
             @for (candle of computedCandles(); track $index; let i = $index) {
               <!-- Whisker/Wick Line (High to Low) -->
@@ -71,6 +108,7 @@ export interface CandlestickItem {
                 [attr.y2]="candle.yLow"
                 [attr.stroke]="candle.color"
                 stroke-width="1.5"
+                class="candle-wick"
               />
 
               <!-- Candle Body Rect (Open to Close) -->
@@ -79,12 +117,15 @@ export interface CandlestickItem {
                 [attr.y]="candle.y"
                 [attr.width]="candle.width"
                 [attr.height]="candle.rectH"
-                [attr.fill]="candle.color"
+                [attr.fill]="candle.isBullish ? 'url(#candle-bullish-grad)' : 'url(#candle-bearish-grad)'"
                 [attr.stroke]="candle.color"
                 stroke-width="1"
                 class="candle-rect"
                 [class.hovered]="hoveredIndex() === i"
+                [style.transform-origin]="candle.centerX + 'px ' + candle.yOpen + 'px'"
+                [style.animation-delay]="i * 0.03 + 's'"
                 (mouseenter)="onCandleHover($event, candle.raw, i)"
+                (mousemove)="onCandleHover($event, candle.raw, i)"
               />
             }
 
@@ -102,10 +143,22 @@ export interface CandlestickItem {
               <div class="tooltip-direction" [style.color]="t.direction === 'Bullish' ? '#10b981' : '#ef4444'">
                 <strong>{{ t.direction }}</strong> ({{ t.changePct }})
               </div>
-              <div class="tooltip-val">High: <strong>{{ fmtNum(t.high) }}</strong></div>
-              <div class="tooltip-val">Open: <strong>{{ fmtNum(t.open) }}</strong></div>
-              <div class="tooltip-val">Close: <strong>{{ fmtNum(t.close) }}</strong></div>
-              <div class="tooltip-val">Low: <strong>{{ fmtNum(t.low) }}</strong></div>
+              <div class="tooltip-val">
+                <span>High:</span>
+                <strong>{{ fmtNum(t.high) }}</strong>
+              </div>
+              <div class="tooltip-val">
+                <span>Open:</span>
+                <strong>{{ fmtNum(t.open) }}</strong>
+              </div>
+              <div class="tooltip-val" style="color: #38bdf8;">
+                <span>Close:</span>
+                <strong>{{ fmtNum(t.close) }}</strong>
+              </div>
+              <div class="tooltip-val">
+                <span>Low:</span>
+                <strong>{{ fmtNum(t.low) }}</strong>
+              </div>
             </div>
           </div>
         }
@@ -138,54 +191,82 @@ export interface CandlestickItem {
       fill: #64748b;
       font-weight: 500;
     }
+
+    @keyframes candleGrow {
+      from { transform: scaleY(0); opacity: 0; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+
     .candle-rect {
       cursor: pointer;
-      transition: fill 0.15s, opacity 0.15s, filter 0.15s;
+      transition: fill 0.15s, opacity 0.15s, stroke-width 0.15s, filter 0.15s;
+      animation: candleGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     .candle-rect.hovered {
-      opacity: 0.85;
-      filter: brightness(1.1) drop-shadow(0 4px 6px rgba(0,0,0,0.12));
+      filter: brightness(1.05) drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+      stroke-width: 1.5px;
     }
+
+    @keyframes wickFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .candle-wick {
+      animation: wickFade 0.6s ease-out 0.2s both;
+    }
+
+    .crosshair-line {
+      pointer-events: none;
+    }
+
+    /* Glassmorphic Tooltip */
     .chart-tooltip {
       position: absolute;
       pointer-events: none;
       transform: translate(-50%, -100%) translateY(-10px);
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-      color: #f8fafc;
-      padding: 8px 12px;
-      border-radius: 6px;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 11px;
       z-index: 100;
-      min-width: 130px;
+      min-width: 155px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .tooltip-header {
       font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 4px;
-      margin-bottom: 6px;
       color: #38bdf8;
     }
     .tooltip-direction {
       font-size: 10px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.3px;
     }
     .tooltip-body {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
     .tooltip-val {
-      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: rgba(248, 250, 252, 0.85);
     }
     .tooltip-val strong {
       color: #f8fafc;
       font-family: monospace;
+      font-weight: 700;
     }
   `]
 })
@@ -287,9 +368,12 @@ export class CandlestickChartComponent {
         width,
         yHigh,
         yLow,
+        yOpen,
+        yClose,
         y,
         rectH,
         color,
+        isBullish,
         raw: item
       };
     });

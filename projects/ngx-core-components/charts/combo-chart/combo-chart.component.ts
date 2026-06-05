@@ -38,6 +38,15 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
           class="chart-svg"
           (mouseleave)="onMouseLeave()"
         >
+          <defs>
+            @for (s of barSeries(); track s.name; let si = $index) {
+              <linearGradient [id]="'combo-bar-grad-' + si" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" [attr.stop-color]="s.color || barSeriesColor(si)" stop-opacity="1"/>
+                <stop offset="100%" [attr.stop-color]="s.color || barSeriesColor(si)" stop-opacity="0.75"/>
+              </linearGradient>
+            }
+          </defs>
+
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Grid Lines -->
             @if (showGrid()) {
@@ -113,8 +122,8 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                     [attr.y]="barY(v)"
                     [attr.width]="singleBarWidth()"
                     [attr.height]="barH(v)"
-                    [attr.fill]="s.color || barSeriesColor(si)"
-                    [attr.rx]="2"
+                    [attr.fill]="s.color ? s.color : 'url(#combo-bar-grad-' + si + ')'"
+                    [attr.rx]="4"
                     class="bar-rect"
                   />
                 }
@@ -138,11 +147,12 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                   <circle
                     [attr.cx]="catMidX(ci)"
                     [attr.cy]="rightYPos(v)"
-                    [attr.r]="activeCategoryIndex() === ci ? 6 : 4"
+                    [attr.r]="activeCategoryIndex() === ci ? 6.5 : 4"
                     [attr.fill]="'#ffffff'"
                     [attr.stroke]="s.color || lineSeriesColor(si)"
-                    stroke-width="2.5"
+                    [attr.stroke-width]="activeCategoryIndex() === ci ? 3 : 2.5"
                     class="line-marker"
+                    [style.transform-origin]="catMidX(ci) + 'px ' + rightYPos(v) + 'px'"
                   />
                 }
               }
@@ -171,13 +181,13 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
         <!-- Dynamic Combined Tooltip -->
         @if (tooltip(); as t) {
           <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
-            <div class="tooltip-header">{{ t.category }}</div>
-            <div class="tooltip-body">
+            <div class="tt-cat">{{ t.category }}</div>
+            <div class="tt-body">
               @for (item of t.items; track item.name) {
-                <div class="tooltip-row">
-                  <span class="tooltip-dot" [style.background]="item.color" [class.line-dot]="item.type === 'line'"></span>
-                  <span class="tooltip-label">{{ item.name }}:</span>
-                  <span class="tooltip-val">{{ fmtNum(item.value) }}{{ item.suffix || '' }}</span>
+                <div class="tt-row">
+                  <span class="tt-dot" [style.background]="item.color" [class.line-dot]="item.type === 'line'"></span>
+                  <span class="tt-name">{{ item.name }}</span>
+                  <span class="tt-val">{{ fmtNum(item.value) }}{{ item.suffix || '' }}</span>
                 </div>
               }
             </div>
@@ -272,72 +282,113 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
     .column-highlight {
       fill: rgba(59, 130, 246, 0.04);
       pointer-events: none;
+      rx: 6;
+      ry: 6;
+      animation: fadeIn 0.12s ease-out;
     }
     .dark .column-highlight {
       fill: rgba(255, 255, 255, 0.03);
     }
     .bar-rect {
-      transition: fill-opacity 0.2s, transform 0.2s;
+      transition: y 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  fill-opacity 0.15s,
+                  stroke-width 0.15s;
+      stroke: #ffffff;
+      stroke-width: 0.5;
+      cursor: pointer;
     }
+    .bar-rect:hover {
+      fill-opacity: 0.9;
+      stroke-width: 1.5;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+    }
+
+    @keyframes drawLine {
+      from { stroke-dashoffset: 1200; }
+      to { stroke-dashoffset: 0; }
+    }
+
     .line-path {
+      stroke-dasharray: 1200;
+      stroke-dashoffset: 1200;
+      animation: drawLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       transition: stroke 0.2s;
     }
+
+    @keyframes markerFade {
+      from { opacity: 0; transform: scale(0); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     .line-marker {
       cursor: pointer;
-      transition: r 0.2s, stroke-width 0.2s;
+      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.2s;
+      animation: markerFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
     }
     .hitbox {
       cursor: crosshair;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Glassmorphic Tooltip */
     .chart-tooltip {
       position: absolute;
       pointer-events: none;
       transform: translate(-50%, -100%) translateY(-10px);
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-      color: #f8fafc;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
       padding: 10px 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 12px;
+      min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 100;
-      min-width: 140px;
-      transition: left 0.1s ease, top 0.1s ease;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .tooltip-header {
+    .tt-cat {
       font-weight: 700;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 4px;
       margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
       color: #38bdf8;
     }
-    .tooltip-body {
+    .tt-body {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-    .tooltip-row {
+    .tt-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      margin-top: 4px;
     }
-    .tooltip-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-    }
-    .tooltip-dot.line-dot {
-      border: 1.5px solid #ffffff;
-      box-sizing: border-box;
+    .tt-dot {
       width: 8px;
       height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
-    .tooltip-label {
-      color: #94a3b8;
+    .tt-dot.line-dot {
+      border: 1.5px solid #ffffff;
+      box-sizing: border-box;
+      width: 9px;
+      height: 9px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
       flex: 1;
     }
-    .tooltip-val {
+    .tt-val {
       font-weight: 700;
       font-family: monospace;
     }
@@ -368,7 +419,13 @@ export class ComboChartComponent {
     items: Array<{ name: string; value: number; color: string; type: 'bar' | 'line'; suffix?: string }>;
   } | null>(null);
 
+  animateState = signal(false);
+
   private container = viewChild<ElementRef>('container');
+
+  constructor() {
+    setTimeout(() => this.animateState.set(true), 50);
+  }
 
   // Dimension Calculations
   innerW = computed(() => {
@@ -388,8 +445,16 @@ export class ComboChartComponent {
   leftYPos(v: number): number {
     return scale(v, this.leftMin(), this.leftMax(), this.innerH(), 0);
   }
-  barY(v: number): number { return Math.min(this.leftYPos(0), this.leftYPos(v)); }
-  barH(v: number): number { return Math.abs(this.leftYPos(0) - this.leftYPos(v)); }
+  
+  barY(v: number): number {
+    if (!this.animateState()) return this.leftYPos(0);
+    return Math.min(this.leftYPos(0), this.leftYPos(v));
+  }
+  
+  barH(v: number): number {
+    if (!this.animateState()) return 0;
+    return Math.abs(this.leftYPos(0) - this.leftYPos(v));
+  }
 
   // Right Y-Axis Calculations (Line values)
   private rightValues = computed(() => this.lineSeries().flatMap(s => s.data.filter(v => v !== null)));

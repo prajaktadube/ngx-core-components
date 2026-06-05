@@ -19,12 +19,22 @@ export interface FunnelItem {
         <!-- SVG Visual Funnel / Pyramid -->
         <div class="funnel-graphic" (mouseleave)="hoveredIndex.set(null)">
           <svg [attr.width]="'100%'" [attr.height]="height()" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" class="funnel-svg">
+            <defs>
+              @for (stage of funnelStages(); track stage.name; let i = $index) {
+                <linearGradient [id]="'funnel-grad-' + i" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" [attr.stop-color]="stage.color" />
+                  <stop offset="100%" [attr.stop-color]="stage.color" stop-opacity="0.65" />
+                </linearGradient>
+              }
+            </defs>
             <g>
               @for (stage of funnelStages(); track stage.name; let i = $index) {
                 <polygon
                   [attr.points]="stage.points"
-                  [attr.fill]="stage.color"
+                  [attr.fill]="'url(#funnel-grad-' + i + ')'"
                   [class.active]="hoveredIndex() === i"
+                  [style.transform-origin]="'200px ' + stage.yCenter + 'px'"
+                  [style.animation-delay]="i * 0.06 + 's'"
                   (mouseenter)="hoveredIndex.set(i)"
                   (mousemove)="onMouseMove($event, i)"
                   class="funnel-polygon"
@@ -37,15 +47,18 @@ export interface FunnelItem {
           @if (hoveredIndex() !== null) {
             @if (funnelStages()[hoveredIndex()!]; as stage) {
               <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
-                <div class="tt-name">{{ stage.name }}</div>
+                <div class="tt-cat">{{ stage.name }}</div>
                 <div class="tt-row">
-                  Value: <strong>{{ fmtNum(stage.value) }}</strong>
+                  <span class="tt-dot" [style.background]="stage.color"></span>
+                  <span class="tt-name">Value</span>
+                  <span class="tt-val">{{ fmtNum(stage.value) }}</span>
                 </div>
                 <div class="tt-row">
-                  {{ mode() === 'funnel' ? 'Conversion' : 'Share' }}: 
-                  <strong>
+                  <span class="tt-dot" style="background: transparent;"></span>
+                  <span class="tt-name">{{ mode() === 'funnel' ? 'Conversion' : 'Share' }}</span>
+                  <span class="tt-val">
                     {{ (mode() === 'funnel' ? (stage.value / funnelStages()[0].value) : (stage.value / totalValue())) | percent:'1.0-1' }}
-                  </strong>
+                  </span>
                 </div>
               </div>
             }
@@ -84,8 +97,9 @@ export interface FunnelItem {
     .ngx-funnel-chart {
       background: var(--ngx-chart-bg, #ffffff);
       border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 20px;
+      position: relative;
     }
     .funnel-layout {
       display: grid;
@@ -107,37 +121,69 @@ export interface FunnelItem {
       display: block;
       overflow: visible;
     }
+
+    @keyframes funnelBuildIn {
+      from { transform: scaleY(0); opacity: 0; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+
     .funnel-polygon {
       cursor: pointer;
-      opacity: 0.85;
-      transition: opacity 0.2s, transform 0.2s, filter 0.2s;
+      opacity: 0.88;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s;
+      animation: funnelBuildIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     .funnel-polygon:hover, .funnel-polygon.active {
       opacity: 1;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12)) brightness(1.05);
+      transform: scale(1.03);
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.18)) brightness(1.03);
     }
 
-    /* Tooltip styling */
+    /* Glassmorphic Tooltip styling */
     .chart-tooltip {
       position: absolute;
       pointer-events: none;
       transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, #0f172a);
-      color: #ffffff;
-      padding: 8px 12px;
-      border-radius: 8px;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 12px;
-      white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      z-index: 10;
+      min-width: 155px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .tt-name {
+    .tt-cat {
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
     }
     .tt-row {
-      font-size: 11px;
-      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
     }
 
     /* Sidebar metrics list */
@@ -224,8 +270,6 @@ export class FunnelChartComponent {
 
     if (this.mode() === 'pyramid') {
       // Pyramid Mode: Stacks vertically to form a triangle pointing up.
-      // Slices stack: top is narrow (apex), bottom is wide (base).
-      // Each slice height represents its proportion of the total value.
       const totalVal = this.totalValue();
       let currentY = 0;
 
@@ -234,8 +278,6 @@ export class FunnelChartComponent {
         const yTop = currentY;
         const yBot = currentY + h;
 
-        // Since the outer shape is a triangle from (200, 0) to (200 - maxW/2, svgH) and (200 + maxW/2, svgH):
-        // Width at any y is: w(y) = (y / svgH) * maxFunnelW
         const wTop = (yTop / svgH) * maxFunnelW;
         const wBot = (yBot / svgH) * maxFunnelW;
 
@@ -293,7 +335,6 @@ export class FunnelChartComponent {
 
   onMouseMove(event: MouseEvent, index: number): void {
     const el = event.currentTarget as SVGElement;
-    const rect = el.getBoundingClientRect();
     const parentRect = el.parentElement?.parentElement?.getBoundingClientRect();
     if (parentRect) {
       this.tooltipX.set(event.clientX - parentRect.left);

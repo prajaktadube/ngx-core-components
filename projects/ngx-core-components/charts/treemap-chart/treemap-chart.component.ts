@@ -1,4 +1,4 @@
-import { Component, input, output, signal, computed } from '@angular/core';
+import { Component, input, output, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface TreemapItem {
@@ -19,6 +19,7 @@ interface LayoutItem extends TreemapItem {
   selector: 'ngx-treemap-chart',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-treemap-wrapper">
       <div class="ngx-treemap-container">
@@ -28,9 +29,18 @@ interface LayoutItem extends TreemapItem {
           viewBox="0 0 500 300"
           preserveAspectRatio="xMidYMid meet"
         >
+          <defs>
+            <linearGradient id="treemap-sheen" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18" />
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0" />
+            </linearGradient>
+          </defs>
+
           @for (item of layoutRects(); track item.label; let idx = $index) {
             <g
               class="treemap-group"
+              [style.transform-origin]="(item.x + item.w/2) + 'px ' + (item.y + item.h/2) + 'px'"
+              [style.animation-delay]="idx * 0.03 + 's'"
               (mouseenter)="onItemEnter(item, $event)"
               (mouseleave)="onItemLeave()"
               (click)="onItemClick(item)"
@@ -45,6 +55,18 @@ interface LayoutItem extends TreemapItem {
                 class="treemap-rect"
                 rx="4"
                 ry="4"
+              />
+
+              <!-- Glass Sheen Overlay -->
+              <rect
+                [attr.x]="item.x"
+                [attr.y]="item.y"
+                [attr.width]="item.w"
+                [attr.height]="item.h"
+                fill="url(#treemap-sheen)"
+                rx="4"
+                ry="4"
+                pointer-events="none"
               />
               
               <!-- Labels (Only show if rectangle is large enough) -->
@@ -77,10 +99,11 @@ interface LayoutItem extends TreemapItem {
             [style.left.px]="tooltip().x"
             [style.top.px]="tooltip().y"
           >
-            <div class="tooltip-title">{{ tooltip().title }}</div>
-            <div class="tooltip-row">
-              <span>Value:</span>
-              <strong>{{ tooltip().value }}</strong>
+            <div class="tt-cat">{{ tooltip().title }}</div>
+            <div class="tt-row">
+              <span class="tt-dot" [style.background]="tooltip().color"></span>
+              <span class="tt-name">Value</span>
+              <span class="tt-val">{{ tooltip().value }}</span>
             </div>
           </div>
         }
@@ -101,6 +124,7 @@ interface LayoutItem extends TreemapItem {
       border: 1px solid var(--border-color, #e2e8f0);
       border-radius: 12px;
       box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
     }
     .ngx-treemap-container {
       position: relative;
@@ -113,17 +137,28 @@ interface LayoutItem extends TreemapItem {
       display: block;
       overflow: visible;
     }
+
+    @keyframes treemapScaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     .treemap-group {
       cursor: pointer;
+      animation: treemapScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .treemap-group:hover {
+      transform: scale(1.025);
     }
     .treemap-rect {
       stroke: var(--bg-secondary, #ffffff);
       stroke-width: 1.5px;
-      transition: fill 0.2s ease, stroke 0.15s ease, filter 0.15s ease;
+      transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease;
     }
     .treemap-group:hover .treemap-rect {
-      filter: brightness(1.06) drop-shadow(0 2px 8px rgba(0,0,0,0.12));
-      stroke: var(--primary-color, #4f46e5);
+      filter: brightness(1.06) drop-shadow(0 4px 12px rgba(0,0,0,0.22));
+      stroke: var(--ngx-chart-hover-stroke, #0f172a);
       stroke-width: 2px;
     }
     .treemap-label {
@@ -142,36 +177,52 @@ interface LayoutItem extends TreemapItem {
       pointer-events: none;
       text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
+
+    /* Glassmorphic Tooltip styling */
     .treemap-tooltip {
       position: absolute;
       z-index: 100;
       pointer-events: none;
-      background: rgba(15, 23, 42, 0.94);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      padding: 8px 12px;
-      color: #ffffff;
-      font-family: inherit;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 11px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       transform: translate(-50%, -115%);
-      min-width: 120px;
+      min-width: 140px;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .tooltip-title {
+    .tt-cat {
       font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 4px;
-      margin-bottom: 4px;
-      font-size: 12px;
+      color: #38bdf8;
     }
-    .tooltip-row {
+    .tt-row {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
     }
-    .tooltip-row strong {
-      color: #fbbf24;
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
     }
   `]
 })
@@ -181,12 +232,13 @@ export class TreemapChartComponent {
 
   itemClick = output<TreemapItem>();
 
-  tooltip = signal<{ show: boolean; title: string; value: string; x: number; y: number }>({
+  tooltip = signal<{ show: boolean; title: string; value: string; x: number; y: number; color: string }>({
     show: false,
     title: '',
     value: '',
     x: 0,
-    y: 0
+    y: 0,
+    color: ''
   });
 
   layoutRects = computed(() => {
@@ -282,7 +334,8 @@ export class TreemapChartComponent {
       title: item.label,
       value: item.value.toLocaleString(),
       x,
-      y
+      y,
+      color: item.displayColor
     });
   }
 

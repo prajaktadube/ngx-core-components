@@ -1,10 +1,11 @@
-import { Component, input, output, signal, computed } from '@angular/core';
+import { Component, input, output, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ngx-heatmap-chart',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-heatmap-wrapper">
       <div class="ngx-heatmap-container">
@@ -49,6 +50,7 @@ import { CommonModule } from '@angular/common';
                 [attr.height]="cellHeight() - cellSpacing"
                 [attr.fill]="getCellColor(val)"
                 class="heatmap-cell"
+                [style.animation-delay]="(rIdx * 0.03 + cIdx * 0.03) + 's'"
                 (mouseenter)="onCellEnter(rIdx, cIdx, val, $event)"
                 (mouseleave)="onCellLeave()"
                 (click)="onCellClick(rIdx, cIdx, val)"
@@ -66,10 +68,11 @@ import { CommonModule } from '@angular/common';
             [style.left.px]="tooltip().x"
             [style.top.px]="tooltip().y"
           >
-            <div class="tooltip-title">{{ tooltip().title }}</div>
-            <div class="tooltip-row">
-              <span>Value:</span>
-              <strong>{{ tooltip().value }}</strong>
+            <div class="tt-cat">{{ tooltip().title }}</div>
+            <div class="tt-row">
+              <span class="tt-dot" [style.background]="getCellColor(tooltip().rawVal)"></span>
+              <span class="tt-name">Value</span>
+              <span class="tt-val">{{ tooltip().value }}</span>
             </div>
           </div>
         }
@@ -90,6 +93,7 @@ import { CommonModule } from '@angular/common';
       border: 1px solid var(--border-color, #e2e8f0);
       border-radius: 12px;
       box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
     }
     .ngx-heatmap-container {
       position: relative;
@@ -107,46 +111,71 @@ import { CommonModule } from '@angular/common';
       fill: var(--text-secondary, #64748b);
       font-family: inherit;
     }
+
+    @keyframes cellFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     .heatmap-cell {
       cursor: pointer;
       transition: fill 0.2s ease, stroke 0.15s ease, filter 0.15s ease;
       stroke: transparent;
       stroke-width: 1px;
+      transform-origin: center;
+      animation: cellFadeIn 0.4s ease-out both;
     }
     .heatmap-cell:hover {
-      filter: brightness(1.08) drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-      stroke: var(--primary-color, #4f46e5);
+      filter: brightness(1.1) drop-shadow(0 4px 8px rgba(0,0,0,0.18));
+      stroke: var(--ngx-chart-hover-stroke, #0f172a);
+      stroke-width: 1.5px;
     }
+
+    /* Glassmorphic Tooltip styling */
     .heatmap-tooltip {
       position: absolute;
       z-index: 100;
       pointer-events: none;
-      background: rgba(15, 23, 42, 0.94);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      padding: 8px 12px;
-      color: #ffffff;
-      font-family: inherit;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 11px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       transform: translate(-50%, -115%);
-      min-width: 120px;
+      min-width: 140px;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .tooltip-title {
+    .tt-cat {
       font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 4px;
-      margin-bottom: 4px;
-      font-size: 12px;
+      color: #38bdf8;
     }
-    .tooltip-row {
+    .tt-row {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
     }
-    .tooltip-row strong {
-      color: #fbbf24;
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
     }
   `]
 })
@@ -163,12 +192,13 @@ export class HeatmapChartComponent {
   topOffset = 30;
   cellSpacing = 3;
 
-  tooltip = signal<{ show: boolean; title: string; value: string; x: number; y: number }>({
+  tooltip = signal<{ show: boolean; title: string; value: string; x: number; y: number; rawVal: number }>({
     show: false,
     title: '',
     value: '',
     x: 0,
-    y: 0
+    y: 0,
+    rawVal: 0
   });
 
   cellWidth = computed(() => {
@@ -244,7 +274,8 @@ export class HeatmapChartComponent {
       title,
       value: val.toLocaleString(),
       x,
-      y
+      y,
+      rawVal: val
     });
   }
 

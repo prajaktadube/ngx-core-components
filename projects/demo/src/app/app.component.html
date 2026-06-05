@@ -63,18 +63,49 @@
       <div class="sidebar-content">
         @for (group of visibleGroups(); track group.title) {
           <div class="nav-group">
-            <div class="nav-group-header">
+            <div class="nav-group-header" (click)="toggleGroup(group.title)" tabindex="0" (keydown.enter)="toggleGroup(group.title)" (keydown.space)="$event.preventDefault(); toggleGroup(group.title)">
               <span class="nav-group-icon">{{ group.icon }}</span>
               <span class="nav-group-title">{{ group.title }}</span>
+              <span class="group-chevron" [class.collapsed]="!isGroupExpanded(group.title)">▾</span>
             </div>
-            @for (item of group.items; track item.path) {
-              <a class="nav-item" [routerLink]="item.routePath" [queryParams]="item.queryParams" routerLinkActive="active" (click)="onNavClick()">
-                <span class="nav-icon">{{ item.icon }}</span>
-                <div class="nav-label-section">
-                  <span class="nav-label">{{ item.label }}</span>
-                  <span class="nav-desc">{{ item.desc }}</span>
-                </div>
-              </a>
+            @if (isGroupExpanded(group.title)) {
+              <div class="nav-group-items">
+                @for (item of group.items; track item.path) {
+                  @if (item.children && item.children.length > 0) {
+                    <div class="nested-nav-parent">
+                      <button class="nav-item parent-trigger" [class.expanded]="isItemExpanded(item.label)" (click)="toggleItem(item.label)">
+                        <span class="nav-icon">{{ item.icon }}</span>
+                        <div class="nav-label-section">
+                          <span class="nav-label">{{ item.label }}</span>
+                          <span class="nav-desc">{{ item.desc }}</span>
+                        </div>
+                        <span class="item-chevron">▾</span>
+                      </button>
+                      
+                      @if (isItemExpanded(item.label)) {
+                        <div class="nested-nav-children">
+                          @for (child of item.children; track child.path) {
+                            <a class="nav-item child-item" [routerLink]="child.routePath" [queryParams]="child.queryParams" routerLinkActive="active" (click)="onNavClick()">
+                              <span class="nav-icon">{{ child.icon }}</span>
+                              <div class="nav-label-section">
+                                <span class="nav-label">{{ child.label }}</span>
+                              </div>
+                            </a>
+                          }
+                        </div>
+                      }
+                    </div>
+                  } @else {
+                    <a class="nav-item" [routerLink]="item.routePath" [queryParams]="item.queryParams" routerLinkActive="active" (click)="onNavClick()">
+                      <span class="nav-icon">{{ item.icon }}</span>
+                      <div class="nav-label-section">
+                        <span class="nav-label">{{ item.label }}</span>
+                        <span class="nav-desc">{{ item.desc }}</span>
+                      </div>
+                    </a>
+                  }
+                }
+              </div>
             }
           </div>
         }
