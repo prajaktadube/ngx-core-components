@@ -249,8 +249,10 @@ export class AppComponent {
     if (!this.isBrowser) return;
     if (isDark) {
       document.body.classList.add('dark-theme');
+      document.body.classList.add('dark');
     } else {
       document.body.classList.remove('dark-theme');
+      document.body.classList.remove('dark');
     }
   }
 

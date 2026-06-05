@@ -31,6 +31,11 @@ export interface UploadFileItem {
         (dragleave)="onDragLeave($event)"
         (drop)="onDrop($event)"
         (click)="fileInput.click()"
+        (keydown)="onDropzoneKeyDown($event)"
+        [attr.tabindex]="disabled() ? -1 : 0"
+        role="button"
+        [attr.aria-disabled]="disabled()"
+        aria-label="Upload files"
       >
         <input
           #fileInput
@@ -165,6 +170,13 @@ export interface UploadFileItem {
     }
 
     .dropzone-area:hover {
+      border-color: var(--primary-color, #4f46e5);
+      background: rgba(79, 70, 229, 0.02);
+    }
+
+    .dropzone-area:focus-visible {
+      outline: 2px dashed var(--primary-color, #4f46e5);
+      outline-offset: 2px;
       border-color: var(--primary-color, #4f46e5);
       background: rgba(79, 70, 229, 0.02);
     }
@@ -509,6 +521,16 @@ export class FileUploadComponent {
   // State
   isDragOver = signal<boolean>(false);
   fileQueue = signal<UploadFileItem[]>([]);
+
+  onDropzoneKeyDown(event: KeyboardEvent) {
+    if (this.disabled()) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      const inputEl = event.currentTarget as HTMLElement;
+      const fileInputEl = inputEl.querySelector('.hidden-file-input') as HTMLInputElement;
+      fileInputEl?.click();
+    }
+  }
 
   onDragOver(event: DragEvent) {
     if (this.disabled()) return;

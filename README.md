@@ -3,7 +3,10 @@
 > Angular 19+ component library — production-ready UI components built with signals, OnPush change detection, and zero runtime dependencies.
 
 [![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
+[![CI](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml/badge.svg)](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/ngx-core-components)](https://bundlephobia.com/package/ngx-core-components)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![StackBlitz](https://img.shields.io/badge/StackBlitz-Try_It_Live-blue?logo=stackblitz)](https://stackblitz.com/github/prajaktadube/ngx-core-components?file=projects%2Fdemo%2Fsrc%2Fapp%2Fapp.component.ts)
 
 ## 🚀 Live Demo
 
@@ -145,10 +148,11 @@ export class MyListComponent {
 }
 ```
 
-## Theming
+## Theming & Customization
 
-All components expose CSS custom properties. Example for the Gantt chart:
+All components expose CSS custom properties for simple Light, Dark, or custom brand integrations. Refer to **[THEMING.md](THEMING.md)** for a full list of customization tokens and theme templates.
 
+Example:
 ```css
 ngx-gantt-chart {
   --ngx-gantt-bar-bg: #27ae60;
@@ -157,23 +161,9 @@ ngx-gantt-chart {
 }
 ```
 
-## Local Development
-
-```bash
-# Install dependencies
-npm install
-
-# Build the library
-npx ng build ngx-core-components
-
-# Serve the demo app (hot-reload)
-npx ng serve demo
-
-# Build the demo for production
-npx ng build demo --base-href /ngx-core-components/
-```
-
 ## Contributing
+
+We welcome contributions of all kinds! Please review our **[CONTRIBUTING.md](CONTRIBUTING.md)** for complete details on setting up the workspace locally, compiling libraries, and running Karma unit tests.
 
 Issues and pull requests are welcome at [github.com/prajaktadube/ngx-core-components](https://github.com/prajaktadube/ngx-core-components).
 

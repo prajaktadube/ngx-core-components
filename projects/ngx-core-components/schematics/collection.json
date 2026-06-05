@@ -1,0 +1,9 @@
+{
+  "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add ngx-core-components to the project.",
+      "factory": "./ng-add/index#ngAdd"
+    }
+  }
+}

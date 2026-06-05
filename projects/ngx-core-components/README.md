@@ -4,6 +4,7 @@ Angular 19 / 20 / 21 standalone component library with enterprise-ready UI build
 
 [![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![StackBlitz](https://img.shields.io/badge/StackBlitz-Try_It_Live-blue?logo=stackblitz)](https://stackblitz.com/github/prajaktadube/ngx-core-components?file=projects%2Fdemo%2Fsrc%2Fapp%2Fapp.component.ts)
 
 ## Features
 

@@ -3,5 +3,10 @@
   "dest": "../../dist/ngx-core-components",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    "schematics/**/*.json",
+    "schematics/**/*.js",
+    "themes/**/*.css"
+  ]
 }

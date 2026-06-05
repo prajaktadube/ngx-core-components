@@ -38,9 +38,12 @@ export class AccordionItemComponent {
           <div class="accordion-item" [class.expanded]="isExpanded(i)" [class.disabled]="child.disabled()">
             <button
               class="accordion-header"
+              [id]="'ngx-acc-header-' + i"
               [attr.aria-expanded]="isExpanded(i)"
+              [attr.aria-controls]="'ngx-acc-panel-' + i"
               [disabled]="child.disabled()"
               (click)="toggle(i)"
+              (keydown)="handleKeydown($event, i)"
             >
               @if (child.icon()) { <span class="acc-icon" aria-hidden="true">{{ child.icon() }}</span> }
               <span class="acc-title">{{ child.title() }}</span>
@@ -50,8 +53,14 @@ export class AccordionItemComponent {
                 </svg>
               </span>
             </button>
-            <div class="accordion-body-wrapper" [class.expanded]="isExpanded(i)">
-              <div class="accordion-body" role="region">
+            <div 
+              class="accordion-body-wrapper" 
+              [class.expanded]="isExpanded(i)"
+              [id]="'ngx-acc-panel-' + i"
+              [attr.aria-labelledby]="'ngx-acc-header-' + i"
+              role="region"
+            >
+              <div class="accordion-body">
                 @if (child.contentTemplate()) {
                   <ng-container *ngTemplateOutlet="child.contentTemplate()!" />
                 }
@@ -64,9 +73,12 @@ export class AccordionItemComponent {
           <div class="accordion-item" [class.expanded]="isExpanded(i)" [class.disabled]="item.disabled">
             <button
               class="accordion-header"
+              [id]="'ngx-acc-header-' + i"
               [attr.aria-expanded]="isExpanded(i)"
+              [attr.aria-controls]="'ngx-acc-panel-' + i"
               [disabled]="item.disabled"
               (click)="toggle(i)"
+              (keydown)="handleKeydown($event, i)"
             >
               @if (item.icon) { <span class="acc-icon" aria-hidden="true">{{ item.icon }}</span> }
               <span class="acc-title">{{ item.title }}</span>
@@ -76,8 +88,14 @@ export class AccordionItemComponent {
                 </svg>
               </span>
             </button>
-            <div class="accordion-body-wrapper" [class.expanded]="isExpanded(i)">
-              <div class="accordion-body" role="region">
+            <div 
+              class="accordion-body-wrapper" 
+              [class.expanded]="isExpanded(i)"
+              [id]="'ngx-acc-panel-' + i"
+              [attr.aria-labelledby]="'ngx-acc-header-' + i"
+              role="region"
+            >
+              <div class="accordion-body">
                 {{ item.content }}
               </div>
             </div>
@@ -118,10 +136,17 @@ export class AccordionItemComponent {
       text-align: left; 
       transition: all 0.2s ease;
       outline: none;
+      position: relative;
     }
     .accordion-header:hover:not(:disabled) { 
       background: var(--ngx-acc-header-hover-bg, var(--bg-secondary, #f8fafc)); 
       color: var(--ngx-acc-header-hover-color, var(--primary-color, #1a73e8));
+    }
+    .accordion-header:focus-visible {
+      outline: 2px solid var(--ngx-acc-expanded-color, var(--primary-color, #1a73e8));
+      outline-offset: -2px;
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+      z-index: 2;
     }
     .accordion-item.expanded .accordion-header { 
       background: var(--ngx-acc-expanded-bg, var(--bg-primary, #ffffff)); 
@@ -244,5 +269,49 @@ export class AccordionComponent {
     const s = new Set(this.expanded());
     s.delete(index);
     this.expanded.set(s);
+  }
+
+  handleKeydown(event: KeyboardEvent, index: number) {
+    const total = this.accordionItems().length > 0 ? this.accordionItems().length : this.items().length;
+    let newIndex = -1;
+
+    if (event.key === 'ArrowDown') {
+      newIndex = (index + 1) % total;
+      while (newIndex !== index && this.isItemDisabled(newIndex)) {
+        newIndex = (newIndex + 1) % total;
+      }
+    } else if (event.key === 'ArrowUp') {
+      newIndex = (index - 1 + total) % total;
+      while (newIndex !== index && this.isItemDisabled(newIndex)) {
+        newIndex = (newIndex - 1 + total) % total;
+      }
+    } else if (event.key === 'Home') {
+      newIndex = 0;
+      while (newIndex < total && this.isItemDisabled(newIndex)) {
+        newIndex++;
+      }
+    } else if (event.key === 'End') {
+      newIndex = total - 1;
+      while (newIndex >= 0 && this.isItemDisabled(newIndex)) {
+        newIndex--;
+      }
+    }
+
+    if (newIndex !== -1 && newIndex !== index && !this.isItemDisabled(newIndex)) {
+      event.preventDefault();
+      // focus the new header button
+      const headers = document.querySelectorAll('.accordion-header');
+      const targetHeader = headers[newIndex] as HTMLElement;
+      targetHeader?.focus();
+    }
+  }
+
+  private isItemDisabled(index: number): boolean {
+    const children = this.accordionItems();
+    if (children.length > 0) {
+      return children[index].disabled();
+    }
+    const arrayItems = this.items();
+    return !!arrayItems[index]?.disabled;
   }
 }

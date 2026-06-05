@@ -5,8 +5,8 @@
     "semantic_hash": "eb91c3db6183a27eae11f34c2061c9e2"
   },
   "C:\\Work\\ngx-core-components\\package.json": {
-    "mtime": 1780638839.7345612,
-    "ast_hash": "688b1e0989f24141009a01381c6b0ff7",
+    "mtime": 1780656843.8254745,
+    "ast_hash": "4596be4c2ce4d99e79d30d413499f2d9",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\tsconfig.json": {
@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.component.ts": {
-    "mtime": 1780651875.808797,
-    "ast_hash": "dfcc35d19f98ab1c79c62598c70704c4",
+    "mtime": 1780657337.238261,
+    "ast_hash": "ba04d36c573d6cc393de053cc1702a4e",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\app.config.ts": {
@@ -140,13 +140,13 @@
     "semantic_hash": "51f2c5d181ed76ac54ab9c8b7c06f7cc"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ng-package.json": {
-    "mtime": 1776666340.5616374,
-    "ast_hash": "d7d11eb6bde5f57a26e5d8fd94e387cf",
-    "semantic_hash": "d7d11eb6bde5f57a26e5d8fd94e387cf"
+    "mtime": 1780656768.232069,
+    "ast_hash": "0277e2bd32688c54924918ca38f81323",
+    "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\package.json": {
-    "mtime": 1780638839.7345612,
-    "ast_hash": "1166b4f505ff588aba589e65f0429f82",
+    "mtime": 1780656770.7271054,
+    "ast_hash": "be6a352777888ee4d67c9d642a53d9ad",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\tsconfig.lib.json": {
@@ -215,8 +215,8 @@
     "semantic_hash": "110be20c0225cdeb04ae25ca17462e63"
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\split-button\\split-button.component.ts": {
-    "mtime": 1779769653.1574454,
-    "ast_hash": "3257cbc1543184e7e6ea8b56fb9fdacd",
+    "mtime": 1780656800.27054,
+    "ast_hash": "cf7ec814b4bf599512742952854bedc3",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ng-package.json": {
@@ -425,8 +425,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\dropdown\\dropdown.component.ts": {
-    "mtime": 1779769653.1621006,
-    "ast_hash": "fbc078d88b98aaf474164956a0b772ad",
+    "mtime": 1780656794.548252,
+    "ast_hash": "3b6e2904d659880a5bf865e6c9121d7c",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\multi-select\\multi-select.component.ts": {
@@ -485,8 +485,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\accordion\\accordion.component.ts": {
-    "mtime": 1780573893.4082284,
-    "ast_hash": "4aecb59626b80566616998cee29f03e0",
+    "mtime": 1780656786.4522202,
+    "ast_hash": "e60349bdddde6516b82999521eab4d88",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\card\\card.component.ts": {
@@ -505,8 +505,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\tab-strip\\tab-strip.component.ts": {
-    "mtime": 1780573886.3989506,
-    "ast_hash": "4e020639d40683144132e371acc5ee6f",
+    "mtime": 1780656780.5735507,
+    "ast_hash": "9ecdf063688244acc6c53af2e66ea14a",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\ng-package.json": {
@@ -565,8 +565,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\README.md": {
-    "mtime": 1780503177.0451753,
-    "ast_hash": "4faa27733c19dd31cd8dff8b2e2b855d",
+    "mtime": 1780656916.7970889,
+    "ast_hash": "ac34aee1783d2bc51bcb68a1160845cc",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.agents\\rules\\graphify.md": {
@@ -600,8 +600,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\README.md": {
-    "mtime": 1780509250.035037,
-    "ast_hash": "8c0c76470517c137846b0b5480ee4839",
+    "mtime": 1780656919.1954556,
+    "ast_hash": "eed74505134e50e27cdf7afaf4371997",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\core\\demo-nav.config.ts": {
@@ -745,8 +745,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\file-upload\\file-upload.component.ts": {
-    "mtime": 1780125713.7440493,
-    "ast_hash": "09ca445046a4f4376b04148587f471b0",
+    "mtime": 1780657156.6983209,
+    "ast_hash": "0d7c5c0e3c15e2b065bb6f93ced8fc77",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\timeline\\timeline.component.ts": {
@@ -1022,6 +1022,41 @@
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\waterfall-chart\\waterfall-chart.component.ts": {
     "mtime": 1780653066.599913,
     "ast_hash": "8a03d97cd990e5eb2be806e24d114f6e",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\.size-limit.json": {
+    "mtime": 1780656840.873778,
+    "ast_hash": "2093b3fa9dfc7f78088f6bdabefbcccb",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\schematics\\collection.json": {
+    "mtime": 1780656762.2350345,
+    "ast_hash": "913960f0d4eaddcca2e7b9dca1bd4fb9",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\schematics\\ng-add\\index.js": {
+    "mtime": 1780656765.1164658,
+    "ast_hash": "93e2181109477b91830d71aa02a68b12",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\CONTRIBUTING.md": {
+    "mtime": 1780656473.5093968,
+    "ast_hash": "bfcb230b281bdf5cda75d2a8dcec7edf",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\THEMING.md": {
+    "mtime": 1780656480.3441298,
+    "ast_hash": "34741df80d88846b0f47024d4745372b",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\.github\\PULL_REQUEST_TEMPLATE.md": {
+    "mtime": 1780656466.9301562,
+    "ast_hash": "7e938b602122b0946b79ff564e87b41f",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\.github\\workflows\\ci.yml": {
+    "mtime": 1780656901.6679008,
+    "ast_hash": "a9571f3628a0bd2cb0c85e6836b136db",
     "semantic_hash": ""
   }
 }

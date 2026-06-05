@@ -1,0 +1,50 @@
+[
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components.mjs",
+    "limit": "20 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-charts.mjs",
+    "limit": "550 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-views.mjs",
+    "limit": "320 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-inputs.mjs",
+    "limit": "300 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-grid.mjs",
+    "limit": "260 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-ai.mjs",
+    "limit": "180 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-layout.mjs",
+    "limit": "150 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-feedback.mjs",
+    "limit": "120 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-navigation.mjs",
+    "limit": "80 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-buttons.mjs",
+    "limit": "60 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-barcodes.mjs",
+    "limit": "20 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-dialog.mjs",
+    "limit": "15 KB"
+  }
+]

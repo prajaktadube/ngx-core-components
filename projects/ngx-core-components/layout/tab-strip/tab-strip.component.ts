@@ -1,21 +1,41 @@
-import { Component, input, output, signal, contentChildren, AfterContentInit, ElementRef, viewChild, effect } from '@angular/core';
+import { Component, input, output, signal, contentChildren, AfterContentInit, ElementRef, viewChild, effect, HostListener } from '@angular/core';
 
 @Component({
   selector: 'ngx-tab',
   standalone: true,
   template: `
-    <div [hidden]="!isActive()">
+    <div 
+      [hidden]="!isActive()"
+      role="tabpanel"
+      [id]="tabPanelId()"
+      [attr.aria-labelledby]="tabButtonId()"
+      [attr.tabindex]="isActive() ? 0 : -1"
+      class="ngx-tab-panel"
+    >
       <ng-content />
     </div>
   `,
+  styles: [`
+    .ngx-tab-panel {
+      outline: none;
+    }
+    .ngx-tab-panel:focus-visible {
+      outline: 2px solid var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
+      outline-offset: 4px;
+    }
+  `]
 })
 export class TabComponent {
+  id = input<string>('');
   title = input.required<string>();
   icon = input<string>('');
   disabled = input(false);
   badge = input<string | number>('');
   closable = input(false);
   isActive = signal(false);
+
+  tabPanelId = signal('');
+  tabButtonId = signal('');
 
   tabClose = output<void>();
 }
@@ -33,9 +53,13 @@ export class TabComponent {
             [class.active]="activeIndex() === i"
             [class.disabled]="tab.disabled()"
             role="tab"
+            [id]="tab.tabButtonId()"
             [attr.aria-selected]="activeIndex() === i"
+            [attr.aria-controls]="tab.tabPanelId()"
+            [attr.tabindex]="activeIndex() === i ? 0 : -1"
             [disabled]="tab.disabled()"
             (click)="selectTab(i)"
+            (keydown)="handleKeydown($event, i)"
           >
             @if (tab.icon()) { <span class="tab-icon" aria-hidden="true">{{ tab.icon() }}</span> }
             <span class="tab-title">{{ tab.title() }}</span>
@@ -46,6 +70,7 @@ export class TabComponent {
                 (click)="closeTab($event, i)" 
                 title="Close Tab"
                 type="button"
+                tabindex="-1"
               >
                 ×
               </button>
@@ -60,7 +85,7 @@ export class TabComponent {
           [style.height.px]="position() === 'left' || position() === 'right' ? indicatorHeight() : 3"
         ></div>
       </div>
-      <div class="tab-content" role="tabpanel">
+      <div class="tab-content">
         <ng-content />
       </div>
     </div>
@@ -122,6 +147,13 @@ export class TabComponent {
       font-weight: 600; 
     }
     .tab-btn.disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
+      outline-offset: -2px;
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+      z-index: 3;
+    }
     
     .tab-icon { font-size: 15px; display: inline-flex; align-items: center; }
     .tab-badge { 
@@ -204,6 +236,7 @@ export class TabStripComponent implements AfterContentInit {
   }
 
   selectTab(index: number) {
+    if (this.tabs()[index]?.disabled()) return;
     this.activeIndex.set(index);
     this._syncActiveTabs();
     this.tabChange.emit(index);
@@ -237,9 +270,52 @@ export class TabStripComponent implements AfterContentInit {
     }, 0);
   }
 
+  handleKeydown(event: KeyboardEvent, index: number) {
+    const tabs = this.tabs();
+    let newIndex = -1;
+    
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      newIndex = (index + 1) % tabs.length;
+      while (newIndex !== index && tabs[newIndex].disabled()) {
+        newIndex = (newIndex + 1) % tabs.length;
+      }
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      newIndex = (index - 1 + tabs.length) % tabs.length;
+      while (newIndex !== index && tabs[newIndex].disabled()) {
+        newIndex = (newIndex - 1 + tabs.length) % tabs.length;
+      }
+    } else if (event.key === 'Home') {
+      newIndex = 0;
+      while (newIndex < tabs.length && tabs[newIndex].disabled()) {
+        newIndex++;
+      }
+    } else if (event.key === 'End') {
+      newIndex = tabs.length - 1;
+      while (newIndex >= 0 && tabs[newIndex].disabled()) {
+        newIndex--;
+      }
+    }
+
+    if (newIndex !== -1 && newIndex !== index && !tabs[newIndex].disabled()) {
+      event.preventDefault();
+      this.selectTab(newIndex);
+      // Focus the new button
+      setTimeout(() => {
+        const list = this.tabListEl()?.nativeElement as HTMLElement;
+        const btns = list?.querySelectorAll('.tab-btn');
+        const nextBtn = btns?.[newIndex] as HTMLElement;
+        nextBtn?.focus();
+      }, 0);
+    }
+  }
+
   private _syncActiveTabs(): void {
     const tabs = this.tabs();
     const active = this.activeIndex();
-    tabs.forEach((tab, i) => tab.isActive.set(i === active));
+    tabs.forEach((tab, i) => {
+      tab.isActive.set(i === active);
+      tab.tabPanelId.set(tab.id() ? 'ngx-tabpanel-' + tab.id() : 'ngx-tabpanel-' + i);
+      tab.tabButtonId.set(tab.id() ? 'ngx-tab-' + tab.id() : 'ngx-tab-' + i);
+    });
   }
 }

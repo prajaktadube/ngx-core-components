@@ -27,11 +27,9 @@ export interface DropdownOption {
       [class.open]="isOpen()"
       [class.disabled]="disabled()"
       [class.has-error]="!!error()"
-      [attr.aria-expanded]="isOpen()"
-      role="combobox"
     >
       @if (label()) {
-        <label class="ngx-dropdown-label">
+        <label [id]="uid + '-label'" class="ngx-dropdown-label">
           {{ label() }}
           @if (required()) { <span class="ngx-dropdown-required" aria-hidden="true">*</span> }
         </label>
@@ -40,10 +38,18 @@ export interface DropdownOption {
       <!-- Trigger -->
       <div
         class="ngx-dropdown-trigger"
+        [id]="uid + '-trigger'"
+        role="combobox"
+        [attr.aria-expanded]="isOpen()"
+        [attr.aria-haspopup]="'listbox'"
+        [attr.aria-controls]="isOpen() ? uid + '-popup' : null"
+        [attr.aria-activedescendant]="isOpen() && focusedIndex() >= 0 ? uid + '-opt-' + focusedIndex() : null"
+        [attr.aria-autocomplete]="filterable() ? 'list' : 'none'"
+        [attr.aria-labelledby]="label() ? uid + '-label' : null"
         [attr.tabindex]="disabled() ? -1 : 0"
         (click)="toggle()"
         (keydown)="onTriggerKey($event)"
-        [attr.aria-label]="selectedLabel() || placeholder()"
+        [attr.aria-label]="!label() ? (selectedLabel() || placeholder()) : null"
         [attr.aria-disabled]="disabled()"
       >
         <span class="trigger-text" [class.placeholder]="!selectedLabel()">
@@ -54,7 +60,12 @@ export interface DropdownOption {
 
       <!-- Popup -->
       @if (isOpen()) {
-        <div class="ngx-dropdown-popup" role="listbox">
+        <div 
+          class="ngx-dropdown-popup" 
+          [id]="uid + '-popup'" 
+          role="listbox"
+          [attr.aria-labelledby]="label() ? uid + '-label' : null"
+        >
           @if (filterable()) {
             <div class="popup-search">
               <input
@@ -64,6 +75,8 @@ export interface DropdownOption {
                 [value]="filterText()"
                 (input)="filterText.set($any($event.target).value)"
                 (keydown)="onFilterKey($event)"
+                role="searchbox"
+                aria-label="Search options"
               />
             </div>
           }
@@ -71,25 +84,27 @@ export interface DropdownOption {
             @for (opt of filteredOptions(); track opt.value; let i = $index) {
               <div
                 class="popup-item"
+                [id]="uid + '-opt-' + i"
                 [class.selected]="isSelected(opt)"
                 [class.focused]="focusedIndex() === i"
                 [class.disabled]="opt.disabled"
                 role="option"
                 [attr.aria-selected]="isSelected(opt)"
+                [attr.aria-disabled]="opt.disabled"
                 (click)="selectOption(opt)"
                 (mouseenter)="focusedIndex.set(i)"
               >{{ opt.label }}</div>
             }
             @if (filteredOptions().length === 0) {
-              <div class="popup-empty">No results</div>
+              <div class="popup-empty" role="status">No results</div>
             }
           </div>
         </div>
       }
       @if (error()) {
-        <div class="ngx-dropdown-error">{{ error() }}</div>
+        <div [id]="uid + '-error'" class="ngx-dropdown-error" role="alert">{{ error() }}</div>
       } @else if (hint()) {
-        <div class="ngx-dropdown-hint">{{ hint() }}</div>
+        <div [id]="uid + '-hint'" class="ngx-dropdown-hint">{{ hint() }}</div>
       }
     </div>
   `,
@@ -99,14 +114,22 @@ export interface DropdownOption {
     }
     .ngx-dropdown { position: relative; font-family: inherit; }
     .ngx-dropdown-label { display: block; font-size: 13px; color: var(--ngx-input-label, #6c757d); margin-bottom: 4px; font-weight: 500; }
+    
     .ngx-dropdown-trigger {
       display: flex; align-items: center; justify-content: space-between;
       padding: 8px 12px; border: 1px solid var(--ngx-input-border, #ced4da);
       border-radius: var(--ngx-input-radius, 8px); background: var(--ngx-input-bg, #fff);
       cursor: pointer; user-select: none; font-size: 14px;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
     }
     .ngx-dropdown-trigger:hover { border-color: var(--ngx-input-focus, #4f46e5); }
+    .ngx-dropdown-trigger:focus-visible {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+      outline: none;
+    }
+    
     .open .ngx-dropdown-trigger {
       border-color: var(--ngx-input-focus, #4f46e5);
       box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
@@ -177,6 +200,7 @@ export class DropdownComponent implements ControlValueAccessor {
   private _onChange: (v: unknown) => void = () => {};
   private _onTouched: () => void = () => {};
 
+  uid = 'ngx-dd-' + Math.random().toString(36).substring(2, 9);
   private el = inject(ElementRef);
 
   _activeValue = computed(() => this._cvaActive ? this._cvaValue() : this.value());
@@ -200,6 +224,14 @@ export class DropdownComponent implements ControlValueAccessor {
       const opts = this.filteredOptions();
       const selectedIndex = opts.findIndex(o => o.value === this._activeValue());
       this.focusedIndex.set(selectedIndex >= 0 ? selectedIndex : (opts.length > 0 ? 0 : -1));
+      
+      // Auto-focus search input if filterable
+      if (this.filterable()) {
+        setTimeout(() => {
+          const inputEl = this.el.nativeElement.querySelector('.popup-search-input');
+          inputEl?.focus();
+        }, 50);
+      }
     } else {
       this.filterText.set('');
       this.focusedIndex.set(-1);
@@ -216,11 +248,20 @@ export class DropdownComponent implements ControlValueAccessor {
     this.valueChange.emit(opt.value);
     this.isOpen.set(false);
     this.filterText.set('');
+    
+    // Return focus to trigger
+    setTimeout(() => {
+      const triggerEl = this.el.nativeElement.querySelector('.ngx-dropdown-trigger');
+      triggerEl?.focus();
+    }, 0);
   }
 
   onTriggerKey(e: KeyboardEvent): void {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.toggle(); }
-    if (e.key === 'Escape') this.isOpen.set(false);
+    if (e.key === 'Escape') {
+      this.isOpen.set(false);
+      this._onTouched();
+    }
     if (e.key === 'ArrowDown') { e.preventDefault(); if (!this.isOpen()) this.isOpen.set(true); else this.moveFocus(1); }
     if (e.key === 'ArrowUp') { e.preventDefault(); this.moveFocus(-1); }
   }
@@ -233,16 +274,40 @@ export class DropdownComponent implements ControlValueAccessor {
       const i = this.focusedIndex();
       if (i >= 0 && i < opts.length) this.selectOption(opts[i]);
     }
-    if (e.key === 'Escape') this.isOpen.set(false);
+    if (e.key === 'Escape') {
+      this.isOpen.set(false);
+      this.filterText.set('');
+      this.focusedIndex.set(-1);
+      this._onTouched();
+      // Return focus to trigger
+      setTimeout(() => {
+        const triggerEl = this.el.nativeElement.querySelector('.ngx-dropdown-trigger');
+        triggerEl?.focus();
+      }, 0);
+    }
   }
 
   private moveFocus(delta: number): void {
-    const n = this.filteredOptions().length;
+    const opts = this.filteredOptions();
+    const n = opts.length;
     if (n <= 0) {
       this.focusedIndex.set(-1);
       return;
     }
-    this.focusedIndex.update(i => Math.max(0, Math.min(n - 1, i + delta)));
+    
+    let idx = this.focusedIndex();
+    const start = idx;
+    
+    do {
+      idx += delta;
+      if (idx < 0) idx = n - 1;
+      if (idx >= n) idx = 0;
+      if (idx === start) break;
+    } while (opts[idx].disabled);
+
+    if (!opts[idx].disabled) {
+      this.focusedIndex.set(idx);
+    }
   }
 
   @HostListener('document:click', ['$event'])
@@ -275,4 +340,3 @@ export class DropdownComponent implements ControlValueAccessor {
     // disabled is controlled via input() for template usage.
   }
 }
-
