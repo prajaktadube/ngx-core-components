@@ -34,39 +34,52 @@
 
     <nav class="app-sidebar" [class.collapsed]="!sidebarOpen()">
       <div class="sidebar-search">
-        <input
-          type="text"
-          class="search-input"
-          placeholder="Search components..."
-          [value]="searchQuery()"
-          (input)="onSearchInput($event)"
-        />
-        @if (isSearching()) {
-          <button class="search-clear" (click)="clearSearch()" aria-label="Clear search">✕</button>
-        }
+        <div class="search-header">
+          <div>
+            <div class="search-label">Discover components</div>
+            <p class="search-caption">{{ searchSummary() }}</p>
+          </div>
+          @if (isSearching()) {
+            <button class="search-clear" (click)="clearSearch()" aria-label="Clear search">✕</button>
+          }
+        </div>
+        <div class="search-input-wrap">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search buttons, charts, dialogs..."
+            [value]="searchQuery()"
+            (input)="onSearchInput($event)"
+          />
+        </div>
       </div>
 
       @if (!isSearching()) {
         <section class="featured-nav">
-          <div class="featured-title">Quick Access</div>
-          <div class="featured-list">
-            @for (item of featuredItems(); track item.path) {
-              <a class="featured-item" [routerLink]="item.routePath" [queryParams]="item.queryParams" routerLinkActive="active" (click)="onNavClick()">
-                <span>{{ item.icon }}</span>
-                <span>{{ item.label }}</span>
-              </a>
-            }
+          <div class="featured-title">Start here</div>
+          <div class="featured-list single-row">
+            <a class="featured-item" routerLink="/home" routerLinkActive="active" (click)="onNavClick()">
+              <span>🏠</span>
+              <span>Overview</span>
+            </a>
+            <a class="featured-item" routerLink="/getting-started" routerLinkActive="active" (click)="onNavClick()">
+              <span>⚙️</span>
+              <span>Getting Started</span>
+            </a>
           </div>
         </section>
       }
 
       <div class="sidebar-content">
         @for (group of visibleGroups(); track group.title) {
-          <div class="nav-group">
+          <div class="nav-group" [id]="'group-' + groupId(group.title)">
             <div class="nav-group-header" (click)="toggleGroup(group.title)" tabindex="0" (keydown.enter)="toggleGroup(group.title)" (keydown.space)="$event.preventDefault(); toggleGroup(group.title)">
               <span class="nav-group-icon">{{ group.icon }}</span>
               <span class="nav-group-title">{{ group.title }}</span>
-              <span class="group-chevron" [class.collapsed]="!isGroupExpanded(group.title)">▾</span>
+              <span class="group-meta">
+                <span class="group-count">{{ group.items.length }}</span>
+                <span class="group-chevron" [class.collapsed]="!isGroupExpanded(group.title)">▾</span>
+              </span>
             </div>
             @if (isGroupExpanded(group.title)) {
               <div class="nav-group-items">

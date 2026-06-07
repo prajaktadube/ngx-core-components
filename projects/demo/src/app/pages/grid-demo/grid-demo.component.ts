@@ -1,4 +1,4 @@
-import { Component, computed, signal, effect, untracked } from '@angular/core';
+import { Component, ViewChild, computed, signal, effect, untracked } from '@angular/core';
 import {
   DataGridComponent,
   NgxGridCellTemplateDirective,
@@ -63,15 +63,31 @@ interface ApiRow {
             automatic totals/aggregations footer, client/server sorting/grouping, inline editing, and detail templates.
           </p>
         </div>
-        <div class="header-badges">
-          <span class="badge badge-orange">Column Auto-Sizing</span>
-          <span class="badge badge-orange">Checklist Filters Search</span>
-          <span class="badge badge-orange">Excel Spreadsheet Export</span>
-          <span class="badge badge-orange">Summary Footers</span>
-          <span class="badge badge-orange">Grouping & Details</span>
-          <span class="badge badge-orange">Column Reordering</span>
-          <span class="badge badge-orange">Multi-Column Sort</span>
+        <div class="header-panel">
+          <div class="header-actions">
+            <button class="header-action-btn primary" type="button" (click)="onExportExcel()">Export Excel</button>
+            <button class="header-action-btn" type="button" (click)="autoSizeCoreColumns()">Auto-size key columns</button>
+            <button class="header-action-btn" type="button" (click)="resetDemoView()">Reset view</button>
+          </div>
+          <div class="header-badges">
+            <span class="badge badge-orange">Column Auto-Sizing</span>
+            <span class="badge badge-orange">Checklist Filters Search</span>
+            <span class="badge badge-orange">Excel Spreadsheet Export</span>
+            <span class="badge badge-orange">Summary Footers</span>
+            <span class="badge badge-orange">Grouping & Details</span>
+            <span class="badge badge-orange">Column Reordering</span>
+            <span class="badge badge-orange">Multi-Column Sort</span>
+          </div>
         </div>
+      </div>
+
+      <div class="metric-grid">
+        @for (stat of summaryStats(); track stat.label) {
+          <article class="metric-card" [class]="'metric-' + stat.accent">
+            <span class="metric-label">{{ stat.label }}</span>
+            <strong class="metric-value">{{ stat.value }}</strong>
+          </article>
+        }
       </div>
 
       <div class="tab-nav">
@@ -405,7 +421,20 @@ interface ApiRow {
     .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 2px solid var(--border-color); }
     .page-header-text h1 { margin: 0 0 8px; font-size: 28px; font-weight: 900; color: var(--text-primary); letter-spacing: -0.5px; font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif); }
     .page-header-text p { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 720px; }
-    .header-badges { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+    .header-panel { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .header-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .header-action-btn { border: 1px solid var(--border-color); border-radius: 999px; background: var(--bg-primary); color: var(--text-primary); padding: 8px 12px; font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease; }
+    .header-action-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08); }
+    .header-action-btn.primary { background: linear-gradient(135deg, var(--primary-color, #4f46e5), #7c3aed); color: #fff; border-color: transparent; }
+    .header-badges { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+    .metric-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .metric-card { border: 1px solid var(--border-color); border-radius: 16px; padding: 14px 16px; background: linear-gradient(145deg, var(--bg-secondary), var(--bg-primary)); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 4px; }
+    .metric-card.metric-indigo { border-color: rgba(79, 70, 229, 0.18); }
+    .metric-card.metric-emerald { border-color: rgba(16, 185, 129, 0.18); }
+    .metric-card.metric-amber { border-color: rgba(245, 158, 11, 0.18); }
+    .metric-card.metric-violet { border-color: rgba(139, 92, 246, 0.18); }
+    .metric-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-secondary); font-weight: 800; }
+    .metric-value { font-size: 22px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em; }
     .badge { font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 16px; transition: all 0.2s ease; }
     .badge-orange { background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%); color: #b45309; border: 1px solid rgba(180, 83, 9, 0.1); }
     .tab-nav { display: flex; gap: 0; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 0; }
@@ -559,6 +588,8 @@ interface ApiRow {
   `],
 })
 export class GridDemoComponent {
+  @ViewChild('grid') grid!: DataGridComponent;
+
   activeTab = signal('Demo');
   tabs = ['Demo', 'How to Use', 'API Reference'];
 
@@ -605,6 +636,17 @@ export class GridDemoComponent {
     return field ? { field, dir: 'asc' } : null;
   });
 
+  summaryStats = computed(() => {
+    const rows = this.employees();
+    const departments = new Set(rows.map(row => row.department));
+    return [
+      { label: 'Employees', value: rows.length.toLocaleString(), accent: 'indigo' },
+      { label: 'Departments', value: departments.size.toString(), accent: 'emerald' },
+      { label: 'Selected rows', value: this.selectedCount().toString(), accent: 'amber' },
+      { label: 'Mode', value: this.processingMode() === 'server' ? 'Simulated server' : 'Client mode', accent: 'violet' },
+    ];
+  });
+
   displayRows = computed(() =>
     this.processingMode() === 'server' ? this.serverRows() : this.employees()
   );
@@ -621,6 +663,41 @@ export class GridDemoComponent {
 
   onCustomTemplatesChange(checked: boolean): void {
     this.useCustomTemplates.set(checked);
+  }
+
+  onExportExcel(): void {
+    this.grid?.exportToExcel();
+    this.lastEvent.set('Excel export started from the enterprise toolbar');
+  }
+
+  autoSizeCoreColumns(): void {
+    const coreFields = ['name', 'department', 'salary', 'status'];
+    for (const column of this.columns().filter(col => coreFields.includes(col.field))) {
+      this.grid?.autoSizeColumn(column as never);
+    }
+    this.lastEvent.set('Key columns auto-sized for improved readability');
+  }
+
+  resetDemoView(): void {
+    this.processingMode.set('client');
+    this.groupField.set('');
+    this.useRowTemplate.set(false);
+    this.useCustomTemplates.set(true);
+    this.editable.set(true);
+    this.showSearch.set(true);
+    this.rowReorderable.set(true);
+    this.showColumnChooser.set(true);
+    this.cellSelection.set(true);
+    this.enableContextMenu.set(true);
+    this.keyboardNavigation.set(true);
+    this.groupAggregations.set(true);
+    this.gridPage.set(1);
+    this.gridPageSize.set(8);
+    this.selectedCount.set(0);
+
+    this.grid?.goPage(1);
+    this.grid?.collapseAllDetails();
+    this.lastEvent.set('Demo view reset to the default enterprise layout');
   }
 
   formatCurrency(value: number): string {

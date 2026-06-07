@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
@@ -45,12 +45,36 @@ import {
         </div>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" routerLink="/getting-started">
-            🚀 Get Started
-          </a>
-          <a class="btn btn-secondary" routerLink="/gantt">
-            📅 View Gantt Chart
-          </a>
+          <a class="btn btn-primary" routerLink="/getting-started">🚀 Get Started</a>
+          <a class="btn btn-secondary" routerLink="/gantt">📅 View Gantt Chart</a>
+          <button class="btn btn-ghost" type="button" (click)="focusSearchInput()">🔎 Search components</button>
+        </div>
+
+        <div class="search-panel ux-surface ux-surface-accent">
+          <label class="search-label" for="componentSearch">Find a component</label>
+          <div class="search-row">
+            <input
+              #componentSearch
+              id="componentSearch"
+              type="search"
+              class="search-input"
+              placeholder="Search by name, capability, or tag…"
+              [value]="searchText()"
+              (input)="searchText.set($any($event.target).value)"
+            />
+            <button class="btn btn-secondary search-btn" type="button" (click)="clearSearch()">Clear</button>
+          </div>
+          <div class="search-meta">
+            <span>{{ visibleCount() }} components visible</span>
+            <span>Tip: press / to jump here, or try one of the quick filters below.</span>
+          </div>
+          <div class="quick-search-row">
+            @for (preset of quickSearchPresets; track preset) {
+              <button class="quick-search-chip" type="button" (click)="applyQuickSearch(preset)">
+                {{ preset }}
+              </button>
+            }
+          </div>
         </div>
       </section>
 
@@ -63,7 +87,7 @@ import {
         </div>
         
         <div class="lane-grid">
-          @for (card of buildCards; track card.title) {
+          @for (card of filteredBuildCards(); track card.title) {
             <a class="journey-card-modern" [routerLink]="card.route">
               <div class="card-icon-wrapper">{{ card.icon }}</div>
               <div class="card-body">
@@ -89,7 +113,7 @@ import {
         </div>
         
         <div class="lane-grid">
-          @for (card of exploreCards; track card.title) {
+          @for (card of filteredExploreCards(); track card.title) {
             <a class="journey-card-modern" [routerLink]="card.route">
               <div class="card-icon-wrapper">{{ card.icon }}</div>
               <div class="card-body">
@@ -141,7 +165,7 @@ import {
         </div>
         
         <div class="lane-grid">
-          @for (card of integrateCards; track card.title) {
+          @for (card of filteredIntegrateCards(); track card.title) {
             <a class="journey-card-modern" [routerLink]="card.route">
               <div class="card-icon-wrapper">{{ card.icon }}</div>
               <div class="card-body">
@@ -160,6 +184,13 @@ import {
       </div>
 
       <!-- Cascadia Code Block Starter Section -->
+      @if (!hasAnyVisibleCards()) {
+        <section class="empty-state-card ux-surface">
+          <h3>No components match your search</h3>
+          <p>Try a broader term like “grid”, “chart”, “button”, or “layout”.</p>
+        </section>
+      }
+
       <section class="starter-card-modern">
         <div class="starter-glow"></div>
         <div class="starter-content">
@@ -287,6 +318,113 @@ import {
       z-index: 1;
     }
 
+    .search-panel {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 14px;
+    }
+
+    .search-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-secondary);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 260px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 11px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    .search-btn {
+      min-width: 96px;
+      justify-content: center;
+    }
+
+    .search-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .quick-search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quick-search-chip {
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--text-primary);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: capitalize;
+      cursor: pointer;
+      transition: all 0.18s ease;
+
+      &:hover {
+        border-color: var(--primary-color);
+        background: rgba(79, 70, 229, 0.08);
+        transform: translateY(-1px);
+      }
+    }
+
+    .empty-state-card {
+      border-radius: 14px;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(16, 185, 129, 0.06));
+    }
+
+    .empty-state-card h3 {
+      margin: 0 0 4px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .empty-state-card p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
     /* Button styles */
     .btn {
       text-decoration: none;
@@ -322,6 +460,18 @@ import {
         transform: translateY(-2px);
         border-color: var(--primary-color);
         background: var(--border-light);
+      }
+    }
+
+    .btn-ghost {
+      color: var(--text-primary);
+      border: 1px dashed var(--border-color);
+      background: rgba(255, 255, 255, 0.55);
+
+      &:hover {
+        transform: translateY(-2px);
+        border-color: rgba(79, 70, 229, 0.35);
+        background: rgba(79, 70, 229, 0.08);
       }
     }
 
@@ -676,17 +826,88 @@ export class HomeComponent {
   exploreCards = EXPLORE_CARDS;
   compareTracks = COMPARE_TRACKS;
   integrateCards = INTEGRATE_CARDS;
+  quickSearchPresets = ['grid', 'charts', 'buttons', 'dialog', 'gantt'];
+
+  searchText = signal('');
+
+  filteredBuildCards = computed(() => this.filterCards(this.buildCards));
+  filteredExploreCards = computed(() => this.filterCards(this.exploreCards));
+  filteredIntegrateCards = computed(() => this.filterCards(this.integrateCards));
+
+  visibleCount = computed(() =>
+    this.filteredBuildCards().length + this.filteredExploreCards().length + this.filteredIntegrateCards().length
+  );
+
+  hasAnyVisibleCards = computed(() => this.visibleCount() > 0);
+
+  private filterCards(cards: Array<{ title: string; description: string; icon?: string; route?: string[] | string; tags?: string[] }>) {
+    const query = this.searchText().trim().toLowerCase();
+    if (!query) {
+      return cards;
+    }
+
+    return cards.filter(card => {
+      const haystack = [card.title, card.description, ...(card.tags || [])].join(' ').toLowerCase();
+      return haystack.includes(query);
+    });
+  }
+
+  focusSearchInput(): void {
+    const input = document.getElementById('componentSearch') as HTMLInputElement | null;
+    input?.focus();
+    input?.select();
+  }
+
+  clearSearch(): void {
+    this.searchText.set('');
+  }
+
+  applyQuickSearch(term: string): void {
+    this.searchText.set(term);
+    this.focusSearchInput();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleGlobalShortcut(event: KeyboardEvent): void {
+    const target = event.target as HTMLElement | null;
+    const isTypingTarget = target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
+
+    if (event.key === '/' && !isTypingTarget && !event.metaKey && !event.ctrlKey && !event.altKey) {
+      event.preventDefault();
+      this.focusSearchInput();
+    }
+  }
 
   copyNpmCommand(event: MouseEvent): void {
-    navigator.clipboard.writeText('npm install ngx-core-components').then(() => {
-      const btn = event.target as HTMLButtonElement;
-      const original = btn.innerText;
+    const command = 'npm install ngx-core-components';
+    const btn = event.currentTarget as HTMLButtonElement;
+    const original = btn.innerText;
+
+    const copy = async () => {
+      try {
+        await navigator.clipboard.writeText(command);
+      } catch {
+        const helper = document.createElement('textarea');
+        helper.value = command;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.top = '-9999px';
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand('copy');
+        document.body.removeChild(helper);
+      }
+
       btn.innerText = 'Copied!';
-      btn.style.background = '#10b981';
+      btn.style.background = 'rgba(16, 185, 129, 0.12)';
+      btn.style.color = '#10b981';
       setTimeout(() => {
         btn.innerText = original;
         btn.style.background = '';
+        btn.style.color = '';
       }, 1500);
-    });
+    };
+
+    void copy();
   }
 }

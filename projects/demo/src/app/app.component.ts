@@ -21,11 +21,11 @@ export class AppComponent {
     'Foundations': true,
     'Inputs & Actions': true,
     'Layout & Overlays': true,
-    'Data Presentation': true,
-    'Visualizations': true,
-    'Intelligence': true,
-    'Feedback': true,
-    'Advanced Inputs': true,
+    'Data Presentation': false,
+    'Visualizations': false,
+    'Intelligence': false,
+    'Feedback': false,
+    'Advanced Inputs': false,
   });
   expandedItems = signal<Record<string, boolean>>({});
 
@@ -151,6 +151,25 @@ export class AppComponent {
 
   isSearching = computed(() => this.searchQuery().trim().length > 0);
 
+  quickGroups = computed(() =>
+    this.navGroups.map(group => ({
+      title: group.title,
+      icon: group.icon,
+      count: group.items.reduce((total, item) => total + (item.children?.length ?? 1), 0),
+    }))
+  );
+
+  searchSummary = computed(() => {
+    const query = this.searchQuery().trim();
+    const visibleCount = this.visibleGroups().reduce((total, group) => total + group.items.length, 0);
+
+    if (query) {
+      return `Showing ${visibleCount} match${visibleCount === 1 ? '' : 'es'} for “${query}”.`;
+    }
+
+    return `Browse ${visibleCount} components across ${this.navGroups.length} categories.`;
+  });
+
   toggleGroup(title: string): void {
     this.expandedGroups.update(prev => ({
       ...prev,
@@ -211,6 +230,37 @@ export class AppComponent {
     this.searchQuery.set('');
   }
 
+  groupId(title: string): string {
+    return this.slugify(title);
+  }
+
+  jumpToGroup(title: string): void {
+    this.searchQuery.set('');
+    this.expandedGroups.update(prev => ({ ...prev, [title]: true }));
+
+    if (this.isBrowser) {
+      const groupId = this.slugify(title);
+      requestAnimationFrame(() => {
+        const target = document.getElementById(`group-${groupId}`);
+        const sidebar = document.querySelector('.sidebar-content') as HTMLElement | null;
+
+        if (sidebar && target) {
+          sidebar.scrollTo({
+            top: Math.max(target.offsetTop - 12, 0),
+            behavior: 'smooth'
+          });
+          return;
+        }
+
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    if (this.isMobileView()) {
+      this.closeSidebar();
+    }
+  }
+
   onSearchInput(event: Event): void {
     this.searchQuery.set((event.target as HTMLInputElement).value);
   }
@@ -259,6 +309,14 @@ export class AppComponent {
   private normalizePath(path: string): string {
     const base = path.split('?')[0].split('#')[0];
     return base || '/home';
+  }
+
+  private slugify(value: string): string {
+    return value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
   }
 
   private isMobileView(): boolean {

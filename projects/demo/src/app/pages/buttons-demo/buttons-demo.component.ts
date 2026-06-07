@@ -41,6 +41,18 @@ interface ApiRow { name: string; type: string; default: string; description: str
         <div class="tab-content">
           <div class="section-label">Interactive Button Playground</div>
           <div class="playground-card">
+            <div class="playground-topbar">
+              <div>
+                <div class="playground-kicker">Enterprise Actions</div>
+                <div class="playground-summary">Current preset: {{ currentPresetLabel() }}</div>
+              </div>
+              <div class="playground-actions">
+                <button class="ghost-btn" type="button" (click)="resetPlayground()">Reset</button>
+                <button class="ghost-btn" type="button" (click)="applyPreset('cta')">CTA</button>
+                <button class="ghost-btn" type="button" (click)="applyPreset('danger')">Danger</button>
+                <button class="ghost-btn" type="button" (click)="applyPreset('badge')">Badge</button>
+              </div>
+            </div>
             <div class="playground-preview">
               <div class="preview-box" [style.width]="playgroundFullWidth() ? '100%' : 'auto'">
                 <ngx-button
@@ -533,6 +545,47 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .api-default { font-family: monospace; white-space: nowrap; color: #ff6b6b; font-weight: 500; }
     
     /* Playground Styles */
+    .playground-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px 0;
+      flex-wrap: wrap;
+    }
+    .playground-kicker {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--primary-color);
+      font-weight: 800;
+    }
+    .playground-summary {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    .playground-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ghost-btn {
+      border: 1px solid var(--border-color);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .ghost-btn:hover {
+      border-color: var(--primary-color);
+      background: rgba(79, 70, 229, 0.08);
+      transform: translateY(-1px);
+    }
     .playground-card {
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
@@ -698,9 +751,86 @@ export class ButtonsDemoComponent {
     return code;
   });
 
+  currentPresetLabel = computed(() => {
+    const variant = this.playgroundVariant();
+    const size = this.playgroundSize();
+    const shape = this.playgroundShape();
+    return `${variant} • ${size} • ${shape}`.toUpperCase();
+  });
+
+  applyPreset(preset: 'cta' | 'danger' | 'badge'): void {
+    if (preset === 'cta') {
+      this.playgroundVariant.set('primary');
+      this.playgroundSize.set('lg');
+      this.playgroundShape.set('pill');
+      this.playgroundRipple.set(true);
+      this.playgroundFullWidth.set(false);
+      this.playgroundSelected.set(false);
+      this.playgroundBadge.set('');
+      this.playgroundText.set('Launch Workspace');
+      return;
+    }
+
+    if (preset === 'danger') {
+      this.playgroundVariant.set('danger');
+      this.playgroundSize.set('md');
+      this.playgroundShape.set('rounded');
+      this.playgroundRipple.set(true);
+      this.playgroundFullWidth.set(false);
+      this.playgroundSelected.set(false);
+      this.playgroundBadge.set('');
+      this.playgroundText.set('Delete Item');
+      return;
+    }
+
+    this.playgroundVariant.set('info');
+    this.playgroundSize.set('md');
+    this.playgroundShape.set('rounded');
+    this.playgroundRipple.set(true);
+    this.playgroundFullWidth.set(false);
+    this.playgroundSelected.set(false);
+    this.playgroundBadge.set('9');
+    this.playgroundBadgePosition.set('top-right');
+    this.playgroundBadgeVariant.set('danger');
+    this.playgroundText.set('Notifications');
+  }
+
+  resetPlayground(): void {
+    this.playgroundVariant.set('primary');
+    this.playgroundSize.set('md');
+    this.playgroundShape.set('rounded');
+    this.playgroundDisabled.set(false);
+    this.playgroundLoading.set(false);
+    this.playgroundPrefixIcon.set('');
+    this.playgroundSuffixIcon.set('');
+    this.playgroundText.set('Interactive Button');
+    this.playgroundRipple.set(true);
+    this.playgroundFullWidth.set(false);
+    this.playgroundSelected.set(false);
+    this.playgroundBadge.set('5');
+    this.playgroundBadgePosition.set('top-right');
+    this.playgroundBadgeVariant.set('danger');
+  }
+
   copyToClipboard(text: string): void {
-    navigator.clipboard.writeText(text);
-    this.log('Copied code to clipboard: ' + text);
+    const copyText = async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const helper = document.createElement('textarea');
+        helper.value = text;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.top = '-9999px';
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand('copy');
+        document.body.removeChild(helper);
+      }
+      this.log('Copied code to clipboard');
+    };
+
+    void copyText();
   }
 
   howToCode = `<!-- 1. Custom SVG Icon via Content Projection (Use 'prefix' or 'suffix' attributes) -->
