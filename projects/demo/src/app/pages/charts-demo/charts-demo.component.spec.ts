@@ -4,7 +4,7 @@ import {
   LineChartComponent, PieChartComponent, BubbleChartComponent, SunburstChartComponent,
   ChartSeries, ScatterPoint, ChartDataPoint, BubblePoint, SunburstNode
 } from 'ngx-core-components';
-import { Component, signal } from '@angular/core';
+import { Component, signal, TemplateRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 @Component({
@@ -27,11 +27,19 @@ import { By } from '@angular/platform-browser';
       [series]="barSeries()"
       [categories]="categories()"
       [showExport]="showExport()"
+      [referenceLines]="referenceLines()"
+      [labelFormatter]="labelFormatter()"
+      [tooltipTemplate]="customTooltip"
+      (barClick)="onBarClick($event)"
     />
     <ngx-line-chart
       [series]="lineSeries()"
       [categories]="categories()"
       [showExport]="showExport()"
+      [referenceLines]="referenceLines()"
+      [labelFormatter]="labelFormatter()"
+      [tooltipTemplate]="customTooltip"
+      (pointClick)="onPointClick($event)"
     />
     <ngx-pie-chart
       [data]="pieData()"
@@ -45,6 +53,12 @@ import { By } from '@angular/platform-browser';
       [data]="sunburstData()"
       [showExport]="showExport()"
     />
+
+    <ng-template #customTooltip let-t>
+      <div class="custom-test-tooltip">
+        <span class="custom-test-cat">{{ t.cat }}</span>
+      </div>
+    </ng-template>
   `
 })
 class TestChartsWrapperComponent {
@@ -81,6 +95,19 @@ class TestChartsWrapperComponent {
   ]);
 
   showExport = signal(true);
+
+  referenceLines = signal<any[]>([
+    { value: 150, label: 'Target', color: '#10b981' }
+  ]);
+  labelFormatter = signal<(v: number) => string>((v: number) => `Formatted:${v}`);
+  
+  clickedEvent = signal<any>(null);
+  onBarClick(event: any) {
+    this.clickedEvent.set(event);
+  }
+  onPointClick(event: any) {
+    this.clickedEvent.set(event);
+  }
 }
 
 describe('Advanced Chart Components', () => {
@@ -276,5 +303,41 @@ describe('Advanced Chart Components', () => {
     slices[0].nativeElement.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
     fixture.detectChanges();
     expect(sunburstComponent.hoveredSliceId()).toBeNull();
+  });
+
+  it('should render reference lines in bar and line charts', () => {
+    const barDe = fixture.debugElement.query(By.css('ngx-bar-chart'));
+    expect(barComponent.referenceLines().length).toBe(1);
+    expect(barComponent.referenceLines()[0].label).toBe('Target');
+
+    const lineDe = fixture.debugElement.query(By.css('ngx-line-chart'));
+    expect(lineComponent.referenceLines().length).toBe(1);
+    expect(lineComponent.referenceLines()[0].label).toBe('Target');
+  });
+
+  it('should format data labels using custom formatter in bar chart', () => {
+    expect(barComponent.labelFormatter()).toBeTruthy();
+    const formatted = barComponent.labelFormatter()!(100);
+    expect(formatted).toBe('Formatted:100');
+  });
+
+  it('should trigger click outputs on bar and point clicks', () => {
+    const wrapper = fixture.componentInstance;
+    wrapper.clickedEvent.set(null);
+    
+    barComponent.onBarClick(0, 0, 100);
+    expect(wrapper.clickedEvent()).toEqual({
+      category: 'Jan',
+      value: 100,
+      seriesName: 'Revenue'
+    });
+
+    wrapper.clickedEvent.set(null);
+    lineComponent.onPointClick(0, 0, 10);
+    expect(wrapper.clickedEvent()).toEqual({
+      category: 'Jan',
+      value: 10,
+      seriesName: 'Margin'
+    });
   });
 });

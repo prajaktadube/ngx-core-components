@@ -5971,4 +5971,1944 @@ export class SunburstChartComponent {
 }
 `;
 
+export const PolarAreaChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, viewChild, HostListener, inject, DestroyRef, output
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CHART_COLORS, ChartDataPoint, fmtNum } from './chart-utils';
+
+@Component({
+  selector: 'ngx-polar-area-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-polar-area-chart">
+      <div class="chart-header">
+        <div class="chart-title-space"></div>
+        @if (showExport()) {
+          <div class="chart-export-menu">
+            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
+            @if (exportMenuOpen()) {
+              <div class="export-dropdown">
+                <button (click)="onExport('json')">📊 Export JSON</button>
+                <button (click)="onExport('csv')">📄 Export CSV</button>
+                <button (click)="onExport('svg')">🖼️ Export SVG</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="chart-body">
+        <svg
+          #svgEl
+          class="chart-svg"
+          [attr.viewBox]="'0 0 ' + height() + ' ' + height()"
+          [attr.width]="height()"
+          [attr.height]="height()"
+        >
+          <g [attr.transform]="'translate(' + cx() + ',' + cy() + ')'">
+            @for (level of gridLevels(); track level) {
+              <circle
+                cx="0"
+                cy="0"
+                [attr.r]="level.radius"
+                fill="none"
+                stroke="var(--ngx-chart-grid, #ebedf0)"
+                stroke-width="1"
+                stroke-dasharray="3,3"
+              />
+              @if (showLabels()) {
+                <text
+                  x="4"
+                  [attr.y]="-level.radius + 12"
+                  class="grid-label"
+                >{{ fmtNum(level.value) }}</text>
+              }
+            }
+
+            @for (slice of slices(); track slice.index) {
+              <path
+                [attr.d]="slice.path"
+                [attr.fill]="slice.color"
+                [attr.stroke]="'#fff'"
+                stroke-width="1.5"
+                fill-opacity="0.8"
+                class="polar-slice"
+                [class.hovered]="hovered() === slice.index"
+                [style.transform]="hovered() === slice.index ? 'scale(1.04)' : 'scale(1)'"
+                (mouseenter)="hovered.set(slice.index); onSliceHover($event, slice)"
+                (mouseleave)="hovered.set(-1); tooltip.set(null)"
+                (click)="onSliceClick(slice)"
+              />
+              
+              @if (showLabels() && slice.value > 0) {
+                <text
+                  [attr.x]="labelX(slice)"
+                  [attr.y]="labelY(slice)"
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                  class="slice-label"
+                >{{ fmtNum(slice.value) }}</text>
+              }
+            }
+          </g>
+        </svg>
+
+        @if (showLegend()) {
+          <div class="chart-legend">
+            @for (slice of slices(); track slice.index) {
+              <div class="legend-item" (mouseenter)="hovered.set(slice.index)" (mouseleave)="hovered.set(-1)">
+                <span class="legend-dot" [style.background]="slice.color"></span>
+                <span class="legend-label">{{ slice.label }}</span>
+                <span class="legend-val">{{ fmtNum(slice.value) }}</span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      @if (tooltip(); as t) {
+        <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
+          <span class="tt-dot" [style.background]="t.color"></span>
+          <strong>{{ t.label }}</strong>: {{ fmtNum(t.value) }}
+        </div>
+      }
+    </div>
+  \`,
+  styles: [\`
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-polar-area-chart {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+      animation: polarGrow 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transform-origin: center;
+    }
+
+    @keyframes polarGrow {
+      from { transform: scale(0.6) rotate(-45deg); opacity: 0; }
+      to { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    .polar-slice {
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s;
+      transform-origin: 0px 0px;
+    }
+    .polar-slice:hover {
+      fill-opacity: 0.95;
+    }
+    .slice-label {
+      font-size: 10px;
+      fill: #fff;
+      font-weight: 700;
+      pointer-events: none;
+      user-select: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .grid-label {
+      font-size: 9px;
+      fill: var(--ngx-chart-axis-text, #94a3b8);
+      pointer-events: none;
+      user-select: none;
+    }
+    .chart-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+      min-width: 140px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .legend-item:hover {
+      background: var(--ngx-chart-grid, #f1f3f5);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .legend-label {
+      flex: 1;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      font-weight: 550;
+    }
+    .legend-val {
+      font-weight: 700;
+      color: var(--ngx-chart-text, #212529);
+    }
+
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      min-width: 120px;
+      box-shadow: 0 10px 20px -5px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: left 0.1s ease-out, top 0.1s ease-out;
+      font-family: inherit;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+  \`]
+})
+export class PolarAreaChartComponent {
+  data = input<ChartDataPoint[]>([]);
+  height = input<number>(280);
+  showLegend = input<boolean>(true);
+  showLabels = input<boolean>(true);
+  colors = input<string[]>(CHART_COLORS);
+  showExport = input<boolean>(false);
+
+  sliceClick = output<ChartDataPoint>();
+
+  svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
+
+  exportMenuOpen = signal(false);
+  hovered = signal(-1);
+  tooltip = signal<{x:number;y:number;label:string;value:number;color:string}|null>(null);
+
+  svgSize = computed(() => this.height());
+  cx = computed(() => this.svgSize() / 2);
+  cy = computed(() => this.svgSize() / 2);
+  maxRadius = computed(() => this.svgSize() / 2 - 25);
+
+  private maxValue = computed(() => {
+    const vals = this.data().map(d => d.value);
+    return Math.max(1, ...vals);
+  });
+
+  gridLevels = computed(() => {
+    const maxVal = this.maxValue();
+    const maxR = this.maxRadius();
+    return [
+      { value: maxVal * 0.25, radius: maxR * 0.25 },
+      { value: maxVal * 0.5, radius: maxR * 0.5 },
+      { value: maxVal * 0.75, radius: maxR * 0.75 },
+      { value: maxVal, radius: maxR }
+    ];
+  });
+
+  slices = computed(() => {
+    const d = this.data();
+    if (!d.length) return [];
+    const maxVal = this.maxValue();
+    const maxR = this.maxRadius();
+    const angleStep = (2 * Math.PI) / d.length;
+
+    let currentAngle = -Math.PI / 2;
+
+    return d.map((item, i) => {
+      const start = currentAngle;
+      const end = currentAngle + angleStep;
+      const mid = start + angleStep / 2;
+
+      const r = maxVal > 0 ? (item.value / maxVal) * maxR : 0;
+
+      const x1 = Math.cos(start) * r;
+      const y1 = Math.sin(start) * r;
+      const x2 = Math.cos(end) * r;
+      const y2 = Math.sin(end) * r;
+      const largeArc = angleStep > Math.PI ? 1 : 0;
+      const path = \`M 0 0 L \${x1} \${y1} A \${r} \${r} 0 \${largeArc} 1 \${x2} \${y2} Z\`;
+
+      currentAngle = end;
+
+      return {
+        index: i,
+        label: item.label,
+        value: item.value,
+        color: item.color || this.colors()[i % this.colors().length],
+        path,
+        midAngle: mid,
+        radius: r
+      };
+    });
+  });
+
+  labelX(s: {midAngle:number; radius:number}): number {
+    return Math.cos(s.midAngle) * s.radius * 0.7;
+  }
+
+  labelY(s: {midAngle:number; radius:number}): number {
+    return Math.sin(s.midAngle) * s.radius * 0.7;
+  }
+
+  onSliceHover(event: MouseEvent, slice: {label:string;value:number;color:string}): void {
+    const el = (event.currentTarget as HTMLElement).closest('.ngx-polar-area-chart') as HTMLElement;
+    const rect = el.getBoundingClientRect();
+    this.tooltip.set({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      label: slice.label,
+      value: slice.value,
+      color: slice.color
+    });
+  }
+
+  onSliceClick(slice: {label:string;value:number;color?:string}) {
+    this.sliceClick.emit({ label: slice.label, value: slice.value, color: slice.color });
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: 'json' | 'csv' | 'svg'): void {
+    this.exportMenuOpen.set(false);
+    if (type === 'json') this.exportToJson();
+    else if (type === 'csv') this.exportToCsv();
+    else if (type === 'svg') this.exportToSvg();
+  }
+
+  exportToCsv(): void {
+    const data = this.data();
+    if (!data.length) return;
+    let csv = 'Label,Value\\n';
+    data.forEach(d => {
+      csv += \`"\${d.label}",\${d.value}\\n\`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'polar-area-chart-data.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToJson(): void {
+    const data = this.data();
+    if (!data.length) return;
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'polar-area-chart-data.json');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg = this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer = new XMLSerializer();
+    let source = serializer.serializeToString(svg);
+    if (!source.match(/^<svg[^>]+xmlns="http\\:\\/\\/www\\.w3\\.org\\/2000\\/svg"/)) {
+      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    source = '<?xml version="1.0" encoding="utf-8"?>\\n' + source;
+    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'polar-area-chart.svg');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}
+`;
+
+export const BulletChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-bullet-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-bullet-chart">
+      <svg
+        #svgEl
+        class="bullet-svg"
+        [attr.width]="'100%'"
+        [attr.height]="svgHeight()"
+      >
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (r of rangeRects(); track $index) {
+            <rect
+              [attr.x]="r.x"
+              [attr.y]="0"
+              [attr.width]="r.width"
+              [attr.height]="barHeight()"
+              [attr.fill]="r.color"
+              class="bullet-range"
+            />
+          }
+
+          <rect
+            [attr.x]="0"
+            [attr.y]="valBarY()"
+            [attr.width]="valBarWidth()"
+            [attr.height]="valBarHeight()"
+            [attr.fill]="valueColor()"
+            class="bullet-value-bar"
+          />
+
+          <line
+            [attr.x1]="targetX()"
+            [attr.x2]="targetX()"
+            [attr.y1]="targetY1()"
+            [attr.y2]="targetY2()"
+            [attr.stroke]="targetColor()"
+            stroke-width="3"
+            class="bullet-target-marker"
+          />
+
+          @if (showLabels()) {
+            <g class="bullet-labels" [attr.transform]="'translate(0,' + (barHeight() + 14) + ')'">
+              <text x="0" text-anchor="middle" class="tick-label">0</text>
+              @for (val of ranges(); track val) {
+                <text
+                  [attr.x]="xPos(val)"
+                  text-anchor="middle"
+                  class="tick-label"
+                >{{ val }}</text>
+              }
+              <text [attr.x]="innerW()" text-anchor="middle" class="tick-label">{{ max() }}</text>
+            </g>
+          }
+        </g>
+      </svg>
+    </div>
+  \`,
+  styles: [\`
+    :host {
+      display: block;
+    }
+    .ngx-bullet-chart {
+      width: 100%;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+    }
+    .bullet-svg {
+      display: block;
+      overflow: visible;
+    }
+    .bullet-range {
+      transition: width 0.3s ease, x 0.3s ease;
+    }
+    .bullet-value-bar {
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bullet-target-marker {
+      transition: x1 0.5s cubic-bezier(0.16, 1, 0.3, 1), x2 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tick-label {
+      font-size: 10px;
+      fill: var(--ngx-chart-axis-text, #64748b);
+      font-weight: 550;
+      user-select: none;
+    }
+  \`]
+})
+export class BulletChartComponent {
+  value = input<number>(0);
+  target = input<number>(0);
+  max = input<number>(100);
+  ranges = input<number[]>([50, 85, 100]);
+  rangeColors = input<string[]>(['#f1f5f9', '#e2e8f0', '#cbd5e1']);
+  valueColor = input<string>('#4f46e5');
+  targetColor = input<string>('#ef4444');
+  height = input<number>(50);
+  showLabels = input<boolean>(true);
+
+  containerWidth = signal<number>(500);
+
+  margin = computed(() => ({
+    top: 5,
+    right: 15,
+    bottom: this.showLabels() ? 20 : 5,
+    left: 15
+  }));
+
+  svgHeight = computed(() => this.height() + this.margin().top + this.margin().bottom);
+  innerW = computed(() => Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  barHeight = computed(() => this.height());
+
+  valBarHeight = computed(() => this.barHeight() * 0.35);
+  valBarY = computed(() => (this.barHeight() - this.valBarHeight()) / 2);
+
+  targetY1 = computed(() => this.barHeight() * 0.15);
+  targetY2 = computed(() => this.barHeight() * 0.85);
+
+  constructor() {
+    const hostEl = inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(entries => {
+        if (!entries || entries.length === 0) return;
+        const width = entries[0].contentRect.width;
+        if (width > 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() => resizeObserver.disconnect());
+    }
+  }
+
+  xPos(v: number): number {
+    const maxVal = this.max() || 1;
+    const clamped = Math.max(0, Math.min(maxVal, v));
+    return (clamped / maxVal) * this.innerW();
+  }
+
+  valBarWidth = computed(() => this.xPos(this.value()));
+  targetX = computed(() => this.xPos(this.target()));
+
+  rangeRects = computed(() => {
+    const limits = this.ranges();
+    const colors = this.rangeColors();
+    const rects: Array<{ x: number; width: number; color: string }> = [];
+
+    let prev = 0;
+    limits.forEach((limit, idx) => {
+      const x = this.xPos(prev);
+      const width = Math.max(0, this.xPos(limit) - x);
+      const color = colors[idx % colors.length];
+      rects.push({ x, width, color });
+      prev = limit;
+    });
+
+    return rects;
+  });
+}
+`;
+
+export const DumbbellChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+export interface DumbbellItem {
+  label: string;
+  startValue: number;
+  endValue: number;
+  startColor?: string;
+  endColor?: string;
+}
+
+@Component({
+  selector: 'ngx-dumbbell-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-dumbbell-chart" (mouseleave)="onMouseLeave()">
+      @if (showLegend() && data().length > 0) {
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="startColor()"></span>
+            <span class="legend-label">{{ startLabel() }}</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="endColor()"></span>
+            <span class="legend-label">{{ endLabel() }}</span>
+          </div>
+        </div>
+      }
+      <svg #svgEl class="dumbbell-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @if (showGrid()) {
+            @for (tick of xTicks(); track tick) {
+              <line [attr.x1]="xPos(tick)" [attr.x2]="xPos(tick)" y1="0" [attr.y2]="innerH()" class="grid-line" />
+            }
+          }
+          @for (item of computedItems(); track item.label; let i = $index) {
+            <g class="dumbbell-row" [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i" [class.highlighted]="hoveredIndex() === i" (mouseenter)="onRowHover(i, $event)" (mousemove)="onRowMouseMove($event)">
+              <rect [attr.x]="-margin().left" [attr.y]="item.y - rowHeight() / 2" [attr.width]="containerWidth()" [attr.height]="rowHeight()" fill="transparent" style="cursor: pointer;" />
+              @if (showLabels()) {
+                <text [attr.x]="-10" [attr.y]="item.y" text-anchor="end" dominant-baseline="middle" class="y-axis-label">{{ item.label }}</text>
+              }
+              <line [attr.x1]="xPos(item.startValue)" [attr.x2]="xPos(item.endValue)" [attr.y1]="item.y" [attr.y2]="item.y" [attr.stroke]="item.barColor" stroke-width="4" stroke-linecap="round" class="connecting-bar" />
+              <circle [attr.cx]="xPos(item.startValue)" [attr.cy]="item.y" [attr.r]="hoveredIndex() === i ? 8 : 6" [attr.fill]="item.sColor" class="endpoint-dot" />
+              <circle [attr.cx]="xPos(item.endValue)" [attr.cy]="item.y" [attr.r]="hoveredIndex() === i ? 8 : 6" [attr.fill]="item.eColor" class="endpoint-dot" />
+            </g>
+          }
+          <g [attr.transform]="'translate(0,' + innerH() + ')'" class="x-axis">
+            <line x1="0" [attr.x2]="innerW()" y1="0" y2="0" class="axis-line" />
+            @for (tick of xTicks(); track tick) {
+              <g [attr.transform]="'translate(' + xPos(tick) + ',0)'">
+                <line x1="0" x2="0" y1="0" y2="4" class="tick-line" />
+                <text y="16" text-anchor="middle" class="tick-label">{{ formatNumber(tick) }}</text>
+              </g>
+            }
+          </g>
+        </g>
+      </svg>
+    </div>
+  \\\`
+})
+export class DumbbellChartComponent {
+  data = input<DumbbellItem[]>([]);
+  height = input<number>(350);
+  showGrid = input<boolean>(true);
+  showLabels = input<boolean>(true);
+  startColor = input<string>('#ef4444');
+  endColor = input<string>('#10b981');
+  startLabel = input<string>('Start');
+  endLabel = input<string>('End');
+  colors = input<string[]>([]);
+  showLegend = input<boolean>(true);
+
+  containerWidth = signal<number>(500);
+  hoveredIndex = signal<number | null>(null);
+  tooltip = signal<any | null>(null);
+  tooltipX = signal<number>(0);
+  tooltipY = signal<number>(0);
+
+  margin = computed(() => ({ top: 20, right: 30, bottom: 30, left: this.showLabels() ? 100 : 20 }));
+  innerW = computed(() => Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  innerH = computed(() => Math.max(10, this.height() - this.margin().top - this.margin().bottom));
+
+  constructor() {}
+  minVal = computed(() => 0);
+  maxVal = computed(() => 100);
+  xTicks = computed(() => [0, 25, 50, 75, 100]);
+  xPos(val: number): number { return 0; }
+  rowHeight = computed(() => 30);
+  computedItems = computed(() => []);
+  onRowHover(idx: number, event: MouseEvent) {}
+  onRowMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const LollipopChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-lollipop-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-lollipop-chart" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="lollipop-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (item of computedItems(); track item.label; let i = $index) {
+            <g class="lollipop-row" (mouseenter)="onItemHover(i, $event)" (mousemove)="onItemMouseMove($event)">
+              <line [attr.x1]="0" [attr.x2]="xPos(item.value)" [attr.y1]="item.coord" [attr.y2]="item.coord" [attr.stroke]="item.color" stroke-width="2" class="lollipop-stem" />
+              <circle [attr.cx]="xPos(item.value)" [attr.cy]="item.coord" [attr.r]="dotRadius()" [attr.fill]="item.color" class="lollipop-candy" />
+            </g>
+          }
+        </g>
+      </svg>
+    </div>
+  \\\`
+})
+export class LollipopChartComponent {
+  data = input<any[]>([]);
+  height = input<number>(350);
+  showGrid = input<boolean>(true);
+  showLabels = input<boolean>(true);
+  orientation = input<'horizontal' | 'vertical'>('horizontal');
+  colors = input<string[]>([]);
+  dotRadius = input<number>(8);
+
+  containerWidth = signal<number>(500);
+  hoveredIndex = signal<number | null>(null);
+  tooltip = signal<any | null>(null);
+  tooltipX = signal<number>(0);
+  tooltipY = signal<number>(0);
+
+  margin = computed(() => ({ top: 20, right: 30, bottom: 40, left: 80 }));
+  innerW = computed(() => 400);
+  innerH = computed(() => 300);
+
+  xPos(val: number): number { return 0; }
+  computedItems = computed(() => []);
+  onItemHover(idx: number, event: MouseEvent) {}
+  onItemMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const SlopeChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+export interface SlopeDataPoint {
+  label: string;
+  startValue: number;
+  endValue: number;
+  color?: string;
+}
+
+@Component({
+  selector: 'ngx-slope-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-slope-chart" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="slope-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          <line [attr.x1]="leftAxisX()" [attr.x2]="leftAxisX()" y1="0" [attr.y2]="innerH()" class="axis-line" />
+          <line [attr.x1]="rightAxisX()" [attr.x2]="rightAxisX()" y1="0" [attr.y2]="innerH()" class="axis-line" />
+          @for (item of computedItems(); track item.label; let i = $index) {
+            <g class="slope-group" (mouseenter)="onSlopeHover(i, $event)" (mousemove)="onSlopeMouseMove($event)">
+              <line [attr.x1]="leftAxisX()" [attr.x2]="rightAxisX()" [attr.y1]="item.leftY" [attr.y2]="item.rightY" [attr.stroke]="item.lineColor" stroke-width="2.5" class="slope-line" />
+            </g>
+          }
+        </g>
+      </svg>
+    </div>
+  \\\`
+})
+export class SlopeChartComponent {
+  data = input<SlopeDataPoint[]>([]);
+  startLabel = input<string>('Before');
+  endLabel = input<string>('After');
+  height = input<number>(350);
+  showLabels = input<boolean>(true);
+  showValues = input<boolean>(true);
+  colors = input<string[]>([]);
+
+  containerWidth = signal<number>(500);
+  hoveredIndex = signal<number | null>(null);
+  tooltip = signal<any | null>(null);
+  tooltipX = signal<number>(0);
+  tooltipY = signal<number>(0);
+
+  margin = computed(() => ({ top: 40, right: 120, bottom: 20, left: 120 }));
+  innerW = computed(() => 300);
+  innerH = computed(() => 300);
+
+  leftAxisX = computed(() => 0);
+  rightAxisX = computed(() => 300);
+
+  computedItems = computed(() => []);
+  onSlopeHover(idx: number, event: MouseEvent) {}
+  onSlopeMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const SankeyChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+export interface SankeyNode {
+  id: string;
+  label: string;
+  color?: string;
+}
+
+export interface SankeyLink {
+  source: string;
+  target: string;
+  value: number;
+}
+
+@Component({
+  selector: 'ngx-sankey-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-sankey-chart" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="sankey-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (link of computedData().links; track link.sourceId + '-' + link.targetId) {
+            <path [attr.d]="link.path" [attr.stroke]="link.color" [attr.stroke-width]="link.thickness" fill="none" class="sankey-link" />
+          }
+          @for (node of computedData().nodes; track node.id) {
+            <rect [attr.x]="node.x" [attr.y]="node.y" [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.color" class="sankey-node" />
+          }
+        </g>
+      </svg>
+    </div>
+  \\\`
+})
+export class SankeyChartComponent {
+  nodes = input<SankeyNode[]>([]);
+  links = input<SankeyLink[]>([]);
+  height = input<number>(400);
+  showLabels = input<boolean>(true);
+  showValues = input<boolean>(true);
+  colors = input<string[]>([]);
+  nodePadding = input<number>(16);
+  nodeWidth = input<number>(20);
+
+  containerWidth = signal<number>(500);
+  hoveredNodeId = signal<string | null>(null);
+  hoveredLinkId = signal<number | null>(null);
+  tooltip = signal<any | null>(null);
+  tooltipX = signal<number>(0);
+  tooltipY = signal<number>(0);
+
+  margin = computed(() => ({ top: 20, right: 80, bottom: 20, left: 80 }));
+  innerW = computed(() => 400);
+  innerH = computed(() => 300);
+
+  computedData = computed(() => ({ nodes: [], links: [] }));
+  onNodeHover(nodeId: string) {}
+  onLinkHover(idx: number, event: MouseEvent) {}
+  onLinkMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const ViolinPlotSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-violin-plot',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-violin-plot" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="violin-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (item of computedItems(); track item.label; let i = $index) {
+            <g class="violin-group" (mouseenter)="onItemHover(i, $event)" (mousemove)="onItemMouseMove($event)">
+              <path [attr.d]="item.path" [attr.fill]="item.color" fill-opacity="0.3" [attr.stroke]="item.color" stroke-width="1.5" />
+            </g>
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class ViolinPlotComponent {
+  data = input<any[]>([]);
+  height = input<number>(350);
+  showGrid = input<boolean>(true);
+  showLabels = input<boolean>(true);
+  colors = input<string[]>([]);
+
+  margin = computed(() => ({ top: 20, right: 20, bottom: 30, left: 45 }));
+  computedItems = computed(() => []);
+  onItemHover(idx: number, event: MouseEvent) {}
+  onItemMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const RidgelineChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-ridgeline-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-ridgeline-chart" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="ridgeline-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (item of computedItems(); track item.label; let i = $index) {
+            <g class="ridgeline-row" (mouseenter)="onRowHover(i, $event)" (mousemove)="onRowMouseMove($event)">
+              <path [attr.d]="item.areaPath" [attr.fill]="item.color" fill-opacity="0.4" />
+              <path [attr.d]="item.linePath" [attr.stroke]="item.color" stroke-width="2" fill="none" />
+            </g>
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class RidgelineChartComponent {
+  data = input<any[]>([]);
+  height = input<number>(400);
+  showGrid = input<boolean>(true);
+  showLabels = input<boolean>(true);
+  colors = input<string[]>([]);
+  overlap = input<number>(1.6);
+
+  margin = computed(() => ({ top: 40, right: 20, bottom: 30, left: 90 }));
+  computedItems = computed(() => []);
+  onRowHover(idx: number, event: MouseEvent) {}
+  onRowMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const ParetoChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-pareto-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-pareto-chart" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="pareto-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (item of computedItems(); track item.label; let i = $index) {
+            <rect [attr.x]="item.barX" [attr.y]="0" width="20" height="100" [attr.fill]="barColor()" (mouseenter)="onItemHover(i, $event)" />
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class ParetoChartComponent {
+  data = input<any[]>([]);
+  height = input<number>(350);
+  showGrid = input<boolean>(true);
+  showLabels = input<boolean>(true);
+  barColor = input<string>('#4a90d9');
+  lineColor = input<string>('#ff6358');
+
+  margin = computed(() => ({ top: 30, right: 50, bottom: 30, left: 50 }));
+  computedItems = computed(() => []);
+  onItemHover(idx: number, event: MouseEvent) {}
+  onItemMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const MarimekkoChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-marimekko-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-marimekko-chart" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="marimekko-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (col of computedCols(); track col.label; let i = $index) {
+            @for (seg of col.segments; track seg.name; let j = $index) {
+              <rect [attr.x]="col.x" [attr.y]="seg.y" [attr.width]="col.width" [attr.height]="seg.height" [attr.fill]="seg.color" (mouseenter)="onSegmentHover(i, j, $event)" />
+            }
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class MarimekkoChartComponent {
+  data = input<any[]>([]);
+  height = input<number>(400);
+  showGrid = input<boolean>(true);
+  showLabels = input<boolean>(true);
+  colors = input<string[]>([]);
+
+  margin = computed(() => ({ top: 20, right: 20, bottom: 30, left: 45 }));
+  computedCols = computed(() => []);
+  onSegmentHover(colIndex: number, segIndex: number, event: MouseEvent) {}
+  onSegmentMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const ChordDiagramSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-chord-diagram',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-chord-diagram" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="chord-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + (containerWidth() / 2) + ',' + (height() / 2) + ')'">
+          @for (rib of computedRibbons(); track rib.path; let i = $index) {
+            <path [attr.d]="rib.path" [attr.fill]="rib.color" fill-opacity="0.35" [class.highlighted]="hoveredRibbonIndex() === i" (mouseenter)="onRibbonHover(i, $event)" />
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class ChordDiagramComponent {
+  matrix = input<number[][]>([]);
+  labels = input<string[]>([]);
+  height = input<number>(400);
+  showLabels = input<boolean>(true);
+  colors = input<string[]>([]);
+
+  containerWidth = signal<number>(500);
+  hoveredNodeIndex = signal<number | null>(null);
+  hoveredRibbonIndex = signal<number | null>(null);
+  computedNodes = computed(() => []);
+  computedRibbons = computed(() => []);
+  onNodeHover(idx: number) {}
+  onRibbonHover(idx: number, event: MouseEvent) {}
+  onMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const DependencyWheelSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-dependency-wheel',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-dependency-wheel" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="wheel-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + (containerWidth() / 2) + ',' + (height() / 2) + ')'">
+          @for (dep of computedDependencies(); track dep.path; let i = $index) {
+            <path [attr.d]="dep.path" [attr.fill]="dep.color" fill-opacity="0.3" (mouseenter)="onDependencyHover(i, $event)" />
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class DependencyWheelComponent {
+  matrix = input<number[][]>([]);
+  labels = input<string[]>([]);
+  height = input<number>(400);
+  showLabels = input<boolean>(true);
+  colors = input<string[]>([]);
+
+  containerWidth = signal<number>(500);
+  hoveredNodeIndex = signal<number | null>(null);
+  hoveredDependencyIndex = signal<number | null>(null);
+  computedNodes = computed(() => []);
+  computedDependencies = computed(() => []);
+  onNodeHover(idx: number) {}
+  onDependencyHover(idx: number, event: MouseEvent) {}
+  onMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const AdjacencyMatrixSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-adjacency-matrix',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-adjacency-matrix" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="matrix-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (cell of computedCells(); track cell.rowIdx + '-' + cell.colIdx) {
+            <rect [attr.x]="cell.x" [attr.y]="cell.y" [attr.width]="cell.size" [attr.height]="cell.size" [attr.fill]="cell.color" [attr.fill-opacity]="cell.opacity" (mouseenter)="onCellHover(cell.rowIdx, cell.colIdx, $event)" />
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class AdjacencyMatrixComponent {
+  matrix = input<number[][]>([]);
+  labels = input<string[]>([]);
+  height = input<number>(400);
+  showLabels = input<boolean>(true);
+  color = input<string>('');
+
+  margin = computed(() => ({ top: 80, right: 20, bottom: 20, left: 80 }));
+  computedCells = computed(() => []);
+  onCellHover(row: number, col: number, event: MouseEvent) {}
+  onMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const BiplotSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-biplot',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="ngx-biplot" (mouseleave)="onMouseLeave()">
+      <svg #svgEl class="biplot-svg" width="100%" [attr.height]="height()">
+        <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+          @for (pt of computedPoints(); track pt.label; let i = $index) {
+            <circle [attr.cx]="pt.cx" [attr.cy]="pt.cy" r="5" [attr.fill]="pt.color" (mouseenter)="onPointHover(i, $event)" />
+          }
+        </g>
+      </svg>
+    </div>
+  \`
+})
+export class BiplotComponent {
+  points = input<any[]>([]);
+  vectors = input<any[]>([]);
+  height = input<number>(400);
+  showLabels = input<boolean>(true);
+  colors = input<string[]>([]);
+
+  margin = computed(() => ({ top: 40, right: 40, bottom: 40, left: 40 }));
+  computedPoints = computed(() => []);
+  computedVectors = computed(() => []);
+  onPointHover(idx: number, event: MouseEvent) {}
+  onMouseMove(event: MouseEvent) {}
+  onMouseLeave() {}
+  formatNumber(v: number): string { return v.toString(); }
+}
+`;
+
+export const RenkoChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, viewChild
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-renko-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-renko-chart" (click)="closeExportMenu()">
+      <div class="chart-header">
+        @if (showExport()) {
+          <div class="chart-export-menu" (click)="\\\\\\$event.stopPropagation()">
+            <button class="export-trigger" (click)="toggleExportMenu(\\\\\\$event)">Export</button>
+            @if (exportMenuOpen()) {
+              <div class="export-dropdown">
+                <button (click)="onExport('svg')">SVG</button>
+                <button (click)="onExport('csv')">CSV</button>
+                <button (click)="onExport('json')">JSON</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="chart-body">
+        <svg #svgEl class="renko-svg" width="100%" [attr.height]="height()">
+          <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+            @if (showGrid()) {
+              @for (tick of yTicks(); track tick) {
+                <line
+                  [attr.x1]="0"
+                  [attr.x2]="chartWidth()"
+                  [attr.y1]="yScale()(tick)"
+                  [attr.y2]="yScale()(tick)"
+                  stroke="var(--ngx-chart-grid, #e2e8f0)"
+                  stroke-width="1"
+                  stroke-dasharray="3,3"
+                />
+                <text
+                  [attr.x]="-8"
+                  [attr.y]="yScale()(tick) + 4"
+                  text-anchor="end"
+                  class="axis-label"
+                >{{ formatNumber(tick) }}</text>
+              }
+            }
+
+            @for (brick of computedBricks(); track brick.index) {
+              <rect
+                [attr.x]="brick.x"
+                [attr.y]="brick.y"
+                [attr.width]="brick.w"
+                [attr.height]="brick.h"
+                [attr.fill]="brick.color"
+                class="renko-brick"
+                (mouseenter)="onBrickHover(brick, \\\\\\$event)"
+                (mousemove)="onBrickHover(brick, \\\\\\$event)"
+                (mouseleave)="onMouseLeave()"
+              />
+            }
+          </g>
+        </svg>
+      </div>
+
+      @if (tooltip(); as t) {
+        <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
+          @if (tooltipTemplate()) {
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { \\\\\\$implicit: t.raw }"></ng-container>
+          } @else {
+            <div class="tooltip-default">
+              <div class="tooltip-row">
+                <span class="tooltip-label">Type:</span>
+                <span class="tooltip-value" [style.color]="t.raw.type === 'up' ? 'var(--ngx-chart-up, #10b981)' : 'var(--ngx-chart-down, #ef4444)'">
+                  {{ t.raw.type.toUpperCase() }}
+                </span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">Top:</span>
+                <span class="tooltip-value">{{ formatNumber(t.raw.top) }}</span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">Bottom:</span>
+                <span class="tooltip-value">{{ formatNumber(t.raw.bottom) }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  \\\`,
+  styles: [\\\`
+    :host { display: block; }
+    .ngx-renko-chart { position: relative; font-family: inherit; }
+    .chart-header { display: flex; justify-content: flex-end; position: relative; height: 30px; }
+    .chart-export-menu { position: relative; }
+    .export-trigger {
+      padding: 4px 10px; font-size: 11px; font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 6px; cursor: pointer;
+    }
+    .export-dropdown {
+      position: absolute; right: 0; top: calc(100% + 4px); background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); padding: 4px; display: flex;
+      flex-direction: column; gap: 2px; min-width: 100px; z-index: 50;
+    }
+    .export-dropdown button {
+      background: none; border: none; padding: 6px 10px; font-size: 11px; text-align: left;
+      cursor: pointer; width: 100%; border-radius: 4px;
+    }
+    .export-dropdown button:hover { background: rgba(79, 70, 229, 0.06); }
+    .renko-brick { cursor: pointer; transition: opacity 0.15s; }
+    .renko-brick:hover { opacity: 0.85; }
+    .axis-label { font-size: 10px; fill: var(--ngx-chart-axis-text, #94a3b8); }
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 8px 12px; border-radius: 8px;
+      font-size: 12px; min-width: 120px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1); z-index: 100;
+    }
+    .tooltip-default { display: flex; flex-direction: column; gap: 4px; }
+    .tooltip-row { display: flex; justify-content: space-between; gap: 12px; }
+    .tooltip-label { color: #94a3b8; }
+    .tooltip-value { font-weight: 600; }
+  \\\`]
+})
+export class RenkoChartComponent {
+  data = input<number[]>([]);
+  boxSize = input<number>(5);
+  height = input<number>(350);
+  showGrid = input<boolean>(true);
+  bullishColor = input<string>('');
+  bearishColor = input<string>('');
+  tooltipTemplate = input<any | null>(null);
+  labelFormatter = input<((v: number) => string) | null>(null);
+  showExport = input<boolean>(false);
+
+  svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
+  containerWidth = signal<number>(600);
+  exportMenuOpen = signal(false);
+  tooltip = signal<{x: number; y: number; raw: any} | null>(null);
+
+  margin = computed(() => ({ top: 20, right: 20, bottom: 20, left: 45 }));
+  chartWidth = computed(() => Math.max(100, this.containerWidth() - this.margin().left - this.margin().right));
+  chartHeight = computed(() => Math.max(100, this.height() - this.margin().top - this.margin().bottom));
+
+  computedBricks = computed(() => {
+    // Layout algorithm returning Renko bricks
+    return [];
+  });
+
+  yScale = computed(() => (v: number) => 0);
+  yTicks = computed(() => []);
+
+  onBrickHover(brick: any, event: MouseEvent) {}
+  onMouseLeave() { this.tooltip.set(null); }
+  formatNumber(v: number): string {
+    return this.labelFormatter() ? this.labelFormatter()!(v) : v.toString();
+  }
+
+  toggleExportMenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  closeExportMenu() { this.exportMenuOpen.set(false); }
+  onExport(type: 'json' | 'csv' | 'svg') {}
+}
+`;
+
+export const KagiChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, viewChild
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-kagi-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-kagi-chart" (click)="closeExportMenu()">
+      <div class="chart-header">
+        @if (showExport()) {
+          <div class="chart-export-menu" (click)="\\\\\\$event.stopPropagation()">
+            <button class="export-trigger" (click)="toggleExportMenu(\\\\\\$event)">Export</button>
+            @if (exportMenuOpen()) {
+              <div class="export-dropdown">
+                <button (click)="onExport('svg')">SVG</button>
+                <button (click)="onExport('csv')">CSV</button>
+                <button (click)="onExport('json')">JSON</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="chart-body">
+        <svg #svgEl class="kagi-svg" width="100%" [attr.height]="height()">
+          <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+            @if (showGrid()) {
+              @for (tick of yTicks(); track tick) {
+                <line
+                  [attr.x1]="0"
+                  [attr.x2]="chartWidth()"
+                  [attr.y1]="yScale()(tick)"
+                  [attr.y2]="yScale()(tick)"
+                  stroke="var(--ngx-chart-grid, #e2e8f0)"
+                  stroke-width="1"
+                  stroke-dasharray="3,3"
+                />
+                <text
+                  [attr.x]="-8"
+                  [attr.y]="yScale()(tick) + 4"
+                  text-anchor="end"
+                  class="axis-label"
+                >{{ formatNumber(tick) }}</text>
+              }
+            }
+
+            @for (seg of computedSegments(); track seg.index) {
+              <line
+                [attr.x1]="seg.x1"
+                [attr.y1]="seg.y1"
+                [attr.x2]="seg.x2"
+                [attr.y2]="seg.y2"
+                [attr.stroke]="seg.color"
+                [attr.stroke-width]="seg.thickness"
+                class="kagi-line"
+                (mouseenter)="onSegmentHover(seg, \\\\\\$event)"
+                (mousemove)="onSegmentHover(seg, \\\\\\$event)"
+                (mouseleave)="onMouseLeave()"
+              />
+            }
+          </g>
+        </svg>
+      </div>
+
+      @if (tooltip(); as t) {
+        <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
+          @if (tooltipTemplate()) {
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { \\\\\\$implicit: t.raw }"></ng-container>
+          } @else {
+            <div class="tooltip-default">
+              <div class="tooltip-row">
+                <span class="tooltip-label">Type:</span>
+                <span class="tooltip-value" [style.color]="t.raw.type === 'yang' ? 'var(--ngx-chart-up, #10b981)' : 'var(--ngx-chart-down, #ef4444)'">
+                  {{ t.raw.type.toUpperCase() }}
+                </span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">Start Price:</span>
+                <span class="tooltip-value">{{ formatNumber(t.raw.start) }}</span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">End Price:</span>
+                <span class="tooltip-value">{{ formatNumber(t.raw.end) }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  \\\`,
+  styles: [\\\`
+    :host { display: block; }
+    .ngx-kagi-chart { position: relative; font-family: inherit; }
+    .chart-header { display: flex; justify-content: flex-end; position: relative; height: 30px; }
+    .chart-export-menu { position: relative; }
+    .export-trigger {
+      padding: 4px 10px; font-size: 11px; font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 6px; cursor: pointer;
+    }
+    .export-dropdown {
+      position: absolute; right: 0; top: calc(100% + 4px); background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); padding: 4px; display: flex;
+      flex-direction: column; gap: 2px; min-width: 100px; z-index: 50;
+    }
+    .export-dropdown button {
+      background: none; border: none; padding: 6px 10px; font-size: 11px; text-align: left;
+      cursor: pointer; width: 100%; border-radius: 4px;
+    }
+    .export-dropdown button:hover { background: rgba(79, 70, 229, 0.06); }
+    .kagi-line { cursor: pointer; transition: opacity 0.15s; }
+    .kagi-line:hover { opacity: 0.85; }
+    .axis-label { font-size: 10px; fill: var(--ngx-chart-axis-text, #94a3b8); }
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 8px 12px; border-radius: 8px;
+      font-size: 12px; min-width: 120px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1); z-index: 100;
+    }
+    .tooltip-default { display: flex; flex-direction: column; gap: 4px; }
+    .tooltip-row { display: flex; justify-content: space-between; gap: 12px; }
+    .tooltip-label { color: #94a3b8; }
+    .tooltip-value { font-weight: 600; }
+  \\\`]
+})
+export class KagiChartComponent {
+  data = input<number[]>([]);
+  reversalAmount = input<number>(15);
+  height = input<number>(350);
+  showGrid = input<boolean>(true);
+  bullishColor = input<string>('');
+  bearishColor = input<string>('');
+  tooltipTemplate = input<any | null>(null);
+  labelFormatter = input<((v: number) => string) | null>(null);
+  showExport = input<boolean>(false);
+
+  svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
+  containerWidth = signal<number>(600);
+  exportMenuOpen = signal(false);
+  tooltip = signal<{x: number; y: number; raw: any} | null>(null);
+
+  margin = computed(() => ({ top: 20, right: 20, bottom: 20, left: 45 }));
+  chartWidth = computed(() => Math.max(100, this.containerWidth() - this.margin().left - this.margin().right));
+  chartHeight = computed(() => Math.max(100, this.height() - this.margin().top - this.margin().bottom));
+
+  computedSegments = computed(() => {
+    // Layout algorithm returning Kagi segments
+    return [];
+  });
+
+  yScale = computed(() => (v: number) => 0);
+  yTicks = computed(() => []);
+
+  onSegmentHover(seg: any, event: MouseEvent) {}
+  onMouseLeave() { this.tooltip.set(null); }
+  formatNumber(v: number): string {
+    return this.labelFormatter() ? this.labelFormatter()!(v) : v.toString();
+  }
+
+  toggleExportMenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  closeExportMenu() { this.exportMenuOpen.set(false); }
+  onExport(type: 'json' | 'csv' | 'svg') {}
+}
+`;
+
+export const PointFigureChartSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, viewChild
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-point-figure-chart',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-point-figure-chart" (click)="closeExportMenu()">
+      <div class="chart-header">
+        @if (showExport()) {
+          <div class="chart-export-menu" (click)="\\\\\\$event.stopPropagation()">
+            <button class="export-trigger" (click)="toggleExportMenu(\\\\\\$event)">Export</button>
+            @if (exportMenuOpen()) {
+              <div class="export-dropdown">
+                <button (click)="onExport('svg')">SVG</button>
+                <button (click)="onExport('csv')">CSV</button>
+                <button (click)="onExport('json')">JSON</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="chart-body">
+        <svg #svgEl class="pf-svg" width="100%" [attr.height]="height()">
+          <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
+            @if (showGrid()) {
+              @for (tick of yTicks(); track tick) {
+                <line
+                  [attr.x1]="0"
+                  [attr.x2]="chartWidth()"
+                  [attr.y1]="yScale()(tick)"
+                  [attr.y2]="yScale()(tick)"
+                  stroke="var(--ngx-chart-grid, #e2e8f0)"
+                  stroke-width="1"
+                  stroke-dasharray="3,3"
+                />
+                <text
+                  [attr.x]="-8"
+                  [attr.y]="yScale()(tick) + 4"
+                  text-anchor="end"
+                  class="axis-label"
+                >{{ formatNumber(tick) }}</text>
+              }
+            }
+
+            @for (cell of computedCells(); track cell.colIdx + '-' + cell.rowIdx) {
+              <g
+                class="pf-cell"
+                (mouseenter)="onCellHover(cell, \\\\\\$event)"
+                (mousemove)="onCellHover(cell, \\\\\\$event)"
+                (mouseleave)="onMouseLeave()"
+              >
+                @if (cell.type === 'X') {
+                  <line
+                    [attr.x1]="cell.x - cellSize()/3"
+                    [attr.y1]="cell.y - cellSize()/3"
+                    [attr.x2]="cell.x + cellSize()/3"
+                    [attr.y2]="cell.y + cellSize()/3"
+                    [attr.stroke]="cell.color"
+                    stroke-width="2"
+                  />
+                  <line
+                    [attr.x1]="cell.x + cellSize()/3"
+                    [attr.y1]="cell.y - cellSize()/3"
+                    [attr.x2]="cell.x - cellSize()/3"
+                    [attr.y2]="cell.y + cellSize()/3"
+                    [attr.stroke]="cell.color"
+                    stroke-width="2"
+                  />
+                } @else {
+                  <circle
+                    [attr.cx]="cell.x"
+                    [attr.cy]="cell.y"
+                    [attr.r]="cellSize()/3"
+                    fill="none"
+                    [attr.stroke]="cell.color"
+                    stroke-width="2"
+                  />
+                }
+              </g>
+            }
+          </g>
+        </svg>
+      </div>
+
+      @if (tooltip(); as t) {
+        <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
+          @if (tooltipTemplate()) {
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { \\\\\\$implicit: t.raw }"></ng-container>
+          } @else {
+            <div class="tooltip-default">
+              <div class="tooltip-row">
+                <span class="tooltip-label">Type:</span>
+                <span class="tooltip-value" [style.color]="t.raw.type === 'X' ? 'var(--ngx-chart-up, #10b981)' : 'var(--ngx-chart-down, #ef4444)'">
+                  {{ t.raw.type === 'X' ? 'ACQUISITION (X)' : 'DISTRIBUTION (O)' }}
+                </span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">Price Level:</span>
+                <span class="tooltip-value">{{ formatNumber(t.raw.price) }}</span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">Column:</span>
+                <span class="tooltip-value">#{{ t.raw.colIdx + 1 }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  \\\`,
+  styles: [\\\`
+    :host { display: block; }
+    .ngx-point-figure-chart { position: relative; font-family: inherit; }
+    .chart-header { display: flex; justify-content: flex-end; position: relative; height: 30px; }
+    .chart-export-menu { position: relative; }
+    .export-trigger {
+      padding: 4px 10px; font-size: 11px; font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 6px; cursor: pointer;
+    }
+    .export-dropdown {
+      position: absolute; right: 0; top: calc(100% + 4px); background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); padding: 4px; display: flex;
+      flex-direction: column; gap: 2px; min-width: 100px; z-index: 50;
+    }
+    .export-dropdown button {
+      background: none; border: none; padding: 6px 10px; font-size: 11px; text-align: left;
+      cursor: pointer; width: 100%; border-radius: 4px;
+    }
+    .export-dropdown button:hover { background: rgba(79, 70, 229, 0.06); }
+    .pf-cell { cursor: pointer; }
+    .axis-label { font-size: 10px; fill: var(--ngx-chart-axis-text, #94a3b8); }
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 8px 12px; border-radius: 8px;
+      font-size: 12px; min-width: 120px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1); z-index: 100;
+    }
+    .tooltip-default { display: flex; flex-direction: column; gap: 4px; }
+    .tooltip-row { display: flex; justify-content: space-between; gap: 12px; }
+    .tooltip-label { color: #94a3b8; }
+    .tooltip-value { font-weight: 600; }
+  \\\`]
+})
+export class PointFigureChartComponent {
+  data = input<number[]>([]);
+  boxSize = input<number>(4);
+  reversal = input<number>(3);
+  height = input<number>(350);
+  showGrid = input<boolean>(true);
+  xColor = input<string>('');
+  oColor = input<string>('');
+  tooltipTemplate = input<any | null>(null);
+  labelFormatter = input<((v: number) => string) | null>(null);
+  showExport = input<boolean>(false);
+
+  svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
+  containerWidth = signal<number>(600);
+  exportMenuOpen = signal(false);
+  tooltip = signal<{x: number; y: number; raw: any} | null>(null);
+
+  margin = computed(() => ({ top: 20, right: 20, bottom: 20, left: 45 }));
+  chartWidth = computed(() => Math.max(100, this.containerWidth() - this.margin().left - this.margin().right));
+  chartHeight = computed(() => Math.max(100, this.height() - this.margin().top - this.margin().bottom));
+  cellSize = computed(() => 14);
+
+  computedCells = computed(() => {
+    // Layout algorithm returning Point & Figure cells
+    return [];
+  });
+
+  yScale = computed(() => (v: number) => 0);
+  yTicks = computed(() => []);
+
+  onCellHover(cell: any, event: MouseEvent) {}
+  onMouseLeave() { this.tooltip.set(null); }
+  formatNumber(v: number): string {
+    return this.labelFormatter() ? this.labelFormatter()!(v) : v.toString();
+  }
+
+  toggleExportMenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  closeExportMenu() { this.exportMenuOpen.set(false); }
+  onExport(type: 'json' | 'csv' | 'svg') {}
+}
+`;
+
+export const WindRoseSource = `import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, viewChild
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'ngx-wind-rose',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \\\`
+    <div class="ngx-wind-rose" (click)="closeExportMenu()">
+      <div class="chart-header">
+        @if (showExport()) {
+          <div class="chart-export-menu" (click)="\\\\\\$event.stopPropagation()">
+            <button class="export-trigger" (click)="toggleExportMenu(\\\\\\$event)">Export</button>
+            @if (exportMenuOpen()) {
+              <div class="export-dropdown">
+                <button (click)="onExport('svg')">SVG</button>
+                <button (click)="onExport('csv')">CSV</button>
+                <button (click)="onExport('json')">JSON</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="chart-body">
+        <svg #svgEl class="rose-svg" [attr.width]="height()" [attr.height]="height()">
+          <g [attr.transform]="'translate(' + (height() / 2) + ',' + (height() / 2) + ')'">
+            @for (circle of gridCircles(); track circle) {
+              <circle cx="0" cy="0" [attr.r]="circle.r" fill="none" stroke="var(--ngx-chart-grid, #e2e8f0)" stroke-width="1" stroke-dasharray="3,3" />
+            }
+
+            @for (wedge of computedWedges(); track wedge.direction) {
+              @for (bin of wedge.bins; track bin.binLabel; let bIdx = $index) {
+                <path
+                  [attr.d]="bin.path"
+                  [attr.fill]="bin.color"
+                  class="rose-wedge"
+                  (mouseenter)="onWedgeHover(wedge, bin, \\\\\\$event)"
+                  (mousemove)="onWedgeHover(wedge, bin, \\\\\\$event)"
+                  (mouseleave)="onMouseLeave()"
+                />
+              }
+            }
+          </g>
+        </svg>
+      </div>
+
+      @if (tooltip(); as t) {
+        <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
+          @if (tooltipTemplate()) {
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { \\\\\\$implicit: t.raw }"></ng-container>
+          } @else {
+            <div class="tooltip-default">
+              <div class="tooltip-row">
+                <span class="tooltip-label">Direction:</span>
+                <span class="tooltip-value">{{ t.raw.direction }}</span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">Speed Bin:</span>
+                <span class="tooltip-value">{{ t.raw.binLabel }} m/s</span>
+              </div>
+              <div class="tooltip-row">
+                <span class="tooltip-label">Frequency:</span>
+                <span class="tooltip-value">{{ formatNumber(t.raw.frequency) }}%</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  \\\`,
+  styles: [\\\`
+    :host { display: block; }
+    .ngx-wind-rose { position: relative; font-family: inherit; display: flex; flex-direction: column; align-items: center; }
+    .chart-header { display: flex; justify-content: flex-end; position: relative; height: 30px; width: 100%; }
+    .chart-export-menu { position: relative; }
+    .export-trigger {
+      padding: 4px 10px; font-size: 11px; font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 6px; cursor: pointer;
+    }
+    .export-dropdown {
+      position: absolute; right: 0; top: calc(100% + 4px); background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0); border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); padding: 4px; display: flex;
+      flex-direction: column; gap: 2px; min-width: 100px; z-index: 50;
+    }
+    .export-dropdown button {
+      background: none; border: none; padding: 6px 10px; font-size: 11px; text-align: left;
+      cursor: pointer; width: 100%; border-radius: 4px;
+    }
+    .export-dropdown button:hover { background: rgba(79, 70, 229, 0.06); }
+    .rose-wedge { cursor: pointer; transition: opacity 0.15s; }
+    .rose-wedge:hover { opacity: 0.85; }
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 8px 12px; border-radius: 8px;
+      font-size: 12px; min-width: 120px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1); z-index: 100;
+    }
+    .tooltip-default { display: flex; flex-direction: column; gap: 4px; }
+    .tooltip-row { display: flex; justify-content: space-between; gap: 12px; }
+    .tooltip-label { color: #94a3b8; }
+    .tooltip-value { font-weight: 600; }
+  \\\`]
+})
+export class WindRoseChartComponent {
+  data = input<any[]>([]);
+  height = input<number>(400);
+  colors = input<string[]>([]);
+  tooltipTemplate = input<any | null>(null);
+  labelFormatter = input<((v: number) => string) | null>(null);
+  showExport = input<boolean>(false);
+
+  svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
+  exportMenuOpen = signal(false);
+  tooltip = signal<{x: number; y: number; raw: any} | null>(null);
+  gridCircles = computed(() => [{ r: 50 }, { r: 100 }, { r: 150 }]);
+
+  computedWedges = computed(() => {
+    // Layout algorithm returning Wind Rose wedges
+    return [];
+  });
+
+  onWedgeHover(wedge: any, bin: any, event: MouseEvent) {}
+  onMouseLeave() { this.tooltip.set(null); }
+  formatNumber(v: number): string {
+    return this.labelFormatter() ? this.labelFormatter()!(v) : v.toFixed(1);
+  }
+
+  toggleExportMenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  closeExportMenu() { this.exportMenuOpen.set(false); }
+  onExport(type: 'json' | 'csv' | 'svg') {}
+}
+`;
+
+
+
+
+
+
 

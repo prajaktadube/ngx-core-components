@@ -1,6 +1,6 @@
 import {
   Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject, DestroyRef
+  ElementRef, viewChild, HostListener, inject, DestroyRef, TemplateRef, output
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from '../shared/chart-utils';
@@ -68,7 +68,28 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
               @if (showGrid()) {
                 <line [attr.x1]="0" [attr.x2]="innerW()" stroke="var(--ngx-chart-grid,#ebedf0)" stroke-dasharray="3,3"/>
               }
-              <text x="-8" dy="4" class="axis-label" text-anchor="end">{{ fmtNum(tick) }}</text>
+              <text x="-8" dy="4" class="axis-label" text-anchor="end">{{ labelFormatter() ? labelFormatter()!(tick) : fmtNum(tick) }}</text>
+            </g>
+          }
+
+          <!-- Reference Lines -->
+          @for (ref of referenceLines(); track ref.label) {
+            <g [attr.transform]="'translate(0,' + yPos(ref.value) + ')'">
+              <line
+                [attr.x1]="0" [attr.x2]="innerW()"
+                [attr.stroke]="ref.color || '#ef4444'"
+                [attr.stroke-dasharray]="ref.strokeDasharray || '4,4'"
+                stroke-width="1.5"
+              />
+              <text
+                [attr.x]="innerW() - 4"
+                y="-6"
+                class="reference-line-label"
+                text-anchor="end"
+                [attr.fill]="ref.color || '#ef4444'"
+              >
+                {{ ref.label }}: {{ labelFormatter() ? labelFormatter()!(ref.value) : fmtNum(ref.value) }}
+              </text>
             </g>
           }
 
@@ -107,7 +128,16 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
                   [attr.stroke-width]="activeCategoryIndex() === ci ? 2.5 : 2"
                   [attr.filter]="activeCategoryIndex() === ci ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))' : null"
                   class="marker-dot"
+                  (click)="onPointClick(ci, si, v)"
                 />
+                @if (showLabels() && animateState()) {
+                  <text
+                    [attr.x]="xPos(ci)"
+                    [attr.y]="yPos(v) - 8"
+                    class="line-label"
+                    text-anchor="middle"
+                  >{{ labelFormatter() ? labelFormatter()!(v) : fmtNum(v) }}</text>
+                }
               }
             }
           }
@@ -126,13 +156,19 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
       <!-- Premium Glassmorphic Tooltip -->
       @if (tooltip(); as t) {
         <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
-          <div class="tt-cat">{{ t.cat }}</div>
-          @for (row of t.rows; track row.name) {
-            <div class="tt-row">
-              <span class="tt-dot" [style.background]="row.color"></span>
-              <span class="tt-name">{{ row.name }}</span>
-              <span class="tt-val">{{ fmtNum(row.value) }}</span>
-            </div>
+          @if (tooltipTemplate()) {
+            <ng-container
+              *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"
+            ></ng-container>
+          } @else {
+            <div class="tt-cat">{{ t.cat }}</div>
+            @for (row of t.rows; track row.name) {
+              <div class="tt-row">
+                <span class="tt-dot" [style.background]="row.color"></span>
+                <span class="tt-name">{{ row.name }}</span>
+                <span class="tt-val">{{ labelFormatter() ? labelFormatter()!(row.value) : fmtNum(row.value) }}</span>
+              </div>
+            }
           }
         </div>
       }
@@ -151,6 +187,9 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
     .chart-svg { display: block; overflow: visible; cursor: crosshair; }
     .axis-label { font-size: 11px; fill: var(--ngx-chart-axis-text,#6c757d); user-select: none; font-weight: 500; }
     .chart-crosshair { transition: x1 0.12s cubic-bezier(0.16, 1, 0.3, 1), x2 0.12s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reference-line-label { font-size: 10px; font-weight: 700; user-select: none; }
+    .line-label { font-size: 11px; fill: var(--ngx-chart-axis-text,#6c757d); pointer-events: none; font-weight: 600; }
+    .marker-dot { cursor: pointer; }
 
     /* Keyframe Line draw transition */
     @keyframes lineDraw {
@@ -267,6 +306,12 @@ export class LineChartComponent {
   showLegend = input<boolean>(true);
   colors = input<string[]>(CHART_COLORS);
   showExport = input<boolean>(false);
+  showLabels = input<boolean>(false);
+  referenceLines = input<{ value: number; label: string; color?: string; strokeDasharray?: string }[]>([]);
+  labelFormatter = input<((v: number) => string) | undefined>(undefined);
+  tooltipTemplate = input<TemplateRef<any> | null>(null);
+
+  pointClick = output<{ category: string; value: number; seriesName: string }>();
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
@@ -344,6 +389,16 @@ export class LineChartComponent {
       y: event.clientY - rect.top,
       cat: cats[ci],
       rows,
+    });
+  }
+
+  onPointClick(ci: number, si: number, v: number): void {
+    const s = this.series()[si];
+    const cats = this.categories();
+    this.pointClick.emit({
+      category: cats[ci] ?? '',
+      value: v,
+      seriesName: s?.name ?? ''
     });
   }
 

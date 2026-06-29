@@ -138,7 +138,7 @@ export class AppComponent {
     };
     this.navGroups.forEach(group => traverse(group.items));
     const items = flatLeafs.map(item => this.parseItemPath(item));
-    const exactMatch = items.find(item => item.path === decodeURIComponent(this.router.url));
+    const exactMatch = items.find(item => decodeURIComponent(item.path) === decodeURIComponent(this.router.url));
     if (exactMatch) return exactMatch;
     const currentBase = this.currentUrl().split('?')[0];
     return items.find(item => item.routePath === currentBase);

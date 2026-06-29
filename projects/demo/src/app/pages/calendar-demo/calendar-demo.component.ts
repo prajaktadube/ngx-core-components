@@ -16,12 +16,13 @@ interface ApiRow { name: string; type: string; default: string; description: str
       <div class="page-header">
         <div class="page-header-text">
           <h1>📅 Interactive Calendar</h1>
-          <p>A premium grid-based monthly calendar component. Supports event tags, day cell content projection, dark mode styling, and accessible arrow-keys keyboard navigation.</p>
+          <p>A premium grid-based monthly calendar component. Supports event tags, range selection, date limits, month/year picker quick navigation, custom cell templates, and accessible keyboard navigation.</p>
         </div>
         <div class="header-badges">
           <span class="badge badge-teal">Signals-based</span>
-          <span class="badge badge-teal">Day Template</span>
-          <span class="badge badge-teal">A11y Grid</span>
+          <span class="badge badge-teal">Date Range</span>
+          <span class="badge badge-teal">Quick Nav Views</span>
+          <span class="badge badge-teal">Limits</span>
         </div>
       </div>
 
@@ -38,15 +39,49 @@ interface ApiRow { name: string; type: string; default: string; description: str
           <!-- Interactive Calendar Section -->
           <section class="demo-section">
             <h2>Interactive Calendar View</h2>
-            <p class="section-desc">Click day cells to select a date. Use Arrow Keys to navigate, and Enter or Space to select.</p>
+            <p class="section-desc">Try range selection mode, toggle date constraints, click event pills, or click the header month title to open fast selectors.</p>
             
             <div class="interactive-box">
               <!-- Controls Panel -->
               <div class="controls-panel">
+                <div class="control-group">
+                  <label class="control-label">Selection Mode</label>
+                  <div class="mode-toggles">
+                    <button 
+                      class="mode-btn" 
+                      [class.active]="selectionMode() === 'single'"
+                      (click)="selectionMode.set('single')"
+                      type="button"
+                    >
+                      Single Date
+                    </button>
+                    <button 
+                      class="mode-btn" 
+                      [class.active]="selectionMode() === 'range'"
+                      (click)="selectionMode.set('range')"
+                      type="button"
+                    >
+                      Date Range
+                    </button>
+                  </div>
+                </div>
+
                 <div class="control-group check-group">
                   <label>
                     <input type="checkbox" [(ngModel)]="readonlyMode" /> Readonly Mode
                   </label>
+                </div>
+
+                <div class="control-group check-group">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="enableLimits" /> Enforce Min/Max Limits
+                  </label>
+                  @if (enableLimits) {
+                    <div class="limit-labels">
+                      <span class="limit-tag">Min: {{ minDateVal() | date:'shortDate' }}</span>
+                      <span class="limit-tag">Max: {{ maxDateVal() | date:'shortDate' }}</span>
+                    </div>
+                  }
                 </div>
 
                 <div class="control-group">
@@ -55,8 +90,17 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 </div>
 
                 <div class="selection-display">
-                  Selected Date:<br>
-                  <strong>{{ selectedDate() ? (selectedDate() | date:'fullDate') : 'No Date Selected' }}</strong>
+                  @if (selectionMode() === 'single') {
+                    Selected Date:<br>
+                    <strong>{{ selectedDate() ? (selectedDate() | date:'fullDate') : 'No Date Selected' }}</strong>
+                  } @else {
+                    Selected Range:<br>
+                    <strong>
+                      {{ rangeStartVal() ? (rangeStartVal() | date:'mediumDate') : 'Start' }}
+                      - 
+                      {{ rangeEndVal() ? (rangeEndVal() | date:'mediumDate') : 'End' }}
+                    </strong>
+                  }
                 </div>
 
                 <!-- Event Log Stream -->
@@ -74,10 +118,17 @@ interface ApiRow { name: string; type: string; default: string; description: str
               <div class="calendar-display-panel">
                 <ngx-calendar
                   [value]="selectedDate()"
+                  [(rangeStart)]="rangeStartVal"
+                  [(rangeEnd)]="rangeEndVal"
+                  [selectionMode]="selectionMode()"
+                  [min]="enableLimits ? minDateVal() : null"
+                  [max]="enableLimits ? maxDateVal() : null"
                   [events]="eventsList()"
                   [readonly]="readonlyMode"
                   (dateSelect)="onDateSelect($event)"
+                  (rangeSelect)="onRangeSelect($event)"
                   (monthChange)="onMonthChange($event)"
+                  (eventClick)="onEventClick($event)"
                 ></ngx-calendar>
               </div>
             </div>
@@ -86,14 +137,13 @@ interface ApiRow { name: string; type: string; default: string; description: str
           <!-- Custom Cell Template Showcase -->
           <section class="demo-section">
             <h2>Custom Cell Content Projection</h2>
-            <p class="section-desc">Project a custom day cell template with icons, badges, or custom event indicator shapes.</p>
+            <p class="section-desc">Project a custom day cell template with custom layouts, colors, and event layouts.</p>
             
             <div class="template-showcase-box">
               <ngx-calendar
                 [events]="eventsList()"
                 [readonly]="true"
               >
-                <!-- Project template using custom template syntax -->
                 <ng-template #dayTemplate let-date let-events="events">
                   <div class="custom-cell-content">
                     <span class="custom-day-num">{{ date.getDate() }}</span>
@@ -198,6 +248,59 @@ interface ApiRow { name: string; type: string; default: string; description: str
       gap: 6px;
     }
 
+    .control-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .mode-toggles {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mode-btn {
+      flex: 1;
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .mode-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .mode-btn.active {
+      background: #4f46e5;
+      color: white;
+      border-color: #4f46e5;
+    }
+
+    :host-context(body.dark) .mode-btn,
+    :host-context(.dark) .mode-btn {
+      border-color: #475569;
+      color: #cbd5e1;
+    }
+    :host-context(body.dark) .mode-btn:hover,
+    :host-context(.dark) .mode-btn:hover {
+      background: #374151;
+    }
+    :host-context(body.dark) .mode-btn.active,
+    :host-context(.dark) .mode-btn.active {
+      background: #818cf8;
+      color: #0f172a;
+      border-color: #818cf8;
+    }
+
     .check-group label {
       display: flex;
       align-items: center;
@@ -205,6 +308,24 @@ interface ApiRow { name: string; type: string; default: string; description: str
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
+    }
+
+    .limit-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 20px;
+      margin-top: 4px;
+    }
+
+    .limit-tag {
+      font-size: 11px;
+      color: #ef4444;
+      font-weight: 600;
+    }
+    :host-context(body.dark) .limit-tag,
+    :host-context(.dark) .limit-tag {
+      color: #fca5a5;
     }
 
     .action-btn {
@@ -355,10 +476,17 @@ export class CalendarDemoComponent {
   activeTab = signal('Demo');
   tabs = ['Demo', 'API Reference'];
   readonlyMode = false;
+  enableLimits = false;
+  selectionMode = signal<'single' | 'range'>('single');
 
   selectedDate = signal<Date | null>(new Date());
-  eventLogs = signal<string[]>(['[System] Calendar Initialized']);
+  rangeStartVal = signal<Date | null>(new Date());
+  rangeEndVal = signal<Date | null>(new Date(new Date().setDate(new Date().getDate() + 3)));
 
+  minDateVal = signal<Date>(new Date(new Date().setDate(new Date().getDate() - 5)));
+  maxDateVal = signal<Date>(new Date(new Date().setDate(new Date().getDate() + 15)));
+
+  eventLogs = signal<string[]>(['[System] Calendar Initialized']);
   eventsList = signal<CalendarEvent[]>([]);
 
   howToCode = `import { Component, signal } from '@angular/core';
@@ -368,32 +496,47 @@ import { CalendarComponent, CalendarEvent } from 'ngx-core-components';
   selector: 'app-calendar-example',
   imports: [CalendarComponent],
   template: \`
-    <!-- Standard Month Calendar -->
+    <!-- Standard Month Calendar with Single Date Selection -->
     <ngx-calendar
       [value]="selected()"
       [events]="myEvents"
       (dateSelect)="selected.set($event)"
       (monthChange)="onMonth($event)"
+      (eventClick)="onEventClick($event)"
     ></ngx-calendar>
 
-    <!-- Calendar with custom projected day cells -->
-    <ngx-calendar [events]="myEvents">
-      <ng-template #dayTemplate let-date let-events="events">
-        <div class="my-cell">
-          <span>{{ date.getDate() }}</span>
-          <span class="badge" *ngIf="events.length > 0">{{ events.length }}</span>
-        </div>
-      </ng-template>
-    </ngx-calendar>
+    <!-- Calendar with Date Range Selection & Min/Max limits -->
+    <ngx-calendar
+      [selectionMode]="'range'"
+      [(rangeStart)]="start"
+      [(rangeEnd)]="end"
+      [min]="minDate"
+      [max]="maxDate"
+      [events]="myEvents"
+      (rangeSelect)="onRange($event)"
+    ></ngx-calendar>
   \`
 })
 export class CalendarExampleComponent {
   selected = signal<Date | null>(new Date());
+  start = signal<Date | null>(null);
+  end = signal<Date | null>(null);
+  
+  minDate = new Date(new Date().setDate(new Date().getDate() - 5));
+  maxDate = new Date(new Date().setDate(new Date().getDate() + 15));
 
   myEvents: CalendarEvent[] = [
     { title: 'Project Kickoff', date: new Date(), color: '#10b981' },
     { title: 'Sprint Planning', date: new Date(new Date().setDate(new Date().getDate() + 2)), color: '#3b82f6' }
   ];
+
+  onRange(ev: { start: Date | null; end: Date | null }) {
+    console.log('Range changed:', ev);
+  }
+
+  onEventClick(ev: CalendarEvent) {
+    console.log('Event clicked:', ev);
+  }
 
   onMonth(ev: { year: number; month: number }) {
     console.log('Month changed:', ev);
@@ -459,6 +602,20 @@ export class CalendarExampleComponent {
     ].slice(-8));
   }
 
+  onRangeSelect(range: { start: Date | null; end: Date | null }) {
+    this.eventLogs.update(logs => [
+      ...logs,
+      `↔️ Event: rangeSelect() - Start: ${range.start?.toLocaleDateString() ?? 'null'}, End: ${range.end?.toLocaleDateString() ?? 'null'}`
+    ].slice(-8));
+  }
+
+  onEventClick(event: CalendarEvent) {
+    this.eventLogs.update(logs => [
+      ...logs,
+      `🎫 Event: eventClick() - Clicked "${event.title}"`
+    ].slice(-8));
+  }
+
   onMonthChange(event: { year: number; month: number }) {
     const monthName = new Date(event.year, event.month, 1).toLocaleDateString('en-US', { month: 'long' });
     this.eventLogs.update(logs => [
@@ -469,6 +626,8 @@ export class CalendarExampleComponent {
 
   clearSelection() {
     this.selectedDate.set(null);
+    this.rangeStartVal.set(null);
+    this.rangeEndVal.set(null);
     this.eventLogs.update(logs => [...logs, '🔄 Cleared Date Selection'].slice(-8));
   }
 
@@ -494,10 +653,17 @@ export class CalendarExampleComponent {
 
   calendarApi: ApiRow[] = [
     { name: 'value', type: 'model<Date | null>', default: 'null', description: 'Two-way binding property for the selected date.' },
+    { name: 'rangeStart', type: 'model<Date | null>', default: 'null', description: 'Two-way binding property for the start date in range selection mode.' },
+    { name: 'rangeEnd', type: 'model<Date | null>', default: 'null', description: 'Two-way binding property for the end date in range selection mode.' },
+    { name: 'selectionMode', type: 'input<"single" | "range">', default: '"single"', description: 'Sets selection mode to single date or date range.' },
+    { name: 'min', type: 'input<Date | string | null>', default: 'null', description: 'Earliest selection limit.' },
+    { name: 'max', type: 'input<Date | string | null>', default: 'null', description: 'Latest selection limit.' },
     { name: 'events', type: 'input<CalendarEvent[]>', default: '[]', description: 'Array of event markers to display inside calendar cells.' },
     { name: 'readonly', type: 'input<boolean>', default: 'false', description: 'When true, disables selecting dates.' },
     { name: 'dayTemplate', type: 'ContentChild<TemplateRef>', default: 'n/a', description: 'Projected template to customize the day cell rendering.' },
-    { name: 'dateSelect', type: 'output<Date>', default: 'n/a', description: 'Fires when a day cell is clicked.' },
+    { name: 'dateSelect', type: 'output<Date>', default: 'n/a', description: 'Fires when a day cell is clicked in single selection mode.' },
+    { name: 'rangeSelect', type: 'output<{ start: Date | null; end: Date | null }>', default: 'n/a', description: 'Fires when a range selection changes.' },
+    { name: 'eventClick', type: 'output<CalendarEvent>', default: 'n/a', description: 'Fires when a calendar event pill is clicked.' },
     { name: 'monthChange', type: 'output<{ year: number, month: number }>', default: 'n/a', description: 'Fires when the active calendar month changes.' }
   ];
 }

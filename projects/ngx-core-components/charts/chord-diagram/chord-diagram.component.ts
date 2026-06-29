@@ -1,0 +1,446 @@
+import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+
+export interface ChordItem {
+  labels: string[];
+  matrix: number[][];
+  colors?: string[];
+}
+
+interface ProcessedNode {
+  index: number;
+  label: string;
+  color: string;
+  startAngle: number;
+  endAngle: number;
+  value: number;
+  path: string;
+  textX: number;
+  textY: number;
+  textAngle: number;
+  textAnchor: string;
+}
+
+interface ProcessedRibbon {
+  sourceIndex: number;
+  targetIndex: number;
+  sourceLabel: string;
+  targetLabel: string;
+  value: number;
+  color: string;
+  path: string;
+}
+
+@Component({
+  selector: 'ngx-chord-diagram',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div class="ngx-chord-diagram" (mouseleave)="onMouseLeave()">
+      <svg
+        #svgEl
+        class="chord-svg"
+        [attr.width]="'100%'"
+        [attr.height]="svgHeight()"
+      >
+        <g [attr.transform]="'translate(' + (containerWidth() / 2) + ',' + (svgHeight() / 2) + ')'">
+          
+          <!-- Inner Ribbons (Chords) -->
+          @for (rib of computedRibbons(); track rib.path; let i = $index) {
+            <path
+              [attr.d]="rib.path"
+              [attr.fill]="rib.color"
+              fill-opacity="0.35"
+              [attr.stroke]="rib.color"
+              stroke-opacity="0.5"
+              stroke-width="0.5"
+              class="chord-ribbon"
+              [class.dimmed]="hoveredNodeIndex() !== null && hoveredNodeIndex() !== rib.sourceIndex && hoveredNodeIndex() !== rib.targetIndex"
+              [class.highlighted]="hoveredRibbonIndex() === i || (hoveredNodeIndex() !== null && (hoveredNodeIndex() === rib.sourceIndex || hoveredNodeIndex() === rib.targetIndex))"
+              (mouseenter)="onRibbonHover(i, $event)"
+              (mousemove)="onMouseMove($event)"
+            />
+          }
+
+          <!-- Outer Node Arcs -->
+          @for (node of computedNodes(); track node.index; let i = $index) {
+            <g
+              class="chord-node-group"
+              [class.dimmed]="hoveredNodeIndex() !== null && hoveredNodeIndex() !== i"
+              [class.highlighted]="hoveredNodeIndex() === i"
+              (mouseenter)="onNodeHover(i)"
+              (mousemove)="onMouseMove($event)"
+            >
+              <!-- Outer Arc Rect Segment -->
+              <path
+                [attr.d]="node.path"
+                [attr.fill]="node.color"
+                stroke="#ffffff"
+                stroke-width="1.5"
+                class="node-arc"
+              />
+
+              <!-- Outer Text Label -->
+              @if (showLabels()) {
+                <text
+                  [attr.x]="node.textX"
+                  [attr.y]="node.textY"
+                  [attr.transform]="'rotate(' + node.textAngle + ',' + node.textX + ',' + node.textY + ')'"
+                  [attr.text-anchor]="node.textAnchor"
+                  class="node-label"
+                >
+                  {{ node.label }}
+                </text>
+              }
+            </g>
+          }
+        </g>
+      </svg>
+
+      <!-- Glassmorphic Tooltip -->
+      @if (tooltip(); as t) {
+        <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
+          @if (t.type === 'node') {
+            <div class="tt-cat">{{ t.label }}</div>
+            <div class="tt-row">
+              <span class="tt-name">Total Flow</span>
+              <span class="tt-val">{{ formatNumber(t.value) }}</span>
+            </div>
+          } @else if (t.type === 'ribbon') {
+            <div class="tt-cat">Flow Connection</div>
+            <div class="tt-row">
+              <span class="tt-name">{{ t.sourceLabel }} ➔ {{ t.targetLabel }}</span>
+              <span class="tt-val">{{ formatNumber(t.value) }}</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  `,
+  styles: [`
+    :host {
+      display: block;
+    }
+    .ngx-chord-diagram {
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chord-svg {
+      display: block;
+      overflow: visible;
+    }
+    .node-arc {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease;
+      transform-origin: center;
+      animation: chordScaleIn 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    .node-label {
+      font-size: 11px;
+      fill: var(--ngx-chart-axis-text, #334155);
+      font-weight: 600;
+      user-select: none;
+      pointer-events: none;
+    }
+    .chord-ribbon {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease;
+      transform-origin: center;
+      animation: chordScaleIn 1s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    @keyframes chordScaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .chord-ribbon.dimmed, .chord-node-group.dimmed {
+      opacity: 0.15;
+    }
+    .chord-ribbon.highlighted {
+      fill-opacity: 0.75;
+      stroke-width: 1.5;
+      stroke-opacity: 1;
+    }
+    .chord-node-group.highlighted .node-arc {
+      stroke-width: 2.5;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+  `]
+})
+export class ChordDiagramComponent {
+  matrix = input<number[][]>([]);
+  labels = input<string[]>([]);
+  height = input<number>(400);
+  showLabels = input<boolean>(true);
+  nodePadding = input<number>(0.04);
+  colors = input<string[]>(CHART_COLORS);
+
+  containerWidth = signal<number>(500);
+  hoveredNodeIndex = signal<number | null>(null);
+  hoveredRibbonIndex = signal<number | null>(null);
+  tooltip = signal<any | null>(null);
+  tooltipX = signal<number>(0);
+  tooltipY = signal<number>(0);
+
+  svgHeight = computed(() => this.height());
+
+  // Radius definitions
+  outerRadius = computed(() => Math.min(this.containerWidth(), this.svgHeight()) * 0.4 - 20);
+  innerRadius = computed(() => this.outerRadius() - 16);
+
+  constructor() {
+    const hostEl = inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(entries => {
+        if (!entries || entries.length === 0) return;
+        const width = entries[0].contentRect.width;
+        if (width > 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() => resizeObserver.disconnect());
+    }
+  }
+
+  // Pre-calculate node arcs properties
+  computedNodes = computed<ProcessedNode[]>(() => {
+    const m = this.matrix();
+    const l = this.labels();
+    const count = m.length;
+    if (count === 0) return [];
+
+    const palette = this.colors();
+    const rOuter = this.outerRadius();
+    const rInner = this.innerRadius();
+
+    // 1. Calculate node totals
+    const nodeTotals = m.map((row, i) => {
+      let sum = 0;
+      for (let j = 0; j < count; j++) {
+        sum += m[i][j] + m[j][i];
+      }
+      return sum;
+    });
+
+    const grandTotal = nodeTotals.reduce((sum, v) => sum + v, 0) || 1;
+
+    // Allocate padding space between nodes
+    const padAngle = this.nodePadding();
+    const availAngle = 2 * Math.PI - padAngle * count;
+
+    let currentAngle = -Math.PI / 2; // Start at top center
+
+    return nodeTotals.map((val, idx) => {
+      const angleSweep = (val / grandTotal) * availAngle;
+      const startAngle = currentAngle;
+      const endAngle = startAngle + angleSweep;
+      currentAngle = endAngle + padAngle;
+
+      const label = l[idx] || `Node ${idx + 1}`;
+      const color = palette[idx % palette.length];
+
+      // Draw SVG arc path
+      const x1_o = rOuter * Math.cos(startAngle);
+      const y1_o = rOuter * Math.sin(startAngle);
+      const x2_o = rOuter * Math.cos(endAngle);
+      const y2_o = rOuter * Math.sin(endAngle);
+
+      const x1_i = rInner * Math.cos(endAngle);
+      const y1_i = rInner * Math.sin(endAngle);
+      const x2_i = rInner * Math.cos(startAngle);
+      const y2_i = rInner * Math.sin(startAngle);
+
+      const largeArc = angleSweep > Math.PI ? 1 : 0;
+      const path = `M ${x1_o} ${y1_o} A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${x2_o} ${y2_o} L ${x1_i} ${y1_i} A ${rInner} ${rInner} 0 ${largeArc} 0 ${x2_i} ${y2_i} Z`;
+
+      // Label positioning on outer circumference
+      const labelAngle = startAngle + angleSweep / 2;
+      const textRadius = rOuter + 10;
+      const textX = textRadius * Math.cos(labelAngle);
+      const textY = textRadius * Math.sin(labelAngle);
+
+      // Rotate text correctly to read outwards
+      let textAngle = (labelAngle * 180) / Math.PI;
+      let textAnchor = 'start';
+      if (labelAngle > Math.PI / 2 || labelAngle < -Math.PI / 2) {
+        textAngle += 180;
+        textAnchor = 'end';
+      }
+
+      return {
+        index: idx,
+        label,
+        color,
+        startAngle,
+        endAngle,
+        value: val,
+        path,
+        textX,
+        textY,
+        textAngle,
+        textAnchor
+      };
+    });
+  });
+
+  // Pre-calculate inner ribbons (chords)
+  computedRibbons = computed<ProcessedRibbon[]>(() => {
+    const nodes = this.computedNodes();
+    const m = this.matrix();
+    const l = this.labels();
+    const count = m.length;
+    if (nodes.length === 0) return [];
+
+    const rInner = this.innerRadius();
+    const ribbons: ProcessedRibbon[] = [];
+
+    // Keep track of angle progress along each node's outer arc
+    const progressNodeStart = nodes.map(n => n.startAngle);
+    const progressNodeTotal = nodes.map(n => n.value || 1);
+    const progressNodeSweep = nodes.map(n => n.endAngle - n.startAngle);
+
+    for (let i = 0; i < count; i++) {
+      for (let j = i; j < count; j++) {
+        const flow_ij = m[i][j];
+        const flow_ji = m[j][i];
+        const totalFlow = flow_ij + flow_ji;
+        if (totalFlow === 0) continue;
+
+        // Node i: angle allocation for this specific chord relation
+        const sweep_i = (totalFlow / progressNodeTotal[i]) * progressNodeSweep[i];
+        const a1 = progressNodeStart[i];
+        const a2 = a1 + sweep_i;
+        progressNodeStart[i] = a2;
+
+        // Node j: angle allocation for this specific chord relation
+        const sweep_j = (totalFlow / progressNodeTotal[j]) * progressNodeSweep[j];
+        const b1 = progressNodeStart[j];
+        const b2 = b1 + sweep_j;
+        progressNodeStart[j] = b2;
+
+        // Draw Ribbon Path
+        const ax1 = rInner * Math.cos(a1);
+        const ay1 = rInner * Math.sin(a1);
+        const ax2 = rInner * Math.cos(a2);
+        const ay2 = rInner * Math.sin(a2);
+
+        const bx1 = rInner * Math.cos(b1);
+        const by1 = rInner * Math.sin(b1);
+        const bx2 = rInner * Math.cos(b2);
+        const by2 = rInner * Math.sin(b2);
+
+        // SVG Chord Ribbon Command: Arc at i, Bezier curve to j, Arc at j, Bezier curve back to i
+        const largeArc_i = (a2 - a1) > Math.PI ? 1 : 0;
+        const largeArc_j = (b2 - b1) > Math.PI ? 1 : 0;
+        const path = `M ${ax1} ${ay1} A ${rInner} ${rInner} 0 ${largeArc_i} 1 ${ax2} ${ay2} Q 0 0 ${bx1} ${by1} A ${rInner} ${rInner} 0 ${largeArc_j} 1 ${bx2} ${by2} Q 0 0 ${ax1} ${ay1} Z`;
+
+        ribbons.push({
+          sourceIndex: i,
+          targetIndex: j,
+          sourceLabel: l[i] || `Node ${i + 1}`,
+          targetLabel: l[j] || `Node ${j + 1}`,
+          value: totalFlow,
+          color: nodes[i].color,
+          path
+        });
+      }
+    }
+
+    return ribbons;
+  });
+
+  onNodeHover(idx: number) {
+    this.hoveredNodeIndex.set(idx);
+    const node = this.computedNodes()[idx];
+    if (node) {
+      this.tooltip.set({
+        type: 'node',
+        label: node.label,
+        value: node.value
+      });
+    }
+  }
+
+  onRibbonHover(idx: number, event: MouseEvent) {
+    this.hoveredRibbonIndex.set(idx);
+    const rib = this.computedRibbons()[idx];
+    if (rib) {
+      this.tooltip.set({
+        type: 'ribbon',
+        sourceLabel: rib.sourceLabel,
+        targetLabel: rib.targetLabel,
+        value: rib.value
+      });
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el = event.currentTarget as SVGElement;
+    const container = el.closest('.ngx-chord-diagram');
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredNodeIndex.set(null);
+    this.hoveredRibbonIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}

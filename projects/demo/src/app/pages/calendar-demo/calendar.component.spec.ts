@@ -88,4 +88,73 @@ describe('CalendarComponent', () => {
     const updatedFocus = component.focusedDate();
     expect(updatedFocus.getDate()).toBe(16);
   }));
+
+  it('should support range selection mode', () => {
+    fixture.componentRef.setInput('selectionMode', 'range');
+    fixture.detectChanges();
+
+    spyOn(component.rangeSelect, 'emit');
+
+    const cells = fixture.debugElement.queryAll(By.css('.current-month'));
+    const startCell = cells[5];
+    const endCell = cells[8];
+
+    // Click start cell
+    startCell.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.rangeStart()).not.toBeNull();
+    expect(component.rangeSelect.emit).toHaveBeenCalled();
+
+    // Click end cell
+    endCell.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.rangeEnd()).not.toBeNull();
+  });
+
+  it('should enforce min/max date limits', () => {
+    const today = new Date();
+    const minDate = new Date(today.getFullYear(), today.getMonth(), 10);
+    const maxDate = new Date(today.getFullYear(), today.getMonth(), 20);
+
+    fixture.componentRef.setInput('min', minDate);
+    fixture.componentRef.setInput('max', maxDate);
+    fixture.detectChanges();
+
+    const disabledCells = fixture.debugElement.queryAll(By.css('.ngx-calendar-cell.disabled'));
+    expect(disabledCells.length).toBeGreaterThan(0);
+  });
+
+  it('should navigate views (month, month-picker, year-picker)', () => {
+    expect(component.currentView()).toBe('month');
+
+    // Click month label in header to switch to month picker
+    const headerTitleLink = fixture.debugElement.query(By.css('.ngx-calendar-title-link'));
+    headerTitleLink.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.currentView()).toBe('month-picker');
+
+    // Click year title in header to switch to year picker
+    const yearTitleLink = fixture.debugElement.query(By.css('.ngx-calendar-title-link'));
+    yearTitleLink.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.currentView()).toBe('year-picker');
+  });
+
+  it('should emit eventClick when an event pill is clicked', () => {
+    const today = new Date();
+    const mockEvents: CalendarEvent[] = [
+      { title: 'Release Party', date: today, color: '#ff0000' }
+    ];
+    
+    fixture.componentRef.setInput('events', mockEvents);
+    fixture.detectChanges();
+
+    spyOn(component.eventClick, 'emit');
+
+    const eventPill = fixture.debugElement.query(By.css('.calendar-event-pill'));
+    eventPill.nativeElement.click();
+    fixture.detectChanges();
+
+    expect(component.eventClick.emit).toHaveBeenCalledWith(mockEvents[0]);
+  });
 });

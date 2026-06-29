@@ -1,4 +1,4 @@
-import { Component, signal, computed, ElementRef, viewChild, inject, OnInit } from '@angular/core';
+import { Component, signal, computed, ElementRef, viewChild, inject, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -6,9 +6,16 @@ import {
   GaugeChartComponent, RadarChartComponent, HeatmapChartComponent, TreemapChartComponent,
   AreaChartComponent, FunnelChartComponent, ComboChartComponent, ScatterPlotComponent,
   WaterfallChartComponent, BoxPlotChartComponent, RadialBarChartComponent, CandlestickChartComponent,
-  BubbleChartComponent, SunburstChartComponent,
+  BubbleChartComponent, SunburstChartComponent, PolarAreaChartComponent, BulletChartComponent,
+  DumbbellChartComponent, LollipopChartComponent, SlopeChartComponent, SankeyChartComponent,
+  ViolinPlotComponent, RidgelineChartComponent, ParetoChartComponent, MarimekkoChartComponent,
+  ChordDiagramComponent, DependencyWheelComponent, AdjacencyMatrixComponent, BiplotComponent,
+  RenkoChartComponent, KagiChartComponent, PointFigureChartComponent, WindRoseChartComponent,
   ChartSeries, ChartDataPoint, CHART_COLORS, GaugeThreshold, RadarSeries, TreemapItem, ScatterPoint,
-  WaterfallItem, BoxPlotItem, RadialBarItem, CandlestickItem, FunnelItem, BubblePoint, SunburstNode
+  WaterfallItem, BoxPlotItem, RadialBarItem, CandlestickItem, FunnelItem, BubblePoint, SunburstNode,
+  DumbbellItem, SlopeDataPoint, SankeyNode, SankeyLink,
+  ViolinItem, RidgelineItem, ParetoItem, MarimekkoItem,
+  ChordItem, DependencyItem, MatrixItem, BiplotPoint, BiplotVector, WindRoseItem
 } from 'ngx-core-components';
 
 // Import source codes for StackBlitz programmatic compiler
@@ -25,7 +32,11 @@ interface ApiRow { name: string; type: string; default: string; description: str
     GaugeChartComponent, RadarChartComponent, HeatmapChartComponent, TreemapChartComponent,
     AreaChartComponent, FunnelChartComponent, ComboChartComponent, ScatterPlotComponent,
     WaterfallChartComponent, BoxPlotChartComponent, RadialBarChartComponent, CandlestickChartComponent,
-    BubbleChartComponent, SunburstChartComponent
+    BubbleChartComponent, SunburstChartComponent, PolarAreaChartComponent, BulletChartComponent,
+    DumbbellChartComponent, LollipopChartComponent, SlopeChartComponent, SankeyChartComponent,
+    ViolinPlotComponent, RidgelineChartComponent, ParetoChartComponent, MarimekkoChartComponent,
+    ChordDiagramComponent, DependencyWheelComponent, AdjacencyMatrixComponent, BiplotComponent,
+    RenkoChartComponent, KagiChartComponent, PointFigureChartComponent, WindRoseChartComponent
   ],
   template: `
     <div class="demo-page" [class.dark-theme]="chartTheme() === 'dark'">
@@ -81,6 +92,10 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [height]="chartHeight()" 
                   [colors]="getThemePalette()"
                   [showExport]="true" 
+                  [referenceLines]="showRefLinesToggle() ? getReferenceLines() : []"
+                  [labelFormatter]="useCustomFormatter() ? barFormatter : undefined"
+                  [tooltipTemplate]="useCustomTooltip() ? customTooltipTemplate() || null : null"
+                  (barClick)="onChartClick($event)"
                 />
               }
 
@@ -95,6 +110,11 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [height]="chartHeight()" 
                   [colors]="getThemePalette()"
                   [showExport]="true" 
+                  [referenceLines]="showRefLinesToggle() ? getReferenceLines() : []"
+                  [showLabels]="showLabels()"
+                  [labelFormatter]="useCustomFormatter() ? lineFormatter : undefined"
+                  [tooltipTemplate]="useCustomTooltip() ? customTooltipTemplate() || null : null"
+                  (pointClick)="onChartClick($event)"
                 />
               }
 
@@ -309,8 +329,273 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showExport]="true"
                 />
               }
+
+              <!-- POLAR AREA CHART -->
+              @if (activeTab() === 'Polar Area Chart') {
+                <ngx-polar-area-chart
+                  [data]="pieData"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- BULLET CHART -->
+              @if (activeTab() === 'Bullet Chart') {
+                <div class="bullet-demo-container" style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+                  <div class="bullet-demo-item">
+                    <label class="field-label" style="font-size: 12px; font-weight: 600; margin-bottom: 4px; display: block; color: var(--ngx-chart-text, #0f172a);">Sales Performance (YTD)</label>
+                    <ngx-bullet-chart
+                      [value]="bulletValue()"
+                      [target]="bulletTarget()"
+                      [max]="bulletMax()"
+                      [ranges]="[50, 85, 100]"
+                      [rangeColors]="['#fee2e2', '#fef3c7', '#dcfce7']"
+                      [valueColor]="'#10b981'"
+                      [targetColor]="'#ef4444'"
+                      [height]="40"
+                    />
+                  </div>
+                  <div class="bullet-demo-item">
+                    <label class="field-label" style="font-size: 12px; font-weight: 600; margin-bottom: 4px; display: block; color: var(--ngx-chart-text, #0f172a);">CPU Usage Gauge</label>
+                    <ngx-bullet-chart
+                      [value]="42"
+                      [target]="80"
+                      [max]="100"
+                      [ranges]="[60, 85, 100]"
+                      [rangeColors]="['#f1f5f9', '#e2e8f0', '#cbd5e1']"
+                      [valueColor]="'#4f46e5'"
+                      [targetColor]="'#000000'"
+                      [height]="36"
+                    />
+                  </div>
+                </div>
+              }
+
+              <!-- DUMBBELL CHART -->
+              @if (activeTab() === 'Dumbbell Chart') {
+                <ngx-dumbbell-chart
+                  [data]="dumbbellData"
+                  [showLegend]="showLegend()"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- LOLLIPOP CHART -->
+              @if (activeTab() === 'Lollipop Chart') {
+                <ngx-lollipop-chart
+                  [data]="lollipopData"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- SLOPE CHART -->
+              @if (activeTab() === 'Slope Chart') {
+                <ngx-slope-chart
+                  [data]="slopeData"
+                  [showLabels]="showLabels()"
+                  [showValues]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- SANKEY CHART -->
+              @if (activeTab() === 'Sankey Chart') {
+                <ngx-sankey-chart
+                  [nodes]="sankeyNodes"
+                  [links]="sankeyLinks"
+                  [showLabels]="showLabels()"
+                  [showValues]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- VIOLIN PLOT -->
+              @if (activeTab() === 'Violin Plot') {
+                <ngx-violin-plot
+                  [data]="violinData"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- RIDGELINE CHART -->
+              @if (activeTab() === 'Ridgeline Chart') {
+                <ngx-ridgeline-chart
+                  [data]="ridgelineData"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- PARETO CHART -->
+              @if (activeTab() === 'Pareto Chart') {
+                <ngx-pareto-chart
+                  [data]="paretoData"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [barColor]="getThemePalette()[0]"
+                  [lineColor]="getThemePalette()[1]"
+                />
+              }
+
+              <!-- MARIMEKKO CHART -->
+              @if (activeTab() === 'Marimekko Chart') {
+                <ngx-marimekko-chart
+                  [data]="marimekkoData"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- CHORD DIAGRAM -->
+              @if (activeTab() === 'Chord Diagram') {
+                <ngx-chord-diagram
+                  [matrix]="chordMatrix"
+                  [labels]="chordLabels"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- DEPENDENCY WHEEL -->
+              @if (activeTab() === 'Dependency Wheel') {
+                <ngx-dependency-wheel
+                  [matrix]="chordMatrix"
+                  [labels]="chordLabels"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- ADJACENCY MATRIX -->
+              @if (activeTab() === 'Adjacency Matrix') {
+                <ngx-adjacency-matrix
+                  [matrix]="chordMatrix"
+                  [labels]="chordLabels"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [color]="getThemePalette()[0]"
+                />
+              }
+
+              <!-- BIPLOT / PCA PLOT -->
+              @if (activeTab() === 'Biplot / PCA Plot') {
+                <ngx-biplot
+                  [points]="biplotPoints"
+                  [vectors]="biplotVectors"
+                  [showLabels]="showLabels()"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                />
+              }
+
+              <!-- RENKO CHART -->
+              @if (activeTab() === 'Renko Chart') {
+                <ngx-renko-chart
+                  [data]="financialPrices"
+                  [boxSize]="5"
+                  [height]="chartHeight()"
+                  [showGrid]="showGrid()"
+                  [showExport]="true"
+                  [tooltipTemplate]="useCustomTooltip() ? customTooltipTemplate() || null : null"
+                  [labelFormatter]="useCustomFormatter() ? financialFormatter : undefined"
+                />
+              }
+
+              <!-- KAGI CHART -->
+              @if (activeTab() === 'Kagi Chart') {
+                <ngx-kagi-chart
+                  [data]="financialPrices"
+                  [reversalAmount]="15"
+                  [height]="chartHeight()"
+                  [showGrid]="showGrid()"
+                  [showExport]="true"
+                  [tooltipTemplate]="useCustomTooltip() ? customTooltipTemplate() || null : null"
+                  [labelFormatter]="useCustomFormatter() ? financialFormatter : undefined"
+                />
+              }
+
+              <!-- POINT & FIGURE CHART -->
+              @if (activeTab() === 'Point & Figure Chart') {
+                <ngx-point-figure-chart
+                  [data]="financialPrices"
+                  [boxSize]="4"
+                  [reversal]="3"
+                  [height]="chartHeight()"
+                  [showGrid]="showGrid()"
+                  [showExport]="true"
+                  [tooltipTemplate]="useCustomTooltip() ? customTooltipTemplate() || null : null"
+                  [labelFormatter]="useCustomFormatter() ? financialFormatter : undefined"
+                />
+              }
+
+              <!-- WIND ROSE -->
+              @if (activeTab() === 'Wind Rose') {
+                <ngx-wind-rose
+                  [data]="windRoseData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [tooltipTemplate]="useCustomTooltip() ? customTooltipTemplate() || null : null"
+                  [labelFormatter]="useCustomFormatter() ? roseFormatter : undefined"
+                />
+              }
             </div>
           </div>
+
+          <!-- Event Logger Card -->
+          @if (activeTab() === 'Bar Chart' || activeTab() === 'Line Chart') {
+            <div class="event-logger-card">
+              <div class="logger-header">
+                <div class="logger-title">
+                  <span class="logger-dot-indicator"></span>
+                  Dashboard Action Logger
+                </div>
+                <button class="clear-log-btn" (click)="clearLogs()">Clear Logs</button>
+              </div>
+              <div class="logger-body">
+                @if (chartClickLogs().length === 0) {
+                  <div class="empty-logger-state">
+                    Click on a bar or line point marker to see interactive events triggered in real time.
+                  </div>
+                } @else {
+                  <div class="log-entries">
+                    @for (log of chartClickLogs(); track log.timestamp) {
+                      <div class="log-entry">
+                        <span class="log-time">{{ log.time }}</span>
+                        <span class="log-badge" [style.background]="getSeriesColor(log.seriesName)">
+                          {{ log.seriesName }}
+                        </span>
+                        <span class="log-text">
+                          Clicked category <strong class="highlight-text">"{{ log.category }}"</strong> with value <strong class="highlight-text">{{ log.value }}</strong>
+                        </span>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
 
           <!-- Documentation Sub-Tabs -->
           <div class="doc-subtabs-card">
@@ -450,6 +735,28 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 }
               </div>
 
+              <!-- SECTION: Enterprise settings -->
+              @if (activeTab() === 'Bar Chart' || activeTab() === 'Line Chart') {
+                <div class="config-section">
+                  <div class="config-section-title">Enterprise Settings</div>
+                  
+                  <label class="checkbox-control">
+                    <input type="checkbox" [checked]="showRefLinesToggle()" (change)="showRefLinesToggle.set($any($event.target).checked)" />
+                    Enable Reference Lines
+                  </label>
+
+                  <label class="checkbox-control">
+                    <input type="checkbox" [checked]="useCustomFormatter()" (change)="useCustomFormatter.set($any($event.target).checked)" />
+                    Use Custom Label Formatter
+                  </label>
+
+                  <label class="checkbox-control">
+                    <input type="checkbox" [checked]="useCustomTooltip()" (change)="useCustomTooltip.set($any($event.target).checked)" />
+                    Use Custom Tooltip Template
+                  </label>
+                </div>
+              }
+
               <!-- SECTION: Chart-specific properties -->
               <div class="config-section">
                 <div class="config-section-title">{{ activeTab() }} Specifics</div>
@@ -532,6 +839,24 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   </label>
                 }
 
+                <!-- BULLET options -->
+                @if (activeTab() === 'Bullet Chart') {
+                  <div class="config-control">
+                    <label>Bullet Value</label>
+                    <input type="range" min="0" [max]="bulletMax()" step="1" [value]="bulletValue()" (input)="bulletValue.set(Number($any($event.target).value))" />
+                    <span class="control-value">{{ bulletValue() }}</span>
+                  </div>
+                  <div class="config-control">
+                    <label>Bullet Target</label>
+                    <input type="range" min="0" [max]="bulletMax()" step="1" [value]="bulletTarget()" (input)="bulletTarget.set(Number($any($event.target).value))" />
+                    <span class="control-value">{{ bulletTarget() }}</span>
+                  </div>
+                  <div class="config-control">
+                    <label>Bullet Max</label>
+                    <input type="number" [value]="bulletMax()" (input)="bulletMax.set(Number($any($event.target).value))" style="width: 100%;" />
+                  </div>
+                }
+
                 <!-- FUNNEL / PYRAMID options -->
                 @if (activeTab() === 'Funnel / Pyramid Chart') {
                   <div class="config-control">
@@ -610,6 +935,136 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
 
       </div>
+
+      <!-- Custom Tooltip Template -->
+      <ng-template #customTooltip let-t>
+        <div class="custom-premium-tooltip">
+          <!-- Standard Charts: Bar, Line, Pie, etc. -->
+          @if (activeTab() !== 'Renko Chart' && activeTab() !== 'Kagi Chart' && activeTab() !== 'Point & Figure Chart' && activeTab() !== 'Wind Rose') {
+            <div class="tooltip-header">
+              <span class="tooltip-title">{{ t.cat }} Detail</span>
+              <span class="tooltip-status">Live</span>
+            </div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-rows">
+              @for (row of t.rows; track row.name) {
+                <div class="tooltip-row-item">
+                  <div class="tooltip-row-header">
+                    <span class="tooltip-row-dot" [style.background]="row.color"></span>
+                    <span class="tooltip-row-name">{{ row.name }}</span>
+                    <span class="tooltip-row-value">{{ useCustomFormatter() ? (activeTab() === 'Bar Chart' ? barFormatter(row.value) : lineFormatter(row.value)) : fmtNum(row.value) }}</span>
+                  </div>
+                  <div class="tooltip-progress-track">
+                    <div class="tooltip-progress-bar" [style.background]="row.color" [style.width.%]="getProgressPercent(row.value)"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Renko Chart Custom Tooltip -->
+          @if (activeTab() === 'Renko Chart') {
+            <div class="tooltip-header">
+              <span class="tooltip-title">Renko Brick Detail</span>
+              <span class="tooltip-status" [style.color]="t.color">{{ t.type === 'bullish' ? 'Yang (Bullish)' : 'Yin (Bearish)' }}</span>
+            </div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-rows">
+              <div class="tooltip-row-item">
+                <div class="tooltip-row-header">
+                  <span class="tooltip-row-name">Open Price</span>
+                  <span class="tooltip-row-value">{{ useCustomFormatter() ? financialFormatter(t.open) : fmtNum(t.open) }}</span>
+                </div>
+              </div>
+              <div class="tooltip-row-item">
+                <div class="tooltip-row-header">
+                  <span class="tooltip-row-name">Close Price</span>
+                  <span class="tooltip-row-value">{{ useCustomFormatter() ? financialFormatter(t.close) : fmtNum(t.close) }}</span>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Kagi Chart Custom Tooltip -->
+          @if (activeTab() === 'Kagi Chart') {
+            <div class="tooltip-header">
+              <span class="tooltip-title">Kagi Segment</span>
+              <span class="tooltip-status" [style.color]="t.color">{{ t.trend === 'bullish' ? 'Yang (Bullish)' : 'Yin (Bearish)' }}</span>
+            </div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-rows">
+              @if (t.type === 'vertical') {
+                <div class="tooltip-row-item">
+                  <div class="tooltip-row-header">
+                    <span class="tooltip-row-name">From Price</span>
+                    <span class="tooltip-row-value">{{ useCustomFormatter() ? financialFormatter(t.val1) : fmtNum(t.val1) }}</span>
+                  </div>
+                </div>
+                <div class="tooltip-row-item">
+                  <div class="tooltip-row-header">
+                    <span class="tooltip-row-name">To Price</span>
+                    <span class="tooltip-row-value">{{ useCustomFormatter() ? financialFormatter(t.val2) : fmtNum(t.val2) }}</span>
+                  </div>
+                </div>
+              } @else {
+                <div class="tooltip-row-item">
+                  <div class="tooltip-row-header">
+                    <span class="tooltip-row-name">Reversal Extrema</span>
+                    <span class="tooltip-row-value">{{ useCustomFormatter() ? financialFormatter(t.val1) : fmtNum(t.val1) }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Point & Figure Custom Tooltip -->
+          @if (activeTab() === 'Point & Figure Chart') {
+            <div class="tooltip-header">
+              <span class="tooltip-title">P&F Cell Detail</span>
+              <span class="tooltip-status" [style.color]="t.color">{{ t.type === 'X' ? 'Rise (X)' : 'Fall (O)' }}</span>
+            </div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-rows">
+              <div class="tooltip-row-item">
+                <div class="tooltip-row-header">
+                  <span class="tooltip-row-name">Level</span>
+                  <span class="tooltip-row-value">{{ useCustomFormatter() ? financialFormatter(t.value) : fmtNum(t.value) }}</span>
+                </div>
+              </div>
+              <div class="tooltip-row-item">
+                <div class="tooltip-row-header">
+                  <span class="tooltip-row-name">Column Index</span>
+                  <span class="tooltip-row-value">#{{ t.colIdx + 1 }}</span>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Wind Rose Custom Tooltip -->
+          @if (activeTab() === 'Wind Rose') {
+            <div class="tooltip-header">
+              <span class="tooltip-title">{{ t.direction }} Sector</span>
+              <span class="tooltip-status">Wind Rose</span>
+            </div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-rows">
+              <div class="tooltip-row-item">
+                <div class="tooltip-row-header">
+                  <span class="tooltip-row-dot" [style.background]="t.color"></span>
+                  <span class="tooltip-row-name">{{ t.binLabel }}</span>
+                  <span class="tooltip-row-value">{{ useCustomFormatter() ? roseFormatter(t.value) : t.value.toFixed(1) + '%' }}</span>
+                </div>
+              </div>
+              <div class="tooltip-row-item">
+                <div class="tooltip-row-header">
+                  <span class="tooltip-row-name">Sector Total</span>
+                  <span class="tooltip-row-value">{{ useCustomFormatter() ? roseFormatter(t.cumValue) : t.cumValue.toFixed(1) + '%' }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </ng-template>
 
     </div>
   `,
@@ -1030,6 +1485,220 @@ interface ApiRow { name: string; type: string; default: string; description: str
       align-items: center;
       width: 100%;
     }
+
+    /* Event Logger Styles */
+    .event-logger-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+      transition: background-color 0.2s;
+    }
+    .dark-theme .event-logger-card {
+      background: #1e293b;
+      border-color: rgba(255,255,255,0.05);
+    }
+    .logger-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding-bottom: 10px;
+    }
+    .dark-theme .logger-header {
+      border-bottom-color: rgba(255,255,255,0.06);
+    }
+    .logger-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .dark-theme .logger-title { color: #cbd5e1; }
+    .logger-dot-indicator {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .clear-log-btn {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      color: #64748b;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .dark-theme .clear-log-btn {
+      border-color: rgba(255,255,255,0.1);
+      color: #94a3b8;
+    }
+    .clear-log-btn:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+    .dark-theme .clear-log-btn:hover {
+      background: rgba(255,255,255,0.05);
+      color: #f8fafc;
+    }
+    .logger-body {
+      max-height: 180px;
+      overflow-y: auto;
+      font-family: 'SF Mono', Consolas, Menlo, monospace;
+      font-size: 11px;
+    }
+    .empty-logger-state {
+      padding: 16px;
+      text-align: center;
+      color: #94a3b8;
+      font-style: italic;
+    }
+    .log-entries {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .log-entry {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: #f8fafc;
+      border: 1px solid rgba(0,0,0,0.02);
+      animation: fadeIn 0.2s ease-out;
+    }
+    .dark-theme .log-entry {
+      background: #0f172a;
+      border-color: rgba(255,255,255,0.02);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .log-time {
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .log-badge {
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .log-text {
+      color: #334155;
+    }
+    .dark-theme .log-text { color: #cbd5e1; }
+    .highlight-text {
+      color: #4f46e5;
+      font-weight: 600;
+    }
+    .dark-theme .highlight-text {
+      color: #818cf8;
+    }
+
+    /* Custom Premium Tooltip Styles */
+    .custom-premium-tooltip {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 14px;
+      color: #f8fafc;
+      min-width: 200px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+    }
+    .tooltip-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .tooltip-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+    .tooltip-status {
+      font-size: 8px;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      padding: 1px 5px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .tooltip-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin-bottom: 10px;
+    }
+    .tooltip-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tooltip-row-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tooltip-row-header {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+    }
+    .tooltip-row-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .tooltip-row-name {
+      color: #cbd5e1;
+      flex-grow: 1;
+    }
+    .tooltip-row-value {
+      font-weight: 700;
+      font-family: monospace;
+      color: #ffffff;
+    }
+    .tooltip-progress-track {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-left: 16px;
+    }
+    .tooltip-progress-bar {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
   `]
 })
 export class ChartsDemoComponent implements OnInit {
@@ -1047,12 +1716,79 @@ export class ChartsDemoComponent implements OnInit {
   activeTab = signal('Bar Chart');
   activeSubtab = signal<'html' | 'ts' | 'api'>('html');
 
+  // Enterprise Settings signals
+  showRefLinesToggle = signal(true);
+  useCustomFormatter = signal(false);
+  useCustomTooltip = signal(true);
+  customTooltipTemplate = viewChild<TemplateRef<any>>('customTooltip');
+
+  // Chart Event Click Logs
+  chartClickLogs = signal<{ category: string; value: number; seriesName: string; time: string; timestamp: number }[]>([]);
+
+  // Formatters
+  barFormatter = (v: number) => `$${v}M`;
+  lineFormatter = (v: number) => `${v} Users`;
+  financialFormatter = (v: number) => `$${v.toFixed(1)}`;
+  roseFormatter = (v: number) => `${v.toFixed(1)}%`;
+
+  getReferenceLines() {
+    const tab = this.activeTab();
+    if (tab === 'Bar Chart') {
+      return [
+        { value: 75, label: 'Target', color: '#10b981', strokeDasharray: '4,4' },
+        { value: 45, label: 'Warning', color: '#f59e0b', strokeDasharray: '2,2' }
+      ];
+    } else if (tab === 'Line Chart') {
+      return [
+        { value: 300, label: 'Target Users', color: '#818cf8', strokeDasharray: '3,3' },
+        { value: 150, label: 'Min SLA', color: '#ef4444', strokeDasharray: '5,5' }
+      ];
+    }
+    return [];
+  }
+
+  getProgressPercent(val: number): number {
+    const maxVal = this.activeTab() === 'Line Chart' ? 450 : 100;
+    return Math.min(100, Math.max(0, (val / maxVal) * 100));
+  }
+
+  onChartClick(event: { category: string; value: number; seriesName: string }) {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    this.chartClickLogs.update(logs => [
+      { ...event, time: timeStr, timestamp: Date.now() },
+      ...logs
+    ].slice(0, 10));
+  }
+
+  clearLogs() {
+    this.chartClickLogs.set([]);
+  }
+
+  getSeriesColor(seriesName: string): string {
+    const palette = this.getThemePalette();
+    if (seriesName === 'Revenue' || seriesName === 'Users') return palette[0];
+    if (seriesName === 'Expenses' || seriesName === 'Sessions') return palette[1];
+    return palette[0];
+  }
+
+  fmtNum(n: number): string {
+    if (Math.abs(n) >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
+    if (Math.abs(n) >= 1_000) return (n / 1_000).toFixed(1) + 'K';
+    return n % 1 === 0 ? n.toString() : n.toFixed(1);
+  }
+
   // Available Tabs
   tabs = [
     'Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 
     'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Sunburst Chart', 'Sparkline', 'Gauge Chart', 
     'Radar Chart', 'Heatmap Chart', 'Treemap Chart', 'Funnel / Pyramid Chart',
-    'Waterfall Chart', 'Box Plot Chart', 'Radial Bar Chart', 'Candlestick Chart'
+    'Waterfall Chart', 'Box Plot Chart', 'Radial Bar Chart', 'Candlestick Chart',
+    'Polar Area Chart', 'Bullet Chart', 'Dumbbell Chart', 'Lollipop Chart',
+    'Slope Chart', 'Sankey Chart', 'Violin Plot', 'Ridgeline Chart',
+    'Pareto Chart', 'Marimekko Chart', 'Chord Diagram', 'Dependency Wheel',
+    'Adjacency Matrix', 'Biplot / PCA Plot', 'Renko Chart', 'Kagi Chart',
+    'Point & Figure Chart', 'Wind Rose'
   ];
 
   // Config settings
@@ -1072,6 +1808,10 @@ export class ChartsDemoComponent implements OnInit {
 
   sparklineType = signal<'line' | 'area' | 'bar'>('line');
   sparklineColor = signal('#4a90d9');
+
+  bulletValue = signal(70);
+  bulletTarget = signal(80);
+  bulletMax = signal(100);
 
   gaugeValue = signal(65);
   gaugeType = signal<'semi' | 'full'>('semi');
@@ -1207,6 +1947,142 @@ export class ChartsDemoComponent implements OnInit {
     { date: 'Fri', open: 122, high: 129, low: 121, close: 128 }
   ];
 
+  dumbbellData: DumbbellItem[] = [
+    { label: 'USA', startValue: 74.2, endValue: 78.8 },
+    { label: 'Japan', startValue: 79.5, endValue: 84.6 },
+    { label: 'Germany', startValue: 76.8, endValue: 81.2 },
+    { label: 'India', startValue: 62.4, endValue: 70.8 },
+    { label: 'Brazil', startValue: 69.1, endValue: 75.3 }
+  ];
+
+  lollipopData: ChartDataPoint[] = [
+    { label: 'Marketing', value: 450, color: '#4f46e5' },
+    { label: 'Sales', value: 620, color: '#10b981' },
+    { label: 'Engineering', value: 890, color: '#f59e0b' },
+    { label: 'Design', value: 310, color: '#ec4899' },
+    { label: 'Support', value: 240, color: '#8b5cf6' }
+  ];
+
+  slopeData: SlopeDataPoint[] = [
+    { label: 'Productivity', startValue: 65, endValue: 88 },
+    { label: 'Collaboration', startValue: 70, endValue: 92 },
+    { label: 'Stress Levels', startValue: 82, endValue: 45 },
+    { label: 'Overtime Hours', startValue: 55, endValue: 30 },
+    { label: 'Satisfaction', startValue: 60, endValue: 85 }
+  ];
+
+  sankeyNodes: SankeyNode[] = [
+    { id: 'revenue', label: 'Revenue', color: '#6366f1' },
+    { id: 'sales', label: 'Sales', color: '#10b981' },
+    { id: 'marketing', label: 'Marketing', color: '#f59e0b' },
+    { id: 'operations', label: 'Operations', color: '#ef4444' },
+    { id: 'profit', label: 'Net Profit', color: '#06b6d4' }
+  ];
+
+  sankeyLinks: SankeyLink[] = [
+    { source: 'revenue', target: 'sales', value: 80 },
+    { source: 'revenue', target: 'marketing', value: 20 },
+    { source: 'sales', target: 'operations', value: 50 },
+    { source: 'sales', target: 'profit', value: 30 },
+    { source: 'marketing', target: 'operations', value: 15 },
+    { source: 'marketing', target: 'profit', value: 5 }
+  ];
+
+  violinData: ViolinItem[] = [
+    { label: 'Control Group', values: [12, 15, 14, 18, 25, 30, 22, 21, 24, 26, 28, 35, 40] },
+    { label: 'Treatment A', values: [18, 22, 21, 25, 35, 42, 30, 28, 32, 34, 38, 48, 55] },
+    { label: 'Treatment B', values: [15, 19, 17, 22, 28, 34, 25, 23, 27, 29, 31, 39, 45] }
+  ];
+
+  ridgelineData: RidgelineItem[] = [
+    { label: 'Jan', values: [10, 12, 15, 14, 18, 22, 20, 19, 21, 24, 26, 30] },
+    { label: 'Feb', values: [12, 14, 17, 16, 20, 25, 22, 21, 23, 27, 29, 34] },
+    { label: 'Mar', values: [15, 18, 21, 20, 25, 30, 28, 26, 29, 33, 35, 41] },
+    { label: 'Apr', values: [20, 24, 27, 25, 32, 38, 35, 33, 37, 41, 44, 52] }
+  ];
+
+  paretoData: ParetoItem[] = [
+    { label: 'Defect A', value: 85 },
+    { label: 'Defect B', value: 54 },
+    { label: 'Defect C', value: 32 },
+    { label: 'Defect D', value: 18 },
+    { label: 'Defect E', value: 8 }
+  ];
+
+  marimekkoData: MarimekkoItem[] = [
+    {
+      label: 'Segment X',
+      segments: [
+        { name: 'Category 1', value: 40 },
+        { name: 'Category 2', value: 25 },
+        { name: 'Category 3', value: 15 }
+      ]
+    },
+    {
+      label: 'Segment Y',
+      segments: [
+        { name: 'Category 1', value: 20 },
+        { name: 'Category 2', value: 50 },
+        { name: 'Category 3', value: 30 }
+      ]
+    },
+    {
+      label: 'Segment Z',
+      segments: [
+        { name: 'Category 1', value: 15 },
+        { name: 'Category 2', value: 10 },
+        { name: 'Category 3', value: 45 }
+      ]
+    }
+  ];
+
+  chordMatrix: number[][] = [
+    [0, 20, 15, 10],
+    [5, 0, 25, 30],
+    [10, 5, 0, 15],
+    [25, 10, 5, 0]
+  ];
+
+  chordLabels: string[] = ['Asia', 'Europe', 'North America', 'South America'];
+
+  biplotPoints: BiplotPoint[] = [
+    { x: -1.5, y: 0.8, label: 'Obs A', group: 'Set 1' },
+    { x: -0.9, y: 1.2, label: 'Obs B', group: 'Set 1' },
+    { x: 1.2, y: -0.5, label: 'Obs C', group: 'Set 2' },
+    { x: 0.8, y: -0.9, label: 'Obs D', group: 'Set 2' },
+    { x: 2.1, y: 1.5, label: 'Obs E', group: 'Set 3' },
+    { x: 1.7, y: 1.9, label: 'Obs F', group: 'Set 3' }
+  ];
+
+  biplotVectors: BiplotVector[] = [
+    { x: 1.8, y: 1.2, label: 'Variable 1' },
+    { x: -1.2, y: 2.0, label: 'Variable 2' },
+    { x: 2.0, y: -1.5, label: 'Variable 3' }
+  ];
+
+  financialPrices: number[] = [
+    100, 102, 105, 103, 101, 98, 95, 96, 99, 103, 107, 110, 112, 115, 113, 111, 108, 105, 107, 111, 114, 118, 122, 120, 124, 128, 125, 122, 119
+  ];
+
+  windRoseData: WindRoseItem[] = [
+    { direction: 'N', speedBins: [{ label: '< 5m/s', value: 3.5 }, { label: '5-15m/s', value: 6.2 }, { label: '> 15m/s', value: 1.8 }] },
+    { direction: 'NNE', speedBins: [{ label: '< 5m/s', value: 2.1 }, { label: '5-15m/s', value: 4.8 }, { label: '> 15m/s', value: 0.9 }] },
+    { direction: 'NE', speedBins: [{ label: '< 5m/s', value: 4.0 }, { label: '5-15m/s', value: 5.5 }, { label: '> 15m/s', value: 2.2 }] },
+    { direction: 'ENE', speedBins: [{ label: '< 5m/s', value: 1.5 }, { label: '5-15m/s', value: 3.2 }, { label: '> 15m/s', value: 1.1 }] },
+    { direction: 'E', speedBins: [{ label: '< 5m/s', value: 2.8 }, { label: '5-15m/s', value: 4.1 }, { label: '> 15m/s', value: 1.5 }] },
+    { direction: 'ESE', speedBins: [{ label: '< 5m/s', value: 3.1 }, { label: '5-15m/s', value: 5.0 }, { label: '> 15m/s', value: 2.0 }] },
+    { direction: 'SE', speedBins: [{ label: '< 5m/s', value: 5.2 }, { label: '5-15m/s', value: 8.5 }, { label: '> 15m/s', value: 4.1 }] },
+    { direction: 'SSE', speedBins: [{ label: '< 5m/s', value: 2.6 }, { label: '5-15m/s', value: 4.3 }, { label: '> 15m/s', value: 1.2 }] },
+    { direction: 'S', speedBins: [{ label: '< 5m/s', value: 3.9 }, { label: '5-15m/s', value: 6.8 }, { label: '> 15m/s', value: 2.5 }] },
+    { direction: 'SSW', speedBins: [{ label: '< 5m/s', value: 1.8 }, { label: '5-15m/s', value: 3.5 }, { label: '> 15m/s', value: 0.8 }] },
+    { direction: 'SW', speedBins: [{ label: '< 5m/s', value: 4.2 }, { label: '5-15m/s', value: 7.1 }, { label: '> 15m/s', value: 3.0 }] },
+    { direction: 'WSW', speedBins: [{ label: '< 5m/s', value: 2.0 }, { label: '5-15m/s', value: 3.9 }, { label: '> 15m/s', value: 1.3 }] },
+    { direction: 'W', speedBins: [{ label: '< 5m/s', value: 3.0 }, { label: '5-15m/s', value: 5.2 }, { label: '> 15m/s', value: 2.1 }] },
+    { direction: 'WNW', speedBins: [{ label: '< 5m/s', value: 2.5 }, { label: '5-15m/s', value: 4.0 }, { label: '> 15m/s', value: 1.4 }] },
+    { direction: 'NW', speedBins: [{ label: '< 5m/s', value: 4.5 }, { label: '5-15m/s', value: 6.9 }, { label: '> 15m/s', value: 2.8 }] },
+    { direction: 'NNW', speedBins: [{ label: '< 5m/s', value: 2.2 }, { label: '5-15m/s', value: 4.2 }, { label: '> 15m/s', value: 1.0 }] }
+  ];
+
   bubbleData = signal<BubblePoint[]>([
     { x: 10, y: 30, z: 150, label: 'App A', group: 'Tech' },
     { x: 25, y: 45, z: 280, label: 'App B', group: 'Tech' },
@@ -1305,7 +2181,7 @@ export class ChartsDemoComponent implements OnInit {
       return ['Bar Chart', 'Line Chart', 'Area Chart', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
     }
     if (type === 'labels') {
-      return ['Bar Chart', 'Pie / Donut', 'Bubble Chart', 'Sunburst Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
+      return ['Bar Chart', 'Line Chart', 'Pie / Donut', 'Bubble Chart', 'Sunburst Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
     }
     return false;
   }
@@ -1359,7 +2235,8 @@ export class ChartsDemoComponent implements OnInit {
   [showGrid]="${g}"
   [showLabels]="${valLabels}"
   [height]="${h}"
-  [showExport]="true"
+  [showExport]="true"${this.showRefLinesToggle() ? '\n  [referenceLines]="referenceLines"' : ''}${this.useCustomFormatter() ? '\n  [labelFormatter]="labelFormatter"' : ''}${this.useCustomTooltip() ? '\n  [tooltipTemplate]="customTooltip"' : ''}
+  (barClick)="onBarClick($event)"
 />`;
       case 'Line Chart':
         return `<ngx-line-chart
@@ -1369,7 +2246,9 @@ export class ChartsDemoComponent implements OnInit {
   [showMarkers]="${this.showMarkers()}"
   [showLegend]="${l}"
   [height]="${h}"
-  [showExport]="true"
+  [showExport]="true"${this.showRefLinesToggle() ? '\n  [referenceLines]="referenceLines"' : ''}
+  [showLabels]="${valLabels}"${this.useCustomFormatter() ? '\n  [labelFormatter]="labelFormatter"' : ''}${this.useCustomTooltip() ? '\n  [tooltipTemplate]="customTooltip"' : ''}
+  (pointClick)="onPointClick($event)"
 />`;
       case 'Area Chart':
         return `<ngx-area-chart
@@ -1508,6 +2387,135 @@ export class ChartsDemoComponent implements OnInit {
   bullishColor="${this.candlestickBullishColor()}"
   bearishColor="${this.candlestickBearishColor()}"
 />`;
+      case 'Polar Area Chart':
+        return `<ngx-polar-area-chart
+  [data]="data"
+  [showLegend]="${l}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+  [showExport]="true"
+/>`;
+      case 'Bullet Chart':
+        return `<ngx-bullet-chart
+  [value]="${this.bulletValue()}"
+  [target]="${this.bulletTarget()}"
+  [max]="${this.bulletMax()}"
+  [ranges]="[50, 85, 100]"
+  [rangeColors]="['#fee2e2', '#fef3c7', '#dcfce7']"
+  [valueColor]="'#10b981'"
+  [targetColor]="'#ef4444'"
+  [height]="40"
+/>`;
+      case 'Dumbbell Chart':
+        return `<ngx-dumbbell-chart
+  [data]="data"
+  [showLegend]="${l}"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Lollipop Chart':
+        return `<ngx-lollipop-chart
+  [data]="data"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Slope Chart':
+        return `<ngx-slope-chart
+  [data]="data"
+  [showLabels]="${valLabels}"
+  [showValues]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Sankey Chart':
+        return `<ngx-sankey-chart
+  [nodes]="nodes"
+  [links]="links"
+  [showLabels]="${valLabels}"
+  [showValues]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Violin Plot':
+        return `<ngx-violin-plot
+  [data]="data"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Ridgeline Chart':
+        return `<ngx-ridgeline-chart
+  [data]="data"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Pareto Chart':
+        return `<ngx-pareto-chart
+  [data]="data"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Marimekko Chart':
+        return `<ngx-marimekko-chart
+  [data]="data"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Chord Diagram':
+        return `<ngx-chord-diagram
+  [matrix]="matrix"
+  [labels]="labels"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Dependency Wheel':
+        return `<ngx-dependency-wheel
+  [matrix]="matrix"
+  [labels]="labels"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Adjacency Matrix':
+        return `<ngx-adjacency-matrix
+  [matrix]="matrix"
+  [labels]="labels"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Biplot / PCA Plot':
+        return `<ngx-biplot
+  [points]="points"
+  [vectors]="vectors"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+/>`;
+      case 'Renko Chart':
+        return `<ngx-renko-chart
+  [data]="data"
+  [boxSize]="5"
+  [height]="${h}"
+/>`;
+      case 'Kagi Chart':
+        return `<ngx-kagi-chart
+  [data]="data"
+  [reversalAmount]="15"
+  [height]="${h}"
+/>`;
+      case 'Point & Figure Chart':
+        return `<ngx-point-figure-chart
+  [data]="data"
+  [boxSize]="4"
+  [reversal]="3"
+  [height]="${h}"
+/>`;
+      case 'Wind Rose':
+        return `<ngx-wind-rose
+  [data]="data"
+  [height]="${h}"
+/>`;
       default:
         return '';
     }
@@ -1558,6 +2566,24 @@ export class ChartExampleComponent {
       case 'Box Plot Chart': return this.boxPlotInputs;
       case 'Radial Bar Chart': return this.radialInputs;
       case 'Candlestick Chart': return this.candlestickInputs;
+      case 'Polar Area Chart': return this.polarAreaInputs;
+      case 'Bullet Chart': return this.bulletInputs;
+      case 'Dumbbell Chart': return this.dumbbellInputs;
+      case 'Lollipop Chart': return this.lollipopInputs;
+      case 'Slope Chart': return this.slopeInputs;
+      case 'Sankey Chart': return this.sankeyInputs;
+      case 'Violin Plot': return this.violinInputs;
+      case 'Ridgeline Chart': return this.ridgelineInputs;
+      case 'Pareto Chart': return this.paretoInputs;
+      case 'Marimekko Chart': return this.marimekkoInputs;
+      case 'Chord Diagram': return this.chordInputs;
+      case 'Dependency Wheel': return this.dependencyInputs;
+      case 'Adjacency Matrix': return this.matrixInputs;
+      case 'Biplot / PCA Plot': return this.biplotInputs;
+      case 'Renko Chart': return this.renkoInputs;
+      case 'Kagi Chart': return this.kagiInputs;
+      case 'Point & Figure Chart': return this.pfInputs;
+      case 'Wind Rose': return this.windRoseInputs;
       default: return [];
     }
   }
@@ -1583,6 +2609,24 @@ export class ChartExampleComponent {
       case 'Box Plot Chart': return Sources.BoxPlotChartSource;
       case 'Radial Bar Chart': return Sources.RadialBarChartSource;
       case 'Candlestick Chart': return Sources.CandlestickChartSource;
+      case 'Polar Area Chart': return Sources.PolarAreaChartSource;
+      case 'Bullet Chart': return Sources.BulletChartSource;
+      case 'Dumbbell Chart': return Sources.DumbbellChartSource;
+      case 'Lollipop Chart': return Sources.LollipopChartSource;
+      case 'Slope Chart': return Sources.SlopeChartSource;
+      case 'Sankey Chart': return Sources.SankeyChartSource;
+      case 'Violin Plot': return Sources.ViolinPlotSource;
+      case 'Ridgeline Chart': return Sources.RidgelineChartSource;
+      case 'Pareto Chart': return Sources.ParetoChartSource;
+      case 'Marimekko Chart': return Sources.MarimekkoChartSource;
+      case 'Chord Diagram': return Sources.ChordDiagramSource;
+      case 'Dependency Wheel': return Sources.DependencyWheelSource;
+      case 'Adjacency Matrix': return Sources.AdjacencyMatrixSource;
+      case 'Biplot / PCA Plot': return Sources.BiplotSource;
+      case 'Renko Chart': return Sources.RenkoChartSource;
+      case 'Kagi Chart': return Sources.KagiChartSource;
+      case 'Point & Figure Chart': return Sources.PointFigureChartSource;
+      case 'Wind Rose': return Sources.WindRoseSource;
       default: return '';
     }
   }
@@ -1607,6 +2651,24 @@ export class ChartExampleComponent {
       case 'Box Plot Chart': return 'BoxPlotChartComponent';
       case 'Radial Bar Chart': return 'RadialBarChartComponent';
       case 'Candlestick Chart': return 'CandlestickChartComponent';
+      case 'Polar Area Chart': return 'PolarAreaChartComponent';
+      case 'Bullet Chart': return 'BulletChartComponent';
+      case 'Dumbbell Chart': return 'DumbbellChartComponent';
+      case 'Lollipop Chart': return 'LollipopChartComponent';
+      case 'Slope Chart': return 'SlopeChartComponent';
+      case 'Sankey Chart': return 'SankeyChartComponent';
+      case 'Violin Plot': return 'ViolinPlotComponent';
+      case 'Ridgeline Chart': return 'RidgelineChartComponent';
+      case 'Pareto Chart': return 'ParetoChartComponent';
+      case 'Marimekko Chart': return 'MarimekkoChartComponent';
+      case 'Chord Diagram': return 'ChordDiagramComponent';
+      case 'Dependency Wheel': return 'DependencyWheelComponent';
+      case 'Adjacency Matrix': return 'AdjacencyMatrixComponent';
+      case 'Biplot / PCA Plot': return 'BiplotComponent';
+      case 'Renko Chart': return 'RenkoChartComponent';
+      case 'Kagi Chart': return 'KagiChartComponent';
+      case 'Point & Figure Chart': return 'PointFigureChartComponent';
+      case 'Wind Rose': return 'WindRoseChartComponent';
       default: return '';
     }
   }
@@ -1636,11 +2698,86 @@ export class ChartExampleComponent {
       case 'Box Plot Chart': return `<ngx-box-plot-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}" color="${this.boxPlotColor()}" fillColor="${this.boxPlotFillColor()}" outlierColor="${this.boxPlotOutlierColor()}"></ngx-box-plot-chart>`;
       case 'Radial Bar Chart': return `<ngx-radial-bar-chart [data]="data" [showLegend]="${l}" [height]="${h}" [strokeWidth]="${this.radialStrokeWidth()}" [ringGap]="${this.radialRingGap()}"></ngx-radial-bar-chart>`;
       case 'Candlestick Chart': return `<ngx-candlestick-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}" bullishColor="${this.candlestickBullishColor()}" bearishColor="${this.candlestickBearishColor()}"></ngx-candlestick-chart>`;
+      case 'Polar Area Chart': return `<ngx-polar-area-chart [data]="data" [showLegend]="${l}" [showLabels]="${valLabels}" [height]="${h}"></ngx-polar-area-chart>`;
+      case 'Bullet Chart': return `<ngx-bullet-chart [value]="${this.bulletValue()}" [target]="${this.bulletTarget()}" [max]="${this.bulletMax()}" [ranges]="[50, 85, 100]" [rangeColors]="['#fee2e2', '#fef3c7', '#dcfce7']" [valueColor]="'#10b981'" [targetColor]="'#ef4444'" [height]="40"></ngx-bullet-chart>`;
+      case 'Dumbbell Chart': return `<ngx-dumbbell-chart [data]="data" [showLegend]="${l}" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}"></ngx-dumbbell-chart>`;
+      case 'Lollipop Chart': return `<ngx-lollipop-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}"></ngx-lollipop-chart>`;
+      case 'Slope Chart': return `<ngx-slope-chart [data]="data" [showLabels]="${valLabels}" [showValues]="${valLabels}" [height]="${h}"></ngx-slope-chart>`;
+      case 'Sankey Chart': return `<ngx-sankey-chart [nodes]="nodes" [links]="links" [showLabels]="${valLabels}" [showValues]="${valLabels}" [height]="${h}"></ngx-sankey-chart>`;
+      case 'Violin Plot': return `<ngx-violin-plot [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}"></ngx-violin-plot>`;
+      case 'Ridgeline Chart': return `<ngx-ridgeline-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}"></ngx-ridgeline-chart>`;
+      case 'Pareto Chart': return `<ngx-pareto-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}"></ngx-pareto-chart>`;
+      case 'Marimekko Chart': return `<ngx-marimekko-chart [data]="data" [showGrid]="${g}" [showLabels]="${valLabels}" [height]="${h}"></ngx-marimekko-chart>`;
+      case 'Chord Diagram': return `<ngx-chord-diagram [matrix]="matrix" [labels]="labels" [showLabels]="${valLabels}" [height]="${h}"></ngx-chord-diagram>`;
+      case 'Dependency Wheel': return `<ngx-dependency-wheel [matrix]="matrix" [labels]="labels" [showLabels]="${valLabels}" [height]="${h}"></ngx-dependency-wheel>`;
+      case 'Adjacency Matrix': return `<ngx-adjacency-matrix [matrix]="matrix" [labels]="labels" [showLabels]="${valLabels}" [height]="${h}"></ngx-adjacency-matrix>`;
+      case 'Biplot / PCA Plot': return `<ngx-biplot [points]="points" [vectors]="vectors" [showLabels]="${valLabels}" [height]="${h}"></ngx-biplot>`;
+      case 'Renko Chart': return `<ngx-renko-chart
+  [data]="data"
+  [boxSize]="5"
+  [height]="${h}"
+  [showGrid]="${g}"
+  [showExport]="true"${this.useCustomFormatter() ? '\n  [labelFormatter]="labelFormatter"' : ''}${this.useCustomTooltip() ? '\n  [tooltipTemplate]="customTooltip"' : ''}>
+</ngx-renko-chart>`;
+      case 'Kagi Chart': return `<ngx-kagi-chart
+  [data]="data"
+  [reversalAmount]="15"
+  [height]="${h}"
+  [showGrid]="${g}"
+  [showExport]="true"${this.useCustomFormatter() ? '\n  [labelFormatter]="labelFormatter"' : ''}${this.useCustomTooltip() ? '\n  [tooltipTemplate]="customTooltip"' : ''}>
+</ngx-kagi-chart>`;
+      case 'Point & Figure Chart': return `<ngx-point-figure-chart
+  [data]="data"
+  [boxSize]="4"
+  [reversal]="3"
+  [height]="${h}"
+  [showGrid]="${g}"
+  [showExport]="true"${this.useCustomFormatter() ? '\n  [labelFormatter]="labelFormatter"' : ''}${this.useCustomTooltip() ? '\n  [tooltipTemplate]="customTooltip"' : ''}>
+</ngx-point-figure-chart>`;
+      case 'Wind Rose': return `<ngx-wind-rose
+  [data]="data"
+  [height]="${h}"
+  [colors]="colors"
+  [showExport]="true"${this.useCustomFormatter() ? '\n  [labelFormatter]="labelFormatter"' : ''}${this.useCustomTooltip() ? '\n  [tooltipTemplate]="customTooltip"' : ''}>
+</ngx-wind-rose>`;
       default: return '';
     }
   }
 
   getExtraStateVariables(tab: string): string {
+    let extra = '';
+    if (tab === 'Bar Chart' || tab === 'Line Chart') {
+      if (this.showRefLinesToggle()) {
+        if (tab === 'Bar Chart') {
+          extra += `referenceLines = [
+    { value: 75, label: 'Target', color: '#10b981', strokeDasharray: '4,4' },
+    { value: 45, label: 'Warning', color: '#f59e0b', strokeDasharray: '2,2' }
+  ];\n  `;
+        } else {
+          extra += `referenceLines = [
+    { value: 300, label: 'Target Users', color: '#818cf8', strokeDasharray: '3,3' },
+    { value: 150, label: 'Min SLA', color: '#ef4444', strokeDasharray: '5,5' }
+  ];\n  `;
+        }
+      }
+      if (this.useCustomFormatter()) {
+        if (tab === 'Bar Chart') {
+          extra += `labelFormatter = (v: number) => '$' + v + 'M';\n  `;
+        } else {
+          extra += `labelFormatter = (v: number) => v + ' active';\n  `;
+        }
+      }
+      if (tab === 'Bar Chart') {
+        extra += `onBarClick(event: any) {
+    console.log('Bar clicked:', event);
+  }\n  `;
+      } else {
+        extra += `onPointClick(event: any) {
+    console.log('Point clicked:', event);
+  }\n  `;
+      }
+      return extra.trim();
+    }
     if (tab === 'Gauge Chart') {
       return `thresholds = [
     { value: 40, color: '#10b981' },
@@ -1651,6 +2788,32 @@ export class ChartExampleComponent {
     if (tab === 'Combo Chart') {
       return `barSeries = [{ name: 'Sales Volume', data: [450, 620, 580, 810, 940, 880] }];
   lineSeries = [{ name: 'Gross Margin %', data: [28, 32, 30, 35, 38, 36] }];`;
+    }
+    if (tab === 'Sankey Chart') {
+      return `nodes = ${JSON.stringify(this.sankeyNodes, null, 2)};
+  links = ${JSON.stringify(this.sankeyLinks, null, 2)};`;
+    }
+    if (tab === 'Chord Diagram' || tab === 'Dependency Wheel' || tab === 'Adjacency Matrix') {
+      return `matrix = ${JSON.stringify(this.chordMatrix, null, 2)};
+  labels = ${JSON.stringify(this.chordLabels, null, 2)};`;
+    }
+    if (tab === 'Biplot / PCA Plot') {
+      return `points = ${JSON.stringify(this.biplotPoints, null, 2)};
+  vectors = ${JSON.stringify(this.biplotVectors, null, 2)};`;
+    }
+    if (tab === 'Renko Chart' || tab === 'Kagi Chart' || tab === 'Point & Figure Chart') {
+      let code = `data = ${JSON.stringify(this.financialPrices, null, 2)};`;
+      if (this.useCustomFormatter()) {
+        code += `\n  labelFormatter = (v: number) => '$' + v.toFixed(1);`;
+      }
+      return code;
+    }
+    if (tab === 'Wind Rose') {
+      let code = `data = ${JSON.stringify(this.windRoseData, null, 2)};`;
+      if (this.useCustomFormatter()) {
+        code += `\n  labelFormatter = (v: number) => v.toFixed(1) + '%';`;
+      }
+      return code;
     }
     return '';
   }
@@ -1675,6 +2838,24 @@ export class ChartExampleComponent {
       case 'Box Plot Chart': return JSON.stringify(this.boxPlotData, null, 2);
       case 'Radial Bar Chart': return JSON.stringify(this.radialData, null, 2);
       case 'Candlestick Chart': return JSON.stringify(this.candlestickData, null, 2);
+      case 'Polar Area Chart': return JSON.stringify(this.pieData, null, 2);
+      case 'Bullet Chart': return '70';
+      case 'Dumbbell Chart': return JSON.stringify(this.dumbbellData, null, 2);
+      case 'Lollipop Chart': return JSON.stringify(this.lollipopData, null, 2);
+      case 'Slope Chart': return JSON.stringify(this.slopeData, null, 2);
+      case 'Sankey Chart': return '[]';
+      case 'Violin Plot': return JSON.stringify(this.violinData, null, 2);
+      case 'Ridgeline Chart': return JSON.stringify(this.ridgelineData, null, 2);
+      case 'Pareto Chart': return JSON.stringify(this.paretoData, null, 2);
+      case 'Marimekko Chart': return JSON.stringify(this.marimekkoData, null, 2);
+      case 'Chord Diagram': return '[]';
+      case 'Dependency Wheel': return '[]';
+      case 'Adjacency Matrix': return '[]';
+      case 'Biplot / PCA Plot': return '[]';
+      case 'Renko Chart': return JSON.stringify(this.financialPrices, null, 2);
+      case 'Kagi Chart': return JSON.stringify(this.financialPrices, null, 2);
+      case 'Point & Figure Chart': return JSON.stringify(this.financialPrices, null, 2);
+      case 'Wind Rose': return JSON.stringify(this.windRoseData, null, 2);
       default: return '[]';
     }
   }
@@ -1707,7 +2888,7 @@ import { ${this.getComponentClass(chartType)} } from 'ngx-core-components';
   imports: [CommonModule, ${this.getComponentClass(chartType)}],
   template: \`
     <div style="padding: 32px; font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto;">
-      <h2 style="color: #0f172a; margin-bottom: 4px; font-weight: 800;">\${chartType} Sandbox</h2>
+      <h2 style="color: #0f172a; margin-bottom: 4px; font-weight: 800;">${chartType} Sandbox</h2>
       <p style="color: #64748b; font-size: 14px; margin-top: 0; margin-bottom: 24px;">
         Bootstrap 5 inspired, zero-dependency SVG component compiled standalone.
       </p>
@@ -1725,7 +2906,7 @@ export class App {
 
 bootstrapApplication(App).catch(err => console.error(err));`,
       'package.json': JSON.stringify({
-        name: `ngx-chart-${chartType.toLowerCase().replace(/[^a-z0-9]/g, '-')}-demo`,
+        name: `ngx-chart-${chartType.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-demo`,
         version: '1.0.0',
         private: true,
         dependencies: {
@@ -1736,6 +2917,7 @@ bootstrapApplication(App).catch(err => console.error(err));`,
           '@angular/platform-browser': '^19.2.0',
           '@angular/platform-browser-dynamic': '^19.2.0',
           '@angular/router': '^19.2.0',
+          'ngx-core-components': '^0.3.19',
           'rxjs': '~7.8.0',
           'zone.js': '~0.15.0',
           'tslib': '^2.3.0'
@@ -1873,11 +3055,26 @@ export function fmtNum(n: number): string {
     form.action = 'https://stackblitz.com/run';
     form.target = '_blank';
 
+    const dependencies = {
+      '@angular/common': '^19.2.0',
+      '@angular/compiler': '^19.2.0',
+      '@angular/core': '^19.2.0',
+      '@angular/forms': '^19.2.0',
+      '@angular/platform-browser': '^19.2.0',
+      '@angular/platform-browser-dynamic': '^19.2.0',
+      '@angular/router': '^19.2.0',
+      'ngx-core-components': '^0.3.19',
+      'rxjs': '~7.8.0',
+      'zone.js': '~0.15.0',
+      'tslib': '^2.3.0'
+    };
+
     const metadata = {
       title: `${chartType} Standalone Sandbox`,
       description: `Programmatic showcase of ${chartType} from ngx-core-components library.`,
       tags: 'angular,svg,charting,enterprise',
-      template: 'angular-cli'
+      template: 'angular-cli',
+      dependencies: JSON.stringify(dependencies)
     };
 
     for (const [key, value] of Object.entries(metadata)) {
@@ -1912,6 +3109,10 @@ export function fmtNum(n: number): string {
     { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show a color-coded legend below the chart.' },
     { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Custom color palette.' },
     { name: 'height', type: 'number', default: '260', description: 'Chart height in pixels.' },
+    { name: 'referenceLines', type: 'ReferenceLine[]', default: '[]', description: 'Enterprise feature: Draw horizontal helper lines with text annotations.' },
+    { name: 'labelFormatter', type: '(v: number) => string', default: 'undefined', description: 'Enterprise feature: Callback function to format data labels.' },
+    { name: 'tooltipTemplate', type: 'TemplateRef<any>', default: 'null', description: 'Enterprise feature: Custom projected template for custom HTML tooltips.' },
+    { name: 'barClick', type: 'OutputEmitter', default: '-', description: 'Enterprise feature: Output fired when a bar rect element is clicked.' }
   ];
 
   lineInputs: ApiRow[] = [
@@ -1923,6 +3124,11 @@ export function fmtNum(n: number): string {
     { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show series legend below the chart.' },
     { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Custom color palette.' },
     { name: 'height', type: 'number', default: '300', description: 'Chart height in pixels.' },
+    { name: 'showLabels', type: 'boolean', default: 'false', description: 'Show value labels above the line markers.' },
+    { name: 'referenceLines', type: 'ReferenceLine[]', default: '[]', description: 'Enterprise feature: Draw horizontal helper lines with text annotations.' },
+    { name: 'labelFormatter', type: '(v: number) => string', default: 'undefined', description: 'Enterprise feature: Callback function to format data labels.' },
+    { name: 'tooltipTemplate', type: 'TemplateRef<any>', default: 'null', description: 'Enterprise feature: Custom projected template for custom HTML tooltips.' },
+    { name: 'pointClick', type: 'OutputEmitter', default: '-', description: 'Enterprise feature: Output fired when a line point marker is clicked.' }
   ];
 
   areaInputs: ApiRow[] = [
@@ -2064,5 +3270,167 @@ export function fmtNum(n: number): string {
     { name: 'showLabels', type: 'boolean', default: 'true', description: 'Show label text inside the concentric rings.' },
     { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Custom color palette.' },
     { name: 'showExport', type: 'boolean', default: 'false', description: 'Enable file export dropdown menu (JSON, CSV, SVG).' }
+  ];
+
+  polarAreaInputs: ApiRow[] = [
+    { name: 'data', type: 'ChartDataPoint[]', default: '[]', description: 'Array of data points containing label, value, and optional color.' },
+    { name: 'height', type: 'number', default: '280', description: 'Height of the chart in pixels.' },
+    { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show color-coded legend below the chart.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Show value labels inside the slices.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Custom color palette.' },
+    { name: 'showExport', type: 'boolean', default: 'false', description: 'Enable data export options.' }
+  ];
+
+  bulletInputs: ApiRow[] = [
+    { name: 'value', type: 'number', default: '0', description: 'The actual measured value to display.' },
+    { name: 'target', type: 'number', default: '0', description: 'The target value threshold mark.' },
+    { name: 'max', type: 'number', default: '100', description: 'The maximum limit on the chart scale.' },
+    { name: 'ranges', type: 'number[]', default: '[50, 85, 100]', description: 'Boundaries for qualitative performance ranges.' },
+    { name: 'rangeColors', type: 'string[]', default: 'grey shades', description: 'List of color hexes for the qualitative range bars.' },
+    { name: 'valueColor', type: 'string', default: "'#4f46e5'", description: 'Color of the actual progress bar.' },
+    { name: 'targetColor', type: 'string', default: "'#ef4444'", description: 'Color of the vertical target marker line.' },
+    { name: 'height', type: 'number', default: '50', description: 'Height of the chart canvas.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Show numeric tick labels at the bottom.' }
+  ];
+
+  dumbbellInputs: ApiRow[] = [
+    { name: 'data', type: 'DumbbellItem[]', default: '[]', description: 'List of dumbbell items with start and end values.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Enable horizontal reference grids.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Display Y axis categories labels.' },
+    { name: 'startColor', type: 'string', default: "'#ef4444'", description: 'Color fill for start value endpoint circle.' },
+    { name: 'endColor', type: 'string', default: "'#10b981'", description: 'Color fill for end value endpoint circle.' },
+    { name: 'startLabel', type: 'string', default: "'Start'", description: 'Label name in the chart legend for start dots.' },
+    { name: 'endLabel', type: 'string', default: "'End'", description: 'Label name in the chart legend for end dots.' },
+    { name: 'showLegend', type: 'boolean', default: 'true', description: 'Enable legend display at the top.' }
+  ];
+
+  lollipopInputs: ApiRow[] = [
+    { name: 'data', type: 'ChartDataPoint[]', default: '[]', description: 'Dataset of items with labels and values.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Enable reference gridlines.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Display axis category labels.' },
+    { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation of the stems.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color palette for the lollipop candies.' },
+    { name: 'dotRadius', type: 'number', default: '8', description: 'Radius of the tip circle candy marker.' }
+  ];
+
+  slopeInputs: ApiRow[] = [
+    { name: 'data', type: 'SlopeDataPoint[]', default: '[]', description: 'Comparison values list for two-stage trajectory.' },
+    { name: 'startLabel', type: 'string', default: "'Before'", description: 'Header title of the left trajectory axis.' },
+    { name: 'endLabel', type: 'string', default: "'After'", description: 'Header title of the right trajectory axis.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Display outer category labels.' },
+    { name: 'showValues', type: 'boolean', default: 'true', description: 'Display inner value indicators next to dots.' }
+  ];
+
+  sankeyInputs: ApiRow[] = [
+    { name: 'nodes', type: 'SankeyNode[]', default: '[]', description: 'Topological node blocks definitions list.' },
+    { name: 'links', type: 'SankeyLink[]', default: '[]', description: 'Curved paths flows and values from source to target.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Display node text labels.' },
+    { name: 'showValues', type: 'boolean', default: 'true', description: 'Display flow values text inside labels.' },
+    { name: 'nodePadding', type: 'number', default: '16', description: 'Vertical padding spacing between node rectangles.' },
+    { name: 'nodeWidth', type: 'number', default: '20', description: 'Width thickness of the node block rectangles.' }
+  ];
+
+  violinInputs: ApiRow[] = [
+    { name: 'data', type: 'ViolinItem[]', default: '[]', description: 'Raw sample datasets for density estimation.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Render background horizontal reference lines.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Render category names under each column.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color palette sequence for violins.' }
+  ];
+
+  ridgelineInputs: ApiRow[] = [
+    { name: 'data', type: 'RidgelineItem[]', default: '[]', description: 'List of distribution data profiles.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Render background vertical reference lines.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Render label text on the left Y axis.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color palette sequence for ridge shapes.' },
+    { name: 'overlap', type: 'number', default: '1.6', description: 'Stack overlap scaling ratio factor.' }
+  ];
+
+  paretoInputs: ApiRow[] = [
+    { name: 'data', type: 'ParetoItem[]', default: '[]', description: 'Unsorted category counts or frequency data.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Render background horizontal reference lines.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Render category names under bars.' },
+    { name: 'barColor', type: 'string', default: "'#4a90d9'", description: 'Fill color of the sorted frequency bars.' },
+    { name: 'lineColor', type: 'string', default: "'#ff6358'", description: 'Color of cumulative percentage line.' }
+  ];
+
+  marimekkoInputs: ApiRow[] = [
+    { name: 'data', type: 'MarimekkoItem[]', default: '[]', description: 'Market segmentation and category share data.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Render background horizontal reference lines.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Render segment label names.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color palette sequence for grid rects.' }
+  ];
+
+  chordInputs: ApiRow[] = [
+    { name: 'matrix', type: 'number[][]', default: '[]', description: 'Flow weight square adjacency matrix.' },
+    { name: 'labels', type: 'string[]', default: '[]', description: 'Group names for circumference segments.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Render label text on circular border.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color palette sequence for chord nodes.' }
+  ];
+
+  dependencyInputs: ApiRow[] = [
+    { name: 'matrix', type: 'number[][]', default: '[]', description: 'Directed flow dependency square matrix.' },
+    { name: 'labels', type: 'string[]', default: '[]', description: 'Segment names on circumference.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Render label text on border.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color palette sequence for nodes.' }
+  ];
+
+  matrixInputs: ApiRow[] = [
+    { name: 'matrix', type: 'number[][]', default: '[]', description: 'Adjacency matrix connection weight grid.' },
+    { name: 'labels', type: 'string[]', default: '[]', description: 'Node label list for row/col axes.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Display labels on axes.' },
+    { name: 'color', type: 'string', default: 'CHART_COLORS[0]', description: 'Base cell shading color.' }
+  ];
+
+  biplotInputs: ApiRow[] = [
+    { name: 'points', type: 'BiplotPoint[]', default: '[]', description: 'PCA observation coordinates and groups.' },
+    { name: 'vectors', type: 'BiplotVector[]', default: '[]', description: 'Feature load vectors pointing from center.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'showLabels', type: 'boolean', default: 'true', description: 'Display observation point labels.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color palette for groups.' }
+  ];
+
+  renkoInputs: ApiRow[] = [
+    { name: 'data', type: 'number[]', default: '[]', description: 'Close prices historical array series.' },
+    { name: 'boxSize', type: 'number', default: '5', description: 'Required price movement to draw a brick.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Display horizontal reference grids.' },
+    { name: 'bullishColor', type: 'string', default: '"#10b981"', description: 'Color for rising price bricks.' },
+    { name: 'bearishColor', type: 'string', default: '"#ef4444"', description: 'Color for falling price bricks.' }
+  ];
+
+  kagiInputs: ApiRow[] = [
+    { name: 'data', type: 'number[]', default: '[]', description: 'Close prices historical array series.' },
+    { name: 'reversalAmount', type: 'number', default: '15', description: 'Price movement required to switch trend.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Display horizontal reference grids.' },
+    { name: 'bullishColor', type: 'string', default: '"#10b981"', description: 'Color for Yang (bullish) lines.' },
+    { name: 'bearishColor', type: 'string', default: '"#ef4444"', description: 'Color for Yin (bearish) lines.' }
+  ];
+
+  pfInputs: ApiRow[] = [
+    { name: 'data', type: 'number[]', default: '[]', description: 'Price series history array.' },
+    { name: 'boxSize', type: 'number', default: '4', description: 'The price span per grid box unit.' },
+    { name: 'reversal', type: 'number', default: '3', description: 'Number of boxes needed to trigger a reversal column.' },
+    { name: 'height', type: 'number', default: '350', description: 'Total height of the chart canvas.' },
+    { name: 'showGrid', type: 'boolean', default: 'true', description: 'Render background horizontal price ranges.' },
+    { name: 'xColor', type: 'string', default: '"#10b981"', description: 'Color of rise indicator X shapes.' },
+    { name: 'oColor', type: 'string', default: '"#ef4444"', description: 'Color of fall indicator O shapes.' }
+  ];
+
+  windRoseInputs: ApiRow[] = [
+    { name: 'data', type: 'WindRoseItem[]', default: '[]', description: 'Speed frequency distributions grouped by direction.' },
+    { name: 'height', type: 'number', default: '400', description: 'Total height of the chart canvas.' },
+    { name: 'colors', type: 'string[]', default: 'CHART_COLORS', description: 'Color sequence for speed range bins.' }
   ];
 }

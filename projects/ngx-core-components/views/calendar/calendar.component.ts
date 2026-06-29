@@ -20,6 +20,10 @@ export interface CalendarCell {
   isSelected: boolean;
   isFocused: boolean;
   events: CalendarEvent[];
+  isRangeStart?: boolean;
+  isRangeEnd?: boolean;
+  isInRange?: boolean;
+  isDisabled?: boolean;
 }
 
 @Component({
@@ -36,112 +40,217 @@ export interface CalendarCell {
       <!-- HEADER -->
       <div class="ngx-calendar-header">
         <h2 class="ngx-calendar-title" aria-live="polite">
-          {{ monthLabel() }}
+          @if (currentView() === 'month') {
+            <button class="ngx-calendar-title-link" (click)="setView('month-picker')" type="button">
+              {{ monthLabel() }}
+            </button>
+          } @else if (currentView() === 'month-picker') {
+            <button class="ngx-calendar-title-link" (click)="setView('year-picker')" type="button">
+              {{ activeMonthDate().getFullYear() }}
+            </button>
+          } @else {
+            <span class="ngx-calendar-title-static">
+              Select Year
+            </span>
+          }
         </h2>
         <div class="ngx-calendar-actions">
-          <button
-            class="ngx-cal-btn prev-btn"
-            (click)="prevMonth()"
-            type="button"
-            aria-label="Previous Month"
-          >
-            ‹
-          </button>
-          <button
-            class="ngx-cal-btn today-btn"
-            (click)="goToToday()"
-            type="button"
-            aria-label="Go to Today"
-          >
-            Today
-          </button>
-          <button
-            class="ngx-cal-btn next-btn"
-            (click)="nextMonth()"
-            type="button"
-            aria-label="Next Month"
-          >
-            ›
-          </button>
+          @if (currentView() === 'month') {
+            <button
+              class="ngx-cal-btn prev-btn"
+              (click)="prevMonth()"
+              type="button"
+              aria-label="Previous Month"
+            >
+              ‹
+            </button>
+            <button
+              class="ngx-cal-btn today-btn"
+              (click)="goToToday()"
+              type="button"
+              aria-label="Go to Today"
+            >
+              Today
+            </button>
+            <button
+              class="ngx-cal-btn next-btn"
+              (click)="nextMonth()"
+              type="button"
+              aria-label="Next Month"
+            >
+              ›
+            </button>
+          } @else if (currentView() === 'month-picker') {
+            <button
+              class="ngx-cal-btn prev-btn"
+              (click)="changeYear(-1)"
+              type="button"
+              aria-label="Previous Year"
+            >
+              ‹
+            </button>
+            <button
+              class="ngx-cal-btn back-btn"
+              (click)="setView('month')"
+              type="button"
+            >
+              Back
+            </button>
+            <button
+              class="ngx-cal-btn next-btn"
+              (click)="changeYear(1)"
+              type="button"
+              aria-label="Next Year"
+            >
+              ›
+            </button>
+          } @else {
+            <button
+              class="ngx-cal-btn prev-btn"
+              (click)="changeYearRange(-12)"
+              type="button"
+              aria-label="Previous Years"
+            >
+              ‹
+            </button>
+            <button
+              class="ngx-cal-btn back-btn"
+              (click)="setView('month-picker')"
+              type="button"
+            >
+              Back
+            </button>
+            <button
+              class="ngx-cal-btn next-btn"
+              (click)="changeYearRange(12)"
+              type="button"
+              aria-label="Next Years"
+            >
+              ›
+            </button>
+          }
         </div>
       </div>
 
-      <!-- GRID -->
-      <div
-        class="ngx-calendar-grid"
-        role="grid"
-        [attr.aria-label]="monthLabel()"
-      >
-        <!-- WEEKDAYS HEADER -->
-        <div class="ngx-calendar-row weekdays-row" role="row">
-          @for (day of weekDays(); track day) {
-            <div
-              class="ngx-calendar-weekday"
-              role="columnheader"
-              [attr.aria-label]="day"
-            >
-              {{ day.slice(0, 3) }}
-            </div>
-          }
-        </div>
-
-        <!-- DAYS GRID -->
-        <div class="ngx-calendar-body">
-          @for (row of gridRows(); track $index) {
-            <div class="ngx-calendar-row" role="row">
-              @for (cell of row; track cell.date.getTime()) {
+      <!-- MAIN VIEW AREA -->
+      <div class="ngx-calendar-view-area">
+        <!-- MONTH VIEW (GRID) -->
+        @if (currentView() === 'month') {
+          <div
+            class="ngx-calendar-grid"
+            role="grid"
+            [attr.aria-label]="monthLabel()"
+          >
+            <!-- WEEKDAYS HEADER -->
+            <div class="ngx-calendar-row weekdays-row" role="row">
+              @for (day of weekDays(); track day) {
                 <div
-                  #cellEl
-                  class="ngx-calendar-cell"
-                  [class.current-month]="cell.isCurrentMonth"
-                  [class.other-month]="!cell.isCurrentMonth"
-                  [class.today]="cell.isToday"
-                  [class.selected]="cell.isSelected"
-                  [class.focused]="cell.isFocused"
-                  [class.has-events]="cell.events.length > 0"
-                  role="gridcell"
-                  [attr.aria-selected]="cell.isSelected"
-                  [attr.aria-label]="cell.date | date:'longDate'"
-                  [attr.tabindex]="cell.isFocused && !readonly() ? '0' : '-1'"
-                  (click)="selectCell(cell)"
-                  (keydown)="onCellKeyDown($event, cell)"
+                  class="ngx-calendar-weekday"
+                  role="columnheader"
+                  [attr.aria-label]="day"
                 >
-                  <!-- Cell Header (Day Number) -->
-                  <div class="cell-header">
-                    <span class="day-number">{{ cell.dayNumber }}</span>
-                    @if (cell.isToday) {
-                      <span class="today-indicator" aria-hidden="true"></span>
-                    }
-                  </div>
-
-                  <!-- Events List or Custom Day Template -->
-                  <div class="cell-content">
-                    @if (dayTemplate()) {
-                      <ng-container
-                        *ngTemplateOutlet="dayTemplate()!; context: { $implicit: cell.date, events: cell.events }"
-                      ></ng-container>
-                    } @else {
-                      @for (event of cell.events.slice(0, 3); track event.title) {
-                        <div
-                          class="calendar-event-pill"
-                          [style.border-left-color]="event.color || '#4f46e5'"
-                          [attr.title]="event.title + (event.description ? ': ' + event.description : '')"
-                        >
-                          {{ event.title }}
-                        </div>
-                      }
-                      @if (cell.events.length > 3) {
-                        <div class="events-overflow-indicator">
-                          +{{ cell.events.length - 3 }} more
-                        </div>
-                      }
-                    }
-                  </div>
+                  {{ day.slice(0, 3) }}
                 </div>
               }
             </div>
-          }
-        </div>
+
+            <!-- DAYS GRID -->
+            <div class="ngx-calendar-body">
+              @for (row of gridRows(); track $index) {
+                <div class="ngx-calendar-row" role="row">
+                  @for (cell of row; track cell.date.getTime()) {
+                    <div
+                      #cellEl
+                      class="ngx-calendar-cell"
+                      [class.current-month]="cell.isCurrentMonth"
+                      [class.other-month]="!cell.isCurrentMonth"
+                      [class.today]="cell.isToday"
+                      [class.selected]="cell.isSelected"
+                      [class.focused]="cell.isFocused"
+                      [class.has-events]="cell.events.length > 0"
+                      [class.range-start]="cell.isRangeStart"
+                      [class.range-end]="cell.isRangeEnd"
+                      [class.in-range]="cell.isInRange"
+                      [class.disabled]="cell.isDisabled"
+                      role="gridcell"
+                      [attr.aria-selected]="cell.isSelected"
+                      [attr.aria-disabled]="cell.isDisabled"
+                      [attr.aria-label]="cell.date | date:'longDate'"
+                      [attr.tabindex]="cell.isFocused && !readonly() && !cell.isDisabled ? '0' : '-1'"
+                      (click)="selectCell(cell)"
+                      (keydown)="onCellKeyDown($event, cell)"
+                    >
+                      <!-- Cell Header (Day Number) -->
+                      <div class="cell-header">
+                        <span class="day-number">{{ cell.dayNumber }}</span>
+                        @if (cell.isToday) {
+                          <span class="today-indicator" aria-hidden="true"></span>
+                        }
+                      </div>
+
+                      <!-- Events List or Custom Day Template -->
+                      <div class="cell-content">
+                        @if (dayTemplate()) {
+                          <ng-container
+                            *ngTemplateOutlet="dayTemplate()!; context: { $implicit: cell.date, events: cell.events }"
+                          ></ng-container>
+                        } @else {
+                          @for (event of cell.events.slice(0, 3); track event.title) {
+                            <div
+                              class="calendar-event-pill"
+                              [style.border-left-color]="event.color || '#4f46e5'"
+                              [attr.title]="event.title + (event.description ? ': ' + event.description : '')"
+                              (click)="onEventClick($event, event)"
+                            >
+                              {{ event.title }}
+                            </div>
+                          }
+                          @if (cell.events.length > 3) {
+                            <div class="events-overflow-indicator">
+                              +{{ cell.events.length - 3 }} more
+                            </div>
+                          }
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- MONTH PICKER GRID -->
+        @if (currentView() === 'month-picker') {
+          <div class="ngx-calendar-picker-grid month-picker-grid">
+            @for (month of monthsList(); track $index) {
+              <button
+                class="ngx-picker-item"
+                [class.active]="isCurrentActiveMonth($index)"
+                (click)="selectMonth($index)"
+                type="button"
+              >
+                {{ month.slice(0, 3) }}
+              </button>
+            }
+          </div>
+        }
+
+        <!-- YEAR PICKER GRID -->
+        @if (currentView() === 'year-picker') {
+          <div class="ngx-calendar-picker-grid year-picker-grid">
+            @for (year of yearPickerYears(); track year) {
+              <button
+                class="ngx-picker-item"
+                [class.active]="isCurrentActiveYear(year)"
+                (click)="selectYear(year)"
+                type="button"
+              >
+                {{ year }}
+              </button>
+            }
+          </div>
+        }
       </div>
     </div>
   `,
@@ -214,6 +323,30 @@ export interface CalendarCell {
       letter-spacing: -0.3px;
     }
 
+    .ngx-calendar-title-link {
+      background: none;
+      border: none;
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .ngx-calendar-title-link:hover {
+      color: var(--ngx-calendar-active-color);
+    }
+
+    .ngx-calendar-title-static {
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+
     .ngx-calendar-actions {
       display: flex;
       align-items: center;
@@ -247,6 +380,13 @@ export interface CalendarCell {
       width: 32px;
       height: 32px;
       padding: 0;
+    }
+
+    /* VIEW AREA */
+    .ngx-calendar-view-area {
+      position: relative;
+      width: 100%;
+      background: var(--ngx-calendar-bg);
     }
 
     /* GRID */
@@ -315,7 +455,7 @@ export interface CalendarCell {
       opacity: 0.6;
     }
 
-    .ngx-calendar-cell:not(.selected):hover {
+    .ngx-calendar-cell:not(.selected):not(.disabled):hover {
       background: var(--ngx-calendar-hover-bg);
       cursor: pointer;
     }
@@ -342,6 +482,54 @@ export interface CalendarCell {
     .ngx-calendar-cell.focused:focus-visible {
       box-shadow: var(--ngx-calendar-focus-shadow);
       border-color: var(--ngx-calendar-active-color);
+    }
+
+    /* Range Selection CSS */
+    .ngx-calendar-cell.in-range {
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-end {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 8px 0 0 8px;
+      pointer-events: none;
+    }
+
+    .ngx-calendar-cell.range-end::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 0 8px 8px 0;
+      pointer-events: none;
+    }
+
+    /* Disabled Cell CSS */
+    .ngx-calendar-cell.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      background: var(--ngx-calendar-cell-other-bg);
+      cursor: not-allowed;
+    }
+
+    .ngx-calendar-cell.disabled .day-number {
+      text-decoration: line-through;
+      color: var(--ngx-calendar-text-muted);
     }
 
     .cell-header {
@@ -413,6 +601,49 @@ export interface CalendarCell {
       margin-top: 2px;
     }
 
+    /* PICKER GRID */
+    .ngx-calendar-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 24px;
+      background: var(--ngx-calendar-bg);
+      animation: view-fade-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes view-fade-in {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ngx-picker-item {
+      background: var(--ngx-calendar-bg);
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 8px;
+      color: var(--ngx-calendar-text);
+      padding: 16px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ngx-picker-item:hover {
+      background: var(--ngx-calendar-hover-bg);
+      border-color: var(--ngx-calendar-active-color);
+      color: var(--ngx-calendar-active-color);
+      transform: translateY(-1px);
+    }
+
+    .ngx-picker-item.active {
+      background: var(--ngx-calendar-active-color);
+      color: #ffffff;
+      border-color: var(--ngx-calendar-active-color);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+
     @keyframes select-pulse {
       0% { transform: scale(0.98); opacity: 0.7; }
       100% { transform: scale(1); opacity: 1; }
@@ -424,7 +655,7 @@ export interface CalendarCell {
         padding: 4px;
       }
       .calendar-event-pill {
-        display: none; /* Only show dots or just day number on small screens */
+        display: none;
       }
       .ngx-calendar-cell.has-events::after {
         content: '•';
@@ -435,13 +666,21 @@ export interface CalendarCell {
         color: var(--ngx-calendar-active-color);
         font-size: 16px;
       }
+      .ngx-calendar-picker-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   `]
 })
 export class CalendarComponent {
   value = model<Date | null>(null);
+  rangeStart = model<Date | null>(null);
+  rangeEnd = model<Date | null>(null);
   events = input<CalendarEvent[]>([]);
   readonly = input(false);
+  selectionMode = input<'single' | 'range'>('single');
+  min = input<Date | string | null>(null);
+  max = input<Date | string | null>(null);
 
   // Content Projection for custom cell
   @ContentChild('dayTemplate') dayTemplateSignal?: TemplateRef<{ $implicit: Date, events: CalendarEvent[] }>;
@@ -450,12 +689,21 @@ export class CalendarComponent {
 
   activeMonthDate = signal<Date>(new Date());
   focusedDate = signal<Date>(new Date());
+  currentView = signal<'month' | 'month-picker' | 'year-picker'>('month');
+  yearPickerStart = signal<number>(new Date().getFullYear() - 5);
 
   dateSelect = output<Date>();
+  rangeSelect = output<{ start: Date | null; end: Date | null }>();
   monthChange = output<{ year: number; month: number }>();
+  eventClick = output<CalendarEvent>();
 
   weekDays = signal<string[]>([
     'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+  ]);
+
+  monthsList = signal<string[]>([
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
   ]);
 
   @ViewChildren('cellEl') cellElements!: QueryList<ElementRef<HTMLDivElement>>;
@@ -465,6 +713,11 @@ export class CalendarComponent {
       month: 'long',
       year: 'numeric'
     });
+  });
+
+  yearPickerYears = computed(() => {
+    const start = this.yearPickerStart();
+    return Array.from({ length: 12 }, (_, i) => start + i);
   });
 
   // Flat 42 cell list computed signal
@@ -481,25 +734,27 @@ export class CalendarComponent {
     const cells: CalendarCell[] = [];
     const selectedVal = this.value();
     const focusedVal = this.focusedDate();
+    const rangeStartVal = this.rangeStart();
+    const rangeEndVal = this.rangeEnd();
 
     // Previous month cells
     for (let i = startDayOfWeek - 1; i >= 0; i--) {
       const day = prevMonthTotalDays - i;
       const date = new Date(year, month - 1, day);
-      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal));
+      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
     }
 
     // Current month cells
     for (let day = 1; day <= totalDays; day++) {
       const date = new Date(year, month, day);
-      cells.push(this.createCellObj(date, day, true, selectedVal, focusedVal));
+      cells.push(this.createCellObj(date, day, true, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
     }
 
     // Next month cells
     const remainingCells = 42 - cells.length;
     for (let day = 1; day <= remainingCells; day++) {
       const date = new Date(year, month + 1, day);
-      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal));
+      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
     }
 
     return cells;
@@ -520,16 +775,29 @@ export class CalendarComponent {
     dayNumber: number,
     isCurrentMonth: boolean,
     selectedVal: Date | null,
-    focusedVal: Date
+    focusedVal: Date,
+    rangeStartVal: Date | null,
+    rangeEndVal: Date | null
   ): CalendarCell {
+    const isRangeStart = rangeStartVal ? this.isSameDay(date, rangeStartVal) : false;
+    const isRangeEnd = rangeEndVal ? this.isSameDay(date, rangeEndVal) : false;
+    const isInRange = rangeStartVal && rangeEndVal && date >= rangeStartVal && date <= rangeEndVal;
+    const isDisabled = this.isDateDisabled(date);
+
     return {
       date,
       dayNumber,
       isCurrentMonth,
       isToday: this.isSameDay(date, new Date()),
-      isSelected: selectedVal ? this.isSameDay(date, selectedVal) : false,
+      isSelected: this.selectionMode() === 'range'
+        ? (isRangeStart || isRangeEnd)
+        : (selectedVal ? this.isSameDay(date, selectedVal) : false),
       isFocused: this.isSameDay(date, focusedVal),
-      events: this.getEventsForDate(date)
+      events: this.getEventsForDate(date),
+      isRangeStart,
+      isRangeEnd,
+      isInRange: !!isInRange,
+      isDisabled
     };
   }
 
@@ -539,6 +807,26 @@ export class CalendarComponent {
       d1.getMonth() === d2.getMonth() &&
       d1.getDate() === d2.getDate()
     );
+  }
+
+  private isDateDisabled(date: Date): boolean {
+    const minVal = this.min();
+    const maxVal = this.max();
+    
+    // Reset times for exact day comparisons
+    const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    if (minVal) {
+      const minDate = typeof minVal === 'string' ? new Date(minVal) : minVal;
+      const minCheck = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+      if (checkDate < minCheck) return true;
+    }
+    if (maxVal) {
+      const maxDate = typeof maxVal === 'string' ? new Date(maxVal) : maxVal;
+      const maxCheck = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
+      if (checkDate > maxCheck) return true;
+    }
+    return false;
   }
 
   private getEventsForDate(date: Date): CalendarEvent[] {
@@ -574,10 +862,33 @@ export class CalendarComponent {
   }
 
   selectCell(cell: CalendarCell): void {
-    if (this.readonly()) return;
-    this.value.set(cell.date);
+    if (this.readonly() || cell.isDisabled) return;
+
+    if (this.selectionMode() === 'range') {
+      const clickedDate = cell.date;
+      const start = this.rangeStart();
+      const end = this.rangeEnd();
+
+      if (!start || (start && end)) {
+        this.rangeStart.set(clickedDate);
+        this.rangeEnd.set(null);
+        this.rangeSelect.emit({ start: clickedDate, end: null });
+      } else {
+        if (clickedDate < start) {
+          this.rangeStart.set(clickedDate);
+          this.rangeEnd.set(start);
+          this.rangeSelect.emit({ start: clickedDate, end: start });
+        } else {
+          this.rangeEnd.set(clickedDate);
+          this.rangeSelect.emit({ start, end: clickedDate });
+        }
+      }
+    } else {
+      this.value.set(cell.date);
+      this.dateSelect.emit(cell.date);
+    }
+
     this.focusedDate.set(cell.date);
-    this.dateSelect.emit(cell.date);
 
     // If clicked other month day, snap page view
     if (!cell.isCurrentMonth) {
@@ -594,9 +905,61 @@ export class CalendarComponent {
     });
   }
 
+  setView(view: 'month' | 'month-picker' | 'year-picker'): void {
+    this.currentView.set(view);
+    if (view === 'year-picker') {
+      const year = this.activeMonthDate().getFullYear();
+      this.yearPickerStart.set(year - 5);
+    }
+  }
+
+  isCurrentActiveMonth(monthIdx: number): boolean {
+    return this.activeMonthDate().getMonth() === monthIdx;
+  }
+
+  isCurrentActiveYear(year: number): boolean {
+    return this.activeMonthDate().getFullYear() === year;
+  }
+
+  selectMonth(monthIdx: number): void {
+    const current = this.activeMonthDate();
+    const updated = new Date(current.getFullYear(), monthIdx, 1);
+    this.activeMonthDate.set(updated);
+    this.focusedDate.set(updated);
+    this.setView('month');
+    this.emitMonthChange();
+  }
+
+  selectYear(year: number): void {
+    const current = this.activeMonthDate();
+    const updated = new Date(year, current.getMonth(), 1);
+    this.activeMonthDate.set(updated);
+    this.focusedDate.set(updated);
+    this.setView('month-picker');
+    this.emitMonthChange();
+  }
+
+  changeYear(delta: number): void {
+    const current = this.activeMonthDate();
+    const updated = new Date(current.getFullYear() + delta, current.getMonth(), 1);
+    this.activeMonthDate.set(updated);
+    this.focusedDate.set(updated);
+    this.emitMonthChange();
+  }
+
+  changeYearRange(delta: number): void {
+    this.yearPickerStart.update(start => start + delta);
+  }
+
+  onEventClick(event: MouseEvent, calEvent: CalendarEvent): void {
+    event.stopPropagation();
+    if (this.readonly()) return;
+    this.eventClick.emit(calEvent);
+  }
+
   // Keyboard navigation
   onCellKeyDown(event: KeyboardEvent, cell: CalendarCell): void {
-    if (this.readonly()) return;
+    if (this.readonly() || cell.isDisabled) return;
 
     let handled = false;
     const currentFocus = new Date(this.focusedDate());
@@ -627,6 +990,12 @@ export class CalendarComponent {
 
     if (handled) {
       event.preventDefault();
+      
+      // Prevent moving focus to a disabled date
+      if (this.isDateDisabled(currentFocus)) {
+        return;
+      }
+
       this.focusedDate.set(currentFocus);
 
       // Check if we navigated to a date outside the current active month, and auto-snap activeMonth

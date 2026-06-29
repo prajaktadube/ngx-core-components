@@ -5,6 +5,9 @@ import {
   output,
   signal,
   computed,
+  ElementRef,
+  inject,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -206,6 +209,8 @@ import { FormsModule } from '@angular/forms';
   `],
 })
 export class TagInputComponent {
+  private elementRef = inject(ElementRef);
+
   // ── Inputs ──
   tags            = input<string[]>([]);
   placeholder     = input<string>('Add tag...');
@@ -226,13 +231,18 @@ export class TagInputComponent {
 
   isAtMax = computed(() => this.internalTags().length >= this.maxTags());
 
+  private syncTags = effect(() => {
+    const initial = this.tags();
+    this.internalTags.set(initial ? [...initial] : []);
+  });
+
   /** Native input element reference (grabbed via ViewChild-less approach via the template variable). */
   private _inputEl: HTMLInputElement | null = null;
 
   focusInput(): void {
     if (this.disabled() || this.isAtMax()) return;
-    // Query the rendered input inside the host
-    const input = document.querySelector('ngx-tag-input .ngx-tag-input__field') as HTMLInputElement;
+    // Query the rendered input inside this host element
+    const input = this.elementRef.nativeElement.querySelector('.ngx-tag-input__field') as HTMLInputElement;
     input?.focus();
   }
 
