@@ -1,12 +1,21 @@
 # ngx-core-components
 
-> Angular 19+ component library — production-ready UI components built with signals, OnPush change detection, and zero runtime dependencies.
+> Angular 19+ component library — **100+ production-ready UI components** built with signals, OnPush change detection, and zero runtime dependencies.
 
 [![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
 [![CI](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml/badge.svg)](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/ngx-core-components)](https://bundlephobia.com/package/ngx-core-components)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![StackBlitz](https://img.shields.io/badge/StackBlitz-Try_It_Live-blue?logo=stackblitz)](https://stackblitz.com/github/prajaktadube/ngx-core-components?file=projects%2Fdemo%2Fsrc%2Fapp%2Fapp.component.ts)
+
+## ✨ Highlights
+
+- **100+ components** — Charts, Data Grid, Gantt, Kanban, AI Chat, Scheduler, and more
+- **Zero runtime dependencies** — Pure SVG charts, no D3 or Chart.js required
+- **Signals-first** — Built entirely with `input()`, `output()`, `signal()`, `computed()`
+- **Tree-shakable** — 12 secondary entry points, import only what you need
+- **Themeable** — CSS custom properties (design tokens) with light/dark mode
+- **Angular 19–21** — Supports current and next Angular versions
 
 ## 🚀 Live Demo
 
@@ -18,7 +27,7 @@ Browse every component interactively — no install required.
 
 ## 📖 Documentation
 
-The complete, detailed API Reference tables (Inputs, Outputs, Methods, Interfaces) and "How to Use" guides for all 30+ components are available in the **[ngx-core-components Library README](projects/ngx-core-components/README.md)**.
+The complete, detailed API Reference tables (Inputs, Outputs, Methods, Interfaces) and "How to Use" guides for all 100+ components are available in the **[ngx-core-components Library README](projects/ngx-core-components/README.md)**.
 
 ---
 
@@ -33,12 +42,20 @@ npm install ngx-core-components
 | Entry point | Components |
 |---|---|
 | `ngx-core-components` | Re-exports everything below |
-| `ngx-core-components/inputs` | Textbox, Dropdown, Multi-select, Autocomplete, Checkbox, Radio, Date Picker |
-| `ngx-core-components/charts` | Gantt Chart, Bar Chart, Line Chart, Pie Chart, Sparkline |
+| `ngx-core-components/charts` | 35+ chart types: Bar, Line, Pie, Area, Gantt, Gauge, Radar, Heatmap, Treemap, Sankey, Violin, Candlestick, Waterfall, Box Plot, Sunburst, and more |
+| `ngx-core-components/inputs` | Textbox, Dropdown, Multi-select, Autocomplete, Checkbox, Radio, Date Picker, Date Range Picker, Time Picker, Slider, Switch, Rating, Numeric Textbox, Color Picker, File Upload, Tag Input, Signature Pad, Form Builder |
+| `ngx-core-components/grid` | Data Grid (sort, filter, group, paginate, inline edit, export) + Pivot Grid |
+| `ngx-core-components/views` | Tree View, List View, Kanban, Timeline, Scheduler, Virtual List, Org Chart, JSON Viewer, Calendar, Image Compare, Key-Value List |
+| `ngx-core-components/layout` | Card, Tab Strip, Accordion, Stepper, Splitter, Dashboard Layout, Carousel, Drawer |
+| `ngx-core-components/buttons` | Button, Button Group, Chip/Chip List, Split Button, Dropdown Button, Speed Dial |
+| `ngx-core-components/feedback` | Badge, Progress Bar, Skeleton, Notification, Alert, Avatar/Avatar Group, Stat Card, Countdown, Empty State |
+| `ngx-core-components/navigation` | Breadcrumb, Menu, Command Palette, Context Menu, Back-to-Top |
 | `ngx-core-components/dialog` | Dialog service + container |
-| `ngx-core-components/grid` | Data Grid |
+| `ngx-core-components/ai` | AI Chat, AI Chat Widget, AI Prompt Editor, AI Code Editor, AI Audio Wave, AI Model Compare, AI RAG Inspector |
+| `ngx-core-components/barcodes` | QR Code, Barcode |
 
 All components are **standalone** (no NgModules), use **Angular Signals**, and have **OnPush** change detection.
+
 
 ## Quick Start
 

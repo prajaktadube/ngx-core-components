@@ -19,127 +19,49 @@ import {
   QueryList,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
+import { GridExportService } from './grid-export.service';
 
-export interface GridColumnDef<T = Record<string, unknown>> {
-  field: string;
-  title: string;
-  width?: number;
-  sortable?: boolean;
-  filterable?: boolean;
-  groupable?: boolean;
-  editable?: boolean;
-  align?: 'left' | 'center' | 'right';
-  headerTemplate?: TemplateRef<GridHeaderTemplateContext<T>>;
-  cellTemplate?: TemplateRef<GridCellTemplateContext<T>>;
-  editCellTemplate?: TemplateRef<GridCellTemplateContext<T>>;
-  footerTemplate?: TemplateRef<GridFooterTemplateContext<T>>;
-  aggregation?: 'sum' | 'avg' | 'count' | 'min' | 'max';
-  pinned?: 'left' | 'right' | null;
-  hidden?: boolean;
-  category?: string;
-  mergeRows?: boolean;
-}
+// Re-export all model types so existing imports from this file continue to work
+export type {
+  GridColumnDef,
+  GridSortState,
+  GridFilterState,
+  GridGroupState,
+  GridPageChangeEvent,
+  GridSortChangeEvent,
+  GridFilterChangeEvent,
+  GridGroupChangeEvent,
+  GridDataStateChangeEvent,
+  GridRowClickEvent,
+  GridRowUpdateEvent,
+  GridGroupResult,
+  GridHeaderTemplateContext,
+  GridCellTemplateContext,
+  GridRowTemplateContext,
+  GridDetailTemplateContext,
+  GridFooterTemplateContext,
+} from './models';
 
-export interface GridSortState {
-  field: string;
-  dir: 'asc' | 'desc';
-}
-
-export interface GridFilterState {
-  field: string;
-  value: string;
-  operator?: 'contains' | 'startsWith' | 'endsWith' | 'eq' | 'in';
-  selectedValues?: string[];
-}
-
-export interface GridGroupState {
-  field: string;
-  dir?: 'asc' | 'desc';
-}
-
-export interface GridPageChangeEvent {
-  page: number;
-  pageSize: number;
-}
-
-export interface GridSortChangeEvent {
-  sort: GridSortState | null;
-}
-
-export interface GridFilterChangeEvent {
-  filters: GridFilterState[];
-}
-
-export interface GridGroupChangeEvent {
-  group: GridGroupState | null;
-}
-
-export interface GridDataStateChangeEvent {
-  page: number;
-  pageSize: number;
-  sort: GridSortState | null;
-  filters: GridFilterState[];
-  group: GridGroupState | null;
-}
-
-export interface GridRowClickEvent<T = Record<string, unknown>> {
-  row: T;
-  index: number;
-}
-
-export interface GridRowUpdateEvent<T = Record<string, unknown>> {
-  previous: T;
-  updated: T;
-  index: number;
-}
-
-export interface GridGroupResult<T = Record<string, unknown>> {
-  key: string;
-  value: unknown;
-  field: string;
-  count: number;
-  items: T[];
-}
-
-export interface GridHeaderTemplateContext<T = Record<string, unknown>> {
-  $implicit: GridColumnDef<T>;
-  column: GridColumnDef<T>;
-  sort: GridSortState | null;
-  filters: GridFilterState[];
-  isServerMode: boolean;
-}
-
-export interface GridCellTemplateContext<T = Record<string, unknown>> {
-  $implicit: unknown;
-  value: unknown;
-  row: T;
-  column: GridColumnDef<T>;
-  index: number;
-  editing: boolean;
-  draftValue?: unknown;
-  updateDraft?: (val: unknown) => void;
-}
-
-export interface GridRowTemplateContext<T = Record<string, unknown>> {
-  $implicit: T;
-  row: T;
-  index: number;
-  editing: boolean;
-  expanded: boolean;
-}
-
-export interface GridDetailTemplateContext<T = Record<string, unknown>> {
-  $implicit: T;
-  row: T;
-  index: number;
-}
-
-export interface GridFooterTemplateContext<T = Record<string, unknown>> {
-  $implicit: GridColumnDef<T>;
-  column: GridColumnDef<T>;
-  aggregationValue: string;
-  data: T[];
-}
+import type {
+  GridColumnDef,
+  GridSortState,
+  GridFilterState,
+  GridGroupState,
+  GridPageChangeEvent,
+  GridSortChangeEvent,
+  GridFilterChangeEvent,
+  GridGroupChangeEvent,
+  GridDataStateChangeEvent,
+  GridRowClickEvent,
+  GridRowUpdateEvent,
+  GridGroupResult,
+  GridHeaderTemplateContext,
+  GridCellTemplateContext,
+  GridRowTemplateContext,
+  GridDetailTemplateContext,
+  GridFooterTemplateContext,
+} from './models';
 
 @Directive({
   selector: '[ngxGridCellTemplate]',
@@ -374,7 +296,7 @@ export class NgxGridFooterTemplateDirective {
               </tr>
             } @else if (flatRenderedRows().length === 0 && groupedRows().length === 0) {
               <tr>
-                <td [attr.colspan]="renderColumnCount()" class="grid-empty-cell">No data found.</td>
+                <td [attr.colspan]="renderColumnCount()" class="grid-empty-cell">{{ i18n.grid.noData }}</td>
               </tr>
             } @else if (groupedRows().length > 0) {
               @for (group of groupedRows(); track group.key) {
@@ -785,10 +707,10 @@ export class NgxGridFooterTemplateDirective {
         <div class="grid-pagination">
           <div class="pagination-left">
             <span class="page-info">
-              Showing <strong class="page-info-highlight">{{ pagerRangeStart() }}–{{ pagerRangeEnd() }}</strong> of <strong class="page-info-highlight">{{ totalItems() }}</strong> items
+              {{ i18n.pagination.page }} <strong class="page-info-highlight">{{ pagerRangeStart() }}–{{ pagerRangeEnd() }}</strong> {{ i18n.pagination.of }} <strong class="page-info-highlight">{{ totalItems() }}</strong>
             </span>
             <div class="page-size-selector">
-              <span class="page-size-label">Items per page:</span>
+              <span class="page-size-label">{{ i18n.pagination.itemsPerPage }}:</span>
               <select [value]="internalPageSize()" (change)="changePageSize(+$any($event.target).value)" class="page-size-select">
                 <option [value]="5">5</option>
                 <option [value]="8">8</option>
@@ -800,13 +722,13 @@ export class NgxGridFooterTemplateDirective {
             </div>
           </div>
           <div class="page-btns">
-            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(1)" title="First Page">
+            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(1)" [title]="i18n.pagination.firstPage">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="11 17 6 12 11 7"></polyline>
                 <polyline points="18 17 13 12 18 7"></polyline>
               </svg>
             </button>
-            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(currentPage() - 1)" title="Previous Page">
+            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(currentPage() - 1)" [title]="i18n.pagination.previousPage">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
@@ -818,12 +740,12 @@ export class NgxGridFooterTemplateDirective {
               }
             </div>
 
-            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(currentPage() + 1)" title="Next Page">
+            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(currentPage() + 1)" [title]="i18n.pagination.nextPage">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
-            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(totalPages())" title="Last Page">
+            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(totalPages())" [title]="i18n.pagination.lastPage">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="13 17 18 12 13 7"></polyline>
                 <polyline points="6 17 11 12 6 7"></polyline>
@@ -845,7 +767,7 @@ export class NgxGridFooterTemplateDirective {
                 <option value="startsWith">Starts With</option>
                 <option value="endsWith">Ends With</option>
               </select>
-              <input class="popover-input" type="text" [value]="tempFilterValue()" (input)="tempFilterValue.set($any($event.target).value)" placeholder="Filter value..." />
+              <input class="popover-input" type="text" [value]="tempFilterValue()" (input)="tempFilterValue.set($any($event.target).value)" [placeholder]="i18n.grid.filterPlaceholder" />
             </div>
           </div>
           
@@ -856,12 +778,12 @@ export class NgxGridFooterTemplateDirective {
               type="text"
               [value]="filterSearchQuery()"
               (input)="filterSearchQuery.set($any($event.target).value)"
-              placeholder="Search items..."
+              [placeholder]="i18n.common.search"
             />
             <div class="checklist-actions">
               <label class="checklist-item select-all">
                 <input type="checkbox" [checked]="tempSelectedValues().size === getFilteredDistinctValues(pop.field).length" [indeterminate]="tempSelectedValues().size > 0 && tempSelectedValues().size < getFilteredDistinctValues(pop.field).length" (change)="toggleSelectAllChecklist()" />
-                <span>(Select All)</span>
+                <span>({{ i18n.grid.selectAll }})</span>
               </label>
             </div>
             <div class="checklist-scroll">
@@ -875,9 +797,9 @@ export class NgxGridFooterTemplateDirective {
           </div>
           
           <div class="popover-footer">
-            <button class="popover-btn clear" (click)="clearPopoverFilter()">Clear</button>
+            <button class="popover-btn clear" (click)="clearPopoverFilter()">{{ i18n.datePicker.clear }}</button>
             <div class="footer-actions">
-              <button class="popover-btn cancel" (click)="activeFilterPopover.set(null)">Cancel</button>
+              <button class="popover-btn cancel" (click)="activeFilterPopover.set(null)">{{ i18n.common.cancel }}</button>
               <button class="popover-btn apply" (click)="applyPopoverFilter()">Apply</button>
             </div>
           </div>
@@ -1981,8 +1903,10 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   internalGroupBy = signal<GridGroupState | null>(null);
   
   // Enterprise Extensions
+  i18n = inject(NGX_CORE_I18N);
   private elementRef = inject(ElementRef);
   destroyRef = inject(DestroyRef);
+  private gridExportService = inject(GridExportService);
   columnWidths = signal<Record<string, number>>({});
   filterStates = signal<Map<string, GridFilterState>>(new Map());
   sortStates = signal<GridSortState[]>([]);
@@ -2837,103 +2761,15 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   }
 
   exportToJson(): void {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.data(), null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "grid-data.json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
+    this.gridExportService.exportToJson(this.data());
   }
 
   exportToCsv(): void {
-    if (this.data().length === 0) return;
-    const cols = this.orderedColumns();
-    const headers = cols.map(c => c.title);
-    const fields = cols.map(c => c.field);
-    const rows = this.data().map(row => {
-      const r = row as Record<string, unknown>;
-      return fields.map(field => {
-        const val = r[field] ?? '';
-        const valStr = typeof val === 'object' ? JSON.stringify(val) : String(val);
-        return `"${valStr.replace(/"/g, '""')}"`;
-      });
-    });
-    const csvContent = [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", url);
-    downloadAnchor.setAttribute("download", "grid-data.csv");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
+    this.gridExportService.exportToCsv(this.data(), this.orderedColumns());
   }
 
   exportToExcel(): void {
-    if (this.data().length === 0) return;
-    const cols = this.orderedColumns();
-    
-    let tableHtml = '<table><thead><tr>';
-    cols.forEach(c => {
-      tableHtml += `<th>${c.title}</th>`;
-    });
-    tableHtml += '</tr></thead><tbody>';
-
-    this.data().forEach(row => {
-      const r = row as Record<string, unknown>;
-      tableHtml += '<tr>';
-      cols.forEach(c => {
-        const val = r[c.field] ?? '';
-        const valStr = typeof val === 'object' ? JSON.stringify(val) : String(val);
-        const alignClass = c.align ? ` class="text-${c.align}"` : '';
-        tableHtml += `<td${alignClass}>${valStr}</td>`;
-      });
-      tableHtml += '</tr>';
-    });
-    tableHtml += '</tbody></table>';
-
-    const worksheetName = 'Grid Export';
-    const template = `
-      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-      <head>
-      <!--[if gte mso 9]>
-      <xml>
-       <x:ExcelWorkbook>
-        <x:ExcelWorksheets>
-         <x:ExcelWorksheet>
-          <x:Name>${worksheetName}</x:Name>
-          <x:WorksheetOptions>
-           <x:DisplayGridlines/>
-          </x:WorksheetOptions>
-         </x:ExcelWorksheet>
-        </x:ExcelWorksheets>
-       </x:ExcelWorkbook>
-      </xml>
-      <![endif]-->
-      <style>
-        table { border-collapse: collapse; font-family: sans-serif; font-size: 11pt; }
-        th { background-color: #f1f5f9; color: #1e293b; font-weight: bold; border: 1px solid #cbd5e1; padding: 6px; }
-        td { border: 1px solid #cbd5e1; padding: 6px; }
-        .text-right { text-align: right; }
-        .text-center { text-align: center; }
-        .text-left { text-align: left; }
-      </style>
-      </head>
-      <body>
-      ${tableHtml}
-      </body>
-      </html>
-    `;
-
-    const blob = new Blob([template], { type: 'application/vnd.ms-excel;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", url);
-    downloadAnchor.setAttribute("download", "grid-data.xls");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
+    this.gridExportService.exportToExcel(this.data(), this.orderedColumns());
   }
 
   setFilter(field: string, value: string): void {

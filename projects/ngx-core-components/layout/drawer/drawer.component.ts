@@ -8,8 +8,9 @@ import {
   HostListener,
   effect,
   OnDestroy,
+  inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'ngx-drawer',
@@ -263,18 +264,20 @@ export class DrawerComponent implements OnDestroy {
   // Outputs
   close = output<void>();
 
+  private document = inject(DOCUMENT);
+
   constructor() {
     effect(() => {
       if (this.isOpen()) {
-        document.body.style.overflow = 'hidden';
+        this.document.body.style.overflow = 'hidden';
       } else {
-        document.body.style.overflow = '';
+        this.document.body.style.overflow = '';
       }
     });
   }
 
   ngOnDestroy() {
-    document.body.style.overflow = '';
+    this.document.body.style.overflow = '';
   }
 
   // Helper Computeds

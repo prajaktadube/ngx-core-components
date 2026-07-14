@@ -685,9 +685,14 @@ interface ApiRow { name: string; type: string; default: string; description: str
           <div class="config-card">
             <div class="config-header">
               <h3>Configuration</h3>
-              <button class="stackblitz-btn" (click)="editInStackBlitz()">
-                ⚡ Edit in StackBlitz
-              </button>
+              <div class="sandbox-buttons">
+                <button class="stackblitz-btn" (click)="editInStackBlitz()">
+                  ⚡ StackBlitz
+                </button>
+                <button class="codesandbox-btn" (click)="editInCodeSandbox()">
+                  📦 CodeSandbox
+                </button>
+              </div>
             </div>
 
             <div class="config-body">
@@ -1350,6 +1355,12 @@ interface ApiRow { name: string; type: string; default: string; description: str
     }
     .dark-theme .config-header h3 { color: #f8fafc; }
     
+    .sandbox-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+    }
     .stackblitz-btn {
       width: 100%;
       background: #1389fd;
@@ -1357,20 +1368,43 @@ interface ApiRow { name: string; type: string; default: string; description: str
       border: none;
       padding: 10px;
       font-weight: 700;
-      font-size: 12px;
+      font-size: 11px;
       border-radius: 8px;
       cursor: pointer;
       font-family: inherit;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
       transition: background 0.2s, transform 0.1s;
     }
     .stackblitz-btn:hover {
       background: #006ee6;
     }
     .stackblitz-btn:active {
+      transform: scale(0.98);
+    }
+    .codesandbox-btn {
+      width: 100%;
+      background: #151515;
+      color: #ffffff;
+      border: none;
+      padding: 10px;
+      font-weight: 700;
+      font-size: 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .codesandbox-btn:hover {
+      background: #252525;
+    }
+    .codesandbox-btn:active {
       transform: scale(0.98);
     }
 
@@ -2802,20 +2836,80 @@ export class ChartExampleComponent {
   vectors = ${JSON.stringify(this.biplotVectors, null, 2)};`;
     }
     if (tab === 'Renko Chart' || tab === 'Kagi Chart' || tab === 'Point & Figure Chart') {
-      let code = `data = ${JSON.stringify(this.financialPrices, null, 2)};`;
+      let code = '';
       if (this.useCustomFormatter()) {
-        code += `\n  labelFormatter = (v: number) => '$' + v.toFixed(1);`;
+        code = `labelFormatter = (v: number) => '$' + v.toFixed(1);`;
       }
       return code;
     }
     if (tab === 'Wind Rose') {
-      let code = `data = ${JSON.stringify(this.windRoseData, null, 2)};`;
+      let code = '';
       if (this.useCustomFormatter()) {
-        code += `\n  labelFormatter = (v: number) => v.toFixed(1) + '%';`;
+        code = `labelFormatter = (v: number) => v.toFixed(1) + '%';`;
       }
       return code;
     }
     return '';
+  }
+
+  getPlaygroundTooltipTemplate(tab: string): string {
+    if (!this.useCustomTooltip()) return '';
+    
+    switch(tab) {
+      case 'Renko Chart':
+        return `\n      <ng-template #customTooltip let-t>
+        <div style="background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; color: #ffffff; font-size: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.15);">
+          <div style="font-weight: bold; margin-bottom: 4px; color: #38bdf8;">Renko Brick Details</div>
+          <div>Type: <span [style.color]="t.type === 'bullish' ? '#10b981' : '#ef4444'">\\{{ t.type }}</span></div>
+          <div>Open: $\\{{ t.open.toFixed(1) }}</div>
+          <div>Close: $\\{{ t.close.toFixed(1) }}</div>
+        </div>
+      </ng-template>`;
+      case 'Kagi Chart':
+        return `\n      <ng-template #customTooltip let-t>
+        <div style="background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; color: #ffffff; font-size: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.15);">
+          <div style="font-weight: bold; margin-bottom: 4px; color: #38bdf8;">Kagi Segment Details</div>
+          <div>Trend: <span [style.color]="t.trend === 'bullish' ? '#10b981' : '#ef4444'">\\{{ t.trend }}</span></div>
+          @if (t.type === 'vertical') {
+            <div>From: $\\{{ t.val1.toFixed(1) }}</div>
+            <div>To: $\\{{ t.val2.toFixed(1) }}</div>
+          } @else {
+            <div>Reversal: $\\{{ t.val1.toFixed(1) }}</div>
+          }
+        </div>
+      </ng-template>`;
+      case 'Point & Figure Chart':
+        return `\n      <ng-template #customTooltip let-t>
+        <div style="background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; color: #ffffff; font-size: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.15);">
+          <div style="font-weight: bold; margin-bottom: 4px; color: #38bdf8;">P&F Cell Details</div>
+          <div>Type: <span [style.color]="t.type === 'X' ? '#10b981' : '#ef4444'">\\{{ t.type === 'X' ? 'Rise (X)' : 'Fall (O)' }}</span></div>
+          <div>Level: $\\{{ t.value.toFixed(1) }}</div>
+          <div>Column: #\\{{ t.colIdx + 1 }}</div>
+        </div>
+      </ng-template>`;
+      case 'Wind Rose':
+        return `\n      <ng-template #customTooltip let-t>
+        <div style="background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; color: #ffffff; font-size: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.15);">
+          <div style="font-weight: bold; margin-bottom: 4px; color: #38bdf8;">\\{{ t.direction }} Sector</div>
+          <div>Bin: \\{{ t.binLabel }}</div>
+          <div>Value: \\{{ t.value.toFixed(1) }}%</div>
+          <div>Cumulative: \\{{ t.cumValue.toFixed(1) }}%</div>
+        </div>
+      </ng-template>`;
+      default:
+        return `\n      <ng-template #customTooltip let-t>
+        <div style="background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; color: #ffffff; font-size: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.15);">
+          <div style="font-weight: bold; margin-bottom: 4px; color: #38bdf8;">\\{{ t.cat || 'Details' }}</div>
+          @for (row of t.rows; track $index) {
+            <div style="display: flex; align-items: center; gap: 6px; margin: 2px 0;">
+              <span [style.background]="row.color" style="width: 8px; height: 8px; border-radius: 50%; display: inline-block;"></span>
+              <span>\\{{ row.name }}:</span>
+              <span style="font-weight: bold;">\\{{ row.value }}</span>
+            </div>
+          }
+        </div>
+      </ng-template>`;
+    }
   }
 
   getMockDataString(tab: string): string {
@@ -2895,6 +2989,7 @@ import { ${this.getComponentClass(chartType)} } from 'ngx-core-components';
       <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
         ${this.getPlaygroundTemplate(chartType)}
       </div>
+      ${this.getPlaygroundTooltipTemplate(chartType)}
     </div>
   \`
 })
@@ -2905,10 +3000,68 @@ export class App {
 }
 
 bootstrapApplication(App).catch(err => console.error(err));`,
+      'src/styles.css': `/* Global styles */`,
+      'angular.json': JSON.stringify({
+        "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+        "version": 1,
+        "newProjectRoot": "projects",
+        "projects": {
+          "demo": {
+            "projectType": "application",
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+              "build": {
+                "builder": "@angular-devkit/build-angular:application",
+                "options": {
+                  "outputPath": "dist/demo",
+                  "index": "src/index.html",
+                  "browser": "src/main.ts",
+                  "polyfills": [
+                    "zone.js"
+                  ],
+                  "tsConfig": "tsconfig.app.json",
+                  "styles": [
+                    "src/styles.css"
+                  ]
+                },
+                "configurations": {
+                  "production": {
+                    "optimization": true,
+                    "outputHashing": "all",
+                    "sourceMap": false
+                  },
+                  "development": {
+                    "optimization": false,
+                    "sourceMap": true
+                  }
+                },
+                "defaultConfiguration": "development"
+              },
+              "serve": {
+                "builder": "@angular-devkit/build-angular:dev-server",
+                "configurations": {
+                  "production": {
+                    "buildTarget": "demo:build:production"
+                  },
+                  "development": {
+                    "buildTarget": "demo:build:development"
+                  }
+                },
+                "defaultConfiguration": "development"
+              }
+            }
+          }
+        }
+      }, null, 2),
       'package.json': JSON.stringify({
         name: `ngx-chart-${chartType.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-demo`,
         version: '1.0.0',
         private: true,
+        scripts: {
+          "start": "ng serve"
+        },
         dependencies: {
           '@angular/common': '^19.2.0',
           '@angular/compiler': '^19.2.0',
@@ -2917,13 +3070,19 @@ bootstrapApplication(App).catch(err => console.error(err));`,
           '@angular/platform-browser': '^19.2.0',
           '@angular/platform-browser-dynamic': '^19.2.0',
           '@angular/router': '^19.2.0',
-          'ngx-core-components': '^0.3.19',
+          'ngx-core-components': '^0.3.20',
           'rxjs': '~7.8.0',
           'zone.js': '~0.15.0',
           'tslib': '^2.3.0'
         },
         devDependencies: {
+          '@angular-devkit/build-angular': '^19.2.23',
+          '@angular/cli': '^19.2.23',
+          '@angular/compiler-cli': '^19.2.0',
           'typescript': '~5.7.2'
+        },
+        stackblitz: {
+          startCommand: 'npm start'
         }
       }, null, 2),
       'tsconfig.json': JSON.stringify({
@@ -2936,118 +3095,24 @@ bootstrapApplication(App).catch(err => console.error(err));`,
           "experimentalDecorators": true,
           "skipLibCheck": true,
           "allowSyntheticDefaultImports": true,
-          "baseUrl": "./",
-          "paths": {
-            "ngx-core-components": [
-              "./src/app/chart.component.ts"
-            ]
-          }
+          "baseUrl": "./"
         }
       }, null, 2),
       'tsconfig.app.json': JSON.stringify({
         "extends": "./tsconfig.json",
         "compilerOptions": {
           "outDir": "./out-tsc/app",
-          "types": [],
-          "baseUrl": "./",
-          "paths": {
-            "ngx-core-components": [
-              "./src/app/chart.component.ts"
-            ]
-          }
+          "types": []
         },
         "files": [
           "src/main.ts"
         ],
         "include": [
+          "src/**/*.ts",
           "src/**/*.d.ts"
         ]
-      }, null, 2),
-      'src/tsconfig.app.json': JSON.stringify({
-        "extends": "../tsconfig.json",
-        "compilerOptions": {
-          "outDir": "../out-tsc/app",
-          "types": [],
-          "baseUrl": "./",
-          "paths": {
-            "ngx-core-components": [
-              "./app/chart.component.ts"
-            ]
-          }
-        },
-        "files": [
-          "main.ts"
-        ],
-        "include": [
-          "**/*.d.ts"
-        ]
-      }, null, 2),
-      'src/app/chart-utils.ts': `// Shared chart utilities and constants
-export const CHART_COLORS = [
-  '#4a90d9', '#ff6358', '#27ae60', '#f39c12', '#8e44ad',
-  '#1abc9c', '#e74c3c', '#3498db', '#2ecc71', '#e67e22',
-];
-
-export interface ChartSeries {
-  name: string;
-  data: (number | null)[];
-  color?: string;
-}
-
-export interface ChartDataPoint {
-  label: string;
-  value: number;
-  color?: string;
-}
-
-export function scale(value: number, min: number, max: number, rangeMin: number, rangeMax: number): number {
-  if (max === min) return rangeMin;
-  return rangeMin + ((value - min) / (max - min)) * (rangeMax - rangeMin);
-}
-
-export function niceTicks(min: number, max: number, count = 5): number[] {
-  if (min === max) return [min];
-  const range = max - min;
-  const step = niceStep(range / count);
-  const start = Math.floor(min / step) * step;
-  const ticks: number[] = [];
-  for (let v = start; v <= max + step * 0.01; v += step) {
-    ticks.push(parseFloat(v.toFixed(10)));
-  }
-  return ticks;
-}
-
-function niceStep(step: number): number {
-  const mag = Math.pow(10, Math.floor(Math.log10(step)));
-  const frac = step / mag;
-  if (frac < 1.5) return mag;
-  if (frac < 3) return 2 * mag;
-  if (frac < 7) return 5 * mag;
-  return 10 * mag;
-}
-
-export function smoothPath(points: [number, number][]): string {
-  if (points.length < 2) return '';
-  let d = \`M \${points[0][0]} \${points[0][1]}\`;
-  for (let i = 1; i < points.length; i++) {
-    const prev = points[i - 1];
-    const curr = points[i];
-    const cpx = (prev[0] + curr[0]) / 2;
-    d += \` C \${cpx} \${prev[1]}, \${cpx} \${curr[1]}, \${curr[0]} \${curr[1]}\`;
-  }
-  return d;
-}
-
-export function fmtNum(n: number): string {
-  if (Math.abs(n) >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
-  if (Math.abs(n) >= 1_000) return (n / 1_000).toFixed(1) + 'K';
-  return n % 1 === 0 ? n.toString() : n.toFixed(1);
-}
-`
+      }, null, 2)
     };
-
-    // Inject raw chart component source code directly
-    files['src/app/chart.component.ts'] = this.getComponentSourceCode(chartType);
 
     // Build and submit form POSTing to StackBlitz programmatic compiler
     const form = document.createElement('form');
@@ -3063,7 +3128,7 @@ export function fmtNum(n: number): string {
       '@angular/platform-browser': '^19.2.0',
       '@angular/platform-browser-dynamic': '^19.2.0',
       '@angular/router': '^19.2.0',
-      'ngx-core-components': '^0.3.19',
+      'ngx-core-components': '0.3.20',
       'rxjs': '~7.8.0',
       'zone.js': '~0.15.0',
       'tslib': '^2.3.0'
@@ -3073,7 +3138,7 @@ export function fmtNum(n: number): string {
       title: `${chartType} Standalone Sandbox`,
       description: `Programmatic showcase of ${chartType} from ngx-core-components library.`,
       tags: 'angular,svg,charting,enterprise',
-      template: 'angular-cli',
+      template: 'node',
       dependencies: JSON.stringify(dependencies)
     };
 
@@ -3096,6 +3161,223 @@ export function fmtNum(n: number): string {
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
+  }
+
+  editInCodeSandbox() {
+    const chartType = this.activeTab();
+    
+    // Base files
+    const files: Record<string, any> = {
+      'src/index.html': {
+        content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Angular Chart Demo</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin: 0; background-color: #f8fafc;">
+  <app-root></app-root>
+</body>
+</html>`
+      },
+      'src/main.ts': {
+        content: `import { bootstrapApplication } from '@angular/platform-browser';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ${this.getComponentClass(chartType)} } from 'ngx-core-components';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, ${this.getComponentClass(chartType)}],
+  template: \`
+    <div style="padding: 32px; font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto;">
+      <h2 style="color: #0f172a; margin-bottom: 4px; font-weight: 800;">\${chartType} Sandbox</h2>
+      <p style="color: #64748b; font-size: 14px; margin-top: 0; margin-bottom: 24px;">
+        Bootstrap 5 inspired, zero-dependency SVG component compiled standalone.
+      </p>
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        \${this.getPlaygroundTemplate(chartType)}
+      </div>
+      \${this.getPlaygroundTooltipTemplate(chartType)}
+    </div>
+  \`
+})
+export class App {
+  chartType = '\${chartType}';
+  data = ${this.getMockDataString(chartType)};
+  ${this.getExtraStateVariables(chartType)}
+}
+
+bootstrapApplication(App).catch(err => console.error(err));`
+      },
+      'src/styles.css': {
+        content: `/* Global styles */`
+      },
+      'angular.json': {
+        content: JSON.stringify({
+          "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+          "version": 1,
+          "newProjectRoot": "projects",
+          "projects": {
+            "demo": {
+              "projectType": "application",
+              "root": "",
+              "sourceRoot": "src",
+              "prefix": "app",
+              "architect": {
+                "build": {
+                  "builder": "@angular-devkit/build-angular:application",
+                  "options": {
+                    "outputPath": "dist/demo",
+                    "index": "src/index.html",
+                    "browser": "src/main.ts",
+                    "polyfills": [
+                      "zone.js"
+                    ],
+                    "tsConfig": "tsconfig.app.json",
+                    "styles": [
+                      "src/styles.css"
+                    ]
+                  },
+                  "configurations": {
+                    "production": {
+                      "optimization": true,
+                      "outputHashing": "all",
+                      "sourceMap": false
+                    },
+                    "development": {
+                      "optimization": false,
+                      "sourceMap": true
+                    }
+                  },
+                  "defaultConfiguration": "development"
+                },
+                "serve": {
+                  "builder": "@angular-devkit/build-angular:dev-server",
+                  "configurations": {
+                    "production": {
+                      "buildTarget": "demo:build:production"
+                    },
+                    "development": {
+                      "buildTarget": "demo:build:development"
+                    }
+                  },
+                  "defaultConfiguration": "development"
+                }
+              }
+            }
+          }
+        }, null, 2)
+      },
+      'package.json': {
+        content: JSON.stringify({
+          name: `ngx-chart-${chartType.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-demo`,
+          version: '1.0.0',
+          private: true,
+          scripts: {
+            "start": "ng serve"
+          },
+          dependencies: {
+            '@angular/common': '^19.2.0',
+            '@angular/compiler': '^19.2.0',
+            '@angular/core': '^19.2.0',
+            '@angular/forms': '^19.2.0',
+            '@angular/platform-browser': '^19.2.0',
+            '@angular/platform-browser-dynamic': '^19.2.0',
+            '@angular/router': '^19.2.0',
+            'ngx-core-components': '0.3.20',
+            'rxjs': '~7.8.0',
+            'zone.js': '~0.15.0',
+            'tslib': '^2.3.0'
+          },
+          devDependencies: {
+            '@angular-devkit/build-angular': '^19.2.23',
+            '@angular/cli': '^19.2.23',
+            '@angular/compiler-cli': '^19.2.0',
+            'typescript': '~5.7.2'
+          }
+        }, null, 2)
+      },
+      'tsconfig.json': {
+        content: JSON.stringify({
+          "compileOnSave": false,
+          "compilerOptions": {
+            "target": "ES2022",
+            "module": "ES2022",
+            "moduleResolution": "bundler",
+            "esModuleInterop": true,
+            "experimentalDecorators": true,
+            "skipLibCheck": true,
+            "allowSyntheticDefaultImports": true,
+            "baseUrl": "./"
+          }
+        }, null, 2)
+      },
+      'tsconfig.app.json': {
+        content: JSON.stringify({
+          "extends": "./tsconfig.json",
+          "compilerOptions": {
+            "outDir": "./out-tsc/app",
+            "types": []
+          },
+          "files": [
+            "src/main.ts"
+          ],
+          "include": [
+            "src/**/*.ts",
+            "src/**/*.d.ts"
+          ]
+        }, null, 2)
+      }
+    };
+
+    // Load LZString dynamically from CDN on demand to create CodeSandbox parameters
+    const loadLZString = (): Promise<any> => {
+      return new Promise((resolve, reject) => {
+        if ((window as any).LZString) {
+          resolve((window as any).LZString);
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js';
+        script.onload = () => resolve((window as any).LZString);
+        script.onerror = (err) => reject(err);
+        document.head.appendChild(script);
+      });
+    };
+
+    loadLZString().then((LZString) => {
+      const payload = {
+        files,
+        template: 'node'
+      };
+      
+      const jsonStr = JSON.stringify(payload);
+      const compressed = LZString.compressToBase64(jsonStr)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://codesandbox.io/api/v1/sandboxes/define';
+      form.target = '_blank';
+
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'parameters';
+      input.value = compressed;
+      form.appendChild(input);
+
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+    }).catch(err => {
+      console.error('Failed to load LZ-String compression library from CDN:', err);
+    });
   }
 
   Number(v: any): number { return Number(v); }

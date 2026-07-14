@@ -6,7 +6,7 @@
     "ngx-core-components": {
       "projectType": "library",
       "root": "projects/ngx-core-components",
-      "sourceRoot": "projects/ngx-core-components/src",
+      "sourceRoot": "projects/ngx-core-components",
       "prefix": "ngx",
       "architect": {
         "build": {

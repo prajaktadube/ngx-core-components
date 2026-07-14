@@ -1,6 +1,6 @@
 import {
   Component, ChangeDetectionStrategy, ViewChild, ViewContainerRef,
-  ViewRef, ChangeDetectorRef, inject
+  ViewRef, ChangeDetectorRef, inject, ElementRef, HostListener
 } from '@angular/core';
 
 /**
@@ -31,6 +31,8 @@ import {
         [attr.aria-label]="ariaLabel"
         aria-modal="true"
         (click)="$event.stopPropagation()"
+        tabindex="-1"
+        style="outline: none;"
       >
         <ng-container #contentOutlet></ng-container>
       </div>
@@ -71,13 +73,65 @@ export class DialogContainerComponent {
   backdropClick: (() => void) | null = null;
 
   private cdr = inject(ChangeDetectorRef);
+  private elRef = inject(ElementRef);
 
   attachContent(view: ViewRef): void {
     this.contentOutlet.insert(view);
     this.cdr.markForCheck();
+
+    // Auto-focus first focusable element, or the panel itself
+    setTimeout(() => {
+      const focusable = this.getFocusableElements();
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        const panel = this.elRef.nativeElement.querySelector('.ngx-dialog-panel');
+        panel?.focus();
+      }
+    }, 0);
   }
 
   onBackdropClick(): void {
     this.backdropClick?.();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.backdropClick?.();
+    } else if (event.key === 'Tab') {
+      this.handleTab(event);
+    }
+  }
+
+  private handleTab(event: KeyboardEvent): void {
+    const focusable = this.getFocusableElements();
+    if (focusable.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement as HTMLElement;
+
+    if (event.shiftKey) {
+      if (active === first || !this.elRef.nativeElement.contains(active)) {
+        last.focus();
+        event.preventDefault();
+      }
+    } else {
+      if (active === last || !this.elRef.nativeElement.contains(active)) {
+        first.focus();
+        event.preventDefault();
+      }
+    }
+  }
+
+  private getFocusableElements(): HTMLElement[] {
+    const selector = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable]';
+    const elements = Array.from(this.elRef.nativeElement.querySelectorAll(selector)) as HTMLElement[];
+    return elements.filter(el => el.offsetWidth > 0 || el.offsetHeight > 0);
   }
 }

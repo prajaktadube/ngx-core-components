@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgxCoreComponentsNgAddSchema",
+  "title": "ng-add schematic options",
+  "type": "object",
+  "properties": {
+    "theme": {
+      "type": "string",
+      "description": "Choose a theme preset for your project.",
+      "default": "light",
+      "enum": ["light", "dark", "custom"],
+      "x-prompt": {
+        "message": "Which theme would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "light", "label": "Light (default)" },
+          { "value": "dark", "label": "Dark mode" },
+          { "value": "custom", "label": "Custom (scaffolds override file)" }
+        ]
+      }
+    },
+    "i18n": {
+      "type": "boolean",
+      "description": "Scaffold an i18n provider file for customizing component labels.",
+      "default": false,
+      "x-prompt": "Would you like to scaffold an i18n provider for custom labels?"
+    }
+  }
+}

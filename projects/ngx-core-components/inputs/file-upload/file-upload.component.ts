@@ -1,5 +1,6 @@
-import { Component, input, signal, output, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, input, signal, output, HostListener, ViewChild, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface UploadFileItem {
   id: string;
@@ -56,7 +57,7 @@ export interface UploadFileItem {
             </svg>
           </div>
           <div class="upload-headline">
-            <span class="highlight">Click to upload</span> or drag and drop
+            <span class="highlight">{{ i18n.fileUpload.browse }}</span> {{ i18n.fileUpload.dragDrop }}
           </div>
           <div class="upload-subtext">
             {{ getHelperText() }}
@@ -69,7 +70,7 @@ export interface UploadFileItem {
         <div class="file-queue-list">
           <div class="queue-header">
             <h4>Files Queue ({{ fileQueue().length }})</h4>
-            <button class="clear-all-btn" (click)="clearAll()" [disabled]="disabled()">Clear All</button>
+            <button class="clear-all-btn" (click)="clearAll()" [disabled]="disabled()">{{ i18n.datePicker.clear }} All</button>
           </div>
 
           <div class="queue-items">
@@ -118,7 +119,7 @@ export interface UploadFileItem {
                       🔄
                     </button>
                   }
-                  <button class="action-btn remove-btn" (click)="removeFile(item)" title="Remove file" [disabled]="disabled()">
+                  <button class="action-btn remove-btn" (click)="removeFile(item)" [title]="i18n.fileUpload.removeFile" [disabled]="disabled()">
                     ✕
                   </button>
                 </div>
@@ -503,6 +504,8 @@ export interface UploadFileItem {
   `]
 })
 export class FileUploadComponent {
+  i18n = inject(NGX_CORE_I18N);
+
   // Inputs
   multiple = input<boolean>(false);
   accept = input<string>(''); // comma separated file rules
@@ -623,7 +626,7 @@ export class FileUploadComponent {
     // 1. Max Size check
     const maxLimit = this.maxSize();
     if (maxLimit > 0 && file.size > maxLimit) {
-      return `File exceeds max size limit of ${this.formatBytes(maxLimit)}.`;
+      return `${this.i18n.fileUpload.maxSizeError} (${this.formatBytes(maxLimit)})`;
     }
 
     // 2. Type/Accept format check
@@ -645,7 +648,7 @@ export class FileUploadComponent {
       });
 
       if (!isAllowed) {
-        return `File type is not accepted. Only formats matching "${acceptRule}" are allowed.`;
+        return `${this.i18n.fileUpload.invalidTypeError} ("${acceptRule}")`;
       }
     }
 

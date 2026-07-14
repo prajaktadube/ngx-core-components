@@ -3,6 +3,7 @@ import {
   HostListener, ElementRef, inject, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 import { DropdownOption } from '../dropdown/dropdown.component';
 
 @Component({
@@ -17,12 +18,20 @@ import { DropdownOption } from '../dropdown/dropdown.component';
     },
   ],
   template: `
-    <div class="ngx-multi-select" [class.open]="isOpen()" [class.disabled]="disabled()" role="combobox">
+    <div class="ngx-multi-select" [class.open]="isOpen()" [class.disabled]="disabled()">
       @if (label()) {
         <label class="ms-label">{{ label() }}</label>
       }
       <!-- Trigger -->
-      <div class="ms-trigger" tabindex="0" (click)="toggle()" (keydown)="onTriggerKey($event)">
+      <div
+        class="ms-trigger"
+        tabindex="0"
+        (click)="toggle()"
+        (keydown)="onTriggerKey($event)"
+        role="combobox"
+        aria-haspopup="listbox"
+        [attr.aria-expanded]="isOpen()"
+      >
         <div class="ms-tags">
           @for (val of displayValues(); track val.value) {
             <span class="ms-tag">
@@ -31,7 +40,7 @@ import { DropdownOption } from '../dropdown/dropdown.component';
             </span>
           }
           @if (displayValues().length === 0) {
-            <span class="ms-placeholder">{{ placeholder() }}</span>
+            <span class="ms-placeholder">{{ effectivePlaceholder() }}</span>
           }
         </div>
         <span class="ms-arrow" [class.open]="isOpen()">&#9660;</span>
@@ -44,7 +53,7 @@ import { DropdownOption } from '../dropdown/dropdown.component';
             <div class="ms-search">
               <input
                 class="ms-search-input"
-                placeholder="Search..."
+                [placeholder]="i18n.multiSelect.searchPlaceholder"
                 [value]="filterText()"
                 (input)="filterText.set($any($event.target).value)"
                 (click)="$event.stopPropagation()"
@@ -60,7 +69,7 @@ import { DropdownOption } from '../dropdown/dropdown.component';
                 [indeterminate]="someSelected() && !allSelected()"
                 (change)="toggleAll()"
               />
-              <span>Select All</span>
+              <span>{{ allSelected() ? i18n.multiSelect.deselectAll : i18n.multiSelect.selectAll }}</span>
             </label>
             <div class="ms-divider"></div>
             @for (opt of filteredOptions(); track opt.value; let i = $index) {
@@ -82,7 +91,7 @@ import { DropdownOption } from '../dropdown/dropdown.component';
               </label>
             }
             @if (filteredOptions().length === 0) {
-              <div class="ms-empty">No results</div>
+              <div class="ms-empty">{{ i18n.dropdown.noResults }}</div>
             }
           </div>
         </div>
@@ -161,24 +170,27 @@ export class MultiSelectComponent implements ControlValueAccessor {
   options = input<DropdownOption[]>([]);
   values = input<unknown[]>([]);
   label = input<string>('');
-  placeholder = input<string>('Select...');
+  placeholder = input<string | null>(null);
   disabled = input<boolean>(false);
   filterable = input<boolean>(false);
   maxTags = input<number>(Infinity);
 
   valuesChange = output<unknown[]>();
 
+  i18n = inject(NGX_CORE_I18N);
+  effectivePlaceholder = computed(() => this.placeholder() ?? this.i18n.dropdown.selectPlaceholder);
+
   isOpen = signal(false);
   filterText = signal('');
   focusedIndex = signal(-1);
   _cvaValues = signal<unknown[]>([]);
-  private _cvaActive = false;
+  private _cvaActive = signal(false);
   private _onChange: (v: unknown[]) => void = () => {};
   private _onTouched: () => void = () => {};
 
   private el = inject(ElementRef);
 
-  _activeValues = computed(() => this._cvaActive ? this._cvaValues() : this.values());
+  _activeValues = computed(() => this._cvaActive() ? this._cvaValues() : this.values());
 
   displayValues = computed(() =>
     this._activeValues()
@@ -241,7 +253,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
 
   // ControlValueAccessor
   writeValue(val: unknown[]): void {
-    this._cvaActive = true;
+    this._cvaActive.set(true);
     this._cvaValues.set(Array.isArray(val) ? val : []);
   }
 

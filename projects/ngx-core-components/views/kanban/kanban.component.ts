@@ -98,24 +98,31 @@ interface SwimlaneSection {
 
                   @for (card of getCardsForColumn(col.id, lane.id); track card.id; let cardIndex = $index) {
                     <article
+                      [attr.id]="'k-card-' + card.id"
                       class="kanban-card"
                       [draggable]="!dragHandleOnly()"
                       [class.dragging]="activeDraggingCardId() === card.id"
+                      [attr.tabindex]="dragHandleOnly() ? -1 : 0"
+                      [attr.aria-grabbed]="activeDraggingCardId() === card.id"
                       (dragstart)="onDragStart($event, card)"
                       (dragover)="onCardDragOver($event)"
                       (drop)="onCardDrop($event, col.id, lane.id, cardIndex)"
                       (dragend)="onDragEnd()"
                       (click)="onCardClick(card)"
+                      (keydown)="onCardKeyDown($event, card, col.id, lane.id, cardIndex)"
                     >
                       <div class="card-topline">
                         <button
+                          [attr.id]="'k-handle-' + card.id"
                           class="drag-handle"
                           type="button"
                           draggable="true"
                           title="Drag card"
+                          [attr.tabindex]="dragHandleOnly() ? 0 : -1"
                           (click)="$event.stopPropagation()"
                           (dragstart)="onDragStart($event, card)"
                           (dragend)="onDragEnd()"
+                          (keydown)="onCardKeyDown($event, card, col.id, lane.id, cardIndex)"
                         >::</button>
 
                         @if (card.priority || (card.tags && card.tags.length > 0)) {
@@ -298,6 +305,47 @@ export class KanbanComponent {
   onDragEnd(): void {
     this.activeDraggingCardId.set(null);
     this.activeDropTarget.set(null);
+  }
+
+  onCardKeyDown(event: KeyboardEvent, card: KanbanCard, currentColumnId: string, laneId: string, currentIndex: number): void {
+    const keys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+    if (!keys.includes(event.key)) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const colIndex = this.columns().findIndex(c => c.id === currentColumnId);
+    let targetColumnId = currentColumnId;
+    let targetIndex = currentIndex;
+
+    if (event.key === 'ArrowLeft') {
+      if (colIndex > 0) {
+        targetColumnId = this.columns()[colIndex - 1].id;
+        targetIndex = 0;
+      }
+    } else if (event.key === 'ArrowRight') {
+      if (colIndex < this.columns().length - 1) {
+        targetColumnId = this.columns()[colIndex + 1].id;
+        targetIndex = 0;
+      }
+    } else if (event.key === 'ArrowUp') {
+      if (currentIndex > 0) {
+        targetIndex = currentIndex - 1;
+      }
+    } else if (event.key === 'ArrowDown') {
+      const colCards = this.getCardsForColumn(currentColumnId, laneId);
+      if (currentIndex < colCards.length - 1) {
+        targetIndex = currentIndex + 2; // moveCard adjustedIndex adjustment
+      }
+    }
+
+    if (targetColumnId !== currentColumnId || targetIndex !== currentIndex) {
+      this.moveCard(card.id, targetColumnId, laneId, targetIndex);
+      setTimeout(() => {
+        const elementId = this.dragHandleOnly() ? `k-handle-${card.id}` : `k-card-${card.id}`;
+        document.getElementById(elementId)?.focus();
+      }, 0);
+    }
   }
 
   onColumnDragOver(event: DragEvent, columnId: string, laneId: string): void {

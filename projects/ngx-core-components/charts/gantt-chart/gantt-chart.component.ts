@@ -12,6 +12,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 import {
   GanttTask,
   GanttSubtask,
@@ -73,14 +74,14 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
             }
           </div>
           <div class="k-toolbar-group">
-            <button class="k-toolbar-btn" (click)="scrollToToday()" title="Go to Today">Today</button>
+            <button class="k-toolbar-btn" (click)="scrollToToday()" [title]="i18n.gantt.today">{{ i18n.gantt.today }}</button>
             @if (mergedConfig().collapsible) {
               <button class="k-toolbar-btn" (click)="expandAll()">Expand</button>
               <button class="k-toolbar-btn" (click)="collapseAll()">Collapse</button>
             }
           </div>
           <div class="k-toolbar-group">
-            <button class="k-toolbar-btn" [class.k-active]="showCriticalPath()" (click)="toggleCriticalPath()" title="Toggle Critical Path Highlighting">📌 Critical Path</button>
+            <button class="k-toolbar-btn" [class.k-active]="showCriticalPath()" (click)="toggleCriticalPath()" [title]="i18n.gantt.criticalPath">📌 {{ i18n.gantt.criticalPath }}</button>
           </div>
           @if (isDragToZoomEnabled()) {
             <div class="k-toolbar-group k-toolbar-zoom" style="margin-left: auto;">
@@ -327,7 +328,7 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
       </div>
 
       @if (showLoading()) {
-        <div class="k-loading-overlay"><div class="k-loading-spinner"><div class="k-spinner-circle"></div><span class="k-loading-text">Loading\u2026</span></div></div>
+        <div class="k-loading-overlay"><div class="k-loading-spinner"><div class="k-spinner-circle"></div><span class="k-loading-text">{{ i18n.common.loading }}</span></div></div>
       }
     </div>
 
@@ -604,6 +605,8 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
   `]
 })
 export class GanttChartComponent {
+  i18n = inject(NGX_CORE_I18N);
+
   tasks = input.required<GanttTask[]>();
   dependencies = input<GanttDependency[]>([]);
   config = input<Partial<GanttConfig>>({});

@@ -1,4 +1,4 @@
-import { Component, input, signal, contentChildren, viewChild, TemplateRef, effect, untracked } from '@angular/core';
+import { Component, input, signal, contentChildren, viewChild, TemplateRef, effect, untracked, ElementRef, inject } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 export interface AccordionItem {
@@ -197,6 +197,7 @@ export class AccordionComponent {
 
   accordionItems = contentChildren(AccordionItemComponent);
   private expanded = signal<Set<number>>(new Set());
+  private el = inject(ElementRef);
 
   constructor() {
     effect(() => {
@@ -300,7 +301,7 @@ export class AccordionComponent {
     if (newIndex !== -1 && newIndex !== index && !this.isItemDisabled(newIndex)) {
       event.preventDefault();
       // focus the new header button
-      const headers = document.querySelectorAll('.accordion-header');
+      const headers = this.el.nativeElement.querySelectorAll('.accordion-header');
       const targetHeader = headers[newIndex] as HTMLElement;
       targetHeader?.focus();
     }

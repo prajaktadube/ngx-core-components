@@ -3,7 +3,13 @@
   "schematics": {
     "ng-add": {
       "description": "Add ngx-core-components to the project.",
-      "factory": "./ng-add/index#ngAdd"
+      "factory": "./ng-add/index#ngAdd",
+      "schema": "./ng-add/schema.json"
+    },
+    "grid": {
+      "description": "Scaffold a pre-configured data grid component.",
+      "factory": "./grid/index#grid",
+      "schema": "./grid/schema.json"
     }
   }
 }

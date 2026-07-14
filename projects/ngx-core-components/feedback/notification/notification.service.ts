@@ -24,6 +24,11 @@ let nextId = 0;
   selector: 'ngx-notification-container',
   standalone: true,
   imports: [CommonModule],
+  host: {
+    'role': 'log',
+    'aria-live': 'polite',
+    'aria-relevant': 'additions',
+  },
   template: `
     @for (n of items(); track n.id) {
       <div class="notification" [class]="'notif-' + n.type" [class.visible]="n.visible" [attr.role]="n.type === 'error' ? 'alert' : 'status'">
@@ -55,8 +60,8 @@ let nextId = 0;
     .notif-icon { font-size: 18px; flex-shrink: 0; }
     .notif-body { flex: 1; }
     .notif-title { font-weight: 700; margin-bottom: 3px; font-size: 13px; }
-    .notif-msg { color: #6c757d; font-size: 12px; }
-    .notif-close { background: none; border: none; font-size: 18px; cursor: pointer; color: #adb5bd; padding: 0; line-height: 1; margin-left: 4px; }
+    .notif-msg { color: var(--ngx-color-text-secondary, #595f66); font-size: 12px; }
+    .notif-close { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--ngx-color-text-disabled, #767b83); padding: 0; line-height: 1; margin-left: 4px; }
     .notif-close:hover { color: #495057; }
   `]
 })

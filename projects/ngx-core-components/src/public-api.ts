@@ -308,4 +308,6 @@ export type {
 export { AIChatWidgetComponent } from 'ngx-core-components/ai';
 export { AIPromptEditorComponent } from 'ngx-core-components/ai';
 
-
+// ===== i18n =====
+export { NGX_CORE_I18N, DEFAULT_EN_I18N, provideNgxI18n } from 'ngx-core-components/i18n';
+export type { NgxCoreI18n } from 'ngx-core-components/i18n';

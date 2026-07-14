@@ -3,6 +3,7 @@ import {
   forwardRef, HostListener, ElementRef, inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 import { DropdownOption } from '../dropdown/dropdown.component';
 
 @Component({
@@ -30,7 +31,7 @@ import { DropdownOption } from '../dropdown/dropdown.component';
       <div class="ngx-ac-wrap">
         <input
           class="ngx-ac-input"
-          [placeholder]="placeholder()"
+          [placeholder]="effectivePlaceholder()"
           [disabled]="disabled()"
           [value]="_inputText()"
           (input)="onInput($event)"
@@ -43,13 +44,13 @@ import { DropdownOption } from '../dropdown/dropdown.component';
           aria-haspopup="listbox"
         />
         @if (_inputText()) {
-          <button class="ngx-ac-clear" (click)="clear()" aria-label="Clear">&#10005;</button>
+          <button class="ngx-ac-clear" (click)="clear()" [attr.aria-label]="i18n.autocomplete.clearSelection">&#10005;</button>
         }
       </div>
 
       <!-- Suggestion panel — floats above DOM via absolute positioning -->
-      @if (isOpen() && filteredOptions().length > 0) {
-        <div class="ngx-ac-panel" role="listbox">
+      @if (isOpen()) {
+        <div class="ngx-ac-panel" role="listbox" aria-live="polite">
           @for (opt of filteredOptions(); track opt.value; let i = $index) {
             <div
               class="ngx-ac-item"
@@ -60,6 +61,11 @@ import { DropdownOption } from '../dropdown/dropdown.component';
               (mousedown)="selectOption(opt)"
               (mouseenter)="focusedIndex.set(i)"
             >{{ opt.label }}</div>
+          }
+          @if (filteredOptions().length === 0) {
+            <div class="ngx-ac-empty" role="status" style="padding: 12px; text-align: center; color: #767b83; font-size: 13px;">
+              {{ i18n.autocomplete.noResults }}
+            </div>
           }
         </div>
       }
@@ -91,10 +97,10 @@ import { DropdownOption } from '../dropdown/dropdown.component';
       background: transparent; font-size: 14px; color: var(--ngx-input-text, #212529);
       font-family: inherit;
     }
-    .ngx-ac-input:disabled { cursor: not-allowed; color: #adb5bd; }
+    .ngx-ac-input:disabled { cursor: not-allowed; color: var(--ngx-color-text-disabled, #767b83); }
     .ngx-ac-clear {
       padding: 0 10px; background: none; border: none; cursor: pointer;
-      color: #adb5bd; font-size: 14px; line-height: 1;
+      color: var(--ngx-color-text-disabled, #767b83); font-size: 14px; line-height: 1;
     }
     .ngx-ac-panel {
       position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 1000;
@@ -109,19 +115,22 @@ import { DropdownOption } from '../dropdown/dropdown.component';
       color: var(--ngx-input-text, #212529); transition: background 0.1s;
     }
     .ngx-ac-item:hover, .ngx-ac-item.focused { background: var(--ngx-input-hover-bg, #f1f3f5); }
-    .ngx-ac-item.disabled { color: #adb5bd; cursor: not-allowed; pointer-events: none; }
+    .ngx-ac-item.disabled { color: var(--ngx-color-text-disabled, #767b83); cursor: not-allowed; pointer-events: none; }
     .ngx-ac-error { font-size: 12px; color: var(--ngx-input-error, #e74c3c); margin-top: 4px; }
   `],
 })
 export class AutocompleteComponent implements ControlValueAccessor {
   options = input<DropdownOption[]>([]);
   label = input<string>('');
-  placeholder = input<string>('Type to search...');
+  placeholder = input<string | null>(null);
   disabled = input<boolean>(false);
   error = input<string>('');
   minLength = input<number>(1);
 
   valueChange = output<unknown>();
+
+  i18n = inject(NGX_CORE_I18N);
+  effectivePlaceholder = computed(() => this.placeholder() ?? this.i18n.common.search);
 
   _inputText = signal<string>('');
   _selectedValue = signal<unknown>(null);

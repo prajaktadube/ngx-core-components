@@ -1,7 +1,8 @@
 import {
   Injectable, ApplicationRef, createComponent, EnvironmentInjector,
-  inject, signal, Type
+  inject, signal, Type, PLATFORM_ID
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { DialogContainerComponent } from './dialog-container.component';
 
 export interface DialogConfig<D = unknown> {
@@ -38,27 +39,37 @@ export interface DialogRef<R = unknown> {
 export class DialogService {
   private appRef = inject(ApplicationRef);
   private injector = inject(EnvironmentInjector);
+  private platformId = inject(PLATFORM_ID);
 
   open<C, D = unknown, R = unknown>(
     component: Type<C>,
     config?: DialogConfig<D>,
   ): DialogRef<R> {
+    const closedSignal = signal<R | undefined>(undefined);
+    let remove = () => {};
+
+    const previouslyFocused = isPlatformBrowser(this.platformId) ? document.activeElement as HTMLElement : null;
+
+    const dialogRef: DialogRef<R> = {
+      closed: closedSignal,
+      close: (result?: R) => {
+        closedSignal.set(result);
+        if (isPlatformBrowser(this.platformId)) {
+          remove();
+        }
+      },
+    };
+
+    if (!isPlatformBrowser(this.platformId)) {
+      return dialogRef;
+    }
+
     const cfg: Required<DialogConfig<D>> = {
       data: config?.data as D,
       closeOnBackdrop: config?.closeOnBackdrop ?? true,
       panelClass: config?.panelClass ?? [],
       ariaLabel: config?.ariaLabel ?? 'Dialog',
       maxWidth: config?.maxWidth ?? '560px',
-    };
-
-    const closedSignal = signal<R | undefined>(undefined);
-
-    const dialogRef: DialogRef<R> = {
-      closed: closedSignal,
-      close: (result?: R) => {
-        closedSignal.set(result);
-        remove();
-      },
     };
 
     // Create a host element appended to <body>
@@ -108,12 +119,15 @@ export class DialogService {
 
     containerRef.changeDetectorRef.detectChanges();
 
-    const remove = () => {
+    remove = () => {
       this.appRef.detachView(containerRef.hostView);
       contentRef.destroy();
       containerRef.destroy();
       if (document.body.contains(hostEl)) {
         document.body.removeChild(hostEl);
+      }
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
       }
     };
 

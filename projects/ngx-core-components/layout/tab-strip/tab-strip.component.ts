@@ -69,6 +69,7 @@ export class TabComponent {
                 class="tab-close-btn" 
                 (click)="closeTab($event, i)" 
                 title="Close Tab"
+                aria-label="Close tab"
                 type="button"
                 tabindex="-1"
               >
@@ -146,7 +147,7 @@ export class TabComponent {
       color: var(--ngx-tab-active-color, var(--primary-color, #1a73e8)); 
       font-weight: 600; 
     }
-    .tab-btn.disabled { opacity: 0.45; cursor: not-allowed; }
+    .tab-btn.disabled { color: var(--ngx-color-text-disabled, #767b83); cursor: not-allowed; }
 
     .tab-btn:focus-visible {
       outline: 2px solid var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
@@ -171,7 +172,7 @@ export class TabComponent {
       background: transparent;
       border: none;
       font-size: 14px;
-      color: var(--text-secondary, #94a3b8);
+      color: var(--ngx-color-text-disabled, #767b83);
       cursor: pointer;
       display: inline-flex;
       align-items: center;

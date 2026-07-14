@@ -3,6 +3,7 @@ import {
   HostListener, ElementRef, inject, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Component({
   selector: 'ngx-date-picker',
@@ -21,13 +22,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         <label class="dp-label">{{ label() }}</label>
       }
       <!-- Input trigger -->
-      <div class="dp-input-wrap" (click)="toggle()">
+      <div
+        class="dp-input-wrap"
+        (click)="toggle()"
+        (keydown)="onInputKeyDown($event)"
+        [attr.tabindex]="disabled() ? -1 : 0"
+        role="combobox"
+        [attr.aria-expanded]="isOpen()"
+        aria-haspopup="grid"
+      >
         <input
           class="dp-input"
           readonly
           [value]="displayValue()"
-          [placeholder]="placeholder()"
+          [placeholder]="effectivePlaceholder()"
           [disabled]="disabled()"
+          tabindex="-1"
         />
         <span class="dp-icon">&#128197;</span>
       </div>
@@ -37,18 +47,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         <div class="dp-popup" (click)="$event.stopPropagation()">
           <!-- Month/Year nav -->
           <div class="dp-nav">
-            <button class="dp-nav-btn" (click)="prevMonth()">&#8249;</button>
-            <span class="dp-nav-title">{{ monthTitle() }}</span>
-            <button class="dp-nav-btn" (click)="nextMonth()">&#8250;</button>
+            <button class="dp-nav-btn" (click)="prevMonth()" aria-label="Previous month">&#8249;</button>
+            <span class="dp-nav-title" aria-live="polite">{{ monthTitle() }}</span>
+            <button class="dp-nav-btn" (click)="nextMonth()" aria-label="Next month">&#8250;</button>
           </div>
           <!-- Weekday headers -->
           <div class="dp-weekdays">
-            @for (d of WEEKDAYS; track d) {
+            @for (d of i18n.datePicker.shortWeekdays; track d) {
               <span class="dp-wd">{{ d }}</span>
             }
           </div>
           <!-- Days grid -->
-          <div class="dp-days">
+          <div class="dp-days" role="grid">
             @for (day of calendarDays(); track day.date?.getTime() ?? $index) {
               <button
                 class="dp-day"
@@ -63,8 +73,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
           </div>
           <!-- Footer -->
           <div class="dp-footer">
-            <button class="dp-today-btn" (click)="selectToday()">Today</button>
-            <button class="dp-clear-btn" (click)="clearValue()">Clear</button>
+            <button class="dp-today-btn" (click)="selectToday()">{{ i18n.datePicker.today }}</button>
+            <button class="dp-clear-btn" (click)="clearValue()">{{ i18n.datePicker.clear }}</button>
           </div>
         </div>
       }
@@ -81,6 +91,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       border: 1px solid var(--ngx-input-border, #cbd5e1); border-radius: var(--ngx-input-radius, 8px);
       background: var(--ngx-input-bg, #fff); cursor: pointer;
       transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .dp-input-wrap:focus-visible {
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
     .dp-input-wrap:hover { border-color: var(--primary-color, #4f46e5); }
     .open .dp-input-wrap { border-color: var(--primary-color, #4f46e5); box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15)); }
@@ -89,7 +104,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       flex: 1; padding: 10px 14px; border: none; outline: none; background: transparent;
       font-size: 14px; color: var(--ngx-input-text, #0f172a); cursor: pointer; font-family: inherit;
     }
-    .dp-input:disabled { cursor: not-allowed; color: #94a3b8; }
+    .dp-input:disabled { cursor: not-allowed; color: var(--ngx-color-text-disabled, #767b83); }
     .dp-icon { padding: 0 12px; color: #64748b; font-size: 14px; }
     .dp-popup {
       position: absolute; top: calc(100% + 6px); left: 0; z-index: 1000;
@@ -105,7 +120,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     .dp-nav-btn:hover { background: var(--border-light, #f1f5f9); color: var(--text-primary, #0f172a); }
     .dp-nav-title { font-size: 14px; font-weight: 750; color: var(--text-primary, #0f172a); font-family: var(--ngx-heading-font-family, inherit); }
     .dp-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 6px; }
-    .dp-wd { text-align: center; font-size: 11px; color: #94a3b8; font-weight: 700; padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .dp-wd { text-align: center; font-size: 11px; color: var(--ngx-color-text-secondary, #657080); font-weight: 700; padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
     .dp-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .dp-day {
       aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
@@ -113,10 +128,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       color: var(--text-primary, #0f172a); transition: all 0.15s;
     }
     .dp-day:hover:not(.disabled):not(.selected) { background: var(--border-light, #f1f5f9); }
-    .dp-day.other-month { color: #cbd5e1; }
+    .dp-day.other-month { color: var(--ngx-color-text-disabled, #767b83); }
     .dp-day.today { font-weight: 700; color: var(--primary-color, #4f46e5); border: 1.5px solid var(--primary-color, #4f46e5); }
     .dp-day.selected { background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)); color: #fff; font-weight: 600; box-shadow: 0 3px 8px rgba(79, 70, 229, 0.3); }
-    .dp-day.disabled { color: #e2e8f0; cursor: not-allowed; text-decoration: line-through; opacity: 0.4; }
+    .dp-day.disabled { color: var(--ngx-color-text-disabled, #767b83); cursor: not-allowed; text-decoration: line-through; }
     .dp-footer { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color, #e2e8f0); }
     .dp-today-btn, .dp-clear-btn {
       background: none; border: none; cursor: pointer; font-size: 12px; font-weight: 700; color: var(--primary-color, #4f46e5);
@@ -130,7 +145,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class DatePickerComponent implements ControlValueAccessor {
   value = input<Date | null>(null);
   label = input<string>('');
-  placeholder = input<string>('Select date...');
+  placeholder = input<string | null>(null);
   disabled = input<boolean>(false);
   min = input<Date | null>(null);
   max = input<Date | null>(null);
@@ -138,29 +153,34 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   valueChange = output<Date | null>();
 
-  readonly WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  i18n = inject(NGX_CORE_I18N);
+  effectivePlaceholder = computed(() => this.placeholder() ?? 'Select date...');
 
   isOpen = signal(false);
   viewYear = signal(new Date().getFullYear());
   viewMonth = signal(new Date().getMonth());
   _cvaValue = signal<Date | null>(null);
-  private _cvaActive = false;
+  private _cvaActive = signal(false);
   private _onChange: (v: Date | null) => void = () => {};
   private _onTouched: () => void = () => {};
 
   private el = inject(ElementRef);
 
-  _activeValue = computed(() => this._cvaActive ? this._cvaValue() : this.value());
+  _activeValue = computed(() => this._cvaActive() ? this._cvaValue() : this.value());
 
   displayValue = computed(() => {
     const v = this._activeValue();
     if (!v) return '';
-    return v.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+    const m = String(v.getMonth() + 1).padStart(2, '0');
+    const d = String(v.getDate()).padStart(2, '0');
+    const y = v.getFullYear();
+    return `${m}/${d}/${y}`;
   });
 
   monthTitle = computed(() => {
-    const d = new Date(this.viewYear(), this.viewMonth(), 1);
-    return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const mName = this.i18n.datePicker.months[this.viewMonth()];
+    const y = this.viewYear();
+    return `${mName} ${y}`;
   });
 
   calendarDays = computed(() => {
@@ -227,6 +247,17 @@ export class DatePickerComponent implements ControlValueAccessor {
     else this.viewMonth.update(m => m + 1);
   }
 
+  onInputKeyDown(event: KeyboardEvent): void {
+    if (this.disabled()) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggle();
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      this.isOpen.set(false);
+    }
+  }
+
   selectDay(date: Date | null): void {
     if (!date) return;
     this._cvaValue.set(date);
@@ -250,9 +281,8 @@ export class DatePickerComponent implements ControlValueAccessor {
     if (!this.el.nativeElement.contains(e.target)) this.isOpen.set(false);
   }
 
-  // ControlValueAccessor
   writeValue(val: Date | null): void {
-    this._cvaActive = true;
+    this._cvaActive.set(true);
     this._cvaValue.set(val instanceof Date ? val : null);
   }
 

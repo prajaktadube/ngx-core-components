@@ -1,8 +1,9 @@
 import {
   Component, ChangeDetectionStrategy, input, output, signal, computed, effect,
-  ContentChild, TemplateRef
+  ContentChild, TemplateRef, inject
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface ListViewItemClickEvent<T = unknown> { item: T; index: number; }
 export interface ListViewSelectionEvent<T = unknown> { selectedItems: T[]; }
@@ -27,10 +28,10 @@ export interface ListViewPageChangeEvent {
       @if (loading()) {
         <div class="lv-loading">
           <div class="lv-spinner"></div>
-          <span>Loading...</span>
+          <span>{{ i18n.common.loading }}</span>
         </div>
       } @else if (totalItems() === 0) {
-        <div class="lv-empty">No items to display.</div>
+        <div class="lv-empty">{{ i18n.common.noData }}</div>
       } @else {
         <div class="lv-list" role="listbox" [attr.aria-multiselectable]="multiselect()">
           @for (item of visibleItems(); track trackFn(item, pageStartIndex() + $index); let i = $index) {
@@ -53,9 +54,9 @@ export interface ListViewPageChangeEvent {
 
         @if (pageSize() > 0 && totalPages() > 1) {
           <div class="lv-pager">
-            <button class="lv-pager-btn" type="button" [disabled]="currentPage() === 1" (click)="goToPreviousPage()">Previous</button>
-            <div class="lv-pager-meta">Page {{ currentPage() }} of {{ totalPages() }} <span class="lv-pager-count">{{ totalItems() }} items</span></div>
-            <button class="lv-pager-btn" type="button" [disabled]="currentPage() === totalPages()" (click)="goToNextPage()">Next</button>
+            <button class="lv-pager-btn" type="button" [disabled]="currentPage() === 1" (click)="goToPreviousPage()">{{ i18n.pagination.previousPage }}</button>
+            <div class="lv-pager-meta">{{ i18n.pagination.page }} {{ currentPage() }} {{ i18n.pagination.of }} {{ totalPages() }} <span class="lv-pager-count">{{ totalItems() }} items</span></div>
+            <button class="lv-pager-btn" type="button" [disabled]="currentPage() === totalPages()" (click)="goToNextPage()">{{ i18n.pagination.nextPage }}</button>
           </div>
         }
       }
@@ -108,6 +109,8 @@ export interface ListViewPageChangeEvent {
   `]
 })
 export class ListViewComponent<T = unknown> {
+  i18n = inject(NGX_CORE_I18N);
+
   items = input<T[]>([]);
   selectable = input<boolean>(true);
   multiselect = input<boolean>(false);

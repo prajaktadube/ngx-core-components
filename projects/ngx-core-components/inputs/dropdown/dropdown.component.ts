@@ -3,6 +3,7 @@ import {
   HostListener, ElementRef, inject, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface DropdownOption {
   label: string;
@@ -49,11 +50,11 @@ export interface DropdownOption {
         [attr.tabindex]="disabled() ? -1 : 0"
         (click)="toggle()"
         (keydown)="onTriggerKey($event)"
-        [attr.aria-label]="!label() ? (selectedLabel() || placeholder()) : null"
+        [attr.aria-label]="!label() ? (selectedLabel() || effectivePlaceholder()) : null"
         [attr.aria-disabled]="disabled()"
       >
         <span class="trigger-text" [class.placeholder]="!selectedLabel()">
-          {{ selectedLabel() || placeholder() }}
+          {{ selectedLabel() || effectivePlaceholder() }}
         </span>
         <span class="trigger-arrow" [class.open]="isOpen()">&#9660;</span>
       </div>
@@ -64,6 +65,7 @@ export interface DropdownOption {
           class="ngx-dropdown-popup" 
           [id]="uid + '-popup'" 
           role="listbox"
+          aria-live="polite"
           [attr.aria-labelledby]="label() ? uid + '-label' : null"
         >
           @if (filterable()) {
@@ -71,7 +73,7 @@ export interface DropdownOption {
               <input
                 #filterInput
                 class="popup-search-input"
-                placeholder="Search..."
+                [placeholder]="i18n.dropdown.searchPlaceholder"
                 [value]="filterText()"
                 (input)="filterText.set($any($event.target).value)"
                 (keydown)="onFilterKey($event)"
@@ -96,7 +98,7 @@ export interface DropdownOption {
               >{{ opt.label }}</div>
             }
             @if (filteredOptions().length === 0) {
-              <div class="popup-empty" role="status">No results</div>
+              <div class="popup-empty" role="status">{{ i18n.dropdown.noResults }}</div>
             }
           </div>
         </div>
@@ -134,9 +136,9 @@ export interface DropdownOption {
       border-color: var(--ngx-input-focus, #4f46e5);
       box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
-    .disabled .ngx-dropdown-trigger { background: var(--ngx-input-disabled-bg, #f8f9fa); cursor: not-allowed; color: #adb5bd; opacity: 0.7; }
+    .disabled .ngx-dropdown-trigger { background: var(--ngx-input-disabled-bg, #f8f9fa); cursor: not-allowed; color: var(--ngx-color-text-disabled, #767b83); }
     .trigger-text { flex: 1; color: var(--ngx-input-text, #212529); }
-    .trigger-text.placeholder { color: #adb5bd; }
+    .trigger-text.placeholder { color: var(--ngx-color-text-disabled, #767b83); }
     .trigger-arrow { font-size: 10px; color: #6c757d; transition: transform 0.15s; }
     .trigger-arrow.open { transform: rotate(180deg); }
     .ngx-dropdown-popup {
@@ -169,9 +171,9 @@ export interface DropdownOption {
     }
     .popup-item:hover, .popup-item.focused { background: var(--ngx-grid-hover-bg, #f1f3f5); color: var(--ngx-input-focus, #4f46e5); }
     .popup-item.selected { background: var(--ngx-grid-selected-bg, #e8f0fe); color: var(--ngx-input-focus, #4f46e5); font-weight: 600; }
-    .popup-item.disabled { color: #adb5bd; cursor: not-allowed; }
+    .popup-item.disabled { color: var(--ngx-color-text-disabled, #767b83); cursor: not-allowed; }
     .popup-item.disabled:hover { background: none; }
-    .popup-empty { padding: 12px; text-align: center; color: #adb5bd; font-size: 13px; }
+    .popup-empty { padding: 12px; text-align: center; color: var(--ngx-color-text-disabled, #767b83); font-size: 13px; }
     .has-error .ngx-dropdown-trigger { border-color: var(--ngx-input-error, #e74c3c); }
     .has-error.focused .ngx-dropdown-trigger, .has-error.open .ngx-dropdown-trigger { box-shadow: 0 0 0 2px rgba(231,76,60,0.18); }
     .ngx-dropdown-error { font-size: 12px; color: var(--ngx-input-error, #e74c3c); margin-top: 4px; }
@@ -183,7 +185,7 @@ export class DropdownComponent implements ControlValueAccessor {
   options = input<DropdownOption[]>([]);
   value = input<unknown>(null);
   label = input<string>('');
-  placeholder = input<string>('Select...');
+  placeholder = input<string | null>(null);
   disabled = input<boolean>(false);
   filterable = input<boolean>(false);
   required = input<boolean>(false);
@@ -191,6 +193,9 @@ export class DropdownComponent implements ControlValueAccessor {
   hint = input<string>('');
 
   valueChange = output<unknown>();
+
+  i18n = inject(NGX_CORE_I18N);
+  effectivePlaceholder = computed(() => this.placeholder() ?? this.i18n.dropdown.selectPlaceholder);
 
   isOpen = signal(false);
   filterText = signal('');

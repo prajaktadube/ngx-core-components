@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, computed, effect, input, output, signal, OnInit, OnDestroy, Directive, TemplateRef, inject, contentChild } from '@angular/core';
 import { SchedulerEvent, SchedulerEventChangeEvent, SchedulerSlotClickEvent, SchedulerResource, SchedulerSlotRangeSelectEvent } from './models';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Directive({
   selector: '[ngxSchedulerEventTemplate]',
@@ -52,7 +53,7 @@ interface ResizeState {
             <button class="tool-btn nav-arrow" type="button" (click)="navigate(-1)" aria-label="Previous period">
               <svg class="icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
             </button>
-            <button class="tool-btn today-btn" type="button" (click)="goToToday()">Today</button>
+            <button class="tool-btn today-btn" type="button" (click)="goToToday()">{{ i18n.scheduler.today }}</button>
             <button class="tool-btn nav-arrow" type="button" (click)="navigate(1)" aria-label="Next period">
               <svg class="icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
             </button>
@@ -67,7 +68,7 @@ interface ResizeState {
               <svg class="search-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
               <input type="text" 
                      class="search-input" 
-                     placeholder="Search events..." 
+                     [placeholder]="i18n.common.search" 
                      [value]="searchQuery()" 
                      (input)="onSearchInput($event)" />
             </div>
@@ -119,7 +120,7 @@ interface ResizeState {
                 [class.active]="activeMode() === mode"
                 (click)="activeMode.set(mode)"
               >
-                {{ mode | titlecase }}
+                {{ getViewModeLabel(mode) }}
               </button>
             }
           </div>
@@ -163,7 +164,7 @@ interface ResizeState {
             <!-- All-Day Events row -->
             @if (hasAllDayEvents()) {
               <div class="all-day-row-container">
-                <div class="all-day-label-cell">All day</div>
+                <div class="all-day-label-cell">{{ i18n.scheduler.allDay }}</div>
                 <div class="all-day-columns-wrap">
                   @for (col of activeColumns(); track col.resource ? col.resource.id : dateKey(col.date)) {
                     <div class="all-day-column-cell">
@@ -684,6 +685,15 @@ interface ResizeState {
   `]
 })
 export class SchedulerComponent implements OnInit, OnDestroy {
+  i18n = inject(NGX_CORE_I18N);
+
+  getViewModeLabel(mode: string): string {
+    if (mode === 'day') return this.i18n.scheduler.day;
+    if (mode === 'week') return this.i18n.scheduler.week;
+    if (mode === 'month') return this.i18n.scheduler.month;
+    return mode;
+  }
+
   readonly hourHeight = 60;
   viewModes: ('day' | 'week' | 'month')[] = ['day', 'week', 'month'];
 
