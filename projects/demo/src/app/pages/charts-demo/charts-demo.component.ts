@@ -3194,19 +3194,19 @@ import { ${this.getComponentClass(chartType)} } from 'ngx-core-components';
   imports: [CommonModule, ${this.getComponentClass(chartType)}],
   template: \`
     <div style="padding: 32px; font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto;">
-      <h2 style="color: #0f172a; margin-bottom: 4px; font-weight: 800;">\${chartType} Sandbox</h2>
+      <h2 style="color: #0f172a; margin-bottom: 4px; font-weight: 800;">${chartType} Sandbox</h2>
       <p style="color: #64748b; font-size: 14px; margin-top: 0; margin-bottom: 24px;">
         Bootstrap 5 inspired, zero-dependency SVG component compiled standalone.
       </p>
       <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-        \${this.getPlaygroundTemplate(chartType)}
+        ${this.getPlaygroundTemplate(chartType)}
       </div>
-      \${this.getPlaygroundTooltipTemplate(chartType)}
+      ${this.getPlaygroundTooltipTemplate(chartType)}
     </div>
   \`
 })
 export class App {
-  chartType = '\${chartType}';
+  chartType = '${chartType}';
   data = ${this.getMockDataString(chartType)};
   ${this.getExtraStateVariables(chartType)}
 }

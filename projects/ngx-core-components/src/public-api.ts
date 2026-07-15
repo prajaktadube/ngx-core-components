@@ -283,6 +283,7 @@ export {
   FilePreviewComponent,
   SegmentedControlComponent,
   FormBuilderComponent,
+  FormDesignerComponent,
   SignaturePadComponent,
 } from 'ngx-core-components/inputs';
 export type {
@@ -307,6 +308,8 @@ export type {
 } from 'ngx-core-components/ai';
 export { AIChatWidgetComponent } from 'ngx-core-components/ai';
 export { AIPromptEditorComponent } from 'ngx-core-components/ai';
+export { NgxWebLlmService } from 'ngx-core-components/ai';
+export type { WebLlmMessage } from 'ngx-core-components/ai';
 
 // ===== i18n =====
 export { NGX_CORE_I18N, DEFAULT_EN_I18N, provideNgxI18n } from 'ngx-core-components/i18n';

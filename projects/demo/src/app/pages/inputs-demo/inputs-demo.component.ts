@@ -4,7 +4,7 @@ import {
   CheckboxComponent, RadioGroupComponent, AutocompleteComponent,
   DropdownOption, RadioOption
 } from 'ngx-core-components';
-import { SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent, TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent, FileUploadComponent } from 'ngx-core-components/inputs';
+import { SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent, TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent, FileUploadComponent, FormDesignerComponent } from 'ngx-core-components/inputs';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
@@ -16,7 +16,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
     CheckboxComponent, RadioGroupComponent, AutocompleteComponent,
       SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent,
       TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent,
-      FileUploadComponent,
+      FileUploadComponent, FormDesignerComponent,
   ],
   template: `
     <div class="demo-page">
@@ -662,6 +662,16 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
       }
 
+      <!-- ===== FORM DESIGNER ===== -->
+      @if (activeTab() === 'FormDesigner') {
+        <div class="tab-content">
+          <div class="section-label">Drag & Drop Form Designer</div>
+          <div style="height: 600px; margin-bottom: 24px;">
+            <ngx-form-designer></ngx-form-designer>
+          </div>
+        </div>
+      }
+
     </div>
   `,
   styles: [`
@@ -740,7 +750,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
 })
 export class InputsDemoComponent {
   activeTab = signal('TextBox');
-  tabs = ['TextBox', 'Dropdown', 'DatePicker', 'MultiSelect', 'Checkbox', 'Radio', 'Autocomplete', 'Slider', 'Switch', 'Rating', 'NumericTextBox', 'Textarea', 'ColorPicker', 'TimePicker', 'DateRangePicker', 'FileUpload'];
+  tabs = ['TextBox', 'Dropdown', 'DatePicker', 'MultiSelect', 'Checkbox', 'Radio', 'Autocomplete', 'Slider', 'Switch', 'Rating', 'NumericTextBox', 'Textarea', 'ColorPicker', 'TimePicker', 'DateRangePicker', 'FileUpload', 'FormDesigner'];
 
   textValue = signal('');
   emailValue = signal('');

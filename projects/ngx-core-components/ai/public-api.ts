@@ -17,3 +17,6 @@ export type { AIModel } from './ai-model-compare/ai-model-compare.component';
 
 export { AIRagInspectorComponent } from './ai-rag-inspector/ai-rag-inspector.component';
 export type { RAGSource } from './ai-rag-inspector/models';
+
+export { NgxWebLlmService } from './ngx-web-llm.service';
+export type { WebLlmMessage } from './ngx-web-llm.service';

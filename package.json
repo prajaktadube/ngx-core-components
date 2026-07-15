@@ -7,7 +7,10 @@
     "build": "ng build ngx-core-components && ng build demo",
     "watch": "ng build ngx-core-components --watch --configuration development",
     "test": "ng test demo",
-    "size": "size-limit"
+    "size": "size-limit",
+    "storybook": "ng run demo:storybook",
+    "build-storybook": "ng run demo:build-storybook",
+    "lint": "ng lint"
   },
   "private": false,
   "dependencies": {
@@ -26,9 +29,19 @@
     "@angular-devkit/build-angular": "^19.2.23",
     "@angular/cli": "^19.2.23",
     "@angular/compiler-cli": "^19.2.0",
+    "@chromatic-com/storybook": "^3.2.7",
+    "@compodoc/compodoc": "^1.1.26",
     "@size-limit/file": "^12.1.0",
+    "@storybook/addon-a11y": "^8.5.0",
+    "@storybook/addon-essentials": "^8.5.0",
+    "@storybook/addon-interactions": "^8.5.0",
+    "@storybook/addon-links": "^8.5.0",
+    "@storybook/angular": "^8.5.0",
+    "@storybook/blocks": "^8.5.0",
     "@types/jasmine": "~5.1.0",
     "angular-cli-ghpages": "^3.0.2",
+    "angular-eslint": "21.0.1",
+    "eslint": "^9.39.1",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -37,6 +50,8 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^19.2.0",
     "size-limit": "^12.1.0",
-    "typescript": "~5.7.2"
+    "storybook": "^8.5.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "8.46.4"
   }
 }

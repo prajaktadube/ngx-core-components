@@ -35,6 +35,12 @@ jobs:
       - name: Build demo (production, GitHub Pages base href)
         run: npx ng build demo --configuration production --base-href /ngx-core-components/
 
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Copy Storybook to deploy folder
+        run: cp -r storybook-static dist/demo/storybook
+
       - name: Copy index.html → 404.html (SPA deep-link fallback)
         run: cp dist/demo/browser/index.html dist/demo/browser/404.html
 

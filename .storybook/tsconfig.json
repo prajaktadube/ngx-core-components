@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "files": ["./preview.ts", "./main.ts"],
+  "include": [
+    "../projects/ngx-core-components/**/*.ts"
+  ],
+  "exclude": [
+    "../projects/**/*.spec.ts"
+  ]
+}

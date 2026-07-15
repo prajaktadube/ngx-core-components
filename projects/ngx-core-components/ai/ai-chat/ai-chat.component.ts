@@ -34,7 +34,7 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
       <!-- Messages Thread -->
       <div class="ngx-ai-chat-body" #chatBody>
         <div class="messages-list">
-          @for (msg of messages(); track msg.id) {
+          @for (msg of messages(); track msg.id; let isLast = $last) {
             <div class="message-wrapper" [class.user-msg]="msg.role === 'user'" [class.assistant-msg]="msg.role === 'assistant'">
               <!-- Avatar -->
               @if (msg.role !== 'user') {
@@ -56,7 +56,12 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
 
                 <div class="msg-bubble">
                   <!-- Text Content -->
-                  <div class="msg-text" [innerHTML]="formatMessage(msg.content)"></div>
+                  <div class="msg-text">
+                    <span [innerHTML]="formatMessage(msg.content)"></span>
+                    @if (isStreaming() && isLast && msg.role === 'assistant') {
+                      <span class="streaming-cursor"></span>
+                    }
+                  </div>
 
                   <!-- Agent Steps (Accordion) -->
                   @if (msg.steps && msg.steps.length > 0) {
@@ -737,6 +742,21 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
       40% { transform: scale(1.0); }
     }
 
+    .streaming-cursor {
+      display: inline-block;
+      width: 6px;
+      height: 14px;
+      background-color: var(--ngx-ai-chat-primary, #3b82f6);
+      margin-left: 4px;
+      animation: blink-cursor 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink-cursor {
+      from, to { background-color: transparent }
+      50% { background-color: var(--ngx-ai-chat-primary, #3b82f6) }
+    }
+
     /* Spinner */
     .spinner {
       width: 10px;
@@ -1033,6 +1053,7 @@ export class AIChatComponent {
   agentAvatarUrl = input('');
   isOnline = input(true);
   isTyping = input(false);
+  isStreaming = input(false);
   showSenderNames = input(false);
   theme = input<'light' | 'dark'>('light');
   placeholder = input('Type a message...');
@@ -1170,6 +1191,24 @@ export class AIChatComponent {
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
+
+    // Handle unclosed triple backticks (code blocks) during streaming
+    const codeBlockCount = (formatted.match(/```/g) || []).length;
+    if (codeBlockCount % 2 !== 0) {
+      formatted += '\n```';
+    }
+
+    // Handle unclosed bold markers during streaming
+    const boldCount = (formatted.match(/\*\*/g) || []).length;
+    if (boldCount % 2 !== 0) {
+      formatted += '**';
+    }
+
+    // Handle unclosed inline code backticks during streaming
+    const inlineCodeCount = (formatted.match(/`/g) || []).length;
+    if (inlineCodeCount % 2 !== 0) {
+      formatted += '`';
+    }
 
     // Bold markdown helper
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');

@@ -135,7 +135,7 @@ export class NgxGridFooterTemplateDirective {
         </div>
       </div>
 
-      <div class="grid-table-wrap">
+      <div class="grid-table-wrap" #viewportEl (scroll)="onViewportScroll($event)">
         <table class="grid-table" [class.striped]="striped()">
           <colgroup>
             @if (rowReorderable()) {
@@ -504,22 +504,28 @@ export class NgxGridFooterTemplateDirective {
                 }
               }
             } @else {
-              @for (row of flatRenderedRows(); track getKey(row, $index); let i = $index) {
+              @if (virtualScroll()) {
+                <tr [style.height.px]="startIndex() * rowHeight()">
+                  <td [attr.colspan]="renderColumnCount()" style="padding:0; border:none; height: inherit;"></td>
+                </tr>
+              }
+              @for (row of (virtualScroll() ? visibleRows() : flatRenderedRows()); track getKey(row, $index); let i = $index) {
+                @let actualIndex = virtualScroll() ? startIndex() + i : i;
                 <tr
                   class="grid-row"
                   [class.selected]="isRowSelected(row)"
-                  [class.dragging-row]="draggingRowIndex() === i"
-                  [class.drag-over-row]="dragOverRowIndex() === i"
-                  [style.transform]="getRowTranslation(i)"
-                  (dragover)="onRowDragOver($event, i)"
-                  (drop)="onRowDrop($event, i)"
+                  [class.dragging-row]="draggingRowIndex() === actualIndex"
+                  [class.drag-over-row]="dragOverRowIndex() === actualIndex"
+                  [style.transform]="getRowTranslation(actualIndex)"
+                  (dragover)="onRowDragOver($event, actualIndex)"
+                  (drop)="onRowDrop($event, actualIndex)"
                   (dragend)="onRowDragEnd()"
-                  (click)="onRowClick(row, i)"
-                  (dblclick)="editable() ? beginEdit(row, i) : null"
+                  (click)="onRowClick(row, actualIndex)"
+                  (dblclick)="editable() ? beginEdit(row, actualIndex) : null"
                 >
                   @if (rowReorderable()) {
                     <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
-                      <span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()" title="Drag row to reorder">
+                      <span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, actualIndex)" (dragend)="onRowDragEnd()" title="Drag row to reorder">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
                           <circle cx="9" cy="5" r="1.5"></circle>
                           <circle cx="9" cy="12" r="1.5"></circle>
@@ -551,17 +557,17 @@ export class NgxGridFooterTemplateDirective {
                       <ng-container *ngTemplateOutlet="rowTemplate(); context: {
                         $implicit: row,
                         row: row,
-                        index: i,
+                        index: actualIndex,
                         editing: isEditing(row),
                         expanded: isExpanded(row)
                       }" />
                     </td>
                   } @else {
                     @for (col of orderedColumns(); track col.field) {
-                      @if (getCellRowSpan(row, col.field, i) > 0) {
+                      @if (getCellRowSpan(row, col.field, actualIndex) > 0) {
                         <td
                           class="grid-td"
-                          [attr.rowspan]="getCellRowSpan(row, col.field, i)"
+                          [attr.rowspan]="getCellRowSpan(row, col.field, actualIndex)"
                           [class.pinned-left]="col.pinned === 'left'"
                           [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
                           [class.pinned-right]="col.pinned === 'right'"
@@ -585,7 +591,7 @@ export class NgxGridFooterTemplateDirective {
                                 value: getCellValue(row, col.field),
                                 row: row,
                                 column: col,
-                                index: i,
+                                index: actualIndex,
                                 editing: true,
                                 draftValue: getDraftValue(row, col.field),
                                 updateDraft: getUpdateDraftCallback(col.field)
@@ -604,7 +610,7 @@ export class NgxGridFooterTemplateDirective {
                               value: getCellValue(row, col.field),
                               row: row,
                               column: col,
-                              index: i,
+                              index: actualIndex,
                               editing: isEditing(row)
                             }" />
                           } @else {
@@ -627,9 +633,9 @@ export class NgxGridFooterTemplateDirective {
                         style="width:120px"
                       >
                         @if (!isEditing(row)) {
-                          <button class="action-btn" type="button" (click)="beginEdit(row, i); $event.stopPropagation()">Edit</button>
+                          <button class="action-btn" type="button" (click)="beginEdit(row, actualIndex); $event.stopPropagation()">Edit</button>
                         } @else {
-                          <button class="action-btn save" type="button" (click)="saveEdit(row, i); $event.stopPropagation()">Save</button>
+                          <button class="action-btn save" type="button" (click)="saveEdit(row, actualIndex); $event.stopPropagation()">Save</button>
                           <button class="action-btn" type="button" (click)="cancelEdit(); $event.stopPropagation()">Cancel</button>
                         }
                       </td>
@@ -644,12 +650,17 @@ export class NgxGridFooterTemplateDirective {
                         <ng-container *ngTemplateOutlet="detailRowTemplate(); context: {
                           $implicit: row,
                           row: row,
-                          index: i
+                          index: actualIndex
                         }" />
                       </div>
                     </td>
                   </tr>
                 }
+              }
+              @if (virtualScroll()) {
+                <tr [style.height.px]="(flatRenderedRows().length - endIndex()) * rowHeight()">
+                  <td [attr.colspan]="renderColumnCount()" style="padding:0; border:none; height: inherit;"></td>
+                </tr>
               }
             }
           </tbody>
@@ -1891,6 +1902,8 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   enableContextMenu = input<boolean>(false);
   keyboardNavigation = input<boolean>(false);
   groupAggregations = input<boolean>(false);
+  virtualScroll = input<boolean>(false);
+  rowHeight = input<number>(49);
 
   sortState = signal<GridSortState | null>(null);
   currentPage = signal(1);
@@ -1901,6 +1914,26 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   editingDraft = signal<Record<string, unknown>>({});
   internalPageSize = signal<number>(10);
   internalGroupBy = signal<GridGroupState | null>(null);
+
+  scrollTop = signal<number>(0);
+  viewportHeight = signal<number>(400);
+
+  startIndex = computed(() => {
+    if (!this.virtualScroll()) return 0;
+    return Math.max(0, Math.floor(this.scrollTop() / this.rowHeight()) - 3);
+  });
+
+  endIndex = computed(() => {
+    const totalCount = this.flatRenderedRows().length;
+    if (!this.virtualScroll()) return totalCount;
+    return Math.min(totalCount, Math.ceil((this.scrollTop() + this.viewportHeight()) / this.rowHeight()) + 3);
+  });
+
+  visibleRows = computed(() => {
+    const rendered = this.flatRenderedRows();
+    if (!this.virtualScroll()) return rendered;
+    return rendered.slice(this.startIndex(), this.endIndex());
+  });
   
   // Enterprise Extensions
   i18n = inject(NGX_CORE_I18N);
@@ -3143,6 +3176,14 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     }
     this.draggingRowIndex.set(null);
     this.dragOverRowIndex.set(null);
+  }
+
+  onViewportScroll(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (target && this.virtualScroll()) {
+      this.scrollTop.set(target.scrollTop);
+      this.viewportHeight.set(target.clientHeight || 400);
+    }
   }
 
   onRowDragEnd(): void {

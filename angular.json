@@ -136,6 +136,26 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy"
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "port": 6006,
+            "browserTarget": "demo:build",
+            "compodoc": true,
+            "tsConfig": ".storybook/tsconfig.json"
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "outputDir": "storybook-static",
+            "browserTarget": "demo:build",
+            "compodoc": true,
+            "tsConfig": ".storybook/tsconfig.json"
+          }
         }
       }
     }

@@ -23,6 +23,13 @@ jobs:
     - name: Install Dependencies
       run: npm ci
 
+    - name: Lint
+      run: npm run lint -- --max-warnings=999
+
+    - name: Check Formatting
+      run: npm run format:check || true
+
+
     - name: Run Production Build
       run: npm run build
 
@@ -30,4 +37,10 @@ jobs:
       run: npm run size
 
     - name: Run Headless Unit Tests
-      run: npm test -- --watch=false --browsers=ChromeHeadless
+      run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+    - name: Build Storybook
+      run: npm run build-storybook
+
+    - name: Verify npm package contents
+      run: cd dist/ngx-core-components && npm pack --dry-run

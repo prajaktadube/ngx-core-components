@@ -169,6 +169,11 @@ interface ApiRow {
               Group Aggregations
             </label>
 
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="virtualScroll()" (change)="virtualScroll.set($any($event.target).checked)" />
+              Virtual Scroll
+            </label>
+
             <label class="ctrl-item">
               Page Size
               <select [value]="gridPageSize()" (change)="onPageSizeChange(+$any($event.target).value)">
@@ -198,6 +203,7 @@ interface ApiRow {
             [page]="gridPage()"
             [pageSize]="gridPageSize()"
             [total]="processingMode() === 'server' ? serverTotal() : 0"
+            [virtualScroll]="virtualScroll()"
             [selectable]="true"
             [striped]="true"
             [loading]="loading()"
@@ -606,6 +612,7 @@ export class GridDemoComponent {
   keyboardNavigation = signal(true);
   groupAggregations = signal(true);
   loading = signal(false);
+  virtualScroll = signal(false);
   gridPage = signal(1);
   gridPageSize = signal(8);
   selectedCount = signal(0);

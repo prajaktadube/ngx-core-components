@@ -45,12 +45,24 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
         </div>
       }
 
+      <!-- Reset Zoom Floating Button -->
+      @if (zoomScale() !== 1 || panOffset().x !== 0 || panOffset().y !== 0) {
+        <button class="reset-zoom-btn" (click)="resetZoom()" type="button">Reset Zoom</button>
+      }
+
       <!-- SVG Chart -->
       <svg
         #svgEl
         [attr.width]="'100%'"
         [attr.height]="chartHeight()"
         class="chart-svg"
+        (wheel)="onWheel($event)"
+        (mousedown)="onMouseDown($event)"
+        (mousemove)="onSvgMouseMove($event)"
+        (mouseup)="onMouseUp()"
+        (mouseleave)="onMouseLeaveChart()"
+        [class.zoom-active]="zoomEnabled() || panEnabled()"
+        [class.panning]="isPanning"
       >
         <defs>
           @for (s of series(); track s.name; let i = $index) {
@@ -60,7 +72,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
             </linearGradient>
           }
         </defs>
-        <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
+        <g [attr.transform]="'translate(' + (PAD_LEFT + panOffset().x) + ',' + (PAD_TOP + panOffset().y) + ') scale(' + zoomScale() + ')'">
 
           <!-- Y axis ticks and gridlines -->
           @for (tick of yTicks(); track tick) {
@@ -180,6 +192,35 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
       position: relative;
     }
     .ngx-line-chart { position: relative; background: var(--ngx-chart-bg, #fff); }
+    .reset-zoom-btn {
+      position: absolute;
+      top: 40px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .reset-zoom-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-1px);
+    }
+    .ngx-line-chart.dark-mode .reset-zoom-btn {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
+    }
+    .chart-svg.panning {
+      cursor: grabbing !important;
+    }
     .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
     .chart-legend { display: flex; gap: 16px; padding: 4px 0 12px; flex-wrap: wrap; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ngx-chart-axis-text,#6c757d); font-weight: 500; }
@@ -311,6 +352,9 @@ export class LineChartComponent {
   labelFormatter = input<((v: number) => string) | undefined>(undefined);
   tooltipTemplate = input<TemplateRef<any> | null>(null);
 
+  zoomEnabled = input<boolean>(false);
+  panEnabled = input<boolean>(false);
+
   pointClick = output<{ category: string; value: number; seriesName: string }>();
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
@@ -318,6 +362,8 @@ export class LineChartComponent {
   exportMenuOpen = signal(false);
   animateState = signal(false);
   containerWidth = signal<number>(600);
+  zoomScale = signal<number>(1);
+  panOffset = signal<{ x: number; y: number }>({ x: 0, y: 0 });
 
   crosshair = signal<{ x: number } | null>(null);
   activeCategoryIndex = signal<number | null>(null);
@@ -370,9 +416,10 @@ export class LineChartComponent {
   }
 
   onMouseMove(event: MouseEvent): void {
+    if (this.isPanning) return;
     const el = event.currentTarget as HTMLElement;
     const rect = el.getBoundingClientRect();
-    const mx = event.clientX - rect.left - this.PAD_LEFT;
+    const mx = (event.clientX - rect.left - this.PAD_LEFT - this.panOffset().x) / this.zoomScale();
     const cats = this.categories();
     if (cats.length === 0) return;
     const idx = Math.round(scale(mx, 0, this.innerW(), 0, cats.length - 1));
@@ -390,6 +437,68 @@ export class LineChartComponent {
       cat: cats[ci],
       rows,
     });
+  }
+
+  isPanning = false;
+  panStart = { x: 0, y: 0 };
+
+  onWheel(event: WheelEvent): void {
+    if (!this.zoomEnabled()) return;
+    event.preventDefault();
+    
+    const zoomFactor = 1.1;
+    let newScale = this.zoomScale();
+    if (event.deltaY < 0) {
+      newScale = Math.min(5, newScale * zoomFactor);
+    } else {
+      newScale = Math.max(1, newScale / zoomFactor);
+    }
+    
+    const rect = this.svgEl()?.nativeElement.getBoundingClientRect();
+    if (rect && newScale !== this.zoomScale()) {
+      const mouseX = event.clientX - rect.left - this.PAD_LEFT;
+      const mouseY = event.clientY - rect.top - this.PAD_TOP;
+      
+      const prevScale = this.zoomScale();
+      const dx = mouseX - this.panOffset().x;
+      const dy = mouseY - this.panOffset().y;
+      
+      const newX = mouseX - dx * (newScale / prevScale);
+      const newY = mouseY - dy * (newScale / prevScale);
+      
+      this.zoomScale.set(newScale);
+      this.panOffset.set({ x: newScale === 1 ? 0 : newX, y: newScale === 1 ? 0 : newY });
+    }
+  }
+
+  onMouseDown(event: MouseEvent): void {
+    if (!this.panEnabled() || this.zoomScale() === 1) return;
+    this.isPanning = true;
+    this.panStart = {
+      x: event.clientX - this.panOffset().x,
+      y: event.clientY - this.panOffset().y
+    };
+  }
+
+  onSvgMouseMove(event: MouseEvent): void {
+    if (this.isPanning) {
+      const newX = event.clientX - this.panStart.x;
+      const newY = event.clientY - this.panStart.y;
+      this.panOffset.set({ x: newX, y: newY });
+    }
+  }
+
+  onMouseUp(): void {
+    this.isPanning = false;
+  }
+
+  onMouseLeaveChart(): void {
+    this.isPanning = false;
+  }
+
+  resetZoom(): void {
+    this.zoomScale.set(1);
+    this.panOffset.set({ x: 0, y: 0 });
   }
 
   onPointClick(ci: number, si: number, v: number): void {

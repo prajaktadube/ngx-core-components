@@ -116,9 +116,15 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                 @for (col of sidebarColumns(); track col.header + '-' + $index) { <col [style.width.px]="col.width"/> }
               </colgroup>
               <tbody>
+                @if (mergedConfig().virtualScrollEnabled) {
+                  <tr [style.height.px]="virtualRange().start * mergedConfig().rowHeight">
+                    <td [attr.colspan]="sidebarColumns().length" style="padding:0; border:none; height: inherit;"></td>
+                  </tr>
+                }
                 @for (row of renderedRows(); track row.task.id; let i = $index) {
+                  @let actualIdx = mergedConfig().virtualScrollEnabled ? virtualRange().start + i : i;
                   <tr class="k-treelist-row" [class.k-group-header-row]="row.isGroupHeader" [style.height.px]="mergedConfig().rowHeight"
-                    [class.k-alt]="mergedConfig().enableAlternateRowColor && i % 2 === 1 && !row.isGroupHeader" [class.k-selected]="isTaskSelected(row.task.id)" [class.k-hover]="hoveredTaskId() === row.task.id"
+                    [class.k-alt]="mergedConfig().enableAlternateRowColor && actualIdx % 2 === 1 && !row.isGroupHeader" [class.k-selected]="isTaskSelected(row.task.id)" [class.k-hover]="hoveredTaskId() === row.task.id"
                     (mouseenter)="hoveredTaskId.set(row.task.id)" (mouseleave)="hoveredTaskId.set(null)" (click)="onRowClick(row.task, $event)">
                     @if (row.isGroupHeader) {
                       <td class="k-treelist-cell k-group-cell" [attr.colspan]="sidebarColumns().length">
@@ -161,6 +167,11 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
                     }
                   </tr>
                 }
+                @if (mergedConfig().virtualScrollEnabled) {
+                  <tr [style.height.px]="(visibleRows().length > virtualRange().end) ? (visibleRows().length - virtualRange().end) * mergedConfig().rowHeight : 0">
+                    <td [attr.colspan]="sidebarColumns().length" style="padding:0; border:none; height: inherit;"></td>
+                  </tr>
+                }
               </tbody>
             </table>
           </div>
@@ -191,8 +202,9 @@ import { Rect, computeDependencyPath } from './utils/svg-utils';
             <div class="k-timeline-canvas" [style.width.px]="totalWidth()" [style.height.px]="totalHeight()">
               <div class="k-gantt-rows">
                 @for (row of renderedRows(); track row.task.id; let i = $index) {
-                  <div class="k-gantt-row" [class.k-group-row]="row.isGroupHeader" [style.top.px]="i * mergedConfig().rowHeight" [style.height.px]="mergedConfig().rowHeight"
-                    [class.k-alt]="mergedConfig().enableAlternateRowColor && i % 2 === 1 && !row.isGroupHeader" [class.k-hover]="hoveredTaskId() === row.task.id" [class.k-selected]="isTaskSelected(row.task.id)"
+                  @let actualIdx = mergedConfig().virtualScrollEnabled ? virtualRange().start + i : i;
+                  <div class="k-gantt-row" [class.k-group-row]="row.isGroupHeader" [style.top.px]="actualIdx * mergedConfig().rowHeight" [style.height.px]="mergedConfig().rowHeight"
+                    [class.k-alt]="mergedConfig().enableAlternateRowColor && actualIdx % 2 === 1 && !row.isGroupHeader" [class.k-hover]="hoveredTaskId() === row.task.id" [class.k-selected]="isTaskSelected(row.task.id)"
                     (mouseenter)="hoveredTaskId.set(row.task.id)" (mouseleave)="hoveredTaskId.set(null)"
                     (dragover)="mergedConfig().tableDraggable ? onTableDragOver($event, row) : null" (drop)="mergedConfig().tableDraggable ? onTableDrop($event, row) : null">
                   </div>
@@ -665,7 +677,7 @@ export class GanttChartComponent {
   linkDragLine = signal<{ x1: number; y1: number; x2: number; y2: number } | null>(null);
   private linkDragSource: GanttTask | null = null;
   private tableDragSourceRow: FlatRow | null = null;
-  private virtualRange = signal<{ start: number; end: number }>({ start: 0, end: Infinity });
+  virtualRange = signal<{ start: number; end: number }>({ start: 0, end: Infinity });
 
   // Area Zoom State
   isAreaZoomMode = signal(false);

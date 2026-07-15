@@ -67,6 +67,7 @@ export type { SegmentedOption } from './segmented-control/segmented-control.comp
 // Dynamic Form Builder
 export { FormBuilderComponent } from './form-builder/form-builder.component';
 export type { FormBuilderField, FormBuilderOption } from './form-builder/form-builder.component';
+export { FormDesignerComponent } from './form-builder/form-designer.component';
 
 // Signature Pad
 export { SignaturePadComponent } from './signature-pad/signature-pad.component';
