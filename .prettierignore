@@ -1,0 +1,8 @@
+dist/
+node_modules/
+storybook-static/
+graphify-out/
+coverage/
+*.json
+documentation.json
+projects/ngx-core-components/schematics/

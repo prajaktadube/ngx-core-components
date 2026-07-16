@@ -1,12 +1,12 @@
 {
   "C:\\Work\\ngx-core-components\\angular.json": {
-    "mtime": 1784021734.6362224,
-    "ast_hash": "7ce4688c0328c7d7ba22638aaf14c72b",
+    "mtime": 1784176818.6668444,
+    "ast_hash": "46bcf6894f05632d7bf776e91e4aa7b3",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\package.json": {
-    "mtime": 1784021859.5025785,
-    "ast_hash": "bc482dd4fbcdb3641e9cc173c8a2d161",
+    "mtime": 1784176672.1816382,
+    "ast_hash": "46dacfd188a802ffd5201a00507e6264",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\tsconfig.json": {
@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\package.json": {
-    "mtime": 1784019949.678758,
-    "ast_hash": "55d7de25331424030bd6848e988e6400",
+    "mtime": 1784091848.7234755,
+    "ast_hash": "ffab4b816325f6574d12df3784c80a30",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\tsconfig.lib.json": {
@@ -580,8 +580,8 @@
     "semantic_hash": "84de69efd46ab0b8430393bd4188f8f2"
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\deploy-pages.yml": {
-    "mtime": 1779859271.4644835,
-    "ast_hash": "b114ed30e44089c9440aaf87e964c96b",
+    "mtime": 1784176710.0276048,
+    "ast_hash": "9a4f1da050de83bb2499b4e6a80a97fd",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\publish.yml": {
@@ -1050,8 +1050,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\ci.yml": {
-    "mtime": 1780656901.6679008,
-    "ast_hash": "a9571f3628a0bd2cb0c85e6836b136db",
+    "mtime": 1784091597.273373,
+    "ast_hash": "049f434b1783f0f90cb0e642507919f1",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\ai-demo\\ai-components.spec.ts": {
@@ -1957,6 +1957,31 @@
   "C:\\Work\\ngx-core-components\\scratch\\test-parser.js": {
     "mtime": 1784088320.3235683,
     "ast_hash": "88130afcdf4479dc4344acb68014499e",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\eslint.config.js": {
+    "mtime": 1784176610.1186724,
+    "ast_hash": "4d9c7e2fb143eb1b4001b430af161d35",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\karma.conf.js": {
+    "mtime": 1784176909.6823251,
+    "ast_hash": "ed3c5c68a98fbafc11711a2840341115",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\CHANGELOG.md": {
+    "mtime": 1784091594.7133512,
+    "ast_hash": "219def753f5c3825064deeb1f2445666",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\CODE_OF_CONDUCT.md": {
+    "mtime": 1784091613.1923754,
+    "ast_hash": "55dba61e7fb009d43c509ef8fe739a88",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\SECURITY.md": {
+    "mtime": 1784091691.2919583,
+    "ast_hash": "3a99b0d07680ceae919f691601d40c93",
     "semantic_hash": ""
   }
 }
