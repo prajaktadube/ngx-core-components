@@ -5,38 +5,50 @@ All notable changes to `ngx-core-components` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.3.20] - 2026-07-15
+## [0.3.22] - 2026-07-16
 
 ### Added
-- **Storybook**: 100+ interactive component stories with Chromatic visual regression testing
-- **DataGrid refactoring**: Extracted models, types, and export service into separate files for maintainability
-- **FormDesigner**: New drag-and-drop form builder component with toolbox, canvas, and property inspector
-- **AI Chat**: Expanded AI conversation components with history, card carousels, and typing indicators
-- **Layout & Overlays**: Enriched Splitter, DashboardLayout, Carousel, Dialog, Popover, Drawer stories
-- **Navigation**: Added Breadcrumb, Menu, CommandPalette, ContextMenu, BackToTop stories
-- **Accessibility audit**: WCAG 2.1 AA contrast fixes and ARIA improvements across Dropdown, DatePicker, Autocomplete, TabStrip, and Notification components
-- **i18n support**: Full internationalization via `NGX_CORE_I18N` injection token with English defaults and `provideNgxI18n()` helper
-
-### Changed
-- **DataGrid**: Modularized into `models.ts` and `grid-export.service.ts` (backward compatible)
-- **Storybook tsconfig**: Scoped compilation to library source only, excluding spec files
+- **API Reference**: Setup material-themed API docs using Compodoc with auto-deploy on GitHub Pages.
+- **Developer Experience**: Added rich JSDoc inline IDE documentation to `DataGrid` and `FormBuilder` inputs/outputs.
+- **Accessibility**: Added global `prefers-reduced-motion` and `forced-colors` high-contrast CSS overrides in `theme.css`.
 
 ### Fixed
-- Acorn indexer parsing warnings in Storybook caused by TypeScript-only syntax in story files
-- Calendar disabled state contrast ratios in DatePickerComponent
-- Notification container missing `aria-live` and `role` attributes
+- **CI/CD Hardening**: Resolved peer-dependency conflicts with `--legacy-peer-deps` flags across all workflows.
+- **SSR Compatibility**: Wrapped `window` and `document` references in `BackToTopComponent` to prevent SSR/pre-render failures.
 
-## [0.3.0] - 2026-06-01
+## [0.3.21] - 2026-07-14
 
 ### Added
-- Initial public release of 100+ Angular standalone components
-- 12 secondary entry points for tree-shakable imports
-- CSS custom properties theming system with light/dark mode
-- `ng add` and `ng generate grid` schematics
-- Karma/Jasmine test suite (159 specs)
-- GitHub Pages demo site deployment
-- npm auto-publish workflow
+- **VirtualListComponent**: Shipped high-performance list virtualization support with dynamic item templates, click event bindings, and viewport window mapping.
+- **Internationalization (i18n)**: Shipped full internationalization support via `NGX_CORE_I18N` token and `provideNgxI18n()` configuration helper.
 
----
+## [0.3.20] - 2026-06-29
 
-_For earlier development history, see the [commit log](https://github.com/prajaktadube/ngx-core-components/commits/main)._
+### Added
+- **Calendar**: Enhanced calendar component with range selection and month/year picker views.
+
+## [0.3.19] - 2026-06-07
+
+### Added
+- **UI Enhancements**: Enhanced global component layout responsiveness and optimized in-app search functionality.
+
+## [0.3.18] - 2026-06-05
+
+### Added
+- **TextBox**: Added built-in validation status indicators (success, error, warning) and refreshed component styling.
+
+## [0.3.17] - 2026-06-05
+
+### Added
+- **Performance**: Integrated `size-limit` bundle tracking to monitor compile assets weight.
+
+## [0.3.15] - 2026-06-03
+
+### Added
+- **Charts**: Enhanced visual styling, layouts, and interactivity controls across SVG charting components.
+
+## [0.3.14] - 2026-06-01
+
+### Added
+- **New Chart Types**: Added Waterfall, Radial Bar, and Candlestick chart components.
+- **Pie Chart**: Added export to CSV/PDF/Image functionality.
