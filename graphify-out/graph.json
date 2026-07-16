@@ -4168,7 +4168,7 @@
       "source_file": "projects/demo/src/app/pages/dashboard-layout-demo/dashboard-layout-demo.component.ts",
       "source_location": "L1",
       "id": "projects_demo_src_app_pages_dashboard_layout_demo_dashboard_layout_demo_component_ts",
-      "community": 152,
+      "community": 33,
       "norm_label": "dashboard-layout-demo.component.ts"
     },
     {
@@ -4627,7 +4627,7 @@
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1512",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_resetplaytasks",
-      "community": 28,
+      "community": 115,
       "norm_label": ".resetplaytasks()"
     },
     {
@@ -7039,7 +7039,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L1",
       "id": "projects_demo_src_app_pages_theming_demo_theming_demo_component_ts",
-      "community": 33,
+      "community": 28,
       "norm_label": "theming-demo.component.ts"
     },
     {
@@ -7048,7 +7048,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L12",
       "id": "theming_demo_theming_demo_component_cssvar",
-      "community": 33,
+      "community": 28,
       "norm_label": "cssvar"
     },
     {
@@ -7057,7 +7057,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L13",
       "id": "theming_demo_theming_demo_component_themepreset",
-      "community": 33,
+      "community": 28,
       "norm_label": "themepreset"
     },
     {
@@ -7066,7 +7066,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L14",
       "id": "theming_demo_theming_demo_component_apirow",
-      "community": 33,
+      "community": 28,
       "norm_label": "apirow"
     },
     {
@@ -7075,7 +7075,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L462",
       "id": "theming_demo_theming_demo_component_themingdemocomponent",
-      "community": 268,
+      "community": 260,
       "norm_label": "themingdemocomponent"
     },
     {
@@ -7084,7 +7084,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L622",
       "id": "theming_demo_theming_demo_component_vars",
-      "community": 33,
+      "community": 28,
       "norm_label": "vars"
     },
     {
@@ -7093,7 +7093,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L623",
       "id": "theming_demo_theming_demo_component_lines",
-      "community": 33,
+      "community": 28,
       "norm_label": "lines"
     },
     {
@@ -7102,7 +7102,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L688",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_ontaskchange",
-      "community": 268,
+      "community": 260,
       "norm_label": ".ontaskchange()"
     },
     {
@@ -7111,7 +7111,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L694",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_copygeneratedcss",
-      "community": 268,
+      "community": 260,
       "norm_label": ".copygeneratedcss()"
     },
     {
@@ -7120,7 +7120,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L701",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_applypreset",
-      "community": 268,
+      "community": 260,
       "norm_label": ".applypreset()"
     },
     {
@@ -7129,7 +7129,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L707",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_updatevar",
-      "community": 268,
+      "community": 260,
       "norm_label": ".updatevar()"
     },
     {
@@ -7138,7 +7138,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L718",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_getvargroup",
-      "community": 268,
+      "community": 260,
       "norm_label": ".getvargroup()"
     },
     {
@@ -7147,7 +7147,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L729",
       "id": "theming_demo_theming_demo_component_result",
-      "community": 33,
+      "community": 28,
       "norm_label": "result"
     },
     {
@@ -7156,7 +7156,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L736",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_buildinitialvars",
-      "community": 268,
+      "community": 260,
       "norm_label": ".buildinitialvars()"
     },
     {
@@ -7165,7 +7165,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L758",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_applyallvars",
-      "community": 268,
+      "community": 260,
       "norm_label": ".applyallvars()"
     },
     {
@@ -7174,7 +7174,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L764",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_iscolor",
-      "community": 268,
+      "community": 260,
       "norm_label": ".iscolor()"
     },
     {
@@ -7183,7 +7183,7 @@
       "source_file": "projects/demo/src/app/pages/theming-demo/theming-demo.component.ts",
       "source_location": "L768",
       "id": "theming_demo_theming_demo_component_themingdemocomponent_prettylabel",
-      "community": 268,
+      "community": 260,
       "norm_label": ".prettylabel()"
     },
     {
@@ -9928,7 +9928,7 @@
       "source_file": "projects/ngx-core-components/charts/public-api.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_public_api_ts",
-      "community": 163,
+      "community": 146,
       "norm_label": "public-api.ts"
     },
     {
@@ -10405,7 +10405,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_biplot_biplot_component_stories_ts",
-      "community": 200,
+      "community": 268,
       "norm_label": "biplot.component.stories.ts"
     },
     {
@@ -10414,7 +10414,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.stories.ts",
       "source_location": "L3",
       "id": "biplot_biplot_component_stories_meta",
-      "community": 200,
+      "community": 268,
       "norm_label": "meta"
     },
     {
@@ -10423,7 +10423,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.stories.ts",
       "source_location": "L12",
       "id": "biplot_biplot_component_stories_default",
-      "community": 200,
+      "community": 268,
       "norm_label": "default"
     },
     {
@@ -10477,7 +10477,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L331",
       "id": "biplot_biplot_component_biplotcomponent",
-      "community": 200,
+      "community": 268,
       "norm_label": "biplotcomponent"
     },
     {
@@ -10540,7 +10540,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L383",
       "id": "biplot_biplot_component_biplotcomponent_xpos",
-      "community": 200,
+      "community": 268,
       "norm_label": ".xpos()"
     },
     {
@@ -10549,7 +10549,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L389",
       "id": "biplot_biplot_component_biplotcomponent_ypos",
-      "community": 200,
+      "community": 268,
       "norm_label": ".ypos()"
     },
     {
@@ -10558,7 +10558,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L398",
       "id": "biplot_biplot_component_biplotcomponent_constructor",
-      "community": 200,
+      "community": 268,
       "norm_label": ".constructor()"
     },
     {
@@ -10594,7 +10594,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L450",
       "id": "biplot_biplot_component_biplotcomponent_onpointhover",
-      "community": 200,
+      "community": 268,
       "norm_label": ".onpointhover()"
     },
     {
@@ -10603,7 +10603,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L463",
       "id": "biplot_biplot_component_biplotcomponent_onmousemove",
-      "community": 200,
+      "community": 268,
       "norm_label": ".onmousemove()"
     },
     {
@@ -10612,7 +10612,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L473",
       "id": "biplot_biplot_component_biplotcomponent_onmouseleave",
-      "community": 200,
+      "community": 268,
       "norm_label": ".onmouseleave()"
     },
     {
@@ -10621,7 +10621,7 @@
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.ts",
       "source_location": "L478",
       "id": "biplot_biplot_component_biplotcomponent_formatnumber",
-      "community": 200,
+      "community": 268,
       "norm_label": ".formatnumber()"
     },
     {
@@ -12223,7 +12223,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_gantt_chart_gantt_chart_component_spec_ts",
-      "community": 12,
+      "community": 330,
       "norm_label": "gantt-chart.component.spec.ts"
     },
     {
@@ -12232,7 +12232,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L10",
       "id": "gantt_chart_gantt_chart_component_spec_mocktasks",
-      "community": 12,
+      "community": 330,
       "norm_label": "mocktasks"
     },
     {
@@ -12241,7 +12241,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L88",
       "id": "gantt_chart_gantt_chart_component_spec_tasknames",
-      "community": 12,
+      "community": 330,
       "norm_label": "tasknames"
     },
     {
@@ -12250,7 +12250,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L96",
       "id": "gantt_chart_gantt_chart_component_spec_todaybtn",
-      "community": 12,
+      "community": 330,
       "norm_label": "todaybtn"
     },
     {
@@ -12259,7 +12259,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L99",
       "id": "gantt_chart_gantt_chart_component_spec_criticalpathbtn",
-      "community": 12,
+      "community": 330,
       "norm_label": "criticalpathbtn"
     },
     {
@@ -12700,7 +12700,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1126",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_toggleselection",
-      "community": 12,
+      "community": 1,
       "norm_label": ".toggleselection()"
     },
     {
@@ -12790,7 +12790,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1342",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_onrowclick",
-      "community": 12,
+      "community": 1,
       "norm_label": ".onrowclick()"
     },
     {
@@ -12799,7 +12799,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1346",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontaskbarclick",
-      "community": 12,
+      "community": 1,
       "norm_label": ".ontaskbarclick()"
     },
     {
@@ -18748,7 +18748,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_wind_rose_wind_rose_component_ts",
-      "community": 163,
+      "community": 146,
       "norm_label": "wind-rose.component.ts"
     },
     {
@@ -18757,7 +18757,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L8",
       "id": "wind_rose_wind_rose_component_windrosespeedbin",
-      "community": 163,
+      "community": 146,
       "norm_label": "windrosespeedbin"
     },
     {
@@ -18766,7 +18766,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L13",
       "id": "wind_rose_wind_rose_component_windroseitem",
-      "community": 163,
+      "community": 146,
       "norm_label": "windroseitem"
     },
     {
@@ -18775,7 +18775,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L18",
       "id": "wind_rose_wind_rose_component_processedwedgebin",
-      "community": 163,
+      "community": 146,
       "norm_label": "processedwedgebin"
     },
     {
@@ -18784,7 +18784,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L27",
       "id": "wind_rose_wind_rose_component_processedwedge",
-      "community": 163,
+      "community": 146,
       "norm_label": "processedwedge"
     },
     {
@@ -18820,7 +18820,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L415",
       "id": "wind_rose_wind_rose_component_raw",
-      "community": 163,
+      "community": 146,
       "norm_label": "raw"
     },
     {
@@ -18829,7 +18829,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L419",
       "id": "wind_rose_wind_rose_component_sum",
-      "community": 163,
+      "community": 146,
       "norm_label": "sum"
     },
     {
@@ -18838,7 +18838,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L426",
       "id": "wind_rose_wind_rose_component_maxpct",
-      "community": 163,
+      "community": 146,
       "norm_label": "maxpct"
     },
     {
@@ -18847,7 +18847,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L435",
       "id": "wind_rose_wind_rose_component_levels",
-      "community": 163,
+      "community": 146,
       "norm_label": "levels"
     },
     {
@@ -18865,7 +18865,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L449",
       "id": "wind_rose_wind_rose_component_palette",
-      "community": 163,
+      "community": 146,
       "norm_label": "palette"
     },
     {
@@ -18874,7 +18874,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L450",
       "id": "wind_rose_wind_rose_component_rmax",
-      "community": 163,
+      "community": 146,
       "norm_label": "rmax"
     },
     {
@@ -18883,7 +18883,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L451",
       "id": "wind_rose_wind_rose_component_gridmax",
-      "community": 163,
+      "community": 146,
       "norm_label": "gridmax"
     },
     {
@@ -18892,7 +18892,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L457",
       "id": "wind_rose_wind_rose_component_angle",
-      "community": 163,
+      "community": 146,
       "norm_label": "angle"
     },
     {
@@ -18901,7 +18901,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L462",
       "id": "wind_rose_wind_rose_component_bins",
-      "community": 163,
+      "community": 146,
       "norm_label": "bins"
     },
     {
@@ -22942,7 +22942,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_autocomplete_autocomplete_component_ts",
-      "community": 2,
+      "community": 255,
       "norm_label": "autocomplete.component.ts"
     },
     {
@@ -22960,7 +22960,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L146",
       "id": "autocomplete_autocomplete_component_text",
-      "community": 2,
+      "community": 255,
       "norm_label": "text"
     },
     {
@@ -22969,7 +22969,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L151",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_isselected",
-      "community": 2,
+      "community": 187,
       "norm_label": ".isselected()"
     },
     {
@@ -24112,7 +24112,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L8",
       "id": "dropdown_dropdown_component_dropdownoption",
-      "community": 2,
+      "community": 187,
       "norm_label": "dropdownoption"
     },
     {
@@ -24364,7 +24364,7 @@
       "source_file": "projects/ngx-core-components/inputs/file-upload/file-upload.component.spec.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_file_upload_file_upload_component_spec_ts",
-      "community": 295,
+      "community": 123,
       "norm_label": "file-upload.component.spec.ts"
     },
     {
@@ -24373,7 +24373,7 @@
       "source_file": "projects/ngx-core-components/inputs/file-upload/file-upload.component.spec.ts",
       "source_location": "L35",
       "id": "file_upload_file_upload_component_spec_headlineel",
-      "community": 295,
+      "community": 123,
       "norm_label": "headlineel"
     },
     {
@@ -24382,7 +24382,7 @@
       "source_file": "projects/ngx-core-components/inputs/file-upload/file-upload.component.spec.ts",
       "source_location": "L41",
       "id": "file_upload_file_upload_component_spec_dropzone",
-      "community": 295,
+      "community": 123,
       "norm_label": "dropzone"
     },
     {
@@ -24391,7 +24391,7 @@
       "source_file": "projects/ngx-core-components/inputs/file-upload/file-upload.component.spec.ts",
       "source_location": "L44",
       "id": "file_upload_file_upload_component_spec_dragoverevent",
-      "community": 295,
+      "community": 123,
       "norm_label": "dragoverevent"
     },
     {
@@ -24400,7 +24400,7 @@
       "source_file": "projects/ngx-core-components/inputs/file-upload/file-upload.component.spec.ts",
       "source_location": "L49",
       "id": "file_upload_file_upload_component_spec_dragleaveevent",
-      "community": 295,
+      "community": 123,
       "norm_label": "dragleaveevent"
     },
     {
@@ -24409,7 +24409,7 @@
       "source_file": "projects/ngx-core-components/inputs/file-upload/file-upload.component.spec.ts",
       "source_location": "L56",
       "id": "file_upload_file_upload_component_spec_fileinput",
-      "community": 295,
+      "community": 123,
       "norm_label": "fileinput"
     },
     {
@@ -24418,7 +24418,7 @@
       "source_file": "projects/ngx-core-components/inputs/file-upload/file-upload.component.spec.ts",
       "source_location": "L70",
       "id": "file_upload_file_upload_component_spec_enterevent",
-      "community": 295,
+      "community": 123,
       "norm_label": "enterevent"
     },
     {
@@ -24688,7 +24688,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_form_builder_form_builder_component_ts",
-      "community": 16,
+      "community": 231,
       "norm_label": "form-builder.component.ts"
     },
     {
@@ -24697,7 +24697,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L4",
       "id": "form_builder_form_builder_component_formbuilderoption",
-      "community": 16,
+      "community": 231,
       "norm_label": "formbuilderoption"
     },
     {
@@ -24706,7 +24706,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L9",
       "id": "form_builder_form_builder_component_formbuilderfield",
-      "community": 43,
+      "community": 231,
       "norm_label": "formbuilderfield"
     },
     {
@@ -24715,7 +24715,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L109",
       "id": "form_builder_form_builder_component_formbuildercomponent",
-      "community": 16,
+      "community": 231,
       "norm_label": "formbuildercomponent"
     },
     {
@@ -24724,7 +24724,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L145",
       "id": "form_builder_form_builder_component_fromfields",
-      "community": 16,
+      "community": 231,
       "norm_label": "fromfields"
     },
     {
@@ -24733,7 +24733,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L154",
       "id": "form_builder_form_builder_component_formbuildercomponent_valuefor",
-      "community": 16,
+      "community": 231,
       "norm_label": ".valuefor()"
     },
     {
@@ -24742,7 +24742,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L158",
       "id": "form_builder_form_builder_component_formbuildercomponent_updatevalue",
-      "community": 16,
+      "community": 231,
       "norm_label": ".updatevalue()"
     },
     {
@@ -24751,7 +24751,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L164",
       "id": "form_builder_form_builder_component_formbuildercomponent_submit",
-      "community": 16,
+      "community": 231,
       "norm_label": ".submit()"
     },
     {
@@ -24760,7 +24760,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L169",
       "id": "form_builder_form_builder_component_formbuildercomponent_coerceinputvalue",
-      "community": 16,
+      "community": 231,
       "norm_label": ".coerceinputvalue()"
     },
     {
@@ -24769,7 +24769,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L173",
       "id": "form_builder_form_builder_component_formbuildercomponent_readoptionvalue",
-      "community": 16,
+      "community": 231,
       "norm_label": ".readoptionvalue()"
     },
     {
@@ -24850,7 +24850,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_form_builder_form_designer_component_ts",
-      "community": 16,
+      "community": 231,
       "norm_label": "form-designer.component.ts"
     },
     {
@@ -24886,7 +24886,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.ts",
       "source_location": "L884",
       "id": "form_builder_form_designer_component_formdesignercomponent_ontoolboxdragstart",
-      "community": 43,
+      "community": 231,
       "norm_label": ".ontoolboxdragstart()"
     },
     {
@@ -24985,7 +24985,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.ts",
       "source_location": "L992",
       "id": "form_builder_form_designer_component_formdesignercomponent_deletefield",
-      "community": 43,
+      "community": 231,
       "norm_label": ".deletefield()"
     },
     {
@@ -25174,7 +25174,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_multi_select_multi_select_component_ts",
-      "community": 307,
+      "community": 187,
       "norm_label": "multi-select.component.ts"
     },
     {
@@ -25192,7 +25192,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L202",
       "id": "multi_select_multi_select_component_f",
-      "community": 307,
+      "community": 187,
       "norm_label": "f"
     },
     {
@@ -25201,7 +25201,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L209",
       "id": "multi_select_multi_select_component_multiselectcomponent_ischecked",
-      "community": 2,
+      "community": 187,
       "norm_label": ".ischecked()"
     },
     {
@@ -25219,7 +25219,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L216",
       "id": "multi_select_multi_select_component_multiselectcomponent_toggleoption",
-      "community": 2,
+      "community": 187,
       "norm_label": ".toggleoption()"
     },
     {
@@ -25336,7 +25336,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L264",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
-      "community": 148,
+      "community": 295,
       "norm_label": "numerictextboxcomponent"
     },
     {
@@ -25345,7 +25345,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L292",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_constructor",
-      "community": 148,
+      "community": 295,
       "norm_label": ".constructor()"
     },
     {
@@ -25354,7 +25354,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L298",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onchange",
-      "community": 148,
+      "community": 295,
       "norm_label": ".onchange()"
     },
     {
@@ -25363,7 +25363,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L311",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onblur",
-      "community": 148,
+      "community": 295,
       "norm_label": ".onblur()"
     },
     {
@@ -25372,7 +25372,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L316",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onkeydown",
-      "community": 148,
+      "community": 295,
       "norm_label": ".onkeydown()"
     },
     {
@@ -25381,7 +25381,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L332",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_spin",
-      "community": 148,
+      "community": 295,
       "norm_label": ".spin()"
     },
     {
@@ -25390,7 +25390,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L334",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setvalue",
-      "community": 148,
+      "community": 295,
       "norm_label": ".setvalue()"
     },
     {
@@ -25399,7 +25399,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L341",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_clamp",
-      "community": 148,
+      "community": 295,
       "norm_label": ".clamp()"
     },
     {
@@ -25408,7 +25408,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L346",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_writevalue",
-      "community": 148,
+      "community": 295,
       "norm_label": ".writevalue()"
     },
     {
@@ -25417,7 +25417,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L350",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registeronchange",
-      "community": 148,
+      "community": 295,
       "norm_label": ".registeronchange()"
     },
     {
@@ -25426,7 +25426,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L354",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registerontouched",
-      "community": 148,
+      "community": 295,
       "norm_label": ".registerontouched()"
     },
     {
@@ -25435,7 +25435,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L358",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setdisabledstate",
-      "community": 148,
+      "community": 295,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -26416,7 +26416,7 @@
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_time_picker_time_picker_component_stories_ts",
-      "community": 227,
+      "community": 132,
       "norm_label": "time-picker.component.stories.ts"
     },
     {
@@ -26425,7 +26425,7 @@
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L3",
       "id": "time_picker_time_picker_component_stories_meta",
-      "community": 227,
+      "community": 132,
       "norm_label": "meta"
     },
     {
@@ -26434,7 +26434,7 @@
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L12",
       "id": "time_picker_time_picker_component_stories_default",
-      "community": 227,
+      "community": 132,
       "norm_label": "default"
     },
     {
@@ -26443,7 +26443,7 @@
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_time_picker_time_picker_component_ts",
-      "community": 227,
+      "community": 132,
       "norm_label": "time-picker.component.ts"
     },
     {
@@ -33413,6 +33413,60 @@
       "norm_label": "workflow: graphify"
     },
     {
+      "label": "copilot-instructions.md",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L1",
+      "id": "github_copilot_instructions_md",
+      "community": 320,
+      "norm_label": "copilot-instructions.md"
+    },
+    {
+      "label": "ngx-core-components \u2014 AI Coding Copilot Instructions",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L1",
+      "id": "github_copilot_instructions_ngx_core_components_ai_coding_copilot_instructions",
+      "community": 320,
+      "norm_label": "ngx-core-components \u2014 ai coding copilot instructions"
+    },
+    {
+      "label": "\ud83d\udee0\ufe0f Quick CLI Commands",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L7",
+      "id": "github_copilot_instructions_quick_cli_commands",
+      "community": 320,
+      "norm_label": "\ud83d\udee0\ufe0f quick cli commands"
+    },
+    {
+      "label": "\ud83d\udcc1 Key File Locations",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L18",
+      "id": "github_copilot_instructions_key_file_locations",
+      "community": 320,
+      "norm_label": "\ud83d\udcc1 key file locations"
+    },
+    {
+      "label": "\ud83d\udcd0 Architecture & Conventions",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L28",
+      "id": "github_copilot_instructions_architecture_conventions",
+      "community": 320,
+      "norm_label": "\ud83d\udcd0 architecture & conventions"
+    },
+    {
+      "label": "\ud83e\uddea Testing & Quality Gates",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L37",
+      "id": "github_copilot_instructions_testing_quality_gates",
+      "community": 320,
+      "norm_label": "\ud83e\uddea testing & quality gates"
+    },
+    {
       "label": "PULL_REQUEST_TEMPLATE.md",
       "file_type": "document",
       "source_file": ".github/PULL_REQUEST_TEMPLATE.md",
@@ -33760,7 +33814,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L333",
       "id": "ngx_core_components_readme_component_api_reference_guides",
-      "community": 207,
+      "community": 0,
       "norm_label": "component api reference & guides"
     },
     {
@@ -33796,7 +33850,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L375",
       "id": "ngx_core_components_readme_ganttchartcomponent_ngx_gantt_chart",
-      "community": 203,
+      "community": 227,
       "norm_label": "ganttchartcomponent (`ngx-gantt-chart`)"
     },
     {
@@ -33805,7 +33859,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L376",
       "id": "ngx_core_components_readme_inputs_376",
-      "community": 203,
+      "community": 227,
       "norm_label": "inputs"
     },
     {
@@ -33823,7 +33877,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L400",
       "id": "ngx_core_components_readme_public_methods",
-      "community": 203,
+      "community": 227,
       "norm_label": "public methods"
     },
     {
@@ -33832,7 +33886,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L413",
       "id": "ngx_core_components_readme_ganttconfig_interface",
-      "community": 203,
+      "community": 227,
       "norm_label": "ganttconfig interface"
     },
     {
@@ -33841,7 +33895,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L414",
       "id": "ngx_core_components_readme_codeblock_11",
-      "community": 203,
+      "community": 227,
       "norm_label": "code:typescript (interface ganttconfig {)"
     },
     {
@@ -33850,7 +33904,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L429",
       "id": "ngx_core_components_readme_gantttask_interface",
-      "community": 203,
+      "community": 227,
       "norm_label": "gantttask interface"
     },
     {
@@ -33859,7 +33913,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L430",
       "id": "ngx_core_components_readme_codeblock_12",
-      "community": 203,
+      "community": 227,
       "norm_label": "code:typescript (interface gantttask {)"
     },
     {
@@ -33940,7 +33994,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L497",
       "id": "ngx_core_components_readme_inputs_497",
-      "community": 239,
+      "community": 328,
       "norm_label": "inputs"
     },
     {
@@ -33949,7 +34003,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L499",
       "id": "ngx_core_components_readme_how_to_use_inputs_with_reactive_forms",
-      "community": 239,
+      "community": 227,
       "norm_label": "how to use inputs (with reactive forms)"
     },
     {
@@ -33958,7 +34012,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L500",
       "id": "ngx_core_components_readme_codeblock_13",
-      "community": 203,
+      "community": 227,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -33967,7 +34021,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L528",
       "id": "ngx_core_components_readme_textboxcomponent_ngx_textbox",
-      "community": 239,
+      "community": 332,
       "norm_label": "textboxcomponent (`ngx-textbox`)"
     },
     {
@@ -33976,7 +34030,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L529",
       "id": "ngx_core_components_readme_inputs_529",
-      "community": 239,
+      "community": 332,
       "norm_label": "inputs"
     },
     {
@@ -33985,7 +34039,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L547",
       "id": "ngx_core_components_readme_outputs_547",
-      "community": 239,
+      "community": 332,
       "norm_label": "outputs"
     },
     {
@@ -34021,7 +34075,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L567",
       "id": "ngx_core_components_readme_radiogroupcomponent_ngx_radio_group",
-      "community": 239,
+      "community": 333,
       "norm_label": "radiogroupcomponent (`ngx-radio-group`)"
     },
     {
@@ -34030,7 +34084,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L568",
       "id": "ngx_core_components_readme_inputs_568",
-      "community": 239,
+      "community": 333,
       "norm_label": "inputs"
     },
     {
@@ -34039,7 +34093,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L577",
       "id": "ngx_core_components_readme_outputs_577",
-      "community": 239,
+      "community": 333,
       "norm_label": "outputs"
     },
     {
@@ -34048,7 +34102,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L582",
       "id": "ngx_core_components_readme_dropdowncomponent_ngx_dropdown",
-      "community": 239,
+      "community": 331,
       "norm_label": "dropdowncomponent (`ngx-dropdown`)"
     },
     {
@@ -34057,7 +34111,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L583",
       "id": "ngx_core_components_readme_inputs_583",
-      "community": 239,
+      "community": 331,
       "norm_label": "inputs"
     },
     {
@@ -34066,7 +34120,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L596",
       "id": "ngx_core_components_readme_outputs_596",
-      "community": 239,
+      "community": 331,
       "norm_label": "outputs"
     },
     {
@@ -34075,7 +34129,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L601",
       "id": "ngx_core_components_readme_multiselectcomponent_ngx_multi_select",
-      "community": 239,
+      "community": 334,
       "norm_label": "multiselectcomponent (`ngx-multi-select`)"
     },
     {
@@ -34084,7 +34138,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L602",
       "id": "ngx_core_components_readme_inputs_602",
-      "community": 239,
+      "community": 334,
       "norm_label": "inputs"
     },
     {
@@ -34093,7 +34147,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L613",
       "id": "ngx_core_components_readme_outputs_613",
-      "community": 239,
+      "community": 334,
       "norm_label": "outputs"
     },
     {
@@ -34102,7 +34156,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L618",
       "id": "ngx_core_components_readme_autocompletecomponent_ngx_autocomplete",
-      "community": 239,
+      "community": 328,
       "norm_label": "autocompletecomponent (`ngx-autocomplete`)"
     },
     {
@@ -34111,7 +34165,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L619",
       "id": "ngx_core_components_readme_inputs_619",
-      "community": 239,
+      "community": 328,
       "norm_label": "inputs"
     },
     {
@@ -34120,7 +34174,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L629",
       "id": "ngx_core_components_readme_outputs_629",
-      "community": 239,
+      "community": 328,
       "norm_label": "outputs"
     },
     {
@@ -34183,7 +34237,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L671",
       "id": "ngx_core_components_readme_slidercomponent_ngx_slider",
-      "community": 239,
+      "community": 335,
       "norm_label": "slidercomponent (`ngx-slider`)"
     },
     {
@@ -34192,7 +34246,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L672",
       "id": "ngx_core_components_readme_inputs_672",
-      "community": 239,
+      "community": 335,
       "norm_label": "inputs"
     },
     {
@@ -34201,7 +34255,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L687",
       "id": "ngx_core_components_readme_outputs_687",
-      "community": 239,
+      "community": 335,
       "norm_label": "outputs"
     },
     {
@@ -34210,7 +34264,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L693",
       "id": "ngx_core_components_readme_switchcomponent_ngx_switch",
-      "community": 239,
+      "community": 336,
       "norm_label": "switchcomponent (`ngx-switch`)"
     },
     {
@@ -34219,7 +34273,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L694",
       "id": "ngx_core_components_readme_inputs_694",
-      "community": 239,
+      "community": 336,
       "norm_label": "inputs"
     },
     {
@@ -34228,7 +34282,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L702",
       "id": "ngx_core_components_readme_outputs_702",
-      "community": 239,
+      "community": 336,
       "norm_label": "outputs"
     },
     {
@@ -34237,7 +34291,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L707",
       "id": "ngx_core_components_readme_ratingcomponent_ngx_rating",
-      "community": 239,
+      "community": 337,
       "norm_label": "ratingcomponent (`ngx-rating`)"
     },
     {
@@ -34246,7 +34300,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L708",
       "id": "ngx_core_components_readme_inputs_708",
-      "community": 239,
+      "community": 337,
       "norm_label": "inputs"
     },
     {
@@ -34255,7 +34309,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L716",
       "id": "ngx_core_components_readme_outputs_716",
-      "community": 239,
+      "community": 337,
       "norm_label": "outputs"
     },
     {
@@ -34300,7 +34354,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L746",
       "id": "ngx_core_components_readme_textareacomponent_ngx_textarea",
-      "community": 239,
+      "community": 338,
       "norm_label": "textareacomponent (`ngx-textarea`)"
     },
     {
@@ -34309,7 +34363,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L747",
       "id": "ngx_core_components_readme_inputs_747",
-      "community": 239,
+      "community": 338,
       "norm_label": "inputs"
     },
     {
@@ -34318,7 +34372,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L759",
       "id": "ngx_core_components_readme_outputs_759",
-      "community": 239,
+      "community": 338,
       "norm_label": "outputs"
     },
     {
@@ -34327,7 +34381,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L764",
       "id": "ngx_core_components_readme_colorpickercomponent_ngx_color_picker",
-      "community": 239,
+      "community": 329,
       "norm_label": "colorpickercomponent (`ngx-color-picker`)"
     },
     {
@@ -34336,7 +34390,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L765",
       "id": "ngx_core_components_readme_inputs_765",
-      "community": 239,
+      "community": 329,
       "norm_label": "inputs"
     },
     {
@@ -34345,7 +34399,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L770",
       "id": "ngx_core_components_readme_outputs_770",
-      "community": 239,
+      "community": 329,
       "norm_label": "outputs"
     },
     {
@@ -34354,7 +34408,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L775",
       "id": "ngx_core_components_readme_timepickercomponent_ngx_time_picker",
-      "community": 239,
+      "community": 339,
       "norm_label": "timepickercomponent (`ngx-time-picker`)"
     },
     {
@@ -34363,7 +34417,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L776",
       "id": "ngx_core_components_readme_inputs_776",
-      "community": 239,
+      "community": 339,
       "norm_label": "inputs"
     },
     {
@@ -34372,7 +34426,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L783",
       "id": "ngx_core_components_readme_outputs_783",
-      "community": 239,
+      "community": 339,
       "norm_label": "outputs"
     },
     {
@@ -34750,7 +34804,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1113",
       "id": "ngx_core_components_readme_codeblock_17",
-      "community": 203,
+      "community": 201,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -35029,7 +35083,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1306",
       "id": "ngx_core_components_readme_codeblock_19",
-      "community": 203,
+      "community": 207,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -35379,7 +35433,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/biplot/biplot.component.stories.ts",
       "source_location": "L12",
-      "community": 200,
+      "community": 268,
       "norm_label": "story",
       "id": "biplot_biplot_component_stories_story"
     },
@@ -35838,7 +35892,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L12",
-      "community": 227,
+      "community": 132,
       "norm_label": "story",
       "id": "time_picker_time_picker_component_stories_story"
     },
@@ -37134,7 +37188,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L29",
-      "community": 227,
+      "community": 132,
       "norm_label": "twelvehourmode",
       "id": "time_picker_time_picker_component_stories_twelvehourmode"
     },
@@ -37143,7 +37197,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L37",
-      "community": 227,
+      "community": 132,
       "norm_label": "afternoontime",
       "id": "time_picker_time_picker_component_stories_afternoontime"
     },
@@ -37152,7 +37206,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L44",
-      "community": 227,
+      "community": 132,
       "norm_label": "twelvehourafternoon",
       "id": "time_picker_time_picker_component_stories_twelvehourafternoon"
     },
@@ -37161,7 +37215,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L52",
-      "community": 227,
+      "community": 132,
       "norm_label": "midnight",
       "id": "time_picker_time_picker_component_stories_midnight"
     },
@@ -37170,7 +37224,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/time-picker/time-picker.component.stories.ts",
       "source_location": "L59",
-      "community": 227,
+      "community": 132,
       "norm_label": "nolabel",
       "id": "time_picker_time_picker_component_stories_nolabel"
     },
@@ -37584,7 +37638,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L375",
-      "community": 203,
+      "community": 227,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_375"
     },
@@ -37629,7 +37683,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L496",
-      "community": 239,
+      "community": 329,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_496"
     },
@@ -37638,7 +37692,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L528",
-      "community": 239,
+      "community": 332,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_528"
     },
@@ -37647,7 +37701,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L546",
-      "community": 239,
+      "community": 332,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_546"
     },
@@ -37674,7 +37728,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L567",
-      "community": 239,
+      "community": 333,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_567"
     },
@@ -37683,7 +37737,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L576",
-      "community": 239,
+      "community": 333,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_576"
     },
@@ -37692,7 +37746,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L582",
-      "community": 239,
+      "community": 331,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_582"
     },
@@ -37701,7 +37755,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L595",
-      "community": 239,
+      "community": 331,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_595"
     },
@@ -37710,7 +37764,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L601",
-      "community": 239,
+      "community": 334,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_601"
     },
@@ -37719,7 +37773,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L612",
-      "community": 239,
+      "community": 334,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_612"
     },
@@ -37728,7 +37782,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L618",
-      "community": 239,
+      "community": 328,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_618"
     },
@@ -37737,7 +37791,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L628",
-      "community": 239,
+      "community": 328,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_628"
     },
@@ -37782,7 +37836,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L671",
-      "community": 239,
+      "community": 335,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_671"
     },
@@ -37791,7 +37845,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L686",
-      "community": 239,
+      "community": 335,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_686"
     },
@@ -37800,7 +37854,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L693",
-      "community": 239,
+      "community": 336,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_693"
     },
@@ -37809,7 +37863,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L701",
-      "community": 239,
+      "community": 336,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_701"
     },
@@ -37818,7 +37872,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L707",
-      "community": 239,
+      "community": 337,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_707"
     },
@@ -37827,7 +37881,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L715",
-      "community": 239,
+      "community": 337,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_715"
     },
@@ -37863,7 +37917,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L746",
-      "community": 239,
+      "community": 338,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_746"
     },
@@ -37872,7 +37926,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L758",
-      "community": 239,
+      "community": 338,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_758"
     },
@@ -37881,7 +37935,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L764",
-      "community": 239,
+      "community": 329,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_764"
     },
@@ -37890,7 +37944,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L769",
-      "community": 239,
+      "community": 329,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_769"
     },
@@ -37899,7 +37953,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L775",
-      "community": 239,
+      "community": 339,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_775"
     },
@@ -37908,7 +37962,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L782",
-      "community": 239,
+      "community": 339,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_782"
     },
@@ -38529,7 +38583,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L457",
-      "community": 203,
+      "community": 227,
       "norm_label": "component usage guides",
       "id": "ngx_core_components_readme_component_usage_guides"
     },
@@ -38547,7 +38601,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L491",
-      "community": 203,
+      "community": 227,
       "norm_label": "buttons & actions (chips, split/dropdown buttons)",
       "id": "ngx_core_components_readme_buttons_actions_chips_split_dropdown_buttons"
     },
@@ -38556,7 +38610,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L524",
-      "community": 203,
+      "community": 227,
       "norm_label": "layout & panels (accordion, tabs, cards, stepper)",
       "id": "ngx_core_components_readme_layout_panels_accordion_tabs_cards_stepper"
     },
@@ -38565,7 +38619,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L559",
-      "community": 203,
+      "community": 227,
       "norm_label": "overlays & dialogs (tooltips, popovers, alerts)",
       "id": "ngx_core_components_readme_overlays_dialogs_tooltips_popovers_alerts"
     },
@@ -38601,7 +38655,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L684",
-      "community": 203,
+      "community": 201,
       "norm_label": "barcodes & qr codes",
       "id": "ngx_core_components_readme_barcodes_qr_codes"
     },
@@ -39024,7 +39078,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L146",
-      "community": 28,
+      "community": 309,
       "norm_label": "basicdemocomponent",
       "id": "basic_demo_basic_demo_component_basicdemocomponent"
     },
@@ -39033,7 +39087,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L205",
-      "community": 28,
+      "community": 309,
       "norm_label": ".setzoom()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_setzoom"
     },
@@ -39042,7 +39096,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L215",
-      "community": 28,
+      "community": 309,
       "norm_label": ".ontaskchange()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_ontaskchange"
     },
@@ -39051,7 +39105,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L221",
-      "community": 28,
+      "community": 309,
       "norm_label": ".ontaskclick()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_ontaskclick"
     },
@@ -39060,7 +39114,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L225",
-      "community": 28,
+      "community": 309,
       "norm_label": ".formatdate()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_formatdate"
     },
@@ -39069,7 +39123,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L229",
-      "community": 28,
+      "community": 309,
       "norm_label": ".togglealternaterows()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_togglealternaterows"
     },
@@ -39078,7 +39132,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L234",
-      "community": 28,
+      "community": 309,
       "norm_label": ".togglealternatecolumns()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_togglealternatecolumns"
     },
@@ -42606,9 +42660,9 @@
       "source_file": "package.json",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_scripts",
-      "target": "ngx_core_components_package_scripts_docs",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_scripts_docs"
     },
     {
       "relation": "contains",
@@ -96897,9 +96951,9 @@
       "source_file": "README.md",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_md_ngx_core_components_readme_ngx_core_components",
-      "target": "ngx_core_components_readme_interactive_playground_docs",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_readme_interactive_playground_docs"
     },
     {
       "relation": "contains",
@@ -97450,6 +97504,56 @@
       "confidence_score": 1.0,
       "source": "agents_workflows_graphify_md",
       "target": "workflows_graphify_workflow_graphify"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "github_copilot_instructions_md",
+      "target": "github_copilot_instructions_ngx_core_components_ai_coding_copilot_instructions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "github_copilot_instructions_ngx_core_components_ai_coding_copilot_instructions",
+      "target": "github_copilot_instructions_quick_cli_commands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "github_copilot_instructions_ngx_core_components_ai_coding_copilot_instructions",
+      "target": "github_copilot_instructions_key_file_locations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "github_copilot_instructions_ngx_core_components_ai_coding_copilot_instructions",
+      "target": "github_copilot_instructions_architecture_conventions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "github_copilot_instructions_ngx_core_components_ai_coding_copilot_instructions",
+      "target": "github_copilot_instructions_testing_quality_gates",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -103416,5 +103520,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "00536905852da32deb65af90d8354ea476ce5894"
+  "built_at_commit": "43d5791a52d3646f96123c5ef96301ab78d84a5e"
 }

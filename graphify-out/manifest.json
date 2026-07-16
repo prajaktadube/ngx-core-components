@@ -580,13 +580,13 @@
     "semantic_hash": "84de69efd46ab0b8430393bd4188f8f2"
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\deploy-pages.yml": {
-    "mtime": 1784177322.1565478,
-    "ast_hash": "40cad43cb34d1b80bb28b5451c3ab2f2",
+    "mtime": 1784177990.3682415,
+    "ast_hash": "f2c77607772b66e53b7c9ed8c8c9fe32",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\publish.yml": {
-    "mtime": 1779860151.4522636,
-    "ast_hash": "9586e7c6d89c4bd34f285f56ecb2705c",
+    "mtime": 1784177996.4355118,
+    "ast_hash": "6e55bd193fc26371753854ce35b684b6",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\index.html": {
@@ -1050,8 +1050,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\ci.yml": {
-    "mtime": 1784091597.273373,
-    "ast_hash": "049f434b1783f0f90cb0e642507919f1",
+    "mtime": 1784177982.7640014,
+    "ast_hash": "b7e74cbfd147a9de10f9c853f0c9867b",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\demo\\src\\app\\pages\\ai-demo\\ai-components.spec.ts": {
@@ -1370,8 +1370,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\visual-testing.yml": {
-    "mtime": 1784019470.1771426,
-    "ast_hash": "918305b18ea28bdea1f0e93a14b5c7bd",
+    "mtime": 1784178003.4101813,
+    "ast_hash": "c371b500cad6715d8c04f8673b069210",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ngx-web-llm.service.spec.ts": {
@@ -1982,6 +1982,11 @@
   "C:\\Work\\ngx-core-components\\SECURITY.md": {
     "mtime": 1784091691.2919583,
     "ast_hash": "3a99b0d07680ceae919f691601d40c93",
+    "semantic_hash": ""
+  },
+  "C:\\Work\\ngx-core-components\\.github\\copilot-instructions.md": {
+    "mtime": 1784177752.9451284,
+    "ast_hash": "b78f86a62bb9e4d4be97652e654c24b5",
     "semantic_hash": ""
   }
 }
