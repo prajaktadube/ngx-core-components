@@ -1,6 +1,6 @@
 {
   "name": "ngx-core-components",
-  "version": "0.3.22",
+  "version": "0.3.23",
   "schematics": "./schematics/collection.json",
   "description": "Angular 19+ component library — 100+ production-ready UI components including Data Grid, Gantt Chart, 35+ SVG Charts, AI Chat, Kanban, Form Builder, and more. Signals-first, fully standalone, zero runtime dependencies.",
   "keywords": [
