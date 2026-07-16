@@ -107,12 +107,36 @@ export interface FormBuilderField {
   `]
 })
 export class FormBuilderComponent {
+  /**
+   * The schema definition list of form fields to render dynamically.
+   */
   fields = input<FormBuilderField[]>([]);
+
+  /**
+   * The initial/controlled form value dictionary mapping field keys to values.
+   */
   value = input<Record<string, unknown>>({});
+
+  /**
+   * Whether to render the default form submit button at the bottom.
+   * @default true
+   */
   showSubmit = input(true);
+
+  /**
+   * The text label to display on the default form submit button.
+   * @default 'Submit'
+   */
   submitLabel = input('Submit');
 
+  /**
+   * Emits when any field value in the form changes.
+   */
   valueChange = output<Record<string, unknown>>();
+
+  /**
+   * Emits the entire form value dictionary when the form is submitted successfully.
+   */
   formSubmit = output<Record<string, unknown>>();
 
   formValue = signal<Record<string, unknown>>({});

@@ -17,17 +17,17 @@
 - **Themeable** — CSS custom properties (design tokens) with light/dark mode
 - **Angular 19–21** — Supports current and next Angular versions
 
-## 🚀 Live Demo
+## 🚀 Interactive Playground & Docs
 
-**[https://prajaktadube.github.io/ngx-core-components/](https://prajaktadube.github.io/ngx-core-components/)**
-
-Browse every component interactively — no install required.
+- **[Live Sandbox Demo](https://prajaktadube.github.io/ngx-core-components/)** — Explore and test all 100+ components interactively.
+- **[Storybook Playground](https://prajaktadube.github.io/ngx-core-components/storybook/)** — Browse stories, inspect component inputs/outputs with controls, and verify accessibility.
+- **[Compodoc API Reference](https://prajaktadube.github.io/ngx-core-components/docs/)** — Detailed class structures, injection tokens, type models, and method signatures.
 
 ---
 
 ## 📖 Documentation
 
-The complete, detailed API Reference tables (Inputs, Outputs, Methods, Interfaces) and "How to Use" guides for all 100+ components are available in the **[ngx-core-components Library README](projects/ngx-core-components/README.md)**.
+The complete API reference tables and "How to Use" guides are also available in the **[ngx-core-components Library README](projects/ngx-core-components/README.md)**.
 
 ---
 

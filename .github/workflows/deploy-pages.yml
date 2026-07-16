@@ -41,6 +41,9 @@ jobs:
       - name: Copy Storybook to deploy folder
         run: cp -r storybook-static dist/demo/browser/storybook
 
+      - name: Generate API Docs with Compodoc
+        run: npm run docs
+
       - name: Copy index.html → 404.html (SPA deep-link fallback)
         run: cp dist/demo/browser/index.html dist/demo/browser/404.html
 

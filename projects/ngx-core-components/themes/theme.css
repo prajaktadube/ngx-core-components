@@ -124,3 +124,25 @@ body.dark, [data-theme="dark"] {
 
   --ngx-dialog-overlay-bg: rgba(0, 0, 0, 0.6);
 }
+
+/* ── 11. Accessibility Enhancements ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --ngx-color-primary: SelectedText;
+    --ngx-color-primary-hover: SelectedText;
+    --ngx-color-border: CanvasText;
+    --ngx-focus-ring-color: Highlight;
+  }
+}
+

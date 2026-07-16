@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\package.json": {
-    "mtime": 1784176672.1816382,
-    "ast_hash": "46dacfd188a802ffd5201a00507e6264",
+    "mtime": 1784177318.267751,
+    "ast_hash": "baa020e87ea8fad307fb60d58bb2d64d",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\tsconfig.json": {
@@ -385,8 +385,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\data-grid\\data-grid.component.ts": {
-    "mtime": 1784020230.4292395,
-    "ast_hash": "deb298d12d2293d27eefb7b7fe01ce90",
+    "mtime": 1784177419.1013508,
+    "ast_hash": "24b044ada79c7eba8748740d46d18a36",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\ng-package.json": {
@@ -565,8 +565,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\README.md": {
-    "mtime": 1783087686.3044622,
-    "ast_hash": "38bc2492caa276dfbb2bc10b2a59061b",
+    "mtime": 1784177517.7731225,
+    "ast_hash": "ecd33d1b5c1430b1aa54a07323cf31f5",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.agents\\rules\\graphify.md": {
@@ -580,8 +580,8 @@
     "semantic_hash": "84de69efd46ab0b8430393bd4188f8f2"
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\deploy-pages.yml": {
-    "mtime": 1784176710.0276048,
-    "ast_hash": "9a4f1da050de83bb2499b4e6a80a97fd",
+    "mtime": 1784177322.1565478,
+    "ast_hash": "40cad43cb34d1b80bb28b5451c3ab2f2",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\.github\\workflows\\publish.yml": {
@@ -900,8 +900,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\back-to-top\\back-to-top.component.ts": {
-    "mtime": 1780629141.917729,
-    "ast_hash": "7ed1ee2e8008c4528e17b7840163c845",
+    "mtime": 1784177476.2888465,
+    "ast_hash": "dff9d2daa44018028d34a2807d36fb89",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\key-value-list\\key-value-list.component.ts": {
@@ -935,8 +935,8 @@
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\form-builder\\form-builder.component.ts": {
-    "mtime": 1780222311.0578444,
-    "ast_hash": "f2e82393a55f189b6645376dcdb25fe0",
+    "mtime": 1784177442.336798,
+    "ast_hash": "3a45431933fa7d9e7ccac1d3750e9184",
     "semantic_hash": ""
   },
   "C:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\signature-pad\\signature-pad.component.ts": {

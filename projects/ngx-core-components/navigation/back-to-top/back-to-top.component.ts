@@ -168,14 +168,17 @@ export class BackToTopComponent {
 
   constructor() {
     effect((onCleanup) => {
+      if (typeof window === 'undefined') return;
       const targetSel = this.target();
       this.threshold(); // Track threshold changes too
 
       let scrollEl: HTMLElement | Window | null = null;
-      if (typeof targetSel === 'string') {
-        scrollEl = document.querySelector(targetSel) as HTMLElement | null;
-      } else if (targetSel instanceof HTMLElement) {
-        scrollEl = targetSel;
+      if (typeof document !== 'undefined') {
+        if (typeof targetSel === 'string') {
+          scrollEl = document.querySelector(targetSel) as HTMLElement | null;
+        } else if (targetSel instanceof HTMLElement) {
+          scrollEl = targetSel;
+        }
       }
 
       if (!scrollEl) {
@@ -202,7 +205,7 @@ export class BackToTopComponent {
     let scrollHeight = 0;
     let clientHeight = 0;
 
-    if (scrollEl === window) {
+    if (typeof window !== 'undefined' && scrollEl === window) {
       scrollTop = window.scrollY || document.documentElement.scrollTop;
       scrollHeight = document.documentElement.scrollHeight;
       clientHeight = document.documentElement.clientHeight;
@@ -226,16 +229,18 @@ export class BackToTopComponent {
   scrollToTop() {
     const targetSel = this.target();
     let scrollEl: HTMLElement | Window | null = null;
-    if (typeof targetSel === 'string') {
-      scrollEl = document.querySelector(targetSel) as HTMLElement | null;
-    } else if (targetSel instanceof HTMLElement) {
-      scrollEl = targetSel;
+    if (typeof document !== 'undefined') {
+      if (typeof targetSel === 'string') {
+        scrollEl = document.querySelector(targetSel) as HTMLElement | null;
+      } else if (targetSel instanceof HTMLElement) {
+        scrollEl = targetSel;
+      }
     }
-    if (!scrollEl) {
+    if (!scrollEl && typeof window !== 'undefined') {
       scrollEl = window;
     }
 
-    if (scrollEl === window) {
+    if (typeof window !== 'undefined' && scrollEl === window) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (scrollEl instanceof HTMLElement) {
       scrollEl.scrollTo({ top: 0, behavior: 'smooth' });

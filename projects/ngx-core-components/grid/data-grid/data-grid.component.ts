@@ -1851,8 +1851,16 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   @ContentChildren(NgxGridHeaderTemplateDirective) headerTemplates!: QueryList<NgxGridHeaderTemplateDirective>;
   @ContentChildren(NgxGridFooterTemplateDirective) footerTemplates!: QueryList<NgxGridFooterTemplateDirective>;
 
+  /**
+   * The tabular dataset to render in the grid.
+   */
   data = input<T[]>([]);
+
+  /**
+   * The column definition metadata specifying header labels, fields, sorting/filtering settings, and templates.
+   */
   columns = input<GridColumnDef<T>[]>([]);
+
   stateKey = input<string>('');
   reorderable = input<boolean>(false);
   multiSort = input<boolean>(false);
@@ -1862,13 +1870,33 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   globalSearchPlaceholder = input<string>('Search...');
   rowReorder = output<{ previousIndex: number; currentIndex: number; data: T[] }>();
 
+  /**
+   * Number of rows to render per page in paginated mode.
+   * @default 10
+   */
   pageSize = input<number>(10);
+
+  /**
+   * The current active 1-indexed page number.
+   * @default 1
+   */
   page = input<number>(1);
+
   total = input<number>(0);
 
+  /**
+   * Whether row selection is enabled.
+   * @default false
+   */
   selectable = input<boolean>(false);
+
   striped = input<boolean>(true);
   loading = input<boolean>(false);
+
+  /**
+   * Whether inline cell/row editing is enabled.
+   * @default false
+   */
   editable = input<boolean>(false);
 
   sortMode = input<'client' | 'server'>('client');
@@ -1902,7 +1930,18 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   enableContextMenu = input<boolean>(false);
   keyboardNavigation = input<boolean>(false);
   groupAggregations = input<boolean>(false);
+
+  /**
+   * Whether to render only the visible rows using high-performance row virtualization.
+   * Useful when rendering large datasets (1,000+ items).
+   * @default false
+   */
   virtualScroll = input<boolean>(false);
+
+  /**
+   * The height of each row in pixels. Required for virtual scrolling viewport calculations.
+   * @default 49
+   */
   rowHeight = input<number>(49);
 
   sortState = signal<GridSortState | null>(null);

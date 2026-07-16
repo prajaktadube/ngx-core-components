@@ -1022,10 +1022,19 @@
       "norm_label": "format:check"
     },
     {
+      "label": "docs",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L15",
+      "id": "ngx_core_components_package_scripts_docs",
+      "community": 317,
+      "norm_label": "docs"
+    },
+    {
       "label": "private",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "id": "ngx_core_components_package_private",
       "community": 310,
       "norm_label": "private"
@@ -1034,7 +1043,7 @@
       "label": "dependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "id": "package_json_ngx_core_components_package_dependencies",
       "community": 308,
       "norm_label": "dependencies"
@@ -1043,7 +1052,7 @@
       "label": "@angular/common",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "id": "ngx_core_components_package_dependencies_angular_common",
       "community": 308,
       "norm_label": "@angular/common"
@@ -1052,7 +1061,7 @@
       "label": "@angular/compiler",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "id": "ngx_core_components_package_dependencies_angular_compiler",
       "community": 308,
       "norm_label": "@angular/compiler"
@@ -1061,7 +1070,7 @@
       "label": "@angular/core",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "id": "ngx_core_components_package_dependencies_angular_core",
       "community": 308,
       "norm_label": "@angular/core"
@@ -1070,7 +1079,7 @@
       "label": "@angular/forms",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "id": "ngx_core_components_package_dependencies_angular_forms",
       "community": 308,
       "norm_label": "@angular/forms"
@@ -1079,7 +1088,7 @@
       "label": "@angular/platform-browser",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "id": "ngx_core_components_package_dependencies_angular_platform_browser",
       "community": 308,
       "norm_label": "@angular/platform-browser"
@@ -1088,7 +1097,7 @@
       "label": "@angular/platform-browser-dynamic",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "id": "ngx_core_components_package_dependencies_angular_platform_browser_dynamic",
       "community": 308,
       "norm_label": "@angular/platform-browser-dynamic"
@@ -1097,7 +1106,7 @@
       "label": "@angular/router",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "ngx_core_components_package_dependencies_angular_router",
       "community": 308,
       "norm_label": "@angular/router"
@@ -1106,7 +1115,7 @@
       "label": "rxjs",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L25",
+      "source_location": "L26",
       "id": "ngx_core_components_package_dependencies_rxjs",
       "community": 308,
       "norm_label": "rxjs"
@@ -1115,7 +1124,7 @@
       "label": "tslib",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L26",
+      "source_location": "L27",
       "id": "package_json_ngx_core_components_package_dependencies_tslib",
       "community": 308,
       "norm_label": "tslib"
@@ -1124,7 +1133,7 @@
       "label": "zone.js",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L28",
       "id": "ngx_core_components_package_dependencies_zone_js",
       "community": 308,
       "norm_label": "zone.js"
@@ -1133,7 +1142,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L29",
+      "source_location": "L30",
       "id": "ngx_core_components_package_devdependencies",
       "community": 3,
       "norm_label": "devdependencies"
@@ -1142,7 +1151,7 @@
       "label": "@angular-devkit/build-angular",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L30",
+      "source_location": "L31",
       "id": "ngx_core_components_package_devdependencies_angular_devkit_build_angular",
       "community": 3,
       "norm_label": "@angular-devkit/build-angular"
@@ -1151,7 +1160,7 @@
       "label": "@angular/cli",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L31",
+      "source_location": "L32",
       "id": "ngx_core_components_package_devdependencies_angular_cli",
       "community": 3,
       "norm_label": "@angular/cli"
@@ -1160,7 +1169,7 @@
       "label": "@angular/compiler-cli",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L32",
+      "source_location": "L33",
       "id": "ngx_core_components_package_devdependencies_angular_compiler_cli",
       "community": 3,
       "norm_label": "@angular/compiler-cli"
@@ -1169,7 +1178,7 @@
       "label": "@chromatic-com/storybook",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L33",
+      "source_location": "L34",
       "id": "ngx_core_components_package_devdependencies_chromatic_com_storybook",
       "community": 3,
       "norm_label": "@chromatic-com/storybook"
@@ -1178,7 +1187,7 @@
       "label": "@compodoc/compodoc",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L34",
+      "source_location": "L35",
       "id": "ngx_core_components_package_devdependencies_compodoc_compodoc",
       "community": 3,
       "norm_label": "@compodoc/compodoc"
@@ -1187,7 +1196,7 @@
       "label": "@size-limit/file",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L35",
+      "source_location": "L36",
       "id": "ngx_core_components_package_devdependencies_size_limit_file",
       "community": 3,
       "norm_label": "@size-limit/file"
@@ -1196,7 +1205,7 @@
       "label": "@storybook/addon-a11y",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L36",
+      "source_location": "L37",
       "id": "ngx_core_components_package_devdependencies_storybook_addon_a11y",
       "community": 3,
       "norm_label": "@storybook/addon-a11y"
@@ -1205,7 +1214,7 @@
       "label": "@storybook/addon-essentials",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L37",
+      "source_location": "L38",
       "id": "ngx_core_components_package_devdependencies_storybook_addon_essentials",
       "community": 3,
       "norm_label": "@storybook/addon-essentials"
@@ -1214,7 +1223,7 @@
       "label": "@storybook/addon-interactions",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L38",
+      "source_location": "L39",
       "id": "ngx_core_components_package_devdependencies_storybook_addon_interactions",
       "community": 3,
       "norm_label": "@storybook/addon-interactions"
@@ -1223,7 +1232,7 @@
       "label": "@storybook/addon-links",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L39",
+      "source_location": "L40",
       "id": "ngx_core_components_package_devdependencies_storybook_addon_links",
       "community": 3,
       "norm_label": "@storybook/addon-links"
@@ -1232,7 +1241,7 @@
       "label": "@storybook/angular",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L40",
+      "source_location": "L41",
       "id": "ngx_core_components_package_devdependencies_storybook_angular",
       "community": 3,
       "norm_label": "@storybook/angular"
@@ -1241,7 +1250,7 @@
       "label": "@storybook/blocks",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L41",
+      "source_location": "L42",
       "id": "ngx_core_components_package_devdependencies_storybook_blocks",
       "community": 3,
       "norm_label": "@storybook/blocks"
@@ -1250,7 +1259,7 @@
       "label": "@types/jasmine",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L42",
+      "source_location": "L43",
       "id": "ngx_core_components_package_devdependencies_types_jasmine",
       "community": 3,
       "norm_label": "@types/jasmine"
@@ -1259,7 +1268,7 @@
       "label": "angular-cli-ghpages",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L43",
+      "source_location": "L44",
       "id": "ngx_core_components_package_devdependencies_angular_cli_ghpages",
       "community": 3,
       "norm_label": "angular-cli-ghpages"
@@ -1268,7 +1277,7 @@
       "label": "angular-eslint",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L44",
+      "source_location": "L45",
       "id": "ngx_core_components_package_devdependencies_angular_eslint",
       "community": 3,
       "norm_label": "angular-eslint"
@@ -1277,7 +1286,7 @@
       "label": "chokidar",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L45",
+      "source_location": "L46",
       "id": "ngx_core_components_package_devdependencies_chokidar",
       "community": 3,
       "norm_label": "chokidar"
@@ -1286,7 +1295,7 @@
       "label": "eslint",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L46",
+      "source_location": "L47",
       "id": "ngx_core_components_package_devdependencies_eslint",
       "community": 3,
       "norm_label": "eslint"
@@ -1295,7 +1304,7 @@
       "label": "jasmine-core",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L47",
+      "source_location": "L48",
       "id": "ngx_core_components_package_devdependencies_jasmine_core",
       "community": 3,
       "norm_label": "jasmine-core"
@@ -1304,7 +1313,7 @@
       "label": "karma",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L48",
+      "source_location": "L49",
       "id": "ngx_core_components_package_devdependencies_karma",
       "community": 3,
       "norm_label": "karma"
@@ -1313,7 +1322,7 @@
       "label": "karma-chrome-launcher",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L49",
+      "source_location": "L50",
       "id": "ngx_core_components_package_devdependencies_karma_chrome_launcher",
       "community": 3,
       "norm_label": "karma-chrome-launcher"
@@ -1322,7 +1331,7 @@
       "label": "karma-coverage",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L50",
+      "source_location": "L51",
       "id": "ngx_core_components_package_devdependencies_karma_coverage",
       "community": 3,
       "norm_label": "karma-coverage"
@@ -1331,7 +1340,7 @@
       "label": "karma-jasmine",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L51",
+      "source_location": "L52",
       "id": "ngx_core_components_package_devdependencies_karma_jasmine",
       "community": 3,
       "norm_label": "karma-jasmine"
@@ -1340,7 +1349,7 @@
       "label": "karma-jasmine-html-reporter",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L52",
+      "source_location": "L53",
       "id": "ngx_core_components_package_devdependencies_karma_jasmine_html_reporter",
       "community": 3,
       "norm_label": "karma-jasmine-html-reporter"
@@ -1349,7 +1358,7 @@
       "label": "ng-packagr",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L53",
+      "source_location": "L54",
       "id": "ngx_core_components_package_devdependencies_ng_packagr",
       "community": 3,
       "norm_label": "ng-packagr"
@@ -1358,7 +1367,7 @@
       "label": "prettier",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L54",
+      "source_location": "L55",
       "id": "ngx_core_components_package_devdependencies_prettier",
       "community": 3,
       "norm_label": "prettier"
@@ -1367,7 +1376,7 @@
       "label": "readdirp",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L55",
+      "source_location": "L56",
       "id": "ngx_core_components_package_devdependencies_readdirp",
       "community": 3,
       "norm_label": "readdirp"
@@ -1376,7 +1385,7 @@
       "label": "size-limit",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L56",
+      "source_location": "L57",
       "id": "ngx_core_components_package_devdependencies_size_limit",
       "community": 3,
       "norm_label": "size-limit"
@@ -1385,7 +1394,7 @@
       "label": "storybook",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L57",
+      "source_location": "L58",
       "id": "ngx_core_components_package_devdependencies_storybook",
       "community": 3,
       "norm_label": "storybook"
@@ -1394,7 +1403,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L58",
+      "source_location": "L59",
       "id": "ngx_core_components_package_devdependencies_typescript",
       "community": 3,
       "norm_label": "typescript"
@@ -1403,7 +1412,7 @@
       "label": "typescript-eslint",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L59",
+      "source_location": "L60",
       "id": "ngx_core_components_package_devdependencies_typescript_eslint",
       "community": 3,
       "norm_label": "typescript-eslint"
@@ -2647,7 +2656,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L1",
       "id": "projects_demo_src_app_pages_calendar_demo_calendar_demo_component_ts",
-      "community": 236,
+      "community": 53,
       "norm_label": "calendar-demo.component.ts"
     },
     {
@@ -2656,7 +2665,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L6",
       "id": "calendar_demo_calendar_demo_component_apirow",
-      "community": 236,
+      "community": 53,
       "norm_label": "apirow"
     },
     {
@@ -2665,7 +2674,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L475",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent",
-      "community": 236,
+      "community": 53,
       "norm_label": "calendardemocomponent"
     },
     {
@@ -2674,7 +2683,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L547",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_constructor",
-      "community": 236,
+      "community": 53,
       "norm_label": ".constructor()"
     },
     {
@@ -2683,7 +2692,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L551",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_initdemoevents",
-      "community": 236,
+      "community": 53,
       "norm_label": ".initdemoevents()"
     },
     {
@@ -2692,7 +2701,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L597",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_ondateselect",
-      "community": 236,
+      "community": 53,
       "norm_label": ".ondateselect()"
     },
     {
@@ -2701,7 +2710,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L605",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_onrangeselect",
-      "community": 236,
+      "community": 53,
       "norm_label": ".onrangeselect()"
     },
     {
@@ -2710,7 +2719,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L612",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_oneventclick",
-      "community": 236,
+      "community": 53,
       "norm_label": ".oneventclick()"
     },
     {
@@ -2719,7 +2728,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L619",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_onmonthchange",
-      "community": 236,
+      "community": 53,
       "norm_label": ".onmonthchange()"
     },
     {
@@ -2728,7 +2737,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L627",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_clearselection",
-      "community": 236,
+      "community": 53,
       "norm_label": ".clearselection()"
     },
     {
@@ -2737,7 +2746,7 @@
       "source_file": "projects/demo/src/app/pages/calendar-demo/calendar-demo.component.ts",
       "source_location": "L634",
       "id": "calendar_demo_calendar_demo_component_calendardemocomponent_addrandomevent",
-      "community": 236,
+      "community": 53,
       "norm_label": ".addrandomevent()"
     },
     {
@@ -4159,7 +4168,7 @@
       "source_file": "projects/demo/src/app/pages/dashboard-layout-demo/dashboard-layout-demo.component.ts",
       "source_location": "L1",
       "id": "projects_demo_src_app_pages_dashboard_layout_demo_dashboard_layout_demo_component_ts",
-      "community": 33,
+      "community": 152,
       "norm_label": "dashboard-layout-demo.component.ts"
     },
     {
@@ -4573,7 +4582,7 @@
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1459",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_constructor",
-      "community": 28,
+      "community": 115,
       "norm_label": ".constructor()"
     },
     {
@@ -4582,7 +4591,7 @@
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1482",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_ontabchange",
-      "community": 28,
+      "community": 115,
       "norm_label": ".ontabchange()"
     },
     {
@@ -4591,7 +4600,7 @@
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1492",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_resetbasictasks",
-      "community": 28,
+      "community": 115,
       "norm_label": ".resetbasictasks()"
     },
     {
@@ -4744,7 +4753,7 @@
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1688",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_generateperftasks",
-      "community": 28,
+      "community": 115,
       "norm_label": ".generateperftasks()"
     },
     {
@@ -9919,7 +9928,7 @@
       "source_file": "projects/ngx-core-components/charts/public-api.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_public_api_ts",
-      "community": 266,
+      "community": 163,
       "norm_label": "public-api.ts"
     },
     {
@@ -12133,7 +12142,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_funnel_chart_funnel_chart_component_stories_ts",
-      "community": 266,
+      "community": 146,
       "norm_label": "funnel-chart.component.stories.ts"
     },
     {
@@ -12142,7 +12151,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.stories.ts",
       "source_location": "L3",
       "id": "funnel_chart_funnel_chart_component_stories_meta",
-      "community": 266,
+      "community": 146,
       "norm_label": "meta"
     },
     {
@@ -12151,7 +12160,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.stories.ts",
       "source_location": "L17",
       "id": "funnel_chart_funnel_chart_component_stories_default",
-      "community": 266,
+      "community": 146,
       "norm_label": "default"
     },
     {
@@ -12160,7 +12169,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_funnel_chart_funnel_chart_component_ts",
-      "community": 266,
+      "community": 146,
       "norm_label": "funnel-chart.component.ts"
     },
     {
@@ -12169,7 +12178,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.ts",
       "source_location": "L5",
       "id": "funnel_chart_funnel_chart_component_funnelitem",
-      "community": 266,
+      "community": 146,
       "norm_label": "funnelitem"
     },
     {
@@ -12178,7 +12187,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.ts",
       "source_location": "L247",
       "id": "funnel_chart_funnel_chart_component_funnelchartcomponent",
-      "community": 266,
+      "community": 146,
       "norm_label": "funnelchartcomponent"
     },
     {
@@ -12187,7 +12196,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.ts",
       "source_location": "L263",
       "id": "funnel_chart_funnel_chart_component_items",
-      "community": 266,
+      "community": 146,
       "norm_label": "items"
     },
     {
@@ -12196,7 +12205,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.ts",
       "source_location": "L273",
       "id": "funnel_chart_funnel_chart_component_totalval",
-      "community": 266,
+      "community": 146,
       "norm_label": "totalval"
     },
     {
@@ -12205,7 +12214,7 @@
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.ts",
       "source_location": "L336",
       "id": "funnel_chart_funnel_chart_component_funnelchartcomponent_onmousemove",
-      "community": 266,
+      "community": 146,
       "norm_label": ".onmousemove()"
     },
     {
@@ -12214,7 +12223,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_gantt_chart_gantt_chart_component_spec_ts",
-      "community": 320,
+      "community": 12,
       "norm_label": "gantt-chart.component.spec.ts"
     },
     {
@@ -12223,7 +12232,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L10",
       "id": "gantt_chart_gantt_chart_component_spec_mocktasks",
-      "community": 320,
+      "community": 12,
       "norm_label": "mocktasks"
     },
     {
@@ -12232,7 +12241,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L88",
       "id": "gantt_chart_gantt_chart_component_spec_tasknames",
-      "community": 320,
+      "community": 12,
       "norm_label": "tasknames"
     },
     {
@@ -12241,7 +12250,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L96",
       "id": "gantt_chart_gantt_chart_component_spec_todaybtn",
-      "community": 320,
+      "community": 12,
       "norm_label": "todaybtn"
     },
     {
@@ -12250,7 +12259,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.spec.ts",
       "source_location": "L99",
       "id": "gantt_chart_gantt_chart_component_spec_criticalpathbtn",
-      "community": 320,
+      "community": 12,
       "norm_label": "criticalpathbtn"
     },
     {
@@ -12691,7 +12700,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1126",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_toggleselection",
-      "community": 1,
+      "community": 12,
       "norm_label": ".toggleselection()"
     },
     {
@@ -12781,7 +12790,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1342",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_onrowclick",
-      "community": 1,
+      "community": 12,
       "norm_label": ".onrowclick()"
     },
     {
@@ -12790,7 +12799,7 @@
       "source_file": "projects/ngx-core-components/charts/gantt-chart/gantt-chart.component.ts",
       "source_location": "L1346",
       "id": "gantt_chart_gantt_chart_component_ganttchartcomponent_ontaskbarclick",
-      "community": 1,
+      "community": 12,
       "norm_label": ".ontaskbarclick()"
     },
     {
@@ -15553,7 +15562,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_pie_chart_pie_chart_component_ts",
-      "community": 185,
+      "community": 124,
       "norm_label": "pie-chart.component.ts"
     },
     {
@@ -15580,7 +15589,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L254",
       "id": "pie_chart_pie_chart_component_override",
-      "community": 185,
+      "community": 124,
       "norm_label": "override"
     },
     {
@@ -15589,7 +15598,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L256",
       "id": "pie_chart_pie_chart_component_total",
-      "community": 185,
+      "community": 124,
       "norm_label": "total"
     },
     {
@@ -15598,7 +15607,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L261",
       "id": "pie_chart_pie_chart_component_d",
-      "community": 185,
+      "community": 124,
       "norm_label": "d"
     },
     {
@@ -15607,7 +15616,7 @@
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L273",
       "id": "pie_chart_pie_chart_component_r",
-      "community": 185,
+      "community": 124,
       "norm_label": "r"
     },
     {
@@ -18739,7 +18748,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_charts_wind_rose_wind_rose_component_ts",
-      "community": 266,
+      "community": 163,
       "norm_label": "wind-rose.component.ts"
     },
     {
@@ -18748,7 +18757,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L8",
       "id": "wind_rose_wind_rose_component_windrosespeedbin",
-      "community": 266,
+      "community": 163,
       "norm_label": "windrosespeedbin"
     },
     {
@@ -18757,7 +18766,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L13",
       "id": "wind_rose_wind_rose_component_windroseitem",
-      "community": 266,
+      "community": 163,
       "norm_label": "windroseitem"
     },
     {
@@ -18766,7 +18775,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L18",
       "id": "wind_rose_wind_rose_component_processedwedgebin",
-      "community": 266,
+      "community": 163,
       "norm_label": "processedwedgebin"
     },
     {
@@ -18775,7 +18784,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L27",
       "id": "wind_rose_wind_rose_component_processedwedge",
-      "community": 266,
+      "community": 163,
       "norm_label": "processedwedge"
     },
     {
@@ -18811,7 +18820,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L415",
       "id": "wind_rose_wind_rose_component_raw",
-      "community": 266,
+      "community": 163,
       "norm_label": "raw"
     },
     {
@@ -18820,7 +18829,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L419",
       "id": "wind_rose_wind_rose_component_sum",
-      "community": 266,
+      "community": 163,
       "norm_label": "sum"
     },
     {
@@ -18829,7 +18838,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L426",
       "id": "wind_rose_wind_rose_component_maxpct",
-      "community": 266,
+      "community": 163,
       "norm_label": "maxpct"
     },
     {
@@ -18838,7 +18847,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L435",
       "id": "wind_rose_wind_rose_component_levels",
-      "community": 266,
+      "community": 163,
       "norm_label": "levels"
     },
     {
@@ -18856,7 +18865,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L449",
       "id": "wind_rose_wind_rose_component_palette",
-      "community": 266,
+      "community": 163,
       "norm_label": "palette"
     },
     {
@@ -18865,7 +18874,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L450",
       "id": "wind_rose_wind_rose_component_rmax",
-      "community": 266,
+      "community": 163,
       "norm_label": "rmax"
     },
     {
@@ -18874,7 +18883,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L451",
       "id": "wind_rose_wind_rose_component_gridmax",
-      "community": 266,
+      "community": 163,
       "norm_label": "gridmax"
     },
     {
@@ -18883,7 +18892,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L457",
       "id": "wind_rose_wind_rose_component_angle",
-      "community": 266,
+      "community": 163,
       "norm_label": "angle"
     },
     {
@@ -18892,7 +18901,7 @@
       "source_file": "projects/ngx-core-components/charts/wind-rose/wind-rose.component.ts",
       "source_location": "L462",
       "id": "wind_rose_wind_rose_component_bins",
-      "community": 266,
+      "community": 163,
       "norm_label": "bins"
     },
     {
@@ -21068,7 +21077,7 @@
       "label": "rendered",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1933",
+      "source_location": "L1972",
       "id": "data_grid_data_grid_component_rendered",
       "community": 5,
       "norm_label": "rendered"
@@ -21077,7 +21086,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L1987",
+      "source_location": "L2026",
       "id": "data_grid_data_grid_component_datagridcomponent_constructor",
       "community": 4,
       "norm_label": ".constructor()"
@@ -21086,7 +21095,7 @@
       "label": ".ngOnInit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2125",
+      "source_location": "L2164",
       "id": "data_grid_data_grid_component_datagridcomponent_ngoninit",
       "community": 4,
       "norm_label": ".ngoninit()"
@@ -21095,7 +21104,7 @@
       "label": ".loadState()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2131",
+      "source_location": "L2170",
       "id": "data_grid_data_grid_component_datagridcomponent_loadstate",
       "community": 4,
       "norm_label": ".loadstate()"
@@ -21104,7 +21113,7 @@
       "label": "cols",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2179",
+      "source_location": "L2218",
       "id": "data_grid_data_grid_component_cols",
       "community": 5,
       "norm_label": "cols"
@@ -21113,7 +21122,7 @@
       "label": "order",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2180",
+      "source_location": "L2219",
       "id": "data_grid_data_grid_component_order",
       "community": 5,
       "norm_label": "order"
@@ -21122,7 +21131,7 @@
       "label": "hidden",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2181",
+      "source_location": "L2220",
       "id": "data_grid_data_grid_component_hidden",
       "community": 5,
       "norm_label": "hidden"
@@ -21131,7 +21140,7 @@
       "label": "pinOverrides",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2182",
+      "source_location": "L2221",
       "id": "data_grid_data_grid_component_pinoverrides",
       "community": 5,
       "norm_label": "pinoverrides"
@@ -21140,7 +21149,7 @@
       "label": "mapped",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2184",
+      "source_location": "L2223",
       "id": "data_grid_data_grid_component_mapped",
       "community": 5,
       "norm_label": "mapped"
@@ -21149,7 +21158,7 @@
       "label": "idxA",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2196",
+      "source_location": "L2235",
       "id": "data_grid_data_grid_component_idxa",
       "community": 5,
       "norm_label": "idxa"
@@ -21158,7 +21167,7 @@
       "label": "idxB",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2197",
+      "source_location": "L2236",
       "id": "data_grid_data_grid_component_idxb",
       "community": 5,
       "norm_label": "idxb"
@@ -21167,7 +21176,7 @@
       "label": "pinnedLeft",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2205",
+      "source_location": "L2244",
       "id": "data_grid_data_grid_component_pinnedleft",
       "community": 5,
       "norm_label": "pinnedleft"
@@ -21176,7 +21185,7 @@
       "label": "pinnedRight",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2206",
+      "source_location": "L2245",
       "id": "data_grid_data_grid_component_pinnedright",
       "community": 5,
       "norm_label": "pinnedright"
@@ -21185,7 +21194,7 @@
       "label": "normal",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2207",
+      "source_location": "L2246",
       "id": "data_grid_data_grid_component_normal",
       "community": 5,
       "norm_label": "normal"
@@ -21194,7 +21203,7 @@
       "label": "pinned",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2214",
+      "source_location": "L2253",
       "id": "data_grid_data_grid_component_pinned",
       "community": 5,
       "norm_label": "pinned"
@@ -21203,7 +21212,7 @@
       "label": "hasPinnedCols",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2219",
+      "source_location": "L2258",
       "id": "data_grid_data_grid_component_haspinnedcols",
       "community": 5,
       "norm_label": "haspinnedcols"
@@ -21212,7 +21221,7 @@
       "label": "offsets",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2239",
+      "source_location": "L2278",
       "id": "data_grid_data_grid_component_offsets",
       "community": 5,
       "norm_label": "offsets"
@@ -21221,7 +21230,7 @@
       "label": "hasCat",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2288",
+      "source_location": "L2327",
       "id": "data_grid_data_grid_component_hascat",
       "community": 5,
       "norm_label": "hascat"
@@ -21230,7 +21239,7 @@
       "label": "row1",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2308",
+      "source_location": "L2347",
       "id": "data_grid_data_grid_component_row1",
       "community": 5,
       "norm_label": "row1"
@@ -21239,7 +21248,7 @@
       "label": "row2",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2309",
+      "source_location": "L2348",
       "id": "data_grid_data_grid_component_row2",
       "community": 5,
       "norm_label": "row2"
@@ -21248,7 +21257,7 @@
       "label": "rows",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2387",
+      "source_location": "L2426",
       "id": "data_grid_data_grid_component_rows",
       "community": 5,
       "norm_label": "rows"
@@ -21257,7 +21266,7 @@
       "label": "cellVal",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2393",
+      "source_location": "L2432",
       "id": "data_grid_data_grid_component_cellval",
       "community": 5,
       "norm_label": "cellval"
@@ -21266,7 +21275,7 @@
       "label": "query",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2402",
+      "source_location": "L2441",
       "id": "data_grid_data_grid_component_query",
       "community": 5,
       "norm_label": "query"
@@ -21275,7 +21284,7 @@
       "label": "searchVal",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2413",
+      "source_location": "L2452",
       "id": "data_grid_data_grid_component_searchval",
       "community": 5,
       "norm_label": "searchval"
@@ -21284,7 +21293,7 @@
       "label": "activeSorts",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2432",
+      "source_location": "L2471",
       "id": "data_grid_data_grid_component_activesorts",
       "community": 5,
       "norm_label": "activesorts"
@@ -21293,7 +21302,7 @@
       "label": "compared",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2441",
+      "source_location": "L2480",
       "id": "data_grid_data_grid_component_compared",
       "community": 5,
       "norm_label": "compared"
@@ -21302,7 +21311,7 @@
       "label": "pageSize",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2465",
+      "source_location": "L2504",
       "id": "data_grid_data_grid_component_pagesize",
       "community": 4,
       "norm_label": "pagesize"
@@ -21311,7 +21320,7 @@
       "label": "group",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2492",
+      "source_location": "L2531",
       "id": "data_grid_data_grid_component_group",
       "community": 5,
       "norm_label": "group"
@@ -21320,7 +21329,7 @@
       "label": "map",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2501",
+      "source_location": "L2540",
       "id": "data_grid_data_grid_component_map",
       "community": 122,
       "norm_label": "map"
@@ -21329,7 +21338,7 @@
       "label": "key",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2504",
+      "source_location": "L2543",
       "id": "data_grid_data_grid_component_key",
       "community": 5,
       "norm_label": "key"
@@ -21338,7 +21347,7 @@
       "label": "existing",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2505",
+      "source_location": "L2544",
       "id": "data_grid_data_grid_component_existing",
       "community": 5,
       "norm_label": "existing"
@@ -21347,7 +21356,7 @@
       "label": "groups",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2514",
+      "source_location": "L2553",
       "id": "data_grid_data_grid_component_groups",
       "community": 5,
       "norm_label": "groups"
@@ -21356,7 +21365,7 @@
       "label": "selected",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2528",
+      "source_location": "L2567",
       "id": "data_grid_data_grid_component_selected",
       "community": 5,
       "norm_label": "selected"
@@ -21365,7 +21374,7 @@
       "label": "total",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2553",
+      "source_location": "L2592",
       "id": "data_grid_data_grid_component_total",
       "community": 5,
       "norm_label": "total"
@@ -21374,7 +21383,7 @@
       "label": "current",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2554",
+      "source_location": "L2593",
       "id": "data_grid_data_grid_component_current",
       "community": 5,
       "norm_label": "current"
@@ -21383,7 +21392,7 @@
       "label": "pages",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2555",
+      "source_location": "L2594",
       "id": "data_grid_data_grid_component_pages",
       "community": 5,
       "norm_label": "pages"
@@ -21392,7 +21401,7 @@
       "label": "from",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2556",
+      "source_location": "L2595",
       "id": "data_grid_data_grid_component_from",
       "community": 184,
       "norm_label": "from"
@@ -21401,7 +21410,7 @@
       "label": "to",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2557",
+      "source_location": "L2596",
       "id": "data_grid_data_grid_component_to",
       "community": 5,
       "norm_label": "to"
@@ -21410,7 +21419,7 @@
       "label": "list",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2576",
+      "source_location": "L2615",
       "id": "data_grid_data_grid_component_list",
       "community": 5,
       "norm_label": "list"
@@ -21419,7 +21428,7 @@
       "label": ".isCellSelected()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2587",
+      "source_location": "L2626",
       "id": "data_grid_data_grid_component_datagridcomponent_iscellselected",
       "community": 4,
       "norm_label": ".iscellselected()"
@@ -21428,7 +21437,7 @@
       "label": ".onCellContextMenu()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2616",
+      "source_location": "L2655",
       "id": "data_grid_data_grid_component_datagridcomponent_oncellcontextmenu",
       "community": 4,
       "norm_label": ".oncellcontextmenu()"
@@ -21437,7 +21446,7 @@
       "label": ".isColumnPinned()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2638",
+      "source_location": "L2677",
       "id": "data_grid_data_grid_component_datagridcomponent_iscolumnpinned",
       "community": 4,
       "norm_label": ".iscolumnpinned()"
@@ -21446,7 +21455,7 @@
       "label": ".contextMenuTogglePin()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2648",
+      "source_location": "L2687",
       "id": "data_grid_data_grid_component_datagridcomponent_contextmenutogglepin",
       "community": 4,
       "norm_label": ".contextmenutogglepin()"
@@ -21455,7 +21464,7 @@
       "label": ".contextMenuHideColumn()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2657",
+      "source_location": "L2696",
       "id": "data_grid_data_grid_component_datagridcomponent_contextmenuhidecolumn",
       "community": 4,
       "norm_label": ".contextmenuhidecolumn()"
@@ -21464,7 +21473,7 @@
       "label": ".contextMenuClearFilters()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2664",
+      "source_location": "L2703",
       "id": "data_grid_data_grid_component_datagridcomponent_contextmenuclearfilters",
       "community": 4,
       "norm_label": ".contextmenuclearfilters()"
@@ -21473,7 +21482,7 @@
       "label": ".contextMenuCopy()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2672",
+      "source_location": "L2711",
       "id": "data_grid_data_grid_component_datagridcomponent_contextmenucopy",
       "community": 122,
       "norm_label": ".contextmenucopy()"
@@ -21482,7 +21491,7 @@
       "label": ".onCellMouseDown()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2682",
+      "source_location": "L2721",
       "id": "data_grid_data_grid_component_datagridcomponent_oncellmousedown",
       "community": 4,
       "norm_label": ".oncellmousedown()"
@@ -21491,7 +21500,7 @@
       "label": ".onCellMouseEnter()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2703",
+      "source_location": "L2742",
       "id": "data_grid_data_grid_component_datagridcomponent_oncellmouseenter",
       "community": 4,
       "norm_label": ".oncellmouseenter()"
@@ -21500,7 +21509,7 @@
       "label": ".openColumnChooser()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2717",
+      "source_location": "L2756",
       "id": "data_grid_data_grid_component_datagridcomponent_opencolumnchooser",
       "community": 4,
       "norm_label": ".opencolumnchooser()"
@@ -21509,7 +21518,7 @@
       "label": ".toggleColumnVisibility()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2740",
+      "source_location": "L2779",
       "id": "data_grid_data_grid_component_datagridcomponent_togglecolumnvisibility",
       "community": 4,
       "norm_label": ".togglecolumnvisibility()"
@@ -21518,7 +21527,7 @@
       "label": ".getSelectedCellsText()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2752",
+      "source_location": "L2791",
       "id": "data_grid_data_grid_component_datagridcomponent_getselectedcellstext",
       "community": 122,
       "norm_label": ".getselectedcellstext()"
@@ -21527,7 +21536,7 @@
       "label": ".getFilter()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2792",
+      "source_location": "L2831",
       "id": "data_grid_data_grid_component_datagridcomponent_getfilter",
       "community": 4,
       "norm_label": ".getfilter()"
@@ -21536,7 +21545,7 @@
       "label": ".exportToJson()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2796",
+      "source_location": "L2835",
       "id": "data_grid_data_grid_component_datagridcomponent_exporttojson",
       "community": 4,
       "norm_label": ".exporttojson()"
@@ -21545,7 +21554,7 @@
       "label": ".exportToCsv()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2800",
+      "source_location": "L2839",
       "id": "data_grid_data_grid_component_datagridcomponent_exporttocsv",
       "community": 122,
       "norm_label": ".exporttocsv()"
@@ -21554,7 +21563,7 @@
       "label": ".exportToExcel()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2804",
+      "source_location": "L2843",
       "id": "data_grid_data_grid_component_datagridcomponent_exporttoexcel",
       "community": 4,
       "norm_label": ".exporttoexcel()"
@@ -21563,7 +21572,7 @@
       "label": ".setFilter()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2808",
+      "source_location": "L2847",
       "id": "data_grid_data_grid_component_datagridcomponent_setfilter",
       "community": 4,
       "norm_label": ".setfilter()"
@@ -21572,7 +21581,7 @@
       "label": ".getColumnWidth()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2824",
+      "source_location": "L2863",
       "id": "data_grid_data_grid_component_datagridcomponent_getcolumnwidth",
       "community": 211,
       "norm_label": ".getcolumnwidth()"
@@ -21581,7 +21590,7 @@
       "label": ".onResizeStart()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2828",
+      "source_location": "L2867",
       "id": "data_grid_data_grid_component_datagridcomponent_onresizestart",
       "community": 211,
       "norm_label": ".onresizestart()"
@@ -21590,7 +21599,7 @@
       "label": ".onResizeDoubleClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2855",
+      "source_location": "L2894",
       "id": "data_grid_data_grid_component_datagridcomponent_onresizedoubleclick",
       "community": 211,
       "norm_label": ".onresizedoubleclick()"
@@ -21599,7 +21608,7 @@
       "label": ".autoSizeColumn()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2861",
+      "source_location": "L2900",
       "id": "data_grid_data_grid_component_datagridcomponent_autosizecolumn",
       "community": 211,
       "norm_label": ".autosizecolumn()"
@@ -21608,7 +21617,7 @@
       "label": ".openFilterPopover()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2887",
+      "source_location": "L2926",
       "id": "data_grid_data_grid_component_datagridcomponent_openfilterpopover",
       "community": 184,
       "norm_label": ".openfilterpopover()"
@@ -21617,7 +21626,7 @@
       "label": ".getDistinctValues()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2924",
+      "source_location": "L2963",
       "id": "data_grid_data_grid_component_datagridcomponent_getdistinctvalues",
       "community": 184,
       "norm_label": ".getdistinctvalues()"
@@ -21626,7 +21635,7 @@
       "label": ".getFilteredDistinctValues()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2933",
+      "source_location": "L2972",
       "id": "data_grid_data_grid_component_datagridcomponent_getfiltereddistinctvalues",
       "community": 184,
       "norm_label": ".getfiltereddistinctvalues()"
@@ -21635,7 +21644,7 @@
       "label": ".toggleChecklistItem()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2940",
+      "source_location": "L2979",
       "id": "data_grid_data_grid_component_datagridcomponent_togglechecklistitem",
       "community": 4,
       "norm_label": ".togglechecklistitem()"
@@ -21644,7 +21653,7 @@
       "label": ".toggleSelectAllChecklist()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2950",
+      "source_location": "L2989",
       "id": "data_grid_data_grid_component_datagridcomponent_toggleselectallchecklist",
       "community": 184,
       "norm_label": ".toggleselectallchecklist()"
@@ -21653,7 +21662,7 @@
       "label": ".applyPopoverFilter()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L2965",
+      "source_location": "L3004",
       "id": "data_grid_data_grid_component_datagridcomponent_applypopoverfilter",
       "community": 184,
       "norm_label": ".applypopoverfilter()"
@@ -21662,7 +21671,7 @@
       "label": ".clearPopoverFilter()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3005",
+      "source_location": "L3044",
       "id": "data_grid_data_grid_component_datagridcomponent_clearpopoverfilter",
       "community": 4,
       "norm_label": ".clearpopoverfilter()"
@@ -21671,7 +21680,7 @@
       "label": ".getAggregationValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3023",
+      "source_location": "L3062",
       "id": "data_grid_data_grid_component_datagridcomponent_getaggregationvalue",
       "community": 122,
       "norm_label": ".getaggregationvalue()"
@@ -21680,7 +21689,7 @@
       "label": ".formatAggValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3059",
+      "source_location": "L3098",
       "id": "data_grid_data_grid_component_datagridcomponent_formataggvalue",
       "community": 122,
       "norm_label": ".formataggvalue()"
@@ -21689,7 +21698,7 @@
       "label": ".onSort()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3063",
+      "source_location": "L3102",
       "id": "data_grid_data_grid_component_datagridcomponent_onsort",
       "community": 4,
       "norm_label": ".onsort()"
@@ -21698,7 +21707,7 @@
       "label": ".onDragStart()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3098",
+      "source_location": "L3137",
       "id": "data_grid_data_grid_component_datagridcomponent_ondragstart",
       "community": 211,
       "norm_label": ".ondragstart()"
@@ -21707,7 +21716,7 @@
       "label": ".onDragOver()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3107",
+      "source_location": "L3146",
       "id": "data_grid_data_grid_component_datagridcomponent_ondragover",
       "community": 211,
       "norm_label": ".ondragover()"
@@ -21716,7 +21725,7 @@
       "label": ".onDrop()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3113",
+      "source_location": "L3152",
       "id": "data_grid_data_grid_component_datagridcomponent_ondrop",
       "community": 122,
       "norm_label": ".ondrop()"
@@ -21725,7 +21734,7 @@
       "label": ".onDragEnd()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3135",
+      "source_location": "L3174",
       "id": "data_grid_data_grid_component_datagridcomponent_ondragend",
       "community": 4,
       "norm_label": ".ondragend()"
@@ -21734,7 +21743,7 @@
       "label": ".onRowDragStart()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3140",
+      "source_location": "L3179",
       "id": "data_grid_data_grid_component_datagridcomponent_onrowdragstart",
       "community": 4,
       "norm_label": ".onrowdragstart()"
@@ -21743,7 +21752,7 @@
       "label": ".onRowDragOver()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3149",
+      "source_location": "L3188",
       "id": "data_grid_data_grid_component_datagridcomponent_onrowdragover",
       "community": 4,
       "norm_label": ".onrowdragover()"
@@ -21752,7 +21761,7 @@
       "label": ".onRowDrop()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3155",
+      "source_location": "L3194",
       "id": "data_grid_data_grid_component_datagridcomponent_onrowdrop",
       "community": 4,
       "norm_label": ".onrowdrop()"
@@ -21761,7 +21770,7 @@
       "label": ".onViewportScroll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3181",
+      "source_location": "L3220",
       "id": "data_grid_data_grid_component_datagridcomponent_onviewportscroll",
       "community": 4,
       "norm_label": ".onviewportscroll()"
@@ -21770,7 +21779,7 @@
       "label": ".onRowDragEnd()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3189",
+      "source_location": "L3228",
       "id": "data_grid_data_grid_component_datagridcomponent_onrowdragend",
       "community": 4,
       "norm_label": ".onrowdragend()"
@@ -21779,7 +21788,7 @@
       "label": ".getRowTranslation()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3194",
+      "source_location": "L3233",
       "id": "data_grid_data_grid_component_datagridcomponent_getrowtranslation",
       "community": 4,
       "norm_label": ".getrowtranslation()"
@@ -21788,7 +21797,7 @@
       "label": ".getSortIndex()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3228",
+      "source_location": "L3267",
       "id": "data_grid_data_grid_component_datagridcomponent_getsortindex",
       "community": 211,
       "norm_label": ".getsortindex()"
@@ -21797,7 +21806,7 @@
       "label": ".getSortDirection()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3232",
+      "source_location": "L3271",
       "id": "data_grid_data_grid_component_datagridcomponent_getsortdirection",
       "community": 211,
       "norm_label": ".getsortdirection()"
@@ -21806,7 +21815,7 @@
       "label": ".setGroup()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3237",
+      "source_location": "L3276",
       "id": "data_grid_data_grid_component_datagridcomponent_setgroup",
       "community": 4,
       "norm_label": ".setgroup()"
@@ -21815,7 +21824,7 @@
       "label": ".toggleGroup()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3243",
+      "source_location": "L3282",
       "id": "data_grid_data_grid_component_datagridcomponent_togglegroup",
       "community": 4,
       "norm_label": ".togglegroup()"
@@ -21824,7 +21833,7 @@
       "label": ".isGroupCollapsed()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3253",
+      "source_location": "L3292",
       "id": "data_grid_data_grid_component_datagridcomponent_isgroupcollapsed",
       "community": 4,
       "norm_label": ".isgroupcollapsed()"
@@ -21833,7 +21842,7 @@
       "label": ".goPage()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3257",
+      "source_location": "L3296",
       "id": "data_grid_data_grid_component_datagridcomponent_gopage",
       "community": 4,
       "norm_label": ".gopage()"
@@ -21842,7 +21851,7 @@
       "label": ".changePageSize()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3264",
+      "source_location": "L3303",
       "id": "data_grid_data_grid_component_datagridcomponent_changepagesize",
       "community": 4,
       "norm_label": ".changepagesize()"
@@ -21851,7 +21860,7 @@
       "label": ".getColumnDef()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3271",
+      "source_location": "L3310",
       "id": "data_grid_data_grid_component_datagridcomponent_getcolumndef",
       "community": 211,
       "norm_label": ".getcolumndef()"
@@ -21860,7 +21869,7 @@
       "label": ".contextMenuGroupBy()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3277",
+      "source_location": "L3316",
       "id": "data_grid_data_grid_component_datagridcomponent_contextmenugroupby",
       "community": 4,
       "norm_label": ".contextmenugroupby()"
@@ -21869,7 +21878,7 @@
       "label": ".contextMenuClearGrouping()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3286",
+      "source_location": "L3325",
       "id": "data_grid_data_grid_component_datagridcomponent_contextmenucleargrouping",
       "community": 4,
       "norm_label": ".contextmenucleargrouping()"
@@ -21878,7 +21887,7 @@
       "label": ".collapseAllGroups()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3293",
+      "source_location": "L3332",
       "id": "data_grid_data_grid_component_datagridcomponent_collapseallgroups",
       "community": 122,
       "norm_label": ".collapseallgroups()"
@@ -21887,7 +21896,7 @@
       "label": ".expandAllGroups()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3299",
+      "source_location": "L3338",
       "id": "data_grid_data_grid_component_datagridcomponent_expandallgroups",
       "community": 4,
       "norm_label": ".expandallgroups()"
@@ -21896,7 +21905,7 @@
       "label": ".contextMenuToggleDetail()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3304",
+      "source_location": "L3343",
       "id": "data_grid_data_grid_component_datagridcomponent_contextmenutoggledetail",
       "community": 4,
       "norm_label": ".contextmenutoggledetail()"
@@ -21905,7 +21914,7 @@
       "label": ".expandAllDetails()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3309",
+      "source_location": "L3348",
       "id": "data_grid_data_grid_component_datagridcomponent_expandalldetails",
       "community": 122,
       "norm_label": ".expandalldetails()"
@@ -21914,7 +21923,7 @@
       "label": ".collapseAllDetails()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3315",
+      "source_location": "L3354",
       "id": "data_grid_data_grid_component_datagridcomponent_collapsealldetails",
       "community": 4,
       "norm_label": ".collapsealldetails()"
@@ -21923,7 +21932,7 @@
       "label": ".onRowClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3320",
+      "source_location": "L3359",
       "id": "data_grid_data_grid_component_datagridcomponent_onrowclick",
       "community": 4,
       "norm_label": ".onrowclick()"
@@ -21932,7 +21941,7 @@
       "label": ".isRowSelected()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3324",
+      "source_location": "L3363",
       "id": "data_grid_data_grid_component_datagridcomponent_isrowselected",
       "community": 4,
       "norm_label": ".isrowselected()"
@@ -21941,7 +21950,7 @@
       "label": ".toggleRow()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3328",
+      "source_location": "L3367",
       "id": "data_grid_data_grid_component_datagridcomponent_togglerow",
       "community": 4,
       "norm_label": ".togglerow()"
@@ -21950,7 +21959,7 @@
       "label": ".toggleAll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3340",
+      "source_location": "L3379",
       "id": "data_grid_data_grid_component_datagridcomponent_toggleall",
       "community": 4,
       "norm_label": ".toggleall()"
@@ -21959,7 +21968,7 @@
       "label": ".toggleDetail()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3356",
+      "source_location": "L3395",
       "id": "data_grid_data_grid_component_datagridcomponent_toggledetail",
       "community": 4,
       "norm_label": ".toggledetail()"
@@ -21968,7 +21977,7 @@
       "label": ".isExpanded()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3367",
+      "source_location": "L3406",
       "id": "data_grid_data_grid_component_datagridcomponent_isexpanded",
       "community": 4,
       "norm_label": ".isexpanded()"
@@ -21977,7 +21986,7 @@
       "label": ".beginEdit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3371",
+      "source_location": "L3410",
       "id": "data_grid_data_grid_component_datagridcomponent_beginedit",
       "community": 4,
       "norm_label": ".beginedit()"
@@ -21986,7 +21995,7 @@
       "label": ".isEditing()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3381",
+      "source_location": "L3420",
       "id": "data_grid_data_grid_component_datagridcomponent_isediting",
       "community": 4,
       "norm_label": ".isediting()"
@@ -21995,7 +22004,7 @@
       "label": ".updateDraft()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3385",
+      "source_location": "L3424",
       "id": "data_grid_data_grid_component_datagridcomponent_updatedraft",
       "community": 4,
       "norm_label": ".updatedraft()"
@@ -22004,7 +22013,7 @@
       "label": ".getDraftValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3389",
+      "source_location": "L3428",
       "id": "data_grid_data_grid_component_datagridcomponent_getdraftvalue",
       "community": 4,
       "norm_label": ".getdraftvalue()"
@@ -22013,7 +22022,7 @@
       "label": ".saveEdit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3400",
+      "source_location": "L3439",
       "id": "data_grid_data_grid_component_datagridcomponent_saveedit",
       "community": 4,
       "norm_label": ".saveedit()"
@@ -22022,7 +22031,7 @@
       "label": ".cancelEdit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3406",
+      "source_location": "L3445",
       "id": "data_grid_data_grid_component_datagridcomponent_canceledit",
       "community": 4,
       "norm_label": ".canceledit()"
@@ -22031,7 +22040,7 @@
       "label": ".getCellValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3411",
+      "source_location": "L3450",
       "id": "data_grid_data_grid_component_datagridcomponent_getcellvalue",
       "community": 211,
       "norm_label": ".getcellvalue()"
@@ -22040,7 +22049,7 @@
       "label": ".resolveHeaderTemplate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3415",
+      "source_location": "L3454",
       "id": "data_grid_data_grid_component_datagridcomponent_resolveheadertemplate",
       "community": 5,
       "norm_label": ".resolveheadertemplate()"
@@ -22049,7 +22058,7 @@
       "label": ".resolveCellTemplate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3426",
+      "source_location": "L3465",
       "id": "data_grid_data_grid_component_datagridcomponent_resolvecelltemplate",
       "community": 211,
       "norm_label": ".resolvecelltemplate()"
@@ -22058,7 +22067,7 @@
       "label": ".resolveEditCellTemplate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3437",
+      "source_location": "L3476",
       "id": "data_grid_data_grid_component_datagridcomponent_resolveeditcelltemplate",
       "community": 211,
       "norm_label": ".resolveeditcelltemplate()"
@@ -22067,7 +22076,7 @@
       "label": ".resolveFooterTemplate()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3448",
+      "source_location": "L3487",
       "id": "data_grid_data_grid_component_datagridcomponent_resolvefootertemplate",
       "community": 5,
       "norm_label": ".resolvefootertemplate()"
@@ -22076,7 +22085,7 @@
       "label": ".getUpdateDraftCallback()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3459",
+      "source_location": "L3498",
       "id": "data_grid_data_grid_component_datagridcomponent_getupdatedraftcallback",
       "community": 4,
       "norm_label": ".getupdatedraftcallback()"
@@ -22085,7 +22094,7 @@
       "label": ".toStringSafe()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3463",
+      "source_location": "L3502",
       "id": "data_grid_data_grid_component_datagridcomponent_tostringsafe",
       "community": 4,
       "norm_label": ".tostringsafe()"
@@ -22094,7 +22103,7 @@
       "label": ".highlightSearchText()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3467",
+      "source_location": "L3506",
       "id": "data_grid_data_grid_component_datagridcomponent_highlightsearchtext",
       "community": 4,
       "norm_label": ".highlightsearchtext()"
@@ -22103,7 +22112,7 @@
       "label": ".escapeHtml()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3484",
+      "source_location": "L3523",
       "id": "data_grid_data_grid_component_datagridcomponent_escapehtml",
       "community": 4,
       "norm_label": ".escapehtml()"
@@ -22112,7 +22121,7 @@
       "label": ".escapeRegExp()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3493",
+      "source_location": "L3532",
       "id": "data_grid_data_grid_component_datagridcomponent_escaperegexp",
       "community": 4,
       "norm_label": ".escaperegexp()"
@@ -22121,7 +22130,7 @@
       "label": ".getKey()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3497",
+      "source_location": "L3536",
       "id": "data_grid_data_grid_component_datagridcomponent_getkey",
       "community": 4,
       "norm_label": ".getkey()"
@@ -22130,7 +22139,7 @@
       "label": ".hasGrouping()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3502",
+      "source_location": "L3541",
       "id": "data_grid_data_grid_component_datagridcomponent_hasgrouping",
       "community": 4,
       "norm_label": ".hasgrouping()"
@@ -22139,7 +22148,7 @@
       "label": ".paginateRows()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3506",
+      "source_location": "L3545",
       "id": "data_grid_data_grid_component_datagridcomponent_paginaterows",
       "community": 4,
       "norm_label": ".paginaterows()"
@@ -22148,7 +22157,7 @@
       "label": ".compareValues()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3516",
+      "source_location": "L3555",
       "id": "data_grid_data_grid_component_datagridcomponent_comparevalues",
       "community": 4,
       "norm_label": ".comparevalues()"
@@ -22157,7 +22166,7 @@
       "label": ".visibleSelectionRows()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3534",
+      "source_location": "L3573",
       "id": "data_grid_data_grid_component_datagridcomponent_visibleselectionrows",
       "community": 4,
       "norm_label": ".visibleselectionrows()"
@@ -22166,7 +22175,7 @@
       "label": ".resolveSelectedRows()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3548",
+      "source_location": "L3587",
       "id": "data_grid_data_grid_component_datagridcomponent_resolveselectedrows",
       "community": 4,
       "norm_label": ".resolveselectedrows()"
@@ -22175,7 +22184,7 @@
       "label": ".keyOf()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3553",
+      "source_location": "L3592",
       "id": "data_grid_data_grid_component_datagridcomponent_keyof",
       "community": 4,
       "norm_label": ".keyof()"
@@ -22184,7 +22193,7 @@
       "label": ".emitDataState()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3558",
+      "source_location": "L3597",
       "id": "data_grid_data_grid_component_datagridcomponent_emitdatastate",
       "community": 4,
       "norm_label": ".emitdatastate()"
@@ -22193,7 +22202,7 @@
       "label": ".onCellClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3568",
+      "source_location": "L3607",
       "id": "data_grid_data_grid_component_datagridcomponent_oncellclick",
       "community": 4,
       "norm_label": ".oncellclick()"
@@ -22202,7 +22211,7 @@
       "label": ".handleKeyDown()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3575",
+      "source_location": "L3614",
       "id": "data_grid_data_grid_component_datagridcomponent_handlekeydown",
       "community": 4,
       "norm_label": ".handlekeydown()"
@@ -22211,7 +22220,7 @@
       "label": ".getCellRowSpan()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3693",
+      "source_location": "L3732",
       "id": "data_grid_data_grid_component_datagridcomponent_getcellrowspan",
       "community": 211,
       "norm_label": ".getcellrowspan()"
@@ -22220,7 +22229,7 @@
       "label": ".isGroupAllSelected()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3720",
+      "source_location": "L3759",
       "id": "data_grid_data_grid_component_datagridcomponent_isgroupallselected",
       "community": 122,
       "norm_label": ".isgroupallselected()"
@@ -22229,7 +22238,7 @@
       "label": ".toggleGroupSelection()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3727",
+      "source_location": "L3766",
       "id": "data_grid_data_grid_component_datagridcomponent_togglegroupselection",
       "community": 4,
       "norm_label": ".togglegroupselection()"
@@ -22238,7 +22247,7 @@
       "label": ".getGroupAggregationValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/grid/data-grid/data-grid.component.ts",
-      "source_location": "L3743",
+      "source_location": "L3782",
       "id": "data_grid_data_grid_component_datagridcomponent_getgroupaggregationvalue",
       "community": 122,
       "norm_label": ".getgroupaggregationvalue()"
@@ -22933,7 +22942,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_autocomplete_autocomplete_component_ts",
-      "community": 255,
+      "community": 2,
       "norm_label": "autocomplete.component.ts"
     },
     {
@@ -22951,7 +22960,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L146",
       "id": "autocomplete_autocomplete_component_text",
-      "community": 255,
+      "community": 2,
       "norm_label": "text"
     },
     {
@@ -22960,7 +22969,7 @@
       "source_file": "projects/ngx-core-components/inputs/autocomplete/autocomplete.component.ts",
       "source_location": "L151",
       "id": "autocomplete_autocomplete_component_autocompletecomponent_isselected",
-      "community": 187,
+      "community": 2,
       "norm_label": ".isselected()"
     },
     {
@@ -24103,7 +24112,7 @@
       "source_file": "projects/ngx-core-components/inputs/dropdown/dropdown.component.ts",
       "source_location": "L8",
       "id": "dropdown_dropdown_component_dropdownoption",
-      "community": 187,
+      "community": 2,
       "norm_label": "dropdownoption"
     },
     {
@@ -24598,7 +24607,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_form_builder_form_builder_component_stories_ts",
-      "community": 43,
+      "community": 231,
       "norm_label": "form-builder.component.stories.ts"
     },
     {
@@ -24607,7 +24616,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L4",
       "id": "form_builder_form_builder_component_stories_contactfields",
-      "community": 43,
+      "community": 231,
       "norm_label": "contactfields"
     },
     {
@@ -24616,7 +24625,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L45",
       "id": "form_builder_form_builder_component_stories_loginfields",
-      "community": 43,
+      "community": 231,
       "norm_label": "loginfields"
     },
     {
@@ -24625,7 +24634,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L62",
       "id": "form_builder_form_builder_component_stories_meta",
-      "community": 43,
+      "community": 231,
       "norm_label": "meta"
     },
     {
@@ -24634,7 +24643,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L87",
       "id": "form_builder_form_builder_component_stories_story",
-      "community": 43,
+      "community": 231,
       "norm_label": "story"
     },
     {
@@ -24643,7 +24652,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L89",
       "id": "form_builder_form_builder_component_stories_contactform",
-      "community": 43,
+      "community": 231,
       "norm_label": "contactform"
     },
     {
@@ -24652,7 +24661,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L98",
       "id": "form_builder_form_builder_component_stories_loginform",
-      "community": 43,
+      "community": 231,
       "norm_label": "loginform"
     },
     {
@@ -24661,7 +24670,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L107",
       "id": "form_builder_form_builder_component_stories_prepopulatedform",
-      "community": 43,
+      "community": 231,
       "norm_label": "prepopulatedform"
     },
     {
@@ -24670,7 +24679,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.stories.ts",
       "source_location": "L122",
       "id": "form_builder_form_builder_component_stories_disabledform",
-      "community": 43,
+      "community": 231,
       "norm_label": "disabledform"
     },
     {
@@ -24679,7 +24688,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_form_builder_form_builder_component_ts",
-      "community": 43,
+      "community": 16,
       "norm_label": "form-builder.component.ts"
     },
     {
@@ -24688,7 +24697,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L4",
       "id": "form_builder_form_builder_component_formbuilderoption",
-      "community": 43,
+      "community": 16,
       "norm_label": "formbuilderoption"
     },
     {
@@ -24706,61 +24715,61 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
       "source_location": "L109",
       "id": "form_builder_form_builder_component_formbuildercomponent",
-      "community": 43,
+      "community": 16,
       "norm_label": "formbuildercomponent"
     },
     {
       "label": "fromFields",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
-      "source_location": "L121",
+      "source_location": "L145",
       "id": "form_builder_form_builder_component_fromfields",
-      "community": 43,
+      "community": 16,
       "norm_label": "fromfields"
     },
     {
       "label": ".valueFor()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
-      "source_location": "L130",
+      "source_location": "L154",
       "id": "form_builder_form_builder_component_formbuildercomponent_valuefor",
-      "community": 43,
+      "community": 16,
       "norm_label": ".valuefor()"
     },
     {
       "label": ".updateValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
-      "source_location": "L134",
+      "source_location": "L158",
       "id": "form_builder_form_builder_component_formbuildercomponent_updatevalue",
-      "community": 43,
+      "community": 16,
       "norm_label": ".updatevalue()"
     },
     {
       "label": ".submit()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
-      "source_location": "L140",
+      "source_location": "L164",
       "id": "form_builder_form_builder_component_formbuildercomponent_submit",
-      "community": 43,
+      "community": 16,
       "norm_label": ".submit()"
     },
     {
       "label": ".coerceInputValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
-      "source_location": "L145",
+      "source_location": "L169",
       "id": "form_builder_form_builder_component_formbuildercomponent_coerceinputvalue",
-      "community": 43,
+      "community": 16,
       "norm_label": ".coerceinputvalue()"
     },
     {
       "label": ".readOptionValue()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-builder.component.ts",
-      "source_location": "L149",
+      "source_location": "L173",
       "id": "form_builder_form_builder_component_formbuildercomponent_readoptionvalue",
-      "community": 43,
+      "community": 16,
       "norm_label": ".readoptionvalue()"
     },
     {
@@ -24769,7 +24778,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_form_builder_form_designer_component_spec_ts",
-      "community": 43,
+      "community": 265,
       "norm_label": "form-designer.component.spec.ts"
     },
     {
@@ -24778,7 +24787,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L28",
       "id": "form_builder_form_designer_component_spec_mockdragevent",
-      "community": 43,
+      "community": 265,
       "norm_label": "mockdragevent"
     },
     {
@@ -24787,7 +24796,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L35",
       "id": "form_builder_form_designer_component_spec_mockdropevent",
-      "community": 43,
+      "community": 265,
       "norm_label": "mockdropevent"
     },
     {
@@ -24796,7 +24805,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L44",
       "id": "form_builder_form_designer_component_spec_newfield",
-      "community": 43,
+      "community": 265,
       "norm_label": "newfield"
     },
     {
@@ -24805,7 +24814,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L60",
       "id": "form_builder_form_designer_component_spec_selectfield",
-      "community": 43,
+      "community": 265,
       "norm_label": "selectfield"
     },
     {
@@ -24814,7 +24823,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L75",
       "id": "form_builder_form_designer_component_spec_field1",
-      "community": 43,
+      "community": 265,
       "norm_label": "field1"
     },
     {
@@ -24823,7 +24832,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L76",
       "id": "form_builder_form_designer_component_spec_field2",
-      "community": 43,
+      "community": 265,
       "norm_label": "field2"
     },
     {
@@ -24832,7 +24841,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.spec.ts",
       "source_location": "L91",
       "id": "form_builder_form_designer_component_spec_jsontext",
-      "community": 43,
+      "community": 265,
       "norm_label": "jsontext"
     },
     {
@@ -24841,7 +24850,7 @@
       "source_file": "projects/ngx-core-components/inputs/form-builder/form-designer.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_form_builder_form_designer_component_ts",
-      "community": 43,
+      "community": 16,
       "norm_label": "form-designer.component.ts"
     },
     {
@@ -25165,7 +25174,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_inputs_multi_select_multi_select_component_ts",
-      "community": 187,
+      "community": 307,
       "norm_label": "multi-select.component.ts"
     },
     {
@@ -25183,7 +25192,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L202",
       "id": "multi_select_multi_select_component_f",
-      "community": 187,
+      "community": 307,
       "norm_label": "f"
     },
     {
@@ -25192,7 +25201,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L209",
       "id": "multi_select_multi_select_component_multiselectcomponent_ischecked",
-      "community": 187,
+      "community": 2,
       "norm_label": ".ischecked()"
     },
     {
@@ -25210,7 +25219,7 @@
       "source_file": "projects/ngx-core-components/inputs/multi-select/multi-select.component.ts",
       "source_location": "L216",
       "id": "multi_select_multi_select_component_multiselectcomponent_toggleoption",
-      "community": 187,
+      "community": 2,
       "norm_label": ".toggleoption()"
     },
     {
@@ -25327,7 +25336,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L264",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent",
-      "community": 231,
+      "community": 148,
       "norm_label": "numerictextboxcomponent"
     },
     {
@@ -25336,7 +25345,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L292",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_constructor",
-      "community": 231,
+      "community": 148,
       "norm_label": ".constructor()"
     },
     {
@@ -25345,7 +25354,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L298",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onchange",
-      "community": 231,
+      "community": 148,
       "norm_label": ".onchange()"
     },
     {
@@ -25354,7 +25363,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L311",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onblur",
-      "community": 231,
+      "community": 148,
       "norm_label": ".onblur()"
     },
     {
@@ -25363,7 +25372,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L316",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_onkeydown",
-      "community": 231,
+      "community": 148,
       "norm_label": ".onkeydown()"
     },
     {
@@ -25372,7 +25381,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L332",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_spin",
-      "community": 231,
+      "community": 148,
       "norm_label": ".spin()"
     },
     {
@@ -25381,7 +25390,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L334",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setvalue",
-      "community": 231,
+      "community": 148,
       "norm_label": ".setvalue()"
     },
     {
@@ -25390,7 +25399,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L341",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_clamp",
-      "community": 231,
+      "community": 148,
       "norm_label": ".clamp()"
     },
     {
@@ -25399,7 +25408,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L346",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_writevalue",
-      "community": 231,
+      "community": 148,
       "norm_label": ".writevalue()"
     },
     {
@@ -25408,7 +25417,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L350",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registeronchange",
-      "community": 231,
+      "community": 148,
       "norm_label": ".registeronchange()"
     },
     {
@@ -25417,7 +25426,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L354",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_registerontouched",
-      "community": 231,
+      "community": 148,
       "norm_label": ".registerontouched()"
     },
     {
@@ -25426,7 +25435,7 @@
       "source_file": "projects/ngx-core-components/inputs/numeric-textbox/numeric-textbox.component.ts",
       "source_location": "L358",
       "id": "numeric_textbox_numeric_textbox_component_numerictextboxcomponent_setdisabledstate",
-      "community": 231,
+      "community": 148,
       "norm_label": ".setdisabledstate()"
     },
     {
@@ -28034,7 +28043,7 @@
       "label": ".checkScroll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts",
-      "source_location": "L200",
+      "source_location": "L203",
       "id": "back_to_top_back_to_top_component_backtotopcomponent_checkscroll",
       "community": 314,
       "norm_label": ".checkscroll()"
@@ -28043,7 +28052,7 @@
       "label": ".scrollToTop()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts",
-      "source_location": "L226",
+      "source_location": "L229",
       "id": "back_to_top_back_to_top_component_backtotopcomponent_scrolltotop",
       "community": 314,
       "norm_label": ".scrolltotop()"
@@ -29404,7 +29413,7 @@
       "source_file": "projects/ngx-core-components/views/calendar/calendar.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_calendar_calendar_component_stories_ts",
-      "community": 198,
+      "community": 223,
       "norm_label": "calendar.component.stories.ts"
     },
     {
@@ -29413,7 +29422,7 @@
       "source_file": "projects/ngx-core-components/views/calendar/calendar.component.stories.ts",
       "source_location": "L3",
       "id": "calendar_calendar_component_stories_meta",
-      "community": 198,
+      "community": 223,
       "norm_label": "meta"
     },
     {
@@ -29422,7 +29431,7 @@
       "source_file": "projects/ngx-core-components/views/calendar/calendar.component.stories.ts",
       "source_location": "L25",
       "id": "calendar_calendar_component_stories_default",
-      "community": 198,
+      "community": 223,
       "norm_label": "default"
     },
     {
@@ -30106,7 +30115,7 @@
       "source_file": "projects/ngx-core-components/views/kanban/kanban.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_kanban_kanban_component_stories_ts",
-      "community": 8,
+      "community": 277,
       "norm_label": "kanban.component.stories.ts"
     },
     {
@@ -30115,7 +30124,7 @@
       "source_file": "projects/ngx-core-components/views/kanban/kanban.component.stories.ts",
       "source_location": "L3",
       "id": "kanban_kanban_component_stories_meta",
-      "community": 8,
+      "community": 277,
       "norm_label": "meta"
     },
     {
@@ -30124,7 +30133,7 @@
       "source_file": "projects/ngx-core-components/views/kanban/kanban.component.stories.ts",
       "source_location": "L12",
       "id": "kanban_kanban_component_stories_default",
-      "community": 8,
+      "community": 277,
       "norm_label": "default"
     },
     {
@@ -30799,7 +30808,7 @@
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_org_chart_org_chart_component_stories_ts",
-      "community": 36,
+      "community": 273,
       "norm_label": "org-chart.component.stories.ts"
     },
     {
@@ -30808,7 +30817,7 @@
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.stories.ts",
       "source_location": "L3",
       "id": "org_chart_org_chart_component_stories_meta",
-      "community": 36,
+      "community": 273,
       "norm_label": "meta"
     },
     {
@@ -30817,7 +30826,7 @@
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.stories.ts",
       "source_location": "L17",
       "id": "org_chart_org_chart_component_stories_default",
-      "community": 36,
+      "community": 273,
       "norm_label": "default"
     },
     {
@@ -30826,7 +30835,7 @@
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_org_chart_org_chart_component_ts",
-      "community": 36,
+      "community": 273,
       "norm_label": "org-chart.component.ts"
     },
     {
@@ -30835,7 +30844,7 @@
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.ts",
       "source_location": "L4",
       "id": "org_chart_org_chart_component_orgchartnode",
-      "community": 36,
+      "community": 273,
       "norm_label": "orgchartnode"
     },
     {
@@ -30844,7 +30853,7 @@
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.ts",
       "source_location": "L75",
       "id": "org_chart_org_chart_component_orgchartcomponent",
-      "community": 36,
+      "community": 273,
       "norm_label": "orgchartcomponent"
     },
     {
@@ -30853,7 +30862,7 @@
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.ts",
       "source_location": "L81",
       "id": "org_chart_org_chart_component_orgchartcomponent_initials",
-      "community": 36,
+      "community": 273,
       "norm_label": ".initials()"
     },
     {
@@ -30871,7 +30880,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L1",
       "id": "scheduler_models_schedulerevent",
-      "community": 199,
+      "community": 237,
       "norm_label": "schedulerevent"
     },
     {
@@ -30907,7 +30916,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/models.ts",
       "source_location": "L38",
       "id": "scheduler_models_schedulerresource",
-      "community": 147,
+      "community": 292,
       "norm_label": "schedulerresource"
     },
     {
@@ -30925,7 +30934,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_views_scheduler_scheduler_component_stories_ts",
-      "community": 199,
+      "community": 282,
       "norm_label": "scheduler.component.stories.ts"
     },
     {
@@ -30934,7 +30943,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.stories.ts",
       "source_location": "L3",
       "id": "scheduler_scheduler_component_stories_meta",
-      "community": 199,
+      "community": 282,
       "norm_label": "meta"
     },
     {
@@ -30943,7 +30952,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.stories.ts",
       "source_location": "L29",
       "id": "scheduler_scheduler_component_stories_default",
-      "community": 199,
+      "community": 282,
       "norm_label": "default"
     },
     {
@@ -30979,7 +30988,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L20",
       "id": "scheduler_scheduler_component_resolvedschedulerevent",
-      "community": 199,
+      "community": 237,
       "norm_label": "resolvedschedulerevent"
     },
     {
@@ -30997,7 +31006,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L34",
       "id": "scheduler_scheduler_component_resizestate",
-      "community": 199,
+      "community": 237,
       "norm_label": "resizestate"
     },
     {
@@ -31204,7 +31213,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L917",
       "id": "scheduler_scheduler_component_schedulercomponent_slotheight",
-      "community": 147,
+      "community": 226,
       "norm_label": ".slotheight()"
     },
     {
@@ -31231,7 +31240,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L937",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventsfordate",
-      "community": 147,
+      "community": 237,
       "norm_label": ".geteventsfordate()"
     },
     {
@@ -31240,7 +31249,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L943",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventsforcolumn",
-      "community": 147,
+      "community": 292,
       "norm_label": ".geteventsforcolumn()"
     },
     {
@@ -31249,7 +31258,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L956",
       "id": "scheduler_scheduler_component_schedulercomponent_getalldayeventsforcolumn",
-      "community": 147,
+      "community": 292,
       "norm_label": ".getalldayeventsforcolumn()"
     },
     {
@@ -31258,7 +31267,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L969",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventlayoutsforcolumn",
-      "community": 147,
+      "community": 292,
       "norm_label": ".geteventlayoutsforcolumn()"
     },
     {
@@ -31267,7 +31276,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L990",
       "id": "scheduler_scheduler_component_schedulercomponent_clickevent",
-      "community": 199,
+      "community": 237,
       "norm_label": ".clickevent()"
     },
     {
@@ -31285,7 +31294,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1000",
       "id": "scheduler_scheduler_component_schedulercomponent_deleteevent",
-      "community": 199,
+      "community": 237,
       "norm_label": ".deleteevent()"
     },
     {
@@ -31294,7 +31303,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1005",
       "id": "scheduler_scheduler_component_schedulercomponent_toggletaskcompletion",
-      "community": 199,
+      "community": 237,
       "norm_label": ".toggletaskcompletion()"
     },
     {
@@ -31303,7 +31312,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1014",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventstyles",
-      "community": 199,
+      "community": 237,
       "norm_label": ".geteventstyles()"
     },
     {
@@ -31330,7 +31339,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1041",
       "id": "scheduler_scheduler_component_schedulercomponent_isnonbusinesshour",
-      "community": 147,
+      "community": 226,
       "norm_label": ".isnonbusinesshour()"
     },
     {
@@ -31348,7 +31357,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1058",
       "id": "scheduler_scheduler_component_schedulercomponent_onslotpointerenter",
-      "community": 147,
+      "community": 263,
       "norm_label": ".onslotpointerenter()"
     },
     {
@@ -31357,7 +31366,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1068",
       "id": "scheduler_scheduler_component_schedulercomponent_onwindowpointerup",
-      "community": 147,
+      "community": 226,
       "norm_label": ".onwindowpointerup()"
     },
     {
@@ -31366,7 +31375,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1103",
       "id": "scheduler_scheduler_component_schedulercomponent_getdragselectionlayout",
-      "community": 147,
+      "community": 226,
       "norm_label": ".getdragselectionlayout()"
     },
     {
@@ -31420,7 +31429,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1188",
       "id": "scheduler_scheduler_component_schedulercomponent_finishresize",
-      "community": 147,
+      "community": 226,
       "norm_label": ".finishresize()"
     },
     {
@@ -31438,7 +31447,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1218",
       "id": "scheduler_scheduler_component_schedulercomponent_istoday",
-      "community": 147,
+      "community": 263,
       "norm_label": ".istoday()"
     },
     {
@@ -31492,7 +31501,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1249",
       "id": "scheduler_scheduler_component_schedulercomponent_datekey",
-      "community": 147,
+      "community": 263,
       "norm_label": ".datekey()"
     },
     {
@@ -31564,7 +31573,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1373",
       "id": "scheduler_scheduler_component_schedulercomponent_resolveeventfordate",
-      "community": 147,
+      "community": 263,
       "norm_label": ".resolveeventfordate()"
     },
     {
@@ -31573,7 +31582,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1391",
       "id": "scheduler_scheduler_component_schedulercomponent_resolverecurringoccurrence",
-      "community": 147,
+      "community": 263,
       "norm_label": ".resolverecurringoccurrence()"
     },
     {
@@ -31582,7 +31591,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1434",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventtop",
-      "community": 147,
+      "community": 226,
       "norm_label": ".geteventtop()"
     },
     {
@@ -31591,7 +31600,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1443",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventheight",
-      "community": 147,
+      "community": 226,
       "norm_label": ".geteventheight()"
     },
     {
@@ -31627,7 +31636,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1480",
       "id": "scheduler_scheduler_component_schedulercomponent_issamedate",
-      "community": 147,
+      "community": 263,
       "norm_label": ".issamedate()"
     },
     {
@@ -31636,7 +31645,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1484",
       "id": "scheduler_scheduler_component_schedulercomponent_startofday",
-      "community": 147,
+      "community": 263,
       "norm_label": ".startofday()"
     },
     {
@@ -31645,7 +31654,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1490",
       "id": "scheduler_scheduler_component_schedulercomponent_endofday",
-      "community": 147,
+      "community": 263,
       "norm_label": ".endofday()"
     },
     {
@@ -31654,7 +31663,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1496",
       "id": "scheduler_scheduler_component_schedulercomponent_rangesoverlap",
-      "community": 147,
+      "community": 263,
       "norm_label": ".rangesoverlap()"
     },
     {
@@ -31663,7 +31672,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1500",
       "id": "scheduler_scheduler_component_schedulercomponent_normalizedstarthour",
-      "community": 147,
+      "community": 226,
       "norm_label": ".normalizedstarthour()"
     },
     {
@@ -31672,7 +31681,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1504",
       "id": "scheduler_scheduler_component_schedulercomponent_normalizedendhour",
-      "community": 147,
+      "community": 226,
       "norm_label": ".normalizedendhour()"
     },
     {
@@ -31681,7 +31690,7 @@
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L1508",
       "id": "scheduler_scheduler_component_schedulercomponent_normalizedslotminutes",
-      "community": 147,
+      "community": 226,
       "norm_label": ".normalizedslotminutes()"
     },
     {
@@ -32900,13 +32909,13 @@
       "norm_label": "\u2728 highlights"
     },
     {
-      "label": "\ud83d\ude80 Live Demo",
+      "label": "\ud83d\ude80 Interactive Playground & Docs",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L20",
-      "id": "ngx_core_components_readme_live_demo",
+      "id": "ngx_core_components_readme_interactive_playground_docs",
       "community": 113,
-      "norm_label": "\ud83d\ude80 live demo"
+      "norm_label": "\ud83d\ude80 interactive playground & docs"
     },
     {
       "label": "\ud83d\udcd6 Documentation",
@@ -33544,7 +33553,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L53",
       "id": "ngx_core_components_readme_included_components",
-      "community": 273,
+      "community": 131,
       "norm_label": "included components"
     },
     {
@@ -33553,7 +33562,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L55",
       "id": "ngx_core_components_readme_charts",
-      "community": 273,
+      "community": 131,
       "norm_label": "charts"
     },
     {
@@ -33562,7 +33571,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L63",
       "id": "ngx_core_components_readme_inputs",
-      "community": 273,
+      "community": 131,
       "norm_label": "inputs"
     },
     {
@@ -33571,7 +33580,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L81",
       "id": "ngx_core_components_readme_data_views",
-      "community": 273,
+      "community": 131,
       "norm_label": "data views"
     },
     {
@@ -33580,7 +33589,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L87",
       "id": "ngx_core_components_readme_dialog_and_overlay",
-      "community": 273,
+      "community": 131,
       "norm_label": "dialog and overlay"
     },
     {
@@ -33589,7 +33598,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L94",
       "id": "ngx_core_components_readme_buttons_and_actions",
-      "community": 273,
+      "community": 131,
       "norm_label": "buttons and actions"
     },
     {
@@ -33598,7 +33607,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L103",
       "id": "ngx_core_components_readme_layout",
-      "community": 273,
+      "community": 131,
       "norm_label": "layout"
     },
     {
@@ -33607,7 +33616,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L112",
       "id": "ngx_core_components_readme_feedback",
-      "community": 273,
+      "community": 131,
       "norm_label": "feedback"
     },
     {
@@ -33616,7 +33625,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L120",
       "id": "ngx_core_components_readme_navigation",
-      "community": 273,
+      "community": 131,
       "norm_label": "navigation"
     },
     {
@@ -33625,7 +33634,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L125",
       "id": "ngx_core_components_readme_barcodes",
-      "community": 273,
+      "community": 131,
       "norm_label": "barcodes"
     },
     {
@@ -33787,7 +33796,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L375",
       "id": "ngx_core_components_readme_ganttchartcomponent_ngx_gantt_chart",
-      "community": 146,
+      "community": 203,
       "norm_label": "ganttchartcomponent (`ngx-gantt-chart`)"
     },
     {
@@ -33796,7 +33805,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L376",
       "id": "ngx_core_components_readme_inputs_376",
-      "community": 146,
+      "community": 203,
       "norm_label": "inputs"
     },
     {
@@ -33814,7 +33823,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L400",
       "id": "ngx_core_components_readme_public_methods",
-      "community": 146,
+      "community": 203,
       "norm_label": "public methods"
     },
     {
@@ -33823,7 +33832,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L413",
       "id": "ngx_core_components_readme_ganttconfig_interface",
-      "community": 146,
+      "community": 203,
       "norm_label": "ganttconfig interface"
     },
     {
@@ -33832,7 +33841,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L414",
       "id": "ngx_core_components_readme_codeblock_11",
-      "community": 146,
+      "community": 203,
       "norm_label": "code:typescript (interface ganttconfig {)"
     },
     {
@@ -33841,7 +33850,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L429",
       "id": "ngx_core_components_readme_gantttask_interface",
-      "community": 146,
+      "community": 203,
       "norm_label": "gantttask interface"
     },
     {
@@ -33850,7 +33859,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L430",
       "id": "ngx_core_components_readme_codeblock_12",
-      "community": 146,
+      "community": 203,
       "norm_label": "code:typescript (interface gantttask {)"
     },
     {
@@ -33949,7 +33958,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L500",
       "id": "ngx_core_components_readme_codeblock_13",
-      "community": 146,
+      "community": 203,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -33958,7 +33967,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L528",
       "id": "ngx_core_components_readme_textboxcomponent_ngx_textbox",
-      "community": 263,
+      "community": 239,
       "norm_label": "textboxcomponent (`ngx-textbox`)"
     },
     {
@@ -33967,7 +33976,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L529",
       "id": "ngx_core_components_readme_inputs_529",
-      "community": 263,
+      "community": 239,
       "norm_label": "inputs"
     },
     {
@@ -33976,7 +33985,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L547",
       "id": "ngx_core_components_readme_outputs_547",
-      "community": 263,
+      "community": 239,
       "norm_label": "outputs"
     },
     {
@@ -34012,7 +34021,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L567",
       "id": "ngx_core_components_readme_radiogroupcomponent_ngx_radio_group",
-      "community": 265,
+      "community": 239,
       "norm_label": "radiogroupcomponent (`ngx-radio-group`)"
     },
     {
@@ -34021,7 +34030,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L568",
       "id": "ngx_core_components_readme_inputs_568",
-      "community": 265,
+      "community": 239,
       "norm_label": "inputs"
     },
     {
@@ -34030,7 +34039,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L577",
       "id": "ngx_core_components_readme_outputs_577",
-      "community": 265,
+      "community": 239,
       "norm_label": "outputs"
     },
     {
@@ -34093,7 +34102,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L618",
       "id": "ngx_core_components_readme_autocompletecomponent_ngx_autocomplete",
-      "community": 237,
+      "community": 239,
       "norm_label": "autocompletecomponent (`ngx-autocomplete`)"
     },
     {
@@ -34102,7 +34111,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L619",
       "id": "ngx_core_components_readme_inputs_619",
-      "community": 237,
+      "community": 239,
       "norm_label": "inputs"
     },
     {
@@ -34111,7 +34120,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L629",
       "id": "ngx_core_components_readme_outputs_629",
-      "community": 237,
+      "community": 239,
       "norm_label": "outputs"
     },
     {
@@ -34228,7 +34237,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L707",
       "id": "ngx_core_components_readme_ratingcomponent_ngx_rating",
-      "community": 277,
+      "community": 239,
       "norm_label": "ratingcomponent (`ngx-rating`)"
     },
     {
@@ -34237,7 +34246,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L708",
       "id": "ngx_core_components_readme_inputs_708",
-      "community": 277,
+      "community": 239,
       "norm_label": "inputs"
     },
     {
@@ -34246,7 +34255,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L716",
       "id": "ngx_core_components_readme_outputs_716",
-      "community": 277,
+      "community": 239,
       "norm_label": "outputs"
     },
     {
@@ -34255,7 +34264,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L721",
       "id": "ngx_core_components_readme_numerictextboxcomponent_ngx_numeric_textbox",
-      "community": 226,
+      "community": 239,
       "norm_label": "numerictextboxcomponent (`ngx-numeric-textbox`)"
     },
     {
@@ -34264,7 +34273,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L722",
       "id": "ngx_core_components_readme_inputs_722",
-      "community": 226,
+      "community": 239,
       "norm_label": "inputs"
     },
     {
@@ -34273,7 +34282,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L735",
       "id": "ngx_core_components_readme_outputs_735",
-      "community": 226,
+      "community": 239,
       "norm_label": "outputs"
     },
     {
@@ -34282,7 +34291,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L740",
       "id": "ngx_core_components_readme_public_methods_740",
-      "community": 226,
+      "community": 239,
       "norm_label": "public methods"
     },
     {
@@ -34291,7 +34300,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L746",
       "id": "ngx_core_components_readme_textareacomponent_ngx_textarea",
-      "community": 282,
+      "community": 239,
       "norm_label": "textareacomponent (`ngx-textarea`)"
     },
     {
@@ -34300,7 +34309,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L747",
       "id": "ngx_core_components_readme_inputs_747",
-      "community": 282,
+      "community": 239,
       "norm_label": "inputs"
     },
     {
@@ -34309,7 +34318,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L759",
       "id": "ngx_core_components_readme_outputs_759",
-      "community": 282,
+      "community": 239,
       "norm_label": "outputs"
     },
     {
@@ -34345,7 +34354,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L775",
       "id": "ngx_core_components_readme_timepickercomponent_ngx_time_picker",
-      "community": 292,
+      "community": 239,
       "norm_label": "timepickercomponent (`ngx-time-picker`)"
     },
     {
@@ -34354,7 +34363,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L776",
       "id": "ngx_core_components_readme_inputs_776",
-      "community": 292,
+      "community": 239,
       "norm_label": "inputs"
     },
     {
@@ -34363,7 +34372,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L783",
       "id": "ngx_core_components_readme_outputs_783",
-      "community": 292,
+      "community": 239,
       "norm_label": "outputs"
     },
     {
@@ -34399,7 +34408,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L833",
       "id": "ngx_core_components_readme_datagridcomponent_ngx_data_grid",
-      "community": 309,
+      "community": 206,
       "norm_label": "datagridcomponent (`ngx-data-grid`)"
     },
     {
@@ -34408,7 +34417,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L834",
       "id": "ngx_core_components_readme_inputs_834",
-      "community": 309,
+      "community": 206,
       "norm_label": "inputs"
     },
     {
@@ -34417,7 +34426,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L863",
       "id": "ngx_core_components_readme_outputs_863",
-      "community": 309,
+      "community": 206,
       "norm_label": "outputs"
     },
     {
@@ -34426,7 +34435,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L877",
       "id": "ngx_core_components_readme_public_methods_877",
-      "community": 309,
+      "community": 206,
       "norm_label": "public methods"
     },
     {
@@ -34732,7 +34741,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1112",
       "id": "ngx_core_components_readme_how_to_use_layout_components",
-      "community": 146,
+      "community": 201,
       "norm_label": "how to use layout components"
     },
     {
@@ -34741,7 +34750,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1113",
       "id": "ngx_core_components_readme_codeblock_17",
-      "community": 146,
+      "community": 203,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -35020,7 +35029,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1306",
       "id": "ngx_core_components_readme_codeblock_19",
-      "community": 207,
+      "community": 203,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -35240,6 +35249,15 @@
       "norm_label": "license"
     },
     {
+      "label": "\ud83d\ude80 Live Demo",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L20",
+      "community": 113,
+      "norm_label": "\ud83d\ude80 live demo",
+      "id": "ngx_core_components_readme_live_demo"
+    },
+    {
       "label": "Story",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.stories.ts",
@@ -35442,7 +35460,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.stories.ts",
       "source_location": "L17",
-      "community": 266,
+      "community": 146,
       "norm_label": "story",
       "id": "funnel_chart_funnel_chart_component_stories_story"
     },
@@ -35946,7 +35964,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/calendar/calendar.component.stories.ts",
       "source_location": "L25",
-      "community": 198,
+      "community": 223,
       "norm_label": "story",
       "id": "calendar_calendar_component_stories_story"
     },
@@ -35973,7 +35991,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/kanban/kanban.component.stories.ts",
       "source_location": "L12",
-      "community": 8,
+      "community": 277,
       "norm_label": "story",
       "id": "kanban_kanban_component_stories_story"
     },
@@ -36000,7 +36018,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/org-chart/org-chart.component.stories.ts",
       "source_location": "L17",
-      "community": 36,
+      "community": 273,
       "norm_label": "story",
       "id": "org_chart_org_chart_component_stories_story"
     },
@@ -36009,7 +36027,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.stories.ts",
       "source_location": "L29",
-      "community": 199,
+      "community": 282,
       "norm_label": "story",
       "id": "scheduler_scheduler_component_stories_story"
     },
@@ -37566,7 +37584,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L375",
-      "community": 146,
+      "community": 203,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_375"
     },
@@ -37620,7 +37638,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L528",
-      "community": 263,
+      "community": 239,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_528"
     },
@@ -37629,7 +37647,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L546",
-      "community": 263,
+      "community": 239,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_546"
     },
@@ -37656,7 +37674,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L567",
-      "community": 265,
+      "community": 239,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_567"
     },
@@ -37665,7 +37683,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L576",
-      "community": 265,
+      "community": 239,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_576"
     },
@@ -37710,7 +37728,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L618",
-      "community": 237,
+      "community": 239,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_618"
     },
@@ -37719,7 +37737,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L628",
-      "community": 237,
+      "community": 239,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_628"
     },
@@ -37800,7 +37818,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L707",
-      "community": 277,
+      "community": 239,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_707"
     },
@@ -37809,7 +37827,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L715",
-      "community": 277,
+      "community": 239,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_715"
     },
@@ -37818,7 +37836,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L721",
-      "community": 226,
+      "community": 239,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_721"
     },
@@ -37827,7 +37845,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L734",
-      "community": 226,
+      "community": 239,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_734"
     },
@@ -37836,7 +37854,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L739",
-      "community": 226,
+      "community": 239,
       "norm_label": "public methods",
       "id": "ngx_core_components_readme_public_methods_739"
     },
@@ -37845,7 +37863,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L746",
-      "community": 282,
+      "community": 239,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_746"
     },
@@ -37854,7 +37872,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L758",
-      "community": 282,
+      "community": 239,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_758"
     },
@@ -37881,7 +37899,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L775",
-      "community": 292,
+      "community": 239,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_775"
     },
@@ -37890,7 +37908,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L782",
-      "community": 292,
+      "community": 239,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_782"
     },
@@ -37899,7 +37917,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L833",
-      "community": 309,
+      "community": 206,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_833"
     },
@@ -37908,7 +37926,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L862",
-      "community": 309,
+      "community": 206,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_862"
     },
@@ -37917,7 +37935,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L876",
-      "community": 309,
+      "community": 206,
       "norm_label": "public methods",
       "id": "ngx_core_components_readme_public_methods_876"
     },
@@ -38340,7 +38358,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/funnel-chart/funnel-chart.component.ts",
       "source_location": "L215",
-      "community": 266,
+      "community": 146,
       "norm_label": "sorted",
       "id": "funnel_chart_funnel_chart_component_sorted"
     },
@@ -38349,7 +38367,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/charts/pie-chart/pie-chart.component.ts",
       "source_location": "L245",
-      "community": 185,
+      "community": 124,
       "norm_label": "path",
       "id": "pie_chart_pie_chart_component_path"
     },
@@ -38403,7 +38421,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/scheduler/scheduler.component.ts",
       "source_location": "L378",
-      "community": 147,
+      "community": 237,
       "norm_label": ".geteventlayoutsfordate()",
       "id": "scheduler_scheduler_component_schedulercomponent_geteventlayoutsfordate"
     },
@@ -38511,7 +38529,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L457",
-      "community": 146,
+      "community": 203,
       "norm_label": "component usage guides",
       "id": "ngx_core_components_readme_component_usage_guides"
     },
@@ -38529,7 +38547,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L491",
-      "community": 146,
+      "community": 203,
       "norm_label": "buttons & actions (chips, split/dropdown buttons)",
       "id": "ngx_core_components_readme_buttons_actions_chips_split_dropdown_buttons"
     },
@@ -38538,7 +38556,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L524",
-      "community": 146,
+      "community": 203,
       "norm_label": "layout & panels (accordion, tabs, cards, stepper)",
       "id": "ngx_core_components_readme_layout_panels_accordion_tabs_cards_stepper"
     },
@@ -38547,7 +38565,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L559",
-      "community": 146,
+      "community": 203,
       "norm_label": "overlays & dialogs (tooltips, popovers, alerts)",
       "id": "ngx_core_components_readme_overlays_dialogs_tooltips_popovers_alerts"
     },
@@ -38583,7 +38601,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L684",
-      "community": 146,
+      "community": 203,
       "norm_label": "barcodes & qr codes",
       "id": "ngx_core_components_readme_barcodes_qr_codes"
     },
@@ -39006,7 +39024,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L146",
-      "community": 53,
+      "community": 28,
       "norm_label": "basicdemocomponent",
       "id": "basic_demo_basic_demo_component_basicdemocomponent"
     },
@@ -39015,7 +39033,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L205",
-      "community": 53,
+      "community": 28,
       "norm_label": ".setzoom()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_setzoom"
     },
@@ -39024,7 +39042,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L215",
-      "community": 53,
+      "community": 28,
       "norm_label": ".ontaskchange()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_ontaskchange"
     },
@@ -39033,7 +39051,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L221",
-      "community": 53,
+      "community": 28,
       "norm_label": ".ontaskclick()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_ontaskclick"
     },
@@ -39042,7 +39060,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L225",
-      "community": 53,
+      "community": 28,
       "norm_label": ".formatdate()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_formatdate"
     },
@@ -39051,7 +39069,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L229",
-      "community": 53,
+      "community": 28,
       "norm_label": ".togglealternaterows()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_togglealternaterows"
     },
@@ -39060,7 +39078,7 @@
       "file_type": "code",
       "source_file": "projects/demo/src/app/pages/basic-demo/basic-demo.component.ts",
       "source_location": "L234",
-      "community": 53,
+      "community": 28,
       "norm_label": ".togglealternatecolumns()",
       "id": "basic_demo_basic_demo_component_basicdemocomponent_togglealternatecolumns"
     },
@@ -41888,9 +41906,9 @@
       "source_file": "angular.json",
       "source_location": "L121",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_angular_test_options",
-      "target": "ngx_core_components_angular_options_codecoverage",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_angular_options_codecoverage"
     },
     {
       "relation": "contains",
@@ -41898,9 +41916,9 @@
       "source_file": "angular.json",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_angular_test_options",
-      "target": "ngx_core_components_angular_options_karmaconfig",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_angular_options_karmaconfig"
     },
     {
       "relation": "contains",
@@ -42378,9 +42396,9 @@
       "source_file": "eslint.config.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "eslint_config_js",
-      "target": "ngx_core_components_eslint_config_eslint",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_eslint_config_eslint"
     },
     {
       "relation": "contains",
@@ -42388,9 +42406,9 @@
       "source_file": "eslint.config.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "eslint_config_js",
-      "target": "ngx_core_components_eslint_config_tseslint",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_eslint_config_tseslint"
     },
     {
       "relation": "contains",
@@ -42398,9 +42416,9 @@
       "source_file": "eslint.config.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "eslint_config_js",
-      "target": "ngx_core_components_eslint_config_angular",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_eslint_config_angular"
     },
     {
       "relation": "contains",
@@ -42568,9 +42586,9 @@
       "source_file": "package.json",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_scripts",
-      "target": "ngx_core_components_package_scripts_lint",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_scripts_lint"
     },
     {
       "relation": "contains",
@@ -42578,8 +42596,18 @@
       "source_file": "package.json",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_scripts",
-      "target": "ngx_core_components_package_scripts_format_check",
+      "target": "ngx_core_components_package_scripts_format_check"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "ngx_core_components_package_scripts",
+      "target": "ngx_core_components_package_scripts_docs",
       "confidence_score": 1.0
     },
     {
@@ -42828,9 +42856,9 @@
       "source_file": "package.json",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_devdependencies",
-      "target": "ngx_core_components_package_devdependencies_angular_eslint",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_devdependencies_angular_eslint"
     },
     {
       "relation": "contains",
@@ -42838,9 +42866,9 @@
       "source_file": "package.json",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_devdependencies",
-      "target": "ngx_core_components_package_devdependencies_chokidar",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_devdependencies_chokidar"
     },
     {
       "relation": "contains",
@@ -42848,9 +42876,9 @@
       "source_file": "package.json",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_devdependencies",
-      "target": "ngx_core_components_package_devdependencies_eslint",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_devdependencies_eslint"
     },
     {
       "relation": "contains",
@@ -42928,9 +42956,9 @@
       "source_file": "package.json",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_devdependencies",
-      "target": "ngx_core_components_package_devdependencies_prettier",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_devdependencies_prettier"
     },
     {
       "relation": "contains",
@@ -42938,9 +42966,9 @@
       "source_file": "package.json",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_devdependencies",
-      "target": "ngx_core_components_package_devdependencies_readdirp",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_devdependencies_readdirp"
     },
     {
       "relation": "contains",
@@ -42978,9 +43006,9 @@
       "source_file": "package.json",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_package_devdependencies",
-      "target": "ngx_core_components_package_devdependencies_typescript_eslint",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_package_devdependencies_typescript_eslint"
     },
     {
       "relation": "references",
@@ -96479,9 +96507,9 @@
       "source_file": "CHANGELOG.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "changelog_md",
-      "target": "ngx_core_components_changelog_changelog",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_changelog_changelog"
     },
     {
       "relation": "contains",
@@ -96489,9 +96517,9 @@
       "source_file": "CHANGELOG.md",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_changelog_changelog",
-      "target": "ngx_core_components_changelog_0_3_20_2026_07_15",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_changelog_0_3_20_2026_07_15"
     },
     {
       "relation": "contains",
@@ -96499,9 +96527,9 @@
       "source_file": "CHANGELOG.md",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_changelog_changelog",
-      "target": "ngx_core_components_changelog_0_3_0_2026_06_01",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_changelog_0_3_0_2026_06_01"
     },
     {
       "relation": "contains",
@@ -96509,9 +96537,9 @@
       "source_file": "CHANGELOG.md",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_changelog_0_3_20_2026_07_15",
-      "target": "ngx_core_components_changelog_added",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_changelog_added"
     },
     {
       "relation": "contains",
@@ -96519,9 +96547,9 @@
       "source_file": "CHANGELOG.md",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_changelog_0_3_20_2026_07_15",
-      "target": "ngx_core_components_changelog_changed",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_changelog_changed"
     },
     {
       "relation": "contains",
@@ -96529,9 +96557,9 @@
       "source_file": "CHANGELOG.md",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_changelog_0_3_20_2026_07_15",
-      "target": "ngx_core_components_changelog_fixed",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_changelog_fixed"
     },
     {
       "relation": "contains",
@@ -96539,9 +96567,9 @@
       "source_file": "CHANGELOG.md",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_changelog_0_3_0_2026_06_01",
-      "target": "ngx_core_components_changelog_added_31",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_changelog_added_31"
     },
     {
       "relation": "contains",
@@ -96549,9 +96577,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "code_of_conduct_md",
-      "target": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct"
     },
     {
       "relation": "contains",
@@ -96559,9 +96587,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "target": "ngx_core_components_code_of_conduct_our_pledge",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_our_pledge"
     },
     {
       "relation": "contains",
@@ -96569,9 +96597,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "target": "ngx_core_components_code_of_conduct_our_standards",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_our_standards"
     },
     {
       "relation": "contains",
@@ -96579,9 +96607,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "target": "ngx_core_components_code_of_conduct_enforcement_responsibilities",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_enforcement_responsibilities"
     },
     {
       "relation": "contains",
@@ -96589,9 +96617,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "target": "ngx_core_components_code_of_conduct_scope",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_scope"
     },
     {
       "relation": "contains",
@@ -96599,9 +96627,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "target": "ngx_core_components_code_of_conduct_enforcement",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_enforcement"
     },
     {
       "relation": "contains",
@@ -96609,9 +96637,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L70",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "target": "ngx_core_components_code_of_conduct_enforcement_guidelines",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_enforcement_guidelines"
     },
     {
       "relation": "contains",
@@ -96619,9 +96647,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L116",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_contributor_covenant_code_of_conduct",
-      "target": "ngx_core_components_code_of_conduct_attribution",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_attribution"
     },
     {
       "relation": "contains",
@@ -96629,9 +96657,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_enforcement_guidelines",
-      "target": "ngx_core_components_code_of_conduct_1_correction",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_1_correction"
     },
     {
       "relation": "contains",
@@ -96639,9 +96667,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L84",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_enforcement_guidelines",
-      "target": "ngx_core_components_code_of_conduct_2_warning",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_2_warning"
     },
     {
       "relation": "contains",
@@ -96649,9 +96677,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L96",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_enforcement_guidelines",
-      "target": "ngx_core_components_code_of_conduct_3_temporary_ban",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_3_temporary_ban"
     },
     {
       "relation": "contains",
@@ -96659,9 +96687,9 @@
       "source_file": "CODE_OF_CONDUCT.md",
       "source_location": "L107",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_code_of_conduct_enforcement_guidelines",
-      "target": "ngx_core_components_code_of_conduct_4_permanent_ban",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_code_of_conduct_4_permanent_ban"
     },
     {
       "relation": "contains",
@@ -96867,11 +96895,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L8",
+      "source_location": "L20",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_md_ngx_core_components_readme_ngx_core_components",
-      "target": "ngx_core_components_readme_live_demo"
+      "target": "ngx_core_components_readme_interactive_playground_docs",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -96942,6 +96970,16 @@
       "confidence_score": 1.0,
       "source": "readme_md_ngx_core_components_readme_ngx_core_components",
       "target": "readme_md_ngx_core_components_readme_license"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_md_ngx_core_components_readme_ngx_core_components",
+      "target": "ngx_core_components_readme_live_demo"
     },
     {
       "relation": "contains",
@@ -97099,9 +97137,9 @@
       "source_file": "SECURITY.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "security_md",
-      "target": "ngx_core_components_security_security_policy",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_security_security_policy"
     },
     {
       "relation": "contains",
@@ -97109,9 +97147,9 @@
       "source_file": "SECURITY.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_security_security_policy",
-      "target": "ngx_core_components_security_supported_versions",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_security_supported_versions"
     },
     {
       "relation": "contains",
@@ -97119,9 +97157,9 @@
       "source_file": "SECURITY.md",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_security_security_policy",
-      "target": "ngx_core_components_security_reporting_a_vulnerability",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_security_reporting_a_vulnerability"
     },
     {
       "relation": "contains",
@@ -97129,9 +97167,9 @@
       "source_file": "SECURITY.md",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_security_security_policy",
-      "target": "ngx_core_components_security_vulnerability_disclosure_process",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_security_vulnerability_disclosure_process"
     },
     {
       "relation": "contains",
@@ -97139,9 +97177,9 @@
       "source_file": "SECURITY.md",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ngx_core_components_security_reporting_a_vulnerability",
-      "target": "ngx_core_components_security_what_to_include_in_a_report",
-      "confidence_score": 1.0
+      "target": "ngx_core_components_security_what_to_include_in_a_report"
     },
     {
       "relation": "contains",
@@ -103378,5 +103416,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "aaf518b02f21415a9e9bf08cf60b0f92e026aadb"
+  "built_at_commit": "00536905852da32deb65af90d8354ea476ce5894"
 }

@@ -11,7 +11,8 @@
     "storybook": "ng run demo:storybook",
     "build-storybook": "ng run demo:build-storybook",
     "lint": "ng lint",
-    "format:check": "prettier --check \"projects/**/*.{ts,html,css,scss}\""
+    "format:check": "prettier --check \"projects/**/*.{ts,html,css,scss}\"",
+    "docs": "npx compodoc -p projects/ngx-core-components/tsconfig.lib.json -d dist/demo/browser/docs --theme material"
   },
   "private": true,
   "dependencies": {
@@ -51,7 +52,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^19.2.0",
-    "prettier": "^3.9.5",
+    "prettier": "^3.5.3",
     "readdirp": "^5.0.0",
     "size-limit": "^12.1.0",
     "storybook": "^8.5.0",
