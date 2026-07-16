@@ -24,7 +24,7 @@ jobs:
       run: npm ci --legacy-peer-deps
 
     - name: Lint
-      run: npm run lint -- --max-warnings=999
+      run: npm run lint
 
     - name: Check Formatting
       run: npm run format:check || true

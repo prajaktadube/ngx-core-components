@@ -10,7 +10,7 @@
     "size": "size-limit",
     "storybook": "ng run demo:storybook",
     "build-storybook": "ng run demo:build-storybook",
-    "lint": "ng lint",
+    "lint": "eslint \"projects/**/*.{ts,html}\"",
     "format:check": "prettier --check \"projects/**/*.{ts,html,css,scss}\"",
     "docs": "npx compodoc -p projects/ngx-core-components/tsconfig.lib.json -d dist/demo/browser/docs --theme material"
   },
