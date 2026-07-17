@@ -132,6 +132,7 @@ export class NgxGridFooterTemplateDirective {
           <button class="grid-action-btn" (click)="exportToJson()" title="Export JSON">JSON</button>
           <button class="grid-action-btn" (click)="exportToCsv()" title="Export CSV">CSV</button>
           <button class="grid-action-btn" (click)="exportToExcel()" title="Export Excel">Excel</button>
+          <button class="grid-action-btn" (click)="exportToPdf()" title="Export PDF">PDF</button>
         </div>
       </div>
 
@@ -897,6 +898,9 @@ export class NgxGridFooterTemplateDirective {
           </button>
           <button class="menu-item" (click)="exportToExcel(); activeContextMenu.set(null)">
             <span class="menu-icon">📈</span> Export to Excel
+          </button>
+          <button class="menu-item" (click)="exportToPdf(); activeContextMenu.set(null)">
+            <span class="menu-icon">📕</span> Export to PDF
           </button>
         </div>
       }
@@ -2842,6 +2846,10 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
   exportToExcel(): void {
     this.gridExportService.exportToExcel(this.data(), this.orderedColumns());
+  }
+
+  exportToPdf(): void {
+    this.gridExportService.exportToPdf(this.data(), this.orderedColumns());
   }
 
   setFilter(field: string, value: string): void {

@@ -29,7 +29,7 @@ interface PFColumn {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-point-figure-chart" (mouseleave)="onMouseLeave()">
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="header-info">
           <span class="header-title">Point & Figure Chart</span>
           <span class="header-settings">Box: {{ boxSize() }} | Rev: {{ reversal() }}</span>

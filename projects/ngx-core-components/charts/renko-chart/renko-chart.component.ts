@@ -24,7 +24,7 @@ export interface RenkoBrick {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-renko-chart" (mouseleave)="onMouseLeave()">
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="header-info">
           <span class="header-title">Renko Chart</span>
           <span class="header-boxsize">Box Size: {{ boxSize() }}</span>

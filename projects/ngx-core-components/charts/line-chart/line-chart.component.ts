@@ -17,7 +17,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
       (mouseleave)="onMouseLeave()"
     >
       <!-- Toolbar with Export option -->
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <div class="chart-export-menu">

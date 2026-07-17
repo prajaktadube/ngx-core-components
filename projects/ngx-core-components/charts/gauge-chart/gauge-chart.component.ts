@@ -1,4 +1,7 @@
-import { Component, input, computed, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component, input, computed, signal, ChangeDetectionStrategy,
+  ElementRef, viewChild, HostListener
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface GaugeThreshold {
@@ -18,9 +21,27 @@ export interface GaugeThreshold {
       (mouseenter)="hovered.set(true)"
       (mouseleave)="hovered.set(false)"
     >
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hovered.set(false)">
+        <div class="chart-title-space"></div>
+        @if (showExport()) {
+          <div class="chart-export-menu">
+            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
+            @if (exportMenuOpen()) {
+              <div class="export-dropdown">
+                <button (click)="onExport('json')">📊 Export JSON</button>
+                <button (click)="onExport('csv')">📄 Export CSV</button>
+                <button (click)="onExport('svg')">🖼️ Export SVG</button>
+                <button (click)="onExport('pdf')">📕 Export PDF</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
       <div class="ngx-gauge-container">
         <!-- SVG Gauge dial -->
         <svg
+          #svgEl
           class="ngx-gauge-svg"
           viewBox="0 0 200 200"
         >
@@ -128,6 +149,7 @@ export interface GaugeThreshold {
       width: 100%;
       height: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 16px;
@@ -245,6 +267,70 @@ export interface GaugeThreshold {
       font-weight: 700;
       font-family: monospace;
     }
+
+    /* Header and Export dropdown styles */
+    .chart-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .chart-export-menu {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
   `]
 })
 export class GaugeChartComponent {
@@ -257,12 +343,16 @@ export class GaugeChartComponent {
   showNeedle = input<boolean>(true);
   color = input<string>('var(--primary-color, #4f46e5)');
   thresholds = input<GaugeThreshold[]>([]);
+  showExport = input<boolean>(false);
 
   // State Signals
   hovered = signal<boolean>(false);
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
   animateState = signal<boolean>(false);
+  exportMenuOpen = signal(false);
+
+  svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
   constructor() {
     setTimeout(() => this.animateState.set(true), 50);
@@ -341,6 +431,137 @@ export class GaugeChartComponent {
     // Default to the last threshold color if value exceeds all thresholds
     return sorted[sorted.length - 1].color;
   });
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener('document:click')
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: 'json' | 'csv' | 'svg' | 'pdf'): void {
+    this.exportMenuOpen.set(false);
+    if (type === 'json') this.exportToJson();
+    else if (type === 'csv') this.exportToCsv();
+    else if (type === 'svg') this.exportToSvg();
+    else if (type === 'pdf') this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const data = {
+      label: this.label(),
+      value: this.value(),
+      min: this.min(),
+      max: this.max()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'gauge-chart-data.json');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    let csv = 'Label,Value,Min,Max\n';
+    csv += `"${this.label() || ''}",${this.value()},${this.min()},${this.max()}\n`;
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'gauge-chart-data.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg = this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer = new XMLSerializer();
+    let source = serializer.serializeToString(svg);
+    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    if (!source.match(/^<svg[^>]+xmlns\:xlink="http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+      source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
+    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'gauge-chart.svg');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg = this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    const svgClone = svg.cloneNode(true) as SVGElement;
+    svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    const svgString = new XMLSerializer().serializeToString(svgClone);
+    
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Export PDF</title>
+          <style>
+            body {
+              margin: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background-color: #ffffff;
+              font-family: system-ui, sans-serif;
+            }
+            .print-container {
+              text-align: center;
+              width: 100%;
+              max-width: 800px;
+              padding: 20px;
+            }
+            svg {
+              width: 100%;
+              height: auto;
+              max-height: 90vh;
+            }
+            @media print {
+              body {
+                background: none;
+              }
+              .print-container {
+                max-width: 100%;
+                padding: 0;
+              }
+              svg {
+                page-break-inside: avoid;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="print-container">
+            ${svgString}
+          </div>
+          <script>
+            window.onload = () => {
+              window.print();
+              window.close();
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  }
 
   onMouseMove(event: MouseEvent) {
     const el = event.currentTarget as HTMLElement;

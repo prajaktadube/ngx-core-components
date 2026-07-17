@@ -32,7 +32,7 @@ interface SunburstSlice {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-sunburst-chart" [class.dark]="theme() === 'dark'">
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onSliceLeave()">
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <div class="chart-export-menu">

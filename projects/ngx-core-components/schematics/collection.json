@@ -10,6 +10,11 @@
       "description": "Scaffold a pre-configured data grid component.",
       "factory": "./grid/index#grid",
       "schema": "./grid/schema.json"
+    },
+    "dashboard": {
+      "description": "Scaffold a pre-configured analytics dashboard layout.",
+      "factory": "./dashboard/index#dashboard",
+      "schema": "./dashboard/schema.json"
     }
   }
 }

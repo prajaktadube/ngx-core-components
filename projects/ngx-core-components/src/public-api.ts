@@ -308,7 +308,7 @@ export type {
 } from 'ngx-core-components/ai';
 export { AIChatWidgetComponent } from 'ngx-core-components/ai';
 export { AIPromptEditorComponent } from 'ngx-core-components/ai';
-export { NgxWebLlmService } from 'ngx-core-components/ai';
+export { NgxWebLlmService, AIFormCopilotComponent } from 'ngx-core-components/ai';
 export type { WebLlmMessage } from 'ngx-core-components/ai';
 
 // ===== i18n =====

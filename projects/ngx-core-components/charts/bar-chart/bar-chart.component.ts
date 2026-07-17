@@ -17,7 +17,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
       (mouseleave)="onMouseLeave()"
     >
       <!-- Toolbar with Export option -->
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <div class="chart-export-menu">
@@ -27,6 +27,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                 <button (click)="onExport('json')">📊 Export JSON</button>
                 <button (click)="onExport('csv')">📄 Export CSV</button>
                 <button (click)="onExport('svg')">🖼️ Export SVG</button>
+                <button (click)="onExport('pdf')">📕 Export PDF</button>
               </div>
             }
           </div>
@@ -418,11 +419,12 @@ export class BarChartComponent {
     this.exportMenuOpen.set(false);
   }
 
-  onExport(type: 'json' | 'csv' | 'svg'): void {
+  onExport(type: 'json' | 'csv' | 'svg' | 'pdf'): void {
     this.exportMenuOpen.set(false);
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
+    else if (type === 'pdf') this.exportToPdf();
   }
 
   exportToCsv(): void {
@@ -491,6 +493,59 @@ export class BarChartComponent {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg = this.svgEl()?.nativeElement;
+    if (!svg || typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('Pop-up blocker prevented printing. Please allow pop-ups for this site.');
+      return;
+    }
+
+    const svgHtml = svg.outerHTML;
+
+    const printTemplate = `
+      <html>
+      <head>
+        <title>Bar Chart Export</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; width: 90%; }
+          svg { width: 100%; height: auto; }
+          .axis-label { font-size: 11px; fill: #6c757d; font-weight: 500; }
+          .bar-label { font-size: 11px; fill: #6c757d; font-weight: 600; }
+          @media print {
+            body { padding: 0; }
+            .chart-container { border: none; padding: 0; width: 100%; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <div class="title">Bar Chart Analytics</div>
+          <div class="date">${new Date().toLocaleString()}</div>
+        </div>
+        <div class="chart-container">
+          ${svgHtml}
+        </div>
+        <script>
+          window.onload = function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        </script>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
   }
 
   readonly fmtNum = fmtNum;

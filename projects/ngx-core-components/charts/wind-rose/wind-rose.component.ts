@@ -37,7 +37,7 @@ interface ProcessedWedge {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-wind-rose" (mouseleave)="onMouseLeave()">
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="header-info">
           <span class="header-title">Wind Rose Chart</span>
           <span class="header-subtitle">Directional Distribution & Wind Speed Bins</span>

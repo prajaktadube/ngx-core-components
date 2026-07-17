@@ -101,6 +101,78 @@ export class GridExportService {
   }
 
   /**
+   * Export data as a beautifully styled PDF format via browser print window.
+   */
+  exportToPdf<T extends object>(data: T[], columns: GridColumnDef<T>[], title = 'Data Grid Export'): void {
+    if (data.length === 0 || typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('Pop-up blocker prevented printing. Please allow pop-ups for this site.');
+      return;
+    }
+
+    let tableHtml = '<table><thead><tr>';
+    columns.forEach(c => {
+      tableHtml += `<th>${c.title}</th>`;
+    });
+    tableHtml += '</tr></thead><tbody>';
+
+    data.forEach(row => {
+      const r = row as Record<string, unknown>;
+      tableHtml += '<tr>';
+      columns.forEach(c => {
+        const val = r[c.field] ?? '';
+        const valStr = typeof val === 'object' ? JSON.stringify(val) : String(val);
+        const alignClass = c.align ? ` class="text-${c.align}"` : '';
+        tableHtml += `<td${alignClass}>${valStr}</td>`;
+      });
+      tableHtml += '</tr>';
+    });
+    tableHtml += '</tbody></table>';
+
+    const printTemplate = `
+      <html>
+      <head>
+        <title>${title}</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 10pt; }
+          th { background-color: #f8fafc; color: #1e293b; font-weight: bold; border: 1px solid #cbd5e1; padding: 10px 8px; text-align: left; }
+          td { border: 1px solid #cbd5e1; padding: 8px; color: #334155; }
+          .text-right { text-align: right; }
+          .text-center { text-align: center; }
+          .text-left { text-align: left; }
+          @media print {
+            body { padding: 0; }
+            button { display: none; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <div class="title">${title}</div>
+          <div class="date">${new Date().toLocaleString()}</div>
+        </div>
+        ${tableHtml}
+        <script>
+          window.onload = function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        </script>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
+  }
+
+  /**
    * Create a temporary anchor element, trigger a download, and clean up.
    */
   private triggerDownload(href: string, filename: string): void {

@@ -1,6 +1,6 @@
 import {
   Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef
+  ElementRef, inject, DestroyRef, viewChild, HostListener
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
@@ -49,6 +49,23 @@ interface ProcessedLink {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-sankey-chart" (mouseleave)="onMouseLeave()">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
+        <div class="chart-title-space"></div>
+        @if (showExport()) {
+          <div class="chart-export-menu">
+            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
+            @if (exportMenuOpen()) {
+              <div class="export-dropdown">
+                <button (click)="onExport('json')">📊 Export JSON</button>
+                <button (click)="onExport('csv')">📄 Export CSV</button>
+                <button (click)="onExport('svg')">🖼️ Export SVG</button>
+                <button (click)="onExport('pdf')">📕 Export PDF</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
       <svg
         #svgEl
         class="sankey-svg"
@@ -67,8 +84,8 @@ interface ProcessedLink {
               class="sankey-link"
               [class.highlighted]="isLinkHighlighted(link)"
               [class.dimmed]="hoveredNodeId() !== null || (hoveredLinkId() !== null && hoveredLinkId() !== i)"
-              (mouseenter)="onLinkHover(i, $event)"
               (mousemove)="onLinkMouseMove($event)"
+              (mouseenter)="onLinkHover(i, $event)"
             />
           }
 
@@ -165,6 +182,14 @@ interface ProcessedLink {
       position: relative;
       width: 100%;
     }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 12px;
+    }
     .sankey-svg {
       display: block;
       overflow: visible;
@@ -254,6 +279,62 @@ interface ProcessedLink {
       font-weight: 700;
       font-family: monospace;
     }
+
+    /* Export Trigger & Dropdown */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
   `]
 })
 export class SankeyChartComponent {
@@ -265,6 +346,7 @@ export class SankeyChartComponent {
   colors = input<string[]>(CHART_COLORS);
   nodePadding = input<number>(16);
   nodeWidth = input<number>(20);
+  showExport = input<boolean>(false);
 
   containerWidth = signal<number>(500);
   hoveredNodeId = signal<string | null>(null);
@@ -272,6 +354,9 @@ export class SankeyChartComponent {
   tooltip = signal<any | null>(null);
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
+  exportMenuOpen = signal(false);
+
+  svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
   margin = computed(() => ({
     top: 20,
@@ -573,6 +658,124 @@ export class SankeyChartComponent {
     this.hoveredNodeId.set(null);
     this.hoveredLinkId.set(null);
     this.tooltip.set(null);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener('document:click')
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: 'json' | 'csv' | 'svg' | 'pdf'): void {
+    this.exportMenuOpen.set(false);
+    if (type === 'json') this.exportToJson();
+    else if (type === 'csv') this.exportToCsv();
+    else if (type === 'svg') this.exportToSvg();
+    else if (type === 'pdf') this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const data = { nodes: this.nodes(), links: this.links() };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'sankey-chart-data.json');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    const links = this.links();
+    if (!links.length) return;
+    let csv = 'Source,Target,Value\n';
+    links.forEach(l => {
+      csv += `"${l.source}","${l.target}",${l.value}\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'sankey-chart-data.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg = this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer = new XMLSerializer();
+    let source = serializer.serializeToString(svg);
+    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    if (!source.match(/^<svg[^>]+xmlns\:xlink="http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+      source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
+    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'sankey-chart.svg');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg = this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    const serializer = new XMLSerializer();
+    let svgString = serializer.serializeToString(svg);
+    if (!svgString.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+      svgString = svgString.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Chart Export</title>
+          <style>
+            body {
+              margin: 20px;
+              font-family: system-ui, sans-serif;
+              text-align: center;
+            }
+            .print-container {
+              display: inline-block;
+              margin: 0 auto;
+            }
+            svg {
+              width: 100%;
+              height: auto;
+            }
+            @media print {
+              body { margin: 0; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="print-container">
+            ${svgString}
+          </div>
+          <script>
+            window.onload = () => {
+              setTimeout(() => {
+                window.print();
+                window.close();
+              }, 250);
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
   }
 
   formatNumber(v: number): string {

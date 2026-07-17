@@ -128,6 +128,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showGrid]="showGrid()"
                   [height]="chartHeight()" 
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -181,6 +182,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                     [showNeedle]="showGaugeNeedle()"
                     [thresholds]="gaugeThresholds"
                     [color]="getThemePalette()[0]"
+                    [showExport]="true"
                   />
                 </div>
               }
@@ -193,6 +195,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                     [categories]="radarCategories"
                     [max]="100"
                     [colors]="getThemePalette()"
+                    [showExport]="true"
                   />
                 </div>
               }
@@ -204,6 +207,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [xAxisLabels]="heatmapXLabels()"
                   [yAxisLabels]="heatmapYLabels()"
                   [colorRange]="[getThemeBgItem(), getThemePalette()[0]]"
+                  [showExport]="true"
                 />
               }
 
@@ -212,6 +216,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 <ngx-treemap-chart
                   [data]="treemapData()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -221,6 +226,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [data]="funnelData()" 
                   [mode]="funnelMode()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -236,6 +242,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showGrid]="showGrid()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -249,6 +256,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showGrid]="showGrid()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -262,6 +270,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [positiveColor]="waterfallPositiveColor()"
                   [negativeColor]="waterfallNegativeColor()"
                   [totalColor]="waterfallTotalColor()"
+                  [showExport]="true"
                 />
               }
 
@@ -275,6 +284,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [color]="boxPlotColor()"
                   [fillColor]="boxPlotFillColor()"
                   [outlierColor]="boxPlotOutlierColor()"
+                  [showExport]="true"
                 />
               }
 
@@ -287,6 +297,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [strokeWidth]="radialStrokeWidth()"
                   [ringGap]="radialRingGap()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -299,6 +310,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [height]="chartHeight()"
                   [bullishColor]="candlestickBullishColor()"
                   [bearishColor]="candlestickBearishColor()"
+                  [showExport]="true"
                 />
               }
 
@@ -383,6 +395,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -394,6 +407,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -405,6 +419,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showValues]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -417,6 +432,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showValues]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -428,6 +444,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -439,6 +456,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -451,6 +469,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [height]="chartHeight()"
                   [barColor]="getThemePalette()[0]"
                   [lineColor]="getThemePalette()[1]"
+                  [showExport]="true"
                 />
               }
 
@@ -462,6 +481,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -473,6 +493,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -484,6 +505,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 
@@ -495,6 +517,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [color]="getThemePalette()[0]"
+                  [showExport]="true"
                 />
               }
 
@@ -506,6 +529,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [showLabels]="showLabels()"
                   [height]="chartHeight()"
                   [colors]="getThemePalette()"
+                  [showExport]="true"
                 />
               }
 

@@ -1,4 +1,4 @@
-import { Component, computed, signal, input, output, effect } from '@angular/core';
+import { Component, computed, signal, input, output, effect, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormBuilderField, FormBuilderOption, FormBuilderComponent } from './form-builder.component';
@@ -202,11 +202,15 @@ import { FormBuilderField, FormBuilderOption, FormBuilderComponent } from './for
             <div class="tab-content preview-content">
               <div class="preview-card">
                 <ngx-form-builder 
+                  #previewForm
                   [fields]="designerFields()"
                   [showSubmit]="true"
                   submitLabel="Test Submit"
                   (formSubmit)="onPreviewSubmit($event)"
                 ></ngx-form-builder>
+              </div>
+              <div class="copilot-container" style="margin-top: 16px;">
+                <ng-content select="[copilot]"></ng-content>
               </div>
               @if (previewSubmitData()) {
                 <div class="preview-submit-banner">
@@ -827,6 +831,8 @@ export class FormDesignerComponent {
   designerFields = signal<FormBuilderField[]>([]);
   selectedField = signal<FormBuilderField | null>(null);
   activeTab = signal<'properties' | 'schema' | 'preview'>('properties');
+  
+  previewForm = viewChild<FormBuilderComponent>('previewForm');
   
   // Drag states
   isDraggingFromToolbox = false;

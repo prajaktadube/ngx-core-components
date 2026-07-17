@@ -13,7 +13,7 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
   template: `
     <div class="ngx-polar-area-chart">
       <!-- Toolbar with Export option -->
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="tooltip.set(null)">
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <div class="chart-export-menu">

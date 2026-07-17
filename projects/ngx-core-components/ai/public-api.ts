@@ -20,3 +20,4 @@ export type { RAGSource } from './ai-rag-inspector/models';
 
 export { NgxWebLlmService } from './ngx-web-llm.service';
 export type { WebLlmMessage } from './ngx-web-llm.service';
+export { AIFormCopilotComponent } from './ai-form-copilot/ai-form-copilot.component';

@@ -24,7 +24,7 @@ export interface KagiSegment {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-kagi-chart" (mouseleave)="onMouseLeave()">
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="header-info">
           <span class="header-title">Kagi Chart</span>
           <span class="header-reversal">Reversal: {{ reversalAmount() }}</span>

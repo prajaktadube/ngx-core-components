@@ -20,7 +20,7 @@ export interface BubblePoint {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-bubble-chart" [class.dark]="theme() === 'dark'">
-      <div class="chart-header">
+      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <!-- Title and Legend -->
         @if (showLegend() && uniqueGroups().length > 0) {
           <div class="chart-legend">

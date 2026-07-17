@@ -5,6 +5,7 @@ import {
   DropdownOption, RadioOption
 } from 'ngx-core-components';
 import { SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent, TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent, FileUploadComponent, FormDesignerComponent } from 'ngx-core-components/inputs';
+import { AIFormCopilotComponent } from 'ngx-core-components/ai';
 
 interface ApiRow { name: string; type: string; default: string; description: string; }
 
@@ -16,7 +17,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
     CheckboxComponent, RadioGroupComponent, AutocompleteComponent,
       SliderComponent, SwitchComponent, RatingComponent, NumericTextBoxComponent,
       TextareaComponent, ColorPickerComponent, TimePickerComponent, DateRangePickerComponent,
-      FileUploadComponent, FormDesignerComponent,
+      FileUploadComponent, FormDesignerComponent, AIFormCopilotComponent,
   ],
   template: `
     <div class="demo-page">
@@ -665,9 +666,15 @@ interface ApiRow { name: string; type: string; default: string; description: str
       <!-- ===== FORM DESIGNER ===== -->
       @if (activeTab() === 'FormDesigner') {
         <div class="tab-content">
-          <div class="section-label">Drag & Drop Form Designer</div>
+          <div class="section-label">Drag & Drop Form Designer with local AI Co-Pilot Form Filler</div>
           <div style="height: 600px; margin-bottom: 24px;">
-            <ngx-form-designer></ngx-form-designer>
+            <ngx-form-designer #designer>
+              <ngx-ai-form-copilot
+                copilot
+                [fields]="designer.designerFields()"
+                [formBuilder]="designer.previewForm() || null"
+              ></ngx-ai-form-copilot>
+            </ngx-form-designer>
           </div>
         </div>
       }

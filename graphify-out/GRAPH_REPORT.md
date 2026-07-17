@@ -1,16 +1,16 @@
-# Graph Report - ngx-core-components  (2026-07-16)
+# Graph Report - ngx-core-components  (2026-07-17)
 
 ## Corpus Check
-- 392 files · ~1,000,092 words
+- 397 files · ~1,016,600 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 4524 nodes · 6015 edges · 341 communities (259 shown, 82 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 34 edges (avg confidence: 0.84)
+- 4742 nodes · 6342 edges · 354 communities (271 shown, 83 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 35 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `67a79ec6`
+- Built from commit: `e24b9abb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -340,9 +340,20 @@
 - [[_COMMUNITY_Community 338|Community 338]]
 - [[_COMMUNITY_Community 339|Community 339]]
 - [[_COMMUNITY_Community 340|Community 340]]
+- [[_COMMUNITY_Community 341|Community 341]]
+- [[_COMMUNITY_Community 342|Community 342]]
+- [[_COMMUNITY_Community 343|Community 343]]
+- [[_COMMUNITY_Community 344|Community 344]]
+- [[_COMMUNITY_Community 345|Community 345]]
+- [[_COMMUNITY_Community 346|Community 346]]
+- [[_COMMUNITY_Community 347|Community 347]]
+- [[_COMMUNITY_Community 348|Community 348]]
+- [[_COMMUNITY_Community 349|Community 349]]
+- [[_COMMUNITY_Community 350|Community 350]]
+- [[_COMMUNITY_Community 351|Community 351]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `DataGridComponent` - 99 edges
+1. `DataGridComponent` - 100 edges
 2. `GanttChartComponent` - 73 edges
 3. `SchedulerComponent` - 65 edges
 4. `scale()` - 48 edges
@@ -351,7 +362,7 @@
 7. `KanbanComponent` - 32 edges
 8. `fmtNum()` - 31 edges
 9. `CHART_COLORS` - 30 edges
-10. `AppComponent` - 27 edges
+10. `GridColumnDef` - 28 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `ngx-core-components` --references--> `ListViewComponent`  [EXTRACTED]
@@ -379,7 +390,7 @@
 - **Layout Package Components** — accordion_AccordionComponent, card_CardComponent, splitter_SplitterComponent, stepper_StepperComponent, tab_strip_TabStripComponent [EXTRACTED 1.00]
 - **Core Architectural Principles** — readme_zero_runtime_dependencies, readme_angular_signals, readme_onpush_change_detection, readme_standalone_components [INFERRED 0.95]
 
-## Communities (341 total, 82 thin omitted)
+## Communities (354 total, 83 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.24
@@ -426,16 +437,16 @@ Cohesion: 0.11
 Nodes (23): BreadcrumbComponent, BreadcrumbItem, demo app.component.html, Deploy Demo to GitHub Pages, ListViewComponent, ListViewItemClickEvent, ListViewPageChangeEvent, ListViewSelectionEvent (+15 more)
 
 ### Community 14 - "Community 14"
-Cohesion: 0.40
-Nodes (6): ButtonShape, ButtonSize, ButtonVariant, DropDownButtonItem, SpeedDialItem, SplitButtonItem
+Cohesion: 0.53
+Nodes (5): ButtonShape, ButtonSize, ButtonVariant, DropDownButtonItem, SplitButtonItem
 
 ### Community 15 - "Community 15"
-Cohesion: 0.05
-Nodes (27): d, date, DatePickerComponent, days, first, last, m, clearBtn (+19 more)
+Cohesion: 0.12
+Nodes (15): d, date, days, first, last, m, Default, Disabled (+7 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.13
-Nodes (11): PreviewFileItem, UploadFileItem, FormBuilderComponent, FormBuilderOption, fromFields, SegmentedControlComponent, SegmentedOption, Default (+3 more)
+Cohesion: 0.22
+Nodes (8): PreviewFileItem, UploadFileItem, SegmentedControlComponent, SegmentedOption, Default, meta, Story, val
 
 ### Community 17 - "Community 17"
 Cohesion: 0.10
@@ -478,7 +489,7 @@ Cohesion: 0.17
 Nodes (15): options, fonts, assets, browser, codeCoverage, index, inlineStyleLanguage, karmaConfig (+7 more)
 
 ### Community 28 - "Community 28"
-Cohesion: 0.12
+Cohesion: 0.13
 Nodes (17): ApiRow, ApiRow, base, taskIds, getSampleDependencies(), getSampleTasks(), getTransportDependencies(), getTransportTasks() (+9 more)
 
 ### Community 29 - "Community 29"
@@ -498,8 +509,8 @@ Cohesion: 0.25
 Nodes (11): AccordionComponent, AccordionItem, CardComponent, CardVariant, Layout ng-package.json, Layout Public API, SplitterComponent, StepperComponent (+3 more)
 
 ### Community 33 - "Community 33"
-Cohesion: 0.10
-Nodes (12): ApiRow, TimelineDemoComponent, ApiRow, TooltipDemoComponent, PopoverComponent, Default, meta, PlacementRight (+4 more)
+Cohesion: 0.12
+Nodes (10): ApiRow, TooltipDemoComponent, PopoverComponent, Default, meta, PlacementRight, PlacementTop, Story (+2 more)
 
 ### Community 34 - "Community 34"
 Cohesion: 0.13
@@ -538,8 +549,8 @@ Cohesion: 0.29
 Nodes (3): ConfirmDialogContent, DialogDemoComponent, InfoDialogContent
 
 ### Community 45 - "Community 45"
-Cohesion: 0.06
-Nodes (22): allValues, b, colW, density, densityPoints, leftPoints, max, maxVal (+14 more)
+Cohesion: 0.11
+Nodes (18): allValues, b, colW, density, densityPoints, leftPoints, max, maxVal (+10 more)
 
 ### Community 46 - "Community 46"
 Cohesion: 0.12
@@ -558,8 +569,8 @@ Cohesion: 0.11
 Nodes (19): build, serve, builder, configurations, defaultConfiguration, development, production, buildTarget (+11 more)
 
 ### Community 50 - "Community 50"
-Cohesion: 0.07
-Nodes (13): LollipopChartComponent, Default, meta, Story, cx, cy, grps, ScatterPlotComponent (+5 more)
+Cohesion: 0.11
+Nodes (8): cx, cy, grps, ScatterPlotComponent, ScatterPoint, Default, meta, Story
 
 ### Community 51 - "Community 51"
 Cohesion: 0.17
@@ -626,7 +637,7 @@ Cohesion: 0.08
 Nodes (26): Components, Contributing, Dialog, 📖 Documentation, ✨ Highlights, 🚀 Interactive Playground & Docs, List View Pagination, 🚀 Live Demo (+18 more)
 
 ### Community 118 - "Community 118"
-Cohesion: 0.10
+Cohesion: 0.08
 Nodes (16): currentVal, GaugeChartComponent, GaugeThreshold, L, maxVal, minVal, sorted, Default (+8 more)
 
 ### Community 119 - "Community 119"
@@ -638,8 +649,8 @@ Cohesion: 0.16
 Nodes (4): FileUploadComponent, Default, meta, Story
 
 ### Community 124 - "Community 124"
-Cohesion: 0.11
-Nodes (20): AreaChartComponent, Default, meta, Story, max, palette, raw, spacing (+12 more)
+Cohesion: 0.08
+Nodes (30): FunnelItem, items, sorted, totalVal, d, override, path, r (+22 more)
 
 ### Community 125 - "Community 125"
 Cohesion: 0.08
@@ -649,13 +660,17 @@ Nodes (9): BarChartComponent, CustomColors, Default, meta, MultiSeries, Story, W
 Cohesion: 0.50
 Nodes (3): lib, entryFile, $schema
 
+### Community 127 - "Community 127"
+Cohesion: 0.10
+Nodes (9): LollipopChartComponent, max, palette, raw, spacing, Default, meta, Story (+1 more)
+
 ### Community 128 - "Community 128"
-Cohesion: 0.11
+Cohesion: 0.09
 Nodes (11): items, max, ParetoChartComponent, ParetoItem, raw, sorted, Default, meta (+3 more)
 
 ### Community 129 - "Community 129"
-Cohesion: 0.07
-Nodes (21): allValues, b, baseH, density, densityPoints, domain, max, min (+13 more)
+Cohesion: 0.11
+Nodes (17): allValues, b, baseH, density, densityPoints, domain, max, min (+9 more)
 
 ### Community 130 - "Community 130"
 Cohesion: 0.12
@@ -666,15 +681,15 @@ Cohesion: 0.12
 Nodes (16): Advanced Features, code:typescript (import { Component } from '@angular/core';), code:css (ngx-gantt-chart {), Demo Application, Draggable Zoom & Area Selection, Entry Points, Features, Keyboard Rescheduling & Resizing (+8 more)
 
 ### Community 133 - "Community 133"
-Cohesion: 0.10
-Nodes (15): color, items, raw, rectH, Default, meta, Story, vals (+7 more)
+Cohesion: 0.16
+Nodes (4): Default, meta, Story, WaterfallChartComponent
 
 ### Community 134 - "Community 134"
 Cohesion: 0.50
 Nodes (3): lib, entryFile, $schema
 
 ### Community 136 - "Community 136"
-Cohesion: 0.12
+Cohesion: 0.10
 Nodes (10): HeatmapChartComponent, gitContributionLabels, gitContributions, HotSalesIntensity, hourLabels, hourlyServerLoad, meta, ServerLoad (+2 more)
 
 ### Community 137 - "Community 137"
@@ -710,8 +725,8 @@ Cohesion: 0.16
 Nodes (5): AIAudioState, AIAudioWaveComponent, Default, meta, Story
 
 ### Community 146 - "Community 146"
-Cohesion: 0.09
-Nodes (21): FunnelChartComponent, FunnelItem, items, sorted, Default, meta, Story, totalVal (+13 more)
+Cohesion: 0.14
+Nodes (13): angle, bins, gridMax, levels, maxPct, palette, ProcessedWedge, ProcessedWedgeBin (+5 more)
 
 ### Community 148 - "Community 148"
 Cohesion: 0.10
@@ -754,8 +769,8 @@ Cohesion: 0.12
 Nodes (15): allBoxes, box, cells, cellSize, columns, curMin, h, maxBoxIdx (+7 more)
 
 ### Community 163 - "Community 163"
-Cohesion: 0.09
-Nodes (15): colSum, colTotal, h, MarimekkoChartComponent, MarimekkoItem, MarimekkoSegment, palette, ProcessedCol (+7 more)
+Cohesion: 0.14
+Nodes (4): MarimekkoChartComponent, Default, meta, Story
 
 ### Community 164 - "Community 164"
 Cohesion: 0.12
@@ -805,17 +820,17 @@ Nodes (14): NgxStepContentDirective, backBtn, contentEl, nextBtn, stepperEl, ste
 Cohesion: 0.18
 Nodes (7): DrawerComponent, pos, DarkThemeDrawer, Default, meta, PositionLeft, Story
 
+### Community 183 - "Community 183"
+Cohesion: 0.17
+Nodes (3): DropdownComponent, trigger, triggerEl
+
 ### Community 185 - "Community 185"
-Cohesion: 0.10
-Nodes (14): cos, d, override, path, PieChartComponent, r, sin, CustomColors (+6 more)
+Cohesion: 0.12
+Nodes (9): cos, PieChartComponent, sin, CustomColors, Default, DonutChart, meta, Story (+1 more)
 
 ### Community 186 - "Community 186"
 Cohesion: 0.06
 Nodes (31): cellTpl, col, cols, ctrlEvent, distinct, downEvent, dragStartEvent, dropEvent (+23 more)
-
-### Community 187 - "Community 187"
-Cohesion: 0.15
-Nodes (3): DropdownOption, f, MultiSelectComponent
 
 ### Community 188 - "Community 188"
 Cohesion: 0.10
@@ -858,8 +873,8 @@ Cohesion: 0.09
 Nodes (22): SchedulerEventChangeEvent, SchedulerRecurrence, SchedulerSlotClickEvent, SchedulerSlotRangeSelectEvent, base, cols, currentTime, date (+14 more)
 
 ### Community 200 - "Community 200"
-Cohesion: 0.08
-Nodes (17): allCoords, BiplotComponent, BiplotPoint, BiplotVector, groupColors, groups, limit, maxVal (+9 more)
+Cohesion: 0.05
+Nodes (38): c, cellS, m, MatrixItem, ProcessedCell, sizeLimit, allCoords, BiplotPoint (+30 more)
 
 ### Community 201 - "Community 201"
 Cohesion: 0.08
@@ -894,8 +909,8 @@ Cohesion: 0.15
 Nodes (17): AlertComponent (`ngx-alert`), BadgeComponent (`ngx-badge`), Feedback, Feedback, How to Use Feedback Components, Inputs, Inputs, Inputs (+9 more)
 
 ### Community 209 - "Community 209"
-Cohesion: 0.18
-Nodes (10): clearBtn, downEvent, emptyMsg, enterEvent, inputEl, items, labelEl, mockOptions (+2 more)
+Cohesion: 0.11
+Nodes (15): clearBtn, downEvent, emptyMsg, enterEvent, inputEl, items, labelEl, mockOptions (+7 more)
 
 ### Community 210 - "Community 210"
 Cohesion: 0.09
@@ -918,7 +933,7 @@ Cohesion: 0.15
 Nodes (11): activeDot, activeItem, componentEl, customCard, customMarker, el, items, selectedEl (+3 more)
 
 ### Community 215 - "Community 215"
-Cohesion: 0.13
+Cohesion: 0.11
 Nodes (4): ComboChartComponent, Default, meta, Story
 
 ### Community 216 - "Community 216"
@@ -926,12 +941,12 @@ Cohesion: 0.10
 Nodes (19): AccordionItem, AccordionItemComponent, arrowDownEvent, arrowUpEvent, headers, items, TestHostComponent, AllCollapsed (+11 more)
 
 ### Community 217 - "Community 217"
-Cohesion: 0.09
-Nodes (17): allVals, boxHeight, BoxPlotChartComponent, BoxPlotItem, items, minVal, outlierPoints, Default (+9 more)
+Cohesion: 0.14
+Nodes (13): allVals, boxHeight, BoxPlotItem, items, minVal, outlierPoints, width, x (+5 more)
 
 ### Community 218 - "Community 218"
-Cohesion: 0.09
-Nodes (16): CandlestickChartComponent, CandlestickItem, highs, items, lows, rectH, Default, meta (+8 more)
+Cohesion: 0.15
+Nodes (12): CandlestickItem, highs, items, lows, rectH, width, x, y (+4 more)
 
 ### Community 219 - "Community 219"
 Cohesion: 0.20
@@ -946,15 +961,15 @@ Cohesion: 0.14
 Nodes (13): chartArea, dummyAnchor, firstMarker, legendItems, linePaths, markerDots, mockCategories, mockSeries (+5 more)
 
 ### Community 222 - "Community 222"
-Cohesion: 0.10
-Nodes (11): colorsList, list, processNode(), rootNodes, Default, meta, Story, SunburstChartComponent (+3 more)
+Cohesion: 0.15
+Nodes (5): processNode(), Default, meta, Story, SunburstChartComponent
 
 ### Community 223 - "Community 223"
 Cohesion: 0.11
 Nodes (17): activeDate, CalendarCell, CalendarEvent, cells, date, firstDay, focusedVal, month (+9 more)
 
 ### Community 224 - "Community 224"
-Cohesion: 0.08
+Cohesion: 0.07
 Nodes (19): ChordDiagramComponent, ChordItem, l, m, nodes, nodeTotals, padAngle, palette (+11 more)
 
 ### Community 225 - "Community 225"
@@ -966,8 +981,8 @@ Cohesion: 0.14
 Nodes (16): Buttons & Actions (Chips, Split/DropDown Buttons), code:typescript (interface GanttConfig {), code:typescript (interface GanttTask {), code:typescript (import { Component } from '@angular/core';), code:typescript (import { Component } from '@angular/core';), Component Usage Guides, GanttChartComponent (`ngx-gantt-chart`), GanttConfig Interface (+8 more)
 
 ### Community 228 - "Community 228"
-Cohesion: 0.18
-Nodes (10): description, factory, schema, description, factory, schema, $schema, schematics (+2 more)
+Cohesion: 0.13
+Nodes (14): description, factory, schema, description, factory, schema, description, factory (+6 more)
 
 ### Community 229 - "Community 229"
 Cohesion: 0.40
@@ -978,8 +993,8 @@ Cohesion: 0.09
 Nodes (8): LineChartComponent, AreaChart, Default, meta, Story, WithLabelsAndExport, WithReferenceLines, ZoomAndPan
 
 ### Community 231 - "Community 231"
-Cohesion: 0.22
-Nodes (8): contactFields, ContactForm, DisabledForm, loginFields, LoginForm, meta, PrepopulatedForm, Story
+Cohesion: 0.12
+Nodes (11): FormBuilderComponent, FormBuilderOption, fromFields, contactFields, ContactForm, DisabledForm, loginFields, LoginForm (+3 more)
 
 ### Community 232 - "Community 232"
 Cohesion: 0.18
@@ -990,7 +1005,7 @@ Cohesion: 0.12
 Nodes (15): cellEl, cells, disabledCells, event, eventPill, headerTitleLink, initialMonth, maxDate (+7 more)
 
 ### Community 234 - "Community 234"
-Cohesion: 0.08
+Cohesion: 0.07
 Nodes (19): dependencies, DependencyItem, DependencyWheelComponent, l, m, nodes, nodeTotals, padAngle (+11 more)
 
 ### Community 235 - "Community 235"
@@ -998,8 +1013,8 @@ Cohesion: 0.11
 Nodes (18): AwayStatus, BusyStatus, CustomColor, Default, ExtraLarge, ExtraSmall, ImageWithBadge, ImageWithStatus (+10 more)
 
 ### Community 236 - "Community 236"
-Cohesion: 0.15
-Nodes (11): bulletChart, firstSlice, gridCircles, polarChart, ranges, slices, targetMarker, TestWrapperComponent (+3 more)
+Cohesion: 0.10
+Nodes (13): bulletChart, firstSlice, gridCircles, polarChart, ranges, slices, targetMarker, TestWrapperComponent (+5 more)
 
 ### Community 237 - "Community 237"
 Cohesion: 0.22
@@ -1026,24 +1041,24 @@ Cohesion: 0.40
 Nodes (5): DatePickerComponent (`ngx-date-picker`), Inputs, Inputs, Outputs, Outputs
 
 ### Community 243 - "Community 243"
-Cohesion: 0.12
-Nodes (15): allPrices, brickH, bricks, brickY, h, maxVal, minVal, numBricks (+7 more)
+Cohesion: 0.11
+Nodes (4): Default, meta, Story, ViolinPlotComponent
 
 ### Community 246 - "Community 246"
 Cohesion: 0.05
 Nodes (31): columns, computedColumns, h, incoming, nodeMap, nodeW, padding, palette (+23 more)
 
 ### Community 248 - "Community 248"
-Cohesion: 0.10
-Nodes (14): defaultEndColor, defaultStartColor, DumbbellChartComponent, DumbbellItem, max, min, paddedMin, raw (+6 more)
+Cohesion: 0.14
+Nodes (4): DumbbellChartComponent, Default, meta, Story
 
 ### Community 249 - "Community 249"
 Cohesion: 0.11
 Nodes (12): CheckboxComponent, Checked, Default, Disabled, DisabledUnchecked, ErrorState, Indeterminate, meta (+4 more)
 
 ### Community 250 - "Community 250"
-Cohesion: 0.24
-Nodes (4): NgxWebLlmService, progressSpy, tokens, WebLlmMessage
+Cohesion: 0.18
+Nodes (7): AIFormCopilotComponent, Default, sampleFields, NgxWebLlmService, progressSpy, tokens, WebLlmMessage
 
 ### Community 251 - "Community 251"
 Cohesion: 0.12
@@ -1058,11 +1073,11 @@ Cohesion: 0.40
 Nodes (5): DateRangePickerComponent (`ngx-date-range-picker`), Inputs, Inputs, Outputs, Outputs
 
 ### Community 255 - "Community 255"
-Cohesion: 0.20
-Nodes (8): Default, Disabled, ErrorState, meta, MinLengthTwo, sampleOptions, Story, text
+Cohesion: 0.25
+Nodes (7): Default, Disabled, ErrorState, meta, MinLengthTwo, sampleOptions, Story
 
 ### Community 256 - "Community 256"
-Cohesion: 0.17
+Cohesion: 0.13
 Nodes (9): BulletChartComponent, colors, limits, rects, Default, meta, Story, width (+1 more)
 
 ### Community 257 - "Community 257"
@@ -1074,8 +1089,8 @@ Cohesion: 0.12
 Nodes (15): axes, bars, candies, dumbbell, endDots, lines, links, lollipop (+7 more)
 
 ### Community 259 - "Community 259"
-Cohesion: 0.11
-Nodes (13): allVals, b, leftY, max, min, palette, raw, rightY (+5 more)
+Cohesion: 0.15
+Nodes (4): SlopeChartComponent, Default, meta, Story
 
 ### Community 260 - "Community 260"
 Cohesion: 0.11
@@ -1098,16 +1113,16 @@ Cohesion: 0.25
 Nodes (7): field1, field2, jsonText, mockDragEvent, mockDropEvent, newField, selectField
 
 ### Community 266 - "Community 266"
-Cohesion: 0.12
-Nodes (11): centerPt, gap, pct, RadialBarChartComponent, RadialBarItem, raw, ringW, Default (+3 more)
+Cohesion: 0.16
+Nodes (4): RadialBarChartComponent, Default, meta, Story
 
 ### Community 268 - "Community 268"
 Cohesion: 0.27
 Nodes (7): CardComponent, CardVariant, cells, cols, rows, DashboardLayoutChangeEvent, DashboardPanelActionEvent
 
 ### Community 269 - "Community 269"
-Cohesion: 0.12
-Nodes (10): AdjacencyMatrixComponent, c, cellS, m, MatrixItem, ProcessedCell, sizeLimit, Default (+2 more)
+Cohesion: 0.15
+Nodes (4): AdjacencyMatrixComponent, Default, meta, Story
 
 ### Community 270 - "Community 270"
 Cohesion: 0.15
@@ -1118,8 +1133,8 @@ Cohesion: 0.18
 Nodes (10): arcs, axes, cells, mockLabels, mockMatrix, mockPoints, mockVectors, points (+2 more)
 
 ### Community 272 - "Community 272"
-Cohesion: 0.25
-Nodes (5): f, opt, trigger, triggerEl, triggerEl
+Cohesion: 0.12
+Nodes (4): RidgelineChartComponent, Default, meta, Story
 
 ### Community 274 - "Community 274"
 Cohesion: 0.22
@@ -1130,7 +1145,7 @@ Cohesion: 0.29
 Nodes (6): bricks, cells, lines, mockData, mockPrices, wedges
 
 ### Community 276 - "Community 276"
-Cohesion: 0.14
+Cohesion: 0.11
 Nodes (8): RadarChartComponent, RadarSeries, CustomScale, Default, meta, SingleSeries, Story, TeamComparison
 
 ### Community 277 - "Community 277"
@@ -1142,8 +1157,8 @@ Cohesion: 0.14
 Nodes (4): PointFigureChartComponent, Default, meta, Story
 
 ### Community 279 - "Community 279"
-Cohesion: 0.14
-Nodes (4): RenkoChartComponent, Default, meta, Story
+Cohesion: 0.07
+Nodes (19): allPrices, brickH, bricks, brickY, h, maxVal, minVal, numBricks (+11 more)
 
 ### Community 280 - "Community 280"
 Cohesion: 0.14
@@ -1158,12 +1173,12 @@ Cohesion: 0.50
 Nodes (3): Default, meta, Story
 
 ### Community 284 - "Community 284"
-Cohesion: 0.12
+Cohesion: 0.10
 Nodes (11): colorsList, items, LayoutItem, layoutList, rawData, Default, meta, Story (+3 more)
 
 ### Community 285 - "Community 285"
-Cohesion: 0.38
-Nodes (6): deepMerge(), DEFAULT_EN_I18N, isObject(), NGX_CORE_I18N, NgxCoreI18n, provideNgxI18n()
+Cohesion: 0.13
+Nodes (13): triggerEl, dragLeaveEvent, dragOverEvent, dropzone, enterEvent, fileInput, headlineEl, deepMerge() (+5 more)
 
 ### Community 286 - "Community 286"
 Cohesion: 0.13
@@ -1194,8 +1209,8 @@ Cohesion: 0.18
 Nodes (8): ButtonComponent, ButtonGroupComponent, ButtonGroupSelectionMode, ColorThemedActions, Default, meta, Story, VerticalIcons
 
 ### Community 294 - "Community 294"
-Cohesion: 0.20
-Nodes (11): [0.3.0] - 2026-06-01, [0.3.20] - 2026-07-15, [0.3.22] - 2026-07-16, Added, Added, Added, Added, Changed (+3 more)
+Cohesion: 0.10
+Nodes (23): [0.3.0] - 2026-06-01, [0.3.14] - 2026-06-01, [0.3.15] - 2026-06-03, [0.3.17] - 2026-06-05, [0.3.18] - 2026-06-05, [0.3.19] - 2026-06-07, [0.3.20] - 2026-06-29, [0.3.20] - 2026-07-15 (+15 more)
 
 ### Community 295 - "Community 295"
 Cohesion: 0.20
@@ -1246,8 +1261,8 @@ Cohesion: 0.22
 Nodes (7): private, name, version, configurations, version, tasks, version
 
 ### Community 311 - "Community 311"
-Cohesion: 0.25
-Nodes (4): SpeedDialComponent, Default, meta, Story
+Cohesion: 0.22
+Nodes (5): SpeedDialComponent, SpeedDialItem, Default, meta, Story
 
 ### Community 312 - "Community 312"
 Cohesion: 0.24
@@ -1350,28 +1365,64 @@ Cohesion: 0.40
 Nodes (5): Inputs, Inputs, Outputs, Outputs, TimePickerComponent (`ngx-time-picker`)
 
 ### Community 340 - "Community 340"
-Cohesion: 0.29
-Nodes (6): dragLeaveEvent, dragOverEvent, dropzone, enterEvent, fileInput, headlineEl
+Cohesion: 0.13
+Nodes (4): BiplotComponent, Default, meta, Story
+
+### Community 341 - "Community 341"
+Cohesion: 0.16
+Nodes (5): AreaChartComponent, Default, meta, Story, scale()
+
+### Community 342 - "Community 342"
+Cohesion: 0.14
+Nodes (4): BoxPlotChartComponent, Default, meta, Story
+
+### Community 343 - "Community 343"
+Cohesion: 0.14
+Nodes (4): CandlestickChartComponent, Default, meta, Story
+
+### Community 344 - "Community 344"
+Cohesion: 0.15
+Nodes (12): index, $source, $id, $default, description, type, properties, name (+4 more)
+
+### Community 346 - "Community 346"
+Cohesion: 0.21
+Nodes (4): FunnelChartComponent, Default, meta, Story
+
+### Community 347 - "Community 347"
+Cohesion: 0.17
+Nodes (11): clearBtn, dayBtns, dayToClick, enterEvent, escapeEvent, inputEl, onChangeSpy, spaceEvent (+3 more)
+
+### Community 348 - "Community 348"
+Cohesion: 0.18
+Nodes (10): defaultEndColor, defaultStartColor, DumbbellItem, max, min, paddedMin, raw, rowH (+2 more)
+
+### Community 349 - "Community 349"
+Cohesion: 0.20
+Nodes (9): allVals, b, leftY, max, min, palette, raw, rightY (+1 more)
+
+### Community 350 - "Community 350"
+Cohesion: 0.25
+Nodes (6): colorsList, list, rootNodes, SunburstNode, SunburstSlice, val
 
 ## Knowledge Gaps
-- **2048 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `root` (+2043 more)
+- **2065 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `root` (+2060 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **82 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **83 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `GanttChartComponent` connect `Community 1` to `Community 325`, `Community 6`, `Community 330`, `Community 12`, `Community 146`, `Community 55`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
 - **Why does `ChartsDemoComponent` connect `Community 27` to `Community 283`, `Community 28`, `Community 252`?**
-  _High betweenness centrality (0.063) - this node is a cross-community bridge._
-- **Why does `SplitterComponent` connect `Community 166` to `Community 268`?**
-  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+  _High betweenness centrality (0.076) - this node is a cross-community bridge._
+- **Why does `GanttChartComponent` connect `Community 1` to `Community 325`, `Community 6`, `Community 200`, `Community 330`, `Community 12`, `Community 55`?**
+  _High betweenness centrality (0.074) - this node is a cross-community bridge._
+- **Why does `TimePickerComponent` connect `Community 132` to `Community 16`, `Community 295`?**
+  _High betweenness centrality (0.051) - this node is a cross-community bridge._
 - **What connects `$schema`, `version`, `newProjectRoot` to the rest of the system?**
-  _2055 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _2072 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.0449497620306716 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.06451612903225806 - nodes in this community are weakly interconnected._
 - **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.046093064091308165 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.045183290707587385 - nodes in this community are weakly interconnected._
