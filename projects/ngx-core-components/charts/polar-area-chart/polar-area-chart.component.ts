@@ -2,13 +2,15 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, viewChild, HostListener, inject, DestroyRef, output
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChartExportService } from '../shared/chart-export.service';
+import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
+import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
 
 @Component({
   selector: 'ngx-polar-area-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ChartExportMenuComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-polar-area-chart">
@@ -16,16 +18,7 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
       <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="tooltip.set(null)">
         <div class="chart-title-space"></div>
         @if (showExport()) {
-          <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
-            @if (exportMenuOpen()) {
-              <div class="export-dropdown">
-                <button (click)="onExport('json')">📊 Export JSON</button>
-                <button (click)="onExport('csv')">📄 Export CSV</button>
-                <button (click)="onExport('svg')">🖼️ Export SVG</button>
-              </div>
-            }
-          </div>
+          <ngx-chart-export-menu (exportClicked)="onExport($event)" />
         }
       </div>
 
@@ -234,63 +227,11 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
       border-radius: 50%;
     }
 
-    .chart-export-menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #6c757d);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #fff;
-      color: var(--primary-color, #4f46e5);
-      border-color: var(--primary-color, #4f46e5);
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #fff;
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #343a40;
-      border-radius: 4px;
-      font-family: inherit;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: var(--primary-color, #4f46e5);
-    }
+
   `]
 })
 export class PolarAreaChartComponent {
+  private readonly exportSvc = inject(ChartExportService);
   data = input<ChartDataPoint[]>([]);
   height = input<number>(280);
   showLegend = input<boolean>(true);
@@ -302,7 +243,7 @@ export class PolarAreaChartComponent {
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
-  exportMenuOpen = signal(false);
+
   hovered = signal(-1);
   tooltip = signal<{x:number;y:number;label:string;value:number;color:string}|null>(null);
 
@@ -390,67 +331,31 @@ export class PolarAreaChartComponent {
     this.sliceClick.emit({ label: slice.label, value: slice.value, color: slice.color });
   }
 
-  toggleExportMenu(event: MouseEvent): void {
-    event.stopPropagation();
-    this.exportMenuOpen.set(!this.exportMenuOpen());
-  }
-
-  @HostListener('document:click')
-  closeExportMenu(): void {
-    this.exportMenuOpen.set(false);
-  }
-
-  onExport(type: 'json' | 'csv' | 'svg'): void {
-    this.exportMenuOpen.set(false);
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
+    else if (type === 'pdf') this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    this.exportSvc.downloadJson(this.data(), 'polar-area-chart-data.json');
   }
 
   exportToCsv(): void {
     const data = this.data();
     if (!data.length) return;
-    let csv = 'Label,Value\n';
-    data.forEach(d => {
-      csv += `"${d.label}",${d.value}\n`;
-    });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'polar-area-chart-data.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  exportToJson(): void {
-    const data = this.data();
-    if (!data.length) return;
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'polar-area-chart-data.json');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const headers = ['Label', 'Value'];
+    const rows = data.map(d => [d.label, d.value]);
+    this.exportSvc.downloadCsv(headers, rows, 'polar-area-chart-data.csv');
   }
 
   exportToSvg(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svg);
-    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'polar-area-chart.svg');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, 'chart.svg');
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
 
   formatNumber(v: number): string {

@@ -64,3 +64,8 @@ export function fmtNum(n: number): string {
   if (Math.abs(n) >= 1_000) return (n / 1_000).toFixed(1) + 'K';
   return n % 1 === 0 ? n.toString() : n.toFixed(1);
 }
+
+export function generateUniqueId(prefix: string): string {
+  return prefix + '-' + Math.random().toString(36).substring(2, 9);
+}
+

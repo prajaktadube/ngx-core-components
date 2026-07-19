@@ -2,7 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
 
 export interface VennRegion {
@@ -17,7 +17,7 @@ export interface VennRegion {
 @Component({
   selector: 'ngx-venn-diagram',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-venn" (mouseleave)="onMouseLeave()">

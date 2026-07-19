@@ -178,11 +178,13 @@ describe('Advanced Chart Components', () => {
     const exportTrigger = barDe.query(By.css('.export-trigger'));
     expect(exportTrigger).toBeTruthy();
 
+    const menuInstance = barDe.query(By.css('ngx-chart-export-menu')).componentInstance;
+
     // Toggle menu
-    expect(barComponent.exportMenuOpen()).toBeFalse();
+    expect(menuInstance.isOpen()).toBeFalse();
     exportTrigger.nativeElement.click();
     fixture.detectChanges();
-    expect(barComponent.exportMenuOpen()).toBeTrue();
+    expect(menuInstance.isOpen()).toBeTrue();
 
     // Check menu options exist
     const jsonBtn = barDe.query(By.css('.export-dropdown button:nth-child(1)'));
@@ -268,9 +270,11 @@ describe('Advanced Chart Components', () => {
     // Toggle export menu
     const exportTrigger = pieDe.query(By.css('.export-trigger'));
     expect(exportTrigger).toBeTruthy();
+    const menuInstance = pieDe.query(By.css('ngx-chart-export-menu')).componentInstance;
+    expect(menuInstance.isOpen()).toBeFalse();
     exportTrigger.nativeElement.click();
     fixture.detectChanges();
-    expect(pieComponent.exportMenuOpen()).toBeTrue();
+    expect(menuInstance.isOpen()).toBeTrue();
   });
 
   it('should render bubbles and handle hover events in bubble chart', () => {

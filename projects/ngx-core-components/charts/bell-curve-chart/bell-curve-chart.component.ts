@@ -2,7 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe, NgTemplateOutlet } from '@angular/common';
 import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
 
 export interface CurvePoint {
@@ -17,7 +17,7 @@ export interface CurvePoint {
 @Component({
   selector: 'ngx-bell-curve-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DecimalPipe, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-bell-curve" (mouseleave)="onMouseLeave()">

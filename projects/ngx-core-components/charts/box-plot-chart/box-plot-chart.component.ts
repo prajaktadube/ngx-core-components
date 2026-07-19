@@ -2,6 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, viewChild, HostListener, inject, DestroyRef
 } from '@angular/core';
+import { ChartExportService } from '../shared/chart-export.service';
 import { CommonModule } from '@angular/common';
 import { niceTicks, scale, fmtNum } from '../shared/chart-utils';
 
@@ -379,6 +380,7 @@ export interface BoxPlotItem {
   `]
 })
 export class BoxPlotChartComponent {
+  private readonly exportSvc = inject(ChartExportService);
   PAD_LEFT = 52;
   PAD_TOP = 20;
   PAD_RIGHT = 24;
@@ -581,30 +583,16 @@ export class BoxPlotChartComponent {
   }
 
   exportToCsv(): void {
-    const items = this.data();
-    if (!items.length) return;
-    let csv = 'Label,Min,Q1,Median,Q3,Max,Outliers\n';
-    items.forEach(item => {
-      const outliersStr = item.outliers ? `"${item.outliers.join(';')}"` : '';
-      csv += `"${item.label}",${item.min},${item.q1},${item.median},${item.q3},${item.max},${outliersStr}\n`;
-    });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'box-plot-data.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const data = this.data();
+    if (!data.length) return;
+    const headers = ['Label', 'Min', 'Q1', 'Median', 'Q3', 'Max'];
+    const rows = data.map(d => [d.label, d.min, d.q1, d.median, d.q3, d.max]);
+    this.exportSvc.downloadCsv(headers, rows, 'box-plot-data.csv');
   }
 
   exportToJson(): void {
-    const blob = new Blob([JSON.stringify(this.data(), null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'box-plot-data.json');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const data = this.data();
+    this.exportSvc.downloadJson(data, 'box-plot-data.json');
   }
 
   exportToSvg(): void {

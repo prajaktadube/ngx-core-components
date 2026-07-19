@@ -2,7 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { CHART_COLORS, fmtNum, scale } from '../shared/chart-utils';
 
 export interface TileItem {
@@ -28,7 +28,7 @@ export interface ComputedTile {
 @Component({
   selector: 'ngx-tilemap',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-tilemap" (mouseleave)="onMouseLeave()">

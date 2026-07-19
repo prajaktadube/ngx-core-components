@@ -1,9 +1,11 @@
 import {
   Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener
+  ElementRef, viewChild, HostListener, inject
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+import { ChartExportService } from '../shared/chart-export.service';
+import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
+import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { CHART_COLORS, fmtNum, generateUniqueId } from '../shared/chart-utils';
 
 export interface RadialBarItem {
   label: string;
@@ -15,24 +17,14 @@ export interface RadialBarItem {
 @Component({
   selector: 'ngx-radial-bar-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ChartExportMenuComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-radial-bar-chart" (mouseleave)="onMouseLeave()">
       <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="chart-title-space"></div>
         @if (showExport()) {
-          <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
-            @if (exportMenuOpen()) {
-              <div class="export-dropdown">
-                <button (click)="onExport('json')">📊 Export JSON</button>
-                <button (click)="onExport('csv')">📄 Export CSV</button>
-                <button (click)="onExport('svg')">🖼️ Export SVG</button>
-                <button (click)="onExport('pdf')">📕 Export PDF</button>
-              </div>
-            }
-          </div>
+          <ngx-chart-export-menu (exportClicked)="onExport($event)" />
         }
       </div>
 
@@ -48,7 +40,7 @@ export interface RadialBarItem {
           >
             <defs>
               @for (ring of computedRings(); track $index; let i = $index) {
-                <linearGradient [id]="'radial-grad-' + i" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient [attr.id]="instanceId + '-radial-grad-' + i" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" [attr.stop-color]="ring.color" />
                   <stop offset="100%" [attr.stop-color]="ring.color" stop-opacity="0.6" />
                 </linearGradient>
@@ -74,7 +66,7 @@ export interface RadialBarItem {
                   cy="0"
                   [attr.r]="ring.r"
                   fill="none"
-                  [attr.stroke]="'url(#radial-grad-' + i + ')'"
+                  [attr.stroke]="'url(#' + instanceId + '-radial-grad-' + i + ')'"
                   [attr.stroke-width]="hoveredIndex() === i ? strokeWidth() + 3 : strokeWidth()"
                   [attr.stroke-dasharray]="ring.dashArray"
                   [attr.stroke-dashoffset]="animateState() ? 0 : ring.circumference"
@@ -319,64 +311,12 @@ export interface RadialBarItem {
       font-family: monospace;
     }
 
-    /* Export Trigger & Dropdown */
-    .chart-export-menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #6c757d);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #fff;
-      color: #4f46e5;
-      border-color: #4f46e5;
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #fff;
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #343a40;
-      border-radius: 4px;
-      font-family: inherit;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: #4f46e5;
-    }
+
   `]
 })
 export class RadialBarChartComponent {
+  private readonly exportSvc = inject(ChartExportService);
+  readonly instanceId = generateUniqueId('chart');
   data = input<RadialBarItem[]>([]);
   height = input<number>(300);
   showLegend = input<boolean>(true);
@@ -387,7 +327,7 @@ export class RadialBarChartComponent {
   colors = input<string[]>(CHART_COLORS);
   showExport = input<boolean>(false);
 
-  exportMenuOpen = signal(false);
+
   hoveredIndex = signal<number | null>(null);
   tooltip = signal<any | null>(null);
   tooltipX = signal<number>(0);
@@ -472,18 +412,7 @@ export class RadialBarChartComponent {
     this.tooltip.set(null);
   }
 
-  toggleExportMenu(event: MouseEvent): void {
-    event.stopPropagation();
-    this.exportMenuOpen.set(!this.exportMenuOpen());
-  }
-
-  @HostListener('document:click')
-  closeExportMenu(): void {
-    this.exportMenuOpen.set(false);
-  }
-
-  onExport(type: 'json' | 'csv' | 'svg' | 'pdf'): void {
-    this.exportMenuOpen.set(false);
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -491,104 +420,23 @@ export class RadialBarChartComponent {
   }
 
   exportToJson(): void {
-    const data = this.data();
-    if (!data.length) return;
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'radial-bar-chart.json');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadJson(this.data(), 'radial-bar-chart.json');
   }
 
   exportToCsv(): void {
     const data = this.data();
     if (!data.length) return;
-    let csv = 'Label,Value,Max\n';
-    data.forEach(d => {
-      csv += `"${d.label || ''}",${d.value},${d.max}\n`;
-    });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'radial-bar-chart.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const headers = ['Label', 'Value', 'Max'];
+    const rows = data.map(d => [d.label || '', d.value, d.max]);
+    this.exportSvc.downloadCsv(headers, rows, 'radial-bar-chart.csv');
   }
 
   exportToSvg(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svg);
-    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    if (!source.match(/^<svg[^>]+xmlns\:xlink="http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-    }
-    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'radial-bar-chart.svg');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, 'chart.svg');
   }
 
   exportToPdf(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
-    const serializer = new XMLSerializer();
-    let svgString = serializer.serializeToString(svg);
-    if (!svgString.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      svgString = svgString.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Chart Export</title>
-          <style>
-            body {
-              margin: 20px;
-              font-family: system-ui, sans-serif;
-              text-align: center;
-            }
-            .print-container {
-              display: inline-block;
-              margin: 0 auto;
-            }
-            svg {
-              width: 100%;
-              height: auto;
-            }
-            @media print {
-              body { margin: 0; }
-              .no-print { display: none; }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="print-container">
-            ${svgString}
-          </div>
-          <script>
-            window.onload = () => {
-              setTimeout(() => {
-                window.print();
-                window.close();
-              }, 250);
-            };
-          </script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
 
   readonly fmtNum = fmtNum;

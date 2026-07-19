@@ -2,7 +2,7 @@ import {
   Component, input, output, signal, computed, ChangeDetectionStrategy,
   ElementRef, viewChild, HostListener, effect
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule , UpperCasePipe } from '@angular/common';
 import { CHART_COLORS } from '../shared/chart-utils';
 
 export interface TopologyNode {
@@ -32,7 +32,7 @@ interface ProcessedNode extends TopologyNode {
 @Component({
   selector: 'ngx-agentic-cognitive-topology',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, UpperCasePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-topology-wrapper">

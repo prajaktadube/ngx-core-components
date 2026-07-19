@@ -2,8 +2,10 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, inject, DestroyRef, viewChild, HostListener
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { ChartExportService } from '../shared/chart-export.service';
+import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
+import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { CHART_COLORS, fmtNum, niceTicks, scale, generateUniqueId } from '../shared/chart-utils';
 
 export interface RidgelineItem {
   label: string;
@@ -14,24 +16,14 @@ export interface RidgelineItem {
 @Component({
   selector: 'ngx-ridgeline-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ChartExportMenuComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-ridgeline-chart" (mouseleave)="onMouseLeave()">
       <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="chart-title-space"></div>
         @if (showExport()) {
-          <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
-            @if (exportMenuOpen()) {
-              <div class="export-dropdown">
-                <button (click)="onExport('json')">📊 Export JSON</button>
-                <button (click)="onExport('csv')">📄 Export CSV</button>
-                <button (click)="onExport('svg')">🖼️ Export SVG</button>
-                <button (click)="onExport('pdf')">📕 Export PDF</button>
-              </div>
-            }
-          </div>
+          <ngx-chart-export-menu (exportClicked)="onExport($event)" />
         }
       </div>
 
@@ -44,7 +36,7 @@ export interface RidgelineItem {
         <defs>
           @if (useGradient()) {
             @for (item of computedItems(); track item.label; let i = $index) {
-              <linearGradient [attr.id]="'ridgeline-grad-' + i" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient [attr.id]="instanceId + '-ridgeline-grad-' + i" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5" />
                 <stop offset="50%" [attr.stop-color]="item.color" stop-opacity="0.5" />
                 <stop offset="100%" stop-color="#ef4444" stop-opacity="0.5" />
@@ -89,7 +81,7 @@ export interface RidgelineItem {
               <!-- Shaded density area under the curve -->
               <path
                 [attr.d]="item.areaPath"
-                [attr.fill]="useGradient() ? 'url(#ridgeline-grad-' + i + ')' : item.color"
+                [attr.fill]="useGradient() ? 'url(#' + instanceId + '-ridgeline-grad-' + i + ')' : item.color"
                 [attr.fill-opacity]="useGradient() ? 1.0 : 0.4"
                 class="density-area"
               />
@@ -287,64 +279,12 @@ export interface RidgelineItem {
       font-family: monospace;
     }
 
-    /* Export Trigger & Dropdown */
-    .chart-export-menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #6c757d);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #fff;
-      color: #4f46e5;
-      border-color: #4f46e5;
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #fff;
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #343a40;
-      border-radius: 4px;
-      font-family: inherit;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: #4f46e5;
-    }
+
   `]
 })
 export class RidgelineChartComponent {
+  private readonly exportSvc = inject(ChartExportService);
+  readonly instanceId = generateUniqueId('chart');
   data = input<RidgelineItem[]>([]);
   height = input<number>(400);
   showGrid = input<boolean>(true);
@@ -359,7 +299,7 @@ export class RidgelineChartComponent {
   tooltip = signal<any | null>(null);
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
-  exportMenuOpen = signal(false);
+
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
@@ -537,18 +477,7 @@ export class RidgelineChartComponent {
     this.tooltip.set(null);
   }
 
-  toggleExportMenu(event: MouseEvent): void {
-    event.stopPropagation();
-    this.exportMenuOpen.set(!this.exportMenuOpen());
-  }
-
-  @HostListener('document:click')
-  closeExportMenu(): void {
-    this.exportMenuOpen.set(false);
-  }
-
-  onExport(type: 'json' | 'csv' | 'svg' | 'pdf'): void {
-    this.exportMenuOpen.set(false);
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -558,104 +487,28 @@ export class RidgelineChartComponent {
   exportToJson(): void {
     const data = this.data();
     if (!data.length) return;
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'ridgeline-chart.json');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadJson(data, 'ridgeline-chart.json');
   }
 
   exportToCsv(): void {
     const data = this.data();
     if (!data.length) return;
-    let csv = 'Label,Value\n';
+    const headers = ['Label', 'Value'];
+    const rows: (string | number)[][] = [];
     data.forEach(d => {
       (d.values || []).forEach(val => {
-        csv += `"${d.label || ''}",${val}\n`;
+        rows.push([d.label || '', val]);
       });
     });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'ridgeline-chart.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadCsv(headers, rows, 'ridgeline-chart.csv');
   }
 
   exportToSvg(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svg);
-    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    if (!source.match(/^<svg[^>]+xmlns\:xlink="http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-    }
-    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'ridgeline-chart.svg');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, 'chart.svg');
   }
 
   exportToPdf(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
-    const serializer = new XMLSerializer();
-    let svgString = serializer.serializeToString(svg);
-    if (!svgString.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      svgString = svgString.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Chart Export</title>
-          <style>
-            body {
-              margin: 20px;
-              font-family: system-ui, sans-serif;
-              text-align: center;
-            }
-            .print-container {
-              display: inline-block;
-              margin: 0 auto;
-            }
-            svg {
-              width: 100%;
-              height: auto;
-            }
-            @media print {
-              body { margin: 0; }
-              .no-print { display: none; }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="print-container">
-            ${svgString}
-          </div>
-          <script>
-            window.onload = () => {
-              setTimeout(() => {
-                window.print();
-                window.close();
-              }, 250);
-            };
-          </script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
 
   formatNumber(v: number): string {

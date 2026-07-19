@@ -1,8 +1,11 @@
 import {
   Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
+  ElementRef, inject, DestroyRef, TemplateRef, viewChild
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChartExportService } from '../shared/chart-export.service';
+import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
+import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
 
 export interface KagiSegment {
@@ -20,7 +23,7 @@ export interface KagiSegment {
 @Component({
   selector: 'ngx-kagi-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ChartExportMenuComponent, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-kagi-chart" (mouseleave)="onMouseLeave()">
@@ -32,16 +35,7 @@ export interface KagiSegment {
 
         <!-- Export Menu -->
         @if (showExport()) {
-          <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
-            @if (exportMenuOpen()) {
-              <div class="export-dropdown">
-                <button (click)="onExport('json')">📊 Export JSON</button>
-                <button (click)="onExport('csv')">📄 Export CSV</button>
-                <button (click)="onExport('svg')">🖼️ Export SVG</button>
-              </div>
-            }
-          </div>
+          <ngx-chart-export-menu (exportClicked)="onExport($event)" />
         }
       </div>
 
@@ -254,61 +248,12 @@ export interface KagiSegment {
       font-family: monospace;
     }
 
-    /* Export dropdown styles */
-    .chart-export-menu {
-      position: relative;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #64748b);
-      background: rgba(241, 245, 249, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #ffffff;
-      color: #4f46e5;
-      border-color: #4f46e5;
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #ffffff;
-      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #1e293b;
-      border-radius: 4px;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: #4f46e5;
-    }
+    /* Export dropdown styles removed */
   `]
 })
 export class KagiChartComponent {
+  private readonly exportSvc = inject(ChartExportService);
+
   data = input<number[]>([]);
   reversalAmount = input<number>(15);
   height = input<number>(350);
@@ -324,7 +269,6 @@ export class KagiChartComponent {
   tooltip = signal<any | null>(null);
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
-  exportMenuOpen = signal(false);
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
@@ -528,45 +472,24 @@ export class KagiChartComponent {
     this.tooltip.set(null);
   }
 
-  toggleExportMenu(event: MouseEvent): void {
-    event.stopPropagation();
-    this.exportMenuOpen.set(!this.exportMenuOpen());
-  }
-
-  @HostListener('document:click')
-  closeExportMenu(): void {
-    this.exportMenuOpen.set(false);
-  }
-
-  onExport(type: 'json' | 'csv' | 'svg'): void {
-    this.exportMenuOpen.set(false);
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
+    else if (type === 'pdf') this.exportToPdf();
   }
 
   exportToCsv(): void {
     const segments = this.computedSegments();
     if (!segments.length) return;
-
-    let csv = 'Index,Type,FromValue,ToValue,Trend\n';
-    segments.forEach((seg, idx) => {
-      csv += `${idx},"${seg.type}",${seg.val1},${seg.val2},"${seg.trend}"\n`;
-    });
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'kagi-chart-data.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const headers = ['Index', 'Type', 'FromValue', 'ToValue', 'Trend'];
+    const rows = segments.map((seg, idx) => [idx, seg.type, seg.val1, seg.val2, seg.trend]);
+    this.exportSvc.downloadCsv(headers, rows, 'kagi-chart-data.csv');
   }
 
   exportToJson(): void {
     const segments = this.computedSegments();
     if (!segments.length) return;
-
     const data = segments.map((seg, idx) => ({
       index: idx,
       type: seg.type,
@@ -574,35 +497,15 @@ export class KagiChartComponent {
       to: seg.val2,
       trend: seg.trend
     }));
-
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'kagi-chart-data.json');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadJson(data, 'kagi-chart-data.json');
   }
 
   exportToSvg(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svg);
-    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    if (!source.match(/^<svg[^>]+xmlns\:xlink="http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-    }
-    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'kagi-chart.svg');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, 'kagi-chart.svg');
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Kagi Chart', 'kagi-chart.pdf');
   }
 
   formatNumber(v: number): string {

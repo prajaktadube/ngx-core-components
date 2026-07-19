@@ -1,9 +1,11 @@
 import {
   Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  ElementRef, inject, DestroyRef, viewChild
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { niceTicks, scale, fmtNum, CHART_COLORS } from '../shared/chart-utils';
+import { ChartExportService } from '../shared/chart-export.service';
+import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
+import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { niceTicks, scale, fmtNum, CHART_COLORS , generateUniqueId } from '../shared/chart-utils';
 
 export interface CandlestickItem {
   date: string | Date;
@@ -25,7 +27,7 @@ interface HeikinAshiCalculatedItem {
 @Component({
   selector: 'ngx-heikin-ashi-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ChartExportMenuComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-heikin-ashi-chart" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
@@ -33,17 +35,7 @@ interface HeikinAshiCalculatedItem {
       <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
         <div class="chart-title-space"></div>
         @if (showExport()) {
-          <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
-            @if (exportMenuOpen()) {
-              <div class="export-dropdown">
-                <button (click)="onExport('json')">📊 Export JSON</button>
-                <button (click)="onExport('csv')">📄 Export CSV</button>
-                <button (click)="onExport('svg')">🖼️ Export SVG</button>
-                <button (click)="onExport('pdf')">📕 Export PDF</button>
-              </div>
-            }
-          </div>
+          <ngx-chart-export-menu (exportClicked)="onExport($event)" />
         }
       </div>
 
@@ -55,11 +47,11 @@ interface HeikinAshiCalculatedItem {
           class="chart-svg"
         >
           <defs>
-            <linearGradient id="ha-bullish-grad" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient [id]="instanceId + '-ha-bullish-grad'" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" [attr.stop-color]="bullishColor()" />
               <stop offset="100%" [attr.stop-color]="bullishColor()" stop-opacity="0.8" />
             </linearGradient>
-            <linearGradient id="ha-bearish-grad" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient [id]="instanceId + '-ha-bearish-grad'" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" [attr.stop-color]="bearishColor()" />
               <stop offset="100%" [attr.stop-color]="bearishColor()" stop-opacity="0.8" />
             </linearGradient>
@@ -151,7 +143,7 @@ interface HeikinAshiCalculatedItem {
                 [attr.y]="candle.y"
                 [attr.width]="candle.width"
                 [attr.height]="candle.rectH"
-                [attr.fill]="candle.isBullish ? 'url(#ha-bullish-grad)' : 'url(#ha-bearish-grad)'"
+                [attr.fill]="candle.isBullish ? 'url(#' + instanceId + '-ha-bullish-grad)' : 'url(#' + instanceId + '-ha-bearish-grad)'"
                 [attr.stroke]="candle.color"
                 stroke-width="1"
                 class="candle-rect"
@@ -315,65 +307,14 @@ interface HeikinAshiCalculatedItem {
       font-weight: 700;
     }
 
-    /* Export styles */
-    .chart-export-menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #6c757d);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #fff;
-      color: var(--primary-color, #4f46e5);
-      border-color: var(--primary-color, #4f46e5);
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #fff;
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-      z-index: 60;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #343a40;
-      border-radius: 4px;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: var(--primary-color, #4f46e5);
-    }
+    /* Export styles removed */
     .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
   `]
 })
 export class HeikinAshiChartComponent {
+  readonly instanceId = generateUniqueId('chart');
+  private readonly exportSvc = inject(ChartExportService);
+
   readonly PAD_LEFT = 52;
   readonly PAD_TOP = 20;
   readonly PAD_RIGHT = 24;
@@ -388,7 +329,6 @@ export class HeikinAshiChartComponent {
   bullishColor = input<string>('#10b981');
   bearishColor = input<string>('#ef4444');
 
-  exportMenuOpen = signal(false);
   hoveredIndex = signal<number | null>(null);
   tooltip = signal<{
     x: number;
@@ -571,18 +511,7 @@ export class HeikinAshiChartComponent {
     return String(d);
   }
 
-  toggleExportMenu(event: MouseEvent): void {
-    event.stopPropagation();
-    this.exportMenuOpen.set(!this.exportMenuOpen());
-  }
-
-  @HostListener('document:click')
-  closeExportMenu(): void {
-    this.exportMenuOpen.set(false);
-  }
-
-  onExport(type: 'json' | 'csv' | 'svg' | 'pdf'): void {
-    this.exportMenuOpen.set(false);
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -592,96 +521,27 @@ export class HeikinAshiChartComponent {
   exportToCsv(): void {
     const items = this.heikinAshiData();
     if (!items.length) return;
-    let csv = 'Date,Orig_Open,Orig_High,Orig_Low,Orig_Close,HA_Open,HA_High,HA_Low,HA_Close\n';
-    items.forEach(item => {
-      csv += `"${this.formatDate(item.date)}",${item.original.open},${item.original.high},${item.original.low},${item.original.close},${item.open.toFixed(4)},${item.high.toFixed(4)},${item.low.toFixed(4)},${item.close.toFixed(4)}\n`;
-    });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'heikin-ashi-data.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const headers = ['Date', 'Orig_Open', 'Orig_High', 'Orig_Low', 'Orig_Close', 'HA_Open', 'HA_High', 'HA_Low', 'HA_Close'];
+    const rows = items.map(item => [
+      this.formatDate(item.date),
+      item.original.open, item.original.high, item.original.low, item.original.close,
+      item.open, item.high, item.low, item.close
+    ]);
+    this.exportSvc.downloadCsv(headers, rows, 'heikin-ashi-data.csv');
   }
 
   exportToJson(): void {
-    const blob = new Blob([JSON.stringify(this.heikinAshiData(), null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'heikin-ashi-data.json');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const items = this.heikinAshiData();
+    if (!items.length) return;
+    this.exportSvc.downloadJson(items, 'heikin-ashi-data.json');
   }
 
   exportToSvg(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svg);
-    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'heikin-ashi-chart.svg');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, 'heikin-ashi-chart.svg');
   }
 
   exportToPdf(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg || typeof window === 'undefined' || typeof document === 'undefined') return;
-
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Pop-up blocker prevented printing. Please allow pop-ups for this site.');
-      return;
-    }
-
-    const svgHtml = svg.outerHTML;
-    const printTemplate = `
-      <html>
-      <head>
-        <title>Heikin-Ashi Chart Export</title>
-        <style>
-          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
-          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
-          .title { font-size: 20px; font-weight: bold; }
-          .date { font-size: 12px; color: #64748b; }
-          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; width: 90%; }
-          svg { width: 100%; height: auto; }
-          .axis-label { font-size: 11px; fill: #6c757d; font-weight: 500; }
-          @media print {
-            body { padding: 0; }
-            .chart-container { border: none; padding: 0; width: 100%; }
-          }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <div class="title">Heikin-Ashi Chart Analytics</div>
-          <div class="date">${new Date().toLocaleString()}</div>
-        </div>
-        <div class="chart-container">
-          ${svgHtml}
-        </div>
-        <script>
-          window.onload = function() {
-            window.print();
-            setTimeout(function() { window.close(); }, 500);
-          };
-        </script>
-      </body>
-      </html>
-    `;
-
-    printWindow.document.write(printTemplate);
-    printWindow.document.close();
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Heikin-Ashi Chart', 'heikin-ashi-chart.pdf');
   }
 
   readonly fmtNum = fmtNum;

@@ -2,6 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, inject, DestroyRef, HostListener, viewChild
 } from '@angular/core';
+import { ChartExportService } from '../shared/chart-export.service';
 import { CommonModule } from '@angular/common';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
 
@@ -404,6 +405,7 @@ interface ProcessedVector {
   `]
 })
 export class BiplotComponent {
+  private readonly exportSvc = inject(ChartExportService);
   points = input<BiplotPoint[]>([]);
   vectors = input<BiplotVector[]>([]);
   height = input<number>(400);
@@ -576,105 +578,25 @@ export class BiplotComponent {
     const points = this.points();
     const vectors = this.vectors();
     if (!points.length && !vectors.length) return;
-    let csv = 'Type,Label,X,Y,Group\n';
-    points.forEach(p => {
-      csv += `Point,"${p.label}",${p.x},${p.y},"${p.group || ''}"\n`;
-    });
+    const headers = ['Type', 'Label', 'Group', 'X', 'Y'];
+    const rows = points.map(d => ['Point', d.label || '', d.group || '', d.x, d.y]);
     vectors.forEach(v => {
-      csv += `Vector,"${v.label}",${v.x},${v.y},\n`;
+      rows.push(['Vector', v.label, '', v.x, v.y]);
     });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'biplot-data.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadCsv(headers, rows, 'biplot-data.csv');
   }
 
   exportToJson(): void {
-    const data = {
-      points: this.points(),
-      vectors: this.vectors()
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'biplot-data.json');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const data = { points: this.points(), vectors: this.vectors() };
+    this.exportSvc.downloadJson(data, 'biplot-data.json');
   }
 
   exportToSvg(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg) return;
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svg);
-    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    }
-    source = '<?xml version="1.0" encoding="utf-8"?>\n' + source;
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'biplot.svg');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, 'biplot.svg');
   }
 
   exportToPdf(): void {
-    const svg = this.svgEl()?.nativeElement;
-    if (!svg || typeof window === 'undefined' || typeof document === 'undefined') return;
-
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Pop-up blocker prevented printing. Please allow pop-ups for this site.');
-      return;
-    }
-
-    const svgHtml = svg.outerHTML;
-
-    const printTemplate = `
-      <html>
-      <head>
-        <title>Biplot Export</title>
-        <style>
-          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
-          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
-          .title { font-size: 20px; font-weight: bold; }
-          .date { font-size: 12px; color: #64748b; }
-          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; width: 90%; }
-          svg { width: 100%; height: auto; }
-          .tick-label, .point-label, .vector-label { font-size: 11px; fill: #64748b; font-weight: 550; }
-          .vector-line { stroke: #ef4444; stroke-width: 2; }
-          @media print {
-            body { padding: 0; }
-            .chart-container { border: none; padding: 0; width: 100%; }
-          }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <div class="title">Biplot Analytics</div>
-          <div class="date">${new Date().toLocaleString()}</div>
-        </div>
-        <div class="chart-container">
-          ${svgHtml}
-        </div>
-        <script>
-          window.onload = function() {
-            window.print();
-            setTimeout(function() { window.close(); }, 500);
-          };
-        </script>
-      </body>
-      </html>
-    `;
-
-    printWindow.document.write(printTemplate);
-    printWindow.document.close();
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Biplot Export', 'biplot.pdf');
   }
 
   formatNumber(v: number): string {

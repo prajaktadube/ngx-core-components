@@ -2,7 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, computed, signal,
   ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
 import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
 
 export interface ErrorBarPoint {
@@ -20,7 +20,7 @@ export interface ErrorBarPoint {
 @Component({
   selector: 'ngx-error-bar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [DecimalPipe, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-error-bar" (mouseleave)="onMouseLeave()">

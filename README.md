@@ -1,6 +1,6 @@
 # ngx-core-components
 
-> Angular 19+ component library — **100+ production-ready UI components** built with signals, OnPush change detection, and zero runtime dependencies.
+> Angular 19+ component library — **110+ production-ready UI components** built with signals, OnPush change detection, and zero runtime dependencies.
 
 [![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
 [![CI](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml/badge.svg)](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml)
@@ -10,7 +10,7 @@
 
 ## ✨ Highlights
 
-- **100+ components** — Charts, Data Grid, Gantt, Kanban, AI Chat, Scheduler, and more
+- **110+ components** — 73 chart types, Data Grid, Gantt, Kanban, AI Chat, Scheduler, and more
 - **Zero runtime dependencies** — Pure SVG charts, no D3 or Chart.js required
 - **Signals-first** — Built entirely with `input()`, `output()`, `signal()`, `computed()`
 - **Tree-shakable** — 12 secondary entry points, import only what you need
@@ -19,7 +19,7 @@
 
 ## 🚀 Interactive Playground & Docs
 
-- **[Live Sandbox Demo](https://prajaktadube.github.io/ngx-core-components/)** — Explore and test all 100+ components interactively.
+- **[Live Sandbox Demo](https://prajaktadube.github.io/ngx-core-components/)** — Explore and test all 110+ components interactively.
 - **[Storybook Playground](https://prajaktadube.github.io/ngx-core-components/storybook/)** — Browse stories, inspect component inputs/outputs with controls, and verify accessibility.
 - **[Compodoc API Reference](https://prajaktadube.github.io/ngx-core-components/docs/)** — Detailed class structures, injection tokens, type models, and method signatures.
 
@@ -42,7 +42,7 @@ npm install ngx-core-components
 | Entry point | Components |
 |---|---|
 | `ngx-core-components` | Re-exports everything below |
-| `ngx-core-components/charts` | 35+ chart types: Bar, Line, Pie, Area, Gantt, Gauge, Radar, Heatmap, Treemap, Sankey, Violin, Candlestick, Waterfall, Box Plot, Sunburst, and more |
+| `ngx-core-components/charts` | **73 chart types**: Bar, Line, Pie, Area, Scatter, Gauge, Radar, Heatmap, Treemap, Sankey, Violin, Candlestick, Waterfall, Box Plot, Sunburst, Gantt, Bubble, Funnel, Marimekko, Pareto, Lollipop, Dumbbell, Slope, Ridgeline, Chord, Sankey, Dependency Wheel, Adjacency Matrix, Arc Diagram, Network Graph, Treegraph, Packed Bubble, Polar Area, Radial Bar, Wind Rose, Word Cloud, Venn, Pictorial, Parallel Coordinates, Streamgraph, Histogram, Bell Curve, Error Bar, Sparkline, Bullet, Combo — plus AI/ML charts (Embedding Space, Transformer Attention Heatmap, Token Streaming, Agentic Cognitive Topology) — financial charts (Candlestick, OHLC, HLC, Heikin-Ashi, Hollow Candlestick, Renko, Kagi, Point & Figure) — and geospatial maps (Choropleth, Geo Heatmap, Map Bubble, Map Line-Point, Tiled Web Map, Tilemap, Flowmap, Vector Plot) |
 | `ngx-core-components/inputs` | Textbox, Dropdown, Multi-select, Autocomplete, Checkbox, Radio, Date Picker, Date Range Picker, Time Picker, Slider, Switch, Rating, Numeric Textbox, Color Picker, File Upload, Tag Input, Signature Pad, Form Builder |
 | `ngx-core-components/grid` | Data Grid (sort, filter, group, paginate, inline edit, export) + Pivot Grid |
 | `ngx-core-components/views` | Tree View, List View, Kanban, Timeline, Scheduler, Virtual List, Org Chart, JSON Viewer, Calendar, Image Compare, Key-Value List |
