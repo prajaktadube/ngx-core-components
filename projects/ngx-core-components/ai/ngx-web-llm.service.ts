@@ -38,7 +38,7 @@ export class NgxWebLlmService {
 
     try {
       // Dynamic import of web-llm from CDN. Using type casting to bypass TS compilation lookup checks
-      const webLlmModule = await import('https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.46/+esm' as any);
+      const webLlmModule = await (Function('return import("https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.46/+esm")')() as Promise<any>);
       
       this.status.set('downloading_model');
       this.progress.set(0);

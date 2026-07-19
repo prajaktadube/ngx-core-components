@@ -86,7 +86,79 @@ export { PointFigureChartComponent } from 'ngx-core-components/charts';
 export type { PFCell } from 'ngx-core-components/charts';
 export { WindRoseChartComponent } from 'ngx-core-components/charts';
 export type { WindRoseItem, WindRoseSpeedBin } from 'ngx-core-components/charts';
+
+// Batch 1: Line, Area, Spline & Bar Ranges
+export { AreaRangeChartComponent } from 'ngx-core-components/charts';
+export type { AreaRangeSeries, AreaRangeDataPoint } from 'ngx-core-components/charts';
+export { AreaSplineRangeChartComponent } from 'ngx-core-components/charts';
+export { StreamgraphComponent } from 'ngx-core-components/charts';
+export type { StreamgraphSeries } from 'ngx-core-components/charts';
+export { ColumnRangeChartComponent } from 'ngx-core-components/charts';
+export type { ColumnRangeSeries, ColumnRangePoint } from 'ngx-core-components/charts';
+export { ColumnPyramidChartComponent } from 'ngx-core-components/charts';
+export type { ColumnPyramidSeries } from 'ngx-core-components/charts';
+export { VariwideChartComponent } from 'ngx-core-components/charts';
+export type { VariwidePoint } from 'ngx-core-components/charts';
+
+// Batch 2: Pie, Bubbles & Network Diagrams
+export { VariablePieChartComponent } from 'ngx-core-components/charts';
+export type { VariablePieDataPoint } from 'ngx-core-components/charts';
+export { PackedBubbleChartComponent } from 'ngx-core-components/charts';
+export type { BubbleNode } from 'ngx-core-components/charts';
+export { NetworkGraphComponent } from 'ngx-core-components/charts';
+export type { NetworkNode, NetworkLink } from 'ngx-core-components/charts';
+export { TreeGraphComponent } from 'ngx-core-components/charts';
+export type { TreeGraphNode } from 'ngx-core-components/charts';
+export { ArcDiagramComponent } from 'ngx-core-components/charts';
+export type { ArcNode, ArcLink } from 'ngx-core-components/charts';
+
+// Batch 3: Statistical & Advanced Visualizations
+export { HistogramComponent } from 'ngx-core-components/charts';
+export type { HistogramBin } from 'ngx-core-components/charts';
+export { BellCurveChartComponent } from 'ngx-core-components/charts';
+export type { CurvePoint } from 'ngx-core-components/charts';
+export { ErrorBarComponent } from 'ngx-core-components/charts';
+export type { ErrorBarPoint } from 'ngx-core-components/charts';
+export { TilemapComponent } from 'ngx-core-components/charts';
+export type { TileItem } from 'ngx-core-components/charts';
+export { VennDiagramComponent } from 'ngx-core-components/charts';
+export type { VennRegion } from 'ngx-core-components/charts';
+export { ParallelCoordinatesComponent } from 'ngx-core-components/charts';
+export type { ParallelLine, AxisDimension } from 'ngx-core-components/charts';
+export { WordCloudComponent } from 'ngx-core-components/charts';
+export type { WordItem } from 'ngx-core-components/charts';
+export { PictorialChartComponent } from 'ngx-core-components/charts';
+export type { PictorialIcon } from 'ngx-core-components/charts';
+export { VectorPlotComponent } from 'ngx-core-components/charts';
+export type { VectorItem } from 'ngx-core-components/charts';
+
+// Batch 4: Financial Indicators & Stock Options
+export { OHLCChartComponent } from 'ngx-core-components/charts';
+export type { OHLCItem } from 'ngx-core-components/charts';
+export { HLCChartComponent } from 'ngx-core-components/charts';
+export type { HLCItem } from 'ngx-core-components/charts';
+export { HollowCandlestickChartComponent } from 'ngx-core-components/charts';
+export { HeikinAshiChartComponent } from 'ngx-core-components/charts';
+export { FlagsComponent } from 'ngx-core-components/charts';
+export type { ChartFlag } from 'ngx-core-components/charts';
+
+// Batch 5: Geographical Maps
+export { MapChoroplethComponent } from 'ngx-core-components/charts';
+export type { ChoroplethDataPoint } from 'ngx-core-components/charts';
+export { MapBubbleComponent } from 'ngx-core-components/charts';
+export type { MapBubblePoint } from 'ngx-core-components/charts';
+export { MapLinePointComponent } from 'ngx-core-components/charts';
+export type { MapPoint, MapLine } from 'ngx-core-components/charts';
+export { FlowmapComponent } from 'ngx-core-components/charts';
+export type { FlowNode, FlowConnection } from 'ngx-core-components/charts';
+export { GeoHeatmapComponent } from 'ngx-core-components/charts';
+export type { GeoHeatmapPoint } from 'ngx-core-components/charts';
+export { TiledWebMapComponent } from 'ngx-core-components/charts';
+export type { MapMarker } from 'ngx-core-components/charts';
+
+
 export { GanttChartComponent } from 'ngx-core-components/charts';
+
 export type { FlatRow } from 'ngx-core-components/charts';
 export { GanttScaleService } from 'ngx-core-components/charts';
 // Gantt model types
@@ -116,6 +188,14 @@ export type {
   GanttTooltipContext,
 } from 'ngx-core-components/charts';
 export { ZoomLevel, DependencyType } from 'ngx-core-components/charts';
+
+// AI-Native Chart Types
+export { TokenStreamingChartComponent } from 'ngx-core-components/charts';
+export { EmbeddingSpaceProjectionComponent } from 'ngx-core-components/charts';
+export type { EmbeddingPoint } from 'ngx-core-components/charts';
+export { AgenticCognitiveTopologyComponent } from 'ngx-core-components/charts';
+export type { TopologyNode, TopologyLink } from 'ngx-core-components/charts';
+export { TransformerAttentionHeatmapComponent } from 'ngx-core-components/charts';
 
 // ===== Data Grid (also available via ngx-core-components/grid) =====
 export {

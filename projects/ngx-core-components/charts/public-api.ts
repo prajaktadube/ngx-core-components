@@ -122,4 +122,81 @@ export type { PFCell } from './point-figure-chart/point-figure-chart.component';
 export { WindRoseChartComponent } from './wind-rose/wind-rose.component';
 export type { WindRoseItem, WindRoseSpeedBin } from './wind-rose/wind-rose.component';
 
+// Batch 1: Line, Area, Spline & Bar Ranges
+export { AreaRangeChartComponent } from './area-range-chart/area-range-chart.component';
+export type { AreaRangeSeries, AreaRangeDataPoint } from './area-range-chart/area-range-chart.component';
+export { AreaSplineRangeChartComponent } from './area-spline-range-chart/area-spline-range-chart.component';
+export { StreamgraphComponent } from './streamgraph/streamgraph.component';
+export type { StreamgraphSeries } from './streamgraph/streamgraph.component';
+export { ColumnRangeChartComponent } from './column-range-chart/column-range-chart.component';
+export type { ColumnRangeSeries, ColumnRangePoint } from './column-range-chart/column-range-chart.component';
+export { ColumnPyramidChartComponent } from './column-pyramid-chart/column-pyramid-chart.component';
+export type { ColumnPyramidSeries } from './column-pyramid-chart/column-pyramid-chart.component';
+export { VariwideChartComponent } from './variwide-chart/variwide-chart.component';
+export type { VariwidePoint } from './variwide-chart/variwide-chart.component';
+
+// Batch 2: Pie, Bubbles & Network Diagrams
+export { VariablePieChartComponent } from './variable-pie-chart/variable-pie-chart.component';
+export type { VariablePieDataPoint } from './variable-pie-chart/variable-pie-chart.component';
+export { PackedBubbleChartComponent } from './packed-bubble-chart/packed-bubble-chart.component';
+export type { BubbleNode } from './packed-bubble-chart/packed-bubble-chart.component';
+export { NetworkGraphComponent } from './network-graph/network-graph.component';
+export type { NetworkNode, NetworkLink } from './network-graph/network-graph.component';
+export { TreeGraphComponent } from './treegraph/treegraph.component';
+export type { TreeGraphNode } from './treegraph/treegraph.component';
+export { ArcDiagramComponent } from './arc-diagram/arc-diagram.component';
+export type { ArcNode, ArcLink } from './arc-diagram/arc-diagram.component';
+
+// Batch 3: Statistical & Advanced Visualizations
+export { HistogramComponent } from './histogram/histogram.component';
+export type { HistogramBin } from './histogram/histogram.component';
+export { BellCurveChartComponent } from './bell-curve-chart/bell-curve-chart.component';
+export type { CurvePoint } from './bell-curve-chart/bell-curve-chart.component';
+export { ErrorBarComponent } from './error-bar/error-bar.component';
+export type { ErrorBarPoint } from './error-bar/error-bar.component';
+export { TilemapComponent } from './tilemap/tilemap.component';
+export type { TileItem } from './tilemap/tilemap.component';
+export { VennDiagramComponent } from './venn-diagram/venn-diagram.component';
+export type { VennRegion } from './venn-diagram/venn-diagram.component';
+export { ParallelCoordinatesComponent } from './parallel-coordinates/parallel-coordinates.component';
+export type { ParallelLine, AxisDimension } from './parallel-coordinates/parallel-coordinates.component';
+export { WordCloudComponent } from './word-cloud/word-cloud.component';
+export type { WordItem } from './word-cloud/word-cloud.component';
+export { PictorialChartComponent } from './pictorial-chart/pictorial-chart.component';
+export type { PictorialIcon } from './pictorial-chart/pictorial-chart.component';
+export { VectorPlotComponent } from './vector-plot/vector-plot.component';
+export type { VectorItem } from './vector-plot/vector-plot.component';
+
+// Batch 4: Financial Indicators & Stock Options
+export { OHLCChartComponent } from './ohlc-chart/ohlc-chart.component';
+export type { OHLCItem } from './ohlc-chart/ohlc-chart.component';
+export { HLCChartComponent } from './hlc-chart/hlc-chart.component';
+export type { HLCItem } from './hlc-chart/hlc-chart.component';
+export { HollowCandlestickChartComponent } from './hollow-candlestick-chart/hollow-candlestick-chart.component';
+export { HeikinAshiChartComponent } from './heikin-ashi-chart/heikin-ashi-chart.component';
+export { FlagsComponent } from './flags/flags.component';
+export type { ChartFlag } from './flags/flags.component';
+
+// Batch 5: Geographical Maps
+export { MapChoroplethComponent } from './map-choropleth/map-choropleth.component';
+export type { ChoroplethDataPoint } from './map-choropleth/map-choropleth.component';
+export { MapBubbleComponent } from './map-bubble/map-bubble.component';
+export type { MapBubblePoint } from './map-bubble/map-bubble.component';
+export { MapLinePointComponent } from './map-line-point/map-line-point.component';
+export type { MapPoint, MapLine } from './map-line-point/map-line-point.component';
+export { FlowmapComponent } from './flowmap/flowmap.component';
+export type { FlowNode, FlowConnection } from './flowmap/flowmap.component';
+export { GeoHeatmapComponent } from './geo-heatmap/geo-heatmap.component';
+export type { GeoHeatmapPoint } from './geo-heatmap/geo-heatmap.component';
+export { TiledWebMapComponent } from './tiled-web-map/tiled-web-map.component';
+export type { MapMarker } from './tiled-web-map/tiled-web-map.component';
+
+// AI-Native Chart Types
+export { TokenStreamingChartComponent } from './token-streaming-chart/token-streaming-chart.component';
+export { EmbeddingSpaceProjectionComponent } from './embedding-space-projection/embedding-space-projection.component';
+export type { EmbeddingPoint } from './embedding-space-projection/embedding-space-projection.component';
+export { AgenticCognitiveTopologyComponent } from './agentic-cognitive-topology/agentic-cognitive-topology.component';
+export type { TopologyNode, TopologyLink } from './agentic-cognitive-topology/agentic-cognitive-topology.component';
+export { TransformerAttentionHeatmapComponent } from './transformer-attention-heatmap/transformer-attention-heatmap.component';
+
 

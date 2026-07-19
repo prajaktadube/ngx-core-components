@@ -1,4 +1,4 @@
-import { Component, signal, computed, ElementRef, viewChild, inject, OnInit, TemplateRef } from '@angular/core';
+import { Component, signal, computed, ElementRef, viewChild, inject, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -15,8 +15,22 @@ import {
   WaterfallItem, BoxPlotItem, RadialBarItem, CandlestickItem, FunnelItem, BubblePoint, SunburstNode,
   DumbbellItem, SlopeDataPoint, SankeyNode, SankeyLink,
   ViolinItem, RidgelineItem, ParetoItem, MarimekkoItem,
-  ChordItem, DependencyItem, MatrixItem, BiplotPoint, BiplotVector, WindRoseItem
+  ChordItem, DependencyItem, MatrixItem, BiplotPoint, BiplotVector, WindRoseItem,
+  NetworkGraphComponent, MapChoroplethComponent, FlowmapComponent,
+  TreeGraphComponent, VennDiagramComponent, WordCloudComponent,
+  BellCurveChartComponent, HistogramComponent, FlagsComponent, AreaRangeChartComponent,
+  AreaSplineRangeChartComponent, StreamgraphComponent, ColumnRangeChartComponent,
+  ColumnPyramidChartComponent, VariwideChartComponent, VariablePieChartComponent,
+  PackedBubbleChartComponent, ArcDiagramComponent, ErrorBarComponent, TilemapComponent,
+  TokenStreamingChartComponent, EmbeddingSpaceProjectionComponent, AgenticCognitiveTopologyComponent,
+  TransformerAttentionHeatmapComponent,
+  NetworkNode, NetworkLink, ChoroplethDataPoint, FlowNode, FlowConnection,
+  TreeGraphNode, VennRegion, WordItem, CurvePoint, HistogramBin, ChartFlag, AreaRangeSeries,
+  StreamgraphSeries, ColumnRangeSeries, ColumnRangePoint, ColumnPyramidSeries,
+  VariwidePoint, VariablePieDataPoint, BubbleNode, ArcNode, ArcLink, ErrorBarPoint, TileItem,
+  EmbeddingPoint, TopologyNode, TopologyLink
 } from 'ngx-core-components';
+
 
 // Import source codes for StackBlitz programmatic compiler
 import * as Sources from './chart-sources';
@@ -36,7 +50,15 @@ interface ApiRow { name: string; type: string; default: string; description: str
     DumbbellChartComponent, LollipopChartComponent, SlopeChartComponent, SankeyChartComponent,
     ViolinPlotComponent, RidgelineChartComponent, ParetoChartComponent, MarimekkoChartComponent,
     ChordDiagramComponent, DependencyWheelComponent, AdjacencyMatrixComponent, BiplotComponent,
-    RenkoChartComponent, KagiChartComponent, PointFigureChartComponent, WindRoseChartComponent
+    RenkoChartComponent, KagiChartComponent, PointFigureChartComponent, WindRoseChartComponent,
+    NetworkGraphComponent, MapChoroplethComponent, FlowmapComponent,
+    TreeGraphComponent, VennDiagramComponent, WordCloudComponent,
+    BellCurveChartComponent, HistogramComponent, FlagsComponent, AreaRangeChartComponent,
+    AreaSplineRangeChartComponent, StreamgraphComponent, ColumnRangeChartComponent,
+    ColumnPyramidChartComponent, VariwideChartComponent, VariablePieChartComponent,
+    PackedBubbleChartComponent, ArcDiagramComponent, ErrorBarComponent, TilemapComponent,
+    TokenStreamingChartComponent, EmbeddingSpaceProjectionComponent, AgenticCognitiveTopologyComponent,
+    TransformerAttentionHeatmapComponent
   ],
   template: `
     <div class="demo-page" [class.dark-theme]="chartTheme() === 'dark'">
@@ -584,6 +606,307 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [labelFormatter]="useCustomFormatter() ? roseFormatter : undefined"
                 />
               }
+
+              <!-- AREA RANGE -->
+              @if (activeTab() === 'Area Range') {
+                <ngx-area-range-chart
+                  [series]="areaRangeData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showMarkers]="showMarkers()"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- NETWORK GRAPH -->
+              @if (activeTab() === 'Network Graph') {
+                <ngx-network-graph
+                  [nodes]="networkNodes"
+                  [links]="networkLinks"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- TREEGRAPH -->
+              @if (activeTab() === 'Treegraph') {
+                <ngx-treegraph
+                  [data]="treegraphData"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- MAP CHOROPLETH -->
+              @if (activeTab() === 'Map Choropleth') {
+                <ngx-map-choropleth
+                  [data]="choroplethData"
+                  [height]="chartHeight() + 80"
+                  [colors]="['#e0f2fe', '#0284c7']"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                />
+              }
+
+              <!-- FLOWMAP -->
+              @if (activeTab() === 'Flowmap') {
+                <ngx-flowmap
+                  [nodes]="flowmapNodes"
+                  [flows]="flowmapLinks"
+                  [height]="chartHeight() + 80"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- VENN DIAGRAM -->
+              @if (activeTab() === 'Venn Diagram') {
+                <ngx-venn-diagram
+                  [sets]="['Mobile', 'Web', 'Desktop']"
+                  [sizes]="{
+                    'A': 120,
+                    'B': 150,
+                    'C': 90,
+                    'A&B': 45,
+                    'B&C': 35,
+                    'A&C': 20,
+                    'A&B&C': 12
+                  }"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- WORD CLOUD -->
+              @if (activeTab() === 'Word Cloud') {
+                <ngx-word-cloud
+                  [data]="wordCloudItems"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- BELL CURVE -->
+              @if (activeTab() === 'Bell Curve') {
+                <ngx-bell-curve-chart
+                  [data]="bellCurveData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- HISTOGRAM -->
+              @if (activeTab() === 'Histogram') {
+                <ngx-histogram
+                  [data]="histogramData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- FLAGS -->
+              @if (activeTab() === 'Flags') {
+                <ngx-flags
+                  [data]="flagsData"
+                  [dataset]="flagsTimelineDataset"
+                  [categories]="flagsTimelineCategories"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- AREA SPLINE RANGE -->
+              @if (activeTab() === 'Area Spline Range') {
+                <ngx-area-spline-range-chart
+                  [series]="areaSplineRangeData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showMarkers]="showMarkers()"
+                  [showLegend]="showLegend()"
+                />
+              }
+
+              <!-- STREAMGRAPH -->
+              @if (activeTab() === 'Streamgraph') {
+                <ngx-streamgraph
+                  [series]="streamgraphSeries"
+                  [categories]="streamgraphCategories"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                />
+              }
+
+              <!-- COLUMN RANGE -->
+              @if (activeTab() === 'Column Range') {
+                <ngx-column-range-chart
+                  [series]="columnRangeData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- COLUMN PYRAMID -->
+              @if (activeTab() === 'Column Pyramid') {
+                <ngx-column-pyramid-chart
+                  [series]="columnPyramidSeries"
+                  [categories]="months"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- VARIWIDE -->
+              @if (activeTab() === 'Variwide') {
+                <ngx-variwide-chart
+                  [data]="variwideData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- VARIABLE PIE -->
+              @if (activeTab() === 'Variable Pie') {
+                <ngx-variable-pie-chart
+                  [data]="variablePieData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- PACKED BUBBLE -->
+              @if (activeTab() === 'Packed Bubble') {
+                <ngx-packed-bubble-chart
+                  [data]="packedBubbleData"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- ARC DIAGRAM -->
+              @if (activeTab() === 'Arc Diagram') {
+                <ngx-arc-diagram
+                  [nodes]="arcNodes"
+                  [links]="arcLinks"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- ERROR BAR -->
+              @if (activeTab() === 'Error Bar') {
+                <ngx-error-bar
+                  [data]="errorBarData"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                />
+              }
+
+              <!-- TILEMAP -->
+              @if (activeTab() === 'Tilemap') {
+                <ngx-tilemap
+                  [data]="tilemapData"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- TOKEN STREAMING -->
+              @if (activeTab() === 'Token Streaming') {
+                <ngx-token-streaming-chart
+                  #tokenStreamChart
+                  [title]="'Real-Time LLM Token Output Speed'"
+                  [windowSize]="50"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  (streamTick)="onTokenStreamTick($event)"
+                  (agentPromptRequest)="onAgentPromptRequest($event)"
+                />
+              }
+
+              <!-- EMBEDDING PROJECTION -->
+              @if (activeTab() === 'Embedding Projection') {
+                <ngx-embedding-space-projection
+                  [data]="embeddingProjectionData"
+                  [width]="650"
+                  [height]="chartHeight() + 80"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  (lassoSelected)="onEmbeddingLassoSelected($event)"
+                  (agentQueryRequest)="onEmbeddingAgentQuery($event)"
+                />
+              }
+
+              <!-- AGENT COGNITIVE TOPOLOGY -->
+              @if (activeTab() === 'Agent Cognitive Topology') {
+                <ngx-agentic-cognitive-topology
+                  [nodes]="topologyNodes"
+                  [links]="topologyLinks"
+                  [width]="650"
+                  [height]="chartHeight() + 80"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  (nodeActionClick)="onTopologyNodeAction($event)"
+                />
+              }
+
+              <!-- ATTENTION HEATMAP -->
+              @if (activeTab() === 'Attention Heatmap') {
+                <ngx-transformer-attention-heatmap
+                  [tokensX]="attentionTokensX"
+                  [tokensY]="attentionTokensY"
+                  [weights]="attentionWeights"
+                  [height]="chartHeight() + 60"
+                  [colors]="['#f8fafc', '#ec4899']"
+                  [showExport]="true"
+                  (cellClick)="onAttentionCellClick($event)"
+                  (agentQueryRequest)="onAttentionAgentQuery($event)"
+                />
+              }
+
             </div>
           </div>
 
@@ -1759,8 +2082,9 @@ interface ApiRow { name: string; type: string; default: string; description: str
     }
   `]
 })
-export class ChartsDemoComponent implements OnInit {
+export class ChartsDemoComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
+  private streamInterval: any;
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -1769,6 +2093,24 @@ export class ChartsDemoComponent implements OnInit {
         this.activeTab.set(tab);
       }
     });
+
+    // Live LLM Token Streaming interval simulator
+    this.streamInterval = setInterval(() => {
+      if (this.activeTab() === 'Token Streaming') {
+        const chart = this.tokenStreamChart();
+        if (chart) {
+          const isAnomaly = Math.random() > 0.93;
+          const val = isAnomaly ? (90 + Math.random() * 45) : (15 + Math.random() * 20);
+          chart.appendPoint(val);
+        }
+      }
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.streamInterval) {
+      clearInterval(this.streamInterval);
+    }
   }
 
   activeTab = signal('Bar Chart');
@@ -1779,6 +2121,7 @@ export class ChartsDemoComponent implements OnInit {
   useCustomFormatter = signal(false);
   useCustomTooltip = signal(true);
   customTooltipTemplate = viewChild<TemplateRef<any>>('customTooltip');
+  tokenStreamChart = viewChild<TokenStreamingChartComponent>('tokenStreamChart');
 
   // Chart Event Click Logs
   chartClickLogs = signal<{ category: string; value: number; seriesName: string; time: string; timestamp: number }[]>([]);
@@ -1819,6 +2162,66 @@ export class ChartsDemoComponent implements OnInit {
     ].slice(0, 10));
   }
 
+  onTokenStreamTick(event: { index: number; value: number }) {
+    if (event.value > 85) {
+      this.onChartClick({
+        category: 'Token Streaming',
+        value: event.value,
+        seriesName: `High latency anomaly detected at Token #${event.index + 1}`
+      });
+    }
+  }
+
+  onAgentPromptRequest(event: { index: number; value: number; prompt: string }) {
+    this.onChartClick({
+      category: 'Token Streaming',
+      value: event.value,
+      seriesName: `Prompt request: "${event.prompt}"`
+    });
+  }
+
+  onEmbeddingLassoSelected(ids: string[]) {
+    this.onChartClick({
+      category: 'Embedding Space',
+      value: ids.length,
+      seriesName: `Lasso selection updated: ${ids.length} points selected`
+    });
+  }
+
+  onEmbeddingAgentQuery(event: { selectedIds: string[]; queryType: string }) {
+    this.onChartClick({
+      category: 'Embedding Space',
+      value: event.selectedIds.length,
+      seriesName: `Agent query type "${event.queryType}" for ${event.selectedIds.length} vectors`
+    });
+  }
+
+  onTopologyNodeAction(event: { nodeId: string; action: string }) {
+    this.onChartClick({
+      category: 'Agent Topology',
+      value: 0,
+      seriesName: `Triggered action "${event.action}" on node "${event.nodeId}"`
+    });
+  }
+
+  onAttentionCellClick(event: { row: number; col: number; weight: number }) {
+    const tokenY = this.attentionTokensY[event.row];
+    const tokenX = this.attentionTokensX[event.col];
+    this.onChartClick({
+      category: 'Attention Heatmap',
+      value: event.weight,
+      seriesName: `Clicked connection: "${tokenY}" -> "${tokenX}" (${(event.weight * 100).toFixed(1)}%)`
+    });
+  }
+
+  onAttentionAgentQuery(event: { query: string; tokenY: string; tokenX: string; weight: number }) {
+    this.onChartClick({
+      category: 'Attention Heatmap',
+      value: event.weight,
+      seriesName: `Agent attention query: "${event.query}"`
+    });
+  }
+
   clearLogs() {
     this.chartClickLogs.set([]);
   }
@@ -1846,7 +2249,12 @@ export class ChartsDemoComponent implements OnInit {
     'Slope Chart', 'Sankey Chart', 'Violin Plot', 'Ridgeline Chart',
     'Pareto Chart', 'Marimekko Chart', 'Chord Diagram', 'Dependency Wheel',
     'Adjacency Matrix', 'Biplot / PCA Plot', 'Renko Chart', 'Kagi Chart',
-    'Point & Figure Chart', 'Wind Rose'
+    'Point & Figure Chart', 'Wind Rose', 'Area Range', 'Network Graph', 
+    'Treegraph', 'Map Choropleth', 'Flowmap', 'Venn Diagram', 'Word Cloud', 
+    'Bell Curve', 'Histogram', 'Flags', 'Area Spline Range', 'Streamgraph',
+    'Column Range', 'Column Pyramid', 'Variwide', 'Variable Pie', 'Packed Bubble',
+    'Arc Diagram', 'Error Bar', 'Tilemap', 'Token Streaming', 'Embedding Projection',
+    'Agent Cognitive Topology', 'Attention Heatmap'
   ];
 
   // Config settings
@@ -2140,6 +2548,314 @@ export class ChartsDemoComponent implements OnInit {
     { direction: 'NW', speedBins: [{ label: '< 5m/s', value: 4.5 }, { label: '5-15m/s', value: 6.9 }, { label: '> 15m/s', value: 2.8 }] },
     { direction: 'NNW', speedBins: [{ label: '< 5m/s', value: 2.2 }, { label: '5-15m/s', value: 4.2 }, { label: '> 15m/s', value: 1.0 }] }
   ];
+
+  // Advanced Charts Batch Mock Data
+  areaRangeData: AreaRangeSeries[] = [
+    {
+      name: 'Temperature Range',
+      data: [
+        { category: 'Mon', low: 12, high: 22 },
+        { category: 'Tue', low: 14, high: 24 },
+        { category: 'Wed', low: 11, high: 21 },
+        { category: 'Thu', low: 15, high: 26 },
+        { category: 'Fri', low: 16, high: 28 },
+        { category: 'Sat', low: 13, high: 23 },
+        { category: 'Sun', low: 12, high: 22 }
+      ]
+    }
+  ];
+
+  networkNodes: NetworkNode[] = [
+    { id: 'R1', label: 'Gateway Router', value: 80, group: 'Network', color: '#6366f1' },
+    { id: 'S1', label: 'App Server 1', value: 50, group: 'Apps', color: '#3b82f6' },
+    { id: 'S2', label: 'App Server 2', value: 50, group: 'Apps', color: '#3b82f6' },
+    { id: 'DB', label: 'Primary DB', value: 70, group: 'Storage', color: '#10b981' },
+    { id: 'C1', label: 'Cache Node', value: 40, group: 'Storage', color: '#10b981' },
+    { id: 'LB', label: 'Load Balancer', value: 60, group: 'Network', color: '#6366f1' }
+  ];
+
+  networkLinks: NetworkLink[] = [
+    { source: 'R1', target: 'LB', value: 4 },
+    { source: 'LB', target: 'S1', value: 2 },
+    { source: 'LB', target: 'S2', value: 2 },
+    { source: 'S1', target: 'DB', value: 3 },
+    { source: 'S2', target: 'DB', value: 3 },
+    { source: 'S1', target: 'C1', value: 1 },
+    { source: 'S2', target: 'C1', value: 1 }
+  ];
+
+  treegraphData: TreeGraphNode[] = [
+    { id: '1', label: 'CEO (Sophia)', value: 100 },
+    { id: '2', label: 'VP Eng (Alex)', parentId: '1', value: 80 },
+    { id: '3', label: 'VP Product (Mia)', parentId: '1', value: 80 },
+    { id: '4', label: 'QA Lead (John)', parentId: '2', value: 50 },
+    { id: '5', label: 'Dev Lead (Elena)', parentId: '2', value: 60 },
+    { id: '6', label: 'Design Lead (Leo)', parentId: '3', value: 55 },
+    { id: '7', label: 'Product Manager (Zara)', parentId: '3', value: 50 }
+  ];
+
+  choroplethData: ChoroplethDataPoint[] = [
+    { regionId: 'US', value: 85, label: 'United States' },
+    { regionId: 'CA', value: 45, label: 'Canada' },
+    { regionId: 'MX', value: 25, label: 'Mexico' },
+    { regionId: 'EU', value: 95, label: 'Europe Hub' },
+    { regionId: 'CN', value: 110, label: 'China' },
+    { regionId: 'IN', value: 75, label: 'India' },
+    { regionId: 'RU', value: 35, label: 'Russia' },
+    { regionId: 'AU', value: 60, label: 'Australia' }
+  ];
+
+  flowmapNodes: FlowNode[] = [
+    { id: 'CN', lat: 39.9, lng: 116.4, label: 'Beijing Factory', color: '#ef4444', size: 12 },
+    { id: 'US', lat: 40.71, lng: -74.0, label: 'New York Warehouse', color: '#3b82f6', size: 10 },
+    { id: 'EU', lat: 51.5, lng: -0.12, label: 'London Distribution', color: '#10b981', size: 10 },
+    { id: 'AU', lat: -33.86, lng: 151.2, label: 'Sydney Hub', color: '#8b5cf6', size: 8 }
+  ];
+
+  flowmapLinks: FlowConnection[] = [
+    { from: 'CN', to: 'US', value: 800, label: 'Electronics', color: '#ef4444' },
+    { from: 'CN', to: 'EU', value: 650, label: 'Apparel', color: '#10b981' },
+    { from: 'CN', to: 'AU', value: 350, label: 'Machinery', color: '#8b5cf6' }
+  ];
+
+  vennRegions: any[] = [
+    { key: 'A', label: 'Mobile Users', value: 120 },
+    { key: 'B', label: 'Web Users', value: 150 },
+    { key: 'C', label: 'Desktop Users', value: 90 },
+    { key: 'A&B', label: 'Mobile & Web', value: 45 },
+    { key: 'B&C', label: 'Web & Desktop', value: 35 },
+    { key: 'A&C', label: 'Mobile & Desktop', value: 20 },
+    { key: 'A&B&C', label: 'Omnichannel', value: 12 }
+  ];
+
+  wordCloudItems: WordItem[] = [
+    { text: 'Angular', value: 95 },
+    { text: 'TypeScript', value: 85 },
+    { text: 'Signals', value: 75 },
+    { text: 'RxJS', value: 60 },
+    { text: 'HTML5', value: 50 },
+    { text: 'SCSS', value: 45 },
+    { text: 'D3', value: 40 },
+    { text: 'Jasmine', value: 35 },
+    { text: 'Karma', value: 30 },
+    { text: 'NodeJS', value: 55 },
+    { text: 'WebAssembly', value: 25 },
+    { text: 'ESLint', value: 30 },
+    { text: 'Prettier', value: 20 }
+  ];
+
+  bellCurveData: number[] = [
+    85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 75, 70, 80, 88, 92, 98, 102, 108, 112, 118, 122, 100, 105, 95, 100, 105, 95, 100, 105
+  ];
+
+  histogramData: number[] = [
+    12, 15, 18, 22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85, 23, 26, 29, 32, 35, 38, 41, 44, 47, 50, 53, 56, 59, 62, 65, 68, 71, 74, 77, 80, 35, 39, 43, 47, 51, 55, 59, 63, 67, 71, 45, 49, 53, 57, 61, 65, 69, 73
+  ];
+
+  flagsData: ChartFlag[] = [
+    { x: 'Jan 10', title: 'A', text: 'Alpha Release' },
+    { x: 'Feb 15', title: 'B', text: 'Beta Testing Kickoff', color: '#eab308' },
+    { x: 'Mar 22', title: 'M1', text: 'Milestone 1 Met', color: '#22c55e', shape: 'pin' },
+    { x: 'Apr 05', title: 'C', text: 'Candidate Release', shape: 'circle' },
+    { x: 'May 12', title: 'V1', text: 'Production Deployment V1.0', color: '#ec4899', shape: 'square' }
+  ];
+
+  flagsTimelineCategories: string[] = ['Jan 10', 'Feb 15', 'Mar 22', 'Apr 05', 'May 12', 'Jun 18'];
+  flagsTimelineDataset: ChartSeries = {
+    name: 'Build Stability Index',
+    data: [75, 82, 70, 89, 95, 98],
+    color: '#6366f1'
+  };
+
+  // Area Spline Range data
+  areaSplineRangeData: AreaRangeSeries[] = [
+    {
+      name: 'Temperature Range',
+      data: [
+        { category: 'Mon', low: 12, high: 22 },
+        { category: 'Tue', low: 14, high: 25 },
+        { category: 'Wed', low: 10, high: 20 },
+        { category: 'Thu', low: 15, high: 28 },
+        { category: 'Fri', low: 13, high: 24 },
+        { category: 'Sat', low: 11, high: 21 },
+        { category: 'Sun', low: 16, high: 26 },
+      ]
+    }
+  ];
+
+  // Streamgraph data
+  streamgraphSeries: StreamgraphSeries[] = [
+    { name: 'Rock', data: [20, 25, 30, 35, 28, 22, 18] },
+    { name: 'Pop', data: [15, 20, 35, 40, 45, 42, 38] },
+    { name: 'Jazz', data: [25, 22, 18, 15, 12, 10, 8] },
+    { name: 'Hip Hop', data: [5, 8, 12, 18, 25, 35, 42] },
+    { name: 'Electronic', data: [3, 5, 10, 15, 22, 30, 35] },
+  ];
+  streamgraphCategories = ['1970', '1980', '1990', '2000', '2010', '2015', '2020'];
+
+  // Column Range data
+  columnRangeData: ColumnRangeSeries[] = [
+    {
+      name: 'Temperature',
+      data: [
+        { category: 'Jan', low: -5, high: 5 },
+        { category: 'Feb', low: -3, high: 8 },
+        { category: 'Mar', low: 2, high: 14 },
+        { category: 'Apr', low: 6, high: 20 },
+        { category: 'May', low: 10, high: 25 },
+        { category: 'Jun', low: 15, high: 30 },
+      ]
+    }
+  ];
+
+  // Column Pyramid data
+  columnPyramidSeries: ColumnPyramidSeries[] = [
+    { name: 'Population', data: [1411, 1380, 331, 274, 214, 169] },
+  ];
+
+  // Variwide data
+  variwideData: VariwidePoint[] = [
+    { label: 'China', y: 12400, w: 1411 },
+    { label: 'USA', y: 63500, w: 331 },
+    { label: 'Germany', y: 46200, w: 83 },
+    { label: 'Japan', y: 39300, w: 126 },
+    { label: 'UK', y: 42300, w: 67 },
+    { label: 'India', y: 2100, w: 1380 },
+  ];
+
+  // Variable Pie data
+  variablePieData: VariablePieDataPoint[] = [
+    { label: 'Spain', value: 505, radiusValue: 92 },
+    { label: 'France', value: 551, radiusValue: 119 },
+    { label: 'Italy', value: 348, radiusValue: 106 },
+    { label: 'Germany', value: 312, radiusValue: 130 },
+    { label: 'UK', value: 292, radiusValue: 148 },
+  ];
+
+  // Packed Bubble data
+  packedBubbleData: BubbleNode[] = [
+    { id: '1', label: 'React', value: 180, group: 'Frontend' },
+    { id: '2', label: 'Angular', value: 120, group: 'Frontend' },
+    { id: '3', label: 'Vue', value: 90, group: 'Frontend' },
+    { id: '4', label: 'Node.js', value: 150, group: 'Backend' },
+    { id: '5', label: 'Python', value: 200, group: 'Backend' },
+    { id: '6', label: 'Go', value: 80, group: 'Backend' },
+    { id: '7', label: 'PostgreSQL', value: 130, group: 'Database' },
+    { id: '8', label: 'MongoDB', value: 100, group: 'Database' },
+    { id: '9', label: 'Redis', value: 70, group: 'Database' },
+  ];
+
+  // Arc Diagram data
+  arcNodes: ArcNode[] = [
+    { id: 'A', label: 'Alice' },
+    { id: 'B', label: 'Bob' },
+    { id: 'C', label: 'Charlie' },
+    { id: 'D', label: 'Diana' },
+    { id: 'E', label: 'Eve' },
+  ];
+  arcLinks: ArcLink[] = [
+    { source: 'A', target: 'B', value: 5 },
+    { source: 'A', target: 'C', value: 3 },
+    { source: 'B', target: 'D', value: 4 },
+    { source: 'C', target: 'E', value: 2 },
+    { source: 'D', target: 'E', value: 6 },
+  ];
+
+  // Error Bar data
+  errorBarData: ErrorBarPoint[] = [
+    { label: 'Experiment 1', value: 42, errorPlus: 5, errorMinus: 3, x: 0, y: 0, yTop: 0, yBottom: 0 },
+    { label: 'Experiment 2', value: 58, errorPlus: 7, errorMinus: 4, x: 0, y: 0, yTop: 0, yBottom: 0 },
+    { label: 'Experiment 3', value: 35, errorPlus: 6, errorMinus: 5, x: 0, y: 0, yTop: 0, yBottom: 0 },
+    { label: 'Experiment 4', value: 71, errorPlus: 4, errorMinus: 3, x: 0, y: 0, yTop: 0, yBottom: 0 },
+    { label: 'Experiment 5', value: 49, errorPlus: 8, errorMinus: 6, x: 0, y: 0, yTop: 0, yBottom: 0 },
+  ];
+
+  // Tilemap data (US states simplified)
+  tilemapData: TileItem[] = [
+    { r: 0, c: 10, label: 'ME', value: 1362 },
+    { r: 1, c: 9, label: 'VT', value: 647 },
+    { r: 1, c: 10, label: 'NH', value: 1389 },
+    { r: 2, c: 7, label: 'WI', value: 5896 },
+    { r: 2, c: 8, label: 'MI', value: 10051 },
+    { r: 2, c: 9, label: 'NY', value: 19454 },
+    { r: 2, c: 10, label: 'MA', value: 7030 },
+    { r: 3, c: 5, label: 'NE', value: 1963 },
+    { r: 3, c: 6, label: 'IA', value: 3191 },
+    { r: 3, c: 7, label: 'IL', value: 12671 },
+    { r: 3, c: 8, label: 'IN', value: 6806 },
+    { r: 3, c: 9, label: 'PA', value: 13003 },
+    { r: 3, c: 10, label: 'CT', value: 3605 },
+    { r: 4, c: 4, label: 'CO', value: 5840 },
+    { r: 4, c: 5, label: 'KS', value: 2937 },
+    { r: 4, c: 6, label: 'MO', value: 6169 },
+    { r: 4, c: 9, label: 'NJ', value: 9289 },
+    { r: 5, c: 5, label: 'OK', value: 4000 },
+    { r: 5, c: 6, label: 'AR', value: 3025 },
+    { r: 5, c: 8, label: 'VA', value: 8643 },
+    { r: 6, c: 4, label: 'NM', value: 2118 },
+    { r: 6, c: 5, label: 'TX', value: 29528 },
+    { r: 6, c: 7, label: 'GA', value: 10800 },
+    { r: 6, c: 8, label: 'NC', value: 10600 },
+    { r: 7, c: 8, label: 'FL', value: 22245 },
+  ];
+
+  // Embedding Projection semantic mock points
+  embeddingProjectionData: EmbeddingPoint[] = [
+    // Cluster 1: NLP / Generative models
+    { id: 'nlp_1', x: 2.1, y: 1.8, group: 'Core System', label: 'transformer-attention-block' },
+    { id: 'nlp_2', x: 1.8, y: 2.2, group: 'Core System', label: 'embedding-layer-dense' },
+    { id: 'nlp_3', x: 2.5, y: 2.0, group: 'Core System', label: 'causal-lm-head' },
+    { id: 'nlp_4', x: 2.3, y: 1.5, group: 'Core System', label: 'kv-cache-manager' },
+    { id: 'nlp_5', x: 1.9, y: 2.5, group: 'Core System', label: 'rope-rotary-positional' },
+    
+    // Cluster 2: UI Components / Visualizations
+    { id: 'ui_1', x: -2.0, y: -2.2, group: 'UI Rendering', label: 'svg-path-renderer' },
+    { id: 'ui_2', x: -1.7, y: -1.8, group: 'UI Rendering', label: 'tooltip-glassmorphic' },
+    { id: 'ui_3', x: -2.4, y: -2.0, group: 'UI Rendering', label: 'lasso-polygon-drag' },
+    { id: 'ui_4', x: -2.2, y: -2.5, group: 'UI Rendering', label: 'viewbox-pan-zoom' },
+    { id: 'ui_5', x: -1.8, y: -2.1, group: 'UI Rendering', label: 'export-pdf-window' },
+
+    // Cluster 3: APIs / Middleware
+    { id: 'api_1', x: -2.8, y: 2.5, group: 'API Integration', label: 'web-llm-service-worker' },
+    { id: 'api_2', x: -3.2, y: 2.8, group: 'API Integration', label: 'huggingface-hub-fetch' },
+    { id: 'api_3', x: -2.6, y: 3.1, group: 'API Integration', label: 'sse-streaming-parser' },
+    { id: 'api_4', x: -3.0, y: 2.4, group: 'API Integration', label: 'token-rate-limiter' },
+
+    // Outliers / Noise
+    { id: 'noise_1', x: 0.2, y: -0.5, group: 'Outliers / Noise', label: 'garbage-collection-log' },
+    { id: 'noise_2', x: -0.5, y: 0.8, group: 'Outliers / Noise', label: 'unresolved-promise-reject' },
+    { id: 'noise_3', x: 3.5, y: -3.2, group: 'Outliers / Noise', label: 'deprecated-api-fallback' }
+  ];
+
+  // Agentic Cognitive Topology nodes and links
+  topologyNodes: TopologyNode[] = [
+    { id: 'usr', label: 'User Query Node', status: 'success', type: 'orchestrator', prompt: 'Implement SVG charts for AI.' },
+    { id: 'plan', label: 'Planner Agent', status: 'success', type: 'agent', prompt: 'Generate design system & checklist.', response: 'Task.md and implementation plan generated.' },
+    { id: 'code', label: 'Code Generator', status: 'thinking', type: 'agent', prompt: 'Write TokenStreaming component.', response: 'Created token-streaming-chart.component.ts' },
+    { id: 'lint', label: 'Linter Service', status: 'idle', type: 'tool', prompt: 'Run ng lint & format checks.' },
+    { id: 'test', label: 'Karma Runner', status: 'idle', type: 'tool', prompt: 'Execute unit tests suite.' }
+  ];
+
+  topologyLinks: TopologyLink[] = [
+    { source: 'usr', target: 'plan', active: false },
+    { source: 'plan', target: 'code', active: true },
+    { source: 'code', target: 'lint', active: false },
+    { source: 'code', target: 'test', active: false }
+  ];
+
+  // Transformer Attention Heatmap textual alignment
+  attentionTokensY = ['The', 'agent', 'solved', 'the', 'task', 'successfully', '.'];
+  attentionTokensX = ['Antigravity', 'completed', 'the', 'development', 'plan', 'and', 'build', '.'];
+  attentionWeights = [
+    [0.1, 0.1, 0.6, 0.1, 0.05, 0.02, 0.02, 0.01],
+    [0.7, 0.15, 0.05, 0.03, 0.02, 0.02, 0.02, 0.01],
+    [0.05, 0.5, 0.05, 0.3, 0.04, 0.02, 0.02, 0.02],
+    [0.05, 0.05, 0.7, 0.05, 0.05, 0.04, 0.04, 0.02],
+    [0.02, 0.1, 0.08, 0.2, 0.55, 0.02, 0.02, 0.01],
+    [0.01, 0.25, 0.02, 0.02, 0.1, 0.1, 0.45, 0.05],
+    [0.01, 0.01, 0.01, 0.01, 0.01, 0.05, 0.05, 0.85]
+  ];
+
 
   bubbleData = signal<BubblePoint[]>([
     { x: 10, y: 30, z: 150, label: 'App A', group: 'Tech' },
@@ -2574,6 +3290,44 @@ export class ChartsDemoComponent implements OnInit {
   [data]="data"
   [height]="${h}"
 />`;
+      case 'Token Streaming':
+        return `<ngx-token-streaming-chart
+  [title]="'Real-Time LLM Token Output Speed'"
+  [windowSize]="50"
+  [height]="${h}"
+  [showExport]="true"
+  (streamTick)="onTokenStreamTick($event)"
+  (agentPromptRequest)="onAgentPromptRequest($event)"
+/>`;
+      case 'Embedding Projection':
+        return `<ngx-embedding-space-projection
+  [data]="data"
+  [width]="650"
+  [height]="${h + 80}"
+  [showExport]="true"
+  (lassoSelected)="onEmbeddingLassoSelected($event)"
+  (agentQueryRequest)="onEmbeddingAgentQuery($event)"
+/>`;
+      case 'Agent Cognitive Topology':
+        return `<ngx-agentic-cognitive-topology
+  [nodes]="nodes"
+  [links]="links"
+  [width]="650"
+  [height]="${h + 80}"
+  [showExport]="true"
+  (nodeActionClick)="onTopologyNodeAction($event)"
+/>`;
+      case 'Attention Heatmap':
+        return `<ngx-transformer-attention-heatmap
+  [tokensX]="tokensX"
+  [tokensY]="tokensY"
+  [weights]="weights"
+  [height]="${h + 60}"
+  [colors]="['#f8fafc', '#ec4899']"
+  [showExport]="true"
+  (cellClick)="onAttentionCellClick($event)"
+  (agentQueryRequest)="onAttentionAgentQuery($event)"
+/>`;
       default:
         return '';
     }
@@ -2727,6 +3481,10 @@ export class ChartExampleComponent {
       case 'Kagi Chart': return 'KagiChartComponent';
       case 'Point & Figure Chart': return 'PointFigureChartComponent';
       case 'Wind Rose': return 'WindRoseChartComponent';
+      case 'Token Streaming': return 'TokenStreamingChartComponent';
+      case 'Embedding Projection': return 'EmbeddingSpaceProjectionComponent';
+      case 'Agent Cognitive Topology': return 'AgenticCognitiveTopologyComponent';
+      case 'Attention Heatmap': return 'TransformerAttentionHeatmapComponent';
       default: return '';
     }
   }
@@ -2798,6 +3556,43 @@ export class ChartExampleComponent {
   [colors]="colors"
   [showExport]="true"${this.useCustomFormatter() ? '\n  [labelFormatter]="labelFormatter"' : ''}${this.useCustomTooltip() ? '\n  [tooltipTemplate]="customTooltip"' : ''}>
 </ngx-wind-rose>`;
+      case 'Token Streaming': return `<ngx-token-streaming-chart
+  [title]="'Real-Time LLM Token Output Speed'"
+  [windowSize]="50"
+  [height]="${h}"
+  [colors]="colors"
+  [showExport]="true"
+  (streamTick)="onTokenStreamTick($event)"
+  (agentPromptRequest)="onAgentPromptRequest($event)">
+</ngx-token-streaming-chart>`;
+      case 'Embedding Projection': return `<ngx-embedding-space-projection
+  [data]="data"
+  [width]="650"
+  [height]="${h + 80}"
+  [colors]="colors"
+  [showExport]="true"
+  (lassoSelected)="onEmbeddingLassoSelected($event)"
+  (agentQueryRequest)="onEmbeddingAgentQuery($event)">
+</ngx-embedding-space-projection>`;
+      case 'Agent Cognitive Topology': return `<ngx-agentic-cognitive-topology
+  [nodes]="nodes"
+  [links]="links"
+  [width]="650"
+  [height]="${h + 80}"
+  [colors]="colors"
+  [showExport]="true"
+  (nodeActionClick)="onTopologyNodeAction($event)">
+</ngx-agentic-cognitive-topology>`;
+      case 'Attention Heatmap': return `<ngx-transformer-attention-heatmap
+  [tokensX]="tokensX"
+  [tokensY]="tokensY"
+  [weights]="weights"
+  [height]="${h + 60}"
+  [colors]="['#f8fafc', '#ec4899']"
+  [showExport]="true"
+  (cellClick)="onAttentionCellClick($event)"
+  (agentQueryRequest)="onAttentionAgentQuery($event)">
+</ngx-transformer-attention-heatmap>`;
       default: return '';
     }
   }
@@ -2974,6 +3769,30 @@ export class ChartExampleComponent {
       case 'Kagi Chart': return JSON.stringify(this.financialPrices, null, 2);
       case 'Point & Figure Chart': return JSON.stringify(this.financialPrices, null, 2);
       case 'Wind Rose': return JSON.stringify(this.windRoseData, null, 2);
+      case 'Area Range': return JSON.stringify(this.areaRangeData, null, 2);
+      case 'Network Graph': return JSON.stringify(this.networkNodes, null, 2);
+      case 'Treegraph': return JSON.stringify(this.treegraphData, null, 2);
+      case 'Map Choropleth': return JSON.stringify(this.choroplethData, null, 2);
+      case 'Flowmap': return JSON.stringify({ nodes: this.flowmapNodes, flows: this.flowmapLinks }, null, 2);
+      case 'Venn Diagram': return JSON.stringify({ sets: ['Mobile', 'Web', 'Desktop'], sizes: { A: 120, B: 150, C: 90, 'A&B': 45, 'B&C': 35, 'A&C': 20, 'A&B&C': 12 } }, null, 2);
+      case 'Word Cloud': return JSON.stringify(this.wordCloudItems, null, 2);
+      case 'Bell Curve': return JSON.stringify(this.bellCurveData, null, 2);
+      case 'Histogram': return JSON.stringify(this.histogramData, null, 2);
+      case 'Flags': return JSON.stringify(this.flagsData, null, 2);
+      case 'Area Spline Range': return JSON.stringify(this.areaSplineRangeData, null, 2);
+      case 'Streamgraph': return JSON.stringify(this.streamgraphSeries, null, 2);
+      case 'Column Range': return JSON.stringify(this.columnRangeData, null, 2);
+      case 'Column Pyramid': return JSON.stringify(this.columnPyramidSeries, null, 2);
+      case 'Variwide': return JSON.stringify(this.variwideData, null, 2);
+      case 'Variable Pie': return JSON.stringify(this.variablePieData, null, 2);
+      case 'Packed Bubble': return JSON.stringify(this.packedBubbleData, null, 2);
+      case 'Arc Diagram': return JSON.stringify({ nodes: this.arcNodes, links: this.arcLinks }, null, 2);
+      case 'Error Bar': return JSON.stringify(this.errorBarData, null, 2);
+      case 'Tilemap': return JSON.stringify(this.tilemapData, null, 2);
+      case 'Token Streaming': return JSON.stringify(this.tokenStreamChart()?.points() || [], null, 2);
+      case 'Embedding Projection': return JSON.stringify(this.embeddingProjectionData, null, 2);
+      case 'Agent Cognitive Topology': return JSON.stringify({ nodes: this.topologyNodes, links: this.topologyLinks }, null, 2);
+      case 'Attention Heatmap': return JSON.stringify({ tokensX: this.attentionTokensX, tokensY: this.attentionTokensY, weights: this.attentionWeights }, null, 2);
       default: return '[]';
     }
   }
