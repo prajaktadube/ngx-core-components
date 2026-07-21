@@ -30,6 +30,7 @@ jobs:
         # or fall back to dry-run when project token is not set.
 
       - name: Run Chromatic
+        if: ${{ secrets.CHROMATIC_PROJECT_TOKEN != '' }}
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

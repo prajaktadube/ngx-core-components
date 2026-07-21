@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output, signal, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, signal, HostListener, viewChildren, ElementRef } from '@angular/core';
 
 export type ExportFormat = 'json' | 'csv' | 'svg' | 'pdf';
 
@@ -20,7 +20,7 @@ export type ExportFormat = 'json' | 'csv' | 'svg' | 'pdf';
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="chart-export-menu">
+    <div class="chart-export-menu" (keydown.arrowdown)="onArrowDown($event)" (keydown.arrowup)="onArrowUp($event)">
       <button
         class="export-trigger"
         (click)="toggle($event)"
@@ -34,8 +34,9 @@ export type ExportFormat = 'json' | 'csv' | 'svg' | 'pdf';
 
       @if (isOpen()) {
         <div class="export-dropdown" role="menu">
-          @for (fmt of formats(); track fmt) {
+          @for (fmt of formats(); track fmt; let i = $index) {
             <button
+              #menuBtn
               type="button"
               role="menuitem"
               (click)="select(fmt)"
@@ -130,14 +131,19 @@ export class ChartExportMenuComponent {
   exportClicked = output<ExportFormat>();
 
   isOpen = signal(false);
+  focusedIndex = signal<number>(-1);
+  menuBtns = viewChildren<ElementRef<HTMLButtonElement>>('menuBtn');
 
   toggle(event: MouseEvent): void {
     event.stopPropagation();
-    this.isOpen.update(v => !v);
+    const nextVal = !this.isOpen();
+    this.isOpen.set(nextVal);
+    this.focusedIndex.set(-1);
   }
 
   select(fmt: ExportFormat): void {
     this.isOpen.set(false);
+    this.focusedIndex.set(-1);
     this.exportClicked.emit(fmt);
   }
 
@@ -151,13 +157,39 @@ export class ChartExportMenuComponent {
     return icons[fmt] ?? '📁';
   }
 
+  onArrowDown(event: Event): void {
+    if (!this.isOpen()) return;
+    event.preventDefault();
+    this.navigate(1);
+  }
+
+  onArrowUp(event: Event): void {
+    if (!this.isOpen()) return;
+    event.preventDefault();
+    this.navigate(-1);
+  }
+
+  private navigate(direction: number): void {
+    const list = this.formats();
+    if (list.length === 0) return;
+    const nextIdx = (this.focusedIndex() + direction + list.length) % list.length;
+    this.focusedIndex.set(nextIdx);
+
+    const buttons = this.menuBtns();
+    if (buttons && buttons[nextIdx]) {
+      buttons[nextIdx].nativeElement.focus();
+    }
+  }
+
   @HostListener('document:click')
   closeOnOutsideClick(): void {
     this.isOpen.set(false);
+    this.focusedIndex.set(-1);
   }
 
   @HostListener('document:keydown.escape')
   closeOnEscape(): void {
     this.isOpen.set(false);
+    this.focusedIndex.set(-1);
   }
 }

@@ -7,9 +7,6 @@ import {
   computed,
   ElementRef,
   ViewChild,
-  afterRenderEffect,
-  HostListener,
-  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -49,7 +46,11 @@ export interface VirtualListItemClickEvent<T> {
             [class.vl-row--selected]="selectedIndex() === entry.index"
             [class.vl-row--striped]="striped() && entry.index % 2 !== 0"
             [style.height]="itemHeight() + 'px'"
+            role="option"
+            tabindex="0"
             (click)="handleItemClick(entry.item, entry.index)"
+            (keydown.enter)="handleItemClick(entry.item, entry.index)"
+            (keydown.space)="handleItemClick(entry.item, entry.index); $event.preventDefault()"
           >
             @if (renderTemplate()) {
               <ng-container *ngTemplateOutlet="renderTemplate()!; context: { $implicit: entry.item, index: entry.index }"></ng-container>
@@ -182,7 +183,7 @@ export interface VirtualListItemClickEvent<T> {
     }
   `]
 })
-export class VirtualListComponent<T extends VirtualListItem = VirtualListItem> implements OnDestroy {
+export class VirtualListComponent<T extends VirtualListItem = VirtualListItem> {
   @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
 
   // ---------- Inputs ----------
@@ -249,5 +250,4 @@ export class VirtualListComponent<T extends VirtualListItem = VirtualListItem> i
     return val != null ? String(val) : String(item['id'] ?? '');
   }
 
-  ngOnDestroy(): void {}
 }

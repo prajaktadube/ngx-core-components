@@ -3,7 +3,6 @@ import { ChartExportMenuComponent } from './chart-export-menu.component';
 
 describe('ChartExportMenuComponent', () => {
   beforeEach(async () => {
-    // Spy on window.open and window.alert to prevent PDF exports from freezing test runs
     spyOn(window, 'open').and.returnValue({
       document: {
         write: () => {},
@@ -13,29 +12,75 @@ describe('ChartExportMenuComponent', () => {
     spyOn(window, 'alert').and.stub();
 
     await TestBed.configureTestingModule({
-      imports: [ChartExportMenuComponent],
-
+      imports: [ChartExportMenuComponent]
     }).compileComponents();
   });
 
-  it('should create and render with mock data', () => {
+  it('should create and render', () => {
     const fixture = TestBed.createComponent(ChartExportMenuComponent);
     const component = fixture.componentInstance;
-
-    try { fixture.detectChanges(); } catch(e) {}
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+    expect(component.isOpen()).toBe(false);
   });
 
-  it('should execute interaction handlers and export functions', () => {
+  it('should open and close on toggle', () => {
     const fixture = TestBed.createComponent(ChartExportMenuComponent);
     const component = fixture.componentInstance;
+    fixture.detectChanges();
 
-    try { fixture.detectChanges(); } catch(e) {}
-    try { (component as any).onExport('json'); } catch(e) {}
-    try { (component as any).onExport('csv'); } catch(e) {}
-    try { (component as any).onExport('svg'); } catch(e) {}
-    try { (component as any).onExport('pdf'); } catch(e) {}
+    component.toggle(new MouseEvent('click'));
+    expect(component.isOpen()).toBe(true);
 
-    expect(component).toBeTruthy();
+    component.toggle(new MouseEvent('click'));
+    expect(component.isOpen()).toBe(false);
+  });
+
+  it('should select format and close', () => {
+    const fixture = TestBed.createComponent(ChartExportMenuComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    spyOn(component.exportClicked, 'emit');
+    component.isOpen.set(true);
+
+    component.select('json');
+    expect(component.isOpen()).toBe(false);
+    expect(component.exportClicked.emit).toHaveBeenCalledWith('json');
+  });
+
+  it('should handle keyboard navigation', () => {
+    const fixture = TestBed.createComponent(ChartExportMenuComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.isOpen.set(true);
+    fixture.detectChanges();
+
+    const arrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+    const arrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+
+    component.onArrowDown(arrowDown);
+    expect(component.focusedIndex()).toBe(0);
+
+    component.onArrowDown(arrowDown);
+    expect(component.focusedIndex()).toBe(1);
+
+    component.onArrowUp(arrowUp);
+    expect(component.focusedIndex()).toBe(0);
+  });
+
+  it('should close on escape and outside click', () => {
+    const fixture = TestBed.createComponent(ChartExportMenuComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.isOpen.set(true);
+    component.closeOnEscape();
+    expect(component.isOpen()).toBe(false);
+
+    component.isOpen.set(true);
+    component.closeOnOutsideClick();
+    expect(component.isOpen()).toBe(false);
   });
 });
