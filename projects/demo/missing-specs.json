@@ -1,0 +1,800 @@
+[
+  {
+    "name": "ai-audio-wave.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-audio-wave\\ai-audio-wave.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-audio-wave\\ai-audio-wave.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-audio-wave"
+  },
+  {
+    "name": "ai-chat.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat\\ai-chat.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat\\ai-chat.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat"
+  },
+  {
+    "name": "ai-chat-widget.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat-widget\\ai-chat-widget.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat-widget\\ai-chat-widget.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-chat-widget"
+  },
+  {
+    "name": "ai-code-editor.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-code-editor\\ai-code-editor.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-code-editor\\ai-code-editor.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-code-editor"
+  },
+  {
+    "name": "ai-form-copilot.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-form-copilot\\ai-form-copilot.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-form-copilot\\ai-form-copilot.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-form-copilot"
+  },
+  {
+    "name": "ai-model-compare.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-model-compare\\ai-model-compare.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-model-compare\\ai-model-compare.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-model-compare"
+  },
+  {
+    "name": "ai-prompt-editor.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-prompt-editor\\ai-prompt-editor.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-prompt-editor\\ai-prompt-editor.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-prompt-editor"
+  },
+  {
+    "name": "ai-rag-inspector.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-rag-inspector\\ai-rag-inspector.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-rag-inspector\\ai-rag-inspector.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\ai\\ai-rag-inspector"
+  },
+  {
+    "name": "barcode.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\barcode\\barcode.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\barcode\\barcode.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\barcode"
+  },
+  {
+    "name": "qr-code.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\qr-code\\qr-code.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\qr-code\\qr-code.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\barcodes\\qr-code"
+  },
+  {
+    "name": "button.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button\\button.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button\\button.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button"
+  },
+  {
+    "name": "button-group.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button-group\\button-group.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button-group\\button-group.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\button-group"
+  },
+  {
+    "name": "chip.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\chip\\chip.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\chip\\chip.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\chip"
+  },
+  {
+    "name": "dropdown-button.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\dropdown-button\\dropdown-button.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\dropdown-button\\dropdown-button.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\dropdown-button"
+  },
+  {
+    "name": "speed-dial.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\speed-dial\\speed-dial.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\speed-dial\\speed-dial.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\speed-dial"
+  },
+  {
+    "name": "split-button.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\split-button\\split-button.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\split-button\\split-button.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\buttons\\split-button"
+  },
+  {
+    "name": "adjacency-matrix.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\adjacency-matrix\\adjacency-matrix.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\adjacency-matrix\\adjacency-matrix.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\adjacency-matrix"
+  },
+  {
+    "name": "agentic-cognitive-topology.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\agentic-cognitive-topology\\agentic-cognitive-topology.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\agentic-cognitive-topology\\agentic-cognitive-topology.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\agentic-cognitive-topology"
+  },
+  {
+    "name": "arc-diagram.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\arc-diagram\\arc-diagram.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\arc-diagram\\arc-diagram.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\arc-diagram"
+  },
+  {
+    "name": "area-range-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\area-range-chart\\area-range-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\area-range-chart\\area-range-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\area-range-chart"
+  },
+  {
+    "name": "area-spline-range-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\area-spline-range-chart\\area-spline-range-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\area-spline-range-chart\\area-spline-range-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\area-spline-range-chart"
+  },
+  {
+    "name": "bell-curve-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bell-curve-chart\\bell-curve-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bell-curve-chart\\bell-curve-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bell-curve-chart"
+  },
+  {
+    "name": "biplot.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\biplot\\biplot.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\biplot\\biplot.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\biplot"
+  },
+  {
+    "name": "box-plot-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\box-plot-chart\\box-plot-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\box-plot-chart\\box-plot-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\box-plot-chart"
+  },
+  {
+    "name": "bubble-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bubble-chart\\bubble-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bubble-chart\\bubble-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bubble-chart"
+  },
+  {
+    "name": "bullet-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bullet-chart\\bullet-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bullet-chart\\bullet-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\bullet-chart"
+  },
+  {
+    "name": "candlestick-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\candlestick-chart\\candlestick-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\candlestick-chart\\candlestick-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\candlestick-chart"
+  },
+  {
+    "name": "chord-diagram.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\chord-diagram\\chord-diagram.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\chord-diagram\\chord-diagram.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\chord-diagram"
+  },
+  {
+    "name": "column-pyramid-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\column-pyramid-chart\\column-pyramid-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\column-pyramid-chart\\column-pyramid-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\column-pyramid-chart"
+  },
+  {
+    "name": "column-range-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\column-range-chart\\column-range-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\column-range-chart\\column-range-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\column-range-chart"
+  },
+  {
+    "name": "combo-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\combo-chart\\combo-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\combo-chart\\combo-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\combo-chart"
+  },
+  {
+    "name": "dependency-wheel.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\dependency-wheel\\dependency-wheel.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\dependency-wheel\\dependency-wheel.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\dependency-wheel"
+  },
+  {
+    "name": "dumbbell-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\dumbbell-chart\\dumbbell-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\dumbbell-chart\\dumbbell-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\dumbbell-chart"
+  },
+  {
+    "name": "embedding-space-projection.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\embedding-space-projection\\embedding-space-projection.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\embedding-space-projection\\embedding-space-projection.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\embedding-space-projection"
+  },
+  {
+    "name": "error-bar.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\error-bar\\error-bar.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\error-bar\\error-bar.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\error-bar"
+  },
+  {
+    "name": "flags.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\flags\\flags.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\flags\\flags.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\flags"
+  },
+  {
+    "name": "flowmap.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\flowmap\\flowmap.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\flowmap\\flowmap.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\flowmap"
+  },
+  {
+    "name": "funnel-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\funnel-chart\\funnel-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\funnel-chart\\funnel-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\funnel-chart"
+  },
+  {
+    "name": "gantt-keyboard.service.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-keyboard.service.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-keyboard.service.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services"
+  },
+  {
+    "name": "gantt-layout.service.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-layout.service.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-layout.service.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services"
+  },
+  {
+    "name": "gantt-print.service.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-print.service.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-print.service.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services"
+  },
+  {
+    "name": "gantt-scale.service.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-scale.service.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services\\gantt-scale.service.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\gantt-chart\\services"
+  },
+  {
+    "name": "geo-heatmap.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\geo-heatmap\\geo-heatmap.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\geo-heatmap\\geo-heatmap.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\geo-heatmap"
+  },
+  {
+    "name": "heikin-ashi-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\heikin-ashi-chart\\heikin-ashi-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\heikin-ashi-chart\\heikin-ashi-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\heikin-ashi-chart"
+  },
+  {
+    "name": "histogram.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\histogram\\histogram.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\histogram\\histogram.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\histogram"
+  },
+  {
+    "name": "hlc-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\hlc-chart\\hlc-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\hlc-chart\\hlc-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\hlc-chart"
+  },
+  {
+    "name": "hollow-candlestick-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\hollow-candlestick-chart\\hollow-candlestick-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\hollow-candlestick-chart\\hollow-candlestick-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\hollow-candlestick-chart"
+  },
+  {
+    "name": "kagi-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\kagi-chart\\kagi-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\kagi-chart\\kagi-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\kagi-chart"
+  },
+  {
+    "name": "lollipop-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\lollipop-chart\\lollipop-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\lollipop-chart\\lollipop-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\lollipop-chart"
+  },
+  {
+    "name": "map-bubble.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-bubble\\map-bubble.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-bubble\\map-bubble.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-bubble"
+  },
+  {
+    "name": "map-choropleth.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-choropleth\\map-choropleth.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-choropleth\\map-choropleth.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-choropleth"
+  },
+  {
+    "name": "map-line-point.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-line-point\\map-line-point.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-line-point\\map-line-point.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\map-line-point"
+  },
+  {
+    "name": "marimekko-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\marimekko-chart\\marimekko-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\marimekko-chart\\marimekko-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\marimekko-chart"
+  },
+  {
+    "name": "network-graph.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\network-graph\\network-graph.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\network-graph\\network-graph.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\network-graph"
+  },
+  {
+    "name": "ohlc-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ohlc-chart\\ohlc-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ohlc-chart\\ohlc-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ohlc-chart"
+  },
+  {
+    "name": "packed-bubble-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\packed-bubble-chart\\packed-bubble-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\packed-bubble-chart\\packed-bubble-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\packed-bubble-chart"
+  },
+  {
+    "name": "parallel-coordinates.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\parallel-coordinates\\parallel-coordinates.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\parallel-coordinates\\parallel-coordinates.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\parallel-coordinates"
+  },
+  {
+    "name": "pareto-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\pareto-chart\\pareto-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\pareto-chart\\pareto-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\pareto-chart"
+  },
+  {
+    "name": "pictorial-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\pictorial-chart\\pictorial-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\pictorial-chart\\pictorial-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\pictorial-chart"
+  },
+  {
+    "name": "point-figure-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\point-figure-chart\\point-figure-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\point-figure-chart\\point-figure-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\point-figure-chart"
+  },
+  {
+    "name": "polar-area-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\polar-area-chart\\polar-area-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\polar-area-chart\\polar-area-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\polar-area-chart"
+  },
+  {
+    "name": "radar-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\radar-chart\\radar-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\radar-chart\\radar-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\radar-chart"
+  },
+  {
+    "name": "radial-bar-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\radial-bar-chart\\radial-bar-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\radial-bar-chart\\radial-bar-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\radial-bar-chart"
+  },
+  {
+    "name": "renko-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\renko-chart\\renko-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\renko-chart\\renko-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\renko-chart"
+  },
+  {
+    "name": "ridgeline-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ridgeline-chart\\ridgeline-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ridgeline-chart\\ridgeline-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\ridgeline-chart"
+  },
+  {
+    "name": "sankey-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sankey-chart\\sankey-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sankey-chart\\sankey-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sankey-chart"
+  },
+  {
+    "name": "chart-export-menu.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\shared\\chart-export-menu.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\shared\\chart-export-menu.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\shared"
+  },
+  {
+    "name": "chart-export.service.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\shared\\chart-export.service.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\shared\\chart-export.service.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\shared"
+  },
+  {
+    "name": "slope-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\slope-chart\\slope-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\slope-chart\\slope-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\slope-chart"
+  },
+  {
+    "name": "sparkline.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sparkline\\sparkline.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sparkline\\sparkline.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sparkline"
+  },
+  {
+    "name": "streamgraph.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\streamgraph\\streamgraph.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\streamgraph\\streamgraph.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\streamgraph"
+  },
+  {
+    "name": "sunburst-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sunburst-chart\\sunburst-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sunburst-chart\\sunburst-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\sunburst-chart"
+  },
+  {
+    "name": "tiled-web-map.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\tiled-web-map\\tiled-web-map.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\tiled-web-map\\tiled-web-map.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\tiled-web-map"
+  },
+  {
+    "name": "tilemap.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\tilemap\\tilemap.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\tilemap\\tilemap.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\tilemap"
+  },
+  {
+    "name": "token-streaming-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\token-streaming-chart\\token-streaming-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\token-streaming-chart\\token-streaming-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\token-streaming-chart"
+  },
+  {
+    "name": "transformer-attention-heatmap.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\transformer-attention-heatmap\\transformer-attention-heatmap.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\transformer-attention-heatmap\\transformer-attention-heatmap.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\transformer-attention-heatmap"
+  },
+  {
+    "name": "treegraph.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\treegraph\\treegraph.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\treegraph\\treegraph.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\treegraph"
+  },
+  {
+    "name": "treemap-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\treemap-chart\\treemap-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\treemap-chart\\treemap-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\treemap-chart"
+  },
+  {
+    "name": "variable-pie-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\variable-pie-chart\\variable-pie-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\variable-pie-chart\\variable-pie-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\variable-pie-chart"
+  },
+  {
+    "name": "variwide-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\variwide-chart\\variwide-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\variwide-chart\\variwide-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\variwide-chart"
+  },
+  {
+    "name": "vector-plot.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\vector-plot\\vector-plot.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\vector-plot\\vector-plot.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\vector-plot"
+  },
+  {
+    "name": "venn-diagram.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\venn-diagram\\venn-diagram.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\venn-diagram\\venn-diagram.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\venn-diagram"
+  },
+  {
+    "name": "violin-plot.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\violin-plot\\violin-plot.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\violin-plot\\violin-plot.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\violin-plot"
+  },
+  {
+    "name": "waterfall-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\waterfall-chart\\waterfall-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\waterfall-chart\\waterfall-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\waterfall-chart"
+  },
+  {
+    "name": "wind-rose.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\wind-rose\\wind-rose.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\wind-rose\\wind-rose.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\wind-rose"
+  },
+  {
+    "name": "word-cloud.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\word-cloud\\word-cloud.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\word-cloud\\word-cloud.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\charts\\word-cloud"
+  },
+  {
+    "name": "dialog-container.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\dialog\\dialog-container.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\dialog\\dialog-container.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\dialog"
+  },
+  {
+    "name": "alert.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\alert\\alert.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\alert\\alert.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\alert"
+  },
+  {
+    "name": "avatar.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\avatar\\avatar.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\avatar\\avatar.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\avatar"
+  },
+  {
+    "name": "badge.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\badge\\badge.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\badge\\badge.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\badge"
+  },
+  {
+    "name": "countdown.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\countdown\\countdown.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\countdown\\countdown.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\countdown"
+  },
+  {
+    "name": "empty-state.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\empty-state\\empty-state.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\empty-state\\empty-state.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\empty-state"
+  },
+  {
+    "name": "notification.service.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\notification\\notification.service.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\notification\\notification.service.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\notification"
+  },
+  {
+    "name": "progress-bar.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\progress-bar\\progress-bar.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\progress-bar\\progress-bar.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\progress-bar"
+  },
+  {
+    "name": "skeleton.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\skeleton\\skeleton.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\skeleton\\skeleton.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\skeleton"
+  },
+  {
+    "name": "stat-card.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\stat-card\\stat-card.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\stat-card\\stat-card.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\feedback\\stat-card"
+  },
+  {
+    "name": "grid-export.service.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\data-grid\\grid-export.service.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\data-grid\\grid-export.service.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\data-grid"
+  },
+  {
+    "name": "pivot-grid.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\pivot-grid\\pivot-grid.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\pivot-grid\\pivot-grid.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\grid\\pivot-grid"
+  },
+  {
+    "name": "checkbox.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\checkbox\\checkbox.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\checkbox\\checkbox.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\checkbox"
+  },
+  {
+    "name": "color-picker.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\color-picker\\color-picker.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\color-picker\\color-picker.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\color-picker"
+  },
+  {
+    "name": "date-range-picker.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\date-range-picker\\date-range-picker.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\date-range-picker\\date-range-picker.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\date-range-picker"
+  },
+  {
+    "name": "file-preview.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\file-preview\\file-preview.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\file-preview\\file-preview.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\file-preview"
+  },
+  {
+    "name": "form-builder.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\form-builder\\form-builder.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\form-builder\\form-builder.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\form-builder"
+  },
+  {
+    "name": "numeric-textbox.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\numeric-textbox\\numeric-textbox.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\numeric-textbox\\numeric-textbox.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\numeric-textbox"
+  },
+  {
+    "name": "radio-group.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\radio\\radio-group.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\radio\\radio-group.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\radio"
+  },
+  {
+    "name": "rating.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\rating\\rating.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\rating\\rating.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\rating"
+  },
+  {
+    "name": "segmented-control.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\segmented-control\\segmented-control.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\segmented-control\\segmented-control.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\segmented-control"
+  },
+  {
+    "name": "signature-pad.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\signature-pad\\signature-pad.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\signature-pad\\signature-pad.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\signature-pad"
+  },
+  {
+    "name": "slider.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\slider\\slider.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\slider\\slider.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\slider"
+  },
+  {
+    "name": "switch.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\switch\\switch.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\switch\\switch.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\switch"
+  },
+  {
+    "name": "tag-input.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\tag-input\\tag-input.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\tag-input\\tag-input.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\tag-input"
+  },
+  {
+    "name": "textarea.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textarea\\textarea.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textarea\\textarea.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textarea"
+  },
+  {
+    "name": "textbox.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textbox\\textbox.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textbox\\textbox.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\textbox"
+  },
+  {
+    "name": "time-picker.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\time-picker\\time-picker.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\time-picker\\time-picker.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\inputs\\time-picker"
+  },
+  {
+    "name": "card.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\card\\card.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\card\\card.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\card"
+  },
+  {
+    "name": "carousel.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\carousel\\carousel.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\carousel\\carousel.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\carousel"
+  },
+  {
+    "name": "dashboard-layout.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\dashboard-layout\\dashboard-layout.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\dashboard-layout\\dashboard-layout.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\dashboard-layout"
+  },
+  {
+    "name": "drawer.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\drawer\\drawer.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\drawer\\drawer.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\drawer"
+  },
+  {
+    "name": "tab-strip.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\tab-strip\\tab-strip.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\tab-strip\\tab-strip.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\layout\\tab-strip"
+  },
+  {
+    "name": "back-to-top.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\back-to-top\\back-to-top.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\back-to-top\\back-to-top.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\back-to-top"
+  },
+  {
+    "name": "command-palette.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\command-palette\\command-palette.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\command-palette\\command-palette.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\command-palette"
+  },
+  {
+    "name": "context-menu.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\context-menu\\context-menu.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\context-menu\\context-menu.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\navigation\\context-menu"
+  },
+  {
+    "name": "popover.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip\\popover.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip\\popover.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip"
+  },
+  {
+    "name": "tooltip.directive.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip\\tooltip.directive.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip\\tooltip.directive.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\src\\lib\\tooltip"
+  },
+  {
+    "name": "calendar.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\calendar\\calendar.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\calendar\\calendar.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\calendar"
+  },
+  {
+    "name": "image-compare.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\image-compare\\image-compare.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\image-compare\\image-compare.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\image-compare"
+  },
+  {
+    "name": "json-viewer.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\json-viewer\\json-viewer.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\json-viewer\\json-viewer.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\json-viewer"
+  },
+  {
+    "name": "key-value-list.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\key-value-list\\key-value-list.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\key-value-list\\key-value-list.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\key-value-list"
+  },
+  {
+    "name": "org-chart.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\org-chart\\org-chart.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\org-chart\\org-chart.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\org-chart"
+  },
+  {
+    "name": "scheduler.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\scheduler\\scheduler.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\scheduler\\scheduler.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\scheduler"
+  },
+  {
+    "name": "timeline.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\timeline\\timeline.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\timeline\\timeline.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\timeline"
+  },
+  {
+    "name": "tree-view.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\tree-view\\tree-view.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\tree-view\\tree-view.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\tree-view"
+  },
+  {
+    "name": "virtual-list.component.ts",
+    "path": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\virtual-list\\virtual-list.component.ts",
+    "specPath": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\virtual-list\\virtual-list.component.spec.ts",
+    "dir": "c:\\Work\\ngx-core-components\\projects\\ngx-core-components\\views\\virtual-list"
+  }
+]

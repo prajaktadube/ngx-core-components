@@ -1,5 +1,6 @@
 import { Component, signal, computed, ElementRef, viewChild, inject, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
   BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
@@ -42,6 +43,7 @@ interface ApiRow { name: string; type: string; default: string; description: str
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent,
     GaugeChartComponent, RadarChartComponent, HeatmapChartComponent, TreemapChartComponent,
     AreaChartComponent, FunnelChartComponent, ComboChartComponent, ScatterPlotComponent,
@@ -882,15 +884,31 @@ interface ApiRow { name: string; type: string; default: string; description: str
 
               <!-- AGENT COGNITIVE TOPOLOGY -->
               @if (activeTab() === 'Agent Cognitive Topology') {
-                <ngx-agentic-cognitive-topology
-                  [nodes]="topologyNodes"
-                  [links]="topologyLinks"
-                  [width]="650"
-                  [height]="chartHeight() + 80"
-                  [colors]="getThemePalette()"
-                  [showExport]="true"
-                  (nodeActionClick)="onTopologyNodeAction($event)"
-                />
+                <div class="topology-demo-container" style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                  <div class="topology-editor-controls" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(15, 23, 42, 0.03); border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); flex-wrap: wrap; gap: 8px;">
+                    <label class="toggle-control" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12px; font-weight: 600; color: #334155;">
+                      <input type="checkbox" [checked]="topologyEditable()" (change)="toggleTopologyEditable($event)" style="cursor: pointer;" />
+                      <span>Interactive Workflow Builder Mode</span>
+                    </label>
+                    <span class="editor-tip" style="font-size: 11px; color: #64748b; font-style: italic;">
+                      💡 Double-click nodes to edit settings, drag node handles to link, single click link center to delete.
+                    </span>
+                  </div>
+
+                  <ngx-agentic-cognitive-topology
+                    [nodes]="topologyNodes"
+                    [links]="topologyLinks"
+                    [width]="750"
+                    [height]="chartHeight() + 100"
+                    [colors]="getThemePalette()"
+                    [showExport]="true"
+                    [editable]="topologyEditable()"
+                    (nodeActionClick)="onTopologyNodeAction($event)"
+                    (validationError)="onTopologyValidationError($event)"
+                    (nodesChange)="onTopologyNodesChange($event)"
+                    (linksChange)="onTopologyLinksChange($event)"
+                  />
+                </div>
               }
 
               <!-- ATTENTION HEATMAP -->
@@ -2202,6 +2220,29 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
       value: 0,
       seriesName: `Triggered action "${event.action}" on node "${event.nodeId}"`
     });
+  }
+
+  topologyEditable = signal<boolean>(true);
+
+  toggleTopologyEditable(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.topologyEditable.set(target.checked);
+  }
+
+  onTopologyValidationError(msg: string) {
+    this.onChartClick({
+      category: 'Topology Editor',
+      value: 0,
+      seriesName: `Notification: ${msg}`
+    });
+  }
+
+  onTopologyNodesChange(nodes: TopologyNode[]) {
+    this.topologyNodes = nodes;
+  }
+
+  onTopologyLinksChange(links: TopologyLink[]) {
+    this.topologyLinks = links;
   }
 
   onAttentionCellClick(event: { row: number; col: number; weight: number }) {

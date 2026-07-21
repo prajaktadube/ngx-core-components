@@ -59,6 +59,10 @@ import { QrCodeComponent, BarcodeComponent } from 'ngx-core-components/barcodes'
 - `LineChartComponent`
 - `PieChartComponent`
 - `SparklineComponent`
+- `AgenticCognitiveTopologyComponent`
+- `TokenStreamingChartComponent`
+- `EmbeddingSpaceProjectionComponent`
+- `TransformerAttentionHeatmapComponent`
 
 ### Inputs
 
@@ -491,6 +495,87 @@ interface GanttTask {
 | `color` | `string` | `'#4a90d9'` | Stroke or fill color |
 | `width` | `number` | `120` | SVG width |
 | `height` | `number` | `36` | SVG height |
+
+#### AgenticCognitiveTopologyComponent (`ngx-agentic-cognitive-topology`)
+A dynamic visual representation of an agentic cognitive workflow (directed acyclic graph) supporting real-time interaction, automatic level sorting layouts, snapping grid alignment, properties modal editing, and drag-and-drop link creation.
+
+##### Inputs
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `nodes` | `TopologyNode[]` | **required** | List of workflow nodes |
+| `links` | `TopologyLink[]` | **required** | Directed edges between nodes |
+| `width` | `number` | `650` | SVG width |
+| `height` | `number` | `450` | SVG height |
+| `colors` | `string[]` | `CHART_COLORS` | Custom node color palette |
+| `showExport` | `boolean` | `true` | Show export options dropdown |
+| `editable` | `boolean` | `false` | Enable interactive canvas editor |
+| `gridSize` | `number` | `20` | Size of snap-to-grid alignment |
+
+##### Outputs
+| Output | Type | Description |
+|---|---|---|
+| `nodeActionClick` | `{ nodeId: string; action: string }` | Emitted when an action is selected in the node tooltip |
+| `nodePositionChange` | `{ nodeId: string; x: number; y: number }` | Emitted when a node is dragged and repositioned |
+| `nodesChange` | `TopologyNode[]` | Emitted in edit mode when nodes are added, edited, or deleted |
+| `linksChange` | `TopologyLink[]` | Emitted in edit mode when links are added or deleted |
+| `validationError` | `string` | Emitted when editor validations (e.g. cycles) are violated or copy notices occur |
+
+##### Public Methods
+| Method | Signature | Description |
+|---|---|---|
+| `autoLayout` | `(): void` | Clear all overrides and automatically arrange nodes using topological layer sorting |
+| `undo` | `(): void` | Undo the last editor action |
+| `redo` | `(): void` | Redo the last undone editor action |
+| `exportWorkflowSchema` | `(): void` | Copies the current workflow layout as a LangGraph-compatible JSON schema |
+
+#### TokenStreamingChartComponent (`ngx-token-streaming-chart`)
+Real-time streaming chart optimized for rendering active LLM token generation metrics, showing speed (tokens per second), latency, and dynamic target highlights.
+
+##### Inputs
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `data` | `number[]` | `[]` | Sequential generation speed values |
+| `height` | `number` | `180` | Chart height in pixels |
+| `threshold` | `number \| null` | `null` | Optional threshold alert limit |
+| `showGrid` | `boolean` | `true` | Render horizontal grid lines |
+
+##### Public Methods
+| Method | Signature | Description |
+|---|---|---|
+| `setPoints` | `(newPoints: number[]): void` | Reset streaming points |
+| `clearPoints` | `(): void` | Clear all points and reset charts |
+
+#### EmbeddingSpaceProjectionComponent (`ngx-embedding-space-projection`)
+Interactive multi-dimensional vector space projection (scatterplot layout) supporting visual cluster selection, lasso path tracing, and target distance query helpers.
+
+##### Inputs
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `points` | `EmbeddingPoint[]` | **required** | Coordinates and metadata of embeddings |
+| `height` | `number` | `360` | SVG container height |
+
+##### Outputs
+| Output | Type | Description |
+|---|---|---|
+| `lassoSelected` | `string[]` | Emitted with list of selected point IDs after drawing a lasso path |
+| `agentQueryRequest` | `{ selectedIds: string[]; queryType: string }` | Emitted when triggering semantic action queries on selected embeddings |
+
+#### TransformerAttentionHeatmapComponent (`ngx-transformer-attention-heatmap`)
+Interactive visualization mapping matrix weights between input and output tokens across selected transformer attention heads, highlighting key focus weights.
+
+##### Inputs
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `tokensX` | `string[]` | **required** | Horizontal axis token strings |
+| `tokensY` | `string[]` | **required** | Vertical axis token strings |
+| `weights` | `number[][]` | **required** | M x N matrix representing attention intensities |
+| `height` | `number` | `300` | Grid container height |
+
+##### Outputs
+| Output | Type | Description |
+|---|---|---|
+| `cellClick` | `{ row: number; col: number; weight: number }` | Emitted when clicking an individual weight square |
+| `agentQuery` | `{ query: string; tokenY: string; tokenX: string; weight: number }` | Emitted when triggering AI queries on cell highlights |
 
 ---
 

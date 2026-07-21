@@ -107,7 +107,29 @@ export class NgxGridFooterTemplateDirective {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="ngx-data-grid" [class.loading]="loading()">
+    <div class="ngx-data-grid" [class.loading]="loading()" [class.compact]="compact()">
+
+      @if (showGroupingPanel()) {
+        <div
+          class="grid-grouping-panel"
+          (dragover)="onGroupingPanelDragOver($event)"
+          (dragleave)="onGroupingPanelDragLeave($event)"
+          (drop)="onGroupingPanelDrop($event)"
+          [class.drag-over]="isGroupingPanelDragOver()"
+        >
+          <div class="grouping-panel-label">
+            @if (internalGroupBy(); as gb) {
+              <span>Grouped by:</span>
+              <span class="group-chip">
+                {{ getColumnTitle(gb.field) }}
+                <button class="remove-group-btn" (click)="clearGrouping()">×</button>
+              </span>
+            } @else {
+              <span>Drag a column header here to group</span>
+            }
+          </div>
+        </div>
+      }
 
       <div class="grid-toolbar">
         <span class="grid-toolbar-title">Data Grid</span>
@@ -125,6 +147,9 @@ export class NgxGridFooterTemplateDirective {
                 <button class="grid-search-clear" (click)="searchText.set('')" title="Clear search">×</button>
               }
             </div>
+          }
+          @if (activeFilters().length > 0) {
+            <button class="grid-action-btn clear-filters-btn" (click)="clearAllFilters()" title="Clear all active column filters">Clear Filters</button>
           }
           @if (showColumnChooser()) {
             <button class="grid-action-btn" (click)="openColumnChooser($event)" title="Choose columns">Columns</button>
@@ -232,7 +257,7 @@ export class NgxGridFooterTemplateDirective {
                     [class.sort-desc]="getSortDirection(cell.column) === 'desc'"
                     [class.dragging]="draggingField() === cell.column.field"
                     [class.drag-over]="dragOverField() === cell.column.field"
-                    [attr.draggable]="reorderable() ? true : null"
+                    [attr.draggable]="reorderable() || cell.column.groupable ? true : null"
                     (dragstart)="onDragStart($event, cell.column)"
                     (dragover)="onDragOver($event, cell.column)"
                     (drop)="onDrop($event, cell.column)"
@@ -273,7 +298,7 @@ export class NgxGridFooterTemplateDirective {
                     [class.sort-desc]="getSortDirection(cell.column) === 'desc'"
                     [class.dragging]="draggingField() === cell.column.field"
                     [class.drag-over]="dragOverField() === cell.column.field"
-                    [attr.draggable]="reorderable() ? true : null"
+                    [attr.draggable]="reorderable() || cell.column.groupable ? true : null"
                     (dragstart)="onDragStart($event, cell.column)"
                     (dragover)="onDragOver($event, cell.column)"
                     (drop)="onDrop($event, cell.column)"
@@ -358,7 +383,7 @@ export class NgxGridFooterTemplateDirective {
                 @if (!isGroupCollapsed(group.key)) {
                   @for (row of group.items; track getKey(row, $index); let i = $index) {
                     <tr
-                      class="grid-row"
+                      [class]="'grid-row ' + getRowCustomClass(row)"
                       [class.selected]="isRowSelected(row)"
                       [class.dragging-row]="draggingRowIndex() === i"
                       [class.drag-over-row]="dragOverRowIndex() === i"
@@ -513,7 +538,7 @@ export class NgxGridFooterTemplateDirective {
               @for (row of (virtualScroll() ? visibleRows() : flatRenderedRows()); track getKey(row, $index); let i = $index) {
                 @let actualIndex = virtualScroll() ? startIndex() + i : i;
                 <tr
-                  class="grid-row"
+                  [class]="'grid-row ' + getRowCustomClass(row)"
                   [class.selected]="isRowSelected(row)"
                   [class.dragging-row]="draggingRowIndex() === actualIndex"
                   [class.drag-over-row]="dragOverRowIndex() === actualIndex"
@@ -770,6 +795,15 @@ export class NgxGridFooterTemplateDirective {
       <!-- Excel-Style Filter Popover Overlay -->
       @if (activeFilterPopover(); as pop) {
         <div class="grid-filter-popover" [style.top.px]="pop.top" [style.left.px]="pop.left" (click)="$event.stopPropagation()">
+          <div class="popover-section pinning-section">
+            <label class="popover-label">Pin Column</label>
+            <div class="pinning-actions">
+              <button class="pin-btn" [class.active]="getColumnPinnedState(pop.field) === 'left'" (click)="pinColumnPopover(pop.field, 'left')" type="button">Left</button>
+              <button class="pin-btn" [class.active]="getColumnPinnedState(pop.field) === 'right'" (click)="pinColumnPopover(pop.field, 'right')" type="button">Right</button>
+              <button class="pin-btn" [class.active]="getColumnPinnedState(pop.field) === null" (click)="pinColumnPopover(pop.field, null)" type="button">No Pin</button>
+            </div>
+          </div>
+
           <div class="popover-section text-filter-section">
             <label class="popover-label">Text Filter</label>
             <div class="text-filter-row">
@@ -988,6 +1022,35 @@ export class NgxGridFooterTemplateDirective {
     }
     .grid-table-wrap { overflow-x: auto; overflow-y: hidden; }
     .grid-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+    /* Compact Mode styling */
+    .ngx-data-grid.compact .grid-td {
+      padding: 7px 12px;
+      font-size: 12px;
+    }
+    .ngx-data-grid.compact .grid-th {
+      padding: 9px 12px;
+      font-size: 10px;
+    }
+    .ngx-data-grid.compact .grid-grouping-panel {
+      padding: 8px 14px;
+    }
+    .ngx-data-grid.compact .grid-toolbar {
+      padding: 8px 14px;
+    }
+    
+    /* Clear Filters button styling */
+    .clear-filters-btn {
+      border-color: rgba(239, 68, 68, 0.25) !important;
+      background: rgba(239, 68, 68, 0.05) !important;
+      color: #ef4444 !important;
+      font-weight: 600;
+    }
+    .clear-filters-btn:hover {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+      border-color: transparent !important;
+    }
+
     .grid-th {
       position: relative;
       padding: 14px 18px;
@@ -1111,6 +1174,40 @@ export class NgxGridFooterTemplateDirective {
       border-color: var(--ngx-input-focus, #4f46e5);
       box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
     }
+    .pinning-section {
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      padding-bottom: 10px;
+    }
+    .pinning-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .pin-btn {
+      flex: 1;
+      padding: 6px 4px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 6px;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+      outline: none;
+    }
+    .pin-btn:hover {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      color: var(--ngx-input-focus, #4f46e5);
+      background: rgba(79, 70, 229, 0.02);
+    }
+    .pin-btn.active {
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+    }
+
     .popover-section {
       display: flex;
       flex-direction: column;
@@ -1248,12 +1345,12 @@ export class NgxGridFooterTemplateDirective {
       border-bottom: 1px solid var(--ngx-grid-border, #f1f5f9);
       transition: background-color 0.15s ease;
     }
-    .grid-row:hover { background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important; }
-    .grid-row.selected { background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important; }
-    .grid-row.selected:hover { background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.1)) !important; }
+    .grid-row:hover { background: var(--ngx-grid-hover-bg, #f5f3ff) !important; }
+    .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
+    .grid-row.selected:hover { background: var(--ngx-grid-selected-bg-hover, #c7d2fe) !important; }
     .grid-table.striped .grid-row:nth-child(even) { background: var(--ngx-grid-stripe-bg, #f8fafc); }
-    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important; }
-    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important; }
+    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, #f5f3ff) !important; }
+    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
     .grid-td {
       padding: 12px 18px;
       color: var(--ngx-grid-text, #0f172a);
@@ -1551,12 +1648,12 @@ export class NgxGridFooterTemplateDirective {
     .grid-row:hover .pinned-left,
     .grid-row:hover .sticky-toggle,
     .grid-row:hover .sticky-check {
-      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important;
+      background: var(--ngx-grid-hover-bg, #f5f3ff) !important;
     }
     .grid-row.selected .pinned-left,
     .grid-row.selected .sticky-toggle,
     .grid-row.selected .sticky-check {
-      background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important;
+      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
     }
     .grid-footer-row .pinned-left,
     .grid-footer-row .sticky-toggle,
@@ -1581,10 +1678,10 @@ export class NgxGridFooterTemplateDirective {
       background: var(--ngx-grid-stripe-bg, #f8fafc);
     }
     .grid-row:hover .pinned-right {
-      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.02)) !important;
+      background: var(--ngx-grid-hover-bg, #f5f3ff) !important;
     }
     .grid-row.selected .pinned-right {
-      background: var(--ngx-grid-selected-bg, rgba(79, 70, 229, 0.07)) !important;
+      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
     }
     .grid-footer-row .pinned-right {
       background: var(--ngx-grid-header-bg, #f8fafc);
@@ -1847,6 +1944,63 @@ export class NgxGridFooterTemplateDirective {
       height: 2px;
       background: #ffffff;
     }
+    
+    /* Drag-and-Drop Grouping Panel Styles */
+    .grid-grouping-panel {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border: 1.5px dashed var(--ngx-grid-border, #cbd5e1);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+    .grid-grouping-panel.drag-over {
+      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.05));
+      border-color: var(--ngx-input-focus, #4f46e5);
+      border-style: solid;
+      color: var(--ngx-input-focus, #4f46e5);
+    }
+    .grouping-panel-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .group-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+    }
+    .remove-group-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+    .remove-group-btn:hover {
+      opacity: 1;
+    }
   `],
 })
 export class DataGridComponent<T extends object = Record<string, unknown>> implements OnInit {
@@ -1934,6 +2088,9 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   enableContextMenu = input<boolean>(false);
   keyboardNavigation = input<boolean>(false);
   groupAggregations = input<boolean>(false);
+  showGroupingPanel = input<boolean>(false);
+  rowClass = input<((row: T) => string) | null>(null);
+  compact = input<boolean>(false);
 
   /**
    * Whether to render only the visible rows using high-performance row virtualization.
@@ -1957,6 +2114,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   editingDraft = signal<Record<string, unknown>>({});
   internalPageSize = signal<number>(10);
   internalGroupBy = signal<GridGroupState | null>(null);
+  isGroupingPanelDragOver = signal<boolean>(false);
 
   scrollTop = signal<number>(0);
   viewportHeight = signal<number>(400);
@@ -2837,19 +2995,19 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   }
 
   exportToJson(): void {
-    this.gridExportService.exportToJson(this.data());
+    this.gridExportService.exportToJson(this.baseFlatData());
   }
 
   exportToCsv(): void {
-    this.gridExportService.exportToCsv(this.data(), this.orderedColumns());
+    this.gridExportService.exportToCsv(this.baseFlatData(), this.orderedColumns(), 'grid-data.csv', this.internalGroupBy());
   }
 
   exportToExcel(): void {
-    this.gridExportService.exportToExcel(this.data(), this.orderedColumns());
+    this.gridExportService.exportToExcel(this.baseFlatData(), this.orderedColumns(), 'grid-data.xls', this.internalGroupBy());
   }
 
   exportToPdf(): void {
-    this.gridExportService.exportToPdf(this.data(), this.orderedColumns());
+    this.gridExportService.exportToPdf(this.baseFlatData(), this.orderedColumns(), 'Data Grid Export', this.internalGroupBy());
   }
 
   setFilter(field: string, value: string): void {
@@ -2929,6 +3087,25 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       ...widths,
       [colField]: computedWidth
     }));
+  }
+
+  getColumnPinnedState(field: string): 'left' | 'right' | null {
+    const override = this.columnPinnedOverrides()[field];
+    if (override !== undefined) {
+      return override;
+    }
+    const col = this.columns().find(c => c.field === field);
+    return col?.pinned ?? null;
+  }
+
+  pinColumnPopover(field: string, pin: 'left' | 'right' | null): void {
+    const nextOverrides = { ...this.columnPinnedOverrides(), [field]: pin };
+    this.columnPinnedOverrides.set(nextOverrides);
+  }
+
+  getRowCustomClass(row: T): string {
+    const fn = this.rowClass();
+    return fn ? fn(row) : '';
   }
 
   openFilterPopover(event: MouseEvent, field: string): void {
@@ -3065,6 +3242,14 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     this.emitDataState();
   }
 
+  clearAllFilters(): void {
+    this.filterStates.set(new Map());
+    this.currentPage.set(1);
+    this.activeFilterPopover.set(null);
+    this.filterChange.emit({ filters: [] });
+    this.emitDataState();
+  }
+
   hasAggregation = computed(() => this.columns().some(col => col.aggregation));
 
   getAggregationValue(col: GridColumnDef<T>): string {
@@ -3142,8 +3327,49 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     this.emitDataState();
   }
 
+  onGroupingPanelDragOver(event: DragEvent): void {
+    const field = this.draggingField();
+    if (!field) return;
+    const col = this.columns().find(c => c.field === field);
+    if (col && col.groupable) {
+      event.preventDefault();
+      this.isGroupingPanelDragOver.set(true);
+    }
+  }
+
+  onGroupingPanelDragLeave(event: DragEvent): void {
+    this.isGroupingPanelDragOver.set(false);
+  }
+
+  onGroupingPanelDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isGroupingPanelDragOver.set(false);
+    const field = this.draggingField();
+    if (field) {
+      const col = this.columns().find(c => c.field === field);
+      if (col && col.groupable) {
+        const newGroup = { field, dir: 'asc' as const };
+        this.internalGroupBy.set(newGroup);
+        this.groupChange.emit({ group: newGroup });
+        this.emitDataState();
+      }
+    }
+    this.draggingField.set(null);
+  }
+
+  clearGrouping(): void {
+    this.internalGroupBy.set(null);
+    this.groupChange.emit({ group: null });
+    this.emitDataState();
+  }
+
+  getColumnTitle(field: string): string {
+    const col = this.columns().find(c => c.field === field);
+    return col ? col.title : field;
+  }
+
   onDragStart(event: DragEvent, col: GridColumnDef<T>): void {
-    if (!this.reorderable()) return;
+    if (!this.reorderable() && !col.groupable) return;
     this.draggingField.set(col.field);
     if (event.dataTransfer) {
       event.dataTransfer.effectAllowed = 'move';

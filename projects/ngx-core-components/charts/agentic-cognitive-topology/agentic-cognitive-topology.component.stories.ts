@@ -65,3 +65,14 @@ export const Default: Story = {
     showExport: true
   }
 };
+
+export const Editable: Story = {
+  args: {
+    nodes: mockNodes,
+    links: mockLinks,
+    width: 650,
+    height: 450,
+    editable: true,
+    showExport: true
+  }
+};

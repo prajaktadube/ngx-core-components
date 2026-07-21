@@ -174,6 +174,11 @@ interface ApiRow {
               Virtual Scroll
             </label>
 
+            <label class="ctrl-item toggle-item">
+              <input type="checkbox" [checked]="compact()" (change)="compact.set($any($event.target).checked)" />
+              Compact Mode
+            </label>
+
             <label class="ctrl-item">
               Page Size
               <select [value]="gridPageSize()" (change)="onPageSizeChange(+$any($event.target).value)">
@@ -204,6 +209,9 @@ interface ApiRow {
             [pageSize]="gridPageSize()"
             [total]="processingMode() === 'server' ? serverTotal() : 0"
             [virtualScroll]="virtualScroll()"
+            [showGroupingPanel]="true"
+            [rowClass]="customRowClass"
+            [compact]="compact()"
             [selectable]="true"
             [striped]="true"
             [loading]="loading()"
@@ -591,6 +599,14 @@ interface ApiRow {
     .api-name { color: var(--primary-color) !important; font-family: monospace; font-weight: 700; white-space: nowrap; }
     .api-type { color: #a855f7 !important; font-family: monospace; white-space: nowrap; }
     .api-default { font-family: monospace; white-space: nowrap; color: #f43f5e; font-weight: 500; }
+    
+    ::ng-deep .row-inactive td {
+      background-color: #fef2f2 !important;
+      color: var(--text-secondary, #64748b) !important;
+    }
+    ::ng-deep .row-on-leave td {
+      background-color: #fffbeb !important;
+    }
   `],
 })
 export class GridDemoComponent {
@@ -613,10 +629,17 @@ export class GridDemoComponent {
   groupAggregations = signal(true);
   loading = signal(false);
   virtualScroll = signal(false);
+  compact = signal(false);
   gridPage = signal(1);
   gridPageSize = signal(8);
   selectedCount = signal(0);
   lastEvent = signal('');
+
+  customRowClass = (row: Employee): string => {
+    if (row.status === 'Inactive') return 'row-inactive';
+    if (row.status === 'On Leave') return 'row-on-leave';
+    return '';
+  };
 
   employees = signal<Employee[]>(this.seedEmployees());
   serverRows = signal<Employee[]>([]);
