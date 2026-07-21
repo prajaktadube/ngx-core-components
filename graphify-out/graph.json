@@ -4744,7 +4744,7 @@
       "source_file": "projects/demo/src/app/pages/gantt-demo/gantt-demo.component.ts",
       "source_location": "L1512",
       "id": "gantt_demo_gantt_demo_component_ganttdemocomponent_resetplaytasks",
-      "community": 115,
+      "community": 28,
       "norm_label": ".resetplaytasks()"
     },
     {
@@ -10036,7 +10036,7 @@
       "source_file": "projects/ngx-core-components/buttons/dropdown-button/dropdown-button.component.spec.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_buttons_dropdown_button_dropdown_button_component_spec_ts",
-      "community": 323,
+      "community": 14,
       "norm_label": "dropdown-button.component.spec.ts"
     },
     {
@@ -10045,7 +10045,7 @@
       "source_file": "projects/ngx-core-components/buttons/dropdown-button/dropdown-button.component.spec.ts",
       "source_location": "L22",
       "id": "dropdown_button_dropdown_button_component_spec_fixture",
-      "community": 323,
+      "community": 14,
       "norm_label": "fixture"
     },
     {
@@ -10099,7 +10099,7 @@
       "source_file": "projects/ngx-core-components/buttons/dropdown-button/dropdown-button.component.ts",
       "source_location": "L38",
       "id": "dropdown_button_dropdown_button_component_dropdownbuttoncomponent",
-      "community": 323,
+      "community": 14,
       "norm_label": "dropdownbuttoncomponent"
     },
     {
@@ -10108,7 +10108,7 @@
       "source_file": "projects/ngx-core-components/buttons/dropdown-button/dropdown-button.component.ts",
       "source_location": "L45",
       "id": "dropdown_button_dropdown_button_component_dropdownbuttoncomponent_toggle",
-      "community": 323,
+      "community": 14,
       "norm_label": ".toggle()"
     },
     {
@@ -43237,7 +43237,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.spec.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_src_lib_tooltip_popover_component_spec_ts",
-      "community": 33,
+      "community": 338,
       "norm_label": "popover.component.spec.ts"
     },
     {
@@ -43246,7 +43246,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.spec.ts",
       "source_location": "L22",
       "id": "tooltip_popover_component_spec_fixture",
-      "community": 33,
+      "community": 338,
       "norm_label": "fixture"
     },
     {
@@ -43255,7 +43255,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.stories.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_src_lib_tooltip_popover_component_stories_ts",
-      "community": 33,
+      "community": 338,
       "norm_label": "popover.component.stories.ts"
     },
     {
@@ -43264,7 +43264,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.stories.ts",
       "source_location": "L3",
       "id": "tooltip_popover_component_stories_meta",
-      "community": 33,
+      "community": 338,
       "norm_label": "meta"
     },
     {
@@ -43273,7 +43273,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.stories.ts",
       "source_location": "L17",
       "id": "tooltip_popover_component_stories_default",
-      "community": 33,
+      "community": 338,
       "norm_label": "default"
     },
     {
@@ -43282,7 +43282,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.stories.ts",
       "source_location": "L44",
       "id": "tooltip_popover_component_stories_placementtop",
-      "community": 33,
+      "community": 338,
       "norm_label": "placementtop"
     },
     {
@@ -43291,7 +43291,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.stories.ts",
       "source_location": "L52",
       "id": "tooltip_popover_component_stories_placementright",
-      "community": 33,
+      "community": 338,
       "norm_label": "placementright"
     },
     {
@@ -43300,7 +43300,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.ts",
       "source_location": "L1",
       "id": "projects_ngx_core_components_src_lib_tooltip_popover_component_ts",
-      "community": 33,
+      "community": 338,
       "norm_label": "popover.component.ts"
     },
     {
@@ -43309,7 +43309,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.ts",
       "source_location": "L63",
       "id": "tooltip_popover_component_popovercomponent",
-      "community": 33,
+      "community": 338,
       "norm_label": "popovercomponent"
     },
     {
@@ -43318,7 +43318,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.ts",
       "source_location": "L68",
       "id": "tooltip_popover_component_popovercomponent_toggle",
-      "community": 33,
+      "community": 338,
       "norm_label": ".toggle()"
     },
     {
@@ -43327,7 +43327,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.ts",
       "source_location": "L69",
       "id": "tooltip_popover_component_popovercomponent_close",
-      "community": 33,
+      "community": 338,
       "norm_label": ".close()"
     },
     {
@@ -43336,7 +43336,7 @@
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.ts",
       "source_location": "L74",
       "id": "tooltip_popover_component_popovercomponent_ondocclick",
-      "community": 33,
+      "community": 338,
       "norm_label": ".ondocclick()"
     },
     {
@@ -46214,7 +46214,7 @@
       "label": "VirtualListComponent",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L186",
+      "source_location": "L187",
       "id": "virtual_list_virtual_list_component_virtuallistcomponent",
       "community": 130,
       "norm_label": "virtuallistcomponent"
@@ -46223,7 +46223,7 @@
       "label": "raw",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L211",
+      "source_location": "L212",
       "id": "virtual_list_virtual_list_component_raw",
       "community": 130,
       "norm_label": "raw"
@@ -46232,7 +46232,7 @@
       "label": "visible",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L216",
+      "source_location": "L217",
       "id": "virtual_list_virtual_list_component_visible",
       "community": 130,
       "norm_label": "visible"
@@ -46241,7 +46241,7 @@
       "label": "arr",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L222",
+      "source_location": "L223",
       "id": "virtual_list_virtual_list_component_arr",
       "community": 130,
       "norm_label": "arr"
@@ -46250,7 +46250,7 @@
       "label": "start",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L223",
+      "source_location": "L224",
       "id": "virtual_list_virtual_list_component_start",
       "community": 130,
       "norm_label": "start"
@@ -46259,7 +46259,7 @@
       "label": "end",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L224",
+      "source_location": "L225",
       "id": "virtual_list_virtual_list_component_end",
       "community": 130,
       "norm_label": "end"
@@ -46268,7 +46268,7 @@
       "label": "all",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L225",
+      "source_location": "L226",
       "id": "virtual_list_virtual_list_component_all",
       "community": 130,
       "norm_label": "all"
@@ -46277,7 +46277,7 @@
       "label": ".onScroll()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L235",
+      "source_location": "L236",
       "id": "virtual_list_virtual_list_component_virtuallistcomponent_onscroll",
       "community": 130,
       "norm_label": ".onscroll()"
@@ -46286,7 +46286,7 @@
       "label": ".handleItemClick()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L242",
+      "source_location": "L243",
       "id": "virtual_list_virtual_list_component_virtuallistcomponent_handleitemclick",
       "community": 130,
       "norm_label": ".handleitemclick()"
@@ -46295,7 +46295,7 @@
       "label": ".getLabel()",
       "file_type": "code",
       "source_file": "projects/ngx-core-components/views/virtual-list/virtual-list.component.ts",
-      "source_location": "L247",
+      "source_location": "L248",
       "id": "virtual_list_virtual_list_component_virtuallistcomponent_getlabel",
       "community": 130,
       "norm_label": ".getlabel()"
@@ -47818,7 +47818,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L53",
       "id": "ngx_core_components_readme_included_components",
-      "community": 373,
+      "community": 131,
       "norm_label": "included components"
     },
     {
@@ -47827,7 +47827,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L55",
       "id": "ngx_core_components_readme_charts",
-      "community": 373,
+      "community": 131,
       "norm_label": "charts"
     },
     {
@@ -47836,7 +47836,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L67",
       "id": "ngx_core_components_readme_inputs",
-      "community": 373,
+      "community": 131,
       "norm_label": "inputs"
     },
     {
@@ -47845,7 +47845,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L85",
       "id": "ngx_core_components_readme_data_views",
-      "community": 373,
+      "community": 131,
       "norm_label": "data views"
     },
     {
@@ -47854,7 +47854,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L91",
       "id": "ngx_core_components_readme_dialog_and_overlay",
-      "community": 373,
+      "community": 131,
       "norm_label": "dialog and overlay"
     },
     {
@@ -47863,7 +47863,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L98",
       "id": "ngx_core_components_readme_buttons_and_actions",
-      "community": 373,
+      "community": 131,
       "norm_label": "buttons and actions"
     },
     {
@@ -47872,7 +47872,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L107",
       "id": "ngx_core_components_readme_layout",
-      "community": 373,
+      "community": 131,
       "norm_label": "layout"
     },
     {
@@ -47881,7 +47881,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L116",
       "id": "ngx_core_components_readme_feedback",
-      "community": 373,
+      "community": 131,
       "norm_label": "feedback"
     },
     {
@@ -47890,7 +47890,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L124",
       "id": "ngx_core_components_readme_navigation",
-      "community": 373,
+      "community": 131,
       "norm_label": "navigation"
     },
     {
@@ -47899,7 +47899,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L129",
       "id": "ngx_core_components_readme_barcodes",
-      "community": 373,
+      "community": 131,
       "norm_label": "barcodes"
     },
     {
@@ -48052,7 +48052,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L346",
       "id": "ngx_core_components_readme_codeblock_10",
-      "community": 131,
+      "community": 203,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -48061,7 +48061,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L379",
       "id": "ngx_core_components_readme_ganttchartcomponent_ngx_gantt_chart",
-      "community": 131,
+      "community": 33,
       "norm_label": "ganttchartcomponent (`ngx-gantt-chart`)"
     },
     {
@@ -48070,7 +48070,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L380",
       "id": "ngx_core_components_readme_inputs_380",
-      "community": 131,
+      "community": 33,
       "norm_label": "inputs"
     },
     {
@@ -48088,7 +48088,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L404",
       "id": "ngx_core_components_readme_public_methods",
-      "community": 131,
+      "community": 33,
       "norm_label": "public methods"
     },
     {
@@ -48097,7 +48097,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L417",
       "id": "ngx_core_components_readme_ganttconfig_interface",
-      "community": 131,
+      "community": 33,
       "norm_label": "ganttconfig interface"
     },
     {
@@ -48106,7 +48106,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L418",
       "id": "ngx_core_components_readme_codeblock_11",
-      "community": 131,
+      "community": 33,
       "norm_label": "code:typescript (interface ganttconfig {)"
     },
     {
@@ -48115,7 +48115,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L433",
       "id": "ngx_core_components_readme_gantttask_interface",
-      "community": 131,
+      "community": 33,
       "norm_label": "gantttask interface"
     },
     {
@@ -48124,7 +48124,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L434",
       "id": "ngx_core_components_readme_codeblock_12",
-      "community": 131,
+      "community": 33,
       "norm_label": "code:typescript (interface gantttask {)"
     },
     {
@@ -48340,7 +48340,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L585",
       "id": "ngx_core_components_readme_codeblock_13",
-      "community": 131,
+      "community": 33,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -48790,7 +48790,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L918",
       "id": "ngx_core_components_readme_datagridcomponent_ngx_data_grid",
-      "community": 161,
+      "community": 206,
       "norm_label": "datagridcomponent (`ngx-data-grid`)"
     },
     {
@@ -48799,7 +48799,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L919",
       "id": "ngx_core_components_readme_inputs_919",
-      "community": 161,
+      "community": 206,
       "norm_label": "inputs"
     },
     {
@@ -48808,7 +48808,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L948",
       "id": "ngx_core_components_readme_outputs_948",
-      "community": 161,
+      "community": 206,
       "norm_label": "outputs"
     },
     {
@@ -48817,7 +48817,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L962",
       "id": "ngx_core_components_readme_public_methods_962",
-      "community": 161,
+      "community": 206,
       "norm_label": "public methods"
     },
     {
@@ -48826,7 +48826,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L972",
       "id": "ngx_core_components_readme_treeviewcomponent_ngx_tree_view",
-      "community": 206,
+      "community": 161,
       "norm_label": "treeviewcomponent (`ngx-tree-view`)"
     },
     {
@@ -48835,7 +48835,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L973",
       "id": "ngx_core_components_readme_inputs_973",
-      "community": 206,
+      "community": 161,
       "norm_label": "inputs"
     },
     {
@@ -48844,7 +48844,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L982",
       "id": "ngx_core_components_readme_outputs_982",
-      "community": 206,
+      "community": 161,
       "norm_label": "outputs"
     },
     {
@@ -48853,7 +48853,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L990",
       "id": "ngx_core_components_readme_public_methods_990",
-      "community": 206,
+      "community": 161,
       "norm_label": "public methods"
     },
     {
@@ -49006,7 +49006,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1106",
       "id": "ngx_core_components_readme_codeblock_16",
-      "community": 204,
+      "community": 33,
       "norm_label": "code:typescript (import { component, signal } from '@angular/core';)"
     },
     {
@@ -49303,7 +49303,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1308",
       "id": "ngx_core_components_readme_codeblock_18",
-      "community": 208,
+      "community": 131,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -49411,7 +49411,7 @@
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L1391",
       "id": "ngx_core_components_readme_codeblock_19",
-      "community": 131,
+      "community": 33,
       "norm_label": "code:typescript (import { component } from '@angular/core';)"
     },
     {
@@ -51273,7 +51273,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L376",
-      "community": 131,
+      "community": 33,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_376"
     },
@@ -51606,7 +51606,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L834",
-      "community": 161,
+      "community": 206,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_834"
     },
@@ -51615,7 +51615,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L863",
-      "community": 161,
+      "community": 206,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_863"
     },
@@ -51624,7 +51624,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L877",
-      "community": 161,
+      "community": 206,
       "norm_label": "public methods",
       "id": "ngx_core_components_readme_public_methods_877"
     },
@@ -51633,7 +51633,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L888",
-      "community": 206,
+      "community": 161,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_888"
     },
@@ -51642,7 +51642,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L897",
-      "community": 206,
+      "community": 161,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_897"
     },
@@ -51651,7 +51651,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L905",
-      "community": 206,
+      "community": 161,
       "norm_label": "public methods",
       "id": "ngx_core_components_readme_public_methods_905"
     },
@@ -53595,7 +53595,7 @@
       "file_type": "code",
       "source_file": "projects/ngx-core-components/src/lib/tooltip/popover.component.stories.ts",
       "source_location": "L17",
-      "community": 33,
+      "community": 338,
       "norm_label": "story",
       "id": "tooltip_popover_component_stories_story"
     },
@@ -55224,7 +55224,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L375",
-      "community": 131,
+      "community": 33,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_375"
     },
@@ -55548,7 +55548,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L833",
-      "community": 161,
+      "community": 206,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_833"
     },
@@ -55557,7 +55557,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L862",
-      "community": 161,
+      "community": 206,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_862"
     },
@@ -55566,7 +55566,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L876",
-      "community": 161,
+      "community": 206,
       "norm_label": "public methods",
       "id": "ngx_core_components_readme_public_methods_876"
     },
@@ -55575,7 +55575,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L887",
-      "community": 206,
+      "community": 161,
       "norm_label": "inputs",
       "id": "ngx_core_components_readme_inputs_887"
     },
@@ -55584,7 +55584,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L896",
-      "community": 206,
+      "community": 161,
       "norm_label": "outputs",
       "id": "ngx_core_components_readme_outputs_896"
     },
@@ -55593,7 +55593,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L904",
-      "community": 206,
+      "community": 161,
       "norm_label": "public methods",
       "id": "ngx_core_components_readme_public_methods_904"
     },
@@ -56160,7 +56160,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L457",
-      "community": 131,
+      "community": 33,
       "norm_label": "component usage guides",
       "id": "ngx_core_components_readme_component_usage_guides"
     },
@@ -56169,7 +56169,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L459",
-      "community": 131,
+      "community": 203,
       "norm_label": "charts (bar, line, pie, sparkline)",
       "id": "ngx_core_components_readme_charts_bar_line_pie_sparkline"
     },
@@ -56178,7 +56178,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L491",
-      "community": 131,
+      "community": 33,
       "norm_label": "buttons & actions (chips, split/dropdown buttons)",
       "id": "ngx_core_components_readme_buttons_actions_chips_split_dropdown_buttons"
     },
@@ -56187,7 +56187,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L524",
-      "community": 131,
+      "community": 33,
       "norm_label": "layout & panels (accordion, tabs, cards, stepper)",
       "id": "ngx_core_components_readme_layout_panels_accordion_tabs_cards_stepper"
     },
@@ -56196,7 +56196,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L559",
-      "community": 131,
+      "community": 33,
       "norm_label": "overlays & dialogs (tooltips, popovers, alerts)",
       "id": "ngx_core_components_readme_overlays_dialogs_tooltips_popovers_alerts"
     },
@@ -56223,7 +56223,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L656",
-      "community": 131,
+      "community": 33,
       "norm_label": "views (treeview)",
       "id": "ngx_core_components_readme_views_treeview"
     },
@@ -56232,7 +56232,7 @@
       "file_type": "document",
       "source_file": "projects/ngx-core-components/README.md",
       "source_location": "L684",
-      "community": 131,
+      "community": 201,
       "norm_label": "barcodes & qr codes",
       "id": "ngx_core_components_readme_barcodes_qr_codes"
     },
@@ -110700,9 +110700,9 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-export-menu.component.spec.ts",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_charts_shared_chart_export_menu_component_spec_ts",
-      "target": "shared_chart_export_menu_component_spec_arrowdown",
-      "confidence_score": 1.0
+      "target": "shared_chart_export_menu_component_spec_arrowdown"
     },
     {
       "relation": "contains",
@@ -110710,9 +110710,9 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-export-menu.component.spec.ts",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_ngx_core_components_charts_shared_chart_export_menu_component_spec_ts",
-      "target": "shared_chart_export_menu_component_spec_arrowup",
-      "confidence_score": 1.0
+      "target": "shared_chart_export_menu_component_spec_arrowup"
     },
     {
       "relation": "contains",
@@ -110902,9 +110902,9 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-export-menu.component.ts",
       "source_location": "L160",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_chart_export_menu_component_chartexportmenucomponent",
-      "target": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowdown",
-      "confidence_score": 1.0
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowdown"
     },
     {
       "relation": "method",
@@ -110912,9 +110912,9 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-export-menu.component.ts",
       "source_location": "L166",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_chart_export_menu_component_chartexportmenucomponent",
-      "target": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowup",
-      "confidence_score": 1.0
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowup"
     },
     {
       "relation": "method",
@@ -110922,9 +110922,9 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-export-menu.component.ts",
       "source_location": "L172",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_chart_export_menu_component_chartexportmenucomponent",
-      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
-      "confidence_score": 1.0
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate"
     },
     {
       "relation": "method",
@@ -110997,9 +110997,9 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-export-menu.component.ts",
       "source_location": "L163",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowdown",
-      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
-      "confidence_score": 1.0
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate"
     },
     {
       "relation": "calls",
@@ -111008,9 +111008,9 @@
       "source_file": "projects/ngx-core-components/charts/shared/chart-export-menu.component.ts",
       "source_location": "L169",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowup",
-      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
-      "confidence_score": 1.0
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate"
     },
     {
       "relation": "imports_from",
@@ -153712,5 +153712,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "21f10af2fcb5ffef0312d22b829d719551cf7939"
+  "built_at_commit": "f9a353496a80a56bd19b65b57a8bfa2001748203"
 }

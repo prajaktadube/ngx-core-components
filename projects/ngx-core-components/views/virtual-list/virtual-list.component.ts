@@ -47,6 +47,7 @@ export interface VirtualListItemClickEvent<T> {
             [class.vl-row--striped]="striped() && entry.index % 2 !== 0"
             [style.height]="itemHeight() + 'px'"
             role="option"
+            [attr.aria-selected]="selectedIndex() === entry.index"
             tabindex="0"
             (click)="handleItemClick(entry.item, entry.index)"
             (keydown.enter)="handleItemClick(entry.item, entry.index)"

@@ -1440,7 +1440,7 @@ export class AgenticCognitiveTopologyComponent {
     const links = this.effectiveLinks();
     if (!links.length) return;
     const headers = ['Source', 'Target', 'Active'];
-    const rows = links.map(l => [l.source, l.target, !!l.active ? 'true' : 'false']);
+    const rows = links.map(l => [l.source, l.target, l.active ? 'true' : 'false']);
     this.exportSvc.downloadCsv(headers, rows, 'topology-flow-data.csv');
   }
 
