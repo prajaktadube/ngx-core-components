@@ -13,8 +13,45 @@ import { FormsModule } from '@angular/forms';
         <!-- Left Panel: Prompt Configuration -->
         <div class="studio-config-card">
           <div class="card-header">
-            <h3>Prompt Engineering Studio</h3>
-            <p>Design instructions, parse template variables, and adjust parameters.</p>
+            <div class="header-top-row">
+              <div>
+                <h3>Prompt Engineering Studio</h3>
+                <p>Design instructions, parse template variables, and estimate token costs.</p>
+              </div>
+              <div class="model-select-wrap">
+                <label class="model-label">Model Engine</label>
+                <select 
+                  class="studio-select" 
+                  [ngModel]="selectedModel()" 
+                  (ngModelChange)="selectedModel.set($event)"
+                >
+                  <option value="gpt-4o">GPT-4o ($0.0025/1k)</option>
+                  <option value="gpt-4o-mini">GPT-4o-mini ($0.00015/1k)</option>
+                  <option value="claude-3-5-sonnet">Claude 3.5 Sonnet ($0.003/1k)</option>
+                  <option value="gemini-1-5-pro">Gemini 1.5 Pro ($0.00125/1k)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Token & Cost Metrics Banner -->
+            <div class="metrics-banner">
+              <div class="metric-card">
+                <span class="metric-val">{{ systemTokens() }}</span>
+                <span class="metric-lbl">System Tokens</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-val">{{ compiledTokens() }}</span>
+                <span class="metric-lbl">Prompt Tokens</span>
+              </div>
+              <div class="metric-card highlight">
+                <span class="metric-val">{{ totalPromptTokens() }}</span>
+                <span class="metric-lbl">Total Tokens</span>
+              </div>
+              <div class="metric-card cost">
+                <span class="metric-val">{{ estimatedCost() }}</span>
+                <span class="metric-lbl">Est. Cost / Run</span>
+              </div>
+            </div>
           </div>
 
           <div class="config-body">
@@ -24,14 +61,18 @@ import { FormsModule } from '@angular/forms';
               <textarea
                 class="studio-textarea"
                 rows="3"
-                [(ngModel)]="systemPrompt"
+                [ngModel]="systemPrompt"
+                (ngModelChange)="onSystemPromptChange($event)"
                 placeholder="You are a helpful and precise assistant..."
               ></textarea>
             </div>
 
             <!-- Prompt Template -->
             <div class="form-group">
-              <label class="group-label">Prompt Template</label>
+              <div class="label-with-tools">
+                <label class="group-label">Prompt Template</label>
+                <button type="button" class="add-var-btn" (click)="addNewVariable()">+ Add {{ '{' }}{{ '{' }}var{{ '}' }}{{ '}' }}</button>
+              </div>
               <div class="help-text">Use double braces <code>{{ '{' }}{{ '{' }}variable{{ '}' }}{{ '}' }}</code> to define dynamic parameters.</div>
               <textarea
                 class="studio-textarea template-textarea"
@@ -179,6 +220,13 @@ import { FormsModule } from '@angular/forms';
       padding: 16px 20px;
       border-bottom: 1px solid var(--border-color, #e2e8f0);
     }
+    .header-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
     .card-header h3 {
       margin: 0 0 4px;
       font-size: 16px;
@@ -189,6 +237,92 @@ import { FormsModule } from '@angular/forms';
       margin: 0;
       font-size: 12px;
       color: var(--text-secondary, #64748b);
+    }
+
+    .model-select-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .model-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .studio-select {
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .metrics-banner {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .metric-card {
+      flex: 1;
+      min-width: 90px;
+      background: var(--bg-primary, #f8fafc);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .metric-card.highlight {
+      background: rgba(79, 70, 229, 0.08);
+      border-color: rgba(79, 70, 229, 0.3);
+    }
+    .metric-card.cost {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .metric-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+    }
+    .metric-card.cost .metric-val {
+      color: #059669;
+    }
+    .metric-card.highlight .metric-val {
+      color: #4f46e5;
+    }
+    .metric-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .label-with-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .add-var-btn {
+      background: transparent;
+      border: 1px solid #4f46e5;
+      color: #4f46e5;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .add-var-btn:hover {
+      background: #4f46e5;
+      color: #ffffff;
     }
 
     .config-body, .output-body {
@@ -402,21 +536,53 @@ export class AIPromptEditorComponent {
   initialSystem = input<string>('You are an encouraging and helpful product specialist.');
 
   // Component Internal State Signals
-  systemPrompt = '';
+  systemPromptSignal = signal('');
+  get systemPrompt(): string {
+    return this.systemPromptSignal();
+  }
+  set systemPrompt(val: string) {
+    this.systemPromptSignal.set(val || '');
+  }
+
   templateText = signal('');
   temperature = signal(0.7);
   maxTokens = 512;
   
+  selectedModel = signal<'gpt-4o' | 'gpt-4o-mini' | 'claude-3-5-sonnet' | 'gemini-1-5-pro'>('gpt-4o');
   varValues = signal<Record<string, string>>({});
   isRunning = signal(false);
   simulatedResponse = signal('');
+
+  readonly MODEL_RATES: Record<string, { name: string; ratePer1k: number }> = {
+    'gpt-4o': { name: 'GPT-4o', ratePer1k: 0.0025 },
+    'gpt-4o-mini': { name: 'GPT-4o-mini', ratePer1k: 0.00015 },
+    'claude-3-5-sonnet': { name: 'Claude 3.5 Sonnet', ratePer1k: 0.003 },
+    'gemini-1-5-pro': { name: 'Gemini 1.5 Pro', ratePer1k: 0.00125 },
+  };
+
+  // Real-time Token Count Calculations (~4 chars per token)
+  systemTokens = computed(() => Math.ceil((this.systemPromptSignal() || '').length / 4));
+  compiledTokens = computed(() => Math.ceil((this.compiledPrompt() || '').length / 4));
+  totalPromptTokens = computed(() => this.systemTokens() + this.compiledTokens());
+
+  // Real-time Cost Estimation ($ per request)
+  estimatedCost = computed(() => {
+    const rate = this.MODEL_RATES[this.selectedModel()]?.ratePer1k || 0.0025;
+    const total = this.totalPromptTokens();
+    const cost = (total / 1000) * rate;
+    return cost < 0.00005 ? '< $0.0001' : `$${cost.toFixed(5)}`;
+  });
 
   constructor() {
     // Populate defaults on initialize
     effect(() => {
       this.templateText.set(this.initialTemplate());
-      this.systemPrompt = this.initialSystem();
+      this.systemPromptSignal.set(this.initialSystem());
     }, { allowSignalWrites: true });
+  }
+
+  onSystemPromptChange(text: string): void {
+    this.systemPromptSignal.set(text || '');
   }
 
   // Parse variables from template string dynamically
@@ -465,6 +631,16 @@ export class AIPromptEditorComponent {
   setVarValue(vName: string, event: Event): void {
     const val = (event.target as HTMLInputElement).value;
     this.varValues.update(dict => ({ ...dict, [vName]: val }));
+  }
+
+  addNewVariable(): void {
+    const varName = prompt('Enter new template variable name (e.g. user_role):');
+    if (varName) {
+      const clean = varName.trim().replace(/[^a-zA-Z0-9_]/g, '');
+      if (clean) {
+        this.templateText.update(t => t + (t.endsWith(' ') || t === '' ? '' : ' ') + `{{${clean}}}`);
+      }
+    }
   }
 
   triggerRun(): void {

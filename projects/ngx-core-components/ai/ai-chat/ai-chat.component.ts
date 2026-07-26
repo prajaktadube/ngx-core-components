@@ -9,7 +9,24 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="ngx-ai-chat-container" [class.dark-mode]="theme() === 'dark'">
+    <div 
+      class="ngx-ai-chat-container" 
+      [class.dark-mode]="theme() === 'dark'"
+      [class.drag-over]="isDraggingOver()"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <!-- Drag & Drop Overlay -->
+      @if (isDraggingOver()) {
+        <div class="drag-dropzone-overlay">
+          <div class="drag-dropzone-content">
+            <svg viewBox="0 0 24 24" class="drag-icon"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+            <span>Drop files here to attach (Images, PDFs, Docs)</span>
+          </div>
+        </div>
+      }
+
       <!-- Chat Header -->
       <div class="ngx-ai-chat-header">
         <div class="header-avatar" [style.background]="avatarBg()">
@@ -32,7 +49,14 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
       </div>
 
       <!-- Messages Thread -->
-      <div class="ngx-ai-chat-body" #chatBody>
+      <div class="ngx-ai-chat-body" #chatBody (scroll)="onBodyScroll()">
+        <!-- Scroll-to-bottom Floating Button -->
+        @if (isUserScrolledUp()) {
+          <button type="button" class="scroll-bottom-pill" (click)="scrollToBottom(true)" title="Resume auto-scroll">
+            <svg viewBox="0 0 24 24" class="pill-icon"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            <span>New messages</span>
+          </button>
+        }
         <div class="messages-list">
           @for (msg of messages(); track msg.id; let isLast = $last) {
             <div class="message-wrapper" [class.user-msg]="msg.role === 'user'" [class.assistant-msg]="msg.role === 'assistant'">
@@ -1012,6 +1036,128 @@ import { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from './models
       transform: scale(1.1);
     }
 
+    /* Drag & Drop Overlay */
+    .ngx-ai-chat-container {
+      position: relative;
+    }
+    .ngx-ai-chat-container.drag-over {
+      border-color: #3b82f6 !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    .drag-dropzone-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      background: rgba(59, 130, 246, 0.85);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      border-radius: 12px;
+      pointer-events: none;
+      animation: fadeIn 0.2s ease;
+    }
+    .drag-dropzone-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .drag-icon {
+      width: 48px;
+      height: 48px;
+      fill: currentColor;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Scroll to bottom pill button */
+    .ngx-ai-chat-body {
+      position: relative;
+    }
+    .scroll-bottom-pill {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #3b82f6;
+      color: #ffffff;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      transition: all 0.2s ease;
+    }
+    .scroll-bottom-pill:hover {
+      background: #2563eb;
+      transform: translateX(-50%) translateY(-2px);
+    }
+    .pill-icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Code block syntax highlighting */
+    .code-container {
+      background: #0f172a !important;
+      color: #e2e8f0 !important;
+      border-radius: 8px !important;
+      padding: 10px 14px !important;
+      font-family: 'Fira Code', Consolas, Monaco, monospace !important;
+      font-size: 12.5px !important;
+      margin: 10px 0 !important;
+      border-left: 4px solid #3b82f6 !important;
+      overflow-x: auto !important;
+    }
+    .code-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .copy-code-btn {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #f8fafc !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      padding: 2px 8px !important;
+      border-radius: 4px !important;
+      cursor: pointer !important;
+      font-size: 10px !important;
+      font-family: sans-serif !important;
+      transition: all 0.2s !important;
+    }
+    .copy-code-btn:hover {
+      background: rgba(255, 255, 255, 0.2) !important;
+    }
+    .token-kw { color: #f472b6; font-weight: 600; }
+    .token-str { color: #a7f3d0; }
+    .token-num { color: #fde047; }
+    .token-cmt { color: #64748b; font-style: italic; }
+    .token-fn { color: #60a5fa; }
+
     /* Dark Mode specific overrides */
     .dark-mode .attachments-preview-bar {
       border-bottom-color: var(--ngx-ai-chat-border, #334155);
@@ -1075,6 +1221,9 @@ export class AIChatComponent {
   attachedFiles = signal<{ name: string; type: string; size: number; url: string; rawFile: File }[]>([]);
   msgFeedbackMap: Record<string, 'like' | 'dislike'> = {};
 
+  isUserScrolledUp = signal(false);
+  isDraggingOver = signal(false);
+
   @HostListener('click', ['$event'])
   onHostClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
@@ -1089,30 +1238,64 @@ export class AIChatComponent {
     }
   }
 
+  onBodyScroll(): void {
+    const el = this.chatBody()?.nativeElement;
+    if (el) {
+      const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
+      this.isUserScrolledUp.set(!isAtBottom);
+    }
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!this.disabled()) {
+      this.isDraggingOver.set(true);
+    }
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDraggingOver.set(false);
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDraggingOver.set(false);
+    if (this.disabled()) return;
+    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+      this.processFiles(Array.from(event.dataTransfer.files));
+    }
+  }
+
   onFileSelected(event: Event) {
     const inputEl = event.target as HTMLInputElement;
     if (inputEl && inputEl.files) {
-      const filesArray = Array.from(inputEl.files);
-      filesArray.forEach(file => {
-        const fileUrl = URL.createObjectURL(file);
-        const attachment = {
-          name: file.name,
-          type: file.type,
-          size: file.size,
-          url: fileUrl,
-          rawFile: file
-        };
-        this.attachedFiles.update(current => [...current, attachment]);
-        this.fileAttached.emit({
-          name: file.name,
-          type: file.type,
-          size: file.size,
-          file: file
-        });
-      });
-      // Reset input value to allow selecting same file again
+      this.processFiles(Array.from(inputEl.files));
       inputEl.value = '';
     }
+  }
+
+  private processFiles(filesArray: File[]) {
+    filesArray.forEach(file => {
+      const fileUrl = URL.createObjectURL(file);
+      const attachment = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        url: fileUrl,
+        rawFile: file
+      };
+      this.attachedFiles.update(current => [...current, attachment]);
+      this.fileAttached.emit({
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        file: file
+      });
+    });
   }
 
   removeAttachment(file: any) {
@@ -1155,6 +1338,7 @@ export class AIChatComponent {
     
     this.attachedFiles.set([]);
     this.inputText = '';
+    this.scrollToBottom(true);
   }
 
   toggleStep(step: AgentStep): void {
@@ -1174,19 +1358,28 @@ export class AIChatComponent {
     return name.slice(0, 2).toUpperCase();
   }
 
-  scrollToBottom(): void {
+  scrollToBottom(force = false): void {
+    if (this.isUserScrolledUp() && !force) return;
     setTimeout(() => {
       const el = this.chatBody()?.nativeElement;
       if (el) {
         el.scrollTop = el.scrollHeight;
+        if (force) this.isUserScrolledUp.set(false);
       }
-    }, 100);
+    }, 60);
+  }
+
+  private highlightSyntax(code: string): string {
+    // Lightweight regex syntax tokenizer
+    return code
+      .replace(/(".*?"|'.*?'|`[^`]*`)/g, '<span class="token-str">$1</span>')
+      .replace(/\b(const|let|var|function|return|import|export|class|if|else|true|false|async|await|interface|type)\b/g, '<span class="token-kw">$1</span>')
+      .replace(/\b([a-zA-Z_]\w*)(?=\()/g, '<span class="token-fn">$1</span>')
+      .replace(/\b(\d+)\b/g, '<span class="token-num">$1</span>');
   }
 
   formatMessage(content: string): SafeHtml {
     if (!content) return '';
-    // Very basic escaping and formatting to keep it lightweight.
-    // In actual project, a custom template or markdown pipe can be used.
     let formatted = content
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -1213,18 +1406,19 @@ export class AIChatComponent {
     // Bold markdown helper
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-    // Code blocks helper
+    // Code blocks helper with syntax highlighting & copy button
     formatted = formatted.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
       const language = lang || 'code';
       const cleanCode = code.trim();
+      const highlighted = this.highlightSyntax(cleanCode);
       const encoded = encodeURIComponent(cleanCode);
       return `
-        <div class="code-container" style="background: rgba(0,0,0,0.05); padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 12px; margin: 8px 0; border-left: 3px solid #3b82f6; overflow-x: auto; position: relative;">
-          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: bold; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase;">
+        <div class="code-container">
+          <div class="code-header-bar">
             <span>${language}</span>
-            <button class="copy-code-btn" data-code="${encoded}" style="background: transparent; border: 1px solid rgba(0,0,0,0.15); padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 9px; font-family: sans-serif; transition: all 0.2s;">Copy</button>
+            <button class="copy-code-btn" data-code="${encoded}">Copy</button>
           </div>
-          <pre style="margin: 0; white-space: pre-wrap;"><code>${cleanCode}</code></pre>
+          <pre style="margin: 0; white-space: pre-wrap;"><code>${highlighted}</code></pre>
         </div>
       `;
     });

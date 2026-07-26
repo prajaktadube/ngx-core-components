@@ -47,27 +47,44 @@ export interface GaugeThreshold {
         >
           <defs>
             <linearGradient id="gauge-progress-grad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" [attr.stop-color]="gaugeColor()" stop-opacity="0.8" />
+              <stop offset="0%" [attr.stop-color]="gaugeColor()" stop-opacity="0.85" />
               <stop offset="100%" [attr.stop-color]="gaugeColor()" />
             </linearGradient>
-            <radialGradient id="needle-pivot-grad" cx="40%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6" />
-              <stop offset="40%" [attr.stop-color]="gaugeColor()" />
+            <linearGradient id="pivot-cap-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#64748b" />
+              <stop offset="50%" stop-color="#334155" />
               <stop offset="100%" stop-color="#0f172a" />
-            </radialGradient>
+            </linearGradient>
             <linearGradient id="needle-grad" x1="0%" y1="100%" x2="0%" y2="0%">
-              <stop offset="0%" [attr.stop-color]="gaugeColor()" stop-opacity="0.6" />
+              <stop offset="0%" [attr.stop-color]="gaugeColor()" stop-opacity="0.75" />
               <stop offset="100%" [attr.stop-color]="gaugeColor()" />
             </linearGradient>
+            <filter id="gauge-blur-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
           </defs>
 
-          <!-- Background track arc -->
+          <!-- Outer background guide track -->
           <path
             [attr.d]="backgroundArcPath()"
             fill="none"
-            stroke="var(--border-light, #f1f5f9)"
+            stroke="var(--ngx-gauge-track-bg, rgba(148, 163, 184, 0.12))"
             stroke-width="14"
             stroke-linecap="round"
+          />
+
+          <!-- Colored background glow track -->
+          <path
+            [attr.d]="backgroundArcPath()"
+            fill="none"
+            [attr.stroke]="gaugeColor()"
+            stroke-width="18"
+            stroke-linecap="round"
+            opacity="0.15"
+            [attr.stroke-dasharray]="arcLength() + ',' + arcLength()"
+            [attr.stroke-dashoffset]="progressDashOffset()"
+            class="progress-arc-glow"
           />
 
           <!-- Colored progress arc -->
@@ -82,22 +99,82 @@ export interface GaugeThreshold {
             class="progress-arc"
           />
 
+          <!-- Colored threshold zone lines (Outer edge) -->
+          <g class="gauge-thresholds">
+            @for (arc of thresholdArcs(); track $index) {
+              <path
+                [attr.d]="arc.path"
+                fill="none"
+                [attr.stroke]="arc.color"
+                stroke-width="3"
+                stroke-linecap="round"
+                opacity="0.65"
+              />
+            }
+          </g>
+
+          <!-- Instrument Dial Ticks & Labels -->
+          <g class="gauge-ticks">
+            @for (tick of ticks(); track $index) {
+              <!-- Radial Tick Mark -->
+              <line
+                [attr.x1]="tick.x1"
+                [attr.y1]="tick.y1"
+                [attr.x2]="tick.x2"
+                [attr.y2]="tick.y2"
+                [attr.stroke]="tick.isMajor ? 'var(--text-secondary, #64748b)' : 'var(--border-color, #cbd5e1)'"
+                [attr.stroke-width]="tick.isMajor ? 1.5 : 1"
+                opacity="0.6"
+              />
+              <!-- Value Label -->
+              @if (tick.isMajor) {
+                <text
+                  [attr.x]="tick.textX"
+                  [attr.y]="tick.textY"
+                  fill="var(--text-secondary, #64748b)"
+                  font-size="8px"
+                  font-weight="700"
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                  font-family="monospace"
+                >{{ tick.valueText }}</text>
+              }
+            }
+          </g>
+
           <!-- Needle / Indicator dial -->
           @if (showNeedle()) {
             <g [attr.transform]="needleTransformString()" class="gauge-needle-group">
-              <!-- Needle path pointing straight up (0 deg is relative to -90 deg rotation) -->
+              <!-- Tapered needle spear -->
               <path
-                d="M 100 100 L 96 35 L 100 25 L 104 35 Z"
+                d="M 100 100 L 98 32 L 100 20 L 102 32 Z"
                 fill="url(#needle-grad)"
                 class="gauge-needle"
+              />
+              <!-- Core pin highlighting line -->
+              <line
+                x1="100" y1="98"
+                x2="100" y2="24"
+                stroke="#ffffff"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                opacity="0.9"
+              />
+              <!-- Multi-layered pivot cap -->
+              <circle
+                cx="100"
+                cy="100"
+                r="10"
+                fill="url(#pivot-cap-grad)"
+                stroke="rgba(0, 0, 0, 0.2)"
+                stroke-width="1"
               />
               <circle
                 cx="100"
                 cy="100"
-                r="9"
-                fill="url(#needle-pivot-grad)"
-                stroke="rgba(255, 255, 255, 0.2)"
-                stroke-width="1"
+                r="4"
+                fill="#ffffff"
+                opacity="0.25"
               />
             </g>
           }
@@ -173,10 +250,15 @@ export interface GaugeThreshold {
     .ngx-gauge-svg {
       width: 100%;
       height: 100%;
+      overflow: visible;
     }
 
     /* Arcs transition */
     .progress-arc {
+      transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+    }
+    .progress-arc-glow {
       transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
     }
 
@@ -186,7 +268,7 @@ export interface GaugeThreshold {
       transform-origin: 100px 100px;
     }
     .gauge-needle {
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.18));
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.22));
     }
 
     /* Center Value Indicator */
@@ -205,20 +287,21 @@ export interface GaugeThreshold {
     }
 
     .gauge-value {
-      font-size: 28px;
-      font-weight: 800;
+      font-size: 32px;
+      font-weight: 850;
       letter-spacing: -0.8px;
       line-height: 1;
       transition: color 0.3s ease;
       font-family: var(--ngx-heading-font-family, inherit);
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
     }
     .gauge-label {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 750;
       color: var(--text-secondary, #64748b);
-      letter-spacing: 0.5px;
-      margin-top: 4px;
+      letter-spacing: 0.8px;
+      margin-top: 6px;
     }
 
     /* Glassmorphic Tooltip */
@@ -361,11 +444,11 @@ export class GaugeChartComponent {
   // Gauge angles definitions
   // 0 deg in polar is to the right (3 o'clock). 90 deg is straight down (6 o'clock).
   startAngle = computed(() => {
-    return this.type() === 'semi' ? 180 : 135;
+    return this.type() === 'semi' ? 270 : 225;
   });
 
   endAngle = computed(() => {
-    return this.type() === 'semi' ? 360 : 405;
+    return this.type() === 'semi' ? 450 : 495;
   });
 
   // Arc length calculations
@@ -404,8 +487,8 @@ export class GaugeChartComponent {
 
     const angle = this.animateState() ? targetAngle : this.startAngle();
 
-    // Needle points straight up at -90 deg rotation, so we offset by -90
-    const rotateAngle = angle - 270;
+    // Needle points straight up at 0 deg rotation (12 o'clock, which is 360 in polar offset)
+    const rotateAngle = angle - 360;
     return `rotate(${rotateAngle})`;
   });
 
@@ -430,6 +513,108 @@ export class GaugeChartComponent {
 
     // Default to the last threshold color if value exceeds all thresholds
     return sorted[sorted.length - 1].color;
+  });
+
+  private getThresholdColorForValue(val: number): string {
+    const thresholdList = this.thresholds();
+    if (thresholdList.length === 0) {
+      return this.color();
+    }
+    const sorted = [...thresholdList].sort((a, b) => a.value - b.value);
+    for (const t of sorted) {
+      if (val <= t.value) {
+        return t.color;
+      }
+    }
+    return sorted[sorted.length - 1].color;
+  }
+
+  ticks = computed(() => {
+    const minVal = this.min();
+    const maxVal = this.max();
+    const range = maxVal - minVal;
+    const startA = this.startAngle();
+    const endA = this.endAngle();
+    const angleRange = endA - startA;
+    
+    // We want 11 ticks (every 10%)
+    const tickCount = 11;
+    const result = [];
+    
+    for (let i = 0; i < tickCount; i++) {
+      const fraction = i / (tickCount - 1);
+      const val = minVal + range * fraction;
+      const angle = startA + angleRange * fraction;
+      
+      // Radial line coords
+      const outerRad = 64;
+      const innerRad = i % 2 === 0 ? 56 : 60; // Major vs minor ticks
+      
+      const outerPt = this.polarToCartesian(100, 100, outerRad, angle);
+      const innerPt = this.polarToCartesian(100, 100, innerRad, angle);
+      
+      // Text coords (for major ticks)
+      let textPt = null;
+      if (i % 2 === 0) {
+        textPt = this.polarToCartesian(100, 100, 44, angle);
+      }
+      
+      const color = this.getThresholdColorForValue(val);
+      
+      result.push({
+        x1: innerPt.x,
+        y1: innerPt.y,
+        x2: outerPt.x,
+        y2: outerPt.y,
+        textX: textPt?.x ?? 0,
+        textY: textPt?.y ?? 0,
+        valueText: Math.round(val).toString(),
+        isMajor: i % 2 === 0,
+        color
+      });
+    }
+    return result;
+  });
+
+  thresholdArcs = computed(() => {
+    const list = this.thresholds();
+    if (list.length === 0) return [];
+    
+    const minVal = this.min();
+    const maxVal = this.max();
+    const range = maxVal - minVal;
+    const startA = this.startAngle();
+    const endA = this.endAngle();
+    const angleRange = endA - startA;
+    
+    // Sort thresholds ascending
+    const sorted = [...list].sort((a, b) => a.value - b.value);
+    
+    const arcs = [];
+    let currentVal = minVal;
+    
+    for (let i = 0; i < sorted.length; i++) {
+      const nextVal = Math.min(maxVal, sorted[i].value);
+      if (nextVal <= currentVal) continue;
+      
+      const startFraction = (currentVal - minVal) / range;
+      const endFraction = (nextVal - minVal) / range;
+      
+      const startAngleSegment = startA + angleRange * startFraction;
+      const endAngleSegment = startA + angleRange * endFraction;
+      
+      // Radius slightly outside: e.g. 81px
+      const path = this.describeArc(100, 100, 81, startAngleSegment, endAngleSegment);
+      
+      arcs.push({
+        path,
+        color: sorted[i].color
+      });
+      
+      currentVal = nextVal;
+    }
+    
+    return arcs;
   });
 
   toggleExportMenu(event: MouseEvent): void {
@@ -581,15 +766,15 @@ export class GaugeChartComponent {
   }
 
   private describeArc(x: number, y: number, radius: number, startAngle: number, endAngle: number): string {
-    const start = this.polarToCartesian(x, y, radius, endAngle);
-    const end = this.polarToCartesian(x, y, radius, startAngle);
+    const start = this.polarToCartesian(x, y, radius, startAngle);
+    const end = this.polarToCartesian(x, y, radius, endAngle);
 
     // If starting and ending angle range exceeds 180 degrees, set largeArcFlag
     const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
 
     return [
       'M', start.x, start.y,
-      'A', radius, radius, 0, largeArcFlag, 0, end.x, end.y
+      'A', radius, radius, 0, largeArcFlag, 1, end.x, end.y
     ].join(' ');
   }
 }

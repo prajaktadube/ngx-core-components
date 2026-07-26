@@ -21,6 +21,10 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 import { GridExportService } from './grid-export.service';
+import { GridExportXlsxService } from './services/grid-export-xlsx.service';
+import { GridStatusBarComponent } from './components/grid-status-bar/grid-status-bar.component';
+import { GridFilterBuilderComponent } from './components/grid-filter-builder/grid-filter-builder.component';
+import type { TreeDataConfig, FilterExpression, GridStatusBarAggregates, GridInfiniteScrollEvent } from './models';
 
 // Re-export all model types so existing imports from this file continue to work
 export type {
@@ -103,7 +107,12 @@ export class NgxGridFooterTemplateDirective {
   selector: 'ngx-data-grid',
   standalone: true,
   imports: [
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    GridStatusBarComponent,
+    GridFilterBuilderComponent
+  ],
+  providers: [
+    GridExportXlsxService
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -154,9 +163,13 @@ export class NgxGridFooterTemplateDirective {
           @if (showColumnChooser()) {
             <button class="grid-action-btn" (click)="openColumnChooser($event)" title="Choose columns">Columns</button>
           }
+          @if (showFilterBuilder()) {
+            <button class="grid-action-btn" (click)="isFilterBuilderOpen.set(true)" title="Advanced Filter Builder">🔍 Filter</button>
+          }
           <button class="grid-action-btn" (click)="exportToJson()" title="Export JSON">JSON</button>
           <button class="grid-action-btn" (click)="exportToCsv()" title="Export CSV">CSV</button>
-          <button class="grid-action-btn" (click)="exportToExcel()" title="Export Excel">Excel</button>
+          <button class="grid-action-btn" (click)="exportToXlsx()" title="Export native XLSX workbook">XLSX</button>
+          <button class="grid-action-btn" (click)="exportToExcel()" title="Export HTML Excel">Excel</button>
           <button class="grid-action-btn" (click)="exportToPdf()" title="Export PDF">PDF</button>
         </div>
       </div>
@@ -938,6 +951,19 @@ export class NgxGridFooterTemplateDirective {
           </button>
         </div>
       }
+
+      <!-- Status Bar -->
+      <ngx-grid-status-bar [aggregates]="selectionAggregates()" [visible]="showStatusBar()" />
+
+      <!-- Advanced Filter Builder Overlay -->
+      @if (isFilterBuilderOpen()) {
+        <ngx-grid-filter-builder
+          [columns]="$any(columns())"
+          [expression]="internalFilterExpression()"
+          (expressionChange)="onFilterExpressionChange($event)"
+          (close)="isFilterBuilderOpen.set(false)"
+        />
+      }
     </div>
   `,
   styles: [`
@@ -1052,7 +1078,9 @@ export class NgxGridFooterTemplateDirective {
     }
 
     .grid-th {
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 10;
       padding: 14px 18px;
       text-align: left;
       font-size: 11px;
@@ -1608,31 +1636,37 @@ export class NgxGridFooterTemplateDirective {
     }
     .pinned-left {
       position: sticky !important;
-      z-index: 2;
+      z-index: 5;
       background: var(--ngx-grid-bg, #ffffff);
     }
     th.pinned-left {
-      z-index: 4;
-      background: var(--ngx-grid-header-bg, #f8fafc);
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
     }
     .sticky-toggle {
       position: sticky !important;
       left: 0;
-      z-index: 3;
+      z-index: 5;
       background: var(--ngx-grid-bg, #ffffff);
     }
     th.sticky-toggle {
-      z-index: 5;
-      background: var(--ngx-grid-header-bg, #f8fafc);
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
     }
     .sticky-check {
       position: sticky !important;
-      z-index: 3;
+      z-index: 5;
       background: var(--ngx-grid-bg, #ffffff);
     }
     th.sticky-check {
-      z-index: 5;
-      background: var(--ngx-grid-header-bg, #f8fafc);
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
     }
     .pinned-left-last,
     .sticky-toggle-last,
@@ -1663,12 +1697,14 @@ export class NgxGridFooterTemplateDirective {
 
     .pinned-right {
       position: sticky !important;
-      z-index: 2;
+      z-index: 5;
       background: var(--ngx-grid-bg, #ffffff);
     }
     th.pinned-right {
-      z-index: 4;
-      background: var(--ngx-grid-header-bg, #f8fafc);
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
     }
     .pinned-right-first {
       border-left: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
@@ -2027,6 +2063,59 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   showGlobalSearch = input<boolean>(false);
   globalSearchPlaceholder = input<string>('Search...');
   rowReorder = output<{ previousIndex: number; currentIndex: number; data: T[] }>();
+
+  // Enterprise feature inputs & outputs
+  showStatusBar = input<boolean>(false);
+  showFilterBuilder = input<boolean>(false);
+  treeData = input<TreeDataConfig | null>(null);
+  pinnedTopRows = input<T[]>([]);
+  pinnedBottomRows = input<T[]>([]);
+  infiniteScroll = input<boolean>(false);
+  filterExpression = input<FilterExpression | null>(null);
+  filterExpressionChange = output<FilterExpression | null>();
+  infiniteScrollLoad = output<GridInfiniteScrollEvent>();
+
+  // Injected services
+  private xlsxExportService = inject(GridExportXlsxService);
+
+  // Filter builder state
+  isFilterBuilderOpen = signal<boolean>(false);
+  internalFilterExpression = signal<FilterExpression | null>(null);
+
+  /** Live selection aggregates for status bar */
+  selectionAggregates = computed<GridStatusBarAggregates>(() => {
+    const selectedText = this.getSelectedCellsText();
+    if (!selectedText) {
+      const selRows = this.selectedRows();
+      return { count: selRows.size, sum: null, average: null, min: null, max: null };
+    }
+    const numbers = selectedText.split(/[\t\n]/)
+      .map(str => str.trim())
+      .filter(str => str !== '' && !isNaN(Number(str)))
+      .map(str => Number(str));
+
+    const count = numbers.length;
+    if (count === 0) return { count: 0, sum: null, average: null, min: null, max: null };
+    const sum = numbers.reduce((a, b) => a + b, 0);
+    const average = sum / count;
+    const min = Math.min(...numbers);
+    const max = Math.max(...numbers);
+    return { count, sum, average, min, max };
+  });
+
+  onFilterExpressionChange(expr: FilterExpression | null): void {
+    this.internalFilterExpression.set(expr);
+    this.filterExpressionChange.emit(expr);
+  }
+
+  exportToXlsx(filename = 'grid-data.xlsx'): void {
+    this.xlsxExportService.exportToXlsx(
+      this.clientFilteredData(),
+      this.columns() as GridColumnDef<T>[],
+      filename,
+      { groupBy: this.internalGroupBy() }
+    );
+  }
 
   /**
    * Number of rows to render per page in paginated mode.

@@ -37,7 +37,12 @@ export interface WidgetMessage {
       </div>
 
       <!-- Feed Body -->
-      <div class="widget-body" #scrollContainer>
+      <div class="widget-body" #scrollContainer (scroll)="onBodyScroll()">
+        @if (isUserScrolledUp()) {
+          <button type="button" class="widget-scroll-bottom-pill" (click)="scrollToBottom(true)">
+            ↓ New messages
+          </button>
+        }
         @for (msg of messages(); track $index) {
           <div class="message-row" [class.user-row]="msg.sender === 'user'">
             @if (msg.sender === 'assistant') {
@@ -336,6 +341,31 @@ export interface WidgetMessage {
     .send-btn:hover {
       background: var(--primary-color-dark, #3730a3);
     }
+
+    /* Scroll to bottom pill */
+    .widget-body {
+      position: relative;
+    }
+    .widget-scroll-bottom-pill {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
+      transition: all 0.2s ease;
+    }
+    .widget-scroll-bottom-pill:hover {
+      background: #4338ca;
+    }
   `]
 })
 export class AIChatWidgetComponent {
@@ -349,8 +379,17 @@ export class AIChatWidgetComponent {
 
   isOpen = signal<boolean>(false);
   messages = signal<WidgetMessage[]>([]);
+  isUserScrolledUp = signal<boolean>(false);
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
+
+  onBodyScroll(): void {
+    if (this.scrollContainer?.nativeElement) {
+      const el = this.scrollContainer.nativeElement;
+      const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 30;
+      this.isUserScrolledUp.set(!isAtBottom);
+    }
+  }
 
   toggleOpen(): void {
     this.isOpen.update(o => !o);
@@ -374,7 +413,7 @@ export class AIChatWidgetComponent {
       { sender: 'user', text: trimmed, timestamp: new Date() }
     ]);
     this.messageSent.emit(trimmed);
-    this.scrollToBottom();
+    this.scrollToBottom(true);
   }
 
   selectReply(reply: string): void {
@@ -389,10 +428,12 @@ export class AIChatWidgetComponent {
     this.scrollToBottom();
   }
 
-  private scrollToBottom(): void {
+  scrollToBottom(force = false): void {
+    if (this.isUserScrolledUp() && !force) return;
     setTimeout(() => {
       if (this.scrollContainer?.nativeElement) {
         this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+        if (force) this.isUserScrolledUp.set(false);
       }
     }, 50);
   }
