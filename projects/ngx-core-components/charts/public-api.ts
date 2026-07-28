@@ -199,4 +199,38 @@ export { AgenticCognitiveTopologyComponent } from './agentic-cognitive-topology/
 export type { TopologyNode, TopologyLink } from './agentic-cognitive-topology/agentic-cognitive-topology.component';
 export { TransformerAttentionHeatmapComponent } from './transformer-attention-heatmap/transformer-attention-heatmap.component';
 
+// Shared Chart Infrastructure
+export { ChartThemeService } from './shared/chart-theme.service';
+export type { ChartTheme, ChartThemeName, ColorblindMode } from './shared/chart-theme.service';
+export type { ChartAnnotation, AnnotationType } from './shared/chart-annotations';
+export { renderAnnotationSvg } from './shared/chart-annotations';
+export { ChartSkeletonComponent } from './shared/chart-skeleton.component';
+export { ChartSyncGroupDirective } from './shared/chart-sync-group.directive';
+export { ChartBrushZoomComponent } from './shared/chart-brush-zoom.component';
+export { ChartTooltipService } from './shared/chart-tooltip.service';
+export type { TooltipState, TooltipRow } from './shared/chart-tooltip.service';
+
+// New Chart Types — Step Line, Calendar Heatmap, Nested Donut, Pyramid, Range Bar
+export { StepLineChartComponent } from './step-line-chart/step-line-chart.component';
+export { CalendarHeatmapComponent } from './calendar-heatmap/calendar-heatmap.component';
+export type { CalendarHeatmapData } from './calendar-heatmap/calendar-heatmap.component';
+export { NestedDonutChartComponent } from './nested-donut-chart/nested-donut-chart.component';
+export type { DonutRing } from './nested-donut-chart/nested-donut-chart.component';
+export { PyramidChartComponent } from './pyramid-chart/pyramid-chart.component';
+export type { PyramidItem } from './pyramid-chart/pyramid-chart.component';
+export { RangeBarChartComponent } from './range-bar-chart/range-bar-chart.component';
+export type { RangeBarItem } from './range-bar-chart/range-bar-chart.component';
+
+// Timeline / Activity Chart
+export { TimelineChartComponent } from './timeline-chart/timeline-chart.component';
+export type { TimelineEvent } from './timeline-chart/timeline-chart.component';
+
+// Org Chart
+export { OrgChartComponent } from './org-chart/org-chart.component';
+export type { OrgNode } from './org-chart/org-chart.component';
+
+// Multi-Needle Gauge
+export { MultiNeedleGaugeComponent } from './multi-needle-gauge/multi-needle-gauge.component';
+export type { GaugeNeedle as MultiGaugeNeedle } from './multi-needle-gauge/multi-needle-gauge.component';
+
 

@@ -174,6 +174,8 @@ export class PieChartComponent {
   centerTitle = input<string>('Total');
   centerValueOverride = input<string | null>(null, { alias: 'centerValue' });
   showExport = input<boolean>(false);
+  drillData = input<Map<string, ChartDataPoint[]>>(new Map());
+  enableDrillDown = input<boolean>(false);
   colors$ = this.colors;
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');

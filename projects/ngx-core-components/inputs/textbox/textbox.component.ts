@@ -2,6 +2,7 @@ import {
   Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { applyMask } from '../utils/mask.util';
 
 @Component({
   selector: 'ngx-textbox',
@@ -282,11 +283,13 @@ export class TextBoxComponent implements ControlValueAccessor {
   prefixIcon = input<string>('');
   suffixIcon = input<string>('');
   passwordToggle = input<boolean>(false);
+  mask = input<string>('');
 
   // Enterprise status state
   status = input<'default' | 'success' | 'warning' | 'error'>('default');
 
   valueChange = output<string>();
+  unmaskedValueChange = output<string>();
   focusChange = output<boolean>();
 
   isFocused = signal(false);
@@ -319,7 +322,14 @@ export class TextBoxComponent implements ControlValueAccessor {
   }
 
   onInput(e: Event): void {
-    const v = (e.target as HTMLInputElement).value;
+    let v = (e.target as HTMLInputElement).value;
+    const pattern = this.mask();
+    if (pattern) {
+      const { masked, unmasked } = applyMask(v, pattern);
+      (e.target as HTMLInputElement).value = masked;
+      v = masked;
+      this.unmaskedValueChange.emit(unmasked);
+    }
     this._cvaValue.set(v);
     this._onChange(v);
     this.valueChange.emit(v);

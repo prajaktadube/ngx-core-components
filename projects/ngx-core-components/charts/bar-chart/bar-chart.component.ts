@@ -230,6 +230,7 @@ export class BarChartComponent {
   showLegend = input<boolean>(true);
   colors = input<string[]>(CHART_COLORS);
   showExport = input<boolean>(false);
+  stackMode = input<'none' | 'normal' | 'percent'>('none');
   referenceLines = input<{ value: number; label: string; color?: string; strokeDasharray?: string }[]>([]);
   labelFormatter = input<((v: number) => string) | undefined>(undefined);
   tooltipTemplate = input<TemplateRef<any> | null>(null);

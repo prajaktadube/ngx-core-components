@@ -64,12 +64,24 @@ export type { PreviewFileItem } from './file-preview/file-preview.component';
 export { SegmentedControlComponent } from './segmented-control/segmented-control.component';
 export type { SegmentedOption } from './segmented-control/segmented-control.component';
 
-// Dynamic Form Builder
+// Dynamic Form Builder & Designer
 export { FormBuilderComponent } from './form-builder/form-builder.component';
-export type { FormBuilderField, FormBuilderOption } from './form-builder/form-builder.component';
+export type { FormBuilderField, FormBuilderOption, FormBuilderCondition } from './form-builder/form-builder.component';
 export { FormDesignerComponent } from './form-builder/form-designer.component';
 
 // Signature Pad
 export { SignaturePadComponent } from './signature-pad/signature-pad.component';
+
+// Reactive Validation & Form Error Services
+export { NgxFormErrorService, DEFAULT_FORM_ERROR_MESSAGES, NGX_FORM_ERROR_MESSAGES } from './services/form-error.service';
+export type { FormErrorMessages } from './services/form-error.service';
+export { NgxFormErrorPipe } from './pipes/form-error.pipe';
+
+// Pattern Masking Directive & Utilities
+export { NgxMaskDirective } from './directives/mask.directive';
+export { applyMask, getPresetMask, unmaskValue } from './utils/mask.util';
+export type { MaskResult } from './utils/mask.util';
+export type { DatePreset } from './date-picker/date-picker.component';
+
 
 

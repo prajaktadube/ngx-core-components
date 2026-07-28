@@ -24,12 +24,15 @@ import {
   ColumnPyramidChartComponent, VariwideChartComponent, VariablePieChartComponent,
   PackedBubbleChartComponent, ArcDiagramComponent, ErrorBarComponent, TilemapComponent,
   TokenStreamingChartComponent, EmbeddingSpaceProjectionComponent, AgenticCognitiveTopologyComponent,
-  TransformerAttentionHeatmapComponent,
+  TransformerAttentionHeatmapComponent, StepLineChartComponent, CalendarHeatmapComponent,
+  NestedDonutChartComponent, PyramidChartComponent, RangeBarChartComponent, TimelineChartComponent,
+  OrgChartComponent, MultiNeedleGaugeComponent, ChartBrushZoomComponent, ChartSkeletonComponent,
   NetworkNode, NetworkLink, ChoroplethDataPoint, FlowNode, FlowConnection,
   TreeGraphNode, VennRegion, WordItem, CurvePoint, HistogramBin, ChartFlag, AreaRangeSeries,
   StreamgraphSeries, ColumnRangeSeries, ColumnRangePoint, ColumnPyramidSeries,
   VariwidePoint, VariablePieDataPoint, BubbleNode, ArcNode, ArcLink, ErrorBarPoint, TileItem,
-  EmbeddingPoint, TopologyNode, TopologyLink
+  EmbeddingPoint, TopologyNode, TopologyLink, CalendarHeatmapData, DonutRing, PyramidItem,
+  RangeBarItem, TimelineEvent, OrgNode, MultiGaugeNeedle
 } from 'ngx-core-components';
 
 
@@ -60,7 +63,9 @@ interface ApiRow { name: string; type: string; default: string; description: str
     ColumnPyramidChartComponent, VariwideChartComponent, VariablePieChartComponent,
     PackedBubbleChartComponent, ArcDiagramComponent, ErrorBarComponent, TilemapComponent,
     TokenStreamingChartComponent, EmbeddingSpaceProjectionComponent, AgenticCognitiveTopologyComponent,
-    TransformerAttentionHeatmapComponent
+    TransformerAttentionHeatmapComponent, StepLineChartComponent, CalendarHeatmapComponent,
+    NestedDonutChartComponent, PyramidChartComponent, RangeBarChartComponent, TimelineChartComponent,
+    OrgChartComponent, MultiNeedleGaugeComponent, ChartBrushZoomComponent, ChartSkeletonComponent
   ],
   template: `
     <div class="demo-page" [class.dark-theme]="chartTheme() === 'dark'">
@@ -78,15 +83,34 @@ interface ApiRow { name: string; type: string; default: string; description: str
         </div>
       </div>
 
+      <!-- Category Filter Pills & Search -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; padding: 12px 16px; background: var(--ngx-card-bg, #ffffff); border: 1px solid var(--ngx-border, #e2e8f0); border-radius: 12px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+          <button class="cat-pill" [class.active]="selectedCategory() === 'ALL'" (click)="selectedCategory.set('ALL')">All Charts (68)</button>
+          <button class="cat-pill new-badge" [class.active]="selectedCategory() === 'NEW'" (click)="selectedCategory.set('NEW')">✨ New Enterprise (8)</button>
+          <button class="cat-pill" [class.active]="selectedCategory() === 'CORE'" (click)="selectedCategory.set('CORE')">📊 Core Charts</button>
+          <button class="cat-pill" [class.active]="selectedCategory() === 'FINANCIAL'" (click)="selectedCategory.set('FINANCIAL')">📈 Financial & IoT</button>
+          <button class="cat-pill" [class.active]="selectedCategory() === 'HIERARCHY'" (click)="selectedCategory.set('HIERARCHY')">🕸️ Flow & Tree</button>
+          <button class="cat-pill" [class.active]="selectedCategory() === 'AI'" (click)="selectedCategory.set('AI')">🤖 AI & Cognitive</button>
+        </div>
+
+        <div style="position: relative; min-width: 220px;">
+          <input type="text" placeholder="🔍 Search 68 charts..." [ngModel]="chartSearchQuery()" (ngModelChange)="chartSearchQuery.set($event)" style="width: 100%; padding: 6px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;" />
+        </div>
+      </div>
+
       <!-- Tab Navigation -->
       <div class="tab-nav-container">
         <div class="tab-nav">
-          @for (tab of tabs; track tab) {
+          @for (tab of filteredTabs(); track tab) {
             <button 
               class="tab-btn" 
               [class.active]="activeTab() === tab" 
               (click)="activeTab.set(tab)"
-            >{{ tab }}</button>
+            >
+              @if (newTabSet.has(tab)) { <span style="font-size: 10px; background: #3b82f6; color: #fff; padding: 2px 6px; border-radius: 8px; margin-right: 4px; font-weight: 700;">NEW</span> }
+              {{ tab }}
+            </button>
           }
         </div>
       </div>
@@ -107,9 +131,16 @@ interface ApiRow { name: string; type: string; default: string; description: str
             <div class="chart-display-container">
               <!-- BAR CHART -->
               @if (activeTab() === 'Bar Chart') {
+                <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 11px; font-weight: 700; color: #64748b;">STACK MODE:</span>
+                  <button class="toggle-btn" [class.active]="barStackMode() === 'none'" (click)="barStackMode.set('none')">Grouped (None)</button>
+                  <button class="toggle-btn" [class.active]="barStackMode() === 'normal'" (click)="barStackMode.set('normal')">Stacked (Normal)</button>
+                  <button class="toggle-btn" [class.active]="barStackMode() === 'percent'" (click)="barStackMode.set('percent')">100% Stacked</button>
+                </div>
                 <ngx-bar-chart 
                   [series]="barSeries" 
                   [categories]="months" 
+                  [stackMode]="barStackMode()"
                   [showLegend]="showLegend()" 
                   [showGrid]="showGrid()" 
                   [showLabels]="showLabels()"
@@ -140,6 +171,10 @@ interface ApiRow { name: string; type: string; default: string; description: str
                   [tooltipTemplate]="useCustomTooltip() ? customTooltipTemplate() || null : null"
                   (pointClick)="onChartClick($event)"
                 />
+                <div style="margin-top: 16px;">
+                  <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">BRUSH & ZOOM RANGE NAVIGATOR</div>
+                  <ngx-chart-brush-zoom [data]="lineSeries[0].data" [categories]="months" [height]="50" />
+                </div>
               }
 
               <!-- AREA CHART -->
@@ -160,6 +195,8 @@ interface ApiRow { name: string; type: string; default: string; description: str
               @if (activeTab() === 'Pie / Donut') {
                 <ngx-pie-chart 
                   [data]="pieData" 
+                  [drillData]="pieDrillData"
+                  [enableDrillDown]="true"
                   [mode]="pieMode()" 
                   [centerTitle]="donutTitle()" 
                   [centerValue]="donutValue()"
@@ -190,6 +227,10 @@ interface ApiRow { name: string; type: string; default: string; description: str
                         <span class="sl-trend" [class.up]="row.up" [class.down]="!row.up">{{ row.up ? '▲' : '▼' }} {{ row.change }}%</span>
                       </div>
                     }
+                  </div>
+                  <div style="margin-top: 20px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 8px;">LOADING SKELETON SHIMMER PREVIEW</div>
+                    <ngx-chart-skeleton mode="loading" chartType="line" [height]="120" />
                   </div>
                 </div>
               }
@@ -925,6 +966,102 @@ interface ApiRow { name: string; type: string; default: string; description: str
                 />
               }
 
+              <!-- STEP LINE CHART -->
+              @if (activeTab() === 'Step Line Chart') {
+                <ngx-step-line-chart
+                  [series]="stepLineSeries"
+                  [categories]="months"
+                  [height]="chartHeight()"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                  [showMarkers]="showMarkers()"
+                  [showArea]="showArea()"
+                />
+              }
+
+              <!-- CALENDAR HEATMAP -->
+              @if (activeTab() === 'Calendar Heatmap') {
+                <ngx-calendar-heatmap
+                  [data]="calendarHeatmapData"
+                  [height]="chartHeight()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- NESTED DONUT -->
+              @if (activeTab() === 'Nested Donut') {
+                <ngx-nested-donut-chart
+                  [rings]="nestedDonutRings"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                  [showLabels]="showLabels()"
+                  centerTitle="Total Sales"
+                  centerValue="$1.65M"
+                />
+              }
+
+              <!-- PYRAMID CHART -->
+              @if (activeTab() === 'Pyramid Chart') {
+                <ngx-pyramid-chart
+                  [data]="pyramidItems"
+                  [height]="chartHeight() + 40"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLabels]="showLabels()"
+                  [showLegend]="showLegend()"
+                />
+              }
+
+              <!-- RANGE BAR -->
+              @if (activeTab() === 'Range Bar') {
+                <ngx-range-bar-chart
+                  [data]="rangeBarItems"
+                  [height]="chartHeight() + 40"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showGrid]="showGrid()"
+                  [showLabels]="showLabels()"
+                />
+              }
+
+              <!-- TIMELINE CHART -->
+              @if (activeTab() === 'Timeline Chart') {
+                <ngx-timeline-chart
+                  [events]="timelineEvents"
+                  [height]="chartHeight() + 60"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                />
+              }
+
+              <!-- ORG CHART -->
+              @if (activeTab() === 'Org Chart') {
+                <ngx-org-chart
+                  [rootNode]="orgNodeRoot"
+                  [height]="chartHeight() + 150"
+                  [colors]="getThemePalette()"
+                  [showExport]="true"
+                />
+              }
+
+              <!-- MULTI-NEEDLE GAUGE -->
+              @if (activeTab() === 'Multi-Needle Gauge') {
+                <ngx-multi-needle-gauge
+                  [needles]="multiGaugeNeedles"
+                  [thresholds]="gaugeThresholds"
+                  [height]="chartHeight() + 40"
+                  units="%"
+                  [showExport]="true"
+                  [showLegend]="showLegend()"
+                />
+              }
+
             </div>
           </div>
 
@@ -1500,6 +1637,23 @@ interface ApiRow { name: string; type: string; default: string; description: str
     .badge-green { background: #dcfce7; color: #166534; }
 
     /* Tabs */
+    .cat-pill {
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 20px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .cat-pill:hover { background: #f1f5f9; color: #0f172a; }
+    .cat-pill.active { background: #3b82f6; color: #ffffff; border-color: #3b82f6; box-shadow: 0 2px 6px rgba(59,130,246,0.3); }
+    .cat-pill.new-badge { border-color: #8b5cf6; color: #7c3aed; }
+    .cat-pill.new-badge.active { background: #7c3aed; color: #ffffff; border-color: #7c3aed; box-shadow: 0 2px 6px rgba(124,58,237,0.3); }
+
     .tab-nav-container {
       width: 100%;
       overflow-x: auto;
@@ -2280,8 +2434,9 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     return n % 1 === 0 ? n.toString() : n.toFixed(1);
   }
 
-  // Available Tabs
   tabs = [
+    'Step Line Chart', 'Calendar Heatmap', 'Nested Donut', 'Pyramid Chart',
+    'Range Bar', 'Timeline Chart', 'Org Chart', 'Multi-Needle Gauge',
     'Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 
     'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Sunburst Chart', 'Sparkline', 'Gauge Chart', 
     'Radar Chart', 'Heatmap Chart', 'Treemap Chart', 'Funnel / Pyramid Chart',
@@ -2297,6 +2452,38 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     'Arc Diagram', 'Error Bar', 'Tilemap', 'Token Streaming', 'Embedding Projection',
     'Agent Cognitive Topology', 'Attention Heatmap'
   ];
+
+  selectedCategory = signal<'ALL' | 'NEW' | 'CORE' | 'FINANCIAL' | 'HIERARCHY' | 'AI'>('ALL');
+  chartSearchQuery = signal<string>('');
+
+  newTabSet = new Set([
+    'Step Line Chart', 'Calendar Heatmap', 'Nested Donut', 'Pyramid Chart',
+    'Range Bar', 'Timeline Chart', 'Org Chart', 'Multi-Needle Gauge'
+  ]);
+
+  filteredTabs = computed(() => {
+    const cat = this.selectedCategory();
+    const q = this.chartSearchQuery().toLowerCase().trim();
+    let list = this.tabs;
+
+    if (cat === 'NEW') {
+      list = list.filter(t => this.newTabSet.has(t));
+    } else if (cat === 'CORE') {
+      list = ['Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Sparkline', 'Gauge Chart', 'Radar Chart', 'Heatmap Chart', 'Treemap Chart'];
+    } else if (cat === 'FINANCIAL') {
+      list = ['Candlestick Chart', 'OHLC Chart', 'HLC Chart', 'Renko Chart', 'Kagi Chart', 'Point & Figure Chart', 'Multi-Needle Gauge', 'Range Bar'];
+    } else if (cat === 'HIERARCHY') {
+      list = ['Sankey Chart', 'Sunburst Chart', 'Chord Diagram', 'Treegraph', 'Org Chart', 'Network Graph', 'Timeline Chart', 'Nested Donut', 'Pyramid Chart'];
+    } else if (cat === 'AI') {
+      list = ['Token Streaming', 'Embedding Projection', 'Agent Cognitive Topology', 'Attention Heatmap'];
+    }
+
+    if (q) {
+      list = list.filter(t => t.toLowerCase().includes(q));
+    }
+
+    return list;
+  });
 
   // Config settings
   showLegend = signal(true);
@@ -2354,6 +2541,97 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     { name: 'Sessions', data: [200, 260, 230, 340, 420, 390] },
   ];
 
+  stepLineSeries: ChartSeries[] = [
+    { name: 'Server Tier A', data: [10, 25, 25, 40, 40, 60] },
+    { name: 'Server Tier B', data: [5, 15, 30, 30, 45, 50] }
+  ];
+
+  calendarHeatmapData: CalendarHeatmapData[] = Array.from({ length: 180 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (180 - i));
+    return {
+      date: d.toISOString().split('T')[0],
+      value: Math.floor(Math.random() * 25)
+    };
+  });
+
+  nestedDonutRings: DonutRing[] = [
+    {
+      name: '2026 Region Sales',
+      data: [
+        { label: 'North America', value: 450 },
+        { label: 'Europe', value: 320 },
+        { label: 'Asia Pacific', value: 280 }
+      ]
+    },
+    {
+      name: '2025 Region Sales',
+      data: [
+        { label: 'North America', value: 380 },
+        { label: 'Europe', value: 290 },
+        { label: 'Asia Pacific', value: 210 }
+      ]
+    }
+  ];
+
+  pyramidItems: PyramidItem[] = [
+    { label: 'Website Visits', value: 100000 },
+    { label: 'Sign-Ups', value: 45000 },
+    { label: 'Active Trials', value: 20000 },
+    { label: 'Paid Subscriptions', value: 8500 }
+  ];
+
+  rangeBarItems: RangeBarItem[] = [
+    { label: 'Design Phase', start: 0, end: 15, category: 'Product' },
+    { label: 'Core Dev', start: 10, end: 45, category: 'Engineering' },
+    { label: 'QA Testing', start: 35, end: 60, category: 'Quality' },
+    { label: 'Beta Release', start: 55, end: 75, category: 'Product' },
+    { label: 'Deployment', start: 70, end: 90, category: 'Engineering' }
+  ];
+
+  timelineEvents: TimelineEvent[] = [
+    { id: '1', title: 'Architecture Review', category: 'Planning', startDate: '2026-01-05', endDate: '2026-01-12', status: 'completed' },
+    { id: '2', title: 'Sprint 1 Kickoff', category: 'Development', startDate: '2026-01-15', endDate: '2026-01-29', status: 'completed' },
+    { id: '3', title: 'Security Audit Milestone', category: 'Security', startDate: '2026-02-01', status: 'in-progress' },
+    { id: '4', title: 'Production Rollout', category: 'Release', startDate: '2026-02-15', endDate: '2026-03-01', status: 'pending' }
+  ];
+
+  orgNodeRoot: OrgNode = {
+    id: 'root',
+    name: 'Sarah Connor',
+    title: 'Chief Executive Officer',
+    department: 'Executive',
+    children: [
+      {
+        id: 'cto',
+        name: 'Alex Vance',
+        title: 'Chief Technology Officer',
+        department: 'Engineering',
+        children: [
+          { id: 'dev1', name: 'Maria Hill', title: 'Lead Architect', department: 'Core Components' },
+          { id: 'dev2', name: 'James Rhodes', title: 'Principal Engineer', department: 'UI Platform' }
+        ]
+      },
+      {
+        id: 'cpo',
+        name: 'Elena Rostova',
+        title: 'Chief Product Officer',
+        department: 'Product',
+        children: [
+          { id: 'pm1', name: 'David Kim', title: 'Sr. Product Manager', department: 'Analytics' }
+        ]
+      }
+    ]
+  };
+
+  multiGaugeNeedles: MultiGaugeNeedle[] = [
+    { label: 'Minimum', value: 20, color: '#3b82f6', type: 'target-line' },
+    { label: 'Current Load', value: 68, color: '#10b981', type: 'needle' },
+    { label: 'Peak Capacity', value: 92, color: '#ef4444', type: 'pointer' }
+  ];
+
+  barStackMode = signal<'none' | 'normal' | 'percent'>('none');
+
   pieData: ChartDataPoint[] = [
     { label: 'Product A', value: 38 },
     { label: 'Product B', value: 27 },
@@ -2361,6 +2639,22 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     { label: 'Product D', value: 11 },
     { label: 'Other', value: 5 },
   ];
+
+  pieDrillData = new Map<string, ChartDataPoint[]>([
+    ['Product A', [
+      { label: 'Feature A1', value: 20 },
+      { label: 'Feature A2', value: 12 },
+      { label: 'Feature A3', value: 6 }
+    ]],
+    ['Product B', [
+      { label: 'Edition Enterprise', value: 18 },
+      { label: 'Edition Standard', value: 9 }
+    ]],
+    ['Product C', [
+      { label: 'Cloud Hosted', value: 14 },
+      { label: 'On-Premises', value: 5 }
+    ]]
+  ]);
 
   sparklineRows = [
     { name: 'Page Views', data: [120, 145, 130, 168, 190, 176, 210], up: true, change: 14 },
@@ -2990,13 +3284,13 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
   hasGeneralToggle(type: 'legend' | 'grid' | 'labels'): boolean {
     const tab = this.activeTab();
     if (type === 'legend') {
-      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Sunburst Chart', 'Radial Bar Chart'].includes(tab);
+      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Pie / Donut', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Sunburst Chart', 'Radial Bar Chart', 'Step Line Chart', 'Nested Donut', 'Pyramid Chart', 'Timeline Chart', 'Multi-Needle Gauge'].includes(tab);
     }
     if (type === 'grid') {
-      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
+      return ['Bar Chart', 'Line Chart', 'Area Chart', 'Combo Chart', 'Scatter Plot', 'Bubble Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart', 'Step Line Chart', 'Range Bar'].includes(tab);
     }
     if (type === 'labels') {
-      return ['Bar Chart', 'Line Chart', 'Pie / Donut', 'Bubble Chart', 'Sunburst Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart'].includes(tab);
+      return ['Bar Chart', 'Line Chart', 'Pie / Donut', 'Bubble Chart', 'Sunburst Chart', 'Waterfall Chart', 'Box Plot Chart', 'Candlestick Chart', 'Step Line Chart', 'Nested Donut', 'Pyramid Chart', 'Range Bar'].includes(tab);
     }
     return false;
   }
@@ -3369,6 +3663,72 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
   (cellClick)="onAttentionCellClick($event)"
   (agentQueryRequest)="onAttentionAgentQuery($event)"
 />`;
+      case 'Step Line Chart':
+        return `<ngx-step-line-chart
+  [series]="series"
+  [categories]="categories"
+  [showArea]="${this.showArea()}"
+  [showMarkers]="${this.showMarkers()}"
+  [showLegend]="${l}"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h}"
+  [showExport]="true"
+/>`;
+      case 'Calendar Heatmap':
+        return `<ngx-calendar-heatmap
+  [data]="data"
+  [height]="${h}"
+  [showExport]="true"
+/>`;
+      case 'Nested Donut':
+        return `<ngx-nested-donut-chart
+  [rings]="rings"
+  [showLegend]="${l}"
+  [showLabels]="${valLabels}"
+  [height]="${h + 60}"
+  [showExport]="true"
+  centerTitle="Total Sales"
+  centerValue="$1.65M"
+/>`;
+      case 'Pyramid Chart':
+        return `<ngx-pyramid-chart
+  [data]="data"
+  [showLegend]="${l}"
+  [showLabels]="${valLabels}"
+  [height]="${h + 40}"
+  [showExport]="true"
+/>`;
+      case 'Range Bar':
+        return `<ngx-range-bar-chart
+  [data]="data"
+  [showGrid]="${g}"
+  [showLabels]="${valLabels}"
+  [height]="${h + 40}"
+  [showExport]="true"
+/>`;
+      case 'Timeline Chart':
+        return `<ngx-timeline-chart
+  [events]="events"
+  [showLegend]="${l}"
+  [height]="${h + 60}"
+  [showExport]="true"
+/>`;
+      case 'Org Chart':
+        return `<ngx-org-chart
+  [rootNode]="rootNode"
+  [height]="${h + 150}"
+  [showExport]="true"
+/>`;
+      case 'Multi-Needle Gauge':
+        return `<ngx-multi-needle-gauge
+  [needles]="needles"
+  [thresholds]="thresholds"
+  [height]="${h + 40}"
+  units="%"
+  [showExport]="true"
+  [showLegend]="${l}"
+/>`;
       default:
         return '';
     }
@@ -3437,7 +3797,15 @@ export class ChartExampleComponent {
       case 'Kagi Chart': return this.kagiInputs;
       case 'Point & Figure Chart': return this.pfInputs;
       case 'Wind Rose': return this.windRoseInputs;
-      default: return [];
+      case 'Step Line Chart': return this.lineInputs;
+      case 'Calendar Heatmap': return this.heatmapInputs;
+      case 'Nested Donut': return this.pieInputs;
+      case 'Pyramid Chart': return this.funnelInputs;
+      case 'Range Bar': return this.barInputs;
+      case 'Timeline Chart': return this.lineInputs;
+      case 'Org Chart': return this.treemapInputs;
+      case 'Multi-Needle Gauge': return this.gaugeInputs;
+      default: return this.barInputs;
     }
   }
 

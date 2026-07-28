@@ -197,6 +197,25 @@ export { AgenticCognitiveTopologyComponent } from 'ngx-core-components/charts';
 export type { TopologyNode, TopologyLink } from 'ngx-core-components/charts';
 export { TransformerAttentionHeatmapComponent } from 'ngx-core-components/charts';
 
+// New Chart Types & Shared Infrastructure
+export { StepLineChartComponent } from 'ngx-core-components/charts';
+export { CalendarHeatmapComponent } from 'ngx-core-components/charts';
+export type { CalendarHeatmapData } from 'ngx-core-components/charts';
+export { NestedDonutChartComponent } from 'ngx-core-components/charts';
+export type { DonutRing } from 'ngx-core-components/charts';
+export { PyramidChartComponent } from 'ngx-core-components/charts';
+export type { PyramidItem } from 'ngx-core-components/charts';
+export { RangeBarChartComponent } from 'ngx-core-components/charts';
+export type { RangeBarItem } from 'ngx-core-components/charts';
+export { TimelineChartComponent } from 'ngx-core-components/charts';
+export type { TimelineEvent } from 'ngx-core-components/charts';
+export { MultiNeedleGaugeComponent } from 'ngx-core-components/charts';
+export type { MultiGaugeNeedle } from 'ngx-core-components/charts';
+export { ChartBrushZoomComponent } from 'ngx-core-components/charts';
+export { ChartSkeletonComponent } from 'ngx-core-components/charts';
+export { OrgChartComponent } from 'ngx-core-components/charts';
+export type { OrgNode } from 'ngx-core-components/charts';
+
 // ===== Data Grid (also available via ngx-core-components/grid) =====
 export {
   DataGridComponent,
@@ -253,7 +272,7 @@ export type { VirtualListItem, VirtualListItemClickEvent } from 'ngx-core-compon
 export { ImageCompareComponent } from 'ngx-core-components/views';
 export { KeyValueListComponent } from 'ngx-core-components/views';
 export type { KeyValueItem } from 'ngx-core-components/views';
-export { OrgChartComponent, JsonViewerComponent, CalendarComponent } from 'ngx-core-components/views';
+export { JsonViewerComponent, CalendarComponent } from 'ngx-core-components/views';
 export type { OrgChartNode, CalendarEvent, CalendarCell } from 'ngx-core-components/views';
 
 
