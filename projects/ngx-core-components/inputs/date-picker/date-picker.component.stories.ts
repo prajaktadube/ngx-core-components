@@ -9,7 +9,6 @@ const meta: Meta<DatePickerComponent> = {
     disabled: { control: 'boolean' },
     label: { control: 'text' },
     placeholder: { control: 'text' },
-    format: { control: 'text' },
   },
 };
 
@@ -21,7 +20,6 @@ export const Default: Story = {
     label: 'Birth Date',
     placeholder: 'Select your birth date...',
     disabled: false,
-    format: 'MM/dd/yyyy',
   },
 };
 
@@ -39,11 +37,12 @@ export const Disabled: Story = {
   },
 };
 
-export const MinMaxLimits: Story = {
+export const WithStatus: Story = {
   args: {
     ...Default.args,
-    min: new Date(2026, 6, 10),
-    max: new Date(2026, 6, 25),
     value: new Date(2026, 6, 14),
+    status: 'success',
+    hint: 'Date looks good!',
   },
 };
+
