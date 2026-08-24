@@ -1,0 +1,713 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  RadioOption</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/inputs/radio/radio-group.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#disabled" 
+>
+                                            disabled
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#value" 
+>
+                                            value
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="disabled"></a>
+                                        <span class="name "><b>disabled</b>
+                                            <a href="#disabled">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>disabled:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="value"></a>
+                                        <span class="name "><b>value</b>
+                                            <a href="#value">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>value:     <code>unknown</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>unknown</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef, ElementRef
+} from &#x27;@angular/core&#x27;;
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from &#x27;@angular/forms&#x27;;
+
+export interface RadioOption {
+  label: string;
+  value: unknown;
+  disabled?: boolean;
+}
+
+@Component({
+  selector: &#x27;ngx-radio-group&#x27;,
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() &#x3D;&gt; RadioGroupComponent),
+      multi: true,
+    },
+  ],
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-radio-group-container&quot;
+      [class.has-error]&#x3D;&quot;_resolvedStatus() &#x3D;&#x3D;&#x3D; &#x27;error&#x27;&quot;
+      [class.disabled]&#x3D;&quot;disabled()&quot;
+      [class.status-success]&#x3D;&quot;_resolvedStatus() &#x3D;&#x3D;&#x3D; &#x27;success&#x27;&quot;
+      [class.status-warning]&#x3D;&quot;_resolvedStatus() &#x3D;&#x3D;&#x3D; &#x27;warning&#x27;&quot;
+    &gt;
+      @if (label()) {
+        &lt;span class&#x3D;&quot;ngx-radio-group-label&quot;&gt;{{ label() }}&lt;/span&gt;
+      }
+      &lt;div
+        class&#x3D;&quot;ngx-radio-group-options&quot;
+        [class.inline]&#x3D;&quot;inline()&quot;
+        role&#x3D;&quot;radiogroup&quot;
+        [attr.aria-label]&#x3D;&quot;label()&quot;
+      &gt;
+        @for (opt of options(); track opt.value; let idx &#x3D; $index) {
+          &lt;label
+            class&#x3D;&quot;ngx-radio&quot;
+            [class.disabled]&#x3D;&quot;disabled() || !!opt.disabled&quot;
+            [class.checked]&#x3D;&quot;isChecked(opt.value)&quot;
+          &gt;
+            &lt;span
+              class&#x3D;&quot;ngx-radio-btn&quot;
+              [class.checked]&#x3D;&quot;isChecked(opt.value)&quot;
+              (click)&#x3D;&quot;select(opt)&quot;
+              role&#x3D;&quot;radio&quot;
+              [attr.aria-checked]&#x3D;&quot;isChecked(opt.value)&quot;
+              [attr.aria-disabled]&#x3D;&quot;disabled() || opt.disabled&quot;
+              [attr.tabindex]&#x3D;&quot;getTabindex(opt, idx)&quot;
+              (keydown)&#x3D;&quot;onOptionKeyDown($event, opt, idx)&quot;
+            &gt;
+              &lt;span class&#x3D;&quot;ngx-radio-dot&quot; [class.visible]&#x3D;&quot;isChecked(opt.value)&quot;&gt;&lt;/span&gt;
+            &lt;/span&gt;
+            &lt;span class&#x3D;&quot;ngx-radio-label&quot; (click)&#x3D;&quot;select(opt)&quot;&gt;{{ opt.label }}&lt;/span&gt;
+          &lt;/label&gt;
+        }
+      &lt;/div&gt;
+      
+      @if (error()) {
+        &lt;div class&#x3D;&quot;ngx-radio-error&quot;&gt;{{ error() }}&lt;/div&gt;
+      } @else if (hint()) {
+        &lt;div class&#x3D;&quot;ngx-radio-hint&quot;&gt;{{ hint() }}&lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      --ngx-input-success-border: #10b981;
+      --ngx-input-success-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+      --ngx-input-warning-border: #f59e0b;
+      --ngx-input-warning-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+      --ngx-input-error-border: #ef4444;
+      --ngx-input-error-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+      
+      --ngx-radio-border: #cbd5e1;
+      --ngx-radio-bg: #ffffff;
+      --ngx-radio-active: #4f46e5;
+      --ngx-radio-text: #0f172a;
+    }
+    
+    :host-context(body.dark),
+    :host-context(.dark),
+    :host-context(.dark-theme) {
+      --ngx-radio-border: #475569;
+      --ngx-radio-bg: #0f172a;
+      --ngx-radio-active: #818cf8;
+      --ngx-radio-text: #f8fafc;
+      
+      --ngx-input-success-border: #34d399;
+      --ngx-input-success-shadow: 0 0 0 3px rgba(52, 211, 153, 0.3);
+      --ngx-input-warning-border: #fbbf24;
+      --ngx-input-warning-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+      --ngx-input-error-border: #f87171;
+      --ngx-input-error-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3);
+    }
+    
+    .ngx-radio-group-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: inherit;
+    }
+    
+    .ngx-radio-group-label {
+      display: block;
+      font-size: 13px;
+      color: var(--ngx-radio-border);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .ngx-radio-group-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ngx-radio-group-options.inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .ngx-radio {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .ngx-radio.disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+    
+    .ngx-radio-btn {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      border: 2px solid var(--ngx-radio-border);
+      border-radius: 50%;
+      background: var(--ngx-radio-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+    }
+    
+    .ngx-radio-btn.checked {
+      border-color: var(--ngx-radio-active);
+    }
+    
+    .ngx-radio-btn:hover:not(.disabled) {
+      border-color: var(--ngx-radio-active);
+      transform: scale(1.05);
+    }
+    
+    .ngx-radio-btn:focus-visible {
+      border-color: var(--ngx-radio-active);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+    }
+    
+    .status-success .ngx-radio-btn { border-color: var(--ngx-input-success-border); }
+    .status-success .ngx-radio-btn.checked { border-color: var(--ngx-input-success-border); }
+    .status-success .ngx-radio-dot { background: var(--ngx-input-success-border); }
+    .status-success .ngx-radio-btn:focus-visible { box-shadow: var(--ngx-input-success-shadow); }
+    
+    .status-warning .ngx-radio-btn { border-color: var(--ngx-input-warning-border); }
+    .status-warning .ngx-radio-btn.checked { border-color: var(--ngx-input-warning-border); }
+    .status-warning .ngx-radio-dot { background: var(--ngx-input-warning-border); }
+    .status-warning .ngx-radio-btn:focus-visible { box-shadow: var(--ngx-input-warning-shadow); }
+    
+    .has-error .ngx-radio-btn { border-color: var(--ngx-input-error-border); }
+    .has-error .ngx-radio-btn.checked { border-color: var(--ngx-input-error-border); }
+    .has-error .ngx-radio-dot { background: var(--ngx-input-error-border); }
+    .has-error .ngx-radio-btn:focus-visible { box-shadow: var(--ngx-input-error-shadow); }
+    
+    .ngx-radio-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ngx-radio-active);
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                  transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .ngx-radio-dot.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .ngx-radio-label {
+      font-size: 14px;
+      color: var(--ngx-radio-text);
+      transition: color 0.15s ease;
+    }
+    .disabled .ngx-radio-label {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+    
+    .ngx-radio-error {
+      color: var(--ngx-input-error-border);
+      font-size: 12px;
+      font-weight: 550;
+      animation: slide-down 0.2s ease-out;
+    }
+    .ngx-radio-hint {
+      color: #64748b;
+      font-size: 12px;
+    }
+    
+    @keyframes slide-down {
+      from { transform: translateY(-4px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  &#x60;],
+})
+export class RadioGroupComponent implements ControlValueAccessor {
+  options &#x3D; input&lt;RadioOption[]&gt;([]);
+  label &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  value &#x3D; input&lt;unknown&gt;(null);
+  disabled &#x3D; input&lt;boolean&gt;(false);
+  inline &#x3D; input&lt;boolean&gt;(false);
+
+  // Enterprise validation signals
+  status &#x3D; input&lt;&#x27;default&#x27; | &#x27;success&#x27; | &#x27;warning&#x27; | &#x27;error&#x27;&gt;(&#x27;default&#x27;);
+  error &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  hint &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+
+  valueChange &#x3D; output&lt;unknown&gt;();
+
+  _value &#x3D; signal&lt;unknown&gt;(null);
+  private _cvaActive &#x3D; false;
+
+  private _onChange: (val: unknown) &#x3D;&gt; void &#x3D; () &#x3D;&gt; {};
+  private _onTouched: () &#x3D;&gt; void &#x3D; () &#x3D;&gt; {};
+
+  _activeValue &#x3D; computed(() &#x3D;&gt; this._cvaActive ? this._value() : this.value());
+
+  _resolvedStatus &#x3D; computed(() &#x3D;&gt; {
+    if (this.error()) return &#x27;error&#x27;;
+    return this.status();
+  });
+
+  constructor(private el: ElementRef) {}
+
+  isChecked(val: unknown): boolean {
+    return this._activeValue() &#x3D;&#x3D;&#x3D; val;
+  }
+
+  select(opt: RadioOption): void {
+    if (this.disabled() || opt.disabled) return;
+    this._value.set(opt.value);
+    this._onChange(opt.value);
+    this._onTouched();
+    this.valueChange.emit(opt.value);
+  }
+
+  getTabindex(opt: RadioOption, idx: number): string {
+    if (this.disabled() || opt.disabled) return &#x27;-1&#x27;;
+    
+    const activeVal &#x3D; this._activeValue();
+    const opts &#x3D; this.options();
+    
+    if (activeVal !&#x3D;&#x3D; null &amp;&amp; activeVal !&#x3D;&#x3D; undefined) {
+      return this.isChecked(opt.value) ? &#x27;0&#x27; : &#x27;-1&#x27;;
+    }
+    
+    const firstEnabledIdx &#x3D; opts.findIndex(o &#x3D;&gt; !o.disabled);
+    return idx &#x3D;&#x3D;&#x3D; firstEnabledIdx ? &#x27;0&#x27; : &#x27;-1&#x27;;
+  }
+
+  onOptionKeyDown(event: KeyboardEvent, opt: RadioOption, idx: number): void {
+    if (this.disabled()) return;
+    
+    let nextIdx &#x3D; idx;
+    const opts &#x3D; this.options();
+    
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowRight&#x27; || event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowDown&#x27;) {
+      event.preventDefault();
+      do {
+        nextIdx &#x3D; (nextIdx + 1) % opts.length;
+      } while (opts[nextIdx].disabled &amp;&amp; nextIdx !&#x3D;&#x3D; idx);
+      
+      this.select(opts[nextIdx]);
+      this.focusOption(nextIdx);
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowLeft&#x27; || event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowUp&#x27;) {
+      event.preventDefault();
+      do {
+        nextIdx &#x3D; (nextIdx - 1 + opts.length) % opts.length;
+      } while (opts[nextIdx].disabled &amp;&amp; nextIdx !&#x3D;&#x3D; idx);
+      
+      this.select(opts[nextIdx]);
+      this.focusOption(nextIdx);
+    }
+  }
+
+  private focusOption(idx: number): void {
+    setTimeout(() &#x3D;&gt; {
+      const radioBtns &#x3D; this.el.nativeElement.querySelectorAll(&#x27;.ngx-radio-btn&#x27;);
+      if (radioBtns[idx]) {
+        (radioBtns[idx] as HTMLElement).focus();
+      }
+    });
+  }
+
+  // ControlValueAccessor
+  writeValue(val: unknown): void {
+    this._cvaActive &#x3D; true;
+    this._value.set(val ?? null);
+  }
+
+  registerOnChange(fn: (val: unknown) &#x3D;&gt; void): void {
+    this._onChange &#x3D; fn;
+  }
+
+  registerOnTouched(fn: () &#x3D;&gt; void): void {
+    this._onTouched &#x3D; fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    // Handled at form control template level
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'RadioOption.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

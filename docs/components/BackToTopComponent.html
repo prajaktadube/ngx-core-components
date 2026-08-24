@@ -1,0 +1,1235 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  BackToTopComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-back-to-top</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    .ngx-back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      z-index: 99;
+      opacity: 0;
+      transform: translateY(12px) scale(0.9);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+      padding: 0;
+    }
+
+    .ngx-back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .ngx-back-to-top:hover {
+      background: #ffffff;
+      transform: scale(1.06) translateY(-1px);
+      box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.15),
+        0 10px 10px -5px rgba(0, 0, 0, 0.06);
+    }
+
+    .ngx-back-to-top:active {
+      transform: scale(0.98) translateY(0);
+    }
+
+    .ngx-back-to-top.dark {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+
+    .ngx-back-to-top.dark:hover {
+      background: #1e293b;
+      color: #ffffff;
+    }
+
+    .ngx-back-to-top:focus-visible {
+      outline: 2px solid var(--primary-color, #3b82f6);
+      outline-offset: 3px;
+    }
+
+    /* ── SVG Progress Ring ── */
+    .ngx-back-to-top__svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .ngx-back-to-top__circle-bg {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.05);
+    }
+
+    .ngx-back-to-top.dark .ngx-back-to-top__circle-bg {
+      stroke: rgba(255, 255, 255, 0.06);
+    }
+
+    .ngx-back-to-top__circle-progress {
+      fill: none;
+      stroke: var(--primary-color, #3b82f6);
+      stroke-dasharray: 113.1; /* 2 * PI * 18 */
+      transition: stroke-dashoffset 0.1s ease;
+    }
+
+    .arrow-up-icon {
+      z-index: 2;
+      transition: transform 0.2s ease;
+    }
+
+    .ngx-back-to-top:hover .arrow-up-icon {
+      transform: translateY(-2px);
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;button
+  class&#x3D;&quot;ngx-back-to-top&quot;
+  [class.visible]&#x3D;&quot;isVisible()&quot;
+  [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+  (click)&#x3D;&quot;scrollToTop()&quot;
+  aria-label&#x3D;&quot;Back to top&quot;
+&gt;
+  @if (showProgress()) {
+    &lt;svg class&#x3D;&quot;ngx-back-to-top__svg&quot; viewBox&#x3D;&quot;0 0 40 40&quot;&gt;
+      &lt;circle
+        class&#x3D;&quot;ngx-back-to-top__circle-bg&quot;
+        cx&#x3D;&quot;20&quot;
+        cy&#x3D;&quot;20&quot;
+        r&#x3D;&quot;18&quot;
+        stroke-width&#x3D;&quot;2.5&quot;
+      /&gt;
+      &lt;circle
+        class&#x3D;&quot;ngx-back-to-top__circle-progress&quot;
+        cx&#x3D;&quot;20&quot;
+        cy&#x3D;&quot;20&quot;
+        r&#x3D;&quot;18&quot;
+        stroke-width&#x3D;&quot;2.5&quot;
+        [style.strokeDashoffset]&#x3D;&quot;strokeDashoffset()&quot;
+        stroke-linecap&#x3D;&quot;round&quot;
+        transform&#x3D;&quot;rotate(-90 20 20)&quot;
+      /&gt;
+    &lt;/svg&gt;
+  }
+
+  &lt;svg class&#x3D;&quot;arrow-up-icon&quot; viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;18&quot; height&#x3D;&quot;18&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;3&quot;&gt;
+    &lt;polyline points&#x3D;&quot;18 15 12 9 6 15&quot;&gt;&lt;/polyline&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isVisible" >isVisible</a>
+                            </li>
+                            <li>
+                                <a href="#scrollPercent" >scrollPercent</a>
+                            </li>
+                            <li>
+                                <a href="#strokeDashoffset" >strokeDashoffset</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkScroll" >checkScroll</a>
+                            </li>
+                            <li>
+                                <a href="#scrollToTop" >scrollToTop</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#showProgress" >showProgress</a>
+                            </li>
+                            <li>
+                                <a href="#target" >target</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                            <li>
+                                <a href="#threshold" >threshold</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="167" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:167</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showProgress"></a>
+                        <b>showProgress</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="156" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:156</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="target"></a>
+                        <b>target</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="154" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:154</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="155" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:155</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="threshold"></a>
+                        <b>threshold</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>300</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="153" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:153</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkScroll"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkScroll</b></span>
+                        <a href="#checkScroll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkScroll(scrollEl: HTMLElement | Window | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:203</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>scrollEl</td>
+                                            <td>
+                                                        <code>HTMLElement | Window | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollToTop"></a>
+                    <span class="name">
+                        <span ><b>scrollToTop</b></span>
+                        <a href="#scrollToTop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>scrollToTop()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="229"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:229</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isVisible"></a>
+                    <span class="name">
+                        <span ><b>isVisible</b></span>
+                        <a href="#isVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:159</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollPercent"></a>
+                    <span class="name">
+                        <span ><b>scrollPercent</b></span>
+                        <a href="#scrollPercent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="160" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="strokeDashoffset"></a>
+                    <span class="name">
+                        <span ><b>strokeDashoffset</b></span>
+                        <a href="#strokeDashoffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const circ &#x3D; 113.1;
+    const ratio &#x3D; this.scrollPercent() / 100;
+    return circ * (1 - ratio);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">projects/ngx-core-components/navigation/back-to-top/back-to-top.component.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  signal,
+  computed,
+  effect,
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;ngx-back-to-top&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;button
+      class&#x3D;&quot;ngx-back-to-top&quot;
+      [class.visible]&#x3D;&quot;isVisible()&quot;
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      (click)&#x3D;&quot;scrollToTop()&quot;
+      aria-label&#x3D;&quot;Back to top&quot;
+    &gt;
+      @if (showProgress()) {
+        &lt;svg class&#x3D;&quot;ngx-back-to-top__svg&quot; viewBox&#x3D;&quot;0 0 40 40&quot;&gt;
+          &lt;circle
+            class&#x3D;&quot;ngx-back-to-top__circle-bg&quot;
+            cx&#x3D;&quot;20&quot;
+            cy&#x3D;&quot;20&quot;
+            r&#x3D;&quot;18&quot;
+            stroke-width&#x3D;&quot;2.5&quot;
+          /&gt;
+          &lt;circle
+            class&#x3D;&quot;ngx-back-to-top__circle-progress&quot;
+            cx&#x3D;&quot;20&quot;
+            cy&#x3D;&quot;20&quot;
+            r&#x3D;&quot;18&quot;
+            stroke-width&#x3D;&quot;2.5&quot;
+            [style.strokeDashoffset]&#x3D;&quot;strokeDashoffset()&quot;
+            stroke-linecap&#x3D;&quot;round&quot;
+            transform&#x3D;&quot;rotate(-90 20 20)&quot;
+          /&gt;
+        &lt;/svg&gt;
+      }
+
+      &lt;svg class&#x3D;&quot;arrow-up-icon&quot; viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;18&quot; height&#x3D;&quot;18&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;3&quot;&gt;
+        &lt;polyline points&#x3D;&quot;18 15 12 9 6 15&quot;&gt;&lt;/polyline&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &#x60;,
+  styles: [&#x60;
+    .ngx-back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      z-index: 99;
+      opacity: 0;
+      transform: translateY(12px) scale(0.9);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+      padding: 0;
+    }
+
+    .ngx-back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .ngx-back-to-top:hover {
+      background: #ffffff;
+      transform: scale(1.06) translateY(-1px);
+      box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.15),
+        0 10px 10px -5px rgba(0, 0, 0, 0.06);
+    }
+
+    .ngx-back-to-top:active {
+      transform: scale(0.98) translateY(0);
+    }
+
+    .ngx-back-to-top.dark {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+
+    .ngx-back-to-top.dark:hover {
+      background: #1e293b;
+      color: #ffffff;
+    }
+
+    .ngx-back-to-top:focus-visible {
+      outline: 2px solid var(--primary-color, #3b82f6);
+      outline-offset: 3px;
+    }
+
+    /* ── SVG Progress Ring ── */
+    .ngx-back-to-top__svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .ngx-back-to-top__circle-bg {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.05);
+    }
+
+    .ngx-back-to-top.dark .ngx-back-to-top__circle-bg {
+      stroke: rgba(255, 255, 255, 0.06);
+    }
+
+    .ngx-back-to-top__circle-progress {
+      fill: none;
+      stroke: var(--primary-color, #3b82f6);
+      stroke-dasharray: 113.1; /* 2 * PI * 18 */
+      transition: stroke-dashoffset 0.1s ease;
+    }
+
+    .arrow-up-icon {
+      z-index: 2;
+      transition: transform 0.2s ease;
+    }
+
+    .ngx-back-to-top:hover .arrow-up-icon {
+      transform: translateY(-2px);
+    }
+  &#x60;]
+})
+export class BackToTopComponent {
+  // Inputs
+  threshold &#x3D; input&lt;number&gt;(300);
+  target &#x3D; input&lt;string | HTMLElement | null&gt;(null);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  showProgress &#x3D; input&lt;boolean&gt;(true);
+
+  // Internal state signals
+  isVisible &#x3D; signal&lt;boolean&gt;(false);
+  scrollPercent &#x3D; signal&lt;number&gt;(0);
+
+  // Computed circular ring offset (113.1 is circumference of circle r&#x3D;18)
+  strokeDashoffset &#x3D; computed(() &#x3D;&gt; {
+    const circ &#x3D; 113.1;
+    const ratio &#x3D; this.scrollPercent() / 100;
+    return circ * (1 - ratio);
+  });
+
+  constructor() {
+    effect((onCleanup) &#x3D;&gt; {
+      if (typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+      const targetSel &#x3D; this.target();
+      this.threshold(); // Track threshold changes too
+
+      let scrollEl: HTMLElement | Window | null &#x3D; null;
+      if (typeof document !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+        if (typeof targetSel &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+          scrollEl &#x3D; document.querySelector(targetSel) as HTMLElement | null;
+        } else if (targetSel instanceof HTMLElement) {
+          scrollEl &#x3D; targetSel;
+        }
+      }
+
+      if (!scrollEl) {
+        scrollEl &#x3D; window;
+      }
+
+      const listener &#x3D; () &#x3D;&gt; {
+        this.checkScroll(scrollEl);
+      };
+
+      scrollEl.addEventListener(&#x27;scroll&#x27;, listener, { passive: true });
+      this.checkScroll(scrollEl);
+
+      onCleanup(() &#x3D;&gt; {
+        if (scrollEl) {
+          scrollEl.removeEventListener(&#x27;scroll&#x27;, listener);
+        }
+      });
+    }, { allowSignalWrites: true });
+  }
+
+  private checkScroll(scrollEl: HTMLElement | Window | null) {
+    let scrollTop &#x3D; 0;
+    let scrollHeight &#x3D; 0;
+    let clientHeight &#x3D; 0;
+
+    if (typeof window !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; scrollEl &#x3D;&#x3D;&#x3D; window) {
+      scrollTop &#x3D; window.scrollY || document.documentElement.scrollTop;
+      scrollHeight &#x3D; document.documentElement.scrollHeight;
+      clientHeight &#x3D; document.documentElement.clientHeight;
+    } else if (scrollEl instanceof HTMLElement) {
+      scrollTop &#x3D; scrollEl.scrollTop;
+      scrollHeight &#x3D; scrollEl.scrollHeight;
+      clientHeight &#x3D; scrollEl.clientHeight;
+    }
+
+    this.isVisible.set(scrollTop &gt;&#x3D; this.threshold());
+
+    const maxScroll &#x3D; scrollHeight - clientHeight;
+    if (maxScroll &gt; 0) {
+      const percent &#x3D; Math.round((scrollTop / maxScroll) * 100);
+      this.scrollPercent.set(percent);
+    } else {
+      this.scrollPercent.set(0);
+    }
+  }
+
+  scrollToTop() {
+    const targetSel &#x3D; this.target();
+    let scrollEl: HTMLElement | Window | null &#x3D; null;
+    if (typeof document !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      if (typeof targetSel &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+        scrollEl &#x3D; document.querySelector(targetSel) as HTMLElement | null;
+      } else if (targetSel instanceof HTMLElement) {
+        scrollEl &#x3D; targetSel;
+      }
+    }
+    if (!scrollEl &amp;&amp; typeof window !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      scrollEl &#x3D; window;
+    }
+
+    if (typeof window !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; scrollEl &#x3D;&#x3D;&#x3D; window) {
+      window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+    } else if (scrollEl instanceof HTMLElement) {
+      scrollEl.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    .ngx-back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      z-index: 99;
+      opacity: 0;
+      transform: translateY(12px) scale(0.9);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+      padding: 0;
+    }
+
+    .ngx-back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .ngx-back-to-top:hover {
+      background: #ffffff;
+      transform: scale(1.06) translateY(-1px);
+      box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.15),
+        0 10px 10px -5px rgba(0, 0, 0, 0.06);
+    }
+
+    .ngx-back-to-top:active {
+      transform: scale(0.98) translateY(0);
+    }
+
+    .ngx-back-to-top.dark {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+
+    .ngx-back-to-top.dark:hover {
+      background: #1e293b;
+      color: #ffffff;
+    }
+
+    .ngx-back-to-top:focus-visible {
+      outline: 2px solid var(--primary-color, #3b82f6);
+      outline-offset: 3px;
+    }
+
+    /* ── SVG Progress Ring ── */
+    .ngx-back-to-top__svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .ngx-back-to-top__circle-bg {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.05);
+    }
+
+    .ngx-back-to-top.dark .ngx-back-to-top__circle-bg {
+      stroke: rgba(255, 255, 255, 0.06);
+    }
+
+    .ngx-back-to-top__circle-progress {
+      fill: none;
+      stroke: var(--primary-color, #3b82f6);
+      stroke-dasharray: 113.1; /* 2 * PI * 18 */
+      transition: stroke-dashoffset 0.1s ease;
+    }
+
+    .arrow-up-icon {
+      z-index: 2;
+      transition: transform 0.2s ease;
+    }
+
+    .ngx-back-to-top:hover .arrow-up-icon {
+      transform: translateY(-2px);
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><button  class="ngx-back-to-top"  [class.visible]="isVisible()"  [class.dark]="theme() === \'dark\'"  (click)="scrollToTop()"  aria-label="Back to top">  @if (showProgress()) {    <svg class="ngx-back-to-top__svg" viewBox="0 0 40 40">      <circle        class="ngx-back-to-top__circle-bg"        cx="20"        cy="20"        r="18"        stroke-width="2.5"      />      <circle        class="ngx-back-to-top__circle-progress"        cx="20"        cy="20"        r="18"        stroke-width="2.5"        [style.strokeDashoffset]="strokeDashoffset()"        stroke-linecap="round"        transform="rotate(-90 20 20)"      />    </svg>  }  <svg class="arrow-up-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3">    <polyline points="18 15 12 9 6 15"></polyline>  </svg></button></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'BackToTopComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'BackToTopComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

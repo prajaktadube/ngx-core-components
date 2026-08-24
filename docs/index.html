@@ -1,0 +1,376 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+        <link rel="stylesheet" href="./styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content readme">
+                   <div class="content-data">
+
+
+<h1>ngx-core-components</h1>
+<blockquote>
+<p>Angular 19+ component library — <strong>110+ production-ready UI components</strong> built with signals, OnPush change detection, and zero runtime dependencies.</p>
+</blockquote>
+<p><a href="https://www.npmjs.com/package/ngx-core-components"><img src="https://img.shields.io/npm/v/ngx-core-components.svg" alt="npm version" class="img-responsive"></a>
+<a href="https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml"><img src="https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml/badge.svg" alt="CI" class="img-responsive"></a>
+<a href="https://bundlephobia.com/package/ngx-core-components"><img src="https://img.shields.io/bundlephobia/minzip/ngx-core-components" alt="Bundle Size" class="img-responsive"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" class="img-responsive"></a>
+<a href="https://stackblitz.com/github/prajaktadube/ngx-core-components?file=projects%2Fdemo%2Fsrc%2Fapp%2Fapp.component.ts"><img src="https://img.shields.io/badge/StackBlitz-Try_It_Live-blue?logo=stackblitz" alt="StackBlitz" class="img-responsive"></a></p>
+<h2>✨ Highlights</h2>
+<ul>
+<li><strong>110+ components</strong> — 73 chart types, Data Grid, Gantt, Kanban, AI Chat, Scheduler, and more</li>
+<li><strong>Zero runtime dependencies</strong> — Pure SVG charts, no D3 or Chart.js required</li>
+<li><strong>Signals-first</strong> — Built entirely with <code>input()</code>, <code>output()</code>, <code>signal()</code>, <code>computed()</code></li>
+<li><strong>Tree-shakable</strong> — 12 secondary entry points, import only what you need</li>
+<li><strong>Themeable</strong> — CSS custom properties (design tokens) with light/dark mode</li>
+<li><strong>Angular 19–21</strong> — Supports current and next Angular versions</li>
+</ul>
+<h2>🚀 Interactive Playground &amp; Docs</h2>
+<ul>
+<li><strong><a href="https://prajaktadube.github.io/ngx-core-components/">Live Sandbox Demo</a></strong> — Explore and test all 110+ components interactively.</li>
+<li><strong><a href="https://prajaktadube.github.io/ngx-core-components/storybook/">Storybook Playground</a></strong> — Browse stories, inspect component inputs/outputs with controls, and verify accessibility.</li>
+<li><strong><a href="https://prajaktadube.github.io/ngx-core-components/docs/">Compodoc API Reference</a></strong> — Detailed class structures, injection tokens, type models, and method signatures.</li>
+</ul>
+<hr>
+<h2>📖 Documentation</h2>
+<p>The complete API reference tables and &quot;How to Use&quot; guides are also available in the <strong><a href="projects/ngx-core-components/README.md">ngx-core-components Library README</a></strong>.</p>
+<hr>
+<h2>Installation</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm install ngx-core-components</code></pre></div><h2>Components</h2>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Entry point</th>
+<th>Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ngx-core-components</code></td>
+<td>Re-exports everything below</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/charts</code></td>
+<td><strong>73 chart types</strong>: Bar, Line, Pie, Area, Scatter, Gauge, Radar, Heatmap, Treemap, Sankey, Violin, Candlestick, Waterfall, Box Plot, Sunburst, Gantt, Bubble, Funnel, Marimekko, Pareto, Lollipop, Dumbbell, Slope, Ridgeline, Chord, Sankey, Dependency Wheel, Adjacency Matrix, Arc Diagram, Network Graph, Treegraph, Packed Bubble, Polar Area, Radial Bar, Wind Rose, Word Cloud, Venn, Pictorial, Parallel Coordinates, Streamgraph, Histogram, Bell Curve, Error Bar, Sparkline, Bullet, Combo — plus AI/ML charts (Embedding Space, Transformer Attention Heatmap, Token Streaming, Agentic Cognitive Topology) — financial charts (Candlestick, OHLC, HLC, Heikin-Ashi, Hollow Candlestick, Renko, Kagi, Point &amp; Figure) — and geospatial maps (Choropleth, Geo Heatmap, Map Bubble, Map Line-Point, Tiled Web Map, Tilemap, Flowmap, Vector Plot)</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/inputs</code></td>
+<td>Textbox, Dropdown, Multi-select, Autocomplete, Checkbox, Radio, Date Picker, Date Range Picker, Time Picker, Slider, Switch, Rating, Numeric Textbox, Color Picker, File Upload, Tag Input, Signature Pad, Form Builder</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/grid</code></td>
+<td>Data Grid (sort, filter, group, paginate, inline edit, export) + Pivot Grid</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/views</code></td>
+<td>Tree View, List View, Kanban, Timeline, Scheduler, Virtual List, Org Chart, JSON Viewer, Calendar, Image Compare, Key-Value List</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/layout</code></td>
+<td>Card, Tab Strip, Accordion, Stepper, Splitter, Dashboard Layout, Carousel, Drawer</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/buttons</code></td>
+<td>Button, Button Group, Chip/Chip List, Split Button, Dropdown Button, Speed Dial</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/feedback</code></td>
+<td>Badge, Progress Bar, Skeleton, Notification, Alert, Avatar/Avatar Group, Stat Card, Countdown, Empty State</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/navigation</code></td>
+<td>Breadcrumb, Menu, Command Palette, Context Menu, Back-to-Top</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/dialog</code></td>
+<td>Dialog service + container</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/ai</code></td>
+<td>AI Chat, AI Chat Widget, AI Prompt Editor, AI Code Editor, AI Audio Wave, AI Model Compare, AI RAG Inspector</td>
+</tr>
+<tr>
+<td><code>ngx-core-components/barcodes</code></td>
+<td>QR Code, Barcode</td>
+</tr>
+</tbody>
+</table>
+<p>All components are <strong>standalone</strong> (no NgModules), use <strong>Angular Signals</strong>, and have <strong>OnPush</strong> change detection.</p>
+<h2>Quick Start</h2>
+<h3>Gantt Chart</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { GanttChartComponent, GanttTask } from &#39;ngx-core-components/charts&#39;;
+
+&#64;Component({
+  standalone: true,
+  imports: [GanttChartComponent],
+  template: `
+    &lt;ngx-gantt-chart [tasks]=&quot;tasks&quot; style=&quot;height: 400px&quot; /&gt;
+  `,
+})
+export class MyComponent {
+  tasks: GanttTask[] = [
+    { id: &#39;1&#39;, name: &#39;Design&#39;, start: new Date(&#39;2026-04-01&#39;), end: new Date(&#39;2026-04-05&#39;), progress: 100, parentId: null, collapsed: false, isMilestone: false },
+    { id: &#39;2&#39;, name: &#39;Development&#39;, start: new Date(&#39;2026-04-06&#39;), end: new Date(&#39;2026-04-15&#39;), progress: 40,  parentId: null, collapsed: false, isMilestone: false },
+  ];
+}</code></pre></div><p><em>Supports advanced features like draggable glassmorphic zoom (Shift + drag), predecessor dependency linking, row virtualization, critical path calculations, and keyboard rescheduling/resizing. Refer to the <a href="projects/ngx-core-components/README.md">library README</a> for full documentation.</em></p>
+<h3>Dialog</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { DialogService } from &#39;ngx-core-components/dialog&#39;;
+
+&#64;Component({ /* ... */ })
+export class MyComponent {
+  constructor(private dialog: DialogService) {}
+
+  open() {
+    this.dialog.open({ title: &#39;Confirm&#39;, message: &#39;Are you sure?&#39; });
+  }
+}</code></pre></div><h3>Textbox (Reactive Forms)</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { TextboxComponent } from &#39;ngx-core-components/inputs&#39;;
+
+&#64;Component({
+  standalone: true,
+  imports: [TextboxComponent, ReactiveFormsModule],
+  template: `&lt;ngx-textbox [formControl]=&quot;ctrl&quot; label=&quot;Name&quot; /&gt;`,
+})
+export class MyComponent {
+  ctrl = new FormControl(&#39;&#39;);
+}</code></pre></div><h3>Structured Inputs And Layout</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { Component, signal } from &#39;&#64;angular/core&#39;;
+import { NumericTextBoxComponent, TimePickerComponent } from &#39;ngx-core-components/inputs&#39;;
+import { SplitterComponent } from &#39;ngx-core-components/layout&#39;;
+
+&#64;Component({
+  standalone: true,
+  imports: [NumericTextBoxComponent, TimePickerComponent, SplitterComponent],
+  template: `
+    &lt;ngx-numeric-textbox [value]=&quot;quantity()&quot; [min]=&quot;0&quot; [max]=&quot;10&quot; (valueChange)=&quot;quantity.set($event)&quot; /&gt;
+    &lt;ngx-time-picker [value]=&quot;meetingTime()&quot; [use12h]=&quot;true&quot; (timeChange)=&quot;meetingTime.set($event)&quot; /&gt;
+
+    &lt;div style=&quot;height: 240px; border: 1px solid #e9ecef; overflow: hidden;&quot;&gt;
+      &lt;ngx-splitter [size]=&quot;paneSize()&quot; [min]=&quot;160&quot; (sizeChange)=&quot;paneSize.set($event)&quot;&gt;
+        &lt;div pane1&gt;Navigation&lt;/div&gt;
+        &lt;div pane2&gt;Content&lt;/div&gt;
+      &lt;/ngx-splitter&gt;
+    &lt;/div&gt;
+  `,
+})
+export class MyComponent {
+  quantity = signal(2);
+  meetingTime = signal(&#39;14:30&#39;);
+  paneSize = signal(&#39;35%&#39;);
+}</code></pre></div><p><code>NumericTextBoxComponent</code> supports controlled values and keyboard stepping. <code>TimePickerComponent</code> accepts typed values like <code>14:30</code> or <code>2:30 PM</code> and emits normalized <code>HH:mm</code> output.</p>
+<h3>List View Pagination</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { Component, signal } from &#39;&#64;angular/core&#39;;
+import { ListViewComponent } from &#39;ngx-core-components/views&#39;;
+
+&#64;Component({
+  standalone: true,
+  imports: [ListViewComponent],
+  template: `
+    &lt;ngx-list-view
+      [items]=&quot;people&quot;
+      [pageSize]=&quot;5&quot;
+      (pageChange)=&quot;page.set($event.page)&quot;
+    /&gt;
+  `,
+})
+export class MyListComponent {
+  page = signal(1);
+  people = Array.from({ length: 20 }, (_, index) =&gt; ({ name: `Person ${index + 1}` }));
+}</code></pre></div><h2>Theming &amp; Customization</h2>
+<p>All components expose CSS custom properties for simple Light, Dark, or custom brand integrations. Refer to <strong><a href="THEMING.md">THEMING.md</a></strong> for a full list of customization tokens and theme templates.</p>
+<p>Example:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-css">ngx-gantt-chart {
+  --ngx-gantt-bar-bg: #27ae60;
+  --ngx-gantt-today-color: #e74c3c;
+  --ngx-gantt-header-bg: #2c3e50;
+}</code></pre></div><h2>Contributing</h2>
+<p>We welcome contributions of all kinds! Please review our <strong><a href="CONTRIBUTING.md">CONTRIBUTING.md</a></strong> for complete details on setting up the workspace locally, compiling libraries, and running Karma unit tests.</p>
+<p>Issues and pull requests are welcome at <a href="https://github.com/prajaktadube/ngx-core-components">github.com/prajaktadube/ngx-core-components</a>.</p>
+<h2>License</h2>
+<p>MIT</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'readme';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

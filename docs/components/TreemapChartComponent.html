@@ -1,0 +1,2458 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TreemapChartComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-treemap-chart</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-treemap-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .ngx-treemap-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-treemap-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    @keyframes treemapScaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .treemap-group {
+      cursor: pointer;
+      animation: treemapScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .treemap-group:hover {
+      transform: scale(1.025);
+    }
+    .treemap-rect {
+      stroke: var(--bg-secondary, #ffffff);
+      stroke-width: 1.5px;
+      transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease;
+    }
+    .treemap-group:hover .treemap-rect {
+      filter: brightness(1.06) drop-shadow(0 4px 12px rgba(0,0,0,0.22));
+      stroke: var(--ngx-chart-hover-stroke, #0f172a);
+      stroke-width: 2px;
+    }
+    .treemap-label {
+      font-size: 11px;
+      font-weight: 750;
+      fill: #ffffff;
+      font-family: inherit;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .treemap-value {
+      font-size: 9px;
+      font-weight: 600;
+      fill: rgba(255, 255, 255, 0.95);
+      font-family: inherit;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .treemap-tooltip {
+      position: absolute;
+      z-index: 100;
+      pointer-events: none;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -115%);
+      min-width: 140px;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export Trigger &amp; Dropdown */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-treemap-wrapper&quot;&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onItemLeave()&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+    @if (showExport()) {
+      &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+        &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+        @if (exportMenuOpen()) {
+          &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;ngx-treemap-container&quot;&gt;
+    &lt;!-- SVG Canvas --&gt;
+    &lt;svg
+      #svgEl
+      class&#x3D;&quot;ngx-treemap-svg&quot;
+      viewBox&#x3D;&quot;0 0 500 300&quot;
+      preserveAspectRatio&#x3D;&quot;xMidYMid meet&quot;
+    &gt;
+      &lt;defs&gt;
+        &lt;linearGradient id&#x3D;&quot;treemap-sheen&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;0%&quot; y2&#x3D;&quot;100%&quot;&gt;
+          &lt;stop offset&#x3D;&quot;0%&quot; stop-color&#x3D;&quot;#ffffff&quot; stop-opacity&#x3D;&quot;0.18&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;100%&quot; stop-color&#x3D;&quot;#ffffff&quot; stop-opacity&#x3D;&quot;0.0&quot; /&gt;
+        &lt;/linearGradient&gt;
+      &lt;/defs&gt;
+
+      @for (item of layoutRects(); track item.label; let idx &#x3D; $index) {
+        &lt;g
+          class&#x3D;&quot;treemap-group&quot;
+          [style.transform-origin]&#x3D;&quot;(item.x + item.w/2) + &#x27;px &#x27; + (item.y + item.h/2) + &#x27;px&#x27;&quot;
+          [style.animation-delay]&#x3D;&quot;idx * 0.03 + &#x27;s&#x27;&quot;
+          (mouseenter)&#x3D;&quot;onItemEnter(item, $event)&quot;
+          (mouseleave)&#x3D;&quot;onItemLeave()&quot;
+          (click)&#x3D;&quot;onItemClick(item)&quot;
+        &gt;
+          &lt;!-- Cell Box --&gt;
+          &lt;rect
+            [attr.x]&#x3D;&quot;item.x&quot;
+            [attr.y]&#x3D;&quot;item.y&quot;
+            [attr.width]&#x3D;&quot;item.w&quot;
+            [attr.height]&#x3D;&quot;item.h&quot;
+            [attr.fill]&#x3D;&quot;item.displayColor&quot;
+            class&#x3D;&quot;treemap-rect&quot;
+            rx&#x3D;&quot;4&quot;
+            ry&#x3D;&quot;4&quot;
+          /&gt;
+
+          &lt;!-- Glass Sheen Overlay --&gt;
+          &lt;rect
+            [attr.x]&#x3D;&quot;item.x&quot;
+            [attr.y]&#x3D;&quot;item.y&quot;
+            [attr.width]&#x3D;&quot;item.w&quot;
+            [attr.height]&#x3D;&quot;item.h&quot;
+            fill&#x3D;&quot;url(#treemap-sheen)&quot;
+            rx&#x3D;&quot;4&quot;
+            ry&#x3D;&quot;4&quot;
+            pointer-events&#x3D;&quot;none&quot;
+          /&gt;
+
+          &lt;!-- Labels (Only show if rectangle is large enough) --&gt;
+          @if (item.w &gt; 50 &amp;&amp; item.h &gt; 30) {
+            &lt;text
+              [attr.x]&#x3D;&quot;item.x + 8&quot;
+              [attr.y]&#x3D;&quot;item.y + 18&quot;
+              class&#x3D;&quot;treemap-label&quot;
+            &gt;
+              {{ item.label }}
+            &lt;/text&gt;
+            @if (item.h &gt; 45) {
+              &lt;text
+                [attr.x]&#x3D;&quot;item.x + 8&quot;
+                [attr.y]&#x3D;&quot;item.y + 32&quot;
+                class&#x3D;&quot;treemap-value&quot;
+              &gt;
+                {{ item.value.toLocaleString() }}
+              &lt;/text&gt;
+            }
+          }
+        &lt;/g&gt;
+      }
+    &lt;/svg&gt;
+
+    &lt;!-- Glassmorphic Tooltip Overlay --&gt;
+    @if (tooltip().show) {
+      &lt;div
+        class&#x3D;&quot;treemap-tooltip&quot;
+        [style.left.px]&#x3D;&quot;tooltip().x&quot;
+        [style.top.px]&#x3D;&quot;tooltip().y&quot;
+      &gt;
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ tooltip().title }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;tooltip().color&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ tooltip().value }}&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#exportMenuOpen" >exportMenuOpen</a>
+                            </li>
+                            <li>
+                                <a href="#layoutRects" >layoutRects</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#closeExportMenu" >closeExportMenu</a>
+                            </li>
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onItemClick" >onItemClick</a>
+                            </li>
+                            <li>
+                                <a href="#onItemEnter" >onItemEnter</a>
+                            </li>
+                            <li>
+                                <a href="#onItemLeave" >onItemLeave</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subdivide" >subdivide</a>
+                            </li>
+                            <li>
+                                <a href="#toggleExportMenu" >toggleExportMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#itemClick" >itemClick</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;#4f46e5&#x27;, &#x27;#10b981&#x27;, &#x27;#f59e0b&#x27;, &#x27;#ef4444&#x27;, &#x27;#8b5cf6&#x27;, &#x27;#ec4899&#x27;, &#x27;#06b6d4&#x27;]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="313" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:313</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <b>data</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TreemapItem.html" target="_self" >TreemapItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="312" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:312</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="314" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:314</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="itemClick"></a>
+                        <b>itemClick</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TreemapItem.html" target="_self" >TreemapItem</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="316" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:316</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="442"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:442</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeExportMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>closeExportMenu</b></span>
+                        <a href="#closeExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeExportMenu()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="442"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:442</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="466"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:466</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="454"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:454</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="503"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:503</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="482"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:482</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: "json" | "csv" | "svg" | "pdf")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="446"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:446</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;json&quot; | &quot;csv&quot; | &quot;svg&quot; | &quot;pdf&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onItemClick"></a>
+                    <span class="name">
+                        <span ><b>onItemClick</b></span>
+                        <a href="#onItemClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onItemClick(item: <a href="../interfaces/LayoutItem.html" target="_self">LayoutItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="432"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:432</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/LayoutItem.html" target="_self" >LayoutItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onItemEnter"></a>
+                    <span class="name">
+                        <span ><b>onItemEnter</b></span>
+                        <a href="#onItemEnter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onItemEnter(item: <a href="../interfaces/LayoutItem.html" target="_self">LayoutItem</a>, event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="412"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:412</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/LayoutItem.html" target="_self" >LayoutItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onItemLeave"></a>
+                    <span class="name">
+                        <span ><b>onItemLeave</b></span>
+                        <a href="#onItemLeave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onItemLeave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="428"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:428</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subdivide"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>subdivide</b></span>
+                        <a href="#subdivide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subdivide(items: <a href="../interfaces/TreemapItem.html" target="_self">TreemapItem[]</a>, x: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, y: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, w: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, h: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, totalVal: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, callback: (item: <a href="../interfaces/TreemapItem.html">TreemapItem</a>, rx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, ry: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, rw: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, rh: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>) => void, startIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="361"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:361</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>items</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TreemapItem.html" target="_self" >TreemapItem[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>x</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>y</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>w</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>h</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>totalVal</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>callback</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>startIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleExportMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleExportMenu</b></span>
+                        <a href="#toggleExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleExportMenu(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="436"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:436</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>exportMenuOpen</b></span>
+                        <a href="#exportMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="318" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:318</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="layoutRects"></a>
+                    <span class="name">
+                        <span ><b>layoutRects</b></span>
+                        <a href="#layoutRects"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const rawData &#x3D; this.data();
+    if (!rawData || rawData.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    // Sort items descending by value
+    const items &#x3D; [...rawData].sort((a, b) &#x3D;&gt; b.value - a.value);
+    const totalVal &#x3D; items.reduce((sum, item) &#x3D;&gt; sum + item.value, 0);
+
+    const layoutList: LayoutItem[] &#x3D; [];
+    
+    // Canvas viewBox is 500x300. Leave a tiny padding margin around
+    const w &#x3D; 500;
+    const h &#x3D; 300;
+
+    const colorsList &#x3D; this.colors();
+
+    this.subdivide(items, 0, 0, w, h, totalVal, (item, rx, ry, rw, rh, index) &#x3D;&gt; {
+      const displayColor &#x3D; item.color || colorsList[index % colorsList.length];
+      layoutList.push({
+        ...item,
+        x: rx,
+        y: ry,
+        w: rw,
+        h: rh,
+        displayColor
+      });
+    }, 0);
+
+    return layoutList;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="330" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="328" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:328</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;{ show: boolean; title: string; value: string; x: number; y: number; color: string }&gt;({
+    show: false,
+    title: &#x27;&#x27;,
+    value: &#x27;&#x27;,
+    x: 0,
+    y: 0,
+    color: &#x27;&#x27;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="319" class="link-to-prism">projects/ngx-core-components/charts/treemap-chart/treemap-chart.component.ts:319</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, output, signal, computed, ChangeDetectionStrategy, viewChild, ElementRef, HostListener } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export interface TreemapItem {
+  label: string;
+  value: number;
+  color?: string;
+}
+
+interface LayoutItem extends TreemapItem {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  displayColor: string;
+}
+
+@Component({
+  selector: &#x27;ngx-treemap-chart&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-treemap-wrapper&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onItemLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;ngx-treemap-container&quot;&gt;
+        &lt;!-- SVG Canvas --&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;ngx-treemap-svg&quot;
+          viewBox&#x3D;&quot;0 0 500 300&quot;
+          preserveAspectRatio&#x3D;&quot;xMidYMid meet&quot;
+        &gt;
+          &lt;defs&gt;
+            &lt;linearGradient id&#x3D;&quot;treemap-sheen&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;0%&quot; y2&#x3D;&quot;100%&quot;&gt;
+              &lt;stop offset&#x3D;&quot;0%&quot; stop-color&#x3D;&quot;#ffffff&quot; stop-opacity&#x3D;&quot;0.18&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;100%&quot; stop-color&#x3D;&quot;#ffffff&quot; stop-opacity&#x3D;&quot;0.0&quot; /&gt;
+            &lt;/linearGradient&gt;
+          &lt;/defs&gt;
+
+          @for (item of layoutRects(); track item.label; let idx &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;treemap-group&quot;
+              [style.transform-origin]&#x3D;&quot;(item.x + item.w/2) + &#x27;px &#x27; + (item.y + item.h/2) + &#x27;px&#x27;&quot;
+              [style.animation-delay]&#x3D;&quot;idx * 0.03 + &#x27;s&#x27;&quot;
+              (mouseenter)&#x3D;&quot;onItemEnter(item, $event)&quot;
+              (mouseleave)&#x3D;&quot;onItemLeave()&quot;
+              (click)&#x3D;&quot;onItemClick(item)&quot;
+            &gt;
+              &lt;!-- Cell Box --&gt;
+              &lt;rect
+                [attr.x]&#x3D;&quot;item.x&quot;
+                [attr.y]&#x3D;&quot;item.y&quot;
+                [attr.width]&#x3D;&quot;item.w&quot;
+                [attr.height]&#x3D;&quot;item.h&quot;
+                [attr.fill]&#x3D;&quot;item.displayColor&quot;
+                class&#x3D;&quot;treemap-rect&quot;
+                rx&#x3D;&quot;4&quot;
+                ry&#x3D;&quot;4&quot;
+              /&gt;
+
+              &lt;!-- Glass Sheen Overlay --&gt;
+              &lt;rect
+                [attr.x]&#x3D;&quot;item.x&quot;
+                [attr.y]&#x3D;&quot;item.y&quot;
+                [attr.width]&#x3D;&quot;item.w&quot;
+                [attr.height]&#x3D;&quot;item.h&quot;
+                fill&#x3D;&quot;url(#treemap-sheen)&quot;
+                rx&#x3D;&quot;4&quot;
+                ry&#x3D;&quot;4&quot;
+                pointer-events&#x3D;&quot;none&quot;
+              /&gt;
+              
+              &lt;!-- Labels (Only show if rectangle is large enough) --&gt;
+              @if (item.w &gt; 50 &amp;&amp; item.h &gt; 30) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;item.x + 8&quot;
+                  [attr.y]&#x3D;&quot;item.y + 18&quot;
+                  class&#x3D;&quot;treemap-label&quot;
+                &gt;
+                  {{ item.label }}
+                &lt;/text&gt;
+                @if (item.h &gt; 45) {
+                  &lt;text
+                    [attr.x]&#x3D;&quot;item.x + 8&quot;
+                    [attr.y]&#x3D;&quot;item.y + 32&quot;
+                    class&#x3D;&quot;treemap-value&quot;
+                  &gt;
+                    {{ item.value.toLocaleString() }}
+                  &lt;/text&gt;
+                }
+              }
+            &lt;/g&gt;
+          }
+        &lt;/svg&gt;
+
+        &lt;!-- Glassmorphic Tooltip Overlay --&gt;
+        @if (tooltip().show) {
+          &lt;div
+            class&#x3D;&quot;treemap-tooltip&quot;
+            [style.left.px]&#x3D;&quot;tooltip().x&quot;
+            [style.top.px]&#x3D;&quot;tooltip().y&quot;
+          &gt;
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ tooltip().title }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;tooltip().color&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ tooltip().value }}&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-treemap-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .ngx-treemap-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-treemap-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    @keyframes treemapScaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .treemap-group {
+      cursor: pointer;
+      animation: treemapScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .treemap-group:hover {
+      transform: scale(1.025);
+    }
+    .treemap-rect {
+      stroke: var(--bg-secondary, #ffffff);
+      stroke-width: 1.5px;
+      transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease;
+    }
+    .treemap-group:hover .treemap-rect {
+      filter: brightness(1.06) drop-shadow(0 4px 12px rgba(0,0,0,0.22));
+      stroke: var(--ngx-chart-hover-stroke, #0f172a);
+      stroke-width: 2px;
+    }
+    .treemap-label {
+      font-size: 11px;
+      font-weight: 750;
+      fill: #ffffff;
+      font-family: inherit;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .treemap-value {
+      font-size: 9px;
+      font-weight: 600;
+      fill: rgba(255, 255, 255, 0.95);
+      font-family: inherit;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .treemap-tooltip {
+      position: absolute;
+      z-index: 100;
+      pointer-events: none;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -115%);
+      min-width: 140px;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export Trigger &amp; Dropdown */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  &#x60;]
+})
+export class TreemapChartComponent {
+  data &#x3D; input.required&lt;TreemapItem[]&gt;();
+  colors &#x3D; input&lt;string[]&gt;([&#x27;#4f46e5&#x27;, &#x27;#10b981&#x27;, &#x27;#f59e0b&#x27;, &#x27;#ef4444&#x27;, &#x27;#8b5cf6&#x27;, &#x27;#ec4899&#x27;, &#x27;#06b6d4&#x27;]);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  itemClick &#x3D; output&lt;TreemapItem&gt;();
+
+  exportMenuOpen &#x3D; signal(false);
+  tooltip &#x3D; signal&lt;{ show: boolean; title: string; value: string; x: number; y: number; color: string }&gt;({
+    show: false,
+    title: &#x27;&#x27;,
+    value: &#x27;&#x27;,
+    x: 0,
+    y: 0,
+    color: &#x27;&#x27;
+  });
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  layoutRects &#x3D; computed(() &#x3D;&gt; {
+    const rawData &#x3D; this.data();
+    if (!rawData || rawData.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    // Sort items descending by value
+    const items &#x3D; [...rawData].sort((a, b) &#x3D;&gt; b.value - a.value);
+    const totalVal &#x3D; items.reduce((sum, item) &#x3D;&gt; sum + item.value, 0);
+
+    const layoutList: LayoutItem[] &#x3D; [];
+    
+    // Canvas viewBox is 500x300. Leave a tiny padding margin around
+    const w &#x3D; 500;
+    const h &#x3D; 300;
+
+    const colorsList &#x3D; this.colors();
+
+    this.subdivide(items, 0, 0, w, h, totalVal, (item, rx, ry, rw, rh, index) &#x3D;&gt; {
+      const displayColor &#x3D; item.color || colorsList[index % colorsList.length];
+      layoutList.push({
+        ...item,
+        x: rx,
+        y: ry,
+        w: rw,
+        h: rh,
+        displayColor
+      });
+    }, 0);
+
+    return layoutList;
+  });
+
+  private subdivide(
+    items: TreemapItem[],
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    totalVal: number,
+    callback: (item: TreemapItem, rx: number, ry: number, rw: number, rh: number, index: number) &#x3D;&gt; void,
+    startIndex: number
+  ) {
+    if (items.length &#x3D;&#x3D;&#x3D; 0) return;
+    if (items.length &#x3D;&#x3D;&#x3D; 1) {
+      callback(items[0], x, y, w, h, startIndex);
+      return;
+    }
+
+    // Proportional division
+    let splitIdx &#x3D; 1;
+    let group1Sum &#x3D; items[0].value;
+    let minDiff &#x3D; Math.abs(group1Sum - (totalVal - group1Sum));
+
+    for (let i &#x3D; 2; i &lt; items.length; i++) {
+      const tempSum &#x3D; group1Sum + items[i - 1].value;
+      const tempDiff &#x3D; Math.abs(tempSum - (totalVal - tempSum));
+      if (tempDiff &lt; minDiff) {
+        group1Sum &#x3D; tempSum;
+        splitIdx &#x3D; i;
+        minDiff &#x3D; tempDiff;
+      } else {
+        break;
+      }
+    }
+
+    const group1 &#x3D; items.slice(0, splitIdx);
+    const group2 &#x3D; items.slice(splitIdx);
+    const group2Sum &#x3D; totalVal - group1Sum;
+
+    // Split on wider axis
+    if (w &gt; h) {
+      const w1 &#x3D; w * (group1Sum / totalVal);
+      const w2 &#x3D; w - w1;
+      this.subdivide(group1, x, y, w1, h, group1Sum, callback, startIndex);
+      this.subdivide(group2, x + w1, y, w2, h, group2Sum, callback, startIndex + splitIdx);
+    } else {
+      const h1 &#x3D; h * (group1Sum / totalVal);
+      const h2 &#x3D; h - h1;
+      this.subdivide(group1, x, y, w, h1, group1Sum, callback, startIndex);
+      this.subdivide(group2, x, y + h1, w, h2, group2Sum, callback, startIndex + splitIdx);
+    }
+  }
+
+  onItemEnter(item: LayoutItem, event: MouseEvent): void {
+    const rect &#x3D; (event.currentTarget as SVGGraphicsElement).getBoundingClientRect();
+    const parentRect &#x3D; (event.currentTarget as SVGGraphicsElement).ownerSVGElement!.parentElement!.getBoundingClientRect();
+    const x &#x3D; rect.left - parentRect.left + rect.width / 2;
+    const y &#x3D; rect.top - parentRect.top;
+
+    this.tooltip.set({
+      show: true,
+      title: item.label,
+      value: item.value.toLocaleString(),
+      x,
+      y,
+      color: item.displayColor
+    });
+  }
+
+  onItemLeave(): void {
+    this.tooltip.update(t &#x3D;&gt; ({ ...t, show: false }));
+  }
+
+  onItemClick(item: LayoutItem): void {
+    this.itemClick.emit(item);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;treemap-chart.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    let csv &#x3D; &#x27;Label,Value\n&#x27;;
+    data.forEach(d &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${d.label || &#x27;&#x27;}&quot;,${d.value}\n&#x60;;
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;treemap-chart.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns\:xlink&#x3D;&quot;http\:\/\/www\.w3\.org\/1999\/xlink&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns:xlink&#x3D;&quot;http://www.w3.org/1999/xlink&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;treemap-chart.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) return;
+    const serializer &#x3D; new XMLSerializer();
+    let svgString &#x3D; serializer.serializeToString(svg);
+    if (!svgString.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      svgString &#x3D; svgString.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    printWindow.document.write(&#x60;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;Chart Export&lt;/title&gt;
+          &lt;style&gt;
+            body {
+              margin: 20px;
+              font-family: system-ui, sans-serif;
+              text-align: center;
+            }
+            .print-container {
+              display: inline-block;
+              margin: 0 auto;
+            }
+            svg {
+              width: 100%;
+              height: auto;
+            }
+            @media print {
+              body { margin: 0; }
+              .no-print { display: none; }
+            }
+          &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          &lt;div class&#x3D;&quot;print-container&quot;&gt;
+            ${svgString}
+          &lt;/div&gt;
+          &lt;script&gt;
+            window.onload &#x3D; () &#x3D;&gt; {
+              setTimeout(() &#x3D;&gt; {
+                window.print();
+                window.close();
+              }, 250);
+            };
+          &lt;/script&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;);
+    printWindow.document.close();
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-treemap-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .ngx-treemap-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-treemap-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    @keyframes treemapScaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .treemap-group {
+      cursor: pointer;
+      animation: treemapScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .treemap-group:hover {
+      transform: scale(1.025);
+    }
+    .treemap-rect {
+      stroke: var(--bg-secondary, #ffffff);
+      stroke-width: 1.5px;
+      transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease;
+    }
+    .treemap-group:hover .treemap-rect {
+      filter: brightness(1.06) drop-shadow(0 4px 12px rgba(0,0,0,0.22));
+      stroke: var(--ngx-chart-hover-stroke, #0f172a);
+      stroke-width: 2px;
+    }
+    .treemap-label {
+      font-size: 11px;
+      font-weight: 750;
+      fill: #ffffff;
+      font-family: inherit;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .treemap-value {
+      font-size: 9px;
+      font-weight: 600;
+      fill: rgba(255, 255, 255, 0.95);
+      font-family: inherit;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .treemap-tooltip {
+      position: absolute;
+      z-index: 100;
+      pointer-events: none;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -115%);
+      min-width: 140px;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export Trigger &amp; Dropdown */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-treemap-wrapper">  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onItemLeave()">    <div class="chart-title-space"></div>    @if (showExport()) {      <div class="chart-export-menu">        <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>        @if (exportMenuOpen()) {          <div class="export-dropdown">            <button (click)="onExport(\'json\')">📊 Export JSON</button>            <button (click)="onExport(\'csv\')">📄 Export CSV</button>            <button (click)="onExport(\'svg\')">🖼️ Export SVG</button>            <button (click)="onExport(\'pdf\')">📕 Export PDF</button>          </div>        }      </div>    }  </div>  <div class="ngx-treemap-container">    <!-- SVG Canvas -->    <svg      #svgEl      class="ngx-treemap-svg"      viewBox="0 0 500 300"      preserveAspectRatio="xMidYMid meet"    >      <defs>        <linearGradient id="treemap-sheen" x1="0%" y1="0%" x2="0%" y2="100%">          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18" />          <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0" />        </linearGradient>      </defs>      @for (item of layoutRects(); track item.label; let idx = $index) {        <g          class="treemap-group"          [style.transform-origin]="(item.x + item.w/2) + \'px \' + (item.y + item.h/2) + \'px\'"          [style.animation-delay]="idx * 0.03 + \'s\'"          (mouseenter)="onItemEnter(item, $event)"          (mouseleave)="onItemLeave()"          (click)="onItemClick(item)"        >          <!-- Cell Box -->          <rect            [attr.x]="item.x"            [attr.y]="item.y"            [attr.width]="item.w"            [attr.height]="item.h"            [attr.fill]="item.displayColor"            class="treemap-rect"            rx="4"            ry="4"          />          <!-- Glass Sheen Overlay -->          <rect            [attr.x]="item.x"            [attr.y]="item.y"            [attr.width]="item.w"            [attr.height]="item.h"            fill="url(#treemap-sheen)"            rx="4"            ry="4"            pointer-events="none"          />          <!-- Labels (Only show if rectangle is large enough) -->          @if (item.w > 50 && item.h > 30) {            <text              [attr.x]="item.x + 8"              [attr.y]="item.y + 18"              class="treemap-label"            >              {{ item.label }}            </text>            @if (item.h > 45) {              <text                [attr.x]="item.x + 8"                [attr.y]="item.y + 32"                class="treemap-value"              >                {{ item.value.toLocaleString() }}              </text>            }          }        </g>      }    </svg>    <!-- Glassmorphic Tooltip Overlay -->    @if (tooltip().show) {      <div        class="treemap-tooltip"        [style.left.px]="tooltip().x"        [style.top.px]="tooltip().y"      >        <div class="tt-cat">{{ tooltip().title }}</div>        <div class="tt-row">          <span class="tt-dot" [style.background]="tooltip().color"></span>          <span class="tt-name">Value</span>          <span class="tt-val">{{ tooltip().value }}</span>        </div>      </div>    }  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'TreemapChartComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TreemapChartComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

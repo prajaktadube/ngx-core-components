@@ -1,0 +1,915 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  CalendarDay</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/inputs/date-range-picker/date-range-picker.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#date" 
+>
+                                            date
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#disabled" 
+>
+                                            disabled
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#inMonth" 
+>
+                                            inMonth
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#inRange" 
+>
+                                            inRange
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#isEnd" 
+>
+                                            isEnd
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#isStart" 
+>
+                                            isStart
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#isToday" 
+>
+                                            isToday
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#key" 
+>
+                                            key
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="date"></a>
+                                        <span class="name "><b>date</b>
+                                            <a href="#date">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>date:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="disabled"></a>
+                                        <span class="name "><b>disabled</b>
+                                            <a href="#disabled">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>disabled:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="inMonth"></a>
+                                        <span class="name "><b>inMonth</b>
+                                            <a href="#inMonth">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>inMonth:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="inRange"></a>
+                                        <span class="name "><b>inRange</b>
+                                            <a href="#inRange">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>inRange:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="isEnd"></a>
+                                        <span class="name "><b>isEnd</b>
+                                            <a href="#isEnd">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>isEnd:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="isStart"></a>
+                                        <span class="name "><b>isStart</b>
+                                            <a href="#isStart">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>isStart:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="isToday"></a>
+                                        <span class="name "><b>isToday</b>
+                                            <a href="#isToday">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>isToday:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="key"></a>
+                                        <span class="name "><b>key</b>
+                                            <a href="#key">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>key:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, effect, input, output, signal } from &#x27;@angular/core&#x27;;
+
+export interface DateRangePreset {
+  label: string;
+  start: Date | string;
+  end: Date | string;
+}
+
+interface CalendarDay {
+  key: string;
+  date: Date;
+  inMonth: boolean;
+  isToday: boolean;
+  isStart: boolean;
+  isEnd: boolean;
+  inRange: boolean;
+  disabled: boolean;
+}
+
+@Component({
+  selector: &#x27;ngx-date-range-picker&#x27;,
+  standalone: true,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-date-range-picker&quot;&gt;
+      @if (label()) { &lt;label class&#x3D;&quot;drp-label&quot;&gt;{{ label() }}&lt;/label&gt; }
+      &lt;div
+        class&#x3D;&quot;drp-inputs&quot;
+        [class.disabled]&#x3D;&quot;disabled()&quot;
+        role&#x3D;&quot;button&quot;
+        tabindex&#x3D;&quot;0&quot;
+        [attr.aria-expanded]&#x3D;&quot;open()&quot;
+        (click)&#x3D;&quot;toggleOpen()&quot;
+        (keydown.enter)&#x3D;&quot;toggleOpen()&quot;
+        (keydown.space)&#x3D;&quot;toggleOpen(); $event.preventDefault()&quot;
+        (keydown.escape)&#x3D;&quot;open.set(false)&quot;
+      &gt;
+        &lt;input class&#x3D;&quot;drp-input&quot; type&#x3D;&quot;text&quot; readonly [value]&#x3D;&quot;startDate()&quot; placeholder&#x3D;&quot;Start date&quot; [disabled]&#x3D;&quot;disabled()&quot; /&gt;
+        &lt;span class&#x3D;&quot;drp-sep&quot;&gt;&amp;#8594;&lt;/span&gt;
+        &lt;input class&#x3D;&quot;drp-input&quot; type&#x3D;&quot;text&quot; readonly [value]&#x3D;&quot;endDate()&quot; placeholder&#x3D;&quot;End date&quot; [disabled]&#x3D;&quot;disabled()&quot; /&gt;
+        &lt;span class&#x3D;&quot;drp-icon&quot;&gt;&amp;#128197;&lt;/span&gt;
+      &lt;/div&gt;
+      @if (open()) {
+        &lt;div class&#x3D;&quot;drp-calendar-wrap&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+          @if (presets().length &gt; 0) {
+            &lt;div class&#x3D;&quot;drp-presets&quot;&gt;
+              @for (preset of presets(); track preset.label) {
+                &lt;button class&#x3D;&quot;preset-btn&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;applyPreset(preset)&quot;&gt;
+                  {{ preset.label }}
+                &lt;/button&gt;
+              }
+            &lt;/div&gt;
+          }
+
+          &lt;div class&#x3D;&quot;drp-calendar&quot;&gt;
+            &lt;div class&#x3D;&quot;cal-header&quot;&gt;
+              &lt;button class&#x3D;&quot;cal-nav&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;prevMonth($event)&quot; aria-label&#x3D;&quot;Previous month&quot;&gt;&amp;#8249;&lt;/button&gt;
+              &lt;span class&#x3D;&quot;cal-title&quot;&gt;{{ monthName(viewMonth()) }} {{ viewYear() }}&lt;/span&gt;
+              &lt;button class&#x3D;&quot;cal-nav&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;nextMonth($event)&quot; aria-label&#x3D;&quot;Next month&quot;&gt;&amp;#8250;&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;cal-grid&quot; role&#x3D;&quot;grid&quot;&gt;
+              @for (day of weekDays(); track day) { &lt;div class&#x3D;&quot;cal-weekday&quot;&gt;{{ day }}&lt;/div&gt; }
+              @for (cell of calendarDays(); track cell.key) {
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;cal-day&quot;
+                  role&#x3D;&quot;gridcell&quot;
+                  [class.other-month]&#x3D;&quot;!cell.inMonth&quot;
+                  [class.in-range]&#x3D;&quot;cell.inRange&quot;
+                  [class.range-start]&#x3D;&quot;cell.isStart&quot;
+                  [class.range-end]&#x3D;&quot;cell.isEnd&quot;
+                  [class.today]&#x3D;&quot;cell.isToday&quot;
+                  [class.disabled]&#x3D;&quot;cell.disabled&quot;
+                  [attr.data-date]&#x3D;&quot;cell.key&quot;
+                  [attr.aria-selected]&#x3D;&quot;cell.isStart || cell.isEnd&quot;
+                  [disabled]&#x3D;&quot;cell.disabled&quot;
+                  (click)&#x3D;&quot;selectDay(cell.date, $event)&quot;
+                  (keydown)&#x3D;&quot;onDayKeydown($event, cell.date)&quot;
+                &gt;{{ cell.date.getDate() }}&lt;/button&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; position: relative; }
+    .drp-label { display: block; font-size: 12px; font-weight: 600; color: var(--ngx-input-label, #475569); margin-bottom: 6px; }
+    .drp-inputs { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--ngx-input-border, #cbd5e1); border-radius: var(--ngx-input-radius, 8px); cursor: pointer; background: var(--ngx-input-bg, #fff); transition: all 0.2s; }
+    .drp-inputs:hover, .drp-inputs:focus-visible { border-color: var(--primary-color, #4f46e5); outline: none; box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.12)); }
+    .drp-inputs.disabled { cursor: not-allowed; opacity: 0.6; background: var(--ngx-input-disabled-bg, #f8fafc); }
+    .drp-input { border: none; background: transparent; font-size: 13px; color: var(--ngx-input-text, #0f172a); outline: none; cursor: pointer; width: 85px; font-family: inherit; }
+    .drp-input:disabled { cursor: not-allowed; color: var(--text-secondary, #64748b); }
+    .drp-sep { color: #94a3b8; font-weight: 650; }
+    .drp-icon { font-size: 14px; color: #64748b; margin-left: auto; }
+    .drp-calendar-wrap { position: absolute; top: calc(100% + 6px); left: 0; display: flex; gap: 12px; background: var(--bg-secondary, #fff); border: 1px solid var(--border-color, #e2e8f0); border-radius: var(--ngx-input-radius, 12px); box-shadow: var(--shadow-lg, 0 10px 25px rgba(0,0,0,0.08)); z-index: 1000; padding: 14px; }
+    .drp-presets { display: flex; flex-direction: column; gap: 6px; min-width: 112px; padding-right: 12px; border-right: 1px solid var(--border-color, #e2e8f0); }
+    .preset-btn { border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--text-secondary, #64748b); cursor: pointer; font: inherit; font-size: 12px; font-weight: 650; padding: 7px 9px; text-align: left; }
+    .preset-btn:hover, .preset-btn:focus-visible { background: var(--border-light, #f1f5f9); color: var(--text-primary, #0f172a); outline: none; }
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .cal-nav { background: none; border: 1px solid var(--border-color, #e2e8f0); border-radius: 6px; cursor: pointer; padding: 3px 8px; font-size: 14px; color: #64748b; transition: all 0.15s; }
+    .cal-nav:hover, .cal-nav:focus-visible { background: var(--border-light, #f1f5f9); color: var(--text-primary, #0f172a); outline: none; }
+    .cal-title { font-weight: 750; font-size: 13px; color: var(--text-primary, #0f172a); font-family: var(--ngx-heading-font-family, inherit); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 34px); gap: 3px; }
+    .cal-weekday { text-align: center; font-size: 10px; font-weight: 700; color: #94a3b8; padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .cal-day { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 550; border-radius: 6px; cursor: pointer; transition: all 0.15s; color: var(--text-primary, #0f172a); border: 0; background: transparent; font-family: inherit; }
+    .cal-day:hover:not(.range-start):not(.range-end):not(.disabled), .cal-day:focus-visible:not(.range-start):not(.range-end):not(.disabled) { background: var(--border-light, #f1f5f9); outline: none; }
+    .cal-day.other-month { color: #cbd5e1; }
+    .cal-day.disabled { color: #cbd5e1; cursor: not-allowed; text-decoration: line-through; }
+    .cal-day.in-range { background: var(--primary-glow, rgba(79, 70, 229, 0.08)); color: var(--primary-color, #4f46e5); border-radius: 0; }
+    .cal-day.range-start, .cal-day.range-end { background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)); color: #fff; font-weight: 700; border-radius: 50%; box-shadow: 0 2px 6px rgba(79, 70, 229, 0.35); }
+    .cal-day.today:not(.range-start):not(.range-end) { font-weight: 700; border: 1.5px solid var(--primary-color, #4f46e5); color: var(--primary-color, #4f46e5); }
+    @media (max-width: 520px) {
+      .drp-calendar-wrap { flex-direction: column; width: max-content; max-width: calc(100vw - 32px); }
+      .drp-presets { flex-direction: row; flex-wrap: wrap; min-width: 0; padding: 0 0 10px; border-right: 0; border-bottom: 1px solid var(--border-color, #e2e8f0); }
+    }
+  &#x60;]
+})
+export class DateRangePickerComponent {
+  label &#x3D; input(&#x27;&#x27;);
+  start &#x3D; input&lt;Date | string | null&gt;(null);
+  end &#x3D; input&lt;Date | string | null&gt;(null);
+  min &#x3D; input&lt;Date | string | null&gt;(null);
+  max &#x3D; input&lt;Date | string | null&gt;(null);
+  disabledDates &#x3D; input&lt;Array&lt;Date | string&gt;&gt;([]);
+  presets &#x3D; input&lt;DateRangePreset[]&gt;(DateRangePickerComponent.createDefaultPresets());
+  weekStartsOn &#x3D; input&lt;0 | 1 | 2 | 3 | 4 | 5 | 6&gt;(0);
+  disabled &#x3D; input(false);
+
+  startDate &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  endDate &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  open &#x3D; signal(false);
+  private picking &#x3D; signal&lt;&#x27;start&#x27; | &#x27;end&#x27;&gt;(&#x27;start&#x27;);
+  viewMonth &#x3D; signal(new Date().getMonth());
+  viewYear &#x3D; signal(new Date().getFullYear());
+
+  rangeChange &#x3D; output&lt;{ start: string; end: string }&gt;();
+  openChange &#x3D; output&lt;boolean&gt;();
+
+  private monthNames &#x3D; [&#x27;January&#x27;, &#x27;February&#x27;, &#x27;March&#x27;, &#x27;April&#x27;, &#x27;May&#x27;, &#x27;June&#x27;, &#x27;July&#x27;, &#x27;August&#x27;, &#x27;September&#x27;, &#x27;October&#x27;, &#x27;November&#x27;, &#x27;December&#x27;];
+  private baseWeekDays &#x3D; [&#x27;Su&#x27;, &#x27;Mo&#x27;, &#x27;Tu&#x27;, &#x27;We&#x27;, &#x27;Th&#x27;, &#x27;Fr&#x27;, &#x27;Sa&#x27;];
+
+  private syncInputs &#x3D; effect(() &#x3D;&gt; {
+    const start &#x3D; this.toDateString(this.start());
+    const end &#x3D; this.toDateString(this.end());
+    this.startDate.set(start);
+    this.endDate.set(end);
+    const initialView &#x3D; this.parseLocalDate(start || end);
+    if (initialView) {
+      this.viewMonth.set(initialView.getMonth());
+      this.viewYear.set(initialView.getFullYear());
+    }
+  });
+
+  weekDays &#x3D; computed(() &#x3D;&gt; {
+    const start &#x3D; this.weekStartsOn();
+    return [...this.baseWeekDays.slice(start), ...this.baseWeekDays.slice(0, start)];
+  });
+
+  calendarDays &#x3D; computed&lt;CalendarDay[]&gt;(() &#x3D;&gt; {
+    const y &#x3D; this.viewYear();
+    const m &#x3D; this.viewMonth();
+    const firstDay &#x3D; new Date(y, m, 1).getDay();
+    const offset &#x3D; (firstDay - this.weekStartsOn() + 7) % 7;
+    const days: CalendarDay[] &#x3D; [];
+    const today &#x3D; this.startOfDay(new Date());
+    const s &#x3D; this.parseLocalDate(this.startDate());
+    const e &#x3D; this.parseLocalDate(this.endDate());
+
+    for (let i &#x3D; 0; i &lt; 42; i++) {
+      const date &#x3D; this.startOfDay(new Date(y, m, i - offset + 1));
+      const key &#x3D; this.formatLocalDate(date);
+      days.push({
+        key,
+        date,
+        inMonth: date.getMonth() &#x3D;&#x3D;&#x3D; m,
+        isToday: date.getTime() &#x3D;&#x3D;&#x3D; today.getTime(),
+        isStart: s ? date.getTime() &#x3D;&#x3D;&#x3D; s.getTime() : false,
+        isEnd: e ? date.getTime() &#x3D;&#x3D;&#x3D; e.getTime() : false,
+        inRange: !!(s &amp;&amp; e &amp;&amp; date &gt; s &amp;&amp; date &lt; e),
+        disabled: this.isDateDisabled(date),
+      });
+    }
+    return days;
+  });
+
+  monthName(m: number): string {
+    return this.monthNames[m] ?? &#x27;&#x27;;
+  }
+
+  toggleOpen(): void {
+    if (this.disabled()) return;
+    this.open.update(v &#x3D;&gt; {
+      const next &#x3D; !v;
+      this.openChange.emit(next);
+      return next;
+    });
+  }
+
+  prevMonth(e: Event): void {
+    e.stopPropagation();
+    if (this.viewMonth() &#x3D;&#x3D;&#x3D; 0) {
+      this.viewMonth.set(11);
+      this.viewYear.update(y &#x3D;&gt; y - 1);
+    } else {
+      this.viewMonth.update(m &#x3D;&gt; m - 1);
+    }
+  }
+
+  nextMonth(e: Event): void {
+    e.stopPropagation();
+    if (this.viewMonth() &#x3D;&#x3D;&#x3D; 11) {
+      this.viewMonth.set(0);
+      this.viewYear.update(y &#x3D;&gt; y + 1);
+    } else {
+      this.viewMonth.update(m &#x3D;&gt; m + 1);
+    }
+  }
+
+  selectDay(date: Date, e?: Event): void {
+    e?.stopPropagation();
+    if (this.disabled() || this.isDateDisabled(date)) return;
+
+    const ds &#x3D; this.formatLocalDate(date);
+    if (this.picking() &#x3D;&#x3D;&#x3D; &#x27;start&#x27; || !this.startDate()) {
+      this.startDate.set(ds);
+      this.endDate.set(&#x27;&#x27;);
+      this.picking.set(&#x27;end&#x27;);
+      return;
+    }
+
+    if (ds &gt;&#x3D; this.startDate()) {
+      this.endDate.set(ds);
+      this.picking.set(&#x27;start&#x27;);
+      this.emitRange(ds);
+      this.open.set(false);
+      this.openChange.emit(false);
+    } else {
+      this.startDate.set(ds);
+      this.endDate.set(&#x27;&#x27;);
+    }
+  }
+
+  applyPreset(preset: DateRangePreset): void {
+    const start &#x3D; this.toDateString(preset.start);
+    const end &#x3D; this.toDateString(preset.end);
+    if (!start || !end) return;
+
+    this.startDate.set(start);
+    this.endDate.set(end);
+    this.picking.set(&#x27;start&#x27;);
+    const view &#x3D; this.parseLocalDate(start);
+    if (view) {
+      this.viewMonth.set(view.getMonth());
+      this.viewYear.set(view.getFullYear());
+    }
+    this.rangeChange.emit({ start, end });
+    this.open.set(false);
+    this.openChange.emit(false);
+  }
+
+  onDayKeydown(event: KeyboardEvent, date: Date): void {
+    const deltas: Record&lt;string, number&gt; &#x3D; {
+      ArrowLeft: -1,
+      ArrowRight: 1,
+      ArrowUp: -7,
+      ArrowDown: 7,
+    };
+
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;Enter&#x27; || event.key &#x3D;&#x3D;&#x3D; &#x27; &#x27;) {
+      event.preventDefault();
+      this.selectDay(date, event);
+      return;
+    }
+
+    const delta &#x3D; deltas[event.key];
+    if (!delta) return;
+
+    event.preventDefault();
+    const next &#x3D; new Date(date);
+    next.setDate(date.getDate() + delta);
+    this.viewMonth.set(next.getMonth());
+    this.viewYear.set(next.getFullYear());
+    queueMicrotask(() &#x3D;&gt; {
+      const target &#x3D; document.querySelector&lt;HTMLButtonElement&gt;(&#x60;.cal-day[data-date&#x3D;&quot;${this.formatLocalDate(next)}&quot;]:not(:disabled)&#x60;);
+      target?.focus();
+    });
+  }
+
+  private emitRange(end: string): void {
+    this.rangeChange.emit({ start: this.startDate(), end });
+  }
+
+  private isDateDisabled(date: Date): boolean {
+    const min &#x3D; this.parseLocalDate(this.toDateString(this.min()));
+    const max &#x3D; this.parseLocalDate(this.toDateString(this.max()));
+    const key &#x3D; this.formatLocalDate(date);
+    const disabledSet &#x3D; new Set(this.disabledDates().map(item &#x3D;&gt; this.toDateString(item)).filter(Boolean));
+
+    return !!((min &amp;&amp; date &lt; min) || (max &amp;&amp; date &gt; max) || disabledSet.has(key));
+  }
+
+  private parseLocalDate(value: string): Date | null {
+    if (!value) return null;
+    const [year, month, day] &#x3D; value.split(&#x27;-&#x27;).map(Number);
+    if (!year || !month || !day) return null;
+    return this.startOfDay(new Date(year, month - 1, day));
+  }
+
+  private toDateString(value: Date | string | null): string {
+    if (!value) return &#x27;&#x27;;
+    if (value instanceof Date) return this.formatLocalDate(value);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    const parsed &#x3D; new Date(value);
+    return Number.isNaN(parsed.getTime()) ? &#x27;&#x27; : this.formatLocalDate(parsed);
+  }
+
+  private formatLocalDate(date: Date): string {
+    const year &#x3D; date.getFullYear();
+    const month &#x3D; &#x60;${date.getMonth() + 1}&#x60;.padStart(2, &#x27;0&#x27;);
+    const day &#x3D; &#x60;${date.getDate()}&#x60;.padStart(2, &#x27;0&#x27;);
+    return &#x60;${year}-${month}-${day}&#x60;;
+  }
+
+  private startOfDay(date: Date): Date {
+    const next &#x3D; new Date(date);
+    next.setHours(0, 0, 0, 0);
+    return next;
+  }
+
+  private static createDefaultPresets(): DateRangePreset[] {
+    const today &#x3D; new Date();
+    const lastSevenStart &#x3D; new Date(today);
+    lastSevenStart.setDate(today.getDate() - 6);
+    const monthStart &#x3D; new Date(today.getFullYear(), today.getMonth(), 1);
+    const monthEnd &#x3D; new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    return [
+      { label: &#x27;Today&#x27;, start: today, end: today },
+      { label: &#x27;Last 7 days&#x27;, start: lastSevenStart, end: today },
+      { label: &#x27;This month&#x27;, start: monthStart, end: monthEnd },
+    ];
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'CalendarDay.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1463 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AIFormCopilotComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-ai-form-copilot</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host { display: block; }
+    .ngx-ai-form-copilot-container {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: var(--ngx-font-family, inherit);
+      color: var(--text-primary, #0f172a);
+      box-shadow: var(--ngx-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+      transition: all 0.2s ease;
+    }
+    .ngx-ai-form-copilot-container.dark-mode {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+    .copilot-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .copilot-logo {
+      font-size: 24px;
+    }
+    .copilot-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .copilot-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .copilot-subtitle {
+      margin: 2px 0 0;
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+    }
+    .dark-mode .copilot-subtitle {
+      color: #94a3b8;
+    }
+    .copilot-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .copilot-textarea {
+      width: 100%;
+      background: var(--bg-primary, #f8fafc);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: inherit;
+      outline: none;
+      resize: none;
+      transition: border-color 0.15s;
+    }
+    .dark-mode .copilot-textarea {
+      background: #0f172a;
+      border-color: #475569;
+    }
+    .copilot-textarea:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .copilot-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .copilot-status {
+      font-size: 11px;
+      color: var(--primary-color, #4f46e5);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copilot-status.error {
+      color: var(--ngx-color-danger, #ef4444);
+    }
+    .fill-btn {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .fill-btn:hover:not(:disabled) {
+      background: var(--primary-hover, #4338ca);
+    }
+    .fill-btn:disabled {
+      background: var(--border-color, #cbd5e1);
+      color: var(--text-disabled, #94a3b8);
+      cursor: not-allowed;
+    }
+    .dark-mode .fill-btn:disabled {
+      background: #334155;
+      color: #64748b;
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .dark-mode .progress-bar-container {
+      background: #334155;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-color, #4f46e5);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+    .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-ai-form-copilot-container&quot; [class.dark-mode]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+  &lt;div class&#x3D;&quot;copilot-header&quot;&gt;
+    &lt;span class&#x3D;&quot;copilot-logo&quot;&gt;🤖&lt;/span&gt;
+    &lt;div class&#x3D;&quot;copilot-title-group&quot;&gt;
+      &lt;h4 class&#x3D;&quot;copilot-title&quot;&gt;AI Form Co-Pilot&lt;/h4&gt;
+      &lt;p class&#x3D;&quot;copilot-subtitle&quot;&gt;Use local AI to fill the form automatically&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;copilot-body&quot;&gt;
+    &lt;textarea
+      [(ngModel)]&#x3D;&quot;promptText&quot;
+      [disabled]&#x3D;&quot;loading()&quot;
+      placeholder&#x3D;&quot;e.g. My name is Alice, email is alice@gmail.com, and I am a Developer...&quot;
+      class&#x3D;&quot;copilot-textarea&quot;
+      rows&#x3D;&quot;3&quot;
+    &gt;&lt;/textarea&gt;
+
+    &lt;div class&#x3D;&quot;copilot-actions&quot;&gt;
+      &lt;span class&#x3D;&quot;copilot-status&quot; [class.error]&#x3D;&quot;hasError()&quot;&gt;
+        @if (loading()) {
+          &lt;span class&#x3D;&quot;spinner&quot;&gt;⏳&lt;/span&gt; {{ statusMessage() }}
+        } @else if (hasError()) {
+          ❌ {{ errorMessage() }}
+        } @else if (successMessage()) {
+          ✅ {{ successMessage() }}
+        }
+      &lt;/span&gt;
+
+      &lt;button
+        class&#x3D;&quot;fill-btn&quot;
+        [disabled]&#x3D;&quot;loading() || !promptText().trim()&quot;
+        (click)&#x3D;&quot;autoFill()&quot;
+      &gt;
+        ⚡ Auto-Fill Form
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    @if (loading() &amp;&amp; progress() &gt; 0 &amp;&amp; progress() &lt; 100) {
+      &lt;div class&#x3D;&quot;progress-bar-container&quot;&gt;
+        &lt;div class&#x3D;&quot;progress-bar-fill&quot; [style.width.%]&#x3D;&quot;progress()&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#hasError" >hasError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#llmService" >llmService</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#progress" >progress</a>
+                            </li>
+                            <li>
+                                <a href="#promptText" >promptText</a>
+                            </li>
+                            <li>
+                                <a href="#statusMessage" >statusMessage</a>
+                            </li>
+                            <li>
+                                <a href="#successMessage" >successMessage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#autoFill" >autoFill</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#fields" >fields</a>
+                            </li>
+                            <li>
+                                <a href="#formBuilder" >formBuilder</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#valuesExtracted" >valuesExtracted</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fields"></a>
+                        <b>fields</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/FormBuilderField.html" target="_self" >FormBuilderField[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="192" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:192</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formBuilder"></a>
+                        <b>formBuilder</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/FormBuilderComponent.html" target="_self" >FormBuilderComponent | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="193" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:193</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:194</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="valuesExtracted"></a>
+                        <b>valuesExtracted</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, unknown&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="196" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:196</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="autoFill"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>autoFill</b></span>
+                        <a href="#autoFill"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>autoFill()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasError"></a>
+                    <span class="name">
+                        <span ><b>hasError</b></span>
+                        <a href="#hasError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="203" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:203</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="llmService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>llmService</b></span>
+                        <a href="#llmService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(NgxWebLlmService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="207" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:207</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="199" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:199</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="progress"></a>
+                    <span class="name">
+                        <span ><b>progress</b></span>
+                        <a href="#progress"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:201</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="promptText"></a>
+                    <span class="name">
+                        <span ><b>promptText</b></span>
+                        <a href="#promptText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="198" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="statusMessage"></a>
+                    <span class="name">
+                        <span ><b>statusMessage</b></span>
+                        <a href="#statusMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="successMessage"></a>
+                    <span class="name">
+                        <span ><b>successMessage</b></span>
+                        <a href="#successMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="205" class="link-to-prism">projects/ngx-core-components/ai/ai-form-copilot/ai-form-copilot.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, output, signal, inject } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { NgxWebLlmService, WebLlmMessage } from &#x27;../ngx-web-llm.service&#x27;;
+import { FormBuilderField, FormBuilderComponent } from &#x27;ngx-core-components/inputs&#x27;;
+
+@Component({
+  selector: &#x27;ngx-ai-form-copilot&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-ai-form-copilot-container&quot; [class.dark-mode]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+      &lt;div class&#x3D;&quot;copilot-header&quot;&gt;
+        &lt;span class&#x3D;&quot;copilot-logo&quot;&gt;🤖&lt;/span&gt;
+        &lt;div class&#x3D;&quot;copilot-title-group&quot;&gt;
+          &lt;h4 class&#x3D;&quot;copilot-title&quot;&gt;AI Form Co-Pilot&lt;/h4&gt;
+          &lt;p class&#x3D;&quot;copilot-subtitle&quot;&gt;Use local AI to fill the form automatically&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;copilot-body&quot;&gt;
+        &lt;textarea
+          [(ngModel)]&#x3D;&quot;promptText&quot;
+          [disabled]&#x3D;&quot;loading()&quot;
+          placeholder&#x3D;&quot;e.g. My name is Alice, email is alice@gmail.com, and I am a Developer...&quot;
+          class&#x3D;&quot;copilot-textarea&quot;
+          rows&#x3D;&quot;3&quot;
+        &gt;&lt;/textarea&gt;
+
+        &lt;div class&#x3D;&quot;copilot-actions&quot;&gt;
+          &lt;span class&#x3D;&quot;copilot-status&quot; [class.error]&#x3D;&quot;hasError()&quot;&gt;
+            @if (loading()) {
+              &lt;span class&#x3D;&quot;spinner&quot;&gt;⏳&lt;/span&gt; {{ statusMessage() }}
+            } @else if (hasError()) {
+              ❌ {{ errorMessage() }}
+            } @else if (successMessage()) {
+              ✅ {{ successMessage() }}
+            }
+          &lt;/span&gt;
+          
+          &lt;button
+            class&#x3D;&quot;fill-btn&quot;
+            [disabled]&#x3D;&quot;loading() || !promptText().trim()&quot;
+            (click)&#x3D;&quot;autoFill()&quot;
+          &gt;
+            ⚡ Auto-Fill Form
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        @if (loading() &amp;&amp; progress() &gt; 0 &amp;&amp; progress() &lt; 100) {
+          &lt;div class&#x3D;&quot;progress-bar-container&quot;&gt;
+            &lt;div class&#x3D;&quot;progress-bar-fill&quot; [style.width.%]&#x3D;&quot;progress()&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; }
+    .ngx-ai-form-copilot-container {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: var(--ngx-font-family, inherit);
+      color: var(--text-primary, #0f172a);
+      box-shadow: var(--ngx-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+      transition: all 0.2s ease;
+    }
+    .ngx-ai-form-copilot-container.dark-mode {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+    .copilot-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .copilot-logo {
+      font-size: 24px;
+    }
+    .copilot-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .copilot-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .copilot-subtitle {
+      margin: 2px 0 0;
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+    }
+    .dark-mode .copilot-subtitle {
+      color: #94a3b8;
+    }
+    .copilot-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .copilot-textarea {
+      width: 100%;
+      background: var(--bg-primary, #f8fafc);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: inherit;
+      outline: none;
+      resize: none;
+      transition: border-color 0.15s;
+    }
+    .dark-mode .copilot-textarea {
+      background: #0f172a;
+      border-color: #475569;
+    }
+    .copilot-textarea:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .copilot-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .copilot-status {
+      font-size: 11px;
+      color: var(--primary-color, #4f46e5);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copilot-status.error {
+      color: var(--ngx-color-danger, #ef4444);
+    }
+    .fill-btn {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .fill-btn:hover:not(:disabled) {
+      background: var(--primary-hover, #4338ca);
+    }
+    .fill-btn:disabled {
+      background: var(--border-color, #cbd5e1);
+      color: var(--text-disabled, #94a3b8);
+      cursor: not-allowed;
+    }
+    .dark-mode .fill-btn:disabled {
+      background: #334155;
+      color: #64748b;
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .dark-mode .progress-bar-container {
+      background: #334155;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-color, #4f46e5);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+    .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  &#x60;]
+})
+export class AIFormCopilotComponent {
+  fields &#x3D; input&lt;FormBuilderField[]&gt;([]);
+  formBuilder &#x3D; input&lt;FormBuilderComponent | null&gt;(null);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+
+  valuesExtracted &#x3D; output&lt;Record&lt;string, unknown&gt;&gt;();
+
+  promptText &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  loading &#x3D; signal&lt;boolean&gt;(false);
+  statusMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  progress &#x3D; signal&lt;number&gt;(0);
+  
+  hasError &#x3D; signal&lt;boolean&gt;(false);
+  errorMessage &#x3D; signal&lt;string | null&gt;(null);
+  successMessage &#x3D; signal&lt;string | null&gt;(null);
+
+  private llmService &#x3D; inject(NgxWebLlmService);
+
+  async autoFill(): Promise&lt;void&gt; {
+    const text &#x3D; this.promptText().trim();
+    if (!text) return;
+
+    this.loading.set(true);
+    this.hasError.set(false);
+    this.errorMessage.set(null);
+    this.successMessage.set(null);
+    this.statusMessage.set(&#x27;Initializing AI model...&#x27;);
+
+    try {
+      if (!this.llmService.isReady()) {
+        await this.llmService.init(&#x27;Qwen2.5-0.5B-Instruct&#x27;, (val, msg) &#x3D;&gt; {
+          this.progress.set(Math.round(val * 100));
+          this.statusMessage.set(&#x60;Loading LLM: ${msg}&#x60;);
+        });
+      }
+
+      this.statusMessage.set(&#x27;Parsing input text...&#x27;);
+
+      const schemaString &#x3D; this.fields().map(f &#x3D;&gt; {
+        const optString &#x3D; f.options ? &#x60; Options: [${f.options.map(o &#x3D;&gt; &#x60;${o.value}: ${o.label}&#x60;).join(&#x27;, &#x27;)}]&#x60; : &#x27;&#x27;;
+        return &#x60;- field &quot;${f.key}&quot; (Type: ${f.type || &#x27;text&#x27;}, Label: &quot;${f.label}&quot;${optString})&#x60;;
+      }).join(&#x27;\n&#x27;);
+
+      const messages: WebLlmMessage[] &#x3D; [
+        {
+          role: &#x27;system&#x27;,
+          content: &#x60;You are a highly precise entity extractor. Parse the user&#x27;s input paragraph and extract values for these form fields:
+${schemaString}
+
+Return a single JSON object mapping field keys to extracted values. Return ONLY the JSON object. Do not explain. Do not wrap in markdown quotes. Format booleans for checkbox types.&#x60;
+        },
+        {
+          role: &#x27;user&#x27;,
+          content: text
+        }
+      ];
+
+      const response &#x3D; await this.llmService.generate(messages, () &#x3D;&gt; {
+        this.statusMessage.set(&#x27;Extracting values...&#x27;);
+      });
+
+      let extractedValues: Record&lt;string, unknown&gt; &#x3D; {};
+      try {
+        const jsonMatch &#x3D; response.match(/\{[\s\S]*\}/);
+        const jsonStr &#x3D; jsonMatch ? jsonMatch[0] : response;
+        extractedValues &#x3D; JSON.parse(jsonStr);
+      } catch (err) {
+        console.warn(&#x27;Failed to parse model output directly, trying text fallbacks:&#x27;, response);
+        for (const f of this.fields()) {
+          const regex &#x3D; new RegExp(&#x60;&quot;${f.key}&quot;\\s*:\\s*(?:&quot;([^&quot;]*)&quot;|([^,\\s}]*))&#x60;);
+          const match &#x3D; response.match(regex);
+          if (match) {
+            const val &#x3D; match[1] !&#x3D;&#x3D; undefined ? match[1] : match[2];
+            if (val !&#x3D;&#x3D; undefined) {
+              if (f.type &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) extractedValues[f.key] &#x3D; Number(val);
+              else if (f.type &#x3D;&#x3D;&#x3D; &#x27;checkbox&#x27;) extractedValues[f.key] &#x3D; val.trim() &#x3D;&#x3D;&#x3D; &#x27;true&#x27;;
+              else extractedValues[f.key] &#x3D; val.trim();
+            }
+          }
+        }
+      }
+
+      if (response.includes(&#x27;[Simulated&#x27;)) {
+        extractedValues &#x3D; {};
+        const lowerText &#x3D; text.toLowerCase();
+        for (const f of this.fields()) {
+          if (f.type &#x3D;&#x3D;&#x3D; &#x27;checkbox&#x27;) {
+            extractedValues[f.key] &#x3D; lowerText.includes(f.label.toLowerCase()) || lowerText.includes(&#x27;yes&#x27;);
+          } else {
+            if (f.key &#x3D;&#x3D;&#x3D; &#x27;name&#x27; || f.key &#x3D;&#x3D;&#x3D; &#x27;customer&#x27; || f.key &#x3D;&#x3D;&#x3D; &#x27;fullName&#x27;) {
+              const nameMatch &#x3D; text.match(/(?:name is|named)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/);
+              extractedValues[f.key] &#x3D; nameMatch ? nameMatch[1] : &#x27;Alice Smith&#x27;;
+            } else if (f.key &#x3D;&#x3D;&#x3D; &#x27;email&#x27;) {
+              const emailMatch &#x3D; text.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+              extractedValues[f.key] &#x3D; emailMatch ? emailMatch[1] : &#x27;alice@example.com&#x27;;
+            } else if (f.key &#x3D;&#x3D;&#x3D; &#x27;role&#x27;) {
+              extractedValues[f.key] &#x3D; &#x27;Developer&#x27;;
+            } else if (f.type &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+              const numMatch &#x3D; text.match(/\d+/);
+              extractedValues[f.key] &#x3D; numMatch ? Number(numMatch[0]) : 5;
+            } else {
+              extractedValues[f.key] &#x3D; &#x60;Extracted value for ${f.label}&#x60;;
+            }
+          }
+        }
+      }
+
+      const builder &#x3D; this.formBuilder();
+      if (builder) {
+        Object.entries(extractedValues).forEach(([key, val]) &#x3D;&gt; {
+          builder.updateValue(key, val);
+        });
+      }
+
+      this.valuesExtracted.emit(extractedValues);
+      this.successMessage.set(&#x27;Form populated successfully!&#x27;);
+    } catch (err: any) {
+      this.hasError.set(true);
+      this.errorMessage.set(err.message || &#x27;Auto-fill failed&#x27;);
+    } finally {
+      this.loading.set(false);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host { display: block; }
+    .ngx-ai-form-copilot-container {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: var(--ngx-font-family, inherit);
+      color: var(--text-primary, #0f172a);
+      box-shadow: var(--ngx-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+      transition: all 0.2s ease;
+    }
+    .ngx-ai-form-copilot-container.dark-mode {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+    .copilot-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .copilot-logo {
+      font-size: 24px;
+    }
+    .copilot-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .copilot-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .copilot-subtitle {
+      margin: 2px 0 0;
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+    }
+    .dark-mode .copilot-subtitle {
+      color: #94a3b8;
+    }
+    .copilot-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .copilot-textarea {
+      width: 100%;
+      background: var(--bg-primary, #f8fafc);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: inherit;
+      outline: none;
+      resize: none;
+      transition: border-color 0.15s;
+    }
+    .dark-mode .copilot-textarea {
+      background: #0f172a;
+      border-color: #475569;
+    }
+    .copilot-textarea:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .copilot-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .copilot-status {
+      font-size: 11px;
+      color: var(--primary-color, #4f46e5);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copilot-status.error {
+      color: var(--ngx-color-danger, #ef4444);
+    }
+    .fill-btn {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .fill-btn:hover:not(:disabled) {
+      background: var(--primary-hover, #4338ca);
+    }
+    .fill-btn:disabled {
+      background: var(--border-color, #cbd5e1);
+      color: var(--text-disabled, #94a3b8);
+      cursor: not-allowed;
+    }
+    .dark-mode .fill-btn:disabled {
+      background: #334155;
+      color: #64748b;
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .dark-mode .progress-bar-container {
+      background: #334155;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-color, #4f46e5);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+    .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-ai-form-copilot-container" [class.dark-mode]="theme() === \'dark\'">  <div class="copilot-header">    <span class="copilot-logo">🤖</span>    <div class="copilot-title-group">      <h4 class="copilot-title">AI Form Co-Pilot</h4>      <p class="copilot-subtitle">Use local AI to fill the form automatically</p>    </div>  </div>  <div class="copilot-body">    <textarea      [(ngModel)]="promptText"      [disabled]="loading()"      placeholder="e.g. My name is Alice, email is alice@gmail.com, and I am a Developer..."      class="copilot-textarea"      rows="3"    ></textarea>    <div class="copilot-actions">      <span class="copilot-status" [class.error]="hasError()">        @if (loading()) {          <span class="spinner">⏳</span> {{ statusMessage() }}        } @else if (hasError()) {          ❌ {{ errorMessage() }}        } @else if (successMessage()) {          ✅ {{ successMessage() }}        }      </span>      <button        class="fill-btn"        [disabled]="loading() || !promptText().trim()"        (click)="autoFill()"      >        ⚡ Auto-Fill Form      </button>    </div>    @if (loading() && progress() > 0 && progress() < 100) {      <div class="progress-bar-container">        <div class="progress-bar-fill" [style.width.%]="progress()"></div>      </div>    }  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'AIFormCopilotComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AIFormCopilotComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

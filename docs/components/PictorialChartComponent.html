@@ -1,0 +1,2501 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PictorialChartComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-pictorial-chart</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../components/ChartExportMenuComponent.html" target="_self" >ChartExportMenuComponent</a></code>
+                                <code><a href="https://angular.io/api/common/DecimalPipe" target="_blank" >DecimalPipe</a></code>
+                                <code><a href="https://angular.io/api/common/NgTemplateOutlet" target="_blank" >NgTemplateOutlet</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-pictorial {
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngx-chart-axis-text, #64748b);
+    }
+    .pictorial-svg {
+      display: block;
+      overflow: visible;
+    }
+    .icon-group {
+      cursor: pointer;
+    }
+    .pictorial-shape {
+      transition: transform 0.15s ease, filter 0.15s ease;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.06));
+    }
+    .icon-group.highlighted .pictorial-shape {
+      transform: scale(1.1) translate(-2px, -2px);
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 130px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-pictorial&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+    &lt;div class&#x3D;&quot;header-info&quot;&gt;
+      &lt;span class&#x3D;&quot;header-title&quot;&gt;Pictorial Progress&lt;/span&gt;
+      &lt;span class&#x3D;&quot;header-subtitle&quot;&gt;Value: {{ value() }} / {{ max() }} ({{ percentage() | number:&#x27;1.0-1&#x27; }}%)&lt;/span&gt;
+    &lt;/div&gt;
+
+    @if (showExport()) {
+      &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;svg
+    #svgEl
+    class&#x3D;&quot;pictorial-svg&quot;
+    [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+    [attr.height]&#x3D;&quot;svgHeight()&quot;
+  &gt;
+    &lt;defs&gt;
+      &lt;!-- Create dynamic linear gradients for partial fills --&gt;
+      @for (ic of computedIcons(); track ic.index) {
+        &lt;linearGradient [attr.id]&#x3D;&quot;ic.fillId&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;100%&quot; y2&#x3D;&quot;0%&quot;&gt;
+          &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;activeColor()&quot; /&gt;
+          &lt;stop [attr.offset]&#x3D;&quot;(ic.fraction * 100) + &#x27;%&#x27;&quot; [attr.stop-color]&#x3D;&quot;activeColor()&quot; /&gt;
+          &lt;stop [attr.offset]&#x3D;&quot;(ic.fraction * 100) + &#x27;%&#x27;&quot; [attr.stop-color]&#x3D;&quot;inactiveColor()&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;inactiveColor()&quot; /&gt;
+        &lt;/linearGradient&gt;
+      }
+    &lt;/defs&gt;
+
+    &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+      @for (ic of computedIcons(); track ic.index; let i &#x3D; $index) {
+        &lt;g
+          class&#x3D;&quot;icon-group&quot;
+          [class.highlighted]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i&quot;
+          (mouseenter)&#x3D;&quot;onIconHover(i)&quot;
+          (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+        &gt;
+          &lt;!-- Draw the icon shape scaled and positioned --&gt;
+          &lt;path
+            [attr.d]&#x3D;&quot;iconPath()&quot;
+            [attr.transform]&#x3D;&quot;getIconTransform(ic)&quot;
+            [attr.fill]&#x3D;&quot;&#x27;url(#&#x27; + ic.fillId + &#x27;)&#x27;&quot;
+            class&#x3D;&quot;pictorial-shape&quot;
+          /&gt;
+        &lt;/g&gt;
+      }
+    &lt;/g&gt;
+  &lt;/svg&gt;
+
+  &lt;!-- Glassmorphic Tooltip --&gt;
+  @if (tooltip(); as t) {
+    &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+      @if (tooltipTemplate()) {
+        &lt;ng-container
+          *ngTemplateOutlet&#x3D;&quot;tooltipTemplate()!; context: { $implicit: t }&quot;
+        &gt;&lt;/ng-container&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;Icon #{{ t.index + 1 }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value Threshold&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.threshold) }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;Fill Level&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ t.fraction * 100 | number:&#x27;1.0-1&#x27; }}%&lt;/span&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeColor" >activeColor</a>
+                            </li>
+                            <li>
+                                <a href="#computedIcons" >computedIcons</a>
+                            </li>
+                            <li>
+                                <a href="#containerWidth" >containerWidth</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#exportSvc" >exportSvc</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredIndex" >hoveredIndex</a>
+                            </li>
+                            <li>
+                                <a href="#iconPath" >iconPath</a>
+                            </li>
+                            <li>
+                                <a href="#inactiveColor" >inactiveColor</a>
+                            </li>
+                            <li>
+                                <a href="#innerH" >innerH</a>
+                            </li>
+                            <li>
+                                <a href="#innerW" >innerW</a>
+                            </li>
+                            <li>
+                                <a href="#margin" >margin</a>
+                            </li>
+                            <li>
+                                <a href="#percentage" >percentage</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#svgHeight" >svgHeight</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipX" >tooltipX</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipY" >tooltipY</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#formatNumber" >formatNumber</a>
+                            </li>
+                            <li>
+                                <a href="#getIconTransform" >getIconTransform</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onIconHover" >onIconHover</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseLeave" >onMouseLeave</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseMove" >onMouseMove</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#icon" >icon</a>
+                            </li>
+                            <li>
+                                <a href="#iconCount" >iconCount</a>
+                            </li>
+                            <li>
+                                <a href="#max" >max</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipTemplate" >tooltipTemplate</a>
+                            </li>
+                            <li>
+                                <a href="#value" >value</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="309" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:309</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CHART_COLORS</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="205" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:205</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>180</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:204</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="icon"></a>
+                        <b>icon</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;user&quot; | &quot;star&quot; | &quot;heart&quot; | &quot;lightbulb&quot; | &quot;car&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;user&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="202" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:202</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="iconCount"></a>
+                        <b>iconCount</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>10</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="203" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:203</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="max"></a>
+                        <b>max</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>100</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:201</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:206</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipTemplate"></a>
+                        <b>tooltipTemplate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>TemplateRef&lt;any&gt; | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="207" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:207</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="value"></a>
+                        <b>value</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:200</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="384"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:384</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="370"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:370</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="400"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:400</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="396"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:396</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatNumber"></a>
+                    <span class="name">
+                        <span ><b>formatNumber</b></span>
+                        <a href="#formatNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatNumber(v: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="404"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:404</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>v</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getIconTransform"></a>
+                    <span class="name">
+                        <span ><b>getIconTransform</b></span>
+                        <a href="#getIconTransform"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getIconTransform(ic: <a href="../interfaces/PictorialIcon.html" target="_self">PictorialIcon</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="327"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:327</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ic</td>
+                                            <td>
+                                                            <code><a href="../interfaces/PictorialIcon.html" target="_self" >PictorialIcon</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: <a href="../miscellaneous/typealiases.html#ExportFormat" target="_self">ExportFormat</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="363"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:363</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExportFormat" target="_self" >ExportFormat</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onIconHover"></a>
+                    <span class="name">
+                        <span ><b>onIconHover</b></span>
+                        <a href="#onIconHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onIconHover(idx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseLeave"></a>
+                    <span class="name">
+                        <span ><b>onMouseLeave</b></span>
+                        <a href="#onMouseLeave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseLeave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="358"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:358</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseMove"></a>
+                    <span class="name">
+                        <span ><b>onMouseMove</b></span>
+                        <a href="#onMouseMove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseMove(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="348"
+                                    class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:348</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeColor"></a>
+                    <span class="name">
+                        <span ><b>activeColor</b></span>
+                        <a href="#activeColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.colors()[0] || &#x27;#4a90d9&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="234" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedIcons"></a>
+                    <span class="name">
+                        <span ><b>computedIcons</b></span>
+                        <a href="#computedIcons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;PictorialIcon[]&gt;(() &#x3D;&gt; {
+    const totalCount &#x3D; Math.max(1, this.iconCount());
+    const val &#x3D; this.value();
+    const m &#x3D; Math.max(1, this.max());
+    const chunkVal &#x3D; m / totalCount;
+
+    const w &#x3D; this.innerW();
+    const h &#x3D; this.innerH();
+
+    // Determine grid layout based on count
+    let cols &#x3D; totalCount;
+    let rows &#x3D; 1;
+    if (totalCount &gt; 10) {
+      cols &#x3D; 10;
+      rows &#x3D; Math.ceil(totalCount / 10);
+    }
+
+    const cellW &#x3D; w / cols;
+    const cellH &#x3D; h / rows;
+    const size &#x3D; Math.min(cellW, cellH) * 0.85;
+
+    const icons: PictorialIcon[] &#x3D; [];
+
+    for (let i &#x3D; 0; i &lt; totalCount; i++) {
+      const row &#x3D; Math.floor(i / cols);
+      const col &#x3D; i % cols;
+
+      // Position centering inside cell bounds
+      const x &#x3D; col * cellW + (cellW - size) / 2;
+      const y &#x3D; row * cellH + (cellH - size) / 2;
+
+      // Calculate fraction fill level for this icon
+      const lowerThreshold &#x3D; i * chunkVal;
+      const upperThreshold &#x3D; (i + 1) * chunkVal;
+      let fraction &#x3D; 0;
+
+      if (val &gt;&#x3D; upperThreshold) {
+        fraction &#x3D; 1;
+      } else if (val &gt; lowerThreshold) {
+        fraction &#x3D; (val - lowerThreshold) / chunkVal;
+      }
+
+      icons.push({
+        index: i,
+        row,
+        col,
+        x,
+        y,
+        w: size,
+        h: size,
+        fillId: &#x60;pictorial-fill-${i}-${Math.round(fraction * 100)}&#x60;,
+        fraction
+      });
+    }
+
+    return icons;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="253" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:253</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="containerWidth"></a>
+                    <span class="name">
+                        <span ><b>containerWidth</b></span>
+                        <a href="#containerWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(500)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="209" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportSvc"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>exportSvc</b></span>
+                        <a href="#exportSvc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChartExportService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="199" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:199</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredIndex"></a>
+                    <span class="name">
+                        <span ><b>hoveredIndex</b></span>
+                        <a href="#hoveredIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="210" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:210</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="iconPath"></a>
+                    <span class="name">
+                        <span ><b>iconPath</b></span>
+                        <a href="#iconPath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;string&gt;(() &#x3D;&gt; {
+    switch (this.icon()) {
+      case &#x27;star&#x27;:
+        return &#x27;M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z&#x27;;
+      case &#x27;heart&#x27;:
+        return &#x27;M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z&#x27;;
+      case &#x27;lightbulb&#x27;:
+        return &#x27;M12 2C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16H10v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z&#x27;;
+      case &#x27;car&#x27;:
+        return &#x27;M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z&#x27;;
+      case &#x27;user&#x27;:
+      default:
+        return &#x27;M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z&#x27;;
+    }
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="237" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:237</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inactiveColor"></a>
+                    <span class="name">
+                        <span ><b>inactiveColor</b></span>
+                        <a href="#inactiveColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; &#x27;#cbd5e1&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="235" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:235</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="innerH"></a>
+                    <span class="name">
+                        <span ><b>innerH</b></span>
+                        <a href="#innerH"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="227" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:227</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="innerW"></a>
+                    <span class="name">
+                        <span ><b>innerW</b></span>
+                        <a href="#innerW"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="226" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:226</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="margin"></a>
+                    <span class="name">
+                        <span ><b>margin</b></span>
+                        <a href="#margin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; ({
+    top: 15,
+    right: 15,
+    bottom: 15,
+    left: 15
+  }))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="218" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:218</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="percentage"></a>
+                    <span class="name">
+                        <span ><b>percentage</b></span>
+                        <a href="#percentage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const m &#x3D; Math.max(1, this.max());
+    return Math.min(100, Math.max(0, (this.value() / m) * 100));
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:229</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="216" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:216</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgHeight"></a>
+                    <span class="name">
+                        <span ><b>svgHeight</b></span>
+                        <a href="#svgHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.height())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="225" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:225</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;any | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipX"></a>
+                    <span class="name">
+                        <span ><b>tooltipX</b></span>
+                        <a href="#tooltipX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="212" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:212</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipY"></a>
+                    <span class="name">
+                        <span ><b>tooltipY</b></span>
+                        <a href="#tooltipY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="213" class="link-to-prism">projects/ngx-core-components/charts/pictorial-chart/pictorial-chart.component.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { DecimalPipe, NgTemplateOutlet } from &#x27;@angular/common&#x27;;
+import { ChartExportService } from &#x27;../shared/chart-export.service&#x27;;
+import { ChartExportMenuComponent } from &#x27;../shared/chart-export-menu.component&#x27;;
+import type { ExportFormat } from &#x27;../shared/chart-export-menu.component&#x27;;
+import { CHART_COLORS, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface PictorialIcon {
+  index: number;
+  row: number;
+  col: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  fillId: string;
+  fraction: number;
+}
+
+@Component({
+  selector: &#x27;ngx-pictorial-chart&#x27;,
+  standalone: true,
+  imports: [ChartExportMenuComponent, DecimalPipe, NgTemplateOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-pictorial&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;header-info&quot;&gt;
+          &lt;span class&#x3D;&quot;header-title&quot;&gt;Pictorial Progress&lt;/span&gt;
+          &lt;span class&#x3D;&quot;header-subtitle&quot;&gt;Value: {{ value() }} / {{ max() }} ({{ percentage() | number:&#x27;1.0-1&#x27; }}%)&lt;/span&gt;
+        &lt;/div&gt;
+        
+        @if (showExport()) {
+          &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;svg
+        #svgEl
+        class&#x3D;&quot;pictorial-svg&quot;
+        [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+        [attr.height]&#x3D;&quot;svgHeight()&quot;
+      &gt;
+        &lt;defs&gt;
+          &lt;!-- Create dynamic linear gradients for partial fills --&gt;
+          @for (ic of computedIcons(); track ic.index) {
+            &lt;linearGradient [attr.id]&#x3D;&quot;ic.fillId&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;100%&quot; y2&#x3D;&quot;0%&quot;&gt;
+              &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;activeColor()&quot; /&gt;
+              &lt;stop [attr.offset]&#x3D;&quot;(ic.fraction * 100) + &#x27;%&#x27;&quot; [attr.stop-color]&#x3D;&quot;activeColor()&quot; /&gt;
+              &lt;stop [attr.offset]&#x3D;&quot;(ic.fraction * 100) + &#x27;%&#x27;&quot; [attr.stop-color]&#x3D;&quot;inactiveColor()&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;inactiveColor()&quot; /&gt;
+            &lt;/linearGradient&gt;
+          }
+        &lt;/defs&gt;
+
+        &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+          @for (ic of computedIcons(); track ic.index; let i &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;icon-group&quot;
+              [class.highlighted]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i&quot;
+              (mouseenter)&#x3D;&quot;onIconHover(i)&quot;
+              (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+            &gt;
+              &lt;!-- Draw the icon shape scaled and positioned --&gt;
+              &lt;path
+                [attr.d]&#x3D;&quot;iconPath()&quot;
+                [attr.transform]&#x3D;&quot;getIconTransform(ic)&quot;
+                [attr.fill]&#x3D;&quot;&#x27;url(#&#x27; + ic.fillId + &#x27;)&#x27;&quot;
+                class&#x3D;&quot;pictorial-shape&quot;
+              /&gt;
+            &lt;/g&gt;
+          }
+        &lt;/g&gt;
+      &lt;/svg&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+          @if (tooltipTemplate()) {
+            &lt;ng-container
+              *ngTemplateOutlet&#x3D;&quot;tooltipTemplate()!; context: { $implicit: t }&quot;
+            &gt;&lt;/ng-container&gt;
+          } @else {
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;Icon #{{ t.index + 1 }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value Threshold&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.threshold) }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Fill Level&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ t.fraction * 100 | number:&#x27;1.0-1&#x27; }}%&lt;/span&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-pictorial {
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngx-chart-axis-text, #64748b);
+    }
+    .pictorial-svg {
+      display: block;
+      overflow: visible;
+    }
+    .icon-group {
+      cursor: pointer;
+    }
+    .pictorial-shape {
+      transition: transform 0.15s ease, filter 0.15s ease;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.06));
+    }
+    .icon-group.highlighted .pictorial-shape {
+      transform: scale(1.1) translate(-2px, -2px);
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 130px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+
+  &#x60;]
+})
+export class PictorialChartComponent {
+  private readonly exportSvc &#x3D; inject(ChartExportService);
+  value &#x3D; input&lt;number&gt;(0);
+  max &#x3D; input&lt;number&gt;(100);
+  icon &#x3D; input&lt;&#x27;user&#x27; | &#x27;star&#x27; | &#x27;heart&#x27; | &#x27;lightbulb&#x27; | &#x27;car&#x27;&gt;(&#x27;user&#x27;);
+  iconCount &#x3D; input&lt;number&gt;(10);
+  height &#x3D; input&lt;number&gt;(180);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+  tooltipTemplate &#x3D; input&lt;TemplateRef&lt;any&gt; | null&gt;(null);
+
+  containerWidth &#x3D; signal&lt;number&gt;(500);
+  hoveredIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  margin &#x3D; computed(() &#x3D;&gt; ({
+    top: 15,
+    right: 15,
+    bottom: 15,
+    left: 15
+  }));
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; this.height());
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom));
+
+  percentage &#x3D; computed(() &#x3D;&gt; {
+    const m &#x3D; Math.max(1, this.max());
+    return Math.min(100, Math.max(0, (this.value() / m) * 100));
+  });
+
+  activeColor &#x3D; computed(() &#x3D;&gt; this.colors()[0] || &#x27;#4a90d9&#x27;);
+  inactiveColor &#x3D; computed(() &#x3D;&gt; &#x27;#cbd5e1&#x27;); // neutral slate-300 standard unselected
+
+  iconPath &#x3D; computed&lt;string&gt;(() &#x3D;&gt; {
+    switch (this.icon()) {
+      case &#x27;star&#x27;:
+        return &#x27;M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z&#x27;;
+      case &#x27;heart&#x27;:
+        return &#x27;M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z&#x27;;
+      case &#x27;lightbulb&#x27;:
+        return &#x27;M12 2C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16H10v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z&#x27;;
+      case &#x27;car&#x27;:
+        return &#x27;M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z&#x27;;
+      case &#x27;user&#x27;:
+      default:
+        return &#x27;M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z&#x27;;
+    }
+  });
+
+  computedIcons &#x3D; computed&lt;PictorialIcon[]&gt;(() &#x3D;&gt; {
+    const totalCount &#x3D; Math.max(1, this.iconCount());
+    const val &#x3D; this.value();
+    const m &#x3D; Math.max(1, this.max());
+    const chunkVal &#x3D; m / totalCount;
+
+    const w &#x3D; this.innerW();
+    const h &#x3D; this.innerH();
+
+    // Determine grid layout based on count
+    let cols &#x3D; totalCount;
+    let rows &#x3D; 1;
+    if (totalCount &gt; 10) {
+      cols &#x3D; 10;
+      rows &#x3D; Math.ceil(totalCount / 10);
+    }
+
+    const cellW &#x3D; w / cols;
+    const cellH &#x3D; h / rows;
+    const size &#x3D; Math.min(cellW, cellH) * 0.85;
+
+    const icons: PictorialIcon[] &#x3D; [];
+
+    for (let i &#x3D; 0; i &lt; totalCount; i++) {
+      const row &#x3D; Math.floor(i / cols);
+      const col &#x3D; i % cols;
+
+      // Position centering inside cell bounds
+      const x &#x3D; col * cellW + (cellW - size) / 2;
+      const y &#x3D; row * cellH + (cellH - size) / 2;
+
+      // Calculate fraction fill level for this icon
+      const lowerThreshold &#x3D; i * chunkVal;
+      const upperThreshold &#x3D; (i + 1) * chunkVal;
+      let fraction &#x3D; 0;
+
+      if (val &gt;&#x3D; upperThreshold) {
+        fraction &#x3D; 1;
+      } else if (val &gt; lowerThreshold) {
+        fraction &#x3D; (val - lowerThreshold) / chunkVal;
+      }
+
+      icons.push({
+        index: i,
+        row,
+        col,
+        x,
+        y,
+        w: size,
+        h: size,
+        fillId: &#x60;pictorial-fill-${i}-${Math.round(fraction * 100)}&#x60;,
+        fraction
+      });
+    }
+
+    return icons;
+  });
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  // Returns scaling transformation to scale icon SVG path (assumed 24x24 viewBox) to target cell size
+  getIconTransform(ic: PictorialIcon): string {
+    const scaleFactor &#x3D; ic.w / 24;
+    return &#x60;translate(${ic.x}, ${ic.y}) scale(${scaleFactor})&#x60;;
+  }
+
+  onIconHover(idx: number) {
+    this.hoveredIndex.set(idx);
+    const totalCount &#x3D; Math.max(1, this.iconCount());
+    const m &#x3D; Math.max(1, this.max());
+    const chunkVal &#x3D; m / totalCount;
+    const ic &#x3D; this.computedIcons()[idx];
+
+    if (ic) {
+      this.tooltip.set({
+        index: idx,
+        threshold: (idx + 1) * chunkVal,
+        fraction: ic.fraction
+      });
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const container &#x3D; el.closest(&#x27;.ngx-pictorial&#x27;);
+    if (container) {
+      const rect &#x3D; container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  onExport(type: ExportFormat): void {
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const totalCount &#x3D; Math.max(1, this.iconCount());
+    const m &#x3D; Math.max(1, this.max());
+    const chunkVal &#x3D; m / totalCount;
+    const icons &#x3D; this.computedIcons();
+
+    const data &#x3D; icons.map(ic &#x3D;&gt; ({
+      index: ic.index,
+      threshold: (ic.index + 1) * chunkVal,
+      fraction: ic.fraction
+    }));
+    this.exportSvc.downloadJson({ value: this.value(), max: this.max(), percentage: this.percentage(), icons: data }, &#x27;pictorial-chart-data.json&#x27;);
+  }
+
+  exportToCsv(): void {
+    const totalCount &#x3D; Math.max(1, this.iconCount());
+    const m &#x3D; Math.max(1, this.max());
+    const chunkVal &#x3D; m / totalCount;
+    const icons &#x3D; this.computedIcons();
+    
+    if (!icons.length) return;
+    const headers &#x3D; [&#x27;Icon Index&#x27;, &#x27;Threshold Value&#x27;, &#x27;Fill Level Fraction&#x27;];
+    const rows &#x3D; icons.map(ic &#x3D;&gt; [ic.index, (ic.index + 1) * chunkVal, ic.fraction]);
+    this.exportSvc.downloadCsv(headers, rows, &#x27;pictorial-chart-data.csv&#x27;);
+  }
+
+  exportToSvg(): void {
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, &#x27;chart.svg&#x27;);
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, &#x27;Chart Export&#x27;, &#x27;chart.pdf&#x27;);
+  }
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}
+
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-pictorial {
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngx-chart-axis-text, #64748b);
+    }
+    .pictorial-svg {
+      display: block;
+      overflow: visible;
+    }
+    .icon-group {
+      cursor: pointer;
+    }
+    .pictorial-shape {
+      transition: transform 0.15s ease, filter 0.15s ease;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.06));
+    }
+    .icon-group.highlighted .pictorial-shape {
+      transform: scale(1.1) translate(-2px, -2px);
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 130px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-pictorial" (mouseleave)="onMouseLeave()">  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">    <div class="header-info">      <span class="header-title">Pictorial Progress</span>      <span class="header-subtitle">Value: {{ value() }} / {{ max() }} ({{ percentage() | number:\'1.0-1\' }}%)</span>    </div>    @if (showExport()) {      <ngx-chart-export-menu (exportClicked)="onExport($event)" />    }  </div>  <svg    #svgEl    class="pictorial-svg"    [attr.width]="\'100%\'"    [attr.height]="svgHeight()"  >    <defs>      <!-- Create dynamic linear gradients for partial fills -->      @for (ic of computedIcons(); track ic.index) {        <linearGradient [attr.id]="ic.fillId" x1="0%" y1="0%" x2="100%" y2="0%">          <stop offset="0%" [attr.stop-color]="activeColor()" />          <stop [attr.offset]="(ic.fraction * 100) + \'%\'" [attr.stop-color]="activeColor()" />          <stop [attr.offset]="(ic.fraction * 100) + \'%\'" [attr.stop-color]="inactiveColor()" />          <stop offset="100%" [attr.stop-color]="inactiveColor()" />        </linearGradient>      }    </defs>    <g [attr.transform]="\'translate(\' + margin().left + \',\' + margin().top + \')\'">      @for (ic of computedIcons(); track ic.index; let i = $index) {        <g          class="icon-group"          [class.highlighted]="hoveredIndex() === i"          (mouseenter)="onIconHover(i)"          (mousemove)="onMouseMove($event)"        >          <!-- Draw the icon shape scaled and positioned -->          <path            [attr.d]="iconPath()"            [attr.transform]="getIconTransform(ic)"            [attr.fill]="\'url(#\' + ic.fillId + \')\'"            class="pictorial-shape"          />        </g>      }    </g>  </svg>  <!-- Glassmorphic Tooltip -->  @if (tooltip(); as t) {    <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">      @if (tooltipTemplate()) {        <ng-container          *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"        ></ng-container>      } @else {        <div class="tt-cat">Icon #{{ t.index + 1 }}</div>        <div class="tt-row">          <span class="tt-name">Value Threshold</span>          <span class="tt-val">{{ formatNumber(t.threshold) }}</span>        </div>        <div class="tt-row">          <span class="tt-name">Fill Level</span>          <span class="tt-val">{{ t.fraction * 100 | number:\'1.0-1\' }}%</span>        </div>      }    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'PictorialChartComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PictorialChartComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

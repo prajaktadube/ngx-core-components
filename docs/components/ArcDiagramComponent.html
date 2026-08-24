@@ -1,0 +1,2265 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ArcDiagramComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-arc-diagram</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../components/ChartExportMenuComponent.html" target="_self" >ChartExportMenuComponent</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-arc-diagram {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+      overflow: visible; /* To ensure rotated labels aren&#x27;t clipped */
+    }
+    .link-arc {
+      cursor: pointer;
+      transition: stroke 0.2s, stroke-width 0.2s, stroke-opacity 0.2s;
+    }
+    .node-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .node-circle {
+      transition: r 0.15s, stroke 0.15s, stroke-width 0.15s;
+    }
+    .node-group:hover .node-circle {
+      r: 8.5;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+    }
+    .node-group.dimmed {
+      opacity: 0.35;
+    }
+    .node-label {
+      fill: var(--ngx-chart-text, #475569);
+      font-size: 10px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 145px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex; align-items: flex-start; gap: 8px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+    .tt-content { display: flex; flex-direction: column; gap: 2px; }
+    .tt-sub { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
+    .tt-val { font-weight: 700; }
+
+    /* Export styles */
+    </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-arc-diagram&quot;&gt;
+  &lt;!-- Toolbar with Export option --&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+    @if (showExport()) {
+      &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;chart-body&quot;&gt;
+    &lt;svg
+      #svgEl
+      class&#x3D;&quot;chart-svg&quot;
+      [attr.viewBox]&#x3D;&quot;&#x27;0 0 &#x27; + width() + &#x27; &#x27; + height()&quot;
+      [attr.width]&#x3D;&quot;width()&quot;
+      [attr.height]&#x3D;&quot;height()&quot;
+    &gt;
+      &lt;!-- Baseline horizontal axis --&gt;
+      &lt;line
+        [attr.x1]&#x3D;&quot;margin().left&quot;
+        [attr.y1]&#x3D;&quot;axisY()&quot;
+        [attr.x2]&#x3D;&quot;width() - margin().right&quot;
+        [attr.y2]&#x3D;&quot;axisY()&quot;
+        stroke&#x3D;&quot;var(--ngx-chart-grid, #e2e8f0)&quot;
+        stroke-width&#x3D;&quot;1.5&quot;
+        stroke-dasharray&#x3D;&quot;3 3&quot;
+      /&gt;
+
+      &lt;!-- Arc Links --&gt;
+      @for (link of computedLinks(); track link.sourceId + &#x27;-&#x27; + link.targetId) {
+        &lt;path
+          [attr.d]&#x3D;&quot;link.path&quot;
+          fill&#x3D;&quot;none&quot;
+          [attr.stroke]&#x3D;&quot;linkHovered(link) ? &#x27;var(--primary-color, #4f46e5)&#x27; : &#x27;var(--ngx-chart-grid, #cbd5e1)&#x27;&quot;
+          [attr.stroke-width]&#x3D;&quot;linkHovered(link) ? link.weight + 2.5 : link.weight&quot;
+          [attr.stroke-opacity]&#x3D;&quot;linkHovered(link) ? 0.9 : 0.45&quot;
+          class&#x3D;&quot;link-arc&quot;
+          (mouseenter)&#x3D;&quot;hoveredLink.set(link); onLinkHover($event, link)&quot;
+          (mouseleave)&#x3D;&quot;hoveredLink.set(null); tooltip.set(null)&quot;
+        /&gt;
+      }
+
+      &lt;!-- Node Circles &amp; Labels --&gt;
+      @for (node of computedNodes(); track node.id) {
+        &lt;g
+          class&#x3D;&quot;node-group&quot;
+          [class.hovered]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id || neighborNodeIds().includes(node.id)&quot;
+          [class.dimmed]&#x3D;&quot;hoveredNodeId() !&#x3D;&#x3D; null &amp;&amp; hoveredNodeId() !&#x3D;&#x3D; node.id &amp;&amp; !neighborNodeIds().includes(node.id)&quot;
+          (mouseenter)&#x3D;&quot;hoveredNodeId.set(node.id); onNodeHover($event, node)&quot;
+          (mouseleave)&#x3D;&quot;hoveredNodeId.set(null); tooltip.set(null)&quot;
+        &gt;
+          &lt;!-- Arc Node Circle --&gt;
+          &lt;circle
+            [attr.cx]&#x3D;&quot;node.x&quot;
+            [attr.cy]&#x3D;&quot;node.y&quot;
+            [attr.r]&#x3D;&quot;node.r&quot;
+            [attr.fill]&#x3D;&quot;node.color&quot;
+            [attr.stroke]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id ? &#x27;var(--primary-color, #4f46e5)&#x27; : &#x27;#ffffff&#x27;&quot;
+            [attr.stroke-width]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id ? 2.5 : 1.5&quot;
+            class&#x3D;&quot;node-circle&quot;
+          /&gt;
+          &lt;!-- Vertical rotated or horizontal label --&gt;
+          @if (showLabels()) {
+            &lt;text
+              [attr.x]&#x3D;&quot;node.x&quot;
+              [attr.y]&#x3D;&quot;node.y + node.r + 14&quot;
+              [attr.transform]&#x3D;&quot;&#x27;rotate(35, &#x27; + node.x + &#x27;, &#x27; + (node.y + node.r + 14) + &#x27;)&#x27;&quot;
+              text-anchor&#x3D;&quot;start&quot;
+              class&#x3D;&quot;node-label&quot;
+            &gt;
+              {{ node.label }}
+            &lt;/text&gt;
+          }
+        &lt;/g&gt;
+      }
+    &lt;/svg&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Premium Glassmorphic Tooltip --&gt;
+  @if (tooltip(); as t) {
+    &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+      @if (t.type &#x3D;&#x3D;&#x3D; &#x27;node&#x27;) {
+        &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+        &lt;div class&#x3D;&quot;tt-content&quot;&gt;
+          &lt;strong&gt;{{ t.label }}&lt;/strong&gt;
+          &lt;div class&#x3D;&quot;tt-sub&quot;&gt;Connections: {{ t.connections }}&lt;/div&gt;
+          @if (t.value &gt; 0) {
+            &lt;div&gt;Node Value: {{ fmtNum(t.value) }}&lt;/div&gt;
+          }
+        &lt;/div&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;tt-content&quot;&gt;
+          &lt;strong&gt;Connection Arc&lt;/strong&gt;
+          &lt;div&gt;{{ t.sourceLabel }} ➔ {{ t.targetLabel }}&lt;/div&gt;
+          &lt;div&gt;Weight: {{ fmtNum(t.value) }}&lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#axisY" >axisY</a>
+                            </li>
+                            <li>
+                                <a href="#computedLinks" >computedLinks</a>
+                            </li>
+                            <li>
+                                <a href="#computedNodes" >computedNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#exportSvc" >exportSvc</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#fmtNum" >fmtNum</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredLink" >hoveredLink</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredNodeId" >hoveredNodeId</a>
+                            </li>
+                            <li>
+                                <a href="#margin" >margin</a>
+                            </li>
+                            <li>
+                                <a href="#neighborNodeIds" >neighborNodeIds</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                            <li>
+                                <a href="#uniqueGroups" >uniqueGroups</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#linkHovered" >linkHovered</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onLinkHover" >onLinkHover</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseLeave" >onMouseLeave</a>
+                            </li>
+                            <li>
+                                <a href="#onNodeHover" >onNodeHover</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#links" >links</a>
+                            </li>
+                            <li>
+                                <a href="#nodes" >nodes</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#showLabels" >showLabels</a>
+                            </li>
+                            <li>
+                                <a href="#width" >width</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CHART_COLORS</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="234" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:234</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>300</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="232" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:232</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="links"></a>
+                        <b>links</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ArcLink.html" target="_self" >ArcLink[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="231" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:231</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nodes"></a>
+                        <b>nodes</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ArcNode.html" target="_self" >ArcNode[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="230" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:230</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="236" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:236</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showLabels"></a>
+                        <b>showLabels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="235" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:235</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <b>width</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>550</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="233" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:233</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="390"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:390</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="385"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:385</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="402"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:402</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="398"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:398</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="linkHovered"></a>
+                    <span class="name">
+                        <span ><b>linkHovered</b></span>
+                        <a href="#linkHovered"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>linkHovered(link: <a href="../interfaces/ProcessedLink.html" target="_self">ProcessedLink</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="330"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>link</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ProcessedLink.html" target="_self" >ProcessedLink</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: <a href="../miscellaneous/typealiases.html#ExportFormat" target="_self">ExportFormat</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="378"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:378</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExportFormat" target="_self" >ExportFormat</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLinkHover"></a>
+                    <span class="name">
+                        <span ><b>onLinkHover</b></span>
+                        <a href="#onLinkHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onLinkHover(event: MouseEvent, link: <a href="../interfaces/ProcessedLink.html" target="_self">ProcessedLink</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="358"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:358</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>link</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ProcessedLink.html" target="_self" >ProcessedLink</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseLeave"></a>
+                    <span class="name">
+                        <span ><b>onMouseLeave</b></span>
+                        <a href="#onMouseLeave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseLeave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="372"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:372</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onNodeHover"></a>
+                    <span class="name">
+                        <span ><b>onNodeHover</b></span>
+                        <a href="#onNodeHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onNodeHover(event: MouseEvent, node: <a href="../interfaces/ProcessedNode.html" target="_self">ProcessedNode</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="342"
+                                    class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:342</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>node</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ProcessedNode.html" target="_self" >ProcessedNode</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="axisY"></a>
+                    <span class="name">
+                        <span ><b>axisY</b></span>
+                        <a href="#axisY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.height() - this.margin().bottom)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="250" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:250</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedLinks"></a>
+                    <span class="name">
+                        <span ><b>computedLinks</b></span>
+                        <a href="#computedLinks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;ProcessedLink[]&gt;(() &#x3D;&gt; {
+    const rawLinks &#x3D; this.links();
+    const nodes &#x3D; this.computedNodes();
+    if (!nodes.length) return [];
+
+    const links: ProcessedLink[] &#x3D; [];
+    rawLinks.forEach(link &#x3D;&gt; {
+      const sourceNode &#x3D; nodes.find(n &#x3D;&gt; n.id &#x3D;&#x3D;&#x3D; link.source);
+      const targetNode &#x3D; nodes.find(n &#x3D;&gt; n.id &#x3D;&#x3D;&#x3D; link.target);
+      if (!sourceNode || !targetNode) return;
+
+      const weight &#x3D; link.value ? Math.max(1, Math.min(6, link.value)) : 1.5;
+
+      // Draw semi-circular arc curving upward
+      // R is half of coordinate difference
+      const r &#x3D; Math.abs(targetNode.x - sourceNode.x) / 2;
+      const startNode &#x3D; sourceNode.x &lt; targetNode.x ? sourceNode : targetNode;
+      const endNode &#x3D; sourceNode.x &lt; targetNode.x ? targetNode : sourceNode;
+      
+      const path &#x3D; &#x60;M ${startNode.x} ${startNode.y} A ${r} ${r} 0 0 1 ${endNode.x} ${endNode.y}&#x60;;
+
+      links.push({
+        sourceId: link.source,
+        targetId: link.target,
+        sourceNode,
+        targetNode,
+        path,
+        weight
+      });
+    });
+
+    return links;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="296" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:296</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedNodes"></a>
+                    <span class="name">
+                        <span ><b>computedNodes</b></span>
+                        <a href="#computedNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;ProcessedNode[]&gt;(() &#x3D;&gt; {
+    const rawNodes &#x3D; this.nodes();
+    if (!rawNodes.length) return [];
+
+    const totalNodes &#x3D; rawNodes.length;
+    const startX &#x3D; this.margin().left;
+    const endX &#x3D; this.width() - this.margin().right;
+    const nodeSpacing &#x3D; totalNodes &gt; 1 ? (endX - startX) / (totalNodes - 1) : 0;
+    const yCoord &#x3D; this.axisY();
+
+    return rawNodes.map((node, i) &#x3D;&gt; {
+      const color &#x3D; node.color || this.colors()[i % this.colors().length];
+      const r &#x3D; node.value ? Math.max(5, Math.min(18, 5 + Math.sqrt(node.value) * 1.2)) : 6.5;
+      const x &#x3D; startX + i * nodeSpacing;
+
+      return {
+        id: node.id,
+        label: node.label,
+        value: node.value || 0,
+        x,
+        y: yCoord,
+        r,
+        color,
+        index: i
+      };
+    });
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="268" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:268</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportSvc"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>exportSvc</b></span>
+                        <a href="#exportSvc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChartExportService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:229</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fmtNum"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fmtNum</b></span>
+                        <a href="#fmtNum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>fmtNum</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="407" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:407</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredLink"></a>
+                    <span class="name">
+                        <span ><b>hoveredLink</b></span>
+                        <a href="#hoveredLink"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;ProcessedLink | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="240" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:240</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredNodeId"></a>
+                    <span class="name">
+                        <span ><b>hoveredNodeId</b></span>
+                        <a href="#hoveredNodeId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="239" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:239</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="margin"></a>
+                    <span class="name">
+                        <span ><b>margin</b></span>
+                        <a href="#margin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; ({
+    top: 30,
+    right: 60,
+    bottom: 60, // extra space for rotated node labels
+    left: 40
+  }))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="243" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:243</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="neighborNodeIds"></a>
+                    <span class="name">
+                        <span ><b>neighborNodeIds</b></span>
+                        <a href="#neighborNodeIds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;string[]&gt;(() &#x3D;&gt; {
+    const active &#x3D; this.hoveredNodeId();
+    if (!active) return [];
+    const connected &#x3D; new Set&lt;string&gt;();
+    this.links().forEach(link &#x3D;&gt; {
+      if (link.source &#x3D;&#x3D;&#x3D; active) connected.add(link.target);
+      if (link.target &#x3D;&#x3D;&#x3D; active) connected.add(link.source);
+    });
+    return Array.from(connected);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="257" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="238" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:238</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;any | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="241" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:241</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uniqueGroups"></a>
+                    <span class="name">
+                        <span ><b>uniqueGroups</b></span>
+                        <a href="#uniqueGroups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return Array.from(new Set(this.nodes().map(n &#x3D;&gt; n.id)));
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="252" class="link-to-prism">projects/ngx-core-components/charts/arc-diagram/arc-diagram.component.ts:252</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ChangeDetectionStrategy, input, computed, signal, ElementRef, viewChild, HostListener, inject } from &#x27;@angular/core&#x27;;
+import { ChartExportService } from &#x27;../shared/chart-export.service&#x27;;
+import { ChartExportMenuComponent } from &#x27;../shared/chart-export-menu.component&#x27;;
+import type { ExportFormat } from &#x27;../shared/chart-export-menu.component&#x27;;
+import { CHART_COLORS, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface ArcNode {
+  id: string;
+  label: string;
+  value?: number; // Node size factor
+  color?: string;
+}
+
+export interface ArcLink {
+  source: string; // node ID
+  target: string; // node ID
+  value?: number; // Link thickness factor
+}
+
+interface ProcessedNode {
+  id: string;
+  label: string;
+  value: number;
+  x: number;
+  y: number;
+  r: number;
+  color: string;
+  index: number;
+}
+
+interface ProcessedLink {
+  sourceId: string;
+  targetId: string;
+  sourceNode: ProcessedNode;
+  targetNode: ProcessedNode;
+  path: string;
+  weight: number;
+}
+
+@Component({
+  selector: &#x27;ngx-arc-diagram&#x27;,
+  standalone: true,
+  imports: [ChartExportMenuComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-arc-diagram&quot;&gt;
+      &lt;!-- Toolbar with Export option --&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;chart-body&quot;&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;chart-svg&quot;
+          [attr.viewBox]&#x3D;&quot;&#x27;0 0 &#x27; + width() + &#x27; &#x27; + height()&quot;
+          [attr.width]&#x3D;&quot;width()&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+        &gt;
+          &lt;!-- Baseline horizontal axis --&gt;
+          &lt;line
+            [attr.x1]&#x3D;&quot;margin().left&quot;
+            [attr.y1]&#x3D;&quot;axisY()&quot;
+            [attr.x2]&#x3D;&quot;width() - margin().right&quot;
+            [attr.y2]&#x3D;&quot;axisY()&quot;
+            stroke&#x3D;&quot;var(--ngx-chart-grid, #e2e8f0)&quot;
+            stroke-width&#x3D;&quot;1.5&quot;
+            stroke-dasharray&#x3D;&quot;3 3&quot;
+          /&gt;
+
+          &lt;!-- Arc Links --&gt;
+          @for (link of computedLinks(); track link.sourceId + &#x27;-&#x27; + link.targetId) {
+            &lt;path
+              [attr.d]&#x3D;&quot;link.path&quot;
+              fill&#x3D;&quot;none&quot;
+              [attr.stroke]&#x3D;&quot;linkHovered(link) ? &#x27;var(--primary-color, #4f46e5)&#x27; : &#x27;var(--ngx-chart-grid, #cbd5e1)&#x27;&quot;
+              [attr.stroke-width]&#x3D;&quot;linkHovered(link) ? link.weight + 2.5 : link.weight&quot;
+              [attr.stroke-opacity]&#x3D;&quot;linkHovered(link) ? 0.9 : 0.45&quot;
+              class&#x3D;&quot;link-arc&quot;
+              (mouseenter)&#x3D;&quot;hoveredLink.set(link); onLinkHover($event, link)&quot;
+              (mouseleave)&#x3D;&quot;hoveredLink.set(null); tooltip.set(null)&quot;
+            /&gt;
+          }
+
+          &lt;!-- Node Circles &amp; Labels --&gt;
+          @for (node of computedNodes(); track node.id) {
+            &lt;g
+              class&#x3D;&quot;node-group&quot;
+              [class.hovered]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id || neighborNodeIds().includes(node.id)&quot;
+              [class.dimmed]&#x3D;&quot;hoveredNodeId() !&#x3D;&#x3D; null &amp;&amp; hoveredNodeId() !&#x3D;&#x3D; node.id &amp;&amp; !neighborNodeIds().includes(node.id)&quot;
+              (mouseenter)&#x3D;&quot;hoveredNodeId.set(node.id); onNodeHover($event, node)&quot;
+              (mouseleave)&#x3D;&quot;hoveredNodeId.set(null); tooltip.set(null)&quot;
+            &gt;
+              &lt;!-- Arc Node Circle --&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;node.x&quot;
+                [attr.cy]&#x3D;&quot;node.y&quot;
+                [attr.r]&#x3D;&quot;node.r&quot;
+                [attr.fill]&#x3D;&quot;node.color&quot;
+                [attr.stroke]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id ? &#x27;var(--primary-color, #4f46e5)&#x27; : &#x27;#ffffff&#x27;&quot;
+                [attr.stroke-width]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id ? 2.5 : 1.5&quot;
+                class&#x3D;&quot;node-circle&quot;
+              /&gt;
+              &lt;!-- Vertical rotated or horizontal label --&gt;
+              @if (showLabels()) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;node.x&quot;
+                  [attr.y]&#x3D;&quot;node.y + node.r + 14&quot;
+                  [attr.transform]&#x3D;&quot;&#x27;rotate(35, &#x27; + node.x + &#x27;, &#x27; + (node.y + node.r + 14) + &#x27;)&#x27;&quot;
+                  text-anchor&#x3D;&quot;start&quot;
+                  class&#x3D;&quot;node-label&quot;
+                &gt;
+                  {{ node.label }}
+                &lt;/text&gt;
+              }
+            &lt;/g&gt;
+          }
+        &lt;/svg&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Premium Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+          @if (t.type &#x3D;&#x3D;&#x3D; &#x27;node&#x27;) {
+            &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+            &lt;div class&#x3D;&quot;tt-content&quot;&gt;
+              &lt;strong&gt;{{ t.label }}&lt;/strong&gt;
+              &lt;div class&#x3D;&quot;tt-sub&quot;&gt;Connections: {{ t.connections }}&lt;/div&gt;
+              @if (t.value &gt; 0) {
+                &lt;div&gt;Node Value: {{ fmtNum(t.value) }}&lt;/div&gt;
+              }
+            &lt;/div&gt;
+          } @else {
+            &lt;div class&#x3D;&quot;tt-content&quot;&gt;
+              &lt;strong&gt;Connection Arc&lt;/strong&gt;
+              &lt;div&gt;{{ t.sourceLabel }} ➔ {{ t.targetLabel }}&lt;/div&gt;
+              &lt;div&gt;Weight: {{ fmtNum(t.value) }}&lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-arc-diagram {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+      overflow: visible; /* To ensure rotated labels aren&#x27;t clipped */
+    }
+    .link-arc {
+      cursor: pointer;
+      transition: stroke 0.2s, stroke-width 0.2s, stroke-opacity 0.2s;
+    }
+    .node-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .node-circle {
+      transition: r 0.15s, stroke 0.15s, stroke-width 0.15s;
+    }
+    .node-group:hover .node-circle {
+      r: 8.5;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+    }
+    .node-group.dimmed {
+      opacity: 0.35;
+    }
+    .node-label {
+      fill: var(--ngx-chart-text, #475569);
+      font-size: 10px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 145px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex; align-items: flex-start; gap: 8px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+    .tt-content { display: flex; flex-direction: column; gap: 2px; }
+    .tt-sub { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
+    .tt-val { font-weight: 700; }
+
+    /* Export styles */
+    &#x60;]
+})
+export class ArcDiagramComponent {
+  private readonly exportSvc &#x3D; inject(ChartExportService);
+  nodes &#x3D; input&lt;ArcNode[]&gt;([]);
+  links &#x3D; input&lt;ArcLink[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(300);
+  width &#x3D; input&lt;number&gt;(550);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+  hoveredNodeId &#x3D; signal&lt;string | null&gt;(null);
+  hoveredLink &#x3D; signal&lt;ProcessedLink | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+
+  margin &#x3D; computed(() &#x3D;&gt; ({
+    top: 30,
+    right: 60,
+    bottom: 60, // extra space for rotated node labels
+    left: 40
+  }));
+
+  axisY &#x3D; computed(() &#x3D;&gt; this.height() - this.margin().bottom);
+
+  uniqueGroups &#x3D; computed(() &#x3D;&gt; {
+    return Array.from(new Set(this.nodes().map(n &#x3D;&gt; n.id)));
+  });
+
+  // Neighbor nodes connected to active hovered node
+  neighborNodeIds &#x3D; computed&lt;string[]&gt;(() &#x3D;&gt; {
+    const active &#x3D; this.hoveredNodeId();
+    if (!active) return [];
+    const connected &#x3D; new Set&lt;string&gt;();
+    this.links().forEach(link &#x3D;&gt; {
+      if (link.source &#x3D;&#x3D;&#x3D; active) connected.add(link.target);
+      if (link.target &#x3D;&#x3D;&#x3D; active) connected.add(link.source);
+    });
+    return Array.from(connected);
+  });
+
+  computedNodes &#x3D; computed&lt;ProcessedNode[]&gt;(() &#x3D;&gt; {
+    const rawNodes &#x3D; this.nodes();
+    if (!rawNodes.length) return [];
+
+    const totalNodes &#x3D; rawNodes.length;
+    const startX &#x3D; this.margin().left;
+    const endX &#x3D; this.width() - this.margin().right;
+    const nodeSpacing &#x3D; totalNodes &gt; 1 ? (endX - startX) / (totalNodes - 1) : 0;
+    const yCoord &#x3D; this.axisY();
+
+    return rawNodes.map((node, i) &#x3D;&gt; {
+      const color &#x3D; node.color || this.colors()[i % this.colors().length];
+      const r &#x3D; node.value ? Math.max(5, Math.min(18, 5 + Math.sqrt(node.value) * 1.2)) : 6.5;
+      const x &#x3D; startX + i * nodeSpacing;
+
+      return {
+        id: node.id,
+        label: node.label,
+        value: node.value || 0,
+        x,
+        y: yCoord,
+        r,
+        color,
+        index: i
+      };
+    });
+  });
+
+  computedLinks &#x3D; computed&lt;ProcessedLink[]&gt;(() &#x3D;&gt; {
+    const rawLinks &#x3D; this.links();
+    const nodes &#x3D; this.computedNodes();
+    if (!nodes.length) return [];
+
+    const links: ProcessedLink[] &#x3D; [];
+    rawLinks.forEach(link &#x3D;&gt; {
+      const sourceNode &#x3D; nodes.find(n &#x3D;&gt; n.id &#x3D;&#x3D;&#x3D; link.source);
+      const targetNode &#x3D; nodes.find(n &#x3D;&gt; n.id &#x3D;&#x3D;&#x3D; link.target);
+      if (!sourceNode || !targetNode) return;
+
+      const weight &#x3D; link.value ? Math.max(1, Math.min(6, link.value)) : 1.5;
+
+      // Draw semi-circular arc curving upward
+      // R is half of coordinate difference
+      const r &#x3D; Math.abs(targetNode.x - sourceNode.x) / 2;
+      const startNode &#x3D; sourceNode.x &lt; targetNode.x ? sourceNode : targetNode;
+      const endNode &#x3D; sourceNode.x &lt; targetNode.x ? targetNode : sourceNode;
+      
+      const path &#x3D; &#x60;M ${startNode.x} ${startNode.y} A ${r} ${r} 0 0 1 ${endNode.x} ${endNode.y}&#x60;;
+
+      links.push({
+        sourceId: link.source,
+        targetId: link.target,
+        sourceNode,
+        targetNode,
+        path,
+        weight
+      });
+    });
+
+    return links;
+  });
+
+  linkHovered(link: ProcessedLink): boolean {
+    const activeLink &#x3D; this.hoveredLink();
+    if (activeLink &amp;&amp; activeLink.sourceId &#x3D;&#x3D;&#x3D; link.sourceId &amp;&amp; activeLink.targetId &#x3D;&#x3D;&#x3D; link.targetId) {
+      return true;
+    }
+    const node &#x3D; this.hoveredNodeId();
+    if (node &amp;&amp; (link.sourceId &#x3D;&#x3D;&#x3D; node || link.targetId &#x3D;&#x3D;&#x3D; node)) {
+      return true;
+    }
+    return false;
+  }
+
+  onNodeHover(event: MouseEvent, node: ProcessedNode): void {
+    const el &#x3D; (event.currentTarget as HTMLElement).closest(&#x27;.ngx-arc-diagram&#x27;) as HTMLElement;
+    const rect &#x3D; el.getBoundingClientRect();
+    const connCount &#x3D; this.links().filter(l &#x3D;&gt; l.source &#x3D;&#x3D;&#x3D; node.id || l.target &#x3D;&#x3D;&#x3D; node.id).length;
+
+    this.tooltip.set({
+      type: &#x27;node&#x27;,
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      label: node.label,
+      connections: connCount,
+      value: node.value,
+      color: node.color
+    });
+  }
+
+  onLinkHover(event: MouseEvent, link: ProcessedLink): void {
+    const el &#x3D; (event.currentTarget as HTMLElement).closest(&#x27;.ngx-arc-diagram&#x27;) as HTMLElement;
+    const rect &#x3D; el.getBoundingClientRect();
+
+    this.tooltip.set({
+      type: &#x27;link&#x27;,
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      sourceLabel: link.sourceNode.label,
+      targetLabel: link.targetNode.label,
+      value: link.weight
+    });
+  }
+
+  onMouseLeave(): void {
+    this.hoveredNodeId.set(null);
+    this.hoveredLink.set(null);
+    this.tooltip.set(null);
+  }
+
+    onExport(type: ExportFormat): void {
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const data &#x3D; { nodes: this.nodes(), links: this.links() };
+    this.exportSvc.downloadJson(data, &#x27;arc-diagram-data.json&#x27;);
+  }
+
+  exportToCsv(): void {
+    const links &#x3D; this.links();
+    if (!links.length) return;
+    const headers &#x3D; [&#x27;Source&#x27;, &#x27;Target&#x27;, &#x27;Value&#x27;];
+    const rows: (string | number)[][] &#x3D; links.map(l &#x3D;&gt; [l.source || &#x27;&#x27;, l.target || &#x27;&#x27;, l.value ?? 0]);
+    this.exportSvc.downloadCsv(headers, rows, &#x27;arc-diagram-links.csv&#x27;);
+  }
+
+  exportToSvg(): void {
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, &#x27;chart.svg&#x27;);
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, &#x27;Chart Export&#x27;, &#x27;chart.pdf&#x27;);
+  }
+
+
+  readonly fmtNum &#x3D; fmtNum;
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-arc-diagram {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+      overflow: visible; /* To ensure rotated labels aren&#x27;t clipped */
+    }
+    .link-arc {
+      cursor: pointer;
+      transition: stroke 0.2s, stroke-width 0.2s, stroke-opacity 0.2s;
+    }
+    .node-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .node-circle {
+      transition: r 0.15s, stroke 0.15s, stroke-width 0.15s;
+    }
+    .node-group:hover .node-circle {
+      r: 8.5;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+    }
+    .node-group.dimmed {
+      opacity: 0.35;
+    }
+    .node-label {
+      fill: var(--ngx-chart-text, #475569);
+      font-size: 10px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 145px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex; align-items: flex-start; gap: 8px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+    .tt-content { display: flex; flex-direction: column; gap: 2px; }
+    .tt-sub { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
+    .tt-val { font-weight: 700; }
+
+    /* Export styles */
+    
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-arc-diagram">  <!-- Toolbar with Export option -->  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">    <div class="chart-title-space"></div>    @if (showExport()) {      <ngx-chart-export-menu (exportClicked)="onExport($event)" />    }  </div>  <div class="chart-body">    <svg      #svgEl      class="chart-svg"      [attr.viewBox]="\'0 0 \' + width() + \' \' + height()"      [attr.width]="width()"      [attr.height]="height()"    >      <!-- Baseline horizontal axis -->      <line        [attr.x1]="margin().left"        [attr.y1]="axisY()"        [attr.x2]="width() - margin().right"        [attr.y2]="axisY()"        stroke="var(--ngx-chart-grid, #e2e8f0)"        stroke-width="1.5"        stroke-dasharray="3 3"      />      <!-- Arc Links -->      @for (link of computedLinks(); track link.sourceId + \'-\' + link.targetId) {        <path          [attr.d]="link.path"          fill="none"          [attr.stroke]="linkHovered(link) ? \'var(--primary-color, #4f46e5)\' : \'var(--ngx-chart-grid, #cbd5e1)\'"          [attr.stroke-width]="linkHovered(link) ? link.weight + 2.5 : link.weight"          [attr.stroke-opacity]="linkHovered(link) ? 0.9 : 0.45"          class="link-arc"          (mouseenter)="hoveredLink.set(link); onLinkHover($event, link)"          (mouseleave)="hoveredLink.set(null); tooltip.set(null)"        />      }      <!-- Node Circles & Labels -->      @for (node of computedNodes(); track node.id) {        <g          class="node-group"          [class.hovered]="hoveredNodeId() === node.id || neighborNodeIds().includes(node.id)"          [class.dimmed]="hoveredNodeId() !== null && hoveredNodeId() !== node.id && !neighborNodeIds().includes(node.id)"          (mouseenter)="hoveredNodeId.set(node.id); onNodeHover($event, node)"          (mouseleave)="hoveredNodeId.set(null); tooltip.set(null)"        >          <!-- Arc Node Circle -->          <circle            [attr.cx]="node.x"            [attr.cy]="node.y"            [attr.r]="node.r"            [attr.fill]="node.color"            [attr.stroke]="hoveredNodeId() === node.id ? \'var(--primary-color, #4f46e5)\' : \'#ffffff\'"            [attr.stroke-width]="hoveredNodeId() === node.id ? 2.5 : 1.5"            class="node-circle"          />          <!-- Vertical rotated or horizontal label -->          @if (showLabels()) {            <text              [attr.x]="node.x"              [attr.y]="node.y + node.r + 14"              [attr.transform]="\'rotate(35, \' + node.x + \', \' + (node.y + node.r + 14) + \')\'"              text-anchor="start"              class="node-label"            >              {{ node.label }}            </text>          }        </g>      }    </svg>  </div>  <!-- Premium Glassmorphic Tooltip -->  @if (tooltip(); as t) {    <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">      @if (t.type === \'node\') {        <span class="tt-dot" [style.background]="t.color"></span>        <div class="tt-content">          <strong>{{ t.label }}</strong>          <div class="tt-sub">Connections: {{ t.connections }}</div>          @if (t.value > 0) {            <div>Node Value: {{ fmtNum(t.value) }}</div>          }        </div>      } @else {        <div class="tt-content">          <strong>Connection Arc</strong>          <div>{{ t.sourceLabel }} ➔ {{ t.targetLabel }}</div>          <div>Weight: {{ fmtNum(t.value) }}</div>        </div>      }    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'ArcDiagramComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ArcDiagramComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

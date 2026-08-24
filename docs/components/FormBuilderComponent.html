@@ -1,0 +1,1705 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  FormBuilderComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/inputs/form-builder/form-builder.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-form-builder</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host { display: block; }
+    .ngx-form-builder { font-family: var(--ngx-font-family, inherit); color: var(--text-primary, #0f172a); }
+    .form-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .form-field-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .field-label { font-size: 12px; font-weight: 700; color: var(--ngx-input-label, #475569); }
+    .req-star { color: var(--ngx-input-error, #dc2626); margin-left: 2px; }
+    .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .field-hint { font-size: 11px; color: #64748b; }
+    input:not([type&#x3D;&quot;checkbox&quot;]):not([type&#x3D;&quot;color&quot;]), textarea, select {
+      width: 100%; border: 1px solid var(--ngx-input-border, #cbd5e1);
+      border-radius: var(--ngx-input-radius, 8px); background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-input-text, #0f172a); font: inherit; font-size: 13px; padding: 9px 11px;
+      outline: none; transition: all 0.15s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .form-actions { margin-top: 18px; display: flex; justify-content: flex-end; }
+    .submit-btn {
+      padding: 9px 20px; font-size: 13px; font-weight: 700; border-radius: 8px;
+      border: none; background: var(--ngx-btn-primary-bg, #4f46e5); color: #ffffff;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .submit-btn:hover { background: var(--ngx-btn-primary-hover, #4338ca); }
+
+    /* Switch styling */
+    .switch-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .switch-wrap input { display: none; }
+    .switch-slider {
+      width: 36px; height: 20px; background: #cbd5e1; border-radius: 20px;
+      position: relative; transition: background 0.2s;
+    }
+    .switch-slider::before {
+      content: &#x27;&#x27;; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+      background: #ffffff; border-radius: 50%; transition: transform 0.2s;
+    }
+    .switch-wrap input:checked + .switch-slider { background: #4f46e5; }
+    .switch-wrap input:checked + .switch-slider::before { transform: translateX(16px); }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;form class&#x3D;&quot;ngx-form-builder&quot; (submit)&#x3D;&quot;submit($event)&quot;&gt;
+  &lt;div class&#x3D;&quot;form-grid&quot;&gt;
+    @for (field of visibleFields(); track field.key) {
+      &lt;div
+        class&#x3D;&quot;form-field-wrap&quot;
+        [style.grid-column]&#x3D;&quot;&#x27;span &#x27; + (field.colSpan || 12)&quot;
+        [class.checkbox-field]&#x3D;&quot;field.type &#x3D;&#x3D;&#x3D; &#x27;checkbox&#x27;&quot;
+      &gt;
+        @if (field.type !&#x3D;&#x3D; &#x27;checkbox&#x27;) {
+          &lt;label class&#x3D;&quot;field-label&quot; [attr.for]&#x3D;&quot;field.key&quot;&gt;
+            {{ field.label }}@if (field.required) { &lt;strong class&#x3D;&quot;req-star&quot;&gt;*&lt;/strong&gt; }
+          &lt;/label&gt;
+        }
+
+        @switch (field.type || &#x27;text&#x27;) {
+          @case (&#x27;textarea&#x27;) {
+            &lt;textarea
+              [id]&#x3D;&quot;field.key&quot;
+              [placeholder]&#x3D;&quot;field.placeholder || &#x27;&#x27;&quot;
+              [required]&#x3D;&quot;field.required || false&quot;
+              [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+              [value]&#x3D;&quot;valueFor(field.key)&quot;
+              (input)&#x3D;&quot;updateValue(field.key, $any($event.target).value)&quot;
+            &gt;&lt;/textarea&gt;
+          }
+          @case (&#x27;select&#x27;) {
+            &lt;select
+              [id]&#x3D;&quot;field.key&quot;
+              [required]&#x3D;&quot;field.required || false&quot;
+              [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+              [value]&#x3D;&quot;valueFor(field.key)&quot;
+              (change)&#x3D;&quot;updateValue(field.key, readOptionValue(field, $any($event.target).value))&quot;
+            &gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Select...&lt;/option&gt;
+              @for (option of field.options || []; track option.value) {
+                &lt;option [value]&#x3D;&quot;option.value&quot;&gt;{{ option.label }}&lt;/option&gt;
+              }
+            &lt;/select&gt;
+          }
+          @case (&#x27;checkbox&#x27;) {
+            &lt;label class&#x3D;&quot;checkbox-label&quot;&gt;
+              &lt;input
+                type&#x3D;&quot;checkbox&quot;
+                [id]&#x3D;&quot;field.key&quot;
+                [checked]&#x3D;&quot;!!valueFor(field.key)&quot;
+                [required]&#x3D;&quot;field.required || false&quot;
+                [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                (change)&#x3D;&quot;updateValue(field.key, $any($event.target).checked)&quot;
+              /&gt;
+              &lt;span class&#x3D;&quot;field-label&quot;&gt;{{ field.label }}@if (field.required) { &lt;strong class&#x3D;&quot;req-star&quot;&gt;*&lt;/strong&gt; }&lt;/span&gt;
+            &lt;/label&gt;
+          }
+          @case (&#x27;switch&#x27;) {
+            &lt;label class&#x3D;&quot;switch-wrap&quot;&gt;
+              &lt;input
+                type&#x3D;&quot;checkbox&quot;
+                [id]&#x3D;&quot;field.key&quot;
+                [checked]&#x3D;&quot;!!valueFor(field.key)&quot;
+                [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                (change)&#x3D;&quot;updateValue(field.key, $any($event.target).checked)&quot;
+              /&gt;
+              &lt;span class&#x3D;&quot;switch-slider&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;field-label&quot;&gt;{{ field.label }}&lt;/span&gt;
+            &lt;/label&gt;
+          }
+          @case (&#x27;range&#x27;) {
+          }
+          @case (&#x27;color-picker&#x27;) {
+            &lt;input
+              type&#x3D;&quot;color&quot;
+              [id]&#x3D;&quot;field.key&quot;
+              [value]&#x3D;&quot;valueFor(field.key) || &#x27;#4f46e5&#x27;&quot;
+              [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+              (change)&#x3D;&quot;updateValue(field.key, $any($event.target).value)&quot;
+            /&gt;
+          }
+          @default {
+            &lt;input
+              [id]&#x3D;&quot;field.key&quot;
+              [type]&#x3D;&quot;field.type || &#x27;text&#x27;&quot;
+              [placeholder]&#x3D;&quot;field.placeholder || &#x27;&#x27;&quot;
+              [required]&#x3D;&quot;field.required || false&quot;
+              [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+              [min]&#x3D;&quot;field.min ?? null&quot;
+              [max]&#x3D;&quot;field.max ?? null&quot;
+              [step]&#x3D;&quot;field.step ?? null&quot;
+              [value]&#x3D;&quot;valueFor(field.key)&quot;
+              (input)&#x3D;&quot;updateValue(field.key, coerceInputValue(field, $any($event.target).value))&quot;
+            /&gt;
+          }
+        }
+
+        @if (field.hint) {
+          &lt;div class&#x3D;&quot;field-hint&quot;&gt;{{ field.hint }}&lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  @if (showSubmit()) {
+    &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;submit-btn&quot;&gt;{{ submitLabel() }}&lt;/button&gt;
+    &lt;/div&gt;
+  }
+&lt;/form&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#formState" >formState</a>
+                            </li>
+                            <li>
+                                <a href="#visibleFields" >visibleFields</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#coerceInputValue" >coerceInputValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#evaluateCondition" >evaluateCondition</a>
+                            </li>
+                            <li>
+                                <a href="#isFieldDisabled" >isFieldDisabled</a>
+                            </li>
+                            <li>
+                                <a href="#readOptionValue" >readOptionValue</a>
+                            </li>
+                            <li>
+                                <a href="#submit" >submit</a>
+                            </li>
+                            <li>
+                                <a href="#updateValue" >updateValue</a>
+                            </li>
+                            <li>
+                                <a href="#valueFor" >valueFor</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#fields" >fields</a>
+                            </li>
+                            <li>
+                                <a href="#showSubmit" >showSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#submitLabel" >submitLabel</a>
+                            </li>
+                            <li>
+                                <a href="#value" >value</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#formChange" >formChange</a>
+                            </li>
+                            <li>
+                                <a href="#formSubmit" >formSubmit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="216" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:216</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fields"></a>
+                        <b>fields</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/FormBuilderField.html" target="_self" >FormBuilderField[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="192" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:192</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showSubmit"></a>
+                        <b>showSubmit</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="195" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:195</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="submitLabel"></a>
+                        <b>submitLabel</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Submit&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:194</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="value"></a>
+                        <b>value</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, unknown&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="193" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:193</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formChange"></a>
+                        <b>formChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, unknown&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="198" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:198</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formSubmit"></a>
+                        <b>formSubmit</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, unknown&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="197" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:197</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="coerceInputValue"></a>
+                    <span class="name">
+                        <span ><b>coerceInputValue</b></span>
+                        <a href="#coerceInputValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>coerceInputValue(field: <a href="../interfaces/FormBuilderField.html" target="_self">FormBuilderField</a>, val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="264"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:264</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>field</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FormBuilderField.html" target="_self" >FormBuilderField</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="evaluateCondition"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>evaluateCondition</b></span>
+                        <a href="#evaluateCondition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>evaluateCondition(actualVal: unknown, cond: <a href="../interfaces/FormBuilderCondition.html" target="_self">FormBuilderCondition</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="278"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:278</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>actualVal</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cond</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FormBuilderCondition.html" target="_self" >FormBuilderCondition</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFieldDisabled"></a>
+                    <span class="name">
+                        <span ><b>isFieldDisabled</b></span>
+                        <a href="#isFieldDisabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isFieldDisabled(field: <a href="../interfaces/FormBuilderField.html" target="_self">FormBuilderField</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="239"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:239</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>field</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FormBuilderField.html" target="_self" >FormBuilderField</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="readOptionValue"></a>
+                    <span class="name">
+                        <span ><b>readOptionValue</b></span>
+                        <a href="#readOptionValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>readOptionValue(field: <a href="../interfaces/FormBuilderField.html" target="_self">FormBuilderField</a>, valStr: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="273"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:273</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>field</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FormBuilderField.html" target="_self" >FormBuilderField</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>valStr</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submit"></a>
+                    <span class="name">
+                        <span ><b>submit</b></span>
+                        <a href="#submit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submit(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="259"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:259</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateValue"></a>
+                    <span class="name">
+                        <span ><b>updateValue</b></span>
+                        <a href="#updateValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateValue(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, val: unknown)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="253"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:253</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="valueFor"></a>
+                    <span class="name">
+                        <span ><b>valueFor</b></span>
+                        <a href="#valueFor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>valueFor(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="234"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formState"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>formState</b></span>
+                        <a href="#formState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Record&lt;string, unknown&gt;&gt;({})</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="visibleFields"></a>
+                    <span class="name">
+                        <span ><b>visibleFields</b></span>
+                        <a href="#visibleFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const allFields &#x3D; this.fields();
+    const state &#x3D; this.formState();
+
+    return allFields.filter(f &#x3D;&gt; {
+      if (!f.conditions || f.conditions.length &#x3D;&#x3D;&#x3D; 0) return true;
+      for (const cond of f.conditions) {
+        const val &#x3D; state[cond.field];
+        const match &#x3D; this.evaluateCondition(val, cond);
+        if (cond.action &#x3D;&#x3D;&#x3D; &#x27;hide&#x27; &amp;&amp; match) return false;
+        if (cond.action &#x3D;&#x3D;&#x3D; &#x27;show&#x27; &amp;&amp; !match) return false;
+      }
+      return true;
+    });
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="202" class="link-to-prism">projects/ngx-core-components/inputs/form-builder/form-builder.component.ts:202</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, computed, effect, input, output, signal } from &#x27;@angular/core&#x27;;
+
+export interface FormBuilderOption {
+  label: string;
+  value: string | number | boolean;
+}
+
+export interface FormBuilderCondition {
+  field: string;
+  operator: &#x27;eq&#x27; | &#x27;neq&#x27; | &#x27;contains&#x27; | &#x27;gt&#x27; | &#x27;lt&#x27; | &#x27;isTrue&#x27; | &#x27;isFalse&#x27;;
+  value?: unknown;
+  action: &#x27;show&#x27; | &#x27;hide&#x27; | &#x27;enable&#x27; | &#x27;disable&#x27;;
+}
+
+export interface FormBuilderField {
+  key: string;
+  label: string;
+  type?:
+    | &#x27;text&#x27; | &#x27;email&#x27; | &#x27;password&#x27; | &#x27;number&#x27; | &#x27;textarea&#x27; | &#x27;select&#x27; | &#x27;checkbox&#x27;
+    | &#x27;date&#x27; | &#x27;date-range&#x27; | &#x27;time&#x27; | &#x27;file-upload&#x27; | &#x27;multi-select&#x27; | &#x27;rating&#x27;
+    | &#x27;color-picker&#x27; | &#x27;switch&#x27; | &#x27;segmented-control&#x27; | &#x27;signature-pad&#x27; | &#x27;slider&#x27; | &#x27;range&#x27;
+    | &#x27;autocomplete&#x27; | &#x27;tag-input&#x27;;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  options?: FormBuilderOption[];
+  value?: unknown;
+  min?: number | string;
+  max?: number | string;
+  step?: number;
+  colSpan?: number; // 1 to 12 column span
+  conditions?: FormBuilderCondition[];
+  hint?: string;
+}
+
+@Component({
+  selector: &#x27;ngx-form-builder&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    &lt;form class&#x3D;&quot;ngx-form-builder&quot; (submit)&#x3D;&quot;submit($event)&quot;&gt;
+      &lt;div class&#x3D;&quot;form-grid&quot;&gt;
+        @for (field of visibleFields(); track field.key) {
+          &lt;div
+            class&#x3D;&quot;form-field-wrap&quot;
+            [style.grid-column]&#x3D;&quot;&#x27;span &#x27; + (field.colSpan || 12)&quot;
+            [class.checkbox-field]&#x3D;&quot;field.type &#x3D;&#x3D;&#x3D; &#x27;checkbox&#x27;&quot;
+          &gt;
+            @if (field.type !&#x3D;&#x3D; &#x27;checkbox&#x27;) {
+              &lt;label class&#x3D;&quot;field-label&quot; [attr.for]&#x3D;&quot;field.key&quot;&gt;
+                {{ field.label }}@if (field.required) { &lt;strong class&#x3D;&quot;req-star&quot;&gt;*&lt;/strong&gt; }
+              &lt;/label&gt;
+            }
+
+            @switch (field.type || &#x27;text&#x27;) {
+              @case (&#x27;textarea&#x27;) {
+                &lt;textarea
+                  [id]&#x3D;&quot;field.key&quot;
+                  [placeholder]&#x3D;&quot;field.placeholder || &#x27;&#x27;&quot;
+                  [required]&#x3D;&quot;field.required || false&quot;
+                  [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                  [value]&#x3D;&quot;valueFor(field.key)&quot;
+                  (input)&#x3D;&quot;updateValue(field.key, $any($event.target).value)&quot;
+                &gt;&lt;/textarea&gt;
+              }
+              @case (&#x27;select&#x27;) {
+                &lt;select
+                  [id]&#x3D;&quot;field.key&quot;
+                  [required]&#x3D;&quot;field.required || false&quot;
+                  [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                  [value]&#x3D;&quot;valueFor(field.key)&quot;
+                  (change)&#x3D;&quot;updateValue(field.key, readOptionValue(field, $any($event.target).value))&quot;
+                &gt;
+                  &lt;option value&#x3D;&quot;&quot;&gt;Select...&lt;/option&gt;
+                  @for (option of field.options || []; track option.value) {
+                    &lt;option [value]&#x3D;&quot;option.value&quot;&gt;{{ option.label }}&lt;/option&gt;
+                  }
+                &lt;/select&gt;
+              }
+              @case (&#x27;checkbox&#x27;) {
+                &lt;label class&#x3D;&quot;checkbox-label&quot;&gt;
+                  &lt;input
+                    type&#x3D;&quot;checkbox&quot;
+                    [id]&#x3D;&quot;field.key&quot;
+                    [checked]&#x3D;&quot;!!valueFor(field.key)&quot;
+                    [required]&#x3D;&quot;field.required || false&quot;
+                    [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                    (change)&#x3D;&quot;updateValue(field.key, $any($event.target).checked)&quot;
+                  /&gt;
+                  &lt;span class&#x3D;&quot;field-label&quot;&gt;{{ field.label }}@if (field.required) { &lt;strong class&#x3D;&quot;req-star&quot;&gt;*&lt;/strong&gt; }&lt;/span&gt;
+                &lt;/label&gt;
+              }
+              @case (&#x27;switch&#x27;) {
+                &lt;label class&#x3D;&quot;switch-wrap&quot;&gt;
+                  &lt;input
+                    type&#x3D;&quot;checkbox&quot;
+                    [id]&#x3D;&quot;field.key&quot;
+                    [checked]&#x3D;&quot;!!valueFor(field.key)&quot;
+                    [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                    (change)&#x3D;&quot;updateValue(field.key, $any($event.target).checked)&quot;
+                  /&gt;
+                  &lt;span class&#x3D;&quot;switch-slider&quot;&gt;&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;field-label&quot;&gt;{{ field.label }}&lt;/span&gt;
+                &lt;/label&gt;
+              }
+              @case (&#x27;range&#x27;) {
+              }
+              @case (&#x27;color-picker&#x27;) {
+                &lt;input
+                  type&#x3D;&quot;color&quot;
+                  [id]&#x3D;&quot;field.key&quot;
+                  [value]&#x3D;&quot;valueFor(field.key) || &#x27;#4f46e5&#x27;&quot;
+                  [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                  (change)&#x3D;&quot;updateValue(field.key, $any($event.target).value)&quot;
+                /&gt;
+              }
+              @default {
+                &lt;input
+                  [id]&#x3D;&quot;field.key&quot;
+                  [type]&#x3D;&quot;field.type || &#x27;text&#x27;&quot;
+                  [placeholder]&#x3D;&quot;field.placeholder || &#x27;&#x27;&quot;
+                  [required]&#x3D;&quot;field.required || false&quot;
+                  [disabled]&#x3D;&quot;isFieldDisabled(field)&quot;
+                  [min]&#x3D;&quot;field.min ?? null&quot;
+                  [max]&#x3D;&quot;field.max ?? null&quot;
+                  [step]&#x3D;&quot;field.step ?? null&quot;
+                  [value]&#x3D;&quot;valueFor(field.key)&quot;
+                  (input)&#x3D;&quot;updateValue(field.key, coerceInputValue(field, $any($event.target).value))&quot;
+                /&gt;
+              }
+            }
+
+            @if (field.hint) {
+              &lt;div class&#x3D;&quot;field-hint&quot;&gt;{{ field.hint }}&lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      @if (showSubmit()) {
+        &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+          &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;submit-btn&quot;&gt;{{ submitLabel() }}&lt;/button&gt;
+        &lt;/div&gt;
+      }
+    &lt;/form&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; }
+    .ngx-form-builder { font-family: var(--ngx-font-family, inherit); color: var(--text-primary, #0f172a); }
+    .form-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .form-field-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .field-label { font-size: 12px; font-weight: 700; color: var(--ngx-input-label, #475569); }
+    .req-star { color: var(--ngx-input-error, #dc2626); margin-left: 2px; }
+    .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .field-hint { font-size: 11px; color: #64748b; }
+    input:not([type&#x3D;&quot;checkbox&quot;]):not([type&#x3D;&quot;color&quot;]), textarea, select {
+      width: 100%; border: 1px solid var(--ngx-input-border, #cbd5e1);
+      border-radius: var(--ngx-input-radius, 8px); background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-input-text, #0f172a); font: inherit; font-size: 13px; padding: 9px 11px;
+      outline: none; transition: all 0.15s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .form-actions { margin-top: 18px; display: flex; justify-content: flex-end; }
+    .submit-btn {
+      padding: 9px 20px; font-size: 13px; font-weight: 700; border-radius: 8px;
+      border: none; background: var(--ngx-btn-primary-bg, #4f46e5); color: #ffffff;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .submit-btn:hover { background: var(--ngx-btn-primary-hover, #4338ca); }
+
+    /* Switch styling */
+    .switch-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .switch-wrap input { display: none; }
+    .switch-slider {
+      width: 36px; height: 20px; background: #cbd5e1; border-radius: 20px;
+      position: relative; transition: background 0.2s;
+    }
+    .switch-slider::before {
+      content: &#x27;&#x27;; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+      background: #ffffff; border-radius: 50%; transition: transform 0.2s;
+    }
+    .switch-wrap input:checked + .switch-slider { background: #4f46e5; }
+    .switch-wrap input:checked + .switch-slider::before { transform: translateX(16px); }
+  &#x60;]
+})
+export class FormBuilderComponent {
+  fields &#x3D; input&lt;FormBuilderField[]&gt;([]);
+  value &#x3D; input&lt;Record&lt;string, unknown&gt;&gt;({});
+  submitLabel &#x3D; input&lt;string&gt;(&#x27;Submit&#x27;);
+  showSubmit &#x3D; input&lt;boolean&gt;(true);
+
+  formSubmit &#x3D; output&lt;Record&lt;string, unknown&gt;&gt;();
+  formChange &#x3D; output&lt;Record&lt;string, unknown&gt;&gt;();
+
+  private formState &#x3D; signal&lt;Record&lt;string, unknown&gt;&gt;({});
+
+  visibleFields &#x3D; computed(() &#x3D;&gt; {
+    const allFields &#x3D; this.fields();
+    const state &#x3D; this.formState();
+
+    return allFields.filter(f &#x3D;&gt; {
+      if (!f.conditions || f.conditions.length &#x3D;&#x3D;&#x3D; 0) return true;
+      for (const cond of f.conditions) {
+        const val &#x3D; state[cond.field];
+        const match &#x3D; this.evaluateCondition(val, cond);
+        if (cond.action &#x3D;&#x3D;&#x3D; &#x27;hide&#x27; &amp;&amp; match) return false;
+        if (cond.action &#x3D;&#x3D;&#x3D; &#x27;show&#x27; &amp;&amp; !match) return false;
+      }
+      return true;
+    });
+  });
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      const initial &#x3D; this.value() || {};
+      const fields &#x3D; this.fields();
+      const next: Record&lt;string, unknown&gt; &#x3D; { ...initial };
+
+      fields.forEach(f &#x3D;&gt; {
+        if (next[f.key] &#x3D;&#x3D;&#x3D; undefined &amp;&amp; f.value !&#x3D;&#x3D; undefined) {
+          next[f.key] &#x3D; f.value;
+        }
+      });
+
+      this.formState.set(next);
+    }, { allowSignalWrites: true });
+  }
+
+  valueFor(key: string): unknown {
+    const val &#x3D; this.formState()[key];
+    return val ?? &#x27;&#x27;;
+  }
+
+  isFieldDisabled(field: FormBuilderField): boolean {
+    if (field.disabled) return true;
+    if (!field.conditions) return false;
+
+    const state &#x3D; this.formState();
+    for (const cond of field.conditions) {
+      const val &#x3D; state[cond.field];
+      const match &#x3D; this.evaluateCondition(val, cond);
+      if (cond.action &#x3D;&#x3D;&#x3D; &#x27;disable&#x27; &amp;&amp; match) return true;
+      if (cond.action &#x3D;&#x3D;&#x3D; &#x27;enable&#x27; &amp;&amp; !match) return true;
+    }
+    return false;
+  }
+
+  updateValue(key: string, val: unknown): void {
+    const updated &#x3D; { ...this.formState(), [key]: val };
+    this.formState.set(updated);
+    this.formChange.emit(updated);
+  }
+
+  submit(event: Event): void {
+    event.preventDefault();
+    this.formSubmit.emit(this.formState());
+  }
+
+  coerceInputValue(field: FormBuilderField, val: string): unknown {
+    if (field.type &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+      if (val &#x3D;&#x3D;&#x3D; &#x27;&#x27;) return null;
+      const num &#x3D; Number(val);
+      return isNaN(num) ? null : num;
+    }
+    return val;
+  }
+
+  readOptionValue(field: FormBuilderField, valStr: string): unknown {
+    const opt &#x3D; field.options?.find(o &#x3D;&gt; String(o.value) &#x3D;&#x3D;&#x3D; valStr);
+    return opt ? opt.value : valStr;
+  }
+
+  private evaluateCondition(actualVal: unknown, cond: FormBuilderCondition): boolean {
+    switch (cond.operator) {
+      case &#x27;eq&#x27;:
+        return String(actualVal) &#x3D;&#x3D;&#x3D; String(cond.value);
+      case &#x27;neq&#x27;:
+        return String(actualVal) !&#x3D;&#x3D; String(cond.value);
+      case &#x27;contains&#x27;:
+        return String(actualVal || &#x27;&#x27;).toLowerCase().includes(String(cond.value || &#x27;&#x27;).toLowerCase());
+      case &#x27;gt&#x27;:
+        return Number(actualVal) &gt; Number(cond.value);
+      case &#x27;lt&#x27;:
+        return Number(actualVal) &lt; Number(cond.value);
+      case &#x27;isTrue&#x27;:
+        return actualVal &#x3D;&#x3D;&#x3D; true || String(actualVal) &#x3D;&#x3D;&#x3D; &#x27;true&#x27;;
+      case &#x27;isFalse&#x27;:
+        return actualVal &#x3D;&#x3D;&#x3D; false || String(actualVal) &#x3D;&#x3D;&#x3D; &#x27;false&#x27;;
+      default:
+        return false;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host { display: block; }
+    .ngx-form-builder { font-family: var(--ngx-font-family, inherit); color: var(--text-primary, #0f172a); }
+    .form-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .form-field-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .field-label { font-size: 12px; font-weight: 700; color: var(--ngx-input-label, #475569); }
+    .req-star { color: var(--ngx-input-error, #dc2626); margin-left: 2px; }
+    .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .field-hint { font-size: 11px; color: #64748b; }
+    input:not([type&#x3D;&quot;checkbox&quot;]):not([type&#x3D;&quot;color&quot;]), textarea, select {
+      width: 100%; border: 1px solid var(--ngx-input-border, #cbd5e1);
+      border-radius: var(--ngx-input-radius, 8px); background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-input-text, #0f172a); font: inherit; font-size: 13px; padding: 9px 11px;
+      outline: none; transition: all 0.15s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .form-actions { margin-top: 18px; display: flex; justify-content: flex-end; }
+    .submit-btn {
+      padding: 9px 20px; font-size: 13px; font-weight: 700; border-radius: 8px;
+      border: none; background: var(--ngx-btn-primary-bg, #4f46e5); color: #ffffff;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .submit-btn:hover { background: var(--ngx-btn-primary-hover, #4338ca); }
+
+    /* Switch styling */
+    .switch-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .switch-wrap input { display: none; }
+    .switch-slider {
+      width: 36px; height: 20px; background: #cbd5e1; border-radius: 20px;
+      position: relative; transition: background 0.2s;
+    }
+    .switch-slider::before {
+      content: &#x27;&#x27;; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+      background: #ffffff; border-radius: 50%; transition: transform 0.2s;
+    }
+    .switch-wrap input:checked + .switch-slider { background: #4f46e5; }
+    .switch-wrap input:checked + .switch-slider::before { transform: translateX(16px); }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><form class="ngx-form-builder" (submit)="submit($event)">  <div class="form-grid">    @for (field of visibleFields(); track field.key) {      <div        class="form-field-wrap"        [style.grid-column]="\'span \' + (field.colSpan || 12)"        [class.checkbox-field]="field.type === \'checkbox\'"      >        @if (field.type !== \'checkbox\') {          <label class="field-label" [attr.for]="field.key">            {{ field.label }}@if (field.required) { <strong class="req-star">*</strong> }          </label>        }        @switch (field.type || \'text\') {          @case (\'textarea\') {            <textarea              [id]="field.key"              [placeholder]="field.placeholder || \'\'"              [required]="field.required || false"              [disabled]="isFieldDisabled(field)"              [value]="valueFor(field.key)"              (input)="updateValue(field.key, $any($event.target).value)"            ></textarea>          }          @case (\'select\') {            <select              [id]="field.key"              [required]="field.required || false"              [disabled]="isFieldDisabled(field)"              [value]="valueFor(field.key)"              (change)="updateValue(field.key, readOptionValue(field, $any($event.target).value))"            >              <option value="">Select...</option>              @for (option of field.options || []; track option.value) {                <option [value]="option.value">{{ option.label }}</option>              }            </select>          }          @case (\'checkbox\') {            <label class="checkbox-label">              <input                type="checkbox"                [id]="field.key"                [checked]="!!valueFor(field.key)"                [required]="field.required || false"                [disabled]="isFieldDisabled(field)"                (change)="updateValue(field.key, $any($event.target).checked)"              />              <span class="field-label">{{ field.label }}@if (field.required) { <strong class="req-star">*</strong> }</span>            </label>          }          @case (\'switch\') {            <label class="switch-wrap">              <input                type="checkbox"                [id]="field.key"                [checked]="!!valueFor(field.key)"                [disabled]="isFieldDisabled(field)"                (change)="updateValue(field.key, $any($event.target).checked)"              />              <span class="switch-slider"></span>              <span class="field-label">{{ field.label }}</span>            </label>          }          @case (\'range\') {          }          @case (\'color-picker\') {            <input              type="color"              [id]="field.key"              [value]="valueFor(field.key) || \'#4f46e5\'"              [disabled]="isFieldDisabled(field)"              (change)="updateValue(field.key, $any($event.target).value)"            />          }          @default {            <input              [id]="field.key"              [type]="field.type || \'text\'"              [placeholder]="field.placeholder || \'\'"              [required]="field.required || false"              [disabled]="isFieldDisabled(field)"              [min]="field.min ?? null"              [max]="field.max ?? null"              [step]="field.step ?? null"              [value]="valueFor(field.key)"              (input)="updateValue(field.key, coerceInputValue(field, $any($event.target).value))"            />          }        }        @if (field.hint) {          <div class="field-hint">{{ field.hint }}</div>        }      </div>    }  </div>  @if (showSubmit()) {    <div class="form-actions">      <button type="submit" class="submit-btn">{{ submitLabel() }}</button>    </div>  }</form></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'FormBuilderComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FormBuilderComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

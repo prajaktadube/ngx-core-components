@@ -1,0 +1,966 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ScatterPoint</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/scatter-plot/scatter-plot.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#group" 
+>
+                                            group
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#size" 
+>
+                                            size
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#x" 
+>
+                                            x
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#y" 
+>
+                                            y
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="group"></a>
+                                        <span class="name "><b>group</b>
+                                            <a href="#group">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>group:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="size"></a>
+                                        <span class="name "><b>size</b>
+                                            <a href="#size">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>size:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="x"></a>
+                                        <span class="name "><b>x</b>
+                                            <a href="#x">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>x:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="y"></a>
+                                        <span class="name "><b>y</b>
+                                            <a href="#y">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>y:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, viewChild, HostListener, inject
+} from &#x27;@angular/core&#x27;;
+import { ChartExportService } from &#x27;../shared/chart-export.service&#x27;;
+import { ChartExportMenuComponent } from &#x27;../shared/chart-export-menu.component&#x27;;
+import type { ExportFormat } from &#x27;../shared/chart-export-menu.component&#x27;;
+import { CHART_COLORS, niceTicks, scale, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface ScatterPoint {
+  x: number;
+  y: number;
+  label?: string;
+  group?: string;
+  size?: number; // Bubble sizing support
+}
+
+@Component({
+  selector: &#x27;ngx-scatter-plot&#x27;,
+  standalone: true,
+  imports: [ChartExportMenuComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-scatter-plot&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Legend --&gt;
+      @if (showLegend() &amp;&amp; uniqueGroups().length &gt; 0) {
+        &lt;div class&#x3D;&quot;chart-legend&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+          @for (group of uniqueGroups(); track group; let i &#x3D; $index) {
+            &lt;span class&#x3D;&quot;legend-item&quot;&gt;
+              &lt;span class&#x3D;&quot;legend-dot&quot; [style.background]&#x3D;&quot;groupColor(group)&quot;&gt;&lt;/span&gt;
+              {{ group }}
+            &lt;/span&gt;
+          }
+        &lt;/div&gt;
+      }
+
+      &lt;div class&#x3D;&quot;chart-svg-container&quot; #container&gt;
+        &lt;svg
+          #svgEl
+          [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+          class&#x3D;&quot;chart-svg&quot;
+          (mouseleave)&#x3D;&quot;onMouseLeave()&quot;
+        &gt;
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + PAD_LEFT + &#x27;,&#x27; + PAD_TOP + &#x27;)&#x27;&quot;&gt;
+            &lt;!-- Grid Lines (Horizontal and Vertical) --&gt;
+            @if (showGrid()) {
+              &lt;!-- Horizontal Grid Lines --&gt;
+              @for (tick of yTicks(); track tick) {
+                &lt;line
+                  [attr.x1]&#x3D;&quot;0&quot;
+                  [attr.x2]&#x3D;&quot;innerW()&quot;
+                  [attr.y1]&#x3D;&quot;yPos(tick)&quot;
+                  [attr.y2]&#x3D;&quot;yPos(tick)&quot;
+                  stroke&#x3D;&quot;var(--ngx-chart-grid, #ebedf0)&quot;
+                  stroke-dasharray&#x3D;&quot;3,3&quot;
+                /&gt;
+              }
+              &lt;!-- Vertical Grid Lines --&gt;
+              @for (tick of xTicks(); track tick) {
+                &lt;line
+                  [attr.x1]&#x3D;&quot;xPos(tick)&quot;
+                  [attr.x2]&#x3D;&quot;xPos(tick)&quot;
+                  [attr.y1]&#x3D;&quot;0&quot;
+                  [attr.y2]&#x3D;&quot;innerH()&quot;
+                  stroke&#x3D;&quot;var(--ngx-chart-grid, #ebedf0)&quot;
+                  stroke-dasharray&#x3D;&quot;3,3&quot;
+                /&gt;
+              }
+            }
+
+            &lt;!-- Y-Axis Labels --&gt;
+            @for (tick of yTicks(); track tick) {
+              &lt;text
+                x&#x3D;&quot;-10&quot;
+                [attr.y]&#x3D;&quot;yPos(tick) + 4&quot;
+                class&#x3D;&quot;axis-label y&quot;
+                text-anchor&#x3D;&quot;end&quot;
+              &gt;{{ fmtNum(tick) }}&lt;/text&gt;
+            }
+            &lt;text
+              [attr.transform]&#x3D;&quot;&#x27;rotate(-90) translate(&#x27; + (-innerH()/2) + &#x27;, -36)&#x27;&quot;
+              class&#x3D;&quot;axis-title y&quot;
+              text-anchor&#x3D;&quot;middle&quot;
+            &gt;{{ yTitle() }}&lt;/text&gt;
+
+            &lt;!-- X-Axis Labels --&gt;
+            @for (tick of xTicks(); track tick) {
+              &lt;text
+                [attr.x]&#x3D;&quot;xPos(tick)&quot;
+                [attr.y]&#x3D;&quot;innerH() + 20&quot;
+                class&#x3D;&quot;axis-label x&quot;
+                text-anchor&#x3D;&quot;middle&quot;
+              &gt;{{ fmtNum(tick) }}&lt;/text&gt;
+            }
+            &lt;text
+              [attr.x]&#x3D;&quot;innerW() / 2&quot;
+              [attr.y]&#x3D;&quot;innerH() + 38&quot;
+              class&#x3D;&quot;axis-title x&quot;
+              text-anchor&#x3D;&quot;middle&quot;
+            &gt;{{ xTitle() }}&lt;/text&gt;
+
+            &lt;!-- Active Crosshair --&gt;
+            @if (hoveredPointIndex() !&#x3D;&#x3D; null) {
+              @if (scaledPoints()[hoveredPointIndex()!]; as pt) {
+                &lt;line
+                  [attr.x1]&#x3D;&quot;0&quot;
+                  [attr.x2]&#x3D;&quot;innerW()&quot;
+                  [attr.y1]&#x3D;&quot;pt.cy&quot;
+                  [attr.y2]&#x3D;&quot;pt.cy&quot;
+                  stroke&#x3D;&quot;rgba(79, 70, 229, 0.35)&quot;
+                  stroke-width&#x3D;&quot;1.2&quot;
+                  stroke-dasharray&#x3D;&quot;3,3&quot;
+                  class&#x3D;&quot;crosshair-line&quot;
+                /&gt;
+                &lt;line
+                  [attr.x1]&#x3D;&quot;pt.cx&quot;
+                  [attr.x2]&#x3D;&quot;pt.cx&quot;
+                  [attr.y1]&#x3D;&quot;0&quot;
+                  [attr.y2]&#x3D;&quot;innerH()&quot;
+                  stroke&#x3D;&quot;rgba(79, 70, 229, 0.35)&quot;
+                  stroke-width&#x3D;&quot;1.2&quot;
+                  stroke-dasharray&#x3D;&quot;3,3&quot;
+                  class&#x3D;&quot;crosshair-line&quot;
+                /&gt;
+              }
+            }
+
+            &lt;!-- Render Data Points --&gt;
+            @for (pt of scaledPoints(); track $index; let i &#x3D; $index) {
+              &lt;circle
+                [attr.cx]&#x3D;&quot;pt.cx&quot;
+                [attr.cy]&#x3D;&quot;pt.cy&quot;
+                [attr.r]&#x3D;&quot;hoveredPointIndex() &#x3D;&#x3D;&#x3D; i ? pt.r + 3.5 : pt.r&quot;
+                [attr.fill]&#x3D;&quot;pt.color&quot;
+                [attr.stroke]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                stroke-width&#x3D;&quot;1.5&quot;
+                class&#x3D;&quot;scatter-point&quot;
+                [class.hovered]&#x3D;&quot;hoveredPointIndex() &#x3D;&#x3D;&#x3D; i&quot;
+                [style.transform-origin]&#x3D;&quot;pt.cx + &#x27;px &#x27; + pt.cy + &#x27;px&#x27;&quot;
+                [style.animation-delay]&#x3D;&quot;(i * 0.015) + &#x27;s&#x27;&quot;
+                (mouseenter)&#x3D;&quot;onPointHover($event, pt.raw, i)&quot;
+                (mousemove)&#x3D;&quot;onPointHover($event, pt.raw, i)&quot;
+              /&gt;
+            }
+
+            &lt;!-- Base axes borders --&gt;
+            &lt;line x1&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; [attr.y1]&#x3D;&quot;innerH()&quot; [attr.y2]&#x3D;&quot;innerH()&quot; stroke&#x3D;&quot;var(--ngx-chart-axis, #ced4da)&quot;/&gt;
+            &lt;line x1&#x3D;&quot;0&quot; x2&#x3D;&quot;0&quot; y1&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;innerH()&quot; stroke&#x3D;&quot;var(--ngx-chart-axis, #ced4da)&quot;/&gt;
+          &lt;/g&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Tooltip --&gt;
+        @if (tooltip(); as t) {
+          &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+            @if (t.label) {
+              &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+            } @else {
+              &lt;div class&#x3D;&quot;tt-cat&quot;&gt;Point Data&lt;/div&gt;
+            }
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Group&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ t.group || &#x27;Default&#x27; }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-dot&quot; style&#x3D;&quot;background: transparent;&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ xTitle() }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ fmtNum(ptX(t)) }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-dot&quot; style&#x3D;&quot;background: transparent;&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ yTitle() }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ fmtNum(ptY(t)) }}&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+    .ngx-scatter-plot {
+      position: relative;
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      transition: background-color 0.3s;
+    }
+    .ngx-scatter-plot.dark {
+      background: rgba(30, 32, 48, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      --ngx-chart-bg: transparent;
+      --ngx-chart-grid: rgba(255, 255, 255, 0.06);
+      --ngx-chart-axis: rgba(255, 255, 255, 0.12);
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+    }
+    .dark .legend-item {
+      color: #94a3b8;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .chart-svg-container {
+      position: relative;
+      width: 100%;
+    }
+    .chart-svg {
+      display: block;
+      overflow: visible;
+    }
+    .axis-label {
+      font-size: 10px;
+      fill: #64748b;
+      font-weight: 500;
+    }
+    .dark .axis-label {
+      fill: #94a3b8;
+    }
+    .axis-title {
+      font-size: 11px;
+      font-weight: 600;
+      fill: #475569;
+      letter-spacing: 0.5px;
+    }
+    .dark .axis-title {
+      fill: #cbd5e1;
+    }
+
+    @keyframes scatterPointPop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 0.85; }
+    }
+
+    .scatter-point {
+      cursor: pointer;
+      transition: r 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.25s,
+                  filter 0.25s,
+                  stroke-width 0.2s;
+      animation: scatterPointPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .scatter-point.hovered {
+      opacity: 0.95;
+      filter: drop-shadow(0 0 6px var(--ngx-chart-hover-stroke, #4f46e5));
+      stroke: #ffffff;
+      stroke-width: 2px;
+    }
+
+    .crosshair-line {
+      pointer-events: none;
+      animation: fadeIn 0.15s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      z-index: 100;
+      min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+
+  &#x60;]
+})
+export class ScatterPlotComponent {
+  private readonly exportSvc &#x3D; inject(ChartExportService);
+  PAD_LEFT &#x3D; 52;
+  PAD_TOP &#x3D; 16;
+  PAD_RIGHT &#x3D; 24;
+  PAD_BOTTOM &#x3D; 48;
+
+  data &#x3D; input&lt;ScatterPoint[]&gt;([]);
+  xTitle &#x3D; input&lt;string&gt;(&#x27;X Axis&#x27;);
+  yTitle &#x3D; input&lt;string&gt;(&#x27;Y Axis&#x27;);
+  height &#x3D; input&lt;number&gt;(300);
+  showGrid &#x3D; input&lt;boolean&gt;(true);
+  showLegend &#x3D; input&lt;boolean&gt;(true);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  hoveredPointIndex &#x3D; signal&lt;number | null&gt;(null);
+
+  tooltip &#x3D; signal&lt;{
+    x: number;
+    y: number;
+    label?: string;
+    group?: string;
+    xVal: number;
+    yVal: number;
+    color: string;
+  } | null&gt;(null);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+  private container &#x3D; viewChild&lt;ElementRef&gt;(&#x27;container&#x27;);
+
+  // Dynamic dimension scales
+  innerW &#x3D; computed(() &#x3D;&gt; {
+    const el &#x3D; this.container()?.nativeElement;
+    const totalW &#x3D; el ? el.getBoundingClientRect().width : 600;
+    return Math.max(200, totalW - this.PAD_LEFT - this.PAD_RIGHT);
+  });
+
+  innerH &#x3D; computed(() &#x3D;&gt; this.height() - this.PAD_TOP - this.PAD_BOTTOM);
+
+  // Group mappings
+  uniqueGroups &#x3D; computed(() &#x3D;&gt; {
+    const grps &#x3D; new Set&lt;string&gt;();
+    this.data().forEach(p &#x3D;&gt; {
+      if (p.group) grps.add(p.group);
+    });
+    return Array.from(grps);
+  });
+
+  groupColor(groupName?: string): string {
+    if (!groupName) return this.colors()[0];
+    const idx &#x3D; this.uniqueGroups().indexOf(groupName);
+    return this.colors()[idx % this.colors().length];
+  }
+
+  // Bounds Calculations
+  private xValues &#x3D; computed(() &#x3D;&gt; this.data().map(pt &#x3D;&gt; pt.x));
+  private xMin &#x3D; computed(() &#x3D;&gt; this.xValues().length &gt; 0 ? Math.min(...this.xValues()) * 0.9 : 0);
+  private xMax &#x3D; computed(() &#x3D;&gt; this.xValues().length &gt; 0 ? Math.max(...this.xValues()) * 1.1 : 100);
+  xTicks &#x3D; computed(() &#x3D;&gt; niceTicks(this.xMin(), this.xMax(), 5));
+
+  private yValues &#x3D; computed(() &#x3D;&gt; this.data().map(pt &#x3D;&gt; pt.y));
+  private yMin &#x3D; computed(() &#x3D;&gt; this.yValues().length &gt; 0 ? Math.min(...this.yValues()) * 0.9 : 0);
+  private yMax &#x3D; computed(() &#x3D;&gt; this.yValues().length &gt; 0 ? Math.max(...this.yValues()) * 1.1 : 100);
+  yTicks &#x3D; computed(() &#x3D;&gt; niceTicks(this.yMin(), this.yMax(), 5));
+
+  // Map absolute coordinate points to SVG canvas
+  xPos(x: number): number {
+    return scale(x, this.xMin(), this.xMax(), 0, this.innerW());
+  }
+
+  yPos(y: number): number {
+    return scale(y, this.yMin(), this.yMax(), this.innerH(), 0);
+  }
+
+  scaledPoints &#x3D; computed(() &#x3D;&gt; {
+    return this.data().map((pt, i) &#x3D;&gt; {
+      const cx &#x3D; this.xPos(pt.x);
+      const cy &#x3D; this.yPos(pt.y);
+      const r &#x3D; pt.size ? Math.max(3, Math.min(20, pt.size)) : 6;
+      return {
+        cx,
+        cy,
+        r,
+        color: this.groupColor(pt.group),
+        raw: pt
+      };
+    });
+  });
+
+  onPointHover(event: MouseEvent, pt: ScatterPoint, index: number) {
+    this.hoveredPointIndex.set(index);
+    const containerEl &#x3D; this.container()?.nativeElement;
+    if (!containerEl) return;
+    const rect &#x3D; containerEl.getBoundingClientRect();
+    const tooltipX &#x3D; event.clientX - rect.left;
+    const tooltipY &#x3D; event.clientY - rect.top;
+
+    this.tooltip.set({
+      x: tooltipX,
+      y: tooltipY,
+      label: pt.label,
+      group: pt.group,
+      xVal: pt.x,
+      yVal: pt.y,
+      color: this.groupColor(pt.group)
+    });
+  }
+
+  onMouseLeave() {
+    this.hoveredPointIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  ptX(t: { xVal: number }): number { return t.xVal; }
+  ptY(t: { yVal: number }): number { return t.yVal; }
+
+  onExport(type: ExportFormat): void {
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    this.exportSvc.downloadJson(data, &#x27;scatter-plot.json&#x27;);
+  }
+
+  exportToCsv(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    const headers &#x3D; [&#x27;Label&#x27;, &#x27;Group&#x27;, &#x27;X&#x27;, &#x27;Y&#x27;, &#x27;Size&#x27;];
+    const rows &#x3D; data.map(d &#x3D;&gt; [d.label || &#x27;&#x27;, d.group || &#x27;&#x27;, d.x, d.y, d.size !&#x3D;&#x3D; undefined ? d.size : &#x27;&#x27;]);
+    this.exportSvc.downloadCsv(headers, rows, &#x27;scatter-plot.csv&#x27;);
+  }
+
+  exportToSvg(): void {
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, &#x27;chart.svg&#x27;);
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, &#x27;Chart Export&#x27;, &#x27;chart.pdf&#x27;);
+  }
+
+  readonly fmtNum &#x3D; fmtNum;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ScatterPoint.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

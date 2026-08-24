@@ -1,0 +1,2547 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DependencyWheelComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-dependency-wheel</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../components/ChartExportMenuComponent.html" target="_self" >ChartExportMenuComponent</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+    }
+    .ngx-dependency-wheel {
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .wheel-svg {
+      display: block;
+      overflow: visible;
+    }
+    .node-arc {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease;
+      transform-origin: center;
+      animation: wheelScaleIn 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    .node-label {
+      font-size: 11px;
+      fill: var(--ngx-chart-axis-text, #334155);
+      font-weight: 600;
+      user-select: none;
+      pointer-events: none;
+    }
+    .dependency-ribbon {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease;
+      transform-origin: center;
+      animation: wheelScaleIn 1s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    @keyframes wheelScaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .dependency-ribbon.dimmed, .wheel-node-group.dimmed {
+      opacity: 0.15;
+    }
+    .dependency-ribbon.highlighted {
+      fill-opacity: 0.7;
+      stroke-width: 1.5;
+      stroke-opacity: 0.9;
+    }
+    .wheel-node-group.highlighted .node-arc {
+      stroke-width: 2.5;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 160px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-dependency-wheel&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+  &lt;!-- Toolbar with Export option --&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+    @if (showExport()) {
+      &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;svg
+    #svgEl
+    class&#x3D;&quot;wheel-svg&quot;
+    [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+    [attr.height]&#x3D;&quot;svgHeight()&quot;
+  &gt;
+    &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + (containerWidth() / 2) + &#x27;,&#x27; + (svgHeight() / 2) + &#x27;)&#x27;&quot;&gt;
+
+      &lt;!-- Tapered Dependency Ribbons --&gt;
+      @for (dep of computedDependencies(); track dep.path; let i &#x3D; $index) {
+        &lt;path
+          [attr.d]&#x3D;&quot;dep.path&quot;
+          [attr.fill]&#x3D;&quot;dep.color&quot;
+          fill-opacity&#x3D;&quot;0.3&quot;
+          [attr.stroke]&#x3D;&quot;dep.color&quot;
+          stroke-opacity&#x3D;&quot;0.4&quot;
+          stroke-width&#x3D;&quot;0.5&quot;
+          class&#x3D;&quot;dependency-ribbon&quot;
+          [class.dimmed]&#x3D;&quot;hoveredNodeIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredNodeIndex() !&#x3D;&#x3D; dep.sourceIndex &amp;&amp; hoveredNodeIndex() !&#x3D;&#x3D; dep.targetIndex&quot;
+          [class.highlighted]&#x3D;&quot;hoveredDependencyIndex() &#x3D;&#x3D;&#x3D; i || (hoveredNodeIndex() !&#x3D;&#x3D; null &amp;&amp; (hoveredNodeIndex() &#x3D;&#x3D;&#x3D; dep.sourceIndex || hoveredNodeIndex() &#x3D;&#x3D;&#x3D; dep.targetIndex))&quot;
+          (mouseenter)&#x3D;&quot;onDependencyHover(i, $event)&quot;
+          (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+        /&gt;
+      }
+
+      &lt;!-- Outer Circle Nodes --&gt;
+      @for (node of computedNodes(); track node.index; let i &#x3D; $index) {
+        &lt;g
+          class&#x3D;&quot;wheel-node-group&quot;
+          [class.dimmed]&#x3D;&quot;hoveredNodeIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredNodeIndex() !&#x3D;&#x3D; i&quot;
+          [class.highlighted]&#x3D;&quot;hoveredNodeIndex() &#x3D;&#x3D;&#x3D; i&quot;
+          (mouseenter)&#x3D;&quot;onNodeHover(i)&quot;
+          (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+        &gt;
+          &lt;!-- Arc Segment --&gt;
+          &lt;path
+            [attr.d]&#x3D;&quot;node.path&quot;
+            [attr.fill]&#x3D;&quot;node.color&quot;
+            stroke&#x3D;&quot;#ffffff&quot;
+            stroke-width&#x3D;&quot;1.5&quot;
+            class&#x3D;&quot;node-arc&quot;
+          /&gt;
+
+          &lt;!-- Label --&gt;
+          @if (showLabels()) {
+            &lt;text
+              [attr.x]&#x3D;&quot;node.textX&quot;
+              [attr.y]&#x3D;&quot;node.textY&quot;
+              [attr.transform]&#x3D;&quot;&#x27;rotate(&#x27; + node.textAngle + &#x27;,&#x27; + node.textX + &#x27;,&#x27; + node.textY + &#x27;)&#x27;&quot;
+              [attr.text-anchor]&#x3D;&quot;node.textAnchor&quot;
+              class&#x3D;&quot;node-label&quot;
+            &gt;
+              {{ node.label }}
+            &lt;/text&gt;
+          }
+        &lt;/g&gt;
+      }
+    &lt;/g&gt;
+  &lt;/svg&gt;
+
+  &lt;!-- Glassmorphic Tooltip --&gt;
+  @if (tooltip(); as t) {
+    &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+      @if (t.type &#x3D;&#x3D;&#x3D; &#x27;node&#x27;) {
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;Total Weight&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.value) }}&lt;/span&gt;
+        &lt;/div&gt;
+      } @else if (t.type &#x3D;&#x3D;&#x3D; &#x27;dependency&#x27;) {
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;Dependency&lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ t.sourceLabel }} depends on&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ t.targetLabel }}&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.value) }}&lt;/span&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#computedDependencies" >computedDependencies</a>
+                            </li>
+                            <li>
+                                <a href="#computedNodes" >computedNodes</a>
+                            </li>
+                            <li>
+                                <a href="#containerWidth" >containerWidth</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#exportSvc" >exportSvc</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredDependencyIndex" >hoveredDependencyIndex</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredNodeIndex" >hoveredNodeIndex</a>
+                            </li>
+                            <li>
+                                <a href="#innerRadius" >innerRadius</a>
+                            </li>
+                            <li>
+                                <a href="#outerRadius" >outerRadius</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#svgHeight" >svgHeight</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipX" >tooltipX</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipY" >tooltipY</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#formatNumber" >formatNumber</a>
+                            </li>
+                            <li>
+                                <a href="#onDependencyHover" >onDependencyHover</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseLeave" >onMouseLeave</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseMove" >onMouseMove</a>
+                            </li>
+                            <li>
+                                <a href="#onNodeHover" >onNodeHover</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#labels" >labels</a>
+                            </li>
+                            <li>
+                                <a href="#matrix" >matrix</a>
+                            </li>
+                            <li>
+                                <a href="#nodePadding" >nodePadding</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#showLabels" >showLabels</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="257" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:257</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CHART_COLORS</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="242" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:242</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>400</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="239" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:239</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="labels"></a>
+                        <b>labels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="238" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:238</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="matrix"></a>
+                        <b>matrix</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[][]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="237" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:237</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nodePadding"></a>
+                        <b>nodePadding</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0.04</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="241" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:241</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="243" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:243</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showLabels"></a>
+                        <b>showLabels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="240" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:240</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="474"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:474</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="459"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:459</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="494"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:494</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="490"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:490</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatNumber"></a>
+                    <span class="name">
+                        <span ><b>formatNumber</b></span>
+                        <a href="#formatNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatNumber(v: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="499"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:499</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>v</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDependencyHover"></a>
+                    <span class="name">
+                        <span ><b>onDependencyHover</b></span>
+                        <a href="#onDependencyHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDependencyHover(idx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="423"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:423</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: <a href="../miscellaneous/typealiases.html#ExportFormat" target="_self">ExportFormat</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="452"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:452</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExportFormat" target="_self" >ExportFormat</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseLeave"></a>
+                    <span class="name">
+                        <span ><b>onMouseLeave</b></span>
+                        <a href="#onMouseLeave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseLeave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="446"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:446</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseMove"></a>
+                    <span class="name">
+                        <span ><b>onMouseMove</b></span>
+                        <a href="#onMouseMove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseMove(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="436"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:436</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onNodeHover"></a>
+                    <span class="name">
+                        <span ><b>onNodeHover</b></span>
+                        <a href="#onNodeHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onNodeHover(idx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="411"
+                                    class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:411</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedDependencies"></a>
+                    <span class="name">
+                        <span ><b>computedDependencies</b></span>
+                        <a href="#computedDependencies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;ProcessedDependency[]&gt;(() &#x3D;&gt; {
+    const nodes &#x3D; this.computedNodes();
+    const m &#x3D; this.matrix();
+    const l &#x3D; this.labels();
+    const count &#x3D; m.length;
+    if (nodes.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const rInner &#x3D; this.innerRadius();
+    const dependencies: ProcessedDependency[] &#x3D; [];
+
+    // Track starting offset angles for outbound dependencies of each source node
+    const progressNodeStart &#x3D; nodes.map(n &#x3D;&gt; n.startAngle);
+    const progressNodeTotal &#x3D; m.map(row &#x3D;&gt; row.reduce((sum, v) &#x3D;&gt; sum + v, 0) || 1);
+    const progressNodeSweep &#x3D; nodes.map(n &#x3D;&gt; n.endAngle - n.startAngle);
+
+    for (let i &#x3D; 0; i &lt; count; i++) {
+      for (let j &#x3D; 0; j &lt; count; j++) {
+        if (i &#x3D;&#x3D;&#x3D; j) continue; // Skip self-dependencies for clean rendering
+        const val &#x3D; m[i][j];
+        if (val &#x3D;&#x3D;&#x3D; 0) continue;
+
+        // Angle sweep width on source node i proportional to dependency value
+        const totalOutbound &#x3D; progressNodeTotal[i];
+        // Outbound is allocated on the first half of node&#x27;s total sweep angle
+        const sweep_i &#x3D; (val / totalOutbound) * (progressNodeSweep[i] * 0.5);
+        const a1 &#x3D; progressNodeStart[i];
+        const a2 &#x3D; a1 + sweep_i;
+        progressNodeStart[i] &#x3D; a2;
+
+        // Target node j center angle (tapers to a point at the center of destination&#x27;s arc)
+        const targetSweep &#x3D; nodes[j].endAngle - nodes[j].startAngle;
+        const targetAngle &#x3D; nodes[j].startAngle + targetSweep * 0.75; // Align target points in target&#x27;s second half
+
+        const ax1 &#x3D; rInner * Math.cos(a1);
+        const ay1 &#x3D; rInner * Math.sin(a1);
+        const ax2 &#x3D; rInner * Math.cos(a2);
+        const ay2 &#x3D; rInner * Math.sin(a2);
+
+        const bx &#x3D; rInner * Math.cos(targetAngle);
+        const by &#x3D; rInner * Math.sin(targetAngle);
+
+        // SVG Tapered path: Arc at source node, curved path converging at single destination point on the target node
+        const path &#x3D; &#x60;M ${ax1} ${ay1} A ${rInner} ${rInner} 0 0 1 ${ax2} ${ay2} Q 0 0 ${bx} ${by} Q 0 0 ${ax1} ${ay1} Z&#x60;;
+
+        dependencies.push({
+          sourceIndex: i,
+          targetIndex: j,
+          sourceLabel: l[i] || &#x60;Node ${i + 1}&#x60;,
+          targetLabel: l[j] || &#x60;Node ${j + 1}&#x60;,
+          value: val,
+          color: nodes[i].color,
+          path
+        });
+      }
+    }
+
+    return dependencies;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="352" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:352</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedNodes"></a>
+                    <span class="name">
+                        <span ><b>computedNodes</b></span>
+                        <a href="#computedNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;ProcessedNode[]&gt;(() &#x3D;&gt; {
+    const m &#x3D; this.matrix();
+    const l &#x3D; this.labels();
+    const count &#x3D; m.length;
+    if (count &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const palette &#x3D; this.colors();
+    const rOuter &#x3D; this.outerRadius();
+    const rInner &#x3D; this.innerRadius();
+
+    // Sum of directed inputs &amp; outputs representing node total dependency scale
+    const nodeTotals &#x3D; m.map((row, i) &#x3D;&gt; {
+      let outbound &#x3D; row.reduce((sum, v) &#x3D;&gt; sum + v, 0);
+      let inbound &#x3D; 0;
+      for (let j &#x3D; 0; j &lt; count; j++) {
+        inbound +&#x3D; m[j][i];
+      }
+      return outbound + inbound;
+    });
+
+    const grandTotal &#x3D; nodeTotals.reduce((sum, v) &#x3D;&gt; sum + v, 0) || 1;
+    const padAngle &#x3D; this.nodePadding();
+    const availAngle &#x3D; 2 * Math.PI - padAngle * count;
+
+    let currentAngle &#x3D; -Math.PI / 2;
+
+    return nodeTotals.map((val, idx) &#x3D;&gt; {
+      const angleSweep &#x3D; (val / grandTotal) * availAngle;
+      const startAngle &#x3D; currentAngle;
+      const endAngle &#x3D; startAngle + angleSweep;
+      currentAngle &#x3D; endAngle + padAngle;
+
+      const label &#x3D; l[idx] || &#x60;Node ${idx + 1}&#x60;;
+      const color &#x3D; palette[idx % palette.length];
+
+      const x1_o &#x3D; rOuter * Math.cos(startAngle);
+      const y1_o &#x3D; rOuter * Math.sin(startAngle);
+      const x2_o &#x3D; rOuter * Math.cos(endAngle);
+      const y2_o &#x3D; rOuter * Math.sin(endAngle);
+
+      const x1_i &#x3D; rInner * Math.cos(endAngle);
+      const y1_i &#x3D; rInner * Math.sin(endAngle);
+      const x2_i &#x3D; rInner * Math.cos(startAngle);
+      const y2_i &#x3D; rInner * Math.sin(startAngle);
+
+      const largeArc &#x3D; angleSweep &gt; Math.PI ? 1 : 0;
+      const path &#x3D; &#x60;M ${x1_o} ${y1_o} A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${x2_o} ${y2_o} L ${x1_i} ${y1_i} A ${rInner} ${rInner} 0 ${largeArc} 0 ${x2_i} ${y2_i} Z&#x60;;
+
+      const labelAngle &#x3D; startAngle + angleSweep / 2;
+      const textRadius &#x3D; rOuter + 10;
+      const textX &#x3D; textRadius * Math.cos(labelAngle);
+      const textY &#x3D; textRadius * Math.sin(labelAngle);
+
+      let textAngle &#x3D; (labelAngle * 180) / Math.PI;
+      let textAnchor &#x3D; &#x27;start&#x27;;
+      if (labelAngle &gt; Math.PI / 2 || labelAngle &lt; -Math.PI / 2) {
+        textAngle +&#x3D; 180;
+        textAnchor &#x3D; &#x27;end&#x27;;
+      }
+
+      return {
+        index: idx,
+        label,
+        color,
+        startAngle,
+        endAngle,
+        value: val,
+        path,
+        textX,
+        textY,
+        textAngle,
+        textAnchor
+      };
+    });
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="275" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:275</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="containerWidth"></a>
+                    <span class="name">
+                        <span ><b>containerWidth</b></span>
+                        <a href="#containerWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(500)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="245" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:245</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportSvc"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>exportSvc</b></span>
+                        <a href="#exportSvc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChartExportService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="236" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:236</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredDependencyIndex"></a>
+                    <span class="name">
+                        <span ><b>hoveredDependencyIndex</b></span>
+                        <a href="#hoveredDependencyIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="247" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:247</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredNodeIndex"></a>
+                    <span class="name">
+                        <span ><b>hoveredNodeIndex</b></span>
+                        <a href="#hoveredNodeIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="246" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:246</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="innerRadius"></a>
+                    <span class="name">
+                        <span ><b>innerRadius</b></span>
+                        <a href="#innerRadius"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.outerRadius() - 16)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="257" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="outerRadius"></a>
+                    <span class="name">
+                        <span ><b>outerRadius</b></span>
+                        <a href="#outerRadius"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.min(this.containerWidth(), this.svgHeight()) * 0.4 - 20)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="256" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="252" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:252</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgHeight"></a>
+                    <span class="name">
+                        <span ><b>svgHeight</b></span>
+                        <a href="#svgHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.height())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="254" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:254</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;any | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="248" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:248</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipX"></a>
+                    <span class="name">
+                        <span ><b>tooltipX</b></span>
+                        <a href="#tooltipX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="249" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:249</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipY"></a>
+                    <span class="name">
+                        <span ><b>tooltipY</b></span>
+                        <a href="#tooltipY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="250" class="link-to-prism">projects/ngx-core-components/charts/dependency-wheel/dependency-wheel.component.ts:250</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, HostListener, viewChild
+} from &#x27;@angular/core&#x27;;
+import { ChartExportService } from &#x27;../shared/chart-export.service&#x27;;
+import { ChartExportMenuComponent } from &#x27;../shared/chart-export-menu.component&#x27;;
+import type { ExportFormat } from &#x27;../shared/chart-export-menu.component&#x27;;
+import { CHART_COLORS, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface DependencyItem {
+  labels: string[];
+  matrix: number[][];
+  colors?: string[];
+}
+
+interface ProcessedNode {
+  index: number;
+  label: string;
+  color: string;
+  startAngle: number;
+  endAngle: number;
+  value: number;
+  path: string;
+  textX: number;
+  textY: number;
+  textAngle: number;
+  textAnchor: string;
+}
+
+interface ProcessedDependency {
+  sourceIndex: number;
+  targetIndex: number;
+  sourceLabel: string;
+  targetLabel: string;
+  value: number;
+  color: string;
+  path: string;
+}
+
+@Component({
+  selector: &#x27;ngx-dependency-wheel&#x27;,
+  standalone: true,
+  imports: [ChartExportMenuComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-dependency-wheel&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;!-- Toolbar with Export option --&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;svg
+        #svgEl
+        class&#x3D;&quot;wheel-svg&quot;
+        [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+        [attr.height]&#x3D;&quot;svgHeight()&quot;
+      &gt;
+        &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + (containerWidth() / 2) + &#x27;,&#x27; + (svgHeight() / 2) + &#x27;)&#x27;&quot;&gt;
+          
+          &lt;!-- Tapered Dependency Ribbons --&gt;
+          @for (dep of computedDependencies(); track dep.path; let i &#x3D; $index) {
+            &lt;path
+              [attr.d]&#x3D;&quot;dep.path&quot;
+              [attr.fill]&#x3D;&quot;dep.color&quot;
+              fill-opacity&#x3D;&quot;0.3&quot;
+              [attr.stroke]&#x3D;&quot;dep.color&quot;
+              stroke-opacity&#x3D;&quot;0.4&quot;
+              stroke-width&#x3D;&quot;0.5&quot;
+              class&#x3D;&quot;dependency-ribbon&quot;
+              [class.dimmed]&#x3D;&quot;hoveredNodeIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredNodeIndex() !&#x3D;&#x3D; dep.sourceIndex &amp;&amp; hoveredNodeIndex() !&#x3D;&#x3D; dep.targetIndex&quot;
+              [class.highlighted]&#x3D;&quot;hoveredDependencyIndex() &#x3D;&#x3D;&#x3D; i || (hoveredNodeIndex() !&#x3D;&#x3D; null &amp;&amp; (hoveredNodeIndex() &#x3D;&#x3D;&#x3D; dep.sourceIndex || hoveredNodeIndex() &#x3D;&#x3D;&#x3D; dep.targetIndex))&quot;
+              (mouseenter)&#x3D;&quot;onDependencyHover(i, $event)&quot;
+              (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+            /&gt;
+          }
+
+          &lt;!-- Outer Circle Nodes --&gt;
+          @for (node of computedNodes(); track node.index; let i &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;wheel-node-group&quot;
+              [class.dimmed]&#x3D;&quot;hoveredNodeIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredNodeIndex() !&#x3D;&#x3D; i&quot;
+              [class.highlighted]&#x3D;&quot;hoveredNodeIndex() &#x3D;&#x3D;&#x3D; i&quot;
+              (mouseenter)&#x3D;&quot;onNodeHover(i)&quot;
+              (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+            &gt;
+              &lt;!-- Arc Segment --&gt;
+              &lt;path
+                [attr.d]&#x3D;&quot;node.path&quot;
+                [attr.fill]&#x3D;&quot;node.color&quot;
+                stroke&#x3D;&quot;#ffffff&quot;
+                stroke-width&#x3D;&quot;1.5&quot;
+                class&#x3D;&quot;node-arc&quot;
+              /&gt;
+
+              &lt;!-- Label --&gt;
+              @if (showLabels()) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;node.textX&quot;
+                  [attr.y]&#x3D;&quot;node.textY&quot;
+                  [attr.transform]&#x3D;&quot;&#x27;rotate(&#x27; + node.textAngle + &#x27;,&#x27; + node.textX + &#x27;,&#x27; + node.textY + &#x27;)&#x27;&quot;
+                  [attr.text-anchor]&#x3D;&quot;node.textAnchor&quot;
+                  class&#x3D;&quot;node-label&quot;
+                &gt;
+                  {{ node.label }}
+                &lt;/text&gt;
+              }
+            &lt;/g&gt;
+          }
+        &lt;/g&gt;
+      &lt;/svg&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+          @if (t.type &#x3D;&#x3D;&#x3D; &#x27;node&#x27;) {
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Total Weight&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.value) }}&lt;/span&gt;
+            &lt;/div&gt;
+          } @else if (t.type &#x3D;&#x3D;&#x3D; &#x27;dependency&#x27;) {
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;Dependency&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ t.sourceLabel }} depends on&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ t.targetLabel }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.value) }}&lt;/span&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+    }
+    .ngx-dependency-wheel {
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .wheel-svg {
+      display: block;
+      overflow: visible;
+    }
+    .node-arc {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease;
+      transform-origin: center;
+      animation: wheelScaleIn 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    .node-label {
+      font-size: 11px;
+      fill: var(--ngx-chart-axis-text, #334155);
+      font-weight: 600;
+      user-select: none;
+      pointer-events: none;
+    }
+    .dependency-ribbon {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease;
+      transform-origin: center;
+      animation: wheelScaleIn 1s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    @keyframes wheelScaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .dependency-ribbon.dimmed, .wheel-node-group.dimmed {
+      opacity: 0.15;
+    }
+    .dependency-ribbon.highlighted {
+      fill-opacity: 0.7;
+      stroke-width: 1.5;
+      stroke-opacity: 0.9;
+    }
+    .wheel-node-group.highlighted .node-arc {
+      stroke-width: 2.5;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 160px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  &#x60;]
+})
+export class DependencyWheelComponent {
+  private readonly exportSvc &#x3D; inject(ChartExportService);
+  matrix &#x3D; input&lt;number[][]&gt;([]);
+  labels &#x3D; input&lt;string[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(400);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  nodePadding &#x3D; input&lt;number&gt;(0.04);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  containerWidth &#x3D; signal&lt;number&gt;(500);
+  hoveredNodeIndex &#x3D; signal&lt;number | null&gt;(null);
+  hoveredDependencyIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; this.height());
+
+  outerRadius &#x3D; computed(() &#x3D;&gt; Math.min(this.containerWidth(), this.svgHeight()) * 0.4 - 20);
+  innerRadius &#x3D; computed(() &#x3D;&gt; this.outerRadius() - 16);
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  // Pre-calculate nodes layout
+  computedNodes &#x3D; computed&lt;ProcessedNode[]&gt;(() &#x3D;&gt; {
+    const m &#x3D; this.matrix();
+    const l &#x3D; this.labels();
+    const count &#x3D; m.length;
+    if (count &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const palette &#x3D; this.colors();
+    const rOuter &#x3D; this.outerRadius();
+    const rInner &#x3D; this.innerRadius();
+
+    // Sum of directed inputs &amp; outputs representing node total dependency scale
+    const nodeTotals &#x3D; m.map((row, i) &#x3D;&gt; {
+      let outbound &#x3D; row.reduce((sum, v) &#x3D;&gt; sum + v, 0);
+      let inbound &#x3D; 0;
+      for (let j &#x3D; 0; j &lt; count; j++) {
+        inbound +&#x3D; m[j][i];
+      }
+      return outbound + inbound;
+    });
+
+    const grandTotal &#x3D; nodeTotals.reduce((sum, v) &#x3D;&gt; sum + v, 0) || 1;
+    const padAngle &#x3D; this.nodePadding();
+    const availAngle &#x3D; 2 * Math.PI - padAngle * count;
+
+    let currentAngle &#x3D; -Math.PI / 2;
+
+    return nodeTotals.map((val, idx) &#x3D;&gt; {
+      const angleSweep &#x3D; (val / grandTotal) * availAngle;
+      const startAngle &#x3D; currentAngle;
+      const endAngle &#x3D; startAngle + angleSweep;
+      currentAngle &#x3D; endAngle + padAngle;
+
+      const label &#x3D; l[idx] || &#x60;Node ${idx + 1}&#x60;;
+      const color &#x3D; palette[idx % palette.length];
+
+      const x1_o &#x3D; rOuter * Math.cos(startAngle);
+      const y1_o &#x3D; rOuter * Math.sin(startAngle);
+      const x2_o &#x3D; rOuter * Math.cos(endAngle);
+      const y2_o &#x3D; rOuter * Math.sin(endAngle);
+
+      const x1_i &#x3D; rInner * Math.cos(endAngle);
+      const y1_i &#x3D; rInner * Math.sin(endAngle);
+      const x2_i &#x3D; rInner * Math.cos(startAngle);
+      const y2_i &#x3D; rInner * Math.sin(startAngle);
+
+      const largeArc &#x3D; angleSweep &gt; Math.PI ? 1 : 0;
+      const path &#x3D; &#x60;M ${x1_o} ${y1_o} A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${x2_o} ${y2_o} L ${x1_i} ${y1_i} A ${rInner} ${rInner} 0 ${largeArc} 0 ${x2_i} ${y2_i} Z&#x60;;
+
+      const labelAngle &#x3D; startAngle + angleSweep / 2;
+      const textRadius &#x3D; rOuter + 10;
+      const textX &#x3D; textRadius * Math.cos(labelAngle);
+      const textY &#x3D; textRadius * Math.sin(labelAngle);
+
+      let textAngle &#x3D; (labelAngle * 180) / Math.PI;
+      let textAnchor &#x3D; &#x27;start&#x27;;
+      if (labelAngle &gt; Math.PI / 2 || labelAngle &lt; -Math.PI / 2) {
+        textAngle +&#x3D; 180;
+        textAnchor &#x3D; &#x27;end&#x27;;
+      }
+
+      return {
+        index: idx,
+        label,
+        color,
+        startAngle,
+        endAngle,
+        value: val,
+        path,
+        textX,
+        textY,
+        textAngle,
+        textAnchor
+      };
+    });
+  });
+
+  // Directed Tapered dependencies ribbon calculations
+  computedDependencies &#x3D; computed&lt;ProcessedDependency[]&gt;(() &#x3D;&gt; {
+    const nodes &#x3D; this.computedNodes();
+    const m &#x3D; this.matrix();
+    const l &#x3D; this.labels();
+    const count &#x3D; m.length;
+    if (nodes.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const rInner &#x3D; this.innerRadius();
+    const dependencies: ProcessedDependency[] &#x3D; [];
+
+    // Track starting offset angles for outbound dependencies of each source node
+    const progressNodeStart &#x3D; nodes.map(n &#x3D;&gt; n.startAngle);
+    const progressNodeTotal &#x3D; m.map(row &#x3D;&gt; row.reduce((sum, v) &#x3D;&gt; sum + v, 0) || 1);
+    const progressNodeSweep &#x3D; nodes.map(n &#x3D;&gt; n.endAngle - n.startAngle);
+
+    for (let i &#x3D; 0; i &lt; count; i++) {
+      for (let j &#x3D; 0; j &lt; count; j++) {
+        if (i &#x3D;&#x3D;&#x3D; j) continue; // Skip self-dependencies for clean rendering
+        const val &#x3D; m[i][j];
+        if (val &#x3D;&#x3D;&#x3D; 0) continue;
+
+        // Angle sweep width on source node i proportional to dependency value
+        const totalOutbound &#x3D; progressNodeTotal[i];
+        // Outbound is allocated on the first half of node&#x27;s total sweep angle
+        const sweep_i &#x3D; (val / totalOutbound) * (progressNodeSweep[i] * 0.5);
+        const a1 &#x3D; progressNodeStart[i];
+        const a2 &#x3D; a1 + sweep_i;
+        progressNodeStart[i] &#x3D; a2;
+
+        // Target node j center angle (tapers to a point at the center of destination&#x27;s arc)
+        const targetSweep &#x3D; nodes[j].endAngle - nodes[j].startAngle;
+        const targetAngle &#x3D; nodes[j].startAngle + targetSweep * 0.75; // Align target points in target&#x27;s second half
+
+        const ax1 &#x3D; rInner * Math.cos(a1);
+        const ay1 &#x3D; rInner * Math.sin(a1);
+        const ax2 &#x3D; rInner * Math.cos(a2);
+        const ay2 &#x3D; rInner * Math.sin(a2);
+
+        const bx &#x3D; rInner * Math.cos(targetAngle);
+        const by &#x3D; rInner * Math.sin(targetAngle);
+
+        // SVG Tapered path: Arc at source node, curved path converging at single destination point on the target node
+        const path &#x3D; &#x60;M ${ax1} ${ay1} A ${rInner} ${rInner} 0 0 1 ${ax2} ${ay2} Q 0 0 ${bx} ${by} Q 0 0 ${ax1} ${ay1} Z&#x60;;
+
+        dependencies.push({
+          sourceIndex: i,
+          targetIndex: j,
+          sourceLabel: l[i] || &#x60;Node ${i + 1}&#x60;,
+          targetLabel: l[j] || &#x60;Node ${j + 1}&#x60;,
+          value: val,
+          color: nodes[i].color,
+          path
+        });
+      }
+    }
+
+    return dependencies;
+  });
+
+  onNodeHover(idx: number) {
+    this.hoveredNodeIndex.set(idx);
+    const node &#x3D; this.computedNodes()[idx];
+    if (node) {
+      this.tooltip.set({
+        type: &#x27;node&#x27;,
+        label: node.label,
+        value: node.value
+      });
+    }
+  }
+
+  onDependencyHover(idx: number, event: MouseEvent) {
+    this.hoveredDependencyIndex.set(idx);
+    const dep &#x3D; this.computedDependencies()[idx];
+    if (dep) {
+      this.tooltip.set({
+        type: &#x27;dependency&#x27;,
+        sourceLabel: dep.sourceLabel,
+        targetLabel: dep.targetLabel,
+        value: dep.value
+      });
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const container &#x3D; el.closest(&#x27;.ngx-dependency-wheel&#x27;);
+    if (container) {
+      const rect &#x3D; container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredNodeIndex.set(null);
+    this.hoveredDependencyIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+    onExport(type: ExportFormat): void {
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const matrix &#x3D; this.matrix();
+    const labels &#x3D; this.labels();
+    if (!matrix.length || !labels.length) return;
+    const data &#x3D; [];
+    for (let r &#x3D; 0; r &lt; matrix.length; r++) {
+      for (let c &#x3D; 0; c &lt; matrix[r].length; c++) {
+        if (matrix[r][c] &gt; 0) {
+          data.push({ source: labels[r], target: labels[c], weight: matrix[r][c] });
+        }
+      }
+    }
+    this.exportSvc.downloadJson(data, &#x27;dependency-wheel-data.json&#x27;);
+  }
+
+  exportToCsv(): void {
+    const matrix &#x3D; this.matrix();
+    const labels &#x3D; this.labels();
+    if (!matrix.length || !labels.length) return;
+    const headers &#x3D; [&#x27;Source&#x27;, &#x27;Target&#x27;, &#x27;Weight&#x27;];
+    const rows: (string | number)[][] &#x3D; [];
+    for (let r &#x3D; 0; r &lt; matrix.length; r++) {
+      for (let c &#x3D; 0; c &lt; matrix[r].length; c++) {
+        if (matrix[r][c] &gt; 0) {
+          rows.push([labels[r], labels[c], matrix[r][c]]);
+        }
+      }
+    }
+    this.exportSvc.downloadCsv(headers, rows, &#x27;dependency-wheel-data.csv&#x27;);
+  }
+
+  exportToSvg(): void {
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, &#x27;chart.svg&#x27;);
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, &#x27;Chart Export&#x27;, &#x27;chart.pdf&#x27;);
+  }
+
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+    }
+    .ngx-dependency-wheel {
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .wheel-svg {
+      display: block;
+      overflow: visible;
+    }
+    .node-arc {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease;
+      transform-origin: center;
+      animation: wheelScaleIn 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    .node-label {
+      font-size: 11px;
+      fill: var(--ngx-chart-axis-text, #334155);
+      font-weight: 600;
+      user-select: none;
+      pointer-events: none;
+    }
+    .dependency-ribbon {
+      cursor: pointer;
+      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease;
+      transform-origin: center;
+      animation: wheelScaleIn 1s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+    }
+    @keyframes wheelScaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .dependency-ribbon.dimmed, .wheel-node-group.dimmed {
+      opacity: 0.15;
+    }
+    .dependency-ribbon.highlighted {
+      fill-opacity: 0.7;
+      stroke-width: 1.5;
+      stroke-opacity: 0.9;
+    }
+    .wheel-node-group.highlighted .node-arc {
+      stroke-width: 2.5;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 160px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-dependency-wheel" (mouseleave)="onMouseLeave()">  <!-- Toolbar with Export option -->  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">    <div class="chart-title-space"></div>    @if (showExport()) {      <ngx-chart-export-menu (exportClicked)="onExport($event)" />    }  </div>  <svg    #svgEl    class="wheel-svg"    [attr.width]="\'100%\'"    [attr.height]="svgHeight()"  >    <g [attr.transform]="\'translate(\' + (containerWidth() / 2) + \',\' + (svgHeight() / 2) + \')\'">      <!-- Tapered Dependency Ribbons -->      @for (dep of computedDependencies(); track dep.path; let i = $index) {        <path          [attr.d]="dep.path"          [attr.fill]="dep.color"          fill-opacity="0.3"          [attr.stroke]="dep.color"          stroke-opacity="0.4"          stroke-width="0.5"          class="dependency-ribbon"          [class.dimmed]="hoveredNodeIndex() !== null && hoveredNodeIndex() !== dep.sourceIndex && hoveredNodeIndex() !== dep.targetIndex"          [class.highlighted]="hoveredDependencyIndex() === i || (hoveredNodeIndex() !== null && (hoveredNodeIndex() === dep.sourceIndex || hoveredNodeIndex() === dep.targetIndex))"          (mouseenter)="onDependencyHover(i, $event)"          (mousemove)="onMouseMove($event)"        />      }      <!-- Outer Circle Nodes -->      @for (node of computedNodes(); track node.index; let i = $index) {        <g          class="wheel-node-group"          [class.dimmed]="hoveredNodeIndex() !== null && hoveredNodeIndex() !== i"          [class.highlighted]="hoveredNodeIndex() === i"          (mouseenter)="onNodeHover(i)"          (mousemove)="onMouseMove($event)"        >          <!-- Arc Segment -->          <path            [attr.d]="node.path"            [attr.fill]="node.color"            stroke="#ffffff"            stroke-width="1.5"            class="node-arc"          />          <!-- Label -->          @if (showLabels()) {            <text              [attr.x]="node.textX"              [attr.y]="node.textY"              [attr.transform]="\'rotate(\' + node.textAngle + \',\' + node.textX + \',\' + node.textY + \')\'"              [attr.text-anchor]="node.textAnchor"              class="node-label"            >              {{ node.label }}            </text>          }        </g>      }    </g>  </svg>  <!-- Glassmorphic Tooltip -->  @if (tooltip(); as t) {    <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">      @if (t.type === \'node\') {        <div class="tt-cat">{{ t.label }}</div>        <div class="tt-row">          <span class="tt-name">Total Weight</span>          <span class="tt-val">{{ formatNumber(t.value) }}</span>        </div>      } @else if (t.type === \'dependency\') {        <div class="tt-cat">Dependency</div>        <div class="tt-row">          <span class="tt-name">{{ t.sourceLabel }} depends on</span>        </div>        <div class="tt-row">          <span class="tt-name">{{ t.targetLabel }}</span>          <span class="tt-val">{{ formatNumber(t.value) }}</span>        </div>      }    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'DependencyWheelComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DependencyWheelComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

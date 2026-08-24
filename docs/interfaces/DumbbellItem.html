@@ -1,0 +1,1120 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  DumbbellItem</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/dumbbell-chart/dumbbell-chart.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#endColor" 
+>
+                                            endColor
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#endValue" 
+>
+                                            endValue
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#startColor" 
+>
+                                            startColor
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#startValue" 
+>
+                                            startValue
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="endColor"></a>
+                                        <span class="name "><b>endColor</b>
+                                            <a href="#endColor">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>endColor:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="endValue"></a>
+                                        <span class="name "><b>endValue</b>
+                                            <a href="#endValue">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>endValue:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="startColor"></a>
+                                        <span class="name "><b>startColor</b>
+                                            <a href="#startColor">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>startColor:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="startValue"></a>
+                                        <span class="name "><b>startValue</b>
+                                            <a href="#startValue">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>startValue:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, HostListener, viewChild
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, fmtNum, niceTicks, scale } from &#x27;../shared/chart-utils&#x27;;
+
+export interface DumbbellItem {
+  label: string;
+  startValue: number;
+  endValue: number;
+  startColor?: string;
+  endColor?: string;
+}
+
+@Component({
+  selector: &#x27;ngx-dumbbell-chart&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-dumbbell-chart&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Legend --&gt;
+      @if (showLegend() &amp;&amp; data().length &gt; 0) {
+        &lt;div class&#x3D;&quot;chart-legend&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+          &lt;div class&#x3D;&quot;legend-item&quot;&gt;
+            &lt;span class&#x3D;&quot;legend-dot&quot; [style.background]&#x3D;&quot;startColor()&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;legend-label&quot;&gt;{{ startLabel() }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;legend-item&quot;&gt;
+            &lt;span class&#x3D;&quot;legend-dot&quot; [style.background]&#x3D;&quot;endColor()&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;legend-label&quot;&gt;{{ endLabel() }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;svg
+        #svgEl
+        class&#x3D;&quot;dumbbell-svg&quot;
+        [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+        [attr.height]&#x3D;&quot;svgHeight()&quot;
+      &gt;
+        &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+          &lt;!-- Grid Lines --&gt;
+          @if (showGrid()) {
+            @for (tick of xTicks(); track tick) {
+              &lt;line
+                [attr.x1]&#x3D;&quot;xPos(tick)&quot;
+                [attr.x2]&#x3D;&quot;xPos(tick)&quot;
+                [attr.y1]&#x3D;&quot;0&quot;
+                [attr.y2]&#x3D;&quot;innerH()&quot;
+                class&#x3D;&quot;grid-line&quot;
+              /&gt;
+            }
+          }
+
+          &lt;!-- Dumbbells --&gt;
+          @for (item of computedItems(); track item.label; let i &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;dumbbell-row&quot;
+              [class.dimmed]&#x3D;&quot;hoveredIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredIndex() !&#x3D;&#x3D; i&quot;
+              [class.highlighted]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i&quot;
+              (mouseenter)&#x3D;&quot;onRowHover(i, $event)&quot;
+              (mousemove)&#x3D;&quot;onRowMouseMove($event)&quot;
+            &gt;
+              &lt;!-- Row background trigger --&gt;
+              &lt;rect
+                [attr.x]&#x3D;&quot;-margin().left&quot;
+                [attr.y]&#x3D;&quot;item.y - rowHeight() / 2&quot;
+                [attr.width]&#x3D;&quot;containerWidth()&quot;
+                [attr.height]&#x3D;&quot;rowHeight()&quot;
+                fill&#x3D;&quot;transparent&quot;
+                style&#x3D;&quot;cursor: pointer;&quot;
+              /&gt;
+
+              &lt;!-- Label --&gt;
+              @if (showLabels()) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;-10&quot;
+                  [attr.y]&#x3D;&quot;item.y&quot;
+                  text-anchor&#x3D;&quot;end&quot;
+                  dominant-baseline&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;y-axis-label&quot;
+                &gt;
+                  {{ item.label }}
+                &lt;/text&gt;
+              }
+
+              &lt;!-- Connecting Bar --&gt;
+              &lt;line
+                [attr.x1]&#x3D;&quot;xPos(item.startValue)&quot;
+                [attr.x2]&#x3D;&quot;xPos(item.endValue)&quot;
+                [attr.y1]&#x3D;&quot;item.y&quot;
+                [attr.y2]&#x3D;&quot;item.y&quot;
+                [attr.stroke]&#x3D;&quot;item.barColor&quot;
+                stroke-width&#x3D;&quot;4&quot;
+                stroke-linecap&#x3D;&quot;round&quot;
+                class&#x3D;&quot;connecting-bar&quot;
+              /&gt;
+
+              &lt;!-- Start Dot --&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;xPos(item.startValue)&quot;
+                [attr.cy]&#x3D;&quot;item.y&quot;
+                [attr.r]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i ? 8 : 6&quot;
+                [attr.fill]&#x3D;&quot;item.sColor&quot;
+                class&#x3D;&quot;endpoint-dot start-dot&quot;
+              /&gt;
+
+              &lt;!-- End Dot --&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;xPos(item.endValue)&quot;
+                [attr.cy]&#x3D;&quot;item.y&quot;
+                [attr.r]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i ? 8 : 6&quot;
+                [attr.fill]&#x3D;&quot;item.eColor&quot;
+                class&#x3D;&quot;endpoint-dot end-dot&quot;
+              /&gt;
+            &lt;/g&gt;
+          }
+
+          &lt;!-- X Axis (Bottom) --&gt;
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(0,&#x27; + innerH() + &#x27;)&#x27;&quot; class&#x3D;&quot;x-axis&quot;&gt;
+            &lt;line [attr.x1]&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; [attr.y1]&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;0&quot; class&#x3D;&quot;axis-line&quot; /&gt;
+            @for (tick of xTicks(); track tick) {
+              &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + xPos(tick) + &#x27;,0)&#x27;&quot;&gt;
+                &lt;line [attr.x1]&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;0&quot; [attr.y1]&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;4&quot; class&#x3D;&quot;tick-line&quot; /&gt;
+                &lt;text
+                  [attr.y]&#x3D;&quot;16&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tick-label&quot;
+                &gt;
+                  {{ formatNumber(tick) }}
+                &lt;/text&gt;
+              &lt;/g&gt;
+            }
+          &lt;/g&gt;
+        &lt;/g&gt;
+      &lt;/svg&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+          &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;startColor()&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ startLabel() }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.startValue) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;endColor()&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ endLabel() }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.endValue) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-row delta-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-dot&quot; style&#x3D;&quot;background: transparent;&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;Difference&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot; [style.color]&#x3D;&quot;t.delta &gt;&#x3D; 0 ? &#x27;#10b981&#x27; : &#x27;#ef4444&#x27;&quot;&gt;
+              {{ t.delta &gt;&#x3D; 0 ? &#x27;+&#x27; : &#x27;&#x27; }}{{ formatNumber(t.delta) }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+    }
+    .ngx-dumbbell-chart {
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .dumbbell-svg {
+      display: block;
+      overflow: visible;
+    }
+    .grid-line {
+      stroke: var(--ngx-chart-grid, #f1f5f9);
+      stroke-width: 1;
+    }
+    .axis-line {
+      stroke: var(--ngx-chart-axis, #cbd5e1);
+      stroke-width: 1.5;
+    }
+    .tick-line {
+      stroke: var(--ngx-chart-axis, #cbd5e1);
+      stroke-width: 1.5;
+    }
+    .tick-label {
+      font-size: 11px;
+      fill: var(--ngx-chart-axis-text, #64748b);
+      font-weight: 500;
+      user-select: none;
+    }
+    .y-axis-label {
+      font-size: 12px;
+      fill: var(--ngx-chart-axis-text, #334155);
+      font-weight: 600;
+      user-select: none;
+    }
+    .connecting-bar {
+      transition: stroke-width 0.2s ease, opacity 0.2s ease;
+      opacity: 0.85;
+    }
+    .endpoint-dot {
+      transition: r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+      stroke: var(--ngx-chart-bg, #ffffff);
+      stroke-width: 1.5;
+    }
+    .dumbbell-row {
+      transition: opacity 0.2s ease;
+    }
+    .dumbbell-row.dimmed {
+      opacity: 0.3;
+    }
+    .dumbbell-row.highlighted .connecting-bar {
+      stroke-width: 6;
+      opacity: 1;
+    }
+    
+    /* Legend */
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      justify-content: flex-end;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .legend-label {
+      font-size: 12px;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 160px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .delta-row {
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      margin-top: 6px;
+      padding-top: 6px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Header and Export dropdown styles */
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  &#x60;]
+})
+export class DumbbellChartComponent {
+  data &#x3D; input&lt;DumbbellItem[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(350);
+  showGrid &#x3D; input&lt;boolean&gt;(true);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  startColor &#x3D; input&lt;string&gt;(&#x27;#ef4444&#x27;);
+  endColor &#x3D; input&lt;string&gt;(&#x27;#10b981&#x27;);
+  startLabel &#x3D; input&lt;string&gt;(&#x27;Start&#x27;);
+  endLabel &#x3D; input&lt;string&gt;(&#x27;End&#x27;);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showLegend &#x3D; input&lt;boolean&gt;(true);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  containerWidth &#x3D; signal&lt;number&gt;(500);
+  hoveredIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+  exportMenuOpen &#x3D; signal(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  margin &#x3D; computed(() &#x3D;&gt; ({
+    top: 20,
+    right: 30,
+    bottom: 30,
+    left: this.showLabels() ? 100 : 20
+  }));
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; this.height());
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom));
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  // Min and Max values of the entire dataset
+  minVal &#x3D; computed(() &#x3D;&gt; {
+    const raw &#x3D; this.data();
+    if (raw.length &#x3D;&#x3D;&#x3D; 0) return 0;
+    const values &#x3D; raw.flatMap(d &#x3D;&gt; [d.startValue, d.endValue]);
+    return Math.min(...values);
+  });
+
+  maxVal &#x3D; computed(() &#x3D;&gt; {
+    const raw &#x3D; this.data();
+    if (raw.length &#x3D;&#x3D;&#x3D; 0) return 100;
+    const values &#x3D; raw.flatMap(d &#x3D;&gt; [d.startValue, d.endValue]);
+    return Math.max(...values);
+  });
+
+  xTicks &#x3D; computed(() &#x3D;&gt; {
+    const min &#x3D; this.minVal();
+    const max &#x3D; this.maxVal();
+    // Add buffer padding to the domain
+    const span &#x3D; max - min || 1;
+    const paddedMin &#x3D; Math.max(0, min - span * 0.1);
+    const paddedMax &#x3D; max + span * 0.1;
+    return niceTicks(paddedMin, paddedMax, 5);
+  });
+
+  xDomain &#x3D; computed(() &#x3D;&gt; {
+    const ticks &#x3D; this.xTicks();
+    return {
+      min: ticks[0],
+      max: ticks[ticks.length - 1]
+    };
+  });
+
+  xPos(val: number): number {
+    const domain &#x3D; this.xDomain();
+    return scale(val, domain.min, domain.max, 0, this.innerW());
+  }
+
+  rowHeight &#x3D; computed(() &#x3D;&gt; {
+    const count &#x3D; this.data().length || 1;
+    return this.innerH() / count;
+  });
+
+  computedItems &#x3D; computed(() &#x3D;&gt; {
+    const raw &#x3D; this.data();
+    const rowH &#x3D; this.rowHeight();
+    const defaultStartColor &#x3D; this.startColor();
+    const defaultEndColor &#x3D; this.endColor();
+
+    return raw.map((item, idx) &#x3D;&gt; {
+      const y &#x3D; rowH * idx + rowH / 2;
+      const sColor &#x3D; item.startColor || defaultStartColor;
+      const eColor &#x3D; item.endColor || defaultEndColor;
+      // Connect bar color (neutral gray/slate)
+      const barColor &#x3D; &#x27;var(--ngx-chart-axis, #cbd5e1)&#x27;;
+
+      return {
+        ...item,
+        y,
+        sColor,
+        eColor,
+        barColor
+      };
+    });
+  });
+
+  onRowHover(idx: number, event: MouseEvent) {
+    this.hoveredIndex.set(idx);
+    const item &#x3D; this.data()[idx];
+    if (item) {
+      this.tooltip.set({
+        ...item,
+        delta: item.endValue - item.startValue
+      });
+    }
+  }
+
+  onRowMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const container &#x3D; el.closest(&#x27;.ngx-dumbbell-chart&#x27;);
+    if (container) {
+      const rect &#x3D; container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;dumbbell-chart-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    let csv &#x3D; &#x27;Label,StartValue,EndValue,StartColor,EndColor\\n&#x27;;
+    data.forEach(d &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${d.label || &#x27;&#x27;}&quot;,${d.startValue},${d.endValue},&quot;${d.startColor || &#x27;&#x27;}&quot;,&quot;${d.endColor || &#x27;&#x27;}&quot;\\n&#x60;;
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;dumbbell-chart-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns\:xlink&#x3D;&quot;http\:\/\/www\.w3\.org\/1999\/xlink&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns:xlink&#x3D;&quot;http://www.w3.org/1999/xlink&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;dumbbell-chart.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) return;
+    const svgClone &#x3D; svg.cloneNode(true) as SVGElement;
+    svgClone.setAttribute(&#x27;xmlns&#x27;, &#x27;http://www.w3.org/2000/svg&#x27;);
+    const svgString &#x3D; new XMLSerializer().serializeToString(svgClone);
+    
+    printWindow.document.write(&#x60;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;Export PDF&lt;/title&gt;
+          &lt;style&gt;
+            body {
+              margin: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background-color: #ffffff;
+              font-family: system-ui, sans-serif;
+            }
+            .print-container {
+              text-align: center;
+              width: 100%;
+              max-width: 800px;
+              padding: 20px;
+            }
+            svg {
+              width: 100%;
+              height: auto;
+              max-height: 90vh;
+            }
+            @media print {
+              body {
+                background: none;
+              }
+              .print-container {
+                max-width: 100%;
+                padding: 0;
+              }
+              svg {
+                page-break-inside: avoid;
+              }
+            }
+          &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          &lt;div class&#x3D;&quot;print-container&quot;&gt;
+            ${svgString}
+          &lt;/div&gt;
+          &lt;script&gt;
+            window.onload &#x3D; () &#x3D;&gt; {
+              window.print();
+              window.close();
+            };
+          &lt;/script&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;);
+    printWindow.document.close();
+  }
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'DumbbellItem.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,4283 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TransformerAttentionHeatmapComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-transformer-attention-heatmap</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-attention-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 16px 20px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+    .ngx-attention-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-attention-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .token-label {
+      font-size: 10px;
+      font-weight: 600;
+      fill: var(--text-secondary, #64748b);
+      font-family: inherit;
+      cursor: pointer;
+      transition: fill 0.15s, font-weight 0.15s;
+    }
+    .token-label.highlighted, .token-label:hover {
+      fill: #4f46e5;
+      font-weight: 700;
+    }
+
+    @keyframes cellFade {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .attention-cell {
+      cursor: pointer;
+      stroke: transparent;
+      stroke-width: 1px;
+      transform-origin: center;
+      animation: cellFade 0.4s ease-out both;
+      transition: opacity 0.2s, filter 0.2s, stroke 0.15s;
+    }
+    .attention-cell:hover, .attention-cell.active-highlight {
+      filter: brightness(1.15) drop-shadow(0 3px 6px rgba(236, 72, 153, 0.25));
+      stroke: #ec4899;
+      stroke-width: 1.5px;
+      opacity: 1 !important;
+    }
+    .attention-cell.fade-dim {
+      opacity: 0.25;
+    }
+    .attention-cell.focused-cell {
+      stroke: #facc15;
+      stroke-width: 2.5px;
+      filter: brightness(1.1) drop-shadow(0 0 6px rgba(250, 204, 21, 0.6));
+      opacity: 1 !important;
+    }
+
+    /* Legend bar */
+    .legend-bar {
+      stroke: var(--border-color, #e2e8f0);
+      stroke-width: 1px;
+    }
+    .legend-label {
+      font-size: 9px;
+      fill: var(--text-secondary, #64748b);
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    /* Head selector */
+    .head-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .head-btn {
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 999px;
+      background: var(--bg-secondary, #ffffff);
+      color: var(--text-secondary, #64748b);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .head-btn:hover {
+      border-color: #6366f1;
+      color: #4f46e5;
+    }
+    .head-btn.active {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #4f46e5;
+    }
+
+    /* SVG focus outline */
+    .ngx-attention-svg:focus {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .attention-tooltip {
+      position: absolute;
+      z-index: 100;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -115%);
+      min-width: 160px;
+      pointer-events: auto;
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .action-row {
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 6px;
+      justify-content: center;
+    }
+    .tt-action-btn {
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s;
+      width: 100%;
+    }
+    .tt-action-btn:hover {
+      background: #6366f1;
+    }
+
+    /* Header and titles */
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .heatmap-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary, #1e293b);
+    }
+    .heatmap-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      margin-top: 2px;
+    }
+    .highlight-val {
+      font-weight: 700;
+      color: #6366f1;
+      font-family: monospace;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-attention-wrapper&quot;&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;
+      &lt;div class&#x3D;&quot;heatmap-title&quot;&gt;{{ title() }}&lt;/div&gt;
+      &lt;div class&#x3D;&quot;heatmap-subtitle&quot;&gt;
+        @if (subtitle()) {
+          {{ subtitle() }}
+        } @else {
+          Matrix Size: &lt;span class&#x3D;&quot;highlight-val&quot;&gt;{{ tokensY().length }} x {{ tokensX().length }}&lt;/span&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+    @if (showExport()) {
+      &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+        &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+        @if (exportMenuOpen()) {
+          &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  @if (heads() &amp;&amp; heads()!.length &gt; 1) {
+    &lt;div class&#x3D;&quot;head-selector&quot;&gt;
+      @for (head of heads()!; track $index; let i &#x3D; $index) {
+        &lt;button
+          class&#x3D;&quot;head-btn&quot;
+          [class.active]&#x3D;&quot;activeHeadIndex() &#x3D;&#x3D;&#x3D; i&quot;
+          (click)&#x3D;&quot;activeHeadIndex.set(i)&quot;
+        &gt;
+          {{ headLabels()[i] || &#x27;Head &#x27; + (i + 1) }}
+        &lt;/button&gt;
+      }
+    &lt;/div&gt;
+  }
+
+  &lt;div class&#x3D;&quot;ngx-attention-container&quot; [style.height.px]&#x3D;&quot;height()&quot;&gt;
+    &lt;!-- SVG Grid rendering --&gt;
+    &lt;svg
+      #svgEl
+      class&#x3D;&quot;ngx-attention-svg&quot;
+      [attr.viewBox]&#x3D;&quot;viewBoxString()&quot;
+      [attr.height]&#x3D;&quot;height()&quot;
+      tabindex&#x3D;&quot;0&quot;
+      (keydown)&#x3D;&quot;onKeyDown($event)&quot;
+    &gt;
+      &lt;!-- Color Scale Gradient Definition --&gt;
+      &lt;defs&gt;
+        &lt;linearGradient [attr.id]&#x3D;&quot;gradientId&quot; x1&#x3D;&quot;0&quot; y1&#x3D;&quot;1&quot; x2&#x3D;&quot;0&quot; y2&#x3D;&quot;0&quot;&gt;
+          &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;colors()[0]&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;colors()[1]&quot; /&gt;
+        &lt;/linearGradient&gt;
+      &lt;/defs&gt;
+      &lt;!-- Y-axis Label Tokens (Left) --&gt;
+      @for (yTok of tokensY(); track $index; let rIdx &#x3D; $index) {
+        &lt;text
+          [attr.x]&#x3D;&quot;leftOffset - 12&quot;
+          [attr.y]&#x3D;&quot;getRowY(rIdx) + cellHeight() / 2&quot;
+          class&#x3D;&quot;token-label y-token-label&quot;
+          [class.highlighted]&#x3D;&quot;isRowHighlighted(rIdx)&quot;
+          text-anchor&#x3D;&quot;end&quot;
+          dominant-baseline&#x3D;&quot;middle&quot;
+          (mouseenter)&#x3D;&quot;hoveredRow.set(rIdx)&quot;
+          (mouseleave)&#x3D;&quot;clearHover()&quot;
+        &gt;
+          {{ yTok }}
+        &lt;/text&gt;
+      }
+
+      &lt;!-- X-axis Label Tokens (Top, rotated for readability) --&gt;
+      @for (xTok of tokensX(); track $index; let cIdx &#x3D; $index) {
+        &lt;text
+          [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + (getColX(cIdx) + cellWidth() / 2) + &#x27;,&#x27; + (topOffset - 12) + &#x27;) rotate(-45)&#x27;&quot;
+          class&#x3D;&quot;token-label x-token-label&quot;
+          [class.highlighted]&#x3D;&quot;isColHighlighted(cIdx)&quot;
+          text-anchor&#x3D;&quot;start&quot;
+          (mouseenter)&#x3D;&quot;hoveredCol.set(cIdx)&quot;
+          (mouseleave)&#x3D;&quot;clearHover()&quot;
+        &gt;
+          {{ xTok }}
+        &lt;/text&gt;
+      }
+
+      &lt;!-- Attention Heatmap Cells --&gt;
+      @for (row of activeWeights(); track $index; let rIdx &#x3D; $index) {
+        @for (val of row; track $index; let cIdx &#x3D; $index) {
+          &lt;rect
+            [attr.x]&#x3D;&quot;getColX(cIdx)&quot;
+            [attr.y]&#x3D;&quot;getRowY(rIdx)&quot;
+            [attr.width]&#x3D;&quot;cellWidth() - cellSpacing&quot;
+            [attr.height]&#x3D;&quot;cellHeight() - cellSpacing&quot;
+            [attr.fill]&#x3D;&quot;getCellColor(val)&quot;
+            class&#x3D;&quot;attention-cell&quot;
+            [class.fade-dim]&#x3D;&quot;isDimmed(rIdx, cIdx)&quot;
+            [class.active-highlight]&#x3D;&quot;hoveredRow() &#x3D;&#x3D;&#x3D; rIdx &amp;&amp; hoveredCol() &#x3D;&#x3D;&#x3D; cIdx&quot;
+            [class.focused-cell]&#x3D;&quot;focusedRow() &#x3D;&#x3D;&#x3D; rIdx &amp;&amp; focusedCol() &#x3D;&#x3D;&#x3D; cIdx&quot;
+            [style.animation-delay]&#x3D;&quot;(rIdx * 0.03 + cIdx * 0.03) + &#x27;s&#x27;&quot;
+            (mouseenter)&#x3D;&quot;onCellEnter(rIdx, cIdx, val, $event)&quot;
+            (mouseleave)&#x3D;&quot;clearHover()&quot;
+            (click)&#x3D;&quot;onCellClick(rIdx, cIdx, val)&quot;
+            rx&#x3D;&quot;3&quot;
+            ry&#x3D;&quot;3&quot;
+          /&gt;
+        }
+      }
+
+      &lt;!-- Color Scale Legend Bar --&gt;
+      &lt;rect
+        [attr.x]&#x3D;&quot;legendX()&quot;
+        [attr.y]&#x3D;&quot;topOffset&quot;
+        [attr.width]&#x3D;&quot;15&quot;
+        [attr.height]&#x3D;&quot;legendHeight()&quot;
+        [attr.fill]&#x3D;&quot;&#x27;url(#&#x27; + gradientId + &#x27;)&#x27;&quot;
+        rx&#x3D;&quot;3&quot;
+        ry&#x3D;&quot;3&quot;
+        class&#x3D;&quot;legend-bar&quot;
+      /&gt;
+      &lt;text
+        [attr.x]&#x3D;&quot;legendX() + 7.5&quot;
+        [attr.y]&#x3D;&quot;topOffset - 6&quot;
+        text-anchor&#x3D;&quot;middle&quot;
+        class&#x3D;&quot;legend-label&quot;
+      &gt;High&lt;/text&gt;
+      &lt;text
+        [attr.x]&#x3D;&quot;legendX() + 7.5&quot;
+        [attr.y]&#x3D;&quot;topOffset + legendHeight() + 14&quot;
+        text-anchor&#x3D;&quot;middle&quot;
+        class&#x3D;&quot;legend-label&quot;
+      &gt;Low&lt;/text&gt;
+    &lt;/svg&gt;
+
+    &lt;!-- Dynamic Tooltip --&gt;
+    @if (tooltip().show) {
+      &lt;div
+        class&#x3D;&quot;attention-tooltip&quot;
+        [style.left.px]&#x3D;&quot;tooltip().x&quot;
+        [style.top.px]&#x3D;&quot;tooltip().y&quot;
+      &gt;
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ tooltip().title }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;colors()[1]&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;Attention Weight&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ tooltip().value }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row action-row&quot;&gt;
+          &lt;button class&#x3D;&quot;tt-action-btn&quot; (click)&#x3D;&quot;onQueryAttention(tooltip().row, tooltip().col)&quot;&gt;
+            Analyze Attention Link
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeHeadIndex" >activeHeadIndex</a>
+                            </li>
+                            <li>
+                                <a href="#activeWeights" >activeWeights</a>
+                            </li>
+                            <li>
+                                <a href="#cellHeight" >cellHeight</a>
+                            </li>
+                            <li>
+                                <a href="#cellSpacing" >cellSpacing</a>
+                            </li>
+                            <li>
+                                <a href="#cellWidth" >cellWidth</a>
+                            </li>
+                            <li>
+                                <a href="#exportMenuOpen" >exportMenuOpen</a>
+                            </li>
+                            <li>
+                                <a href="#focusedCol" >focusedCol</a>
+                            </li>
+                            <li>
+                                <a href="#focusedRow" >focusedRow</a>
+                            </li>
+                            <li>
+                                <a href="#gradientId" >gradientId</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredCol" >hoveredCol</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredRow" >hoveredRow</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Static</span>
+                                <a href="#instanceCounter" >instanceCounter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#instanceId" >instanceId</a>
+                            </li>
+                            <li>
+                                <a href="#leftOffset" >leftOffset</a>
+                            </li>
+                            <li>
+                                <a href="#legendHeight" >legendHeight</a>
+                            </li>
+                            <li>
+                                <a href="#legendX" >legendX</a>
+                            </li>
+                            <li>
+                                <a href="#rightOffset" >rightOffset</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                            <li>
+                                <a href="#topOffset" >topOffset</a>
+                            </li>
+                            <li>
+                                <a href="#viewBoxString" >viewBoxString</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clearHover" >clearHover</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#closeExportMenu" >closeExportMenu</a>
+                            </li>
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#getCellColor" >getCellColor</a>
+                            </li>
+                            <li>
+                                <a href="#getColX" >getColX</a>
+                            </li>
+                            <li>
+                                <a href="#getRowY" >getRowY</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#interpolateColor" >interpolateColor</a>
+                            </li>
+                            <li>
+                                <a href="#isColHighlighted" >isColHighlighted</a>
+                            </li>
+                            <li>
+                                <a href="#isDimmed" >isDimmed</a>
+                            </li>
+                            <li>
+                                <a href="#isRowHighlighted" >isRowHighlighted</a>
+                            </li>
+                            <li>
+                                <a href="#onCellClick" >onCellClick</a>
+                            </li>
+                            <li>
+                                <a href="#onCellEnter" >onCellEnter</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onKeyDown" >onKeyDown</a>
+                            </li>
+                            <li>
+                                <a href="#onQueryAttention" >onQueryAttention</a>
+                            </li>
+                            <li>
+                                <a href="#toggleExportMenu" >toggleExportMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#headLabels" >headLabels</a>
+                            </li>
+                            <li>
+                                <a href="#heads" >heads</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#subtitle" >subtitle</a>
+                            </li>
+                            <li>
+                                <a href="#title" >title</a>
+                            </li>
+                            <li>
+                                <a href="#tokensX" >tokensX</a>
+                            </li>
+                            <li>
+                                <a href="#tokensY" >tokensY</a>
+                            </li>
+                            <li>
+                                <a href="#weights" >weights</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#agentQueryRequest" >agentQueryRequest</a>
+                            </li>
+                            <li>
+                                <a href="#cellClick" >cellClick</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;#f1f5f9&#x27;, &#x27;#ec4899&#x27;]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="439" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:439</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="headLabels"></a>
+                        <b>headLabels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="446" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:446</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="heads"></a>
+                        <b>heads</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[][][] | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="445" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:445</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>350</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="438" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:438</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="440" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:440</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subtitle"></a>
+                        <b>subtitle</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="442" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:442</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="title"></a>
+                        <b>title</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Transformer Attention Heatmap&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="441" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:441</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tokensX"></a>
+                        <b>tokensX</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="435" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:435</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tokensY"></a>
+                        <b>tokensY</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="436" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:436</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="weights"></a>
+                        <b>weights</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[][]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="437" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:437</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="agentQueryRequest"></a>
+                        <b>agentQueryRequest</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>{ query: string; tokenY: string; tokenX: string; weight: number }</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="449" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:449</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="cellClick"></a>
+                        <b>cellClick</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>{ row: number; col: number; weight: number }</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="448" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:448</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="698"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:698</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearHover"></a>
+                    <span class="name">
+                        <span ><b>clearHover</b></span>
+                        <a href="#clearHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearHover()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="620"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:620</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeExportMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>closeExportMenu</b></span>
+                        <a href="#closeExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeExportMenu()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="698"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:698</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="725"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:725</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="710"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:710</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="762"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:762</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="744"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:744</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCellColor"></a>
+                    <span class="name">
+                        <span ><b>getCellColor</b></span>
+                        <a href="#getCellColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCellColor(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="533"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:533</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getColX"></a>
+                    <span class="name">
+                        <span ><b>getColX</b></span>
+                        <a href="#getColX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getColX(colIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="525"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:525</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>colIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRowY"></a>
+                    <span class="name">
+                        <span ><b>getRowY</b></span>
+                        <a href="#getRowY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRowY(rowIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="529"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:529</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rowIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="interpolateColor"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>interpolateColor</b></span>
+                        <a href="#interpolateColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>interpolateColor(color1: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, color2: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, fraction: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="538"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:538</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color1</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>color2</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fraction</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isColHighlighted"></a>
+                    <span class="name">
+                        <span ><b>isColHighlighted</b></span>
+                        <a href="#isColHighlighted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isColHighlighted(cIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="566"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:566</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDimmed"></a>
+                    <span class="name">
+                        <span ><b>isDimmed</b></span>
+                        <a href="#isDimmed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isDimmed(rIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, cIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="570"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:570</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRowHighlighted"></a>
+                    <span class="name">
+                        <span ><b>isRowHighlighted</b></span>
+                        <a href="#isRowHighlighted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isRowHighlighted(rIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="562"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:562</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCellClick"></a>
+                    <span class="name">
+                        <span ><b>onCellClick</b></span>
+                        <a href="#onCellClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCellClick(rIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, cIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="626"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:626</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCellEnter"></a>
+                    <span class="name">
+                        <span ><b>onCellEnter</b></span>
+                        <a href="#onCellEnter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCellEnter(rIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, cIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="595"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:595</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: "json" | "csv" | "svg" | "pdf")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="702"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:702</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;json&quot; | &quot;csv&quot; | &quot;svg&quot; | &quot;pdf&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onKeyDown"></a>
+                    <span class="name">
+                        <span ><b>onKeyDown</b></span>
+                        <a href="#onKeyDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onKeyDown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="643"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:643</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>KeyboardEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onQueryAttention"></a>
+                    <span class="name">
+                        <span ><b>onQueryAttention</b></span>
+                        <a href="#onQueryAttention"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onQueryAttention(row: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, col: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="630"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:630</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>col</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleExportMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleExportMenu</b></span>
+                        <a href="#toggleExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleExportMenu(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="692"
+                                    class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:692</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeHeadIndex"></a>
+                    <span class="name">
+                        <span ><b>activeHeadIndex</b></span>
+                        <a href="#activeHeadIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="452" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:452</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeWeights"></a>
+                    <span class="name">
+                        <span ><b>activeWeights</b></span>
+                        <a href="#activeWeights"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const h &#x3D; this.heads();
+    if (h &amp;&amp; h.length &gt; 0) {
+      const idx &#x3D; Math.min(this.activeHeadIndex(), h.length - 1);
+      return h[idx];
+    }
+    return this.weights();
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="455" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:455</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cellHeight"></a>
+                    <span class="name">
+                        <span ><b>cellHeight</b></span>
+                        <a href="#cellHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const rows &#x3D; this.tokensY().length || 1;
+    const availableHeight &#x3D; this.height() - this.topOffset - 20;
+    return Math.max(16, availableHeight / rows);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="500" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:500</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cellSpacing"></a>
+                    <span class="name">
+                        <span ><b>cellSpacing</b></span>
+                        <a href="#cellSpacing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>2.5</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="492" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:492</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cellWidth"></a>
+                    <span class="name">
+                        <span ><b>cellWidth</b></span>
+                        <a href="#cellWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const cols &#x3D; this.tokensX().length || 1;
+    const availableWidth &#x3D; Math.max(200, this.height() * 1.45 - this.leftOffset - this.rightOffset);
+    return Math.max(16, availableWidth / cols);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="494" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:494</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>exportMenuOpen</b></span>
+                        <a href="#exportMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="481" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:481</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="focusedCol"></a>
+                    <span class="name">
+                        <span ><b>focusedCol</b></span>
+                        <a href="#focusedCol"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="470" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:470</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="focusedRow"></a>
+                    <span class="name">
+                        <span ><b>focusedRow</b></span>
+                        <a href="#focusedRow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="469" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:469</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gradientId"></a>
+                    <span class="name">
+                        <span ><b>gradientId</b></span>
+                        <a href="#gradientId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;attn-gradient-${this.instanceId}&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="486" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:486</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredCol"></a>
+                    <span class="name">
+                        <span ><b>hoveredCol</b></span>
+                        <a href="#hoveredCol"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="466" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:466</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredRow"></a>
+                    <span class="name">
+                        <span ><b>hoveredRow</b></span>
+                        <a href="#hoveredRow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="465" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:465</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instanceCounter"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Static</span>
+                        <span ><b>instanceCounter</b></span>
+                        <a href="#instanceCounter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="432" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:432</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instanceId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>instanceId</b></span>
+                        <a href="#instanceId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>++TransformerAttentionHeatmapComponent.instanceCounter</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="433" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:433</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="leftOffset"></a>
+                    <span class="name">
+                        <span ><b>leftOffset</b></span>
+                        <a href="#leftOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>80</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="489" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:489</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="legendHeight"></a>
+                    <span class="name">
+                        <span ><b>legendHeight</b></span>
+                        <a href="#legendHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const rows &#x3D; this.tokensY().length || 1;
+    return rows * this.cellHeight();
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="512" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:512</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="legendX"></a>
+                    <span class="name">
+                        <span ><b>legendX</b></span>
+                        <a href="#legendX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const cols &#x3D; this.tokensX().length || 1;
+    return this.leftOffset + cols * this.cellWidth() + 16;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="507" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:507</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rightOffset"></a>
+                    <span class="name">
+                        <span ><b>rightOffset</b></span>
+                        <a href="#rightOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>50</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="491" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:491</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="483" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:483</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;{ show: boolean; row: number; col: number; title: string; value: string; x: number; y: number }&gt;({
+    show: false,
+    row: -1,
+    col: -1,
+    title: &#x27;&#x27;,
+    value: &#x27;&#x27;,
+    x: 0,
+    y: 0
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="472" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:472</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="topOffset"></a>
+                    <span class="name">
+                        <span ><b>topOffset</b></span>
+                        <a href="#topOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>70</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="490" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:490</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewBoxString"></a>
+                    <span class="name">
+                        <span ><b>viewBoxString</b></span>
+                        <a href="#viewBoxString"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const cols &#x3D; this.tokensX().length || 1;
+    const rows &#x3D; this.tokensY().length || 1;
+    const width &#x3D; this.leftOffset + cols * this.cellWidth() + this.rightOffset;
+    const height &#x3D; this.topOffset + rows * this.cellHeight() + 20;
+    return &#x60;0 0 ${width} ${height}&#x60;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="517" class="link-to-prism">projects/ngx-core-components/charts/transformer-attention-heatmap/transformer-attention-heatmap.component.ts:517</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, input, output, signal, computed, ChangeDetectionStrategy,
+  ElementRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;ngx-transformer-attention-heatmap&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-attention-wrapper&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;
+          &lt;div class&#x3D;&quot;heatmap-title&quot;&gt;{{ title() }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;heatmap-subtitle&quot;&gt;
+            @if (subtitle()) {
+              {{ subtitle() }}
+            } @else {
+              Matrix Size: &lt;span class&#x3D;&quot;highlight-val&quot;&gt;{{ tokensY().length }} x {{ tokensX().length }}&lt;/span&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      @if (heads() &amp;&amp; heads()!.length &gt; 1) {
+        &lt;div class&#x3D;&quot;head-selector&quot;&gt;
+          @for (head of heads()!; track $index; let i &#x3D; $index) {
+            &lt;button
+              class&#x3D;&quot;head-btn&quot;
+              [class.active]&#x3D;&quot;activeHeadIndex() &#x3D;&#x3D;&#x3D; i&quot;
+              (click)&#x3D;&quot;activeHeadIndex.set(i)&quot;
+            &gt;
+              {{ headLabels()[i] || &#x27;Head &#x27; + (i + 1) }}
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+      }
+
+      &lt;div class&#x3D;&quot;ngx-attention-container&quot; [style.height.px]&#x3D;&quot;height()&quot;&gt;
+        &lt;!-- SVG Grid rendering --&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;ngx-attention-svg&quot;
+          [attr.viewBox]&#x3D;&quot;viewBoxString()&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+          tabindex&#x3D;&quot;0&quot;
+          (keydown)&#x3D;&quot;onKeyDown($event)&quot;
+        &gt;
+          &lt;!-- Color Scale Gradient Definition --&gt;
+          &lt;defs&gt;
+            &lt;linearGradient [attr.id]&#x3D;&quot;gradientId&quot; x1&#x3D;&quot;0&quot; y1&#x3D;&quot;1&quot; x2&#x3D;&quot;0&quot; y2&#x3D;&quot;0&quot;&gt;
+              &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;colors()[0]&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;colors()[1]&quot; /&gt;
+            &lt;/linearGradient&gt;
+          &lt;/defs&gt;
+          &lt;!-- Y-axis Label Tokens (Left) --&gt;
+          @for (yTok of tokensY(); track $index; let rIdx &#x3D; $index) {
+            &lt;text
+              [attr.x]&#x3D;&quot;leftOffset - 12&quot;
+              [attr.y]&#x3D;&quot;getRowY(rIdx) + cellHeight() / 2&quot;
+              class&#x3D;&quot;token-label y-token-label&quot;
+              [class.highlighted]&#x3D;&quot;isRowHighlighted(rIdx)&quot;
+              text-anchor&#x3D;&quot;end&quot;
+              dominant-baseline&#x3D;&quot;middle&quot;
+              (mouseenter)&#x3D;&quot;hoveredRow.set(rIdx)&quot;
+              (mouseleave)&#x3D;&quot;clearHover()&quot;
+            &gt;
+              {{ yTok }}
+            &lt;/text&gt;
+          }
+
+          &lt;!-- X-axis Label Tokens (Top, rotated for readability) --&gt;
+          @for (xTok of tokensX(); track $index; let cIdx &#x3D; $index) {
+            &lt;text
+              [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + (getColX(cIdx) + cellWidth() / 2) + &#x27;,&#x27; + (topOffset - 12) + &#x27;) rotate(-45)&#x27;&quot;
+              class&#x3D;&quot;token-label x-token-label&quot;
+              [class.highlighted]&#x3D;&quot;isColHighlighted(cIdx)&quot;
+              text-anchor&#x3D;&quot;start&quot;
+              (mouseenter)&#x3D;&quot;hoveredCol.set(cIdx)&quot;
+              (mouseleave)&#x3D;&quot;clearHover()&quot;
+            &gt;
+              {{ xTok }}
+            &lt;/text&gt;
+          }
+
+          &lt;!-- Attention Heatmap Cells --&gt;
+          @for (row of activeWeights(); track $index; let rIdx &#x3D; $index) {
+            @for (val of row; track $index; let cIdx &#x3D; $index) {
+              &lt;rect
+                [attr.x]&#x3D;&quot;getColX(cIdx)&quot;
+                [attr.y]&#x3D;&quot;getRowY(rIdx)&quot;
+                [attr.width]&#x3D;&quot;cellWidth() - cellSpacing&quot;
+                [attr.height]&#x3D;&quot;cellHeight() - cellSpacing&quot;
+                [attr.fill]&#x3D;&quot;getCellColor(val)&quot;
+                class&#x3D;&quot;attention-cell&quot;
+                [class.fade-dim]&#x3D;&quot;isDimmed(rIdx, cIdx)&quot;
+                [class.active-highlight]&#x3D;&quot;hoveredRow() &#x3D;&#x3D;&#x3D; rIdx &amp;&amp; hoveredCol() &#x3D;&#x3D;&#x3D; cIdx&quot;
+                [class.focused-cell]&#x3D;&quot;focusedRow() &#x3D;&#x3D;&#x3D; rIdx &amp;&amp; focusedCol() &#x3D;&#x3D;&#x3D; cIdx&quot;
+                [style.animation-delay]&#x3D;&quot;(rIdx * 0.03 + cIdx * 0.03) + &#x27;s&#x27;&quot;
+                (mouseenter)&#x3D;&quot;onCellEnter(rIdx, cIdx, val, $event)&quot;
+                (mouseleave)&#x3D;&quot;clearHover()&quot;
+                (click)&#x3D;&quot;onCellClick(rIdx, cIdx, val)&quot;
+                rx&#x3D;&quot;3&quot;
+                ry&#x3D;&quot;3&quot;
+              /&gt;
+            }
+          }
+
+          &lt;!-- Color Scale Legend Bar --&gt;
+          &lt;rect
+            [attr.x]&#x3D;&quot;legendX()&quot;
+            [attr.y]&#x3D;&quot;topOffset&quot;
+            [attr.width]&#x3D;&quot;15&quot;
+            [attr.height]&#x3D;&quot;legendHeight()&quot;
+            [attr.fill]&#x3D;&quot;&#x27;url(#&#x27; + gradientId + &#x27;)&#x27;&quot;
+            rx&#x3D;&quot;3&quot;
+            ry&#x3D;&quot;3&quot;
+            class&#x3D;&quot;legend-bar&quot;
+          /&gt;
+          &lt;text
+            [attr.x]&#x3D;&quot;legendX() + 7.5&quot;
+            [attr.y]&#x3D;&quot;topOffset - 6&quot;
+            text-anchor&#x3D;&quot;middle&quot;
+            class&#x3D;&quot;legend-label&quot;
+          &gt;High&lt;/text&gt;
+          &lt;text
+            [attr.x]&#x3D;&quot;legendX() + 7.5&quot;
+            [attr.y]&#x3D;&quot;topOffset + legendHeight() + 14&quot;
+            text-anchor&#x3D;&quot;middle&quot;
+            class&#x3D;&quot;legend-label&quot;
+          &gt;Low&lt;/text&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Dynamic Tooltip --&gt;
+        @if (tooltip().show) {
+          &lt;div
+            class&#x3D;&quot;attention-tooltip&quot;
+            [style.left.px]&#x3D;&quot;tooltip().x&quot;
+            [style.top.px]&#x3D;&quot;tooltip().y&quot;
+          &gt;
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ tooltip().title }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;colors()[1]&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Attention Weight&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ tooltip().value }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row action-row&quot;&gt;
+              &lt;button class&#x3D;&quot;tt-action-btn&quot; (click)&#x3D;&quot;onQueryAttention(tooltip().row, tooltip().col)&quot;&gt;
+                Analyze Attention Link
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-attention-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 16px 20px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+    .ngx-attention-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-attention-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .token-label {
+      font-size: 10px;
+      font-weight: 600;
+      fill: var(--text-secondary, #64748b);
+      font-family: inherit;
+      cursor: pointer;
+      transition: fill 0.15s, font-weight 0.15s;
+    }
+    .token-label.highlighted, .token-label:hover {
+      fill: #4f46e5;
+      font-weight: 700;
+    }
+
+    @keyframes cellFade {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .attention-cell {
+      cursor: pointer;
+      stroke: transparent;
+      stroke-width: 1px;
+      transform-origin: center;
+      animation: cellFade 0.4s ease-out both;
+      transition: opacity 0.2s, filter 0.2s, stroke 0.15s;
+    }
+    .attention-cell:hover, .attention-cell.active-highlight {
+      filter: brightness(1.15) drop-shadow(0 3px 6px rgba(236, 72, 153, 0.25));
+      stroke: #ec4899;
+      stroke-width: 1.5px;
+      opacity: 1 !important;
+    }
+    .attention-cell.fade-dim {
+      opacity: 0.25;
+    }
+    .attention-cell.focused-cell {
+      stroke: #facc15;
+      stroke-width: 2.5px;
+      filter: brightness(1.1) drop-shadow(0 0 6px rgba(250, 204, 21, 0.6));
+      opacity: 1 !important;
+    }
+
+    /* Legend bar */
+    .legend-bar {
+      stroke: var(--border-color, #e2e8f0);
+      stroke-width: 1px;
+    }
+    .legend-label {
+      font-size: 9px;
+      fill: var(--text-secondary, #64748b);
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    /* Head selector */
+    .head-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .head-btn {
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 999px;
+      background: var(--bg-secondary, #ffffff);
+      color: var(--text-secondary, #64748b);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .head-btn:hover {
+      border-color: #6366f1;
+      color: #4f46e5;
+    }
+    .head-btn.active {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #4f46e5;
+    }
+
+    /* SVG focus outline */
+    .ngx-attention-svg:focus {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .attention-tooltip {
+      position: absolute;
+      z-index: 100;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -115%);
+      min-width: 160px;
+      pointer-events: auto;
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .action-row {
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 6px;
+      justify-content: center;
+    }
+    .tt-action-btn {
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s;
+      width: 100%;
+    }
+    .tt-action-btn:hover {
+      background: #6366f1;
+    }
+
+    /* Header and titles */
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .heatmap-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary, #1e293b);
+    }
+    .heatmap-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      margin-top: 2px;
+    }
+    .highlight-val {
+      font-weight: 700;
+      color: #6366f1;
+      font-family: monospace;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  &#x60;]
+})
+export class TransformerAttentionHeatmapComponent {
+  private static instanceCounter &#x3D; 0;
+  private instanceId &#x3D; ++TransformerAttentionHeatmapComponent.instanceCounter;
+
+  tokensX &#x3D; input.required&lt;string[]&gt;();
+  tokensY &#x3D; input.required&lt;string[]&gt;();
+  weights &#x3D; input.required&lt;number[][]&gt;();
+  height &#x3D; input&lt;number&gt;(350);
+  colors &#x3D; input&lt;string[]&gt;([&#x27;#f1f5f9&#x27;, &#x27;#ec4899&#x27;]); // Pink attention weights scale
+  showExport &#x3D; input&lt;boolean&gt;(true);
+  title &#x3D; input&lt;string&gt;(&#x27;Transformer Attention Heatmap&#x27;);
+  subtitle &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+
+  // Multi-head attention inputs
+  heads &#x3D; input&lt;number[][][] | null&gt;(null);
+  headLabels &#x3D; input&lt;string[]&gt;([]);
+
+  cellClick &#x3D; output&lt;{ row: number; col: number; weight: number }&gt;();
+  agentQueryRequest &#x3D; output&lt;{ query: string; tokenY: string; tokenX: string; weight: number }&gt;();
+
+  // Multi-head state
+  activeHeadIndex &#x3D; signal&lt;number&gt;(0);
+
+  // Active weights: use selected head when heads() is set, otherwise fall back to weights()
+  activeWeights &#x3D; computed(() &#x3D;&gt; {
+    const h &#x3D; this.heads();
+    if (h &amp;&amp; h.length &gt; 0) {
+      const idx &#x3D; Math.min(this.activeHeadIndex(), h.length - 1);
+      return h[idx];
+    }
+    return this.weights();
+  });
+
+  // Hover states for bi-directional highlighting
+  hoveredRow &#x3D; signal&lt;number | null&gt;(null);
+  hoveredCol &#x3D; signal&lt;number | null&gt;(null);
+
+  // Keyboard navigation focus
+  focusedRow &#x3D; signal&lt;number | null&gt;(null);
+  focusedCol &#x3D; signal&lt;number | null&gt;(null);
+  
+  tooltip &#x3D; signal&lt;{ show: boolean; row: number; col: number; title: string; value: string; x: number; y: number }&gt;({
+    show: false,
+    row: -1,
+    col: -1,
+    title: &#x27;&#x27;,
+    value: &#x27;&#x27;,
+    x: 0,
+    y: 0
+  });
+  exportMenuOpen &#x3D; signal(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  // Unique gradient ID for this instance
+  gradientId &#x3D; &#x60;attn-gradient-${this.instanceId}&#x60;;
+
+  // Dimensions
+  leftOffset &#x3D; 80;
+  topOffset &#x3D; 70;
+  rightOffset &#x3D; 50; // space for legend bar
+  cellSpacing &#x3D; 2.5;
+
+  cellWidth &#x3D; computed(() &#x3D;&gt; {
+    const cols &#x3D; this.tokensX().length || 1;
+    const availableWidth &#x3D; Math.max(200, this.height() * 1.45 - this.leftOffset - this.rightOffset);
+    return Math.max(16, availableWidth / cols);
+  });
+
+  cellHeight &#x3D; computed(() &#x3D;&gt; {
+    const rows &#x3D; this.tokensY().length || 1;
+    const availableHeight &#x3D; this.height() - this.topOffset - 20;
+    return Math.max(16, availableHeight / rows);
+  });
+
+  // Legend position and size
+  legendX &#x3D; computed(() &#x3D;&gt; {
+    const cols &#x3D; this.tokensX().length || 1;
+    return this.leftOffset + cols * this.cellWidth() + 16;
+  });
+
+  legendHeight &#x3D; computed(() &#x3D;&gt; {
+    const rows &#x3D; this.tokensY().length || 1;
+    return rows * this.cellHeight();
+  });
+
+  viewBoxString &#x3D; computed(() &#x3D;&gt; {
+    const cols &#x3D; this.tokensX().length || 1;
+    const rows &#x3D; this.tokensY().length || 1;
+    const width &#x3D; this.leftOffset + cols * this.cellWidth() + this.rightOffset;
+    const height &#x3D; this.topOffset + rows * this.cellHeight() + 20;
+    return &#x60;0 0 ${width} ${height}&#x60;;
+  });
+
+  getColX(colIdx: number): number {
+    return this.leftOffset + colIdx * this.cellWidth();
+  }
+
+  getRowY(rowIdx: number): number {
+    return this.topOffset + rowIdx * this.cellHeight();
+  }
+
+  getCellColor(val: number): string {
+    // Interpolates from colors[0] (low attention) to colors[1] (high attention)
+    return this.interpolateColor(this.colors()[0], this.colors()[1], val);
+  }
+
+  private interpolateColor(color1: string, color2: string, fraction: number): string {
+    const hex &#x3D; (x: string) &#x3D;&gt; {
+      const h &#x3D; x.replace(&#x27;#&#x27;, &#x27;&#x27;);
+      return h.length &#x3D;&#x3D;&#x3D; 3 ? h.split(&#x27;&#x27;).map(c &#x3D;&gt; c + c).join(&#x27;&#x27;) : h;
+    };
+    const c1 &#x3D; hex(color1);
+    const c2 &#x3D; hex(color2);
+
+    const r1 &#x3D; parseInt(c1.substring(0, 2), 16);
+    const g1 &#x3D; parseInt(c1.substring(2, 4), 16);
+    const b1 &#x3D; parseInt(c1.substring(4, 6), 16);
+
+    const r2 &#x3D; parseInt(c2.substring(0, 2), 16);
+    const g2 &#x3D; parseInt(c2.substring(2, 4), 16);
+    const b2 &#x3D; parseInt(c2.substring(4, 6), 16);
+
+    const r &#x3D; Math.round(r1 + (r2 - r1) * fraction);
+    const g &#x3D; Math.round(g1 + (g2 - g1) * fraction);
+    const b &#x3D; Math.round(b1 + (b2 - b1) * fraction);
+
+    return &#x60;#${r.toString(16).padStart(2, &#x27;0&#x27;)}${g.toString(16).padStart(2, &#x27;0&#x27;)}${b.toString(16).padStart(2, &#x27;0&#x27;)}&#x60;;
+  }
+
+  // Row and Column Bi-directional highlighting logic
+  isRowHighlighted(rIdx: number): boolean {
+    return this.hoveredRow() &#x3D;&#x3D;&#x3D; rIdx;
+  }
+
+  isColHighlighted(cIdx: number): boolean {
+    return this.hoveredCol() &#x3D;&#x3D;&#x3D; cIdx;
+  }
+
+  isDimmed(rIdx: number, cIdx: number): boolean {
+    const hr &#x3D; this.hoveredRow();
+    const hc &#x3D; this.hoveredCol();
+    const fr &#x3D; this.focusedRow();
+    const fc &#x3D; this.focusedCol();
+
+    // If both hover and focus are inactive, no dimming
+    if (hr &#x3D;&#x3D;&#x3D; null &amp;&amp; hc &#x3D;&#x3D;&#x3D; null &amp;&amp; fr &#x3D;&#x3D;&#x3D; null &amp;&amp; fc &#x3D;&#x3D;&#x3D; null) return false;
+
+    // Hover takes priority for dimming
+    if (hr !&#x3D;&#x3D; null || hc !&#x3D;&#x3D; null) {
+      if (hr !&#x3D;&#x3D; null &amp;&amp; hc !&#x3D;&#x3D; null) {
+        return hr !&#x3D;&#x3D; rIdx || hc !&#x3D;&#x3D; cIdx;
+      }
+      if (hr !&#x3D;&#x3D; null) return hr !&#x3D;&#x3D; rIdx;
+      if (hc !&#x3D;&#x3D; null) return hc !&#x3D;&#x3D; cIdx;
+    }
+
+    // Keyboard focus dimming
+    if (fr !&#x3D;&#x3D; null &amp;&amp; fc !&#x3D;&#x3D; null) {
+      return fr !&#x3D;&#x3D; rIdx || fc !&#x3D;&#x3D; cIdx;
+    }
+    return false;
+  }
+
+  onCellEnter(rIdx: number, cIdx: number, val: number, event: MouseEvent): void {
+    this.hoveredRow.set(rIdx);
+    this.hoveredCol.set(cIdx);
+
+    const xLabel &#x3D; this.tokensX()[cIdx] || &#x27;&#x27;;
+    const yLabel &#x3D; this.tokensY()[rIdx] || &#x27;&#x27;;
+    const title &#x3D; &#x60;&quot;${yLabel}&quot; ➔ &quot;${xLabel}&quot;&#x60;;
+
+    const rect &#x3D; (event.currentTarget as SVGRectElement).getBoundingClientRect();
+    const parentRect &#x3D; (event.currentTarget as SVGRectElement).ownerSVGElement!.parentElement!.getBoundingClientRect();
+    
+    const x &#x3D; rect.left - parentRect.left + rect.width / 2;
+    const y &#x3D; rect.top - parentRect.top;
+
+    this.tooltip.set({
+      show: true,
+      row: rIdx,
+      col: cIdx,
+      title,
+      value: &#x60;${(val * 100).toFixed(1)}%&#x60;,
+      x,
+      y
+    });
+  }
+
+  clearHover(): void {
+    this.hoveredRow.set(null);
+    this.hoveredCol.set(null);
+    this.tooltip.update(t &#x3D;&gt; ({ ...t, show: false }));
+  }
+
+  onCellClick(rIdx: number, cIdx: number, val: number): void {
+    this.cellClick.emit({ row: rIdx, col: cIdx, weight: val });
+  }
+
+  onQueryAttention(row: number, col: number): void {
+    const tokenY &#x3D; this.tokensY()[row];
+    const tokenX &#x3D; this.tokensX()[col];
+    const val &#x3D; this.activeWeights()[row]?.[col] ?? 0;
+    this.agentQueryRequest.emit({
+      query: &#x60;Analyze transformer attention relationship between Y token &quot;${tokenY}&quot; and X token &quot;${tokenX}&quot; with score ${(val * 100).toFixed(1)}%.&#x60;,
+      tokenY,
+      tokenX,
+      weight: val
+    });
+  }
+
+  // Keyboard navigation
+  onKeyDown(event: KeyboardEvent): void {
+    const rows &#x3D; this.tokensY().length;
+    const cols &#x3D; this.tokensX().length;
+    if (rows &#x3D;&#x3D;&#x3D; 0 || cols &#x3D;&#x3D;&#x3D; 0) return;
+
+    let fr &#x3D; this.focusedRow();
+    let fc &#x3D; this.focusedCol();
+
+    switch (event.key) {
+      case &#x27;ArrowDown&#x27;:
+        event.preventDefault();
+        if (fr &#x3D;&#x3D;&#x3D; null || fc &#x3D;&#x3D;&#x3D; null) { this.focusedRow.set(0); this.focusedCol.set(0); }
+        else { this.focusedRow.set(Math.min(fr + 1, rows - 1)); }
+        break;
+      case &#x27;ArrowUp&#x27;:
+        event.preventDefault();
+        if (fr &#x3D;&#x3D;&#x3D; null || fc &#x3D;&#x3D;&#x3D; null) { this.focusedRow.set(0); this.focusedCol.set(0); }
+        else { this.focusedRow.set(Math.max(fr - 1, 0)); }
+        break;
+      case &#x27;ArrowRight&#x27;:
+        event.preventDefault();
+        if (fr &#x3D;&#x3D;&#x3D; null || fc &#x3D;&#x3D;&#x3D; null) { this.focusedRow.set(0); this.focusedCol.set(0); }
+        else { this.focusedCol.set(Math.min(fc + 1, cols - 1)); }
+        break;
+      case &#x27;ArrowLeft&#x27;:
+        event.preventDefault();
+        if (fr &#x3D;&#x3D;&#x3D; null || fc &#x3D;&#x3D;&#x3D; null) { this.focusedRow.set(0); this.focusedCol.set(0); }
+        else { this.focusedCol.set(Math.max(fc - 1, 0)); }
+        break;
+      case &#x27;Enter&#x27;:
+      case &#x27; &#x27;:
+        event.preventDefault();
+        fr &#x3D; this.focusedRow();
+        fc &#x3D; this.focusedCol();
+        if (fr !&#x3D;&#x3D; null &amp;&amp; fc !&#x3D;&#x3D; null) {
+          const w &#x3D; this.activeWeights();
+          const val &#x3D; w[fr]?.[fc] ?? 0;
+          this.cellClick.emit({ row: fr, col: fc, weight: val });
+        }
+        break;
+      case &#x27;Escape&#x27;:
+        this.focusedRow.set(null);
+        this.focusedCol.set(null);
+        break;
+      default:
+        return; // don&#x27;t prevent default for other keys
+    }
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const payload &#x3D; {
+      tokensX: this.tokensX(),
+      tokensY: this.tokensY(),
+      weights: this.activeWeights()
+    };
+    const blob &#x3D; new Blob([JSON.stringify(payload, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;attention-heatmap-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    const xTok &#x3D; this.tokensX();
+    const yTok &#x3D; this.tokensY();
+    const matrix &#x3D; this.activeWeights();
+    let csv &#x3D; &#x27;Y_Token,X_Token,Weight\n&#x27;;
+    matrix.forEach((row, rIdx) &#x3D;&gt; {
+      row.forEach((val, cIdx) &#x3D;&gt; {
+        csv +&#x3D; &#x60;&quot;${yTok[rIdx]}&quot;,&quot;${xTok[cIdx]}&quot;,${val}\n&#x60;;
+      });
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;attention-heatmap-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;attention-heatmap.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) return;
+    const svgString &#x3D; new XMLSerializer().serializeToString(svg);
+    printWindow.document.write(&#x60;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;Export PDF&lt;/title&gt;
+          &lt;style&gt;
+            body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: white; }
+            svg { width: 100%; height: auto; }
+          &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          ${svgString}
+          &lt;script&gt;
+            window.onload &#x3D; () &#x3D;&gt; { window.print(); window.close(); };
+          &lt;/script&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;);
+    printWindow.document.close();
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-attention-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 16px 20px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+    .ngx-attention-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-attention-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .token-label {
+      font-size: 10px;
+      font-weight: 600;
+      fill: var(--text-secondary, #64748b);
+      font-family: inherit;
+      cursor: pointer;
+      transition: fill 0.15s, font-weight 0.15s;
+    }
+    .token-label.highlighted, .token-label:hover {
+      fill: #4f46e5;
+      font-weight: 700;
+    }
+
+    @keyframes cellFade {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .attention-cell {
+      cursor: pointer;
+      stroke: transparent;
+      stroke-width: 1px;
+      transform-origin: center;
+      animation: cellFade 0.4s ease-out both;
+      transition: opacity 0.2s, filter 0.2s, stroke 0.15s;
+    }
+    .attention-cell:hover, .attention-cell.active-highlight {
+      filter: brightness(1.15) drop-shadow(0 3px 6px rgba(236, 72, 153, 0.25));
+      stroke: #ec4899;
+      stroke-width: 1.5px;
+      opacity: 1 !important;
+    }
+    .attention-cell.fade-dim {
+      opacity: 0.25;
+    }
+    .attention-cell.focused-cell {
+      stroke: #facc15;
+      stroke-width: 2.5px;
+      filter: brightness(1.1) drop-shadow(0 0 6px rgba(250, 204, 21, 0.6));
+      opacity: 1 !important;
+    }
+
+    /* Legend bar */
+    .legend-bar {
+      stroke: var(--border-color, #e2e8f0);
+      stroke-width: 1px;
+    }
+    .legend-label {
+      font-size: 9px;
+      fill: var(--text-secondary, #64748b);
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    /* Head selector */
+    .head-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .head-btn {
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 999px;
+      background: var(--bg-secondary, #ffffff);
+      color: var(--text-secondary, #64748b);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .head-btn:hover {
+      border-color: #6366f1;
+      color: #4f46e5;
+    }
+    .head-btn.active {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #4f46e5;
+    }
+
+    /* SVG focus outline */
+    .ngx-attention-svg:focus {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .attention-tooltip {
+      position: absolute;
+      z-index: 100;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -115%);
+      min-width: 160px;
+      pointer-events: auto;
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .action-row {
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 6px;
+      justify-content: center;
+    }
+    .tt-action-btn {
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s;
+      width: 100%;
+    }
+    .tt-action-btn:hover {
+      background: #6366f1;
+    }
+
+    /* Header and titles */
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .heatmap-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary, #1e293b);
+    }
+    .heatmap-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      margin-top: 2px;
+    }
+    .highlight-val {
+      font-weight: 700;
+      color: #6366f1;
+      font-family: monospace;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-attention-wrapper">  <div class="chart-header" (mousemove)="$event.stopPropagation()">    <div class="chart-title-space">      <div class="heatmap-title">{{ title() }}</div>      <div class="heatmap-subtitle">        @if (subtitle()) {          {{ subtitle() }}        } @else {          Matrix Size: <span class="highlight-val">{{ tokensY().length }} x {{ tokensX().length }}</span>        }      </div>    </div>    @if (showExport()) {      <div class="chart-export-menu">        <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>        @if (exportMenuOpen()) {          <div class="export-dropdown">            <button (click)="onExport(\'json\')">📊 Export JSON</button>            <button (click)="onExport(\'csv\')">📄 Export CSV</button>            <button (click)="onExport(\'svg\')">🖼️ Export SVG</button>            <button (click)="onExport(\'pdf\')">📕 Export PDF</button>          </div>        }      </div>    }  </div>  @if (heads() && heads()!.length > 1) {    <div class="head-selector">      @for (head of heads()!; track $index; let i = $index) {        <button          class="head-btn"          [class.active]="activeHeadIndex() === i"          (click)="activeHeadIndex.set(i)"        >          {{ headLabels()[i] || \'Head \' + (i + 1) }}        </button>      }    </div>  }  <div class="ngx-attention-container" [style.height.px]="height()">    <!-- SVG Grid rendering -->    <svg      #svgEl      class="ngx-attention-svg"      [attr.viewBox]="viewBoxString()"      [attr.height]="height()"      tabindex="0"      (keydown)="onKeyDown($event)"    >      <!-- Color Scale Gradient Definition -->      <defs>        <linearGradient [attr.id]="gradientId" x1="0" y1="1" x2="0" y2="0">          <stop offset="0%" [attr.stop-color]="colors()[0]" />          <stop offset="100%" [attr.stop-color]="colors()[1]" />        </linearGradient>      </defs>      <!-- Y-axis Label Tokens (Left) -->      @for (yTok of tokensY(); track $index; let rIdx = $index) {        <text          [attr.x]="leftOffset - 12"          [attr.y]="getRowY(rIdx) + cellHeight() / 2"          class="token-label y-token-label"          [class.highlighted]="isRowHighlighted(rIdx)"          text-anchor="end"          dominant-baseline="middle"          (mouseenter)="hoveredRow.set(rIdx)"          (mouseleave)="clearHover()"        >          {{ yTok }}        </text>      }      <!-- X-axis Label Tokens (Top, rotated for readability) -->      @for (xTok of tokensX(); track $index; let cIdx = $index) {        <text          [attr.transform]="\'translate(\' + (getColX(cIdx) + cellWidth() / 2) + \',\' + (topOffset - 12) + \') rotate(-45)\'"          class="token-label x-token-label"          [class.highlighted]="isColHighlighted(cIdx)"          text-anchor="start"          (mouseenter)="hoveredCol.set(cIdx)"          (mouseleave)="clearHover()"        >          {{ xTok }}        </text>      }      <!-- Attention Heatmap Cells -->      @for (row of activeWeights(); track $index; let rIdx = $index) {        @for (val of row; track $index; let cIdx = $index) {          <rect            [attr.x]="getColX(cIdx)"            [attr.y]="getRowY(rIdx)"            [attr.width]="cellWidth() - cellSpacing"            [attr.height]="cellHeight() - cellSpacing"            [attr.fill]="getCellColor(val)"            class="attention-cell"            [class.fade-dim]="isDimmed(rIdx, cIdx)"            [class.active-highlight]="hoveredRow() === rIdx && hoveredCol() === cIdx"            [class.focused-cell]="focusedRow() === rIdx && focusedCol() === cIdx"            [style.animation-delay]="(rIdx * 0.03 + cIdx * 0.03) + \'s\'"            (mouseenter)="onCellEnter(rIdx, cIdx, val, $event)"            (mouseleave)="clearHover()"            (click)="onCellClick(rIdx, cIdx, val)"            rx="3"            ry="3"          />        }      }      <!-- Color Scale Legend Bar -->      <rect        [attr.x]="legendX()"        [attr.y]="topOffset"        [attr.width]="15"        [attr.height]="legendHeight()"        [attr.fill]="\'url(#\' + gradientId + \')\'"        rx="3"        ry="3"        class="legend-bar"      />      <text        [attr.x]="legendX() + 7.5"        [attr.y]="topOffset - 6"        text-anchor="middle"        class="legend-label"      >High</text>      <text        [attr.x]="legendX() + 7.5"        [attr.y]="topOffset + legendHeight() + 14"        text-anchor="middle"        class="legend-label"      >Low</text>    </svg>    <!-- Dynamic Tooltip -->    @if (tooltip().show) {      <div        class="attention-tooltip"        [style.left.px]="tooltip().x"        [style.top.px]="tooltip().y"      >        <div class="tt-cat">{{ tooltip().title }}</div>        <div class="tt-row">          <span class="tt-dot" [style.background]="colors()[1]"></span>          <span class="tt-name">Attention Weight</span>          <span class="tt-val">{{ tooltip().value }}</span>        </div>        <div class="tt-row action-row">          <button class="tt-action-btn" (click)="onQueryAttention(tooltip().row, tooltip().col)">            Analyze Attention Link          </button>        </div>      </div>    }  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'TransformerAttentionHeatmapComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TransformerAttentionHeatmapComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

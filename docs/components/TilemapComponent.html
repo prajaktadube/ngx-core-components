@@ -1,0 +1,3080 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TilemapComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/tilemap/tilemap.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-tilemap</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/common/NgTemplateOutlet" target="_blank" >NgTemplateOutlet</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-tilemap {
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngx-chart-axis-text, #64748b);
+    }
+    .tilemap-svg {
+      display: block;
+      overflow: visible;
+    }
+    .tile-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .tile-group.dimmed {
+      opacity: 0.3 !important;
+    }
+    .tile-element {
+      transition: transform 0.2s ease, filter 0.2s ease;
+      transform-origin: center;
+    }
+    .tile-group.highlighted .tile-element {
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+      transform: scale(1.05);
+      stroke: #0f172a !important;
+      stroke-width: 2px !important;
+      z-index: 10;
+    }
+    .tile-label {
+      font-size: 11px;
+      font-weight: 700;
+      pointer-events: none;
+      user-select: none;
+    }
+    .tile-sublabel {
+      font-size: 8.5px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .tt-info {
+      font-size: 10px;
+      color: #a7f3d0;
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 4px;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-tilemap&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+    &lt;div class&#x3D;&quot;header-info&quot;&gt;
+      &lt;span class&#x3D;&quot;header-title&quot;&gt;Grid Tilemap&lt;/span&gt;
+      &lt;span class&#x3D;&quot;header-subtitle&quot;&gt;Layout: {{ type() | titlecase }} Grid&lt;/span&gt;
+    &lt;/div&gt;
+
+    @if (showExport()) {
+      &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+        &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+        @if (exportMenuOpen()) {
+          &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;svg
+    #svgEl
+    class&#x3D;&quot;tilemap-svg&quot;
+    [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+    [attr.height]&#x3D;&quot;svgHeight()&quot;
+  &gt;
+    &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+      @for (tile of computedTiles(); track tile.index; let i &#x3D; $index) {
+        &lt;g
+          class&#x3D;&quot;tile-group&quot;
+          [class.dimmed]&#x3D;&quot;hoveredIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredIndex() !&#x3D;&#x3D; i&quot;
+          [class.highlighted]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i&quot;
+          (mouseenter)&#x3D;&quot;onTileHover(i)&quot;
+          (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+        &gt;
+          @if (type() &#x3D;&#x3D;&#x3D; &#x27;rect&#x27;) {
+            &lt;rect
+              [attr.x]&#x3D;&quot;tile.x&quot;
+              [attr.y]&#x3D;&quot;tile.y&quot;
+              [attr.width]&#x3D;&quot;tile.w&quot;
+              [attr.height]&#x3D;&quot;tile.h&quot;
+              [attr.fill]&#x3D;&quot;tile.color&quot;
+              stroke&#x3D;&quot;#ffffff&quot;
+              stroke-width&#x3D;&quot;1.5&quot;
+              rx&#x3D;&quot;6&quot;
+              ry&#x3D;&quot;6&quot;
+              class&#x3D;&quot;tile-element&quot;
+            /&gt;
+          } @else {
+            &lt;path
+              [attr.d]&#x3D;&quot;tile.pointsPath&quot;
+              [attr.fill]&#x3D;&quot;tile.color&quot;
+              stroke&#x3D;&quot;#ffffff&quot;
+              stroke-width&#x3D;&quot;1.5&quot;
+              class&#x3D;&quot;tile-element&quot;
+            /&gt;
+          }
+
+          @if (showLabels()) {
+            &lt;text
+              [attr.x]&#x3D;&quot;tile.x + tile.w / 2&quot;
+              [attr.y]&#x3D;&quot;tile.y + tile.h / 2 + 3&quot;
+              text-anchor&#x3D;&quot;middle&quot;
+              class&#x3D;&quot;tile-label&quot;
+              [attr.fill]&#x3D;&quot;getTextColor(tile.color)&quot;
+            &gt;
+              {{ tile.raw.label }}
+            &lt;/text&gt;
+            &lt;text
+              [attr.x]&#x3D;&quot;tile.x + tile.w / 2&quot;
+              [attr.y]&#x3D;&quot;tile.y + tile.h / 2 + 14&quot;
+              text-anchor&#x3D;&quot;middle&quot;
+              class&#x3D;&quot;tile-sublabel&quot;
+              [attr.fill]&#x3D;&quot;getTextColor(tile.color)&quot;
+              opacity&#x3D;&quot;0.8&quot;
+            &gt;
+              {{ formatNumber(tile.raw.value) }}
+            &lt;/text&gt;
+          }
+        &lt;/g&gt;
+      }
+    &lt;/g&gt;
+  &lt;/svg&gt;
+
+  &lt;!-- Glassmorphic Tooltip --&gt;
+  @if (tooltip(); as t) {
+    &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+      @if (tooltipTemplate()) {
+        &lt;ng-container
+          *ngTemplateOutlet&#x3D;&quot;tooltipTemplate()!; context: { $implicit: t }&quot;
+        &gt;&lt;/ng-container&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;Grid Pos&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;Row {{ t.r }}, Col {{ t.c }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+          &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ labelFormatter() ? labelFormatter()!(t.value) : formatNumber(t.value) }}&lt;/span&gt;
+        &lt;/div&gt;
+        @if (t.tooltipInfo) {
+          &lt;div class&#x3D;&quot;tt-info&quot;&gt;{{ t.tooltipInfo }}&lt;/div&gt;
+        }
+      }
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#computedTiles" >computedTiles</a>
+                            </li>
+                            <li>
+                                <a href="#containerWidth" >containerWidth</a>
+                            </li>
+                            <li>
+                                <a href="#exportMenuOpen" >exportMenuOpen</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredIndex" >hoveredIndex</a>
+                            </li>
+                            <li>
+                                <a href="#innerH" >innerH</a>
+                            </li>
+                            <li>
+                                <a href="#innerW" >innerW</a>
+                            </li>
+                            <li>
+                                <a href="#labelFormatter" >labelFormatter</a>
+                            </li>
+                            <li>
+                                <a href="#margin" >margin</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#svgHeight" >svgHeight</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipX" >tooltipX</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipY" >tooltipY</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#closeExportMenu" >closeExportMenu</a>
+                            </li>
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#formatNumber" >formatNumber</a>
+                            </li>
+                            <li>
+                                <a href="#getTextColor" >getTextColor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#interpolateColor" >interpolateColor</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseLeave" >onMouseLeave</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseMove" >onMouseMove</a>
+                            </li>
+                            <li>
+                                <a href="#onTileHover" >onTileHover</a>
+                            </li>
+                            <li>
+                                <a href="#toggleExportMenu" >toggleExportMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#showLabels" >showLabels</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipTemplate" >tooltipTemplate</a>
+                            </li>
+                            <li>
+                                <a href="#type" >type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="432" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:432</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CHART_COLORS</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="323" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:323</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <b>data</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TileItem.html" target="_self" >TileItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="320" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:320</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>350</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="322" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:322</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="325" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:325</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showLabels"></a>
+                        <b>showLabels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="324" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:324</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipTemplate"></a>
+                        <b>tooltipTemplate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>TemplateRef&lt;any&gt; | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="327" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:327</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="type"></a>
+                        <b>type</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;rect&quot; | &quot;hexagon&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;rect&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="321" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:321</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="521"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:521</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeExportMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>closeExportMenu</b></span>
+                        <a href="#closeExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeExportMenu()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="521"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:521</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="533"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:533</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="551"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:551</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="593"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:593</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="572"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:572</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatNumber"></a>
+                    <span class="name">
+                        <span ><b>formatNumber</b></span>
+                        <a href="#formatNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatNumber(v: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="645"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:645</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>v</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTextColor"></a>
+                    <span class="name">
+                        <span ><b>getTextColor</b></span>
+                        <a href="#getTextColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTextColor(bgColor: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="478"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:478</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>bgColor</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="interpolateColor"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>interpolateColor</b></span>
+                        <a href="#interpolateColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>interpolateColor(baseHex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, min: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, max: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="450"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:450</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>baseHex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>min</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>max</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: "json" | "csv" | "svg" | "pdf")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="525"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:525</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;json&quot; | &quot;csv&quot; | &quot;svg&quot; | &quot;pdf&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseLeave"></a>
+                    <span class="name">
+                        <span ><b>onMouseLeave</b></span>
+                        <a href="#onMouseLeave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseLeave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="510"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:510</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseMove"></a>
+                    <span class="name">
+                        <span ><b>onMouseMove</b></span>
+                        <a href="#onMouseMove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseMove(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="500"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:500</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTileHover"></a>
+                    <span class="name">
+                        <span ><b>onTileHover</b></span>
+                        <a href="#onTileHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTileHover(idx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="492"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:492</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleExportMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleExportMenu</b></span>
+                        <a href="#toggleExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleExportMenu(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="515"
+                                    class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:515</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedTiles"></a>
+                    <span class="name">
+                        <span ><b>computedTiles</b></span>
+                        <a href="#computedTiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;ComputedTile[]&gt;(() &#x3D;&gt; {
+    const raw &#x3D; this.data();
+    if (raw.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const rows &#x3D; raw.map(d &#x3D;&gt; d.r);
+    const cols &#x3D; raw.map(d &#x3D;&gt; d.c);
+
+    const minRow &#x3D; Math.min(...rows);
+    const maxRow &#x3D; Math.max(...rows);
+    const minCol &#x3D; Math.min(...cols);
+    const maxCol &#x3D; Math.max(...cols);
+
+    const rowCount &#x3D; maxRow - minRow + 1;
+    const colCount &#x3D; maxCol - minCol + 1;
+
+    const w &#x3D; this.innerW();
+    const h &#x3D; this.innerH();
+
+    const minVal &#x3D; Math.min(...raw.map(d &#x3D;&gt; d.value));
+    const maxVal &#x3D; Math.max(1, ...raw.map(d &#x3D;&gt; d.value));
+
+    // Colors mapping
+    const baseColor &#x3D; this.colors()[0] || &#x27;#4a90d9&#x27;;
+
+    if (this.type() &#x3D;&#x3D;&#x3D; &#x27;rect&#x27;) {
+      const cellW &#x3D; w / colCount;
+      const cellH &#x3D; h / rowCount;
+      const padding &#x3D; 4;
+
+      return raw.map((d, idx) &#x3D;&gt; {
+        const x &#x3D; (d.c - minCol) * cellW + padding / 2;
+        const y &#x3D; (d.r - minRow) * cellH + padding / 2;
+        const tileW &#x3D; cellW - padding;
+        const tileH &#x3D; cellH - padding;
+
+        return {
+          raw: d,
+          index: idx,
+          x,
+          y,
+          w: tileW,
+          h: tileH,
+          pointsPath: &#x27;&#x27;,
+          color: d.color || this.interpolateColor(baseColor, d.value, minVal, maxVal)
+        };
+      });
+    } else {
+      // Hexagonal layout
+      // Divide horizontal space by (colCount * 0.75 + 0.25)
+      const hexW &#x3D; w / (colCount * 0.75 + 0.25);
+      const hexH &#x3D; h / (rowCount + 0.5);
+      const padding &#x3D; 3;
+
+      // Hexagon radius
+      const radius &#x3D; Math.min(hexW / 2, hexH / Math.sqrt(3)) - padding / 2;
+
+      return raw.map((d, idx) &#x3D;&gt; {
+        const cx &#x3D; (d.c - minCol) * hexW * 0.75 + hexW / 2;
+        // Shift alternate columns vertically
+        const cy &#x3D; (d.r - minRow) * hexH + ((d.c - minCol) % 2 &#x3D;&#x3D;&#x3D; 0 ? 0 : hexH / 2) + hexH / 2;
+
+        // Draw hexagon corners path
+        let path &#x3D; &#x27;&#x27;;
+        for (let k &#x3D; 0; k &lt; 6; k++) {
+          const angleRad &#x3D; (k * 60 * Math.PI) / 180;
+          const x &#x3D; cx + radius * Math.cos(angleRad);
+          const y &#x3D; cy + radius * Math.sin(angleRad);
+          path +&#x3D; (k &#x3D;&#x3D;&#x3D; 0 ? &#x27;M&#x27; : &#x27;L&#x27;) + &#x60; ${x} ${y}&#x60;;
+        }
+        path +&#x3D; &#x27; Z&#x27;;
+
+        return {
+          raw: d,
+          index: idx,
+          x: cx - radius,
+          y: cy - radius,
+          w: radius * 2,
+          h: radius * 2,
+          pointsPath: path,
+          color: d.color || this.interpolateColor(baseColor, d.value, minVal, maxVal)
+        };
+      });
+    }
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="349" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:349</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="containerWidth"></a>
+                    <span class="name">
+                        <span ><b>containerWidth</b></span>
+                        <a href="#containerWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(500)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="329" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:329</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>exportMenuOpen</b></span>
+                        <a href="#exportMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="334" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:334</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredIndex"></a>
+                    <span class="name">
+                        <span ><b>hoveredIndex</b></span>
+                        <a href="#hoveredIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="330" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="innerH"></a>
+                    <span class="name">
+                        <span ><b>innerH</b></span>
+                        <a href="#innerH"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="347" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:347</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="innerW"></a>
+                    <span class="name">
+                        <span ><b>innerW</b></span>
+                        <a href="#innerW"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="346" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:346</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="labelFormatter"></a>
+                    <span class="name">
+                        <span ><b>labelFormatter</b></span>
+                        <a href="#labelFormatter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>input&lt;((v: number) &#x3D;&gt; string) | undefined&gt;(undefined)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="326" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:326</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="margin"></a>
+                    <span class="name">
+                        <span ><b>margin</b></span>
+                        <a href="#margin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; ({
+    top: 15,
+    right: 15,
+    bottom: 15,
+    left: 15
+  }))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="338" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:338</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="336" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:336</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgHeight"></a>
+                    <span class="name">
+                        <span ><b>svgHeight</b></span>
+                        <a href="#svgHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.height())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="345" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:345</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;any | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="331" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:331</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipX"></a>
+                    <span class="name">
+                        <span ><b>tooltipX</b></span>
+                        <a href="#tooltipX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="332" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipY"></a>
+                    <span class="name">
+                        <span ><b>tooltipY</b></span>
+                        <a href="#tooltipY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="333" class="link-to-prism">projects/ngx-core-components/charts/tilemap/tilemap.component.ts:333</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { CommonModule, NgTemplateOutlet } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, fmtNum, scale } from &#x27;../shared/chart-utils&#x27;;
+
+export interface TileItem {
+  r: number;
+  c: number;
+  label: string;
+  value: number;
+  color?: string;
+  tooltipInfo?: string;
+}
+
+export interface ComputedTile {
+  raw: TileItem;
+  index: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  pointsPath: string; // for hexagon
+  color: string;
+}
+
+@Component({
+  selector: &#x27;ngx-tilemap&#x27;,
+  standalone: true,
+  imports: [CommonModule, NgTemplateOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-tilemap&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;header-info&quot;&gt;
+          &lt;span class&#x3D;&quot;header-title&quot;&gt;Grid Tilemap&lt;/span&gt;
+          &lt;span class&#x3D;&quot;header-subtitle&quot;&gt;Layout: {{ type() | titlecase }} Grid&lt;/span&gt;
+        &lt;/div&gt;
+        
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;svg
+        #svgEl
+        class&#x3D;&quot;tilemap-svg&quot;
+        [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+        [attr.height]&#x3D;&quot;svgHeight()&quot;
+      &gt;
+        &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+          @for (tile of computedTiles(); track tile.index; let i &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;tile-group&quot;
+              [class.dimmed]&#x3D;&quot;hoveredIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredIndex() !&#x3D;&#x3D; i&quot;
+              [class.highlighted]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i&quot;
+              (mouseenter)&#x3D;&quot;onTileHover(i)&quot;
+              (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+            &gt;
+              @if (type() &#x3D;&#x3D;&#x3D; &#x27;rect&#x27;) {
+                &lt;rect
+                  [attr.x]&#x3D;&quot;tile.x&quot;
+                  [attr.y]&#x3D;&quot;tile.y&quot;
+                  [attr.width]&#x3D;&quot;tile.w&quot;
+                  [attr.height]&#x3D;&quot;tile.h&quot;
+                  [attr.fill]&#x3D;&quot;tile.color&quot;
+                  stroke&#x3D;&quot;#ffffff&quot;
+                  stroke-width&#x3D;&quot;1.5&quot;
+                  rx&#x3D;&quot;6&quot;
+                  ry&#x3D;&quot;6&quot;
+                  class&#x3D;&quot;tile-element&quot;
+                /&gt;
+              } @else {
+                &lt;path
+                  [attr.d]&#x3D;&quot;tile.pointsPath&quot;
+                  [attr.fill]&#x3D;&quot;tile.color&quot;
+                  stroke&#x3D;&quot;#ffffff&quot;
+                  stroke-width&#x3D;&quot;1.5&quot;
+                  class&#x3D;&quot;tile-element&quot;
+                /&gt;
+              }
+
+              @if (showLabels()) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;tile.x + tile.w / 2&quot;
+                  [attr.y]&#x3D;&quot;tile.y + tile.h / 2 + 3&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tile-label&quot;
+                  [attr.fill]&#x3D;&quot;getTextColor(tile.color)&quot;
+                &gt;
+                  {{ tile.raw.label }}
+                &lt;/text&gt;
+                &lt;text
+                  [attr.x]&#x3D;&quot;tile.x + tile.w / 2&quot;
+                  [attr.y]&#x3D;&quot;tile.y + tile.h / 2 + 14&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tile-sublabel&quot;
+                  [attr.fill]&#x3D;&quot;getTextColor(tile.color)&quot;
+                  opacity&#x3D;&quot;0.8&quot;
+                &gt;
+                  {{ formatNumber(tile.raw.value) }}
+                &lt;/text&gt;
+              }
+            &lt;/g&gt;
+          }
+        &lt;/g&gt;
+      &lt;/svg&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+          @if (tooltipTemplate()) {
+            &lt;ng-container
+              *ngTemplateOutlet&#x3D;&quot;tooltipTemplate()!; context: { $implicit: t }&quot;
+            &gt;&lt;/ng-container&gt;
+          } @else {
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Grid Pos&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;Row {{ t.r }}, Col {{ t.c }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ labelFormatter() ? labelFormatter()!(t.value) : formatNumber(t.value) }}&lt;/span&gt;
+            &lt;/div&gt;
+            @if (t.tooltipInfo) {
+              &lt;div class&#x3D;&quot;tt-info&quot;&gt;{{ t.tooltipInfo }}&lt;/div&gt;
+            }
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-tilemap {
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngx-chart-axis-text, #64748b);
+    }
+    .tilemap-svg {
+      display: block;
+      overflow: visible;
+    }
+    .tile-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .tile-group.dimmed {
+      opacity: 0.3 !important;
+    }
+    .tile-element {
+      transition: transform 0.2s ease, filter 0.2s ease;
+      transform-origin: center;
+    }
+    .tile-group.highlighted .tile-element {
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+      transform: scale(1.05);
+      stroke: #0f172a !important;
+      stroke-width: 2px !important;
+      z-index: 10;
+    }
+    .tile-label {
+      font-size: 11px;
+      font-weight: 700;
+      pointer-events: none;
+      user-select: none;
+    }
+    .tile-sublabel {
+      font-size: 8.5px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .tt-info {
+      font-size: 10px;
+      color: #a7f3d0;
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 4px;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  &#x60;]
+})
+export class TilemapComponent {
+  data &#x3D; input&lt;TileItem[]&gt;([]);
+  type &#x3D; input&lt;&#x27;rect&#x27; | &#x27;hexagon&#x27;&gt;(&#x27;rect&#x27;);
+  height &#x3D; input&lt;number&gt;(350);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+  labelFormatter &#x3D; input&lt;((v: number) &#x3D;&gt; string) | undefined&gt;(undefined);
+  tooltipTemplate &#x3D; input&lt;TemplateRef&lt;any&gt; | null&gt;(null);
+
+  containerWidth &#x3D; signal&lt;number&gt;(500);
+  hoveredIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+  exportMenuOpen &#x3D; signal(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  margin &#x3D; computed(() &#x3D;&gt; ({
+    top: 15,
+    right: 15,
+    bottom: 15,
+    left: 15
+  }));
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; this.height());
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom));
+
+  computedTiles &#x3D; computed&lt;ComputedTile[]&gt;(() &#x3D;&gt; {
+    const raw &#x3D; this.data();
+    if (raw.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const rows &#x3D; raw.map(d &#x3D;&gt; d.r);
+    const cols &#x3D; raw.map(d &#x3D;&gt; d.c);
+
+    const minRow &#x3D; Math.min(...rows);
+    const maxRow &#x3D; Math.max(...rows);
+    const minCol &#x3D; Math.min(...cols);
+    const maxCol &#x3D; Math.max(...cols);
+
+    const rowCount &#x3D; maxRow - minRow + 1;
+    const colCount &#x3D; maxCol - minCol + 1;
+
+    const w &#x3D; this.innerW();
+    const h &#x3D; this.innerH();
+
+    const minVal &#x3D; Math.min(...raw.map(d &#x3D;&gt; d.value));
+    const maxVal &#x3D; Math.max(1, ...raw.map(d &#x3D;&gt; d.value));
+
+    // Colors mapping
+    const baseColor &#x3D; this.colors()[0] || &#x27;#4a90d9&#x27;;
+
+    if (this.type() &#x3D;&#x3D;&#x3D; &#x27;rect&#x27;) {
+      const cellW &#x3D; w / colCount;
+      const cellH &#x3D; h / rowCount;
+      const padding &#x3D; 4;
+
+      return raw.map((d, idx) &#x3D;&gt; {
+        const x &#x3D; (d.c - minCol) * cellW + padding / 2;
+        const y &#x3D; (d.r - minRow) * cellH + padding / 2;
+        const tileW &#x3D; cellW - padding;
+        const tileH &#x3D; cellH - padding;
+
+        return {
+          raw: d,
+          index: idx,
+          x,
+          y,
+          w: tileW,
+          h: tileH,
+          pointsPath: &#x27;&#x27;,
+          color: d.color || this.interpolateColor(baseColor, d.value, minVal, maxVal)
+        };
+      });
+    } else {
+      // Hexagonal layout
+      // Divide horizontal space by (colCount * 0.75 + 0.25)
+      const hexW &#x3D; w / (colCount * 0.75 + 0.25);
+      const hexH &#x3D; h / (rowCount + 0.5);
+      const padding &#x3D; 3;
+
+      // Hexagon radius
+      const radius &#x3D; Math.min(hexW / 2, hexH / Math.sqrt(3)) - padding / 2;
+
+      return raw.map((d, idx) &#x3D;&gt; {
+        const cx &#x3D; (d.c - minCol) * hexW * 0.75 + hexW / 2;
+        // Shift alternate columns vertically
+        const cy &#x3D; (d.r - minRow) * hexH + ((d.c - minCol) % 2 &#x3D;&#x3D;&#x3D; 0 ? 0 : hexH / 2) + hexH / 2;
+
+        // Draw hexagon corners path
+        let path &#x3D; &#x27;&#x27;;
+        for (let k &#x3D; 0; k &lt; 6; k++) {
+          const angleRad &#x3D; (k * 60 * Math.PI) / 180;
+          const x &#x3D; cx + radius * Math.cos(angleRad);
+          const y &#x3D; cy + radius * Math.sin(angleRad);
+          path +&#x3D; (k &#x3D;&#x3D;&#x3D; 0 ? &#x27;M&#x27; : &#x27;L&#x27;) + &#x60; ${x} ${y}&#x60;;
+        }
+        path +&#x3D; &#x27; Z&#x27;;
+
+        return {
+          raw: d,
+          index: idx,
+          x: cx - radius,
+          y: cy - radius,
+          w: radius * 2,
+          h: radius * 2,
+          pointsPath: path,
+          color: d.color || this.interpolateColor(baseColor, d.value, minVal, maxVal)
+        };
+      });
+    }
+  });
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  // Linear color interpolation from a light tone of the baseColor to the actual baseColor
+  private interpolateColor(baseHex: string, val: number, min: number, max: number): string {
+    const t &#x3D; max &#x3D;&#x3D;&#x3D; min ? 0.5 : (val - min) / (max - min);
+
+    // Standard base color parsing
+    let rB &#x3D; 74, gB &#x3D; 144, bB &#x3D; 217;
+    if (baseHex.startsWith(&#x27;#&#x27;)) {
+      const hex &#x3D; baseHex.substring(1);
+      if (hex.length &#x3D;&#x3D;&#x3D; 3) {
+        rB &#x3D; parseInt(hex[0] + hex[0], 16);
+        gB &#x3D; parseInt(hex[1] + hex[1], 16);
+        bB &#x3D; parseInt(hex[2] + hex[2], 16);
+      } else if (hex.length &#x3D;&#x3D;&#x3D; 6) {
+        rB &#x3D; parseInt(hex.substring(0, 2), 16);
+        gB &#x3D; parseInt(hex.substring(2, 4), 16);
+        bB &#x3D; parseInt(hex.substring(4, 6), 16);
+      }
+    }
+
+    // Interpolate with light color (e.g. RGB 240, 246, 255)
+    const rStart &#x3D; 240, gStart &#x3D; 246, bStart &#x3D; 255;
+    const r &#x3D; Math.round(rStart + t * (rB - rStart));
+    const g &#x3D; Math.round(gStart + t * (gB - gStart));
+    const b &#x3D; Math.round(bStart + t * (bB - bStart));
+
+    return &#x60;rgb(${r}, ${g}, ${b})&#x60;;
+  }
+
+  // Returns white text for dark backgrounds, dark text for light backgrounds
+  getTextColor(bgColor: string): string {
+    if (bgColor.startsWith(&#x27;rgb&#x27;)) {
+      const matches &#x3D; bgColor.match(/\d+/g);
+      if (matches &amp;&amp; matches.length &gt;&#x3D; 3) {
+        const r &#x3D; parseInt(matches[0]);
+        const g &#x3D; parseInt(matches[1]);
+        const b &#x3D; parseInt(matches[2]);
+        const brightness &#x3D; (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness &gt; 140 ? &#x27;#1e293b&#x27; : &#x27;#ffffff&#x27;;
+      }
+    }
+    return &#x27;#1e293b&#x27;;
+  }
+
+  onTileHover(idx: number) {
+    this.hoveredIndex.set(idx);
+    const tile &#x3D; this.computedTiles()[idx];
+    if (tile) {
+      this.tooltip.set(tile.raw);
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const container &#x3D; el.closest(&#x27;.ngx-tilemap&#x27;);
+    if (container) {
+      const rect &#x3D; container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToCsv(): void {
+    const tiles &#x3D; this.computedTiles();
+    if (!tiles.length) return;
+
+    let csv &#x3D; &#x27;Label,Row,Col,Value,TooltipInfo\n&#x27;;
+    tiles.forEach(t &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${t.raw.label}&quot;,${t.raw.r},${t.raw.c},${t.raw.value},&quot;${t.raw.tooltipInfo || &#x27;&#x27;}&quot;\n&#x60;;
+    });
+
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tilemap-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToJson(): void {
+    const tiles &#x3D; this.computedTiles();
+    if (!tiles.length) return;
+
+    const data &#x3D; tiles.map(t &#x3D;&gt; ({
+      label: t.raw.label,
+      row: t.raw.r,
+      col: t.raw.c,
+      value: t.raw.value,
+      tooltipInfo: t.raw.tooltipInfo
+    }));
+
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tilemap-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns\:xlink&#x3D;&quot;http\:\/\/www\.w3\.org\/1999\/xlink&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns:xlink&#x3D;&quot;http://www.w3.org/1999/xlink&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tilemap.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof document &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) {
+      alert(&#x27;Pop-up blocker prevented printing. Please allow pop-ups for this site.&#x27;);
+      return;
+    }
+
+    const svgHtml &#x3D; svg.outerHTML;
+    const printTemplate &#x3D; &#x60;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Tilemap Export&lt;/title&gt;
+        &lt;style&gt;
+          body { font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; width: 90%; }
+          svg { width: 100%; height: auto; }
+          .tile-label { font-size: 11px; font-weight: bold; }
+          .tile-sublabel { font-size: 8.5px; }
+          @media print {
+            body { padding: 0; }
+            .chart-container { border: none; padding: 0; width: 100%; }
+          }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+          &lt;div class&#x3D;&quot;title&quot;&gt;Grid Tilemap Analysis&lt;/div&gt;
+          &lt;div class&#x3D;&quot;date&quot;&gt;${new Date().toLocaleString()}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;chart-container&quot;&gt;
+          ${svgHtml}
+        &lt;/div&gt;
+        &lt;script&gt;
+          window.onload &#x3D; function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
+  }
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-tilemap {
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngx-chart-axis-text, #64748b);
+    }
+    .tilemap-svg {
+      display: block;
+      overflow: visible;
+    }
+    .tile-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .tile-group.dimmed {
+      opacity: 0.3 !important;
+    }
+    .tile-element {
+      transition: transform 0.2s ease, filter 0.2s ease;
+      transform-origin: center;
+    }
+    .tile-group.highlighted .tile-element {
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+      transform: scale(1.05);
+      stroke: #0f172a !important;
+      stroke-width: 2px !important;
+      z-index: 10;
+    }
+    .tile-label {
+      font-size: 11px;
+      font-weight: 700;
+      pointer-events: none;
+      user-select: none;
+    }
+    .tile-sublabel {
+      font-size: 8.5px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .tt-info {
+      font-size: 10px;
+      color: #a7f3d0;
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 4px;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-tilemap" (mouseleave)="onMouseLeave()">  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">    <div class="header-info">      <span class="header-title">Grid Tilemap</span>      <span class="header-subtitle">Layout: {{ type() | titlecase }} Grid</span>    </div>    @if (showExport()) {      <div class="chart-export-menu">        <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>        @if (exportMenuOpen()) {          <div class="export-dropdown">            <button (click)="onExport(\'json\')">📊 Export JSON</button>            <button (click)="onExport(\'csv\')">📄 Export CSV</button>            <button (click)="onExport(\'svg\')">🖼️ Export SVG</button>            <button (click)="onExport(\'pdf\')">📕 Export PDF</button>          </div>        }      </div>    }  </div>  <svg    #svgEl    class="tilemap-svg"    [attr.width]="\'100%\'"    [attr.height]="svgHeight()"  >    <g [attr.transform]="\'translate(\' + margin().left + \',\' + margin().top + \')\'">      @for (tile of computedTiles(); track tile.index; let i = $index) {        <g          class="tile-group"          [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"          [class.highlighted]="hoveredIndex() === i"          (mouseenter)="onTileHover(i)"          (mousemove)="onMouseMove($event)"        >          @if (type() === \'rect\') {            <rect              [attr.x]="tile.x"              [attr.y]="tile.y"              [attr.width]="tile.w"              [attr.height]="tile.h"              [attr.fill]="tile.color"              stroke="#ffffff"              stroke-width="1.5"              rx="6"              ry="6"              class="tile-element"            />          } @else {            <path              [attr.d]="tile.pointsPath"              [attr.fill]="tile.color"              stroke="#ffffff"              stroke-width="1.5"              class="tile-element"            />          }          @if (showLabels()) {            <text              [attr.x]="tile.x + tile.w / 2"              [attr.y]="tile.y + tile.h / 2 + 3"              text-anchor="middle"              class="tile-label"              [attr.fill]="getTextColor(tile.color)"            >              {{ tile.raw.label }}            </text>            <text              [attr.x]="tile.x + tile.w / 2"              [attr.y]="tile.y + tile.h / 2 + 14"              text-anchor="middle"              class="tile-sublabel"              [attr.fill]="getTextColor(tile.color)"              opacity="0.8"            >              {{ formatNumber(tile.raw.value) }}            </text>          }        </g>      }    </g>  </svg>  <!-- Glassmorphic Tooltip -->  @if (tooltip(); as t) {    <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">      @if (tooltipTemplate()) {        <ng-container          *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"        ></ng-container>      } @else {        <div class="tt-cat">{{ t.label }}</div>        <div class="tt-row">          <span class="tt-name">Grid Pos</span>          <span class="tt-val">Row {{ t.r }}, Col {{ t.c }}</span>        </div>        <div class="tt-row">          <span class="tt-name">Value</span>          <span class="tt-val">{{ labelFormatter() ? labelFormatter()!(t.value) : formatNumber(t.value) }}</span>        </div>        @if (t.tooltipInfo) {          <div class="tt-info">{{ t.tooltipInfo }}</div>        }      }    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'TilemapComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TilemapComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

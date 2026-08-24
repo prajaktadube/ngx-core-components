@@ -1,0 +1,3139 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DashboardLayoutComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-dashboard-layout</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-dashboard-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-primary, #f8fafc);
+      padding: 16px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      transition: background 0.3s ease;
+    }
+
+    .ngx-dashboard-wrapper.dark {
+      background: #0f172a;
+    }
+
+    .ngx-dashboard-grid {
+      position: relative;
+      display: grid;
+      gap: 16px;
+      width: 100%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Grid Background Overlay for Snapping Hints */
+    .grid-background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: inherit;
+      grid-auto-rows: inherit;
+      gap: inherit;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-cell-target {
+      border: 1px dashed var(--border-color, #cbd5e1);
+      border-radius: 8px;
+      background: rgba(148, 163, 184, 0.02);
+      pointer-events: auto;
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .bg-cell-target {
+      border-color: #334155;
+      background: rgba(30, 41, 59, 0.1);
+    }
+
+    /* Drag Placeholder Box */
+    .drag-placeholder-indicator {
+      border-radius: 12px;
+      border: 2px dashed var(--primary-color, #4f46e5);
+      background: var(--primary-glow, rgba(79, 70, 229, 0.05));
+      z-index: 2;
+      box-sizing: border-box;
+      animation: pulsePlaceholder 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulsePlaceholder {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 0.9; }
+    }
+
+    .placeholder-inner {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Panel Card Styling */
+    .dashboard-panel-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05));
+      overflow: hidden;
+      z-index: 3;
+      transition: box-shadow 0.25s, transform 0.25s;
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .dashboard-panel-card {
+      background: #1e293b;
+      border-color: #334155;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .dashboard-panel-card:hover {
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0,0,0,0.08));
+    }
+
+    .dashboard-panel-card.dragging-active {
+      opacity: 0.4;
+      border-style: dashed;
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    /* Maximized override state */
+    .dashboard-panel-card.maximized {
+      grid-column: 1 / -1 !important;
+      grid-row: auto !important;
+      min-height: 500px;
+      z-index: 50;
+      box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.15));
+    }
+    .ngx-dashboard-wrapper.has-maximized .dashboard-panel-card:not(.maximized) {
+      display: none !important;
+    }
+
+    /* Collapsed state */
+    .dashboard-panel-card.collapsed {
+      grid-row-end: span 1 !important;
+      height: fit-content !important;
+      min-height: 0 !important;
+    }
+    .dashboard-panel-card.collapsed .panel-content-body {
+      display: none !important;
+    }
+    .dashboard-panel-card.collapsed .resize-handle {
+      display: none !important;
+    }
+
+    /* Header styling */
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      background: var(--border-light, #f8fafc);
+      user-select: none;
+      gap: 12px;
+    }
+    .ngx-dashboard-wrapper.dark .panel-header {
+      background: #1e293b;
+      border-bottom-color: #334155;
+    }
+
+    .panel-header.draggable-handle {
+      cursor: grab;
+    }
+    .panel-header.draggable-handle:active {
+      cursor: grabbing;
+    }
+
+    .panel-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .panel-icon-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary, #1e293b);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ngx-dashboard-wrapper.dark .panel-title {
+      color: #f8fafc;
+    }
+
+    .panel-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px;
+      border-radius: 4px;
+      color: var(--text-secondary, #64748b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .action-btn:hover {
+      background: var(--border-color, #cbd5e1);
+      color: var(--text-primary, #0f172a);
+    }
+    .ngx-dashboard-wrapper.dark .action-btn:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    .action-btn.close-btn:hover {
+      background: #fca5a5;
+      color: #991b1b;
+    }
+
+    /* Content Body styling */
+    .panel-content-body {
+      flex: 1;
+      position: relative;
+      overflow: auto;
+      box-sizing: border-box;
+    }
+
+    /* Projected content wrapper fallback style */
+    .fallback-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 24px;
+      text-align: center;
+      color: var(--text-secondary, #64748b);
+      font-family: var(--ngx-font-family, sans-serif);
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .fallback-placeholder {
+      color: #94a3b8;
+    }
+
+    .fallback-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+
+    .fallback-placeholder h4 {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .fallback-placeholder p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.4;
+      max-width: 250px;
+    }
+
+    /* Custom layout content is projected so we hide default placeholder when projected content is active */
+    .panel-content-body:has([panel-id]) .fallback-placeholder {
+      display: none !important;
+    }
+
+    /* Resize Grip Handle */
+    .resize-handle {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 14px;
+      height: 14px;
+      cursor: nwse-resize;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      color: var(--text-secondary, #94a3b8);
+      z-index: 5;
+    }
+    .resize-handle:hover {
+      color: var(--primary-color, #4f46e5);
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;ngx-dashboard-wrapper&quot;
+  [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+  [class.has-maximized]&#x3D;&quot;hasMaximizedPanel()&quot;
+&gt;
+  &lt;div
+    class&#x3D;&quot;ngx-dashboard-grid&quot;
+    [style.grid-template-columns]&#x3D;&quot;&#x27;repeat(&#x27; + columns() + &#x27;, 1fr)&#x27;&quot;
+    [style.grid-auto-rows]&#x3D;&quot;rowHeight()&quot;
+    (dragover)&#x3D;&quot;onDragOverGrid($event)&quot;
+    (drop)&#x3D;&quot;onDrop($event)&quot;
+  &gt;
+    &lt;!-- Background grid cells for drop snapping guide --&gt;
+    @if (isDragging()) {
+      &lt;div class&#x3D;&quot;grid-background-overlay&quot;&gt;
+        @for (cell of bgCells(); track cell.key) {
+          &lt;div
+            class&#x3D;&quot;bg-cell-target&quot;
+            [style.grid-column-start]&#x3D;&quot;cell.col + 1&quot;
+            [style.grid-row-start]&#x3D;&quot;cell.row + 1&quot;
+            (dragover)&#x3D;&quot;onDragOverCell($event)&quot;
+            (dragenter)&#x3D;&quot;onDragEnterCell($event, cell.col, cell.row)&quot;
+          &gt;&lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Drop Position Placeholder --&gt;
+      @if (dragPlaceholder(); as placeholder) {
+        &lt;div
+          class&#x3D;&quot;drag-placeholder-indicator&quot;
+          [style.grid-column-start]&#x3D;&quot;placeholder.col + 1&quot;
+          [style.grid-column-end]&#x3D;&quot;placeholder.col + 1 + placeholder.colSpan&quot;
+          [style.grid-row-start]&#x3D;&quot;placeholder.row + 1&quot;
+          [style.grid-row-end]&#x3D;&quot;placeholder.row + 1 + placeholder.rowSpan&quot;
+        &gt;
+          &lt;div class&#x3D;&quot;placeholder-inner&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      }
+    }
+
+    &lt;!-- Active Dashboard Cards --&gt;
+    @for (item of itemsState(); track item.id) {
+      &lt;div
+        class&#x3D;&quot;dashboard-panel-card&quot;
+        [class.maximized]&#x3D;&quot;item.maximized&quot;
+        [class.collapsed]&#x3D;&quot;item.collapsed&quot;
+        [class.dragging-active]&#x3D;&quot;activeDraggingId() &#x3D;&#x3D;&#x3D; item.id&quot;
+        [style.grid-column-start]&#x3D;&quot;item.maximized ? 1 : item.col + 1&quot;
+        [style.grid-column-end]&#x3D;&quot;item.maximized ? columns() + 1 : item.col + 1 + item.colSpan&quot;
+        [style.grid-row-start]&#x3D;&quot;item.maximized ? 1 : item.row + 1&quot;
+        [style.grid-row-end]&#x3D;&quot;item.maximized ? &#x27;span 4&#x27; : item.row + 1 + item.rowSpan&quot;
+        [attr.draggable]&#x3D;&quot;(allowDragging() &amp;&amp; item.draggable !&#x3D;&#x3D; false &amp;&amp; !item.maximized &amp;&amp; !item.collapsed) ? &#x27;true&#x27; : &#x27;false&#x27;&quot;
+        (dragstart)&#x3D;&quot;onDragStart($event, item)&quot;
+        (dragend)&#x3D;&quot;onDragEnd()&quot;
+      &gt;
+        &lt;!-- Panel Header --&gt;
+        &lt;div
+          class&#x3D;&quot;panel-header&quot;
+          [class.draggable-handle]&#x3D;&quot;allowDragging() &amp;&amp; item.draggable !&#x3D;&#x3D; false &amp;&amp; !item.maximized &amp;&amp; !item.collapsed&quot;
+        &gt;
+          &lt;div class&#x3D;&quot;panel-title-group&quot;&gt;
+            &lt;span class&#x3D;&quot;panel-icon-dot&quot; [style.background-color]&#x3D;&quot;getCategoryColor(item.category)&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;panel-title&quot; [title]&#x3D;&quot;item.title&quot;&gt;{{ item.title }}&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;panel-actions&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+            &lt;!-- Settings Action --&gt;
+            &lt;button class&#x3D;&quot;action-btn&quot; (click)&#x3D;&quot;emitPanelAction(item, &#x27;settings&#x27;)&quot; title&#x3D;&quot;Panel Settings&quot;&gt;
+              ⚙️
+            &lt;/button&gt;
+
+            &lt;!-- Minimize / Expand Toggle --&gt;
+            &lt;button class&#x3D;&quot;action-btn&quot; (click)&#x3D;&quot;toggleCollapse(item)&quot; [title]&#x3D;&quot;item.collapsed ? &#x27;Expand Content&#x27; : &#x27;Collapse Content&#x27;&quot;&gt;
+              {{ item.collapsed ? &#x27;▼&#x27; : &#x27;▲&#x27; }}
+            &lt;/button&gt;
+
+            &lt;!-- Maximize / Restore Toggle --&gt;
+            &lt;button class&#x3D;&quot;action-btn&quot; (click)&#x3D;&quot;toggleMaximize(item)&quot; [title]&#x3D;&quot;item.maximized ? &#x27;Restore View&#x27; : &#x27;Maximize Panel&#x27;&quot;&gt;
+              {{ item.maximized ? &#x27;🗗&#x27; : &#x27;🗖&#x27; }}
+            &lt;/button&gt;
+
+            &lt;!-- Close Panel --&gt;
+            &lt;button class&#x3D;&quot;action-btn close-btn&quot; (click)&#x3D;&quot;closePanel(item)&quot; title&#x3D;&quot;Close Panel&quot;&gt;
+              ✕
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Panel Body --&gt;
+        &lt;div class&#x3D;&quot;panel-content-body&quot;&gt;
+          &lt;ng-content [select]&#x3D;&quot;&#x27;[panel-id&#x3D;&#x27; + item.id + &#x27;]&#x27;&quot;&gt;&lt;/ng-content&gt;
+
+          &lt;!-- Fallback Content if no projection matches --&gt;
+          &lt;div class&#x3D;&quot;fallback-placeholder&quot;&gt;
+            &lt;span class&#x3D;&quot;fallback-icon&quot;&gt;▦&lt;/span&gt;
+            &lt;h4&gt;{{ item.title }}&lt;/h4&gt;
+            &lt;p&gt;{{ item.description || &#x27;Provide a matching projection container with attribute panel-id&#x3D;&quot;&#x27; + item.id + &#x27;&quot;&#x27; }}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Resize Grip Handle --&gt;
+        @if (allowResizing() &amp;&amp; item.resizable !&#x3D;&#x3D; false &amp;&amp; !item.maximized &amp;&amp; !item.collapsed) {
+          &lt;div
+            class&#x3D;&quot;resize-handle&quot;
+            (mousedown)&#x3D;&quot;onResizeStart($event, item)&quot;
+          &gt;
+            &lt;svg width&#x3D;&quot;10&quot; height&#x3D;&quot;10&quot; viewBox&#x3D;&quot;0 0 10 10&quot;&gt;
+              &lt;path d&#x3D;&quot;M10,0 L0,10 M10,4 L4,10 M10,8 L8,10&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;1.5&quot; stroke-linecap&#x3D;&quot;round&quot; fill&#x3D;&quot;none&quot; opacity&#x3D;&quot;0.3&quot;&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeDraggingId" >activeDraggingId</a>
+                            </li>
+                            <li>
+                                <a href="#bgCells" >bgCells</a>
+                            </li>
+                            <li>
+                                <a href="#dragPlaceholder" >dragPlaceholder</a>
+                            </li>
+                            <li>
+                                <a href="#hasMaximizedPanel" >hasMaximizedPanel</a>
+                            </li>
+                            <li>
+                                <a href="#isDragging" >isDragging</a>
+                            </li>
+                            <li>
+                                <a href="#itemsState" >itemsState</a>
+                            </li>
+                            <li>
+                                <a href="#maxRows" >maxRows</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closePanel" >closePanel</a>
+                            </li>
+                            <li>
+                                <a href="#emitPanelAction" >emitPanelAction</a>
+                            </li>
+                            <li>
+                                <a href="#getCategoryColor" >getCategoryColor</a>
+                            </li>
+                            <li>
+                                <a href="#onDragEnd" >onDragEnd</a>
+                            </li>
+                            <li>
+                                <a href="#onDragEnterCell" >onDragEnterCell</a>
+                            </li>
+                            <li>
+                                <a href="#onDragOverCell" >onDragOverCell</a>
+                            </li>
+                            <li>
+                                <a href="#onDragOverGrid" >onDragOverGrid</a>
+                            </li>
+                            <li>
+                                <a href="#onDragStart" >onDragStart</a>
+                            </li>
+                            <li>
+                                <a href="#onDrop" >onDrop</a>
+                            </li>
+                            <li>
+                                <a href="#onResizeStart" >onResizeStart</a>
+                            </li>
+                            <li>
+                                <a href="#toggleCollapse" >toggleCollapse</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMaximize" >toggleMaximize</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allowDragging" >allowDragging</a>
+                            </li>
+                            <li>
+                                <a href="#allowResizing" >allowResizing</a>
+                            </li>
+                            <li>
+                                <a href="#columns" >columns</a>
+                            </li>
+                            <li>
+                                <a href="#items" >items</a>
+                            </li>
+                            <li>
+                                <a href="#rowHeight" >rowHeight</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#layoutChange" >layoutChange</a>
+                            </li>
+                            <li>
+                                <a href="#panelAction" >panelAction</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="428" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:428</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="allowDragging"></a>
+                        <b>allowDragging</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="417" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:417</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="allowResizing"></a>
+                        <b>allowResizing</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="418" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:418</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="columns"></a>
+                        <b>columns</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>12</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="414" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:414</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="items"></a>
+                        <b>items</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/DashboardItem.html" target="_self" >DashboardItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="413" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:413</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rowHeight"></a>
+                        <b>rowHeight</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;150px&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="415" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:415</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="416" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:416</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="layoutChange"></a>
+                        <b>layoutChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/DashboardLayoutChangeEvent.html" target="_self" >DashboardLayoutChangeEvent</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="421" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:421</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="panelAction"></a>
+                        <b>panelAction</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/DashboardPanelActionEvent.html" target="_self" >DashboardPanelActionEvent</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="422" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:422</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closePanel"></a>
+                    <span class="name">
+                        <span ><b>closePanel</b></span>
+                        <a href="#closePanel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closePanel(item: <a href="../interfaces/DashboardItem.html" target="_self">DashboardItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="659"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:659</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/DashboardItem.html" target="_self" >DashboardItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emitPanelAction"></a>
+                    <span class="name">
+                        <span ><b>emitPanelAction</b></span>
+                        <a href="#emitPanelAction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>emitPanelAction(item: <a href="../interfaces/DashboardItem.html" target="_self">DashboardItem</a>, action: unknown)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="669"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:669</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/DashboardItem.html" target="_self" >DashboardItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCategoryColor"></a>
+                    <span class="name">
+                        <span ><b>getCategoryColor</b></span>
+                        <a href="#getCategoryColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCategoryColor(cat?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="469"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:469</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cat</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDragEnd"></a>
+                    <span class="name">
+                        <span ><b>onDragEnd</b></span>
+                        <a href="#onDragEnd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDragEnd()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="502"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:502</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDragEnterCell"></a>
+                    <span class="name">
+                        <span ><b>onDragEnterCell</b></span>
+                        <a href="#onDragEnterCell"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDragEnterCell(event: DragEvent, col: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, row: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="516"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:516</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>col</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDragOverCell"></a>
+                    <span class="name">
+                        <span ><b>onDragOverCell</b></span>
+                        <a href="#onDragOverCell"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDragOverCell(event: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="512"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:512</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDragOverGrid"></a>
+                    <span class="name">
+                        <span ><b>onDragOverGrid</b></span>
+                        <a href="#onDragOverGrid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDragOverGrid(event: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="508"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:508</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDragStart"></a>
+                    <span class="name">
+                        <span ><b>onDragStart</b></span>
+                        <a href="#onDragStart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDragStart(event: DragEvent, item: <a href="../interfaces/DashboardItem.html" target="_self">DashboardItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="482"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:482</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/DashboardItem.html" target="_self" >DashboardItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDrop"></a>
+                    <span class="name">
+                        <span ><b>onDrop</b></span>
+                        <a href="#onDrop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDrop(event: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="538"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:538</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onResizeStart"></a>
+                    <span class="name">
+                        <span ><b>onResizeStart</b></span>
+                        <a href="#onResizeStart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onResizeStart(event: MouseEvent, item: <a href="../interfaces/DashboardItem.html" target="_self">DashboardItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="563"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:563</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/DashboardItem.html" target="_self" >DashboardItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleCollapse"></a>
+                    <span class="name">
+                        <span ><b>toggleCollapse</b></span>
+                        <a href="#toggleCollapse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleCollapse(item: <a href="../interfaces/DashboardItem.html" target="_self">DashboardItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="624"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:624</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/DashboardItem.html" target="_self" >DashboardItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMaximize"></a>
+                    <span class="name">
+                        <span ><b>toggleMaximize</b></span>
+                        <a href="#toggleMaximize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMaximize(item: <a href="../interfaces/DashboardItem.html" target="_self">DashboardItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="642"
+                                    class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:642</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/DashboardItem.html" target="_self" >DashboardItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeDraggingId"></a>
+                    <span class="name">
+                        <span ><b>activeDraggingId</b></span>
+                        <a href="#activeDraggingId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="427" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:427</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bgCells"></a>
+                    <span class="name">
+                        <span ><b>bgCells</b></span>
+                        <a href="#bgCells"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const cols &#x3D; this.columns();
+    const rows &#x3D; this.maxRows();
+    const cells: { key: string; col: number; row: number }[] &#x3D; [];
+    for (let r &#x3D; 0; r &lt; rows; r++) {
+      for (let c &#x3D; 0; c &lt; cols; c++) {
+        cells.push({ key: &#x60;${r}-${c}&#x60;, col: c, row: r });
+      }
+    }
+    return cells;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="456" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:456</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dragPlaceholder"></a>
+                    <span class="name">
+                        <span ><b>dragPlaceholder</b></span>
+                        <a href="#dragPlaceholder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;{ col: number; row: number; colSpan: number; rowSpan: number } | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="428" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:428</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasMaximizedPanel"></a>
+                    <span class="name">
+                        <span ><b>hasMaximizedPanel</b></span>
+                        <a href="#hasMaximizedPanel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.itemsState().some(it &#x3D;&gt; it.maximized);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="437" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:437</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDragging"></a>
+                    <span class="name">
+                        <span ><b>isDragging</b></span>
+                        <a href="#isDragging"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="426" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:426</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="itemsState"></a>
+                    <span class="name">
+                        <span ><b>itemsState</b></span>
+                        <a href="#itemsState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;DashboardItem[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="425" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:425</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="maxRows"></a>
+                    <span class="name">
+                        <span ><b>maxRows</b></span>
+                        <a href="#maxRows"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    let max &#x3D; 6;
+    for (const item of this.itemsState()) {
+      if (!item.maximized) {
+        const bottom &#x3D; item.row + item.rowSpan;
+        if (bottom &gt; max) {
+          max &#x3D; bottom;
+        }
+      }
+    }
+    return max + 2; // Always keep 2 empty grid rows buffer space
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="442" class="link-to-prism">projects/ngx-core-components/layout/dashboard-layout/dashboard-layout.component.ts:442</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, input, signal, output, computed, effect, ChangeDetectionStrategy
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { DashboardItem, DashboardLayoutChangeEvent, DashboardPanelActionEvent } from &#x27;./models&#x27;;
+
+@Component({
+  selector: &#x27;ngx-dashboard-layout&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div 
+      class&#x3D;&quot;ngx-dashboard-wrapper&quot; 
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      [class.has-maximized]&#x3D;&quot;hasMaximizedPanel()&quot;
+    &gt;
+      &lt;div 
+        class&#x3D;&quot;ngx-dashboard-grid&quot;
+        [style.grid-template-columns]&#x3D;&quot;&#x27;repeat(&#x27; + columns() + &#x27;, 1fr)&#x27;&quot;
+        [style.grid-auto-rows]&#x3D;&quot;rowHeight()&quot;
+        (dragover)&#x3D;&quot;onDragOverGrid($event)&quot;
+        (drop)&#x3D;&quot;onDrop($event)&quot;
+      &gt;
+        &lt;!-- Background grid cells for drop snapping guide --&gt;
+        @if (isDragging()) {
+          &lt;div class&#x3D;&quot;grid-background-overlay&quot;&gt;
+            @for (cell of bgCells(); track cell.key) {
+              &lt;div 
+                class&#x3D;&quot;bg-cell-target&quot;
+                [style.grid-column-start]&#x3D;&quot;cell.col + 1&quot;
+                [style.grid-row-start]&#x3D;&quot;cell.row + 1&quot;
+                (dragover)&#x3D;&quot;onDragOverCell($event)&quot;
+                (dragenter)&#x3D;&quot;onDragEnterCell($event, cell.col, cell.row)&quot;
+              &gt;&lt;/div&gt;
+            }
+          &lt;/div&gt;
+          
+          &lt;!-- Drop Position Placeholder --&gt;
+          @if (dragPlaceholder(); as placeholder) {
+            &lt;div 
+              class&#x3D;&quot;drag-placeholder-indicator&quot;
+              [style.grid-column-start]&#x3D;&quot;placeholder.col + 1&quot;
+              [style.grid-column-end]&#x3D;&quot;placeholder.col + 1 + placeholder.colSpan&quot;
+              [style.grid-row-start]&#x3D;&quot;placeholder.row + 1&quot;
+              [style.grid-row-end]&#x3D;&quot;placeholder.row + 1 + placeholder.rowSpan&quot;
+            &gt;
+              &lt;div class&#x3D;&quot;placeholder-inner&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          }
+        }
+
+        &lt;!-- Active Dashboard Cards --&gt;
+        @for (item of itemsState(); track item.id) {
+          &lt;div 
+            class&#x3D;&quot;dashboard-panel-card&quot;
+            [class.maximized]&#x3D;&quot;item.maximized&quot;
+            [class.collapsed]&#x3D;&quot;item.collapsed&quot;
+            [class.dragging-active]&#x3D;&quot;activeDraggingId() &#x3D;&#x3D;&#x3D; item.id&quot;
+            [style.grid-column-start]&#x3D;&quot;item.maximized ? 1 : item.col + 1&quot;
+            [style.grid-column-end]&#x3D;&quot;item.maximized ? columns() + 1 : item.col + 1 + item.colSpan&quot;
+            [style.grid-row-start]&#x3D;&quot;item.maximized ? 1 : item.row + 1&quot;
+            [style.grid-row-end]&#x3D;&quot;item.maximized ? &#x27;span 4&#x27; : item.row + 1 + item.rowSpan&quot;
+            [attr.draggable]&#x3D;&quot;(allowDragging() &amp;&amp; item.draggable !&#x3D;&#x3D; false &amp;&amp; !item.maximized &amp;&amp; !item.collapsed) ? &#x27;true&#x27; : &#x27;false&#x27;&quot;
+            (dragstart)&#x3D;&quot;onDragStart($event, item)&quot;
+            (dragend)&#x3D;&quot;onDragEnd()&quot;
+          &gt;
+            &lt;!-- Panel Header --&gt;
+            &lt;div 
+              class&#x3D;&quot;panel-header&quot; 
+              [class.draggable-handle]&#x3D;&quot;allowDragging() &amp;&amp; item.draggable !&#x3D;&#x3D; false &amp;&amp; !item.maximized &amp;&amp; !item.collapsed&quot;
+            &gt;
+              &lt;div class&#x3D;&quot;panel-title-group&quot;&gt;
+                &lt;span class&#x3D;&quot;panel-icon-dot&quot; [style.background-color]&#x3D;&quot;getCategoryColor(item.category)&quot;&gt;&lt;/span&gt;
+                &lt;span class&#x3D;&quot;panel-title&quot; [title]&#x3D;&quot;item.title&quot;&gt;{{ item.title }}&lt;/span&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;panel-actions&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+                &lt;!-- Settings Action --&gt;
+                &lt;button class&#x3D;&quot;action-btn&quot; (click)&#x3D;&quot;emitPanelAction(item, &#x27;settings&#x27;)&quot; title&#x3D;&quot;Panel Settings&quot;&gt;
+                  ⚙️
+                &lt;/button&gt;
+                
+                &lt;!-- Minimize / Expand Toggle --&gt;
+                &lt;button class&#x3D;&quot;action-btn&quot; (click)&#x3D;&quot;toggleCollapse(item)&quot; [title]&#x3D;&quot;item.collapsed ? &#x27;Expand Content&#x27; : &#x27;Collapse Content&#x27;&quot;&gt;
+                  {{ item.collapsed ? &#x27;▼&#x27; : &#x27;▲&#x27; }}
+                &lt;/button&gt;
+
+                &lt;!-- Maximize / Restore Toggle --&gt;
+                &lt;button class&#x3D;&quot;action-btn&quot; (click)&#x3D;&quot;toggleMaximize(item)&quot; [title]&#x3D;&quot;item.maximized ? &#x27;Restore View&#x27; : &#x27;Maximize Panel&#x27;&quot;&gt;
+                  {{ item.maximized ? &#x27;🗗&#x27; : &#x27;🗖&#x27; }}
+                &lt;/button&gt;
+
+                &lt;!-- Close Panel --&gt;
+                &lt;button class&#x3D;&quot;action-btn close-btn&quot; (click)&#x3D;&quot;closePanel(item)&quot; title&#x3D;&quot;Close Panel&quot;&gt;
+                  ✕
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Panel Body --&gt;
+            &lt;div class&#x3D;&quot;panel-content-body&quot;&gt;
+              &lt;ng-content [select]&#x3D;&quot;&#x27;[panel-id&#x3D;&#x27; + item.id + &#x27;]&#x27;&quot;&gt;&lt;/ng-content&gt;
+              
+              &lt;!-- Fallback Content if no projection matches --&gt;
+              &lt;div class&#x3D;&quot;fallback-placeholder&quot;&gt;
+                &lt;span class&#x3D;&quot;fallback-icon&quot;&gt;▦&lt;/span&gt;
+                &lt;h4&gt;{{ item.title }}&lt;/h4&gt;
+                &lt;p&gt;{{ item.description || &#x27;Provide a matching projection container with attribute panel-id&#x3D;&quot;&#x27; + item.id + &#x27;&quot;&#x27; }}&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Resize Grip Handle --&gt;
+            @if (allowResizing() &amp;&amp; item.resizable !&#x3D;&#x3D; false &amp;&amp; !item.maximized &amp;&amp; !item.collapsed) {
+              &lt;div 
+                class&#x3D;&quot;resize-handle&quot;
+                (mousedown)&#x3D;&quot;onResizeStart($event, item)&quot;
+              &gt;
+                &lt;svg width&#x3D;&quot;10&quot; height&#x3D;&quot;10&quot; viewBox&#x3D;&quot;0 0 10 10&quot;&gt;
+                  &lt;path d&#x3D;&quot;M10,0 L0,10 M10,4 L4,10 M10,8 L8,10&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;1.5&quot; stroke-linecap&#x3D;&quot;round&quot; fill&#x3D;&quot;none&quot; opacity&#x3D;&quot;0.3&quot;&gt;&lt;/path&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-dashboard-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-primary, #f8fafc);
+      padding: 16px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      transition: background 0.3s ease;
+    }
+
+    .ngx-dashboard-wrapper.dark {
+      background: #0f172a;
+    }
+
+    .ngx-dashboard-grid {
+      position: relative;
+      display: grid;
+      gap: 16px;
+      width: 100%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Grid Background Overlay for Snapping Hints */
+    .grid-background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: inherit;
+      grid-auto-rows: inherit;
+      gap: inherit;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-cell-target {
+      border: 1px dashed var(--border-color, #cbd5e1);
+      border-radius: 8px;
+      background: rgba(148, 163, 184, 0.02);
+      pointer-events: auto;
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .bg-cell-target {
+      border-color: #334155;
+      background: rgba(30, 41, 59, 0.1);
+    }
+
+    /* Drag Placeholder Box */
+    .drag-placeholder-indicator {
+      border-radius: 12px;
+      border: 2px dashed var(--primary-color, #4f46e5);
+      background: var(--primary-glow, rgba(79, 70, 229, 0.05));
+      z-index: 2;
+      box-sizing: border-box;
+      animation: pulsePlaceholder 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulsePlaceholder {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 0.9; }
+    }
+
+    .placeholder-inner {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Panel Card Styling */
+    .dashboard-panel-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05));
+      overflow: hidden;
+      z-index: 3;
+      transition: box-shadow 0.25s, transform 0.25s;
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .dashboard-panel-card {
+      background: #1e293b;
+      border-color: #334155;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .dashboard-panel-card:hover {
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0,0,0,0.08));
+    }
+
+    .dashboard-panel-card.dragging-active {
+      opacity: 0.4;
+      border-style: dashed;
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    /* Maximized override state */
+    .dashboard-panel-card.maximized {
+      grid-column: 1 / -1 !important;
+      grid-row: auto !important;
+      min-height: 500px;
+      z-index: 50;
+      box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.15));
+    }
+    .ngx-dashboard-wrapper.has-maximized .dashboard-panel-card:not(.maximized) {
+      display: none !important;
+    }
+
+    /* Collapsed state */
+    .dashboard-panel-card.collapsed {
+      grid-row-end: span 1 !important;
+      height: fit-content !important;
+      min-height: 0 !important;
+    }
+    .dashboard-panel-card.collapsed .panel-content-body {
+      display: none !important;
+    }
+    .dashboard-panel-card.collapsed .resize-handle {
+      display: none !important;
+    }
+
+    /* Header styling */
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      background: var(--border-light, #f8fafc);
+      user-select: none;
+      gap: 12px;
+    }
+    .ngx-dashboard-wrapper.dark .panel-header {
+      background: #1e293b;
+      border-bottom-color: #334155;
+    }
+
+    .panel-header.draggable-handle {
+      cursor: grab;
+    }
+    .panel-header.draggable-handle:active {
+      cursor: grabbing;
+    }
+
+    .panel-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .panel-icon-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary, #1e293b);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ngx-dashboard-wrapper.dark .panel-title {
+      color: #f8fafc;
+    }
+
+    .panel-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px;
+      border-radius: 4px;
+      color: var(--text-secondary, #64748b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .action-btn:hover {
+      background: var(--border-color, #cbd5e1);
+      color: var(--text-primary, #0f172a);
+    }
+    .ngx-dashboard-wrapper.dark .action-btn:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    .action-btn.close-btn:hover {
+      background: #fca5a5;
+      color: #991b1b;
+    }
+
+    /* Content Body styling */
+    .panel-content-body {
+      flex: 1;
+      position: relative;
+      overflow: auto;
+      box-sizing: border-box;
+    }
+
+    /* Projected content wrapper fallback style */
+    .fallback-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 24px;
+      text-align: center;
+      color: var(--text-secondary, #64748b);
+      font-family: var(--ngx-font-family, sans-serif);
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .fallback-placeholder {
+      color: #94a3b8;
+    }
+
+    .fallback-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+
+    .fallback-placeholder h4 {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .fallback-placeholder p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.4;
+      max-width: 250px;
+    }
+
+    /* Custom layout content is projected so we hide default placeholder when projected content is active */
+    .panel-content-body:has([panel-id]) .fallback-placeholder {
+      display: none !important;
+    }
+
+    /* Resize Grip Handle */
+    .resize-handle {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 14px;
+      height: 14px;
+      cursor: nwse-resize;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      color: var(--text-secondary, #94a3b8);
+      z-index: 5;
+    }
+    .resize-handle:hover {
+      color: var(--primary-color, #4f46e5);
+    }
+  &#x60;]
+})
+export class DashboardLayoutComponent {
+  // Inputs
+  items &#x3D; input&lt;DashboardItem[]&gt;([]);
+  columns &#x3D; input&lt;number&gt;(12);
+  rowHeight &#x3D; input&lt;string&gt;(&#x27;150px&#x27;);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  allowDragging &#x3D; input&lt;boolean&gt;(true);
+  allowResizing &#x3D; input&lt;boolean&gt;(true);
+
+  // Outputs
+  layoutChange &#x3D; output&lt;DashboardLayoutChangeEvent&gt;();
+  panelAction &#x3D; output&lt;DashboardPanelActionEvent&gt;();
+
+  // State Signals
+  itemsState &#x3D; signal&lt;DashboardItem[]&gt;([]);
+  isDragging &#x3D; signal&lt;boolean&gt;(false);
+  activeDraggingId &#x3D; signal&lt;string | null&gt;(null);
+  dragPlaceholder &#x3D; signal&lt;{ col: number; row: number; colSpan: number; rowSpan: number } | null&gt;(null);
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      this.itemsState.set(this.items());
+    }, { allowSignalWrites: true });
+  }
+
+  // Detect if any panel is currently maximized
+  hasMaximizedPanel &#x3D; computed(() &#x3D;&gt; {
+    return this.itemsState().some(it &#x3D;&gt; it.maximized);
+  });
+
+  // Calculate dynamic rows needed in background grid
+  maxRows &#x3D; computed(() &#x3D;&gt; {
+    let max &#x3D; 6;
+    for (const item of this.itemsState()) {
+      if (!item.maximized) {
+        const bottom &#x3D; item.row + item.rowSpan;
+        if (bottom &gt; max) {
+          max &#x3D; bottom;
+        }
+      }
+    }
+    return max + 2; // Always keep 2 empty grid rows buffer space
+  });
+
+  // Generate grid mapping cells
+  bgCells &#x3D; computed(() &#x3D;&gt; {
+    const cols &#x3D; this.columns();
+    const rows &#x3D; this.maxRows();
+    const cells: { key: string; col: number; row: number }[] &#x3D; [];
+    for (let r &#x3D; 0; r &lt; rows; r++) {
+      for (let c &#x3D; 0; c &lt; cols; c++) {
+        cells.push({ key: &#x60;${r}-${c}&#x60;, col: c, row: r });
+      }
+    }
+    return cells;
+  });
+
+  // Helper colors mapping
+  getCategoryColor(cat?: string): string {
+    if (!cat) return &#x27;#6366f1&#x27;;
+    switch (cat.toLowerCase()) {
+      case &#x27;chart&#x27;: return &#x27;#3b82f6&#x27;; // Blue
+      case &#x27;data&#x27;: return &#x27;#10b981&#x27;; // Green
+      case &#x27;feed&#x27;: return &#x27;#f59e0b&#x27;; // Amber
+      case &#x27;metric&#x27;: return &#x27;#ec4899&#x27;; // Pink
+      case &#x27;alert&#x27;: return &#x27;#ef4444&#x27;; // Red
+      default: return &#x27;#8b5cf6&#x27;; // Violet
+    }
+  }
+
+  // Native HTML5 Drag events
+  onDragStart(event: DragEvent, item: DashboardItem): void {
+    if (!this.allowDragging() || item.draggable &#x3D;&#x3D;&#x3D; false || item.maximized || item.collapsed) return;
+    
+    this.activeDraggingId.set(item.id);
+    this.isDragging.set(true);
+
+    if (event.dataTransfer) {
+      event.dataTransfer.setData(&#x27;text/plain&#x27;, item.id);
+      event.dataTransfer.effectAllowed &#x3D; &#x27;move&#x27;;
+    }
+
+    // Set initial placeholder
+    this.dragPlaceholder.set({
+      col: item.col,
+      row: item.row,
+      colSpan: item.colSpan,
+      rowSpan: item.rowSpan
+    });
+  }
+
+  onDragEnd(): void {
+    this.isDragging.set(false);
+    this.activeDraggingId.set(null);
+    this.dragPlaceholder.set(null);
+  }
+
+  onDragOverGrid(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  onDragOverCell(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  onDragEnterCell(event: DragEvent, col: number, row: number): void {
+    event.preventDefault();
+    const draggedId &#x3D; this.activeDraggingId();
+    if (!draggedId) return;
+
+    const items &#x3D; this.itemsState();
+    const item &#x3D; items.find(it &#x3D;&gt; it.id &#x3D;&#x3D;&#x3D; draggedId);
+    if (!item) return;
+
+    // Calculate snapped coordinates based on boundaries
+    let targetCol &#x3D; Math.max(0, Math.min(this.columns() - item.colSpan, col));
+    let targetRow &#x3D; Math.max(0, row);
+
+    // Update placeholder
+    this.dragPlaceholder.set({
+      col: targetCol,
+      row: targetRow,
+      colSpan: item.colSpan,
+      rowSpan: item.rowSpan
+    });
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    const placeholder &#x3D; this.dragPlaceholder();
+    const draggedId &#x3D; this.activeDraggingId();
+
+    if (placeholder &amp;&amp; draggedId) {
+      this.itemsState.update(items &#x3D;&gt; {
+        return items.map(it &#x3D;&gt; {
+          if (it.id &#x3D;&#x3D;&#x3D; draggedId) {
+            return {
+              ...it,
+              col: placeholder.col,
+              row: placeholder.row
+            };
+          }
+          return it;
+        });
+      });
+      this.layoutChange.emit({ items: this.itemsState() });
+    }
+
+    this.onDragEnd();
+  }
+
+  // Panel resizing handler
+  onResizeStart(event: MouseEvent, item: DashboardItem): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!this.allowResizing() || item.resizable &#x3D;&#x3D;&#x3D; false || item.maximized || item.collapsed) return;
+
+    const startX &#x3D; event.pageX;
+    const startY &#x3D; event.pageY;
+    const startColSpan &#x3D; item.colSpan;
+    const startRowSpan &#x3D; item.rowSpan;
+
+    // Find the enclosing element bounding boxes
+    const panelEl &#x3D; (event.target as HTMLElement).closest(&#x27;.dashboard-panel-card&#x27;);
+    if (!panelEl) return;
+
+    const startWidth &#x3D; panelEl.clientWidth;
+    const startHeight &#x3D; panelEl.clientHeight;
+
+    // Calculate approximate cell bounds
+    const colWidth &#x3D; startWidth / startColSpan;
+    const rowHeight &#x3D; startHeight / startRowSpan;
+
+    const onMouseMove &#x3D; (moveEvent: MouseEvent) &#x3D;&gt; {
+      const deltaX &#x3D; moveEvent.pageX - startX;
+      const deltaY &#x3D; moveEvent.pageY - startY;
+
+      let newColSpan &#x3D; Math.round((startWidth + deltaX) / colWidth);
+      newColSpan &#x3D; Math.max(item.minColSpan || 1, Math.min(this.columns() - item.col, newColSpan));
+      if (item.maxColSpan) {
+        newColSpan &#x3D; Math.min(item.maxColSpan, newColSpan);
+      }
+
+      let newRowSpan &#x3D; Math.round((startHeight + deltaY) / rowHeight);
+      newRowSpan &#x3D; Math.max(item.minRowSpan || 1, newRowSpan);
+      if (item.maxRowSpan) {
+        newRowSpan &#x3D; Math.min(item.maxRowSpan, newRowSpan);
+      }
+
+      if (newColSpan !&#x3D;&#x3D; item.colSpan || newRowSpan !&#x3D;&#x3D; item.rowSpan) {
+        this.itemsState.update(items &#x3D;&gt; {
+          return items.map(it &#x3D;&gt; {
+            if (it.id &#x3D;&#x3D;&#x3D; item.id) {
+              return { ...it, colSpan: newColSpan, rowSpan: newRowSpan };
+            }
+            return it;
+          });
+        });
+      }
+    };
+
+    const onMouseUp &#x3D; () &#x3D;&gt; {
+      document.removeEventListener(&#x27;mousemove&#x27;, onMouseMove);
+      document.removeEventListener(&#x27;mouseup&#x27;, onMouseUp);
+      this.layoutChange.emit({ items: this.itemsState() });
+    };
+
+    document.addEventListener(&#x27;mousemove&#x27;, onMouseMove);
+    document.addEventListener(&#x27;mouseup&#x27;, onMouseUp);
+  }
+
+  // Panel Control Actions
+  toggleCollapse(item: DashboardItem): void {
+    const collapsed &#x3D; !item.collapsed;
+    this.itemsState.update(items &#x3D;&gt; {
+      return items.map(it &#x3D;&gt; {
+        if (it.id &#x3D;&#x3D;&#x3D; item.id) {
+          return { ...it, collapsed };
+        }
+        return it;
+      });
+    });
+    this.panelAction.emit({
+      panelId: item.id,
+      action: collapsed ? &#x27;minimize&#x27; : &#x27;restore&#x27;,
+      item: { ...item, collapsed }
+    });
+    this.layoutChange.emit({ items: this.itemsState() });
+  }
+
+  toggleMaximize(item: DashboardItem): void {
+    const maximized &#x3D; !item.maximized;
+    this.itemsState.update(items &#x3D;&gt; {
+      return items.map(it &#x3D;&gt; {
+        if (it.id &#x3D;&#x3D;&#x3D; item.id) {
+          return { ...it, maximized };
+        }
+        return it;
+      });
+    });
+    this.panelAction.emit({
+      panelId: item.id,
+      action: maximized ? &#x27;maximize&#x27; : &#x27;restore&#x27;,
+      item: { ...item, maximized }
+    });
+  }
+
+  closePanel(item: DashboardItem): void {
+    this.itemsState.update(items &#x3D;&gt; items.filter(it &#x3D;&gt; it.id !&#x3D;&#x3D; item.id));
+    this.panelAction.emit({
+      panelId: item.id,
+      action: &#x27;close&#x27;,
+      item
+    });
+    this.layoutChange.emit({ items: this.itemsState() });
+  }
+
+  emitPanelAction(item: DashboardItem, action: &#x27;settings&#x27;): void {
+    this.panelAction.emit({
+      panelId: item.id,
+      action,
+      item
+    });
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-dashboard-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-primary, #f8fafc);
+      padding: 16px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      transition: background 0.3s ease;
+    }
+
+    .ngx-dashboard-wrapper.dark {
+      background: #0f172a;
+    }
+
+    .ngx-dashboard-grid {
+      position: relative;
+      display: grid;
+      gap: 16px;
+      width: 100%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Grid Background Overlay for Snapping Hints */
+    .grid-background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: inherit;
+      grid-auto-rows: inherit;
+      gap: inherit;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-cell-target {
+      border: 1px dashed var(--border-color, #cbd5e1);
+      border-radius: 8px;
+      background: rgba(148, 163, 184, 0.02);
+      pointer-events: auto;
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .bg-cell-target {
+      border-color: #334155;
+      background: rgba(30, 41, 59, 0.1);
+    }
+
+    /* Drag Placeholder Box */
+    .drag-placeholder-indicator {
+      border-radius: 12px;
+      border: 2px dashed var(--primary-color, #4f46e5);
+      background: var(--primary-glow, rgba(79, 70, 229, 0.05));
+      z-index: 2;
+      box-sizing: border-box;
+      animation: pulsePlaceholder 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulsePlaceholder {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 0.9; }
+    }
+
+    .placeholder-inner {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Panel Card Styling */
+    .dashboard-panel-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05));
+      overflow: hidden;
+      z-index: 3;
+      transition: box-shadow 0.25s, transform 0.25s;
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .dashboard-panel-card {
+      background: #1e293b;
+      border-color: #334155;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .dashboard-panel-card:hover {
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0,0,0,0.08));
+    }
+
+    .dashboard-panel-card.dragging-active {
+      opacity: 0.4;
+      border-style: dashed;
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    /* Maximized override state */
+    .dashboard-panel-card.maximized {
+      grid-column: 1 / -1 !important;
+      grid-row: auto !important;
+      min-height: 500px;
+      z-index: 50;
+      box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.15));
+    }
+    .ngx-dashboard-wrapper.has-maximized .dashboard-panel-card:not(.maximized) {
+      display: none !important;
+    }
+
+    /* Collapsed state */
+    .dashboard-panel-card.collapsed {
+      grid-row-end: span 1 !important;
+      height: fit-content !important;
+      min-height: 0 !important;
+    }
+    .dashboard-panel-card.collapsed .panel-content-body {
+      display: none !important;
+    }
+    .dashboard-panel-card.collapsed .resize-handle {
+      display: none !important;
+    }
+
+    /* Header styling */
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      background: var(--border-light, #f8fafc);
+      user-select: none;
+      gap: 12px;
+    }
+    .ngx-dashboard-wrapper.dark .panel-header {
+      background: #1e293b;
+      border-bottom-color: #334155;
+    }
+
+    .panel-header.draggable-handle {
+      cursor: grab;
+    }
+    .panel-header.draggable-handle:active {
+      cursor: grabbing;
+    }
+
+    .panel-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .panel-icon-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary, #1e293b);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ngx-dashboard-wrapper.dark .panel-title {
+      color: #f8fafc;
+    }
+
+    .panel-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px;
+      border-radius: 4px;
+      color: var(--text-secondary, #64748b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .action-btn:hover {
+      background: var(--border-color, #cbd5e1);
+      color: var(--text-primary, #0f172a);
+    }
+    .ngx-dashboard-wrapper.dark .action-btn:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    .action-btn.close-btn:hover {
+      background: #fca5a5;
+      color: #991b1b;
+    }
+
+    /* Content Body styling */
+    .panel-content-body {
+      flex: 1;
+      position: relative;
+      overflow: auto;
+      box-sizing: border-box;
+    }
+
+    /* Projected content wrapper fallback style */
+    .fallback-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 24px;
+      text-align: center;
+      color: var(--text-secondary, #64748b);
+      font-family: var(--ngx-font-family, sans-serif);
+      box-sizing: border-box;
+    }
+    .ngx-dashboard-wrapper.dark .fallback-placeholder {
+      color: #94a3b8;
+    }
+
+    .fallback-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+
+    .fallback-placeholder h4 {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .fallback-placeholder p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.4;
+      max-width: 250px;
+    }
+
+    /* Custom layout content is projected so we hide default placeholder when projected content is active */
+    .panel-content-body:has([panel-id]) .fallback-placeholder {
+      display: none !important;
+    }
+
+    /* Resize Grip Handle */
+    .resize-handle {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 14px;
+      height: 14px;
+      cursor: nwse-resize;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      color: var(--text-secondary, #94a3b8);
+      z-index: 5;
+    }
+    .resize-handle:hover {
+      color: var(--primary-color, #4f46e5);
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div  class="ngx-dashboard-wrapper"  [class.dark]="theme() === \'dark\'"  [class.has-maximized]="hasMaximizedPanel()">  <div    class="ngx-dashboard-grid"    [style.grid-template-columns]="\'repeat(\' + columns() + \', 1fr)\'"    [style.grid-auto-rows]="rowHeight()"    (dragover)="onDragOverGrid($event)"    (drop)="onDrop($event)"  >    <!-- Background grid cells for drop snapping guide -->    @if (isDragging()) {      <div class="grid-background-overlay">        @for (cell of bgCells(); track cell.key) {          <div            class="bg-cell-target"            [style.grid-column-start]="cell.col + 1"            [style.grid-row-start]="cell.row + 1"            (dragover)="onDragOverCell($event)"            (dragenter)="onDragEnterCell($event, cell.col, cell.row)"          ></div>        }      </div>      <!-- Drop Position Placeholder -->      @if (dragPlaceholder(); as placeholder) {        <div          class="drag-placeholder-indicator"          [style.grid-column-start]="placeholder.col + 1"          [style.grid-column-end]="placeholder.col + 1 + placeholder.colSpan"          [style.grid-row-start]="placeholder.row + 1"          [style.grid-row-end]="placeholder.row + 1 + placeholder.rowSpan"        >          <div class="placeholder-inner"></div>        </div>      }    }    <!-- Active Dashboard Cards -->    @for (item of itemsState(); track item.id) {      <div        class="dashboard-panel-card"        [class.maximized]="item.maximized"        [class.collapsed]="item.collapsed"        [class.dragging-active]="activeDraggingId() === item.id"        [style.grid-column-start]="item.maximized ? 1 : item.col + 1"        [style.grid-column-end]="item.maximized ? columns() + 1 : item.col + 1 + item.colSpan"        [style.grid-row-start]="item.maximized ? 1 : item.row + 1"        [style.grid-row-end]="item.maximized ? \'span 4\' : item.row + 1 + item.rowSpan"        [attr.draggable]="(allowDragging() && item.draggable !== false && !item.maximized && !item.collapsed) ? \'true\' : \'false\'"        (dragstart)="onDragStart($event, item)"        (dragend)="onDragEnd()"      >        <!-- Panel Header -->        <div          class="panel-header"          [class.draggable-handle]="allowDragging() && item.draggable !== false && !item.maximized && !item.collapsed"        >          <div class="panel-title-group">            <span class="panel-icon-dot" [style.background-color]="getCategoryColor(item.category)"></span>            <span class="panel-title" [title]="item.title">{{ item.title }}</span>          </div>          <div class="panel-actions" (click)="$event.stopPropagation()">            <!-- Settings Action -->            <button class="action-btn" (click)="emitPanelAction(item, \'settings\')" title="Panel Settings">              ⚙️            </button>            <!-- Minimize / Expand Toggle -->            <button class="action-btn" (click)="toggleCollapse(item)" [title]="item.collapsed ? \'Expand Content\' : \'Collapse Content\'">              {{ item.collapsed ? \'▼\' : \'▲\' }}            </button>            <!-- Maximize / Restore Toggle -->            <button class="action-btn" (click)="toggleMaximize(item)" [title]="item.maximized ? \'Restore View\' : \'Maximize Panel\'">              {{ item.maximized ? \'🗗\' : \'🗖\' }}            </button>            <!-- Close Panel -->            <button class="action-btn close-btn" (click)="closePanel(item)" title="Close Panel">              ✕            </button>          </div>        </div>        <!-- Panel Body -->        <div class="panel-content-body">          <ng-content [select]="\'[panel-id=\' + item.id + \']\'"></ng-content>          <!-- Fallback Content if no projection matches -->          <div class="fallback-placeholder">            <span class="fallback-icon">▦</span>            <h4>{{ item.title }}</h4>            <p>{{ item.description || \'Provide a matching projection container with attribute panel-id="\' + item.id + \'"\' }}</p>          </div>        </div>        <!-- Resize Grip Handle -->        @if (allowResizing() && item.resizable !== false && !item.maximized && !item.collapsed) {          <div            class="resize-handle"            (mousedown)="onResizeStart($event, item)"          >            <svg width="10" height="10" viewBox="0 0 10 10">              <path d="M10,0 L0,10 M10,4 L4,10 M10,8 L8,10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"></path>            </svg>          </div>        }      </div>    }  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'DashboardLayoutComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DashboardLayoutComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

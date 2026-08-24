@@ -1,0 +1,2707 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CarouselComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/layout/carousel/carousel.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-carousel</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .ngx-carousel {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      outline: none;
+      background: #f1f5f9;
+      box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.05),
+        0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .ngx-carousel.dark {
+      background: #0f172a;
+    }
+
+    .ngx-carousel:focus-visible {
+      box-shadow: 0 0 0 3px var(--primary-color, #3b82f6);
+    }
+
+    .ngx-carousel__stage {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    /* ── Slide styles ── */
+    .ngx-carousel__slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      visibility: hidden;
+      opacity: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-carousel__slide.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 2;
+    }
+
+    .ngx-carousel__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── Glassmorphic Caption Card ── */
+    .ngx-carousel__caption-card {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.05),
+        0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      z-index: 5;
+      max-width: 480px;
+      animation: captionEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    .dark .ngx-carousel__caption-card {
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .ngx-carousel__caption-title {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .dark .ngx-carousel__caption-title {
+      color: #f8fafc;
+    }
+
+    .ngx-carousel__caption-desc {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #334155;
+    }
+
+    .dark .ngx-carousel__caption-desc {
+      color: #cbd5e1;
+    }
+
+    @keyframes captionEntrance {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* ── Controls (Next/Prev) ── */
+    .ngx-carousel__control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) scale(0.9);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+    }
+
+    .dark .ngx-carousel__control {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+
+    .ngx-carousel:hover .ngx-carousel__control {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .ngx-carousel__control:hover {
+      background: rgba(255, 255, 255, 0.85);
+      transform: translateY(-50%) scale(1.08) !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .ngx-carousel__control.prev {
+      left: 16px;
+    }
+
+    .ngx-carousel__control.next {
+      right: 16px;
+    }
+
+    /* ── Indicators ── */
+    .ngx-carousel__indicators {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 6px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .ngx-carousel__indicators {
+      background: rgba(15, 23, 42, 0.45);
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .ngx-carousel__indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .dark .ngx-carousel__indicator {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .ngx-carousel__indicator.active {
+      background: var(--primary-color, #3b82f6);
+      width: 18px;
+      border-radius: 4px;
+    }
+
+    /* ── Transitions ── */
+    .ngx-carousel__slide.transition-fade {
+      /* Fade is simple opacity change */
+    }
+
+    /* Slide Keyframes */
+    .ngx-carousel__slide.transition-slide.active-from-right {
+      animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      z-index: 3;
+    }
+    .ngx-carousel__slide.transition-slide.active-from-left {
+      animation: slideInLeft 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      z-index: 3;
+    }
+    .ngx-carousel__slide.transition-slide.exit-to-right {
+      animation: slideOutRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      visibility: visible;
+      z-index: 1;
+    }
+    .ngx-carousel__slide.transition-slide.exit-to-left {
+      animation: slideOutLeft 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+    @keyframes slideOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-100%); opacity: 0; }
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;ngx-carousel&quot;
+  [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+  [attr.id]&#x3D;&quot;id()&quot;
+  (keydown)&#x3D;&quot;onKeyDown($event)&quot;
+  tabindex&#x3D;&quot;0&quot;
+  (mouseenter)&#x3D;&quot;onMouseEnter()&quot;
+  (mouseleave)&#x3D;&quot;onMouseLeave()&quot;
+&gt;
+  &lt;div
+    class&#x3D;&quot;ngx-carousel__stage&quot;
+    (touchstart)&#x3D;&quot;onTouchStart($event)&quot;
+    (touchend)&#x3D;&quot;onTouchEnd($event)&quot;
+  &gt;
+    @for (item of items(); track $index) {
+      &lt;div
+        class&#x3D;&quot;ngx-carousel__slide&quot;
+        [class]&#x3D;&quot;getSlideClass($index)&quot;
+      &gt;
+        @if (itemTemplate()) {
+          &lt;ng-container *ngTemplateOutlet&#x3D;&quot;itemTemplate()!; context: { $implicit: item, index: $index }&quot;&gt;&lt;/ng-container&gt;
+        } @else {
+          &lt;!-- Default Image layout --&gt;
+          &lt;img [src]&#x3D;&quot;item.url&quot; [alt]&#x3D;&quot;item.title || &#x27;Slide &#x27; + ($index + 1)&quot; class&#x3D;&quot;ngx-carousel__img&quot; /&gt;
+          @if (item.title || item.caption) {
+            &lt;div class&#x3D;&quot;ngx-carousel__caption-card&quot;&gt;
+              @if (item.title) {
+                &lt;h3 class&#x3D;&quot;ngx-carousel__caption-title&quot;&gt;{{ item.title }}&lt;/h3&gt;
+              }
+              @if (item.caption) {
+                &lt;p class&#x3D;&quot;ngx-carousel__caption-desc&quot;&gt;{{ item.caption }}&lt;/p&gt;
+              }
+            &lt;/div&gt;
+          }
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;!-- Controls --&gt;
+  @if (showControls() &amp;&amp; items().length &gt; 1) {
+    &lt;button
+      class&#x3D;&quot;ngx-carousel__control prev&quot;
+      (click)&#x3D;&quot;prevSlide()&quot;
+      aria-label&#x3D;&quot;Previous slide&quot;
+    &gt;
+      &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;24&quot; height&#x3D;&quot;24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot;&gt;
+        &lt;polyline points&#x3D;&quot;15 18 9 12 15 6&quot; /&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;button
+      class&#x3D;&quot;ngx-carousel__control next&quot;
+      (click)&#x3D;&quot;nextSlide()&quot;
+      aria-label&#x3D;&quot;Next slide&quot;
+    &gt;
+      &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;24&quot; height&#x3D;&quot;24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot;&gt;
+        &lt;polyline points&#x3D;&quot;9 18 15 12 9 6&quot; /&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  }
+
+  &lt;!-- Indicators --&gt;
+  @if (showIndicators() &amp;&amp; items().length &gt; 1) {
+    &lt;div class&#x3D;&quot;ngx-carousel__indicators&quot;&gt;
+      @for (item of items(); track $index) {
+        &lt;button
+          class&#x3D;&quot;ngx-carousel__indicator&quot;
+          [class.active]&#x3D;&quot;$index &#x3D;&#x3D;&#x3D; activeIndex()&quot;
+          (click)&#x3D;&quot;goToSlide($index)&quot;
+          [attr.aria-label]&#x3D;&quot;&#x27;Go to slide &#x27; + ($index + 1)&quot;
+        &gt;&lt;/button&gt;
+      }
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeIndex" >activeIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#autoplayTimer" >autoplayTimer</a>
+                            </li>
+                            <li>
+                                <a href="#lastActiveIndex" >lastActiveIndex</a>
+                            </li>
+                            <li>
+                                <a href="#navDirection" >navDirection</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#touchStartX" >touchStartX</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getSlideClass" >getSlideClass</a>
+                            </li>
+                            <li>
+                                <a href="#goToSlide" >goToSlide</a>
+                            </li>
+                            <li>
+                                <a href="#nextSlide" >nextSlide</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onKeyDown" >onKeyDown</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseEnter" >onMouseEnter</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseLeave" >onMouseLeave</a>
+                            </li>
+                            <li>
+                                <a href="#onTouchEnd" >onTouchEnd</a>
+                            </li>
+                            <li>
+                                <a href="#onTouchStart" >onTouchStart</a>
+                            </li>
+                            <li>
+                                <a href="#prevSlide" >prevSlide</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resetAutoplay" >resetAutoplay</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#startAutoplay" >startAutoplay</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#stopAutoplay" >stopAutoplay</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#autoplay" >autoplay</a>
+                            </li>
+                            <li>
+                                <a href="#id" >id</a>
+                            </li>
+                            <li>
+                                <a href="#interval" >interval</a>
+                            </li>
+                            <li>
+                                <a href="#items" >items</a>
+                            </li>
+                            <li>
+                                <a href="#itemTemplate" >itemTemplate</a>
+                            </li>
+                            <li>
+                                <a href="#showControls" >showControls</a>
+                            </li>
+                            <li>
+                                <a href="#showIndicators" >showIndicators</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                            <li>
+                                <a href="#transition" >transition</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#slideChange" >slideChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="371" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:371</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="autoplay"></a>
+                        <b>autoplay</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="356" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:356</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="id"></a>
+                        <b>id</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;ngx-carousel-&#x27; + Math.random().toString(36).substring(2, 9)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="363" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:363</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="interval"></a>
+                        <b>interval</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>5000</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="357" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:357</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="items"></a>
+                        <b>items</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="355" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:355</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="itemTemplate"></a>
+                        <b>itemTemplate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>TemplateRef&lt;any&gt; | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="362" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:362</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showControls"></a>
+                        <b>showControls</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="361" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:361</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showIndicators"></a>
+                        <b>showIndicators</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="360" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:360</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="359" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:359</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="transition"></a>
+                        <b>transition</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;slide&quot; | &quot;fade&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;slide&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="358" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:358</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="slideChange"></a>
+                        <b>slideChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>{ index: number; item: any }</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="366" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:366</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSlideClass"></a>
+                    <span class="name">
+                        <span ><b>getSlideClass</b></span>
+                        <a href="#getSlideClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSlideClass(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="492"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:492</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToSlide"></a>
+                    <span class="name">
+                        <span ><b>goToSlide</b></span>
+                        <a href="#goToSlide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToSlide(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="404"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:404</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextSlide"></a>
+                    <span class="name">
+                        <span ><b>nextSlide</b></span>
+                        <a href="#nextSlide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextSlide()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="419"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:419</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="400"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:400</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="396"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:396</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onKeyDown"></a>
+                    <span class="name">
+                        <span ><b>onKeyDown</b></span>
+                        <a href="#onKeyDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onKeyDown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="433"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:433</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>KeyboardEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseEnter"></a>
+                    <span class="name">
+                        <span ><b>onMouseEnter</b></span>
+                        <a href="#onMouseEnter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseEnter()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="463"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:463</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseLeave"></a>
+                    <span class="name">
+                        <span ><b>onMouseLeave</b></span>
+                        <a href="#onMouseLeave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseLeave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="467"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:467</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTouchEnd"></a>
+                    <span class="name">
+                        <span ><b>onTouchEnd</b></span>
+                        <a href="#onTouchEnd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTouchEnd(event: TouchEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="448"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:448</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>TouchEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTouchStart"></a>
+                    <span class="name">
+                        <span ><b>onTouchStart</b></span>
+                        <a href="#onTouchStart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTouchStart(event: TouchEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="444"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:444</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>TouchEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prevSlide"></a>
+                    <span class="name">
+                        <span ><b>prevSlide</b></span>
+                        <a href="#prevSlide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prevSlide()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="426"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:426</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetAutoplay"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>resetAutoplay</b></span>
+                        <a href="#resetAutoplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetAutoplay()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="486"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:486</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startAutoplay"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>startAutoplay</b></span>
+                        <a href="#startAutoplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>startAutoplay()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="471"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:471</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stopAutoplay"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>stopAutoplay</b></span>
+                        <a href="#stopAutoplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>stopAutoplay()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="479"
+                                    class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:479</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeIndex"></a>
+                    <span class="name">
+                        <span ><b>activeIndex</b></span>
+                        <a href="#activeIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="369" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:369</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="autoplayTimer"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>autoplayTimer</b></span>
+                        <a href="#autoplayTimer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="393" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:393</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastActiveIndex"></a>
+                    <span class="name">
+                        <span ><b>lastActiveIndex</b></span>
+                        <a href="#lastActiveIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(-1)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="370" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:370</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navDirection"></a>
+                    <span class="name">
+                        <span ><b>navDirection</b></span>
+                        <a href="#navDirection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;&#x27;next&#x27; | &#x27;prev&#x27;&gt;(&#x27;next&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="371" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:371</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="touchStartX"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>touchStartX</b></span>
+                        <a href="#touchStartX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="394" class="link-to-prism">projects/ngx-core-components/layout/carousel/carousel.component.ts:394</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  signal,
+  computed,
+  OnInit,
+  OnDestroy,
+  TemplateRef,
+  HostListener,
+  effect,
+  untracked,
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;ngx-carousel&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-carousel&quot;
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      [attr.id]&#x3D;&quot;id()&quot;
+      (keydown)&#x3D;&quot;onKeyDown($event)&quot;
+      tabindex&#x3D;&quot;0&quot;
+      (mouseenter)&#x3D;&quot;onMouseEnter()&quot;
+      (mouseleave)&#x3D;&quot;onMouseLeave()&quot;
+    &gt;
+      &lt;div
+        class&#x3D;&quot;ngx-carousel__stage&quot;
+        (touchstart)&#x3D;&quot;onTouchStart($event)&quot;
+        (touchend)&#x3D;&quot;onTouchEnd($event)&quot;
+      &gt;
+        @for (item of items(); track $index) {
+          &lt;div
+            class&#x3D;&quot;ngx-carousel__slide&quot;
+            [class]&#x3D;&quot;getSlideClass($index)&quot;
+          &gt;
+            @if (itemTemplate()) {
+              &lt;ng-container *ngTemplateOutlet&#x3D;&quot;itemTemplate()!; context: { $implicit: item, index: $index }&quot;&gt;&lt;/ng-container&gt;
+            } @else {
+              &lt;!-- Default Image layout --&gt;
+              &lt;img [src]&#x3D;&quot;item.url&quot; [alt]&#x3D;&quot;item.title || &#x27;Slide &#x27; + ($index + 1)&quot; class&#x3D;&quot;ngx-carousel__img&quot; /&gt;
+              @if (item.title || item.caption) {
+                &lt;div class&#x3D;&quot;ngx-carousel__caption-card&quot;&gt;
+                  @if (item.title) {
+                    &lt;h3 class&#x3D;&quot;ngx-carousel__caption-title&quot;&gt;{{ item.title }}&lt;/h3&gt;
+                  }
+                  @if (item.caption) {
+                    &lt;p class&#x3D;&quot;ngx-carousel__caption-desc&quot;&gt;{{ item.caption }}&lt;/p&gt;
+                  }
+                &lt;/div&gt;
+              }
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Controls --&gt;
+      @if (showControls() &amp;&amp; items().length &gt; 1) {
+        &lt;button
+          class&#x3D;&quot;ngx-carousel__control prev&quot;
+          (click)&#x3D;&quot;prevSlide()&quot;
+          aria-label&#x3D;&quot;Previous slide&quot;
+        &gt;
+          &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;24&quot; height&#x3D;&quot;24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot;&gt;
+            &lt;polyline points&#x3D;&quot;15 18 9 12 15 6&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;ngx-carousel__control next&quot;
+          (click)&#x3D;&quot;nextSlide()&quot;
+          aria-label&#x3D;&quot;Next slide&quot;
+        &gt;
+          &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;24&quot; height&#x3D;&quot;24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot;&gt;
+            &lt;polyline points&#x3D;&quot;9 18 15 12 9 6&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+      }
+
+      &lt;!-- Indicators --&gt;
+      @if (showIndicators() &amp;&amp; items().length &gt; 1) {
+        &lt;div class&#x3D;&quot;ngx-carousel__indicators&quot;&gt;
+          @for (item of items(); track $index) {
+            &lt;button
+              class&#x3D;&quot;ngx-carousel__indicator&quot;
+              [class.active]&#x3D;&quot;$index &#x3D;&#x3D;&#x3D; activeIndex()&quot;
+              (click)&#x3D;&quot;goToSlide($index)&quot;
+              [attr.aria-label]&#x3D;&quot;&#x27;Go to slide &#x27; + ($index + 1)&quot;
+            &gt;&lt;/button&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .ngx-carousel {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      outline: none;
+      background: #f1f5f9;
+      box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.05),
+        0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .ngx-carousel.dark {
+      background: #0f172a;
+    }
+
+    .ngx-carousel:focus-visible {
+      box-shadow: 0 0 0 3px var(--primary-color, #3b82f6);
+    }
+
+    .ngx-carousel__stage {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    /* ── Slide styles ── */
+    .ngx-carousel__slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      visibility: hidden;
+      opacity: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-carousel__slide.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 2;
+    }
+
+    .ngx-carousel__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── Glassmorphic Caption Card ── */
+    .ngx-carousel__caption-card {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.05),
+        0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      z-index: 5;
+      max-width: 480px;
+      animation: captionEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    .dark .ngx-carousel__caption-card {
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .ngx-carousel__caption-title {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .dark .ngx-carousel__caption-title {
+      color: #f8fafc;
+    }
+
+    .ngx-carousel__caption-desc {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #334155;
+    }
+
+    .dark .ngx-carousel__caption-desc {
+      color: #cbd5e1;
+    }
+
+    @keyframes captionEntrance {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* ── Controls (Next/Prev) ── */
+    .ngx-carousel__control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) scale(0.9);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+    }
+
+    .dark .ngx-carousel__control {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+
+    .ngx-carousel:hover .ngx-carousel__control {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .ngx-carousel__control:hover {
+      background: rgba(255, 255, 255, 0.85);
+      transform: translateY(-50%) scale(1.08) !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .ngx-carousel__control.prev {
+      left: 16px;
+    }
+
+    .ngx-carousel__control.next {
+      right: 16px;
+    }
+
+    /* ── Indicators ── */
+    .ngx-carousel__indicators {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 6px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .ngx-carousel__indicators {
+      background: rgba(15, 23, 42, 0.45);
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .ngx-carousel__indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .dark .ngx-carousel__indicator {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .ngx-carousel__indicator.active {
+      background: var(--primary-color, #3b82f6);
+      width: 18px;
+      border-radius: 4px;
+    }
+
+    /* ── Transitions ── */
+    .ngx-carousel__slide.transition-fade {
+      /* Fade is simple opacity change */
+    }
+
+    /* Slide Keyframes */
+    .ngx-carousel__slide.transition-slide.active-from-right {
+      animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      z-index: 3;
+    }
+    .ngx-carousel__slide.transition-slide.active-from-left {
+      animation: slideInLeft 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      z-index: 3;
+    }
+    .ngx-carousel__slide.transition-slide.exit-to-right {
+      animation: slideOutRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      visibility: visible;
+      z-index: 1;
+    }
+    .ngx-carousel__slide.transition-slide.exit-to-left {
+      animation: slideOutLeft 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+    @keyframes slideOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-100%); opacity: 0; }
+    }
+  &#x60;]
+})
+export class CarouselComponent implements OnInit, OnDestroy {
+  // Inputs
+  items &#x3D; input&lt;any[]&gt;([]);
+  autoplay &#x3D; input&lt;boolean&gt;(true);
+  interval &#x3D; input&lt;number&gt;(5000);
+  transition &#x3D; input&lt;&#x27;slide&#x27; | &#x27;fade&#x27;&gt;(&#x27;slide&#x27;);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  showIndicators &#x3D; input&lt;boolean&gt;(true);
+  showControls &#x3D; input&lt;boolean&gt;(true);
+  itemTemplate &#x3D; input&lt;TemplateRef&lt;any&gt; | null&gt;(null);
+  id &#x3D; input&lt;string&gt;(&#x27;ngx-carousel-&#x27; + Math.random().toString(36).substring(2, 9));
+
+  // Outputs
+  slideChange &#x3D; output&lt;{ index: number; item: any }&gt;();
+
+  // State Signals
+  activeIndex &#x3D; signal&lt;number&gt;(0);
+  lastActiveIndex &#x3D; signal&lt;number&gt;(-1);
+  navDirection &#x3D; signal&lt;&#x27;next&#x27; | &#x27;prev&#x27;&gt;(&#x27;next&#x27;);
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      // Clamp index on item changes
+      const total &#x3D; this.items().length;
+      if (this.activeIndex() &gt;&#x3D; total) {
+        this.activeIndex.set(total &gt; 0 ? total - 1 : 0);
+      }
+    }, { allowSignalWrites: true });
+
+    effect(() &#x3D;&gt; {
+      // React to autoplay and interval updates
+      this.autoplay();
+      this.interval();
+
+      untracked(() &#x3D;&gt; {
+        this.resetAutoplay();
+      });
+    });
+  }
+
+  private autoplayTimer: any &#x3D; null;
+  private touchStartX &#x3D; 0;
+
+  ngOnInit() {
+    this.startAutoplay();
+  }
+
+  ngOnDestroy() {
+    this.stopAutoplay();
+  }
+
+  goToSlide(index: number) {
+    if (index &#x3D;&#x3D;&#x3D; this.activeIndex() || this.items().length &lt;&#x3D; 1) return;
+
+    this.lastActiveIndex.set(this.activeIndex());
+    this.navDirection.set(index &gt; this.activeIndex() ? &#x27;next&#x27; : &#x27;prev&#x27;);
+    this.activeIndex.set(index);
+
+    this.slideChange.emit({
+      index: index,
+      item: this.items()[index],
+    });
+
+    this.resetAutoplay();
+  }
+
+  nextSlide() {
+    const total &#x3D; this.items().length;
+    if (total &lt;&#x3D; 1) return;
+    const nextIdx &#x3D; (this.activeIndex() + 1) % total;
+    this.goToSlide(nextIdx);
+  }
+
+  prevSlide() {
+    const total &#x3D; this.items().length;
+    if (total &lt;&#x3D; 1) return;
+    const prevIdx &#x3D; (this.activeIndex() - 1 + total) % total;
+    this.goToSlide(prevIdx);
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowRight&#x27;) {
+      this.nextSlide();
+      event.preventDefault();
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowLeft&#x27;) {
+      this.prevSlide();
+      event.preventDefault();
+    }
+  }
+
+  // Touch Swipe Handlers
+  onTouchStart(event: TouchEvent) {
+    this.touchStartX &#x3D; event.touches[0].clientX;
+  }
+
+  onTouchEnd(event: TouchEvent) {
+    const touchEndX &#x3D; event.changedTouches[0].clientX;
+    const diff &#x3D; touchEndX - this.touchStartX;
+
+    // Minimum swipe threshold (50px)
+    if (Math.abs(diff) &gt; 50) {
+      if (diff &gt; 0) {
+        this.prevSlide(); // Swiped right -&gt; go to previous
+      } else {
+        this.nextSlide(); // Swiped left -&gt; go to next
+      }
+    }
+  }
+
+  // Autoplay Logic
+  onMouseEnter() {
+    this.stopAutoplay();
+  }
+
+  onMouseLeave() {
+    this.startAutoplay();
+  }
+
+  private startAutoplay() {
+    if (!this.autoplay() || this.items().length &lt;&#x3D; 1) return;
+    this.stopAutoplay();
+    this.autoplayTimer &#x3D; setInterval(() &#x3D;&gt; {
+      this.nextSlide();
+    }, this.interval());
+  }
+
+  private stopAutoplay() {
+    if (this.autoplayTimer) {
+      clearInterval(this.autoplayTimer);
+      this.autoplayTimer &#x3D; null;
+    }
+  }
+
+  private resetAutoplay() {
+    this.stopAutoplay();
+    this.startAutoplay();
+  }
+
+  // Helper to dynamically calculate classes per slide to trigger CSS animations
+  getSlideClass(index: number): string {
+    const active &#x3D; this.activeIndex();
+    const last &#x3D; this.lastActiveIndex();
+    const transitionType &#x3D; this.transition();
+
+    if (index &#x3D;&#x3D;&#x3D; active) {
+      if (last &#x3D;&#x3D;&#x3D; -1) return &#x27;active&#x27;;
+      const direction &#x3D; this.navDirection();
+      return &#x60;active transition-${transitionType} active-from-${direction &#x3D;&#x3D;&#x3D; &#x27;next&#x27; ? &#x27;right&#x27; : &#x27;left&#x27;}&#x60;;
+    }
+    if (index &#x3D;&#x3D;&#x3D; last) {
+      const direction &#x3D; this.navDirection();
+      return &#x60;transition-${transitionType} exit-to-${direction &#x3D;&#x3D;&#x3D; &#x27;next&#x27; ? &#x27;left&#x27; : &#x27;right&#x27;}&#x60;;
+    }
+    return &#x27;&#x27;;
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .ngx-carousel {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      outline: none;
+      background: #f1f5f9;
+      box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.05),
+        0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .ngx-carousel.dark {
+      background: #0f172a;
+    }
+
+    .ngx-carousel:focus-visible {
+      box-shadow: 0 0 0 3px var(--primary-color, #3b82f6);
+    }
+
+    .ngx-carousel__stage {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    /* ── Slide styles ── */
+    .ngx-carousel__slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      visibility: hidden;
+      opacity: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-carousel__slide.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 2;
+    }
+
+    .ngx-carousel__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── Glassmorphic Caption Card ── */
+    .ngx-carousel__caption-card {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.05),
+        0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      z-index: 5;
+      max-width: 480px;
+      animation: captionEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    .dark .ngx-carousel__caption-card {
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .ngx-carousel__caption-title {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .dark .ngx-carousel__caption-title {
+      color: #f8fafc;
+    }
+
+    .ngx-carousel__caption-desc {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #334155;
+    }
+
+    .dark .ngx-carousel__caption-desc {
+      color: #cbd5e1;
+    }
+
+    @keyframes captionEntrance {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* ── Controls (Next/Prev) ── */
+    .ngx-carousel__control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) scale(0.9);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+    }
+
+    .dark .ngx-carousel__control {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+
+    .ngx-carousel:hover .ngx-carousel__control {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .ngx-carousel__control:hover {
+      background: rgba(255, 255, 255, 0.85);
+      transform: translateY(-50%) scale(1.08) !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .ngx-carousel__control.prev {
+      left: 16px;
+    }
+
+    .ngx-carousel__control.next {
+      right: 16px;
+    }
+
+    /* ── Indicators ── */
+    .ngx-carousel__indicators {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 6px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .ngx-carousel__indicators {
+      background: rgba(15, 23, 42, 0.45);
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .ngx-carousel__indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .dark .ngx-carousel__indicator {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .ngx-carousel__indicator.active {
+      background: var(--primary-color, #3b82f6);
+      width: 18px;
+      border-radius: 4px;
+    }
+
+    /* ── Transitions ── */
+    .ngx-carousel__slide.transition-fade {
+      /* Fade is simple opacity change */
+    }
+
+    /* Slide Keyframes */
+    .ngx-carousel__slide.transition-slide.active-from-right {
+      animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      z-index: 3;
+    }
+    .ngx-carousel__slide.transition-slide.active-from-left {
+      animation: slideInLeft 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      z-index: 3;
+    }
+    .ngx-carousel__slide.transition-slide.exit-to-right {
+      animation: slideOutRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      visibility: visible;
+      z-index: 1;
+    }
+    .ngx-carousel__slide.transition-slide.exit-to-left {
+      animation: slideOutLeft 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+    @keyframes slideOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-100%); opacity: 0; }
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div  class="ngx-carousel"  [class.dark]="theme() === \'dark\'"  [attr.id]="id()"  (keydown)="onKeyDown($event)"  tabindex="0"  (mouseenter)="onMouseEnter()"  (mouseleave)="onMouseLeave()">  <div    class="ngx-carousel__stage"    (touchstart)="onTouchStart($event)"    (touchend)="onTouchEnd($event)"  >    @for (item of items(); track $index) {      <div        class="ngx-carousel__slide"        [class]="getSlideClass($index)"      >        @if (itemTemplate()) {          <ng-container *ngTemplateOutlet="itemTemplate()!; context: { $implicit: item, index: $index }"></ng-container>        } @else {          <!-- Default Image layout -->          <img [src]="item.url" [alt]="item.title || \'Slide \' + ($index + 1)" class="ngx-carousel__img" />          @if (item.title || item.caption) {            <div class="ngx-carousel__caption-card">              @if (item.title) {                <h3 class="ngx-carousel__caption-title">{{ item.title }}</h3>              }              @if (item.caption) {                <p class="ngx-carousel__caption-desc">{{ item.caption }}</p>              }            </div>          }        }      </div>    }  </div>  <!-- Controls -->  @if (showControls() && items().length > 1) {    <button      class="ngx-carousel__control prev"      (click)="prevSlide()"      aria-label="Previous slide"    >      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5">        <polyline points="15 18 9 12 15 6" />      </svg>    </button>    <button      class="ngx-carousel__control next"      (click)="nextSlide()"      aria-label="Next slide"    >      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5">        <polyline points="9 18 15 12 9 6" />      </svg>    </button>  }  <!-- Indicators -->  @if (showIndicators() && items().length > 1) {    <div class="ngx-carousel__indicators">      @for (item of items(); track $index) {        <button          class="ngx-carousel__indicator"          [class.active]="$index === activeIndex()"          (click)="goToSlide($index)"          [attr.aria-label]="\'Go to slide \' + ($index + 1)"        ></button>      }    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'CarouselComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CarouselComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

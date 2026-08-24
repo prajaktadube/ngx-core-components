@@ -1,0 +1,1492 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SparklineComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/sparkline/sparkline.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-sparkline</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: inline-block;
+    }
+    .ngx-sparkline {
+      display: block;
+      overflow: visible;
+      cursor: crosshair;
+    }
+
+    @keyframes lineDraw {
+      from { stroke-dashoffset: 400; }
+      to { stroke-dashoffset: 0; }
+    }
+    .sparkline-path {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: lineDraw 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes areaFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .sparkline-area {
+      animation: areaFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .end-dot {
+      animation: areaFade 0.4s ease-out 0.8s both;
+    }
+
+    .sparkline-bar {
+      opacity: 0.85;
+      transition: opacity 0.2s, fill 0.2s;
+      animation: areaFade 0.4s ease-out both;
+    }
+    .sparkline-bar:hover, .sparkline-bar.hovered {
+      opacity: 1;
+      filter: brightness(1.1);
+    }
+
+    .tracker-line {
+      pointer-events: none;
+    }
+    .tracker-ring {
+      pointer-events: none;
+      animation: trackerPulse 1.5s infinite alternate;
+    }
+    .tracker-dot {
+      pointer-events: none;
+    }
+
+    @keyframes trackerPulse {
+      from { r: 4.5px; fill-opacity: 0.2; }
+      to { r: 6.5px; fill-opacity: 0.4; }
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;svg
+  [attr.width]&#x3D;&quot;width()&quot;
+  [attr.height]&#x3D;&quot;height()&quot;
+  class&#x3D;&quot;ngx-sparkline&quot;
+  [attr.aria-label]&#x3D;&quot;&#x27;Sparkline&#x27;&quot;
+  (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+  (mouseleave)&#x3D;&quot;hoveredIndex.set(null)&quot;
+&gt;
+  &lt;defs&gt;
+    &lt;linearGradient id&#x3D;&quot;sparkline-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;0%&quot; y2&#x3D;&quot;100%&quot;&gt;
+      &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;color()&quot; stop-opacity&#x3D;&quot;0.32&quot; /&gt;
+      &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;color()&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+    &lt;/linearGradient&gt;
+  &lt;/defs&gt;
+
+  @if (type() &#x3D;&#x3D;&#x3D; &#x27;line&#x27; || type() &#x3D;&#x3D;&#x3D; &#x27;area&#x27;) {
+    @if (type() &#x3D;&#x3D;&#x3D; &#x27;area&#x27;) {
+      &lt;path [attr.d]&#x3D;&quot;areaPath()&quot; fill&#x3D;&quot;url(#sparkline-grad)&quot; stroke&#x3D;&quot;none&quot; class&#x3D;&quot;sparkline-area&quot;/&gt;
+    }
+    &lt;path
+      [attr.d]&#x3D;&quot;linePath()&quot;
+      [attr.stroke]&#x3D;&quot;color()&quot;
+      fill&#x3D;&quot;none&quot;
+      stroke-width&#x3D;&quot;2&quot;
+      stroke-linejoin&#x3D;&quot;round&quot;
+      stroke-linecap&#x3D;&quot;round&quot;
+      class&#x3D;&quot;sparkline-path&quot;
+    /&gt;
+    &lt;!-- End dot (if not hovered) --&gt;
+    @if (endPoint(); as ep) {
+      @if (hoveredIndex() &#x3D;&#x3D;&#x3D; null) {
+        &lt;circle [attr.cx]&#x3D;&quot;ep[0]&quot; [attr.cy]&#x3D;&quot;ep[1]&quot; r&#x3D;&quot;3&quot; [attr.fill]&#x3D;&quot;color()&quot; class&#x3D;&quot;end-dot&quot;/&gt;
+      }
+    }
+  }
+  @if (type() &#x3D;&#x3D;&#x3D; &#x27;bar&#x27;) {
+    @for (item of barItems(); track $index; let idx &#x3D; $index) {
+      &lt;rect
+        [attr.x]&#x3D;&quot;item.x&quot;
+        [attr.y]&#x3D;&quot;item.y&quot;
+        [attr.width]&#x3D;&quot;item.w&quot;
+        [attr.height]&#x3D;&quot;item.h&quot;
+        [attr.fill]&#x3D;&quot;color()&quot;
+        [attr.rx]&#x3D;&quot;1&quot;
+        [class.hovered]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; idx&quot;
+        [style.animation-delay]&#x3D;&quot;(idx * 0.02) + &#x27;s&#x27;&quot;
+        class&#x3D;&quot;sparkline-bar&quot;
+      /&gt;
+    }
+  }
+
+  &lt;!-- Interactive Tracker overlay --&gt;
+  @if (activePoint(); as ap) {
+    &lt;!-- Vertical guide line --&gt;
+    &lt;line
+      [attr.x1]&#x3D;&quot;ap[0]&quot;
+      [attr.x2]&#x3D;&quot;ap[0]&quot;
+      [attr.y1]&#x3D;&quot;PAD&quot;
+      [attr.y2]&#x3D;&quot;PAD + h()&quot;
+      stroke&#x3D;&quot;rgba(100, 116, 139, 0.25)&quot;
+      stroke-width&#x3D;&quot;1.2&quot;
+      stroke-dasharray&#x3D;&quot;2,2&quot;
+      class&#x3D;&quot;tracker-line&quot;
+    /&gt;
+    &lt;!-- Outer glowing ring --&gt;
+    &lt;circle
+      [attr.cx]&#x3D;&quot;ap[0]&quot;
+      [attr.cy]&#x3D;&quot;ap[1]&quot;
+      r&#x3D;&quot;5&quot;
+      [attr.fill]&#x3D;&quot;color()&quot;
+      fill-opacity&#x3D;&quot;0.25&quot;
+      class&#x3D;&quot;tracker-ring&quot;
+    /&gt;
+    &lt;!-- Inner solid dot --&gt;
+    &lt;circle
+      [attr.cx]&#x3D;&quot;ap[0]&quot;
+      [attr.cy]&#x3D;&quot;ap[1]&quot;
+      r&#x3D;&quot;2.5&quot;
+      [attr.fill]&#x3D;&quot;color()&quot;
+      stroke&#x3D;&quot;#ffffff&quot;
+      stroke-width&#x3D;&quot;1&quot;
+      class&#x3D;&quot;tracker-dot&quot;
+    /&gt;
+  }
+&lt;/svg&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activePoint" >activePoint</a>
+                            </li>
+                            <li>
+                                <a href="#areaPath" >areaPath</a>
+                            </li>
+                            <li>
+                                <a href="#barItems" >barItems</a>
+                            </li>
+                            <li>
+                                <a href="#endPoint" >endPoint</a>
+                            </li>
+                            <li>
+                                <a href="#h" >h</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredIndex" >hoveredIndex</a>
+                            </li>
+                            <li>
+                                <a href="#linePath" >linePath</a>
+                            </li>
+                            <li>
+                                <a href="#PAD" >PAD</a>
+                            </li>
+                            <li>
+                                <a href="#pts" >pts</a>
+                            </li>
+                            <li>
+                                <a href="#w" >w</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#yMax" >yMax</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#yMin" >yMin</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#onMouseMove" >onMouseMove</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#color" >color</a>
+                            </li>
+                            <li>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#type" >type</a>
+                            </li>
+                            <li>
+                                <a href="#width" >width</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="color"></a>
+                        <b>color</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CHART_COLORS[0]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:159</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <b>data</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="157" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:157</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>36</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:161</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="type"></a>
+                        <b>type</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;line&quot; | &quot;bar&quot; | &quot;area&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;line&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:158</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <b>width</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>120</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="160" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:160</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseMove"></a>
+                    <span class="name">
+                        <span ><b>onMouseMove</b></span>
+                        <a href="#onMouseMove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseMove(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="219"
+                                    class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:219</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activePoint"></a>
+                    <span class="name">
+                        <span ><b>activePoint</b></span>
+                        <a href="#activePoint"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const idx &#x3D; this.hoveredIndex();
+    if (this.type() &#x3D;&#x3D;&#x3D; &#x27;bar&#x27;) return null; // Dot tracking only for lines/areas
+    return idx !&#x3D;&#x3D; null &amp;&amp; this.pts()[idx] ? this.pts()[idx] : null;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="areaPath"></a>
+                    <span class="name">
+                        <span ><b>areaPath</b></span>
+                        <a href="#areaPath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const pts &#x3D; this.pts();
+    if (pts.length &lt; 2) return &#x27;&#x27;;
+    const line &#x3D; smoothPath(pts);
+    const last &#x3D; pts[pts.length - 1];
+    const first &#x3D; pts[0];
+    const bottom &#x3D; this.PAD + this.h();
+    return line + &#x60; L ${last[0]} ${bottom} L ${first[0]} ${bottom} Z&#x60;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="185" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="barItems"></a>
+                    <span class="name">
+                        <span ><b>barItems</b></span>
+                        <a href="#barItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const d &#x3D; this.data();
+    const n &#x3D; d.length;
+    if (n &#x3D;&#x3D;&#x3D; 0) return [];
+    const bw &#x3D; Math.max(2, this.w() / n - 1);
+    const zero &#x3D; this.PAD + scale(0, this.yMin(), this.yMax(), this.h(), 0);
+    return d.map((v, i) &#x3D;&gt; {
+      const x &#x3D; this.PAD + scale(i, 0, Math.max(n - 1, 1), 0, this.w()) - bw / 2;
+      const y &#x3D; this.PAD + scale(v, this.yMin(), this.yMax(), this.h(), 0);
+      return { x, y, w: bw, h: Math.abs(zero - y) };
+    });
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:206</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="endPoint"></a>
+                    <span class="name">
+                        <span ><b>endPoint</b></span>
+                        <a href="#endPoint"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;[number, number] | null&gt;(() &#x3D;&gt; {
+    const pts &#x3D; this.pts();
+    return pts.length &gt; 0 ? pts[pts.length - 1] : null;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="195" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="h"></a>
+                    <span class="name">
+                        <span ><b>h</b></span>
+                        <a href="#h"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.height() - this.PAD * 2)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredIndex"></a>
+                    <span class="name">
+                        <span ><b>hoveredIndex</b></span>
+                        <a href="#hoveredIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:168</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="linePath"></a>
+                    <span class="name">
+                        <span ><b>linePath</b></span>
+                        <a href="#linePath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; smoothPath(this.pts()))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:183</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PAD"></a>
+                    <span class="name">
+                        <span ><b>PAD</b></span>
+                        <a href="#PAD"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>2</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pts"></a>
+                    <span class="name">
+                        <span ><b>pts</b></span>
+                        <a href="#pts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;[number, number][]&gt;(() &#x3D;&gt; {
+    const d &#x3D; this.data();
+    const n &#x3D; d.length;
+    if (n &#x3D;&#x3D;&#x3D; 0) return [];
+    return d.map((v, i) &#x3D;&gt; [
+      this.PAD + scale(i, 0, Math.max(n - 1, 1), 0, this.w()),
+      this.PAD + scale(v, this.yMin(), this.yMax(), this.h(), 0),
+    ]);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="w"></a>
+                    <span class="name">
+                        <span ><b>w</b></span>
+                        <a href="#w"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.width() - this.PAD * 2)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="165" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yMax"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>yMax</b></span>
+                        <a href="#yMax"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.max(...this.data(), 1))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="171" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:171</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yMin"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>yMin</b></span>
+                        <a href="#yMin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.min(...this.data(), 0))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="170" class="link-to-prism">projects/ngx-core-components/charts/sparkline/sparkline.component.ts:170</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ChangeDetectionStrategy, input, computed, signal } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, scale, smoothPath } from &#x27;../shared/chart-utils&#x27;;
+
+@Component({
+  selector: &#x27;ngx-sparkline&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;svg
+      [attr.width]&#x3D;&quot;width()&quot;
+      [attr.height]&#x3D;&quot;height()&quot;
+      class&#x3D;&quot;ngx-sparkline&quot;
+      [attr.aria-label]&#x3D;&quot;&#x27;Sparkline&#x27;&quot;
+      (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+      (mouseleave)&#x3D;&quot;hoveredIndex.set(null)&quot;
+    &gt;
+      &lt;defs&gt;
+        &lt;linearGradient id&#x3D;&quot;sparkline-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;0%&quot; y2&#x3D;&quot;100%&quot;&gt;
+          &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;color()&quot; stop-opacity&#x3D;&quot;0.32&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;color()&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+        &lt;/linearGradient&gt;
+      &lt;/defs&gt;
+
+      @if (type() &#x3D;&#x3D;&#x3D; &#x27;line&#x27; || type() &#x3D;&#x3D;&#x3D; &#x27;area&#x27;) {
+        @if (type() &#x3D;&#x3D;&#x3D; &#x27;area&#x27;) {
+          &lt;path [attr.d]&#x3D;&quot;areaPath()&quot; fill&#x3D;&quot;url(#sparkline-grad)&quot; stroke&#x3D;&quot;none&quot; class&#x3D;&quot;sparkline-area&quot;/&gt;
+        }
+        &lt;path
+          [attr.d]&#x3D;&quot;linePath()&quot;
+          [attr.stroke]&#x3D;&quot;color()&quot;
+          fill&#x3D;&quot;none&quot;
+          stroke-width&#x3D;&quot;2&quot;
+          stroke-linejoin&#x3D;&quot;round&quot;
+          stroke-linecap&#x3D;&quot;round&quot;
+          class&#x3D;&quot;sparkline-path&quot;
+        /&gt;
+        &lt;!-- End dot (if not hovered) --&gt;
+        @if (endPoint(); as ep) {
+          @if (hoveredIndex() &#x3D;&#x3D;&#x3D; null) {
+            &lt;circle [attr.cx]&#x3D;&quot;ep[0]&quot; [attr.cy]&#x3D;&quot;ep[1]&quot; r&#x3D;&quot;3&quot; [attr.fill]&#x3D;&quot;color()&quot; class&#x3D;&quot;end-dot&quot;/&gt;
+          }
+        }
+      }
+      @if (type() &#x3D;&#x3D;&#x3D; &#x27;bar&#x27;) {
+        @for (item of barItems(); track $index; let idx &#x3D; $index) {
+          &lt;rect
+            [attr.x]&#x3D;&quot;item.x&quot;
+            [attr.y]&#x3D;&quot;item.y&quot;
+            [attr.width]&#x3D;&quot;item.w&quot;
+            [attr.height]&#x3D;&quot;item.h&quot;
+            [attr.fill]&#x3D;&quot;color()&quot;
+            [attr.rx]&#x3D;&quot;1&quot;
+            [class.hovered]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; idx&quot;
+            [style.animation-delay]&#x3D;&quot;(idx * 0.02) + &#x27;s&#x27;&quot;
+            class&#x3D;&quot;sparkline-bar&quot;
+          /&gt;
+        }
+      }
+
+      &lt;!-- Interactive Tracker overlay --&gt;
+      @if (activePoint(); as ap) {
+        &lt;!-- Vertical guide line --&gt;
+        &lt;line
+          [attr.x1]&#x3D;&quot;ap[0]&quot;
+          [attr.x2]&#x3D;&quot;ap[0]&quot;
+          [attr.y1]&#x3D;&quot;PAD&quot;
+          [attr.y2]&#x3D;&quot;PAD + h()&quot;
+          stroke&#x3D;&quot;rgba(100, 116, 139, 0.25)&quot;
+          stroke-width&#x3D;&quot;1.2&quot;
+          stroke-dasharray&#x3D;&quot;2,2&quot;
+          class&#x3D;&quot;tracker-line&quot;
+        /&gt;
+        &lt;!-- Outer glowing ring --&gt;
+        &lt;circle
+          [attr.cx]&#x3D;&quot;ap[0]&quot;
+          [attr.cy]&#x3D;&quot;ap[1]&quot;
+          r&#x3D;&quot;5&quot;
+          [attr.fill]&#x3D;&quot;color()&quot;
+          fill-opacity&#x3D;&quot;0.25&quot;
+          class&#x3D;&quot;tracker-ring&quot;
+        /&gt;
+        &lt;!-- Inner solid dot --&gt;
+        &lt;circle
+          [attr.cx]&#x3D;&quot;ap[0]&quot;
+          [attr.cy]&#x3D;&quot;ap[1]&quot;
+          r&#x3D;&quot;2.5&quot;
+          [attr.fill]&#x3D;&quot;color()&quot;
+          stroke&#x3D;&quot;#ffffff&quot;
+          stroke-width&#x3D;&quot;1&quot;
+          class&#x3D;&quot;tracker-dot&quot;
+        /&gt;
+      }
+    &lt;/svg&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: inline-block;
+    }
+    .ngx-sparkline {
+      display: block;
+      overflow: visible;
+      cursor: crosshair;
+    }
+
+    @keyframes lineDraw {
+      from { stroke-dashoffset: 400; }
+      to { stroke-dashoffset: 0; }
+    }
+    .sparkline-path {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: lineDraw 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes areaFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .sparkline-area {
+      animation: areaFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .end-dot {
+      animation: areaFade 0.4s ease-out 0.8s both;
+    }
+
+    .sparkline-bar {
+      opacity: 0.85;
+      transition: opacity 0.2s, fill 0.2s;
+      animation: areaFade 0.4s ease-out both;
+    }
+    .sparkline-bar:hover, .sparkline-bar.hovered {
+      opacity: 1;
+      filter: brightness(1.1);
+    }
+
+    .tracker-line {
+      pointer-events: none;
+    }
+    .tracker-ring {
+      pointer-events: none;
+      animation: trackerPulse 1.5s infinite alternate;
+    }
+    .tracker-dot {
+      pointer-events: none;
+    }
+
+    @keyframes trackerPulse {
+      from { r: 4.5px; fill-opacity: 0.2; }
+      to { r: 6.5px; fill-opacity: 0.4; }
+    }
+  &#x60;]
+})
+export class SparklineComponent {
+  data &#x3D; input&lt;number[]&gt;([]);
+  type &#x3D; input&lt;&#x27;line&#x27; | &#x27;bar&#x27; | &#x27;area&#x27;&gt;(&#x27;line&#x27;);
+  color &#x3D; input&lt;string&gt;(CHART_COLORS[0]);
+  width &#x3D; input&lt;number&gt;(120);
+  height &#x3D; input&lt;number&gt;(36);
+
+  PAD &#x3D; 2;
+
+  w &#x3D; computed(() &#x3D;&gt; this.width() - this.PAD * 2);
+  h &#x3D; computed(() &#x3D;&gt; this.height() - this.PAD * 2);
+
+  hoveredIndex &#x3D; signal&lt;number | null&gt;(null);
+
+  private yMin &#x3D; computed(() &#x3D;&gt; Math.min(...this.data(), 0));
+  private yMax &#x3D; computed(() &#x3D;&gt; Math.max(...this.data(), 1));
+
+  pts &#x3D; computed&lt;[number, number][]&gt;(() &#x3D;&gt; {
+    const d &#x3D; this.data();
+    const n &#x3D; d.length;
+    if (n &#x3D;&#x3D;&#x3D; 0) return [];
+    return d.map((v, i) &#x3D;&gt; [
+      this.PAD + scale(i, 0, Math.max(n - 1, 1), 0, this.w()),
+      this.PAD + scale(v, this.yMin(), this.yMax(), this.h(), 0),
+    ]);
+  });
+
+  linePath &#x3D; computed(() &#x3D;&gt; smoothPath(this.pts()));
+
+  areaPath &#x3D; computed(() &#x3D;&gt; {
+    const pts &#x3D; this.pts();
+    if (pts.length &lt; 2) return &#x27;&#x27;;
+    const line &#x3D; smoothPath(pts);
+    const last &#x3D; pts[pts.length - 1];
+    const first &#x3D; pts[0];
+    const bottom &#x3D; this.PAD + this.h();
+    return line + &#x60; L ${last[0]} ${bottom} L ${first[0]} ${bottom} Z&#x60;;
+  });
+
+  endPoint &#x3D; computed&lt;[number, number] | null&gt;(() &#x3D;&gt; {
+    const pts &#x3D; this.pts();
+    return pts.length &gt; 0 ? pts[pts.length - 1] : null;
+  });
+
+  activePoint &#x3D; computed(() &#x3D;&gt; {
+    const idx &#x3D; this.hoveredIndex();
+    if (this.type() &#x3D;&#x3D;&#x3D; &#x27;bar&#x27;) return null; // Dot tracking only for lines/areas
+    return idx !&#x3D;&#x3D; null &amp;&amp; this.pts()[idx] ? this.pts()[idx] : null;
+  });
+
+  barItems &#x3D; computed(() &#x3D;&gt; {
+    const d &#x3D; this.data();
+    const n &#x3D; d.length;
+    if (n &#x3D;&#x3D;&#x3D; 0) return [];
+    const bw &#x3D; Math.max(2, this.w() / n - 1);
+    const zero &#x3D; this.PAD + scale(0, this.yMin(), this.yMax(), this.h(), 0);
+    return d.map((v, i) &#x3D;&gt; {
+      const x &#x3D; this.PAD + scale(i, 0, Math.max(n - 1, 1), 0, this.w()) - bw / 2;
+      const y &#x3D; this.PAD + scale(v, this.yMin(), this.yMax(), this.h(), 0);
+      return { x, y, w: bw, h: Math.abs(zero - y) };
+    });
+  });
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const rect &#x3D; el.getBoundingClientRect();
+    const x &#x3D; event.clientX - rect.left - this.PAD;
+    const n &#x3D; this.data().length;
+    if (n &#x3D;&#x3D;&#x3D; 0) return;
+    const idx &#x3D; Math.max(0, Math.min(n - 1, Math.round(scale(x, 0, this.w(), 0, n - 1))));
+    this.hoveredIndex.set(idx);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: inline-block;
+    }
+    .ngx-sparkline {
+      display: block;
+      overflow: visible;
+      cursor: crosshair;
+    }
+
+    @keyframes lineDraw {
+      from { stroke-dashoffset: 400; }
+      to { stroke-dashoffset: 0; }
+    }
+    .sparkline-path {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: lineDraw 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes areaFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .sparkline-area {
+      animation: areaFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .end-dot {
+      animation: areaFade 0.4s ease-out 0.8s both;
+    }
+
+    .sparkline-bar {
+      opacity: 0.85;
+      transition: opacity 0.2s, fill 0.2s;
+      animation: areaFade 0.4s ease-out both;
+    }
+    .sparkline-bar:hover, .sparkline-bar.hovered {
+      opacity: 1;
+      filter: brightness(1.1);
+    }
+
+    .tracker-line {
+      pointer-events: none;
+    }
+    .tracker-ring {
+      pointer-events: none;
+      animation: trackerPulse 1.5s infinite alternate;
+    }
+    .tracker-dot {
+      pointer-events: none;
+    }
+
+    @keyframes trackerPulse {
+      from { r: 4.5px; fill-opacity: 0.2; }
+      to { r: 6.5px; fill-opacity: 0.4; }
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><svg  [attr.width]="width()"  [attr.height]="height()"  class="ngx-sparkline"  [attr.aria-label]="\'Sparkline\'"  (mousemove)="onMouseMove($event)"  (mouseleave)="hoveredIndex.set(null)">  <defs>    <linearGradient id="sparkline-grad" x1="0%" y1="0%" x2="0%" y2="100%">      <stop offset="0%" [attr.stop-color]="color()" stop-opacity="0.32" />      <stop offset="100%" [attr.stop-color]="color()" stop-opacity="0" />    </linearGradient>  </defs>  @if (type() === \'line\' || type() === \'area\') {    @if (type() === \'area\') {      <path [attr.d]="areaPath()" fill="url(#sparkline-grad)" stroke="none" class="sparkline-area"/>    }    <path      [attr.d]="linePath()"      [attr.stroke]="color()"      fill="none"      stroke-width="2"      stroke-linejoin="round"      stroke-linecap="round"      class="sparkline-path"    />    <!-- End dot (if not hovered) -->    @if (endPoint(); as ep) {      @if (hoveredIndex() === null) {        <circle [attr.cx]="ep[0]" [attr.cy]="ep[1]" r="3" [attr.fill]="color()" class="end-dot"/>      }    }  }  @if (type() === \'bar\') {    @for (item of barItems(); track $index; let idx = $index) {      <rect        [attr.x]="item.x"        [attr.y]="item.y"        [attr.width]="item.w"        [attr.height]="item.h"        [attr.fill]="color()"        [attr.rx]="1"        [class.hovered]="hoveredIndex() === idx"        [style.animation-delay]="(idx * 0.02) + \'s\'"        class="sparkline-bar"      />    }  }  <!-- Interactive Tracker overlay -->  @if (activePoint(); as ap) {    <!-- Vertical guide line -->    <line      [attr.x1]="ap[0]"      [attr.x2]="ap[0]"      [attr.y1]="PAD"      [attr.y2]="PAD + h()"      stroke="rgba(100, 116, 139, 0.25)"      stroke-width="1.2"      stroke-dasharray="2,2"      class="tracker-line"    />    <!-- Outer glowing ring -->    <circle      [attr.cx]="ap[0]"      [attr.cy]="ap[1]"      r="5"      [attr.fill]="color()"      fill-opacity="0.25"      class="tracker-ring"    />    <!-- Inner solid dot -->    <circle      [attr.cx]="ap[0]"      [attr.cy]="ap[1]"      r="2.5"      [attr.fill]="color()"      stroke="#ffffff"      stroke-width="1"      class="tracker-dot"    />  }</svg></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'SparklineComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SparklineComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

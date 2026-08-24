@@ -1,0 +1,3073 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AIPromptEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-ai-prompt-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    .prompt-studio-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 4px;
+      font-family: inherit;
+    }
+
+    .prompt-studio-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .prompt-studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cards layouts */
+    .studio-config-card, .studio-output-card {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .header-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .card-header h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+    }
+    .card-header p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-secondary, #64748b);
+    }
+
+    .model-select-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .model-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .studio-select {
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .metrics-banner {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .metric-card {
+      flex: 1;
+      min-width: 90px;
+      background: var(--bg-primary, #f8fafc);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .metric-card.highlight {
+      background: rgba(79, 70, 229, 0.08);
+      border-color: rgba(79, 70, 229, 0.3);
+    }
+    .metric-card.cost {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .metric-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+    }
+    .metric-card.cost .metric-val {
+      color: #059669;
+    }
+    .metric-card.highlight .metric-val {
+      color: #4f46e5;
+    }
+    .metric-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .label-with-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .add-var-btn {
+      background: transparent;
+      border: 1px solid #4f46e5;
+      color: #4f46e5;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .add-var-btn:hover {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    .config-body, .output-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+    .flex-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Forms */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .group-label {
+      font-size: 11px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary, #64748b);
+    }
+    .help-text {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      margin-bottom: 2px;
+    }
+    .help-text code {
+      background: var(--border-light, #f1f5f9);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-weight: 700;
+    }
+
+    /* Input elements */
+    .studio-textarea {
+      width: 100%;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+    .template-textarea {
+      font-family: &#x27;Cascadia Code&#x27;, Consolas, Monaco, monospace;
+      font-size: 12px;
+    }
+    .studio-textarea:focus, .studio-input:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    .studio-input {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: inherit;
+    }
+
+    .parameters-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .studio-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--primary-color, #4f46e5);
+      margin-top: 6px;
+    }
+
+    /* Variables settings */
+    .variables-section {
+      border-top: 1px dashed var(--border-color, #e2e8f0);
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+    .variables-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .var-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+    .var-name {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-color, #4f46e5);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .var-input {
+      padding: 6px 12px;
+    }
+
+    /* Live Output Box styling */
+    .preview-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .prompt-preview-box, .simulation-response-box {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: var(--bg-primary, #f8fafc);
+      min-height: 80px;
+      max-height: 180px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .prompt-preview-box {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-primary, #0f172a);
+    }
+    .simulation-response-box {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+    }
+    .simulation-response-box.loading {
+      align-items: center;
+      justify-content: center;
+    }
+    .empty-text {
+      color: var(--text-secondary, #64748b);
+      font-style: italic;
+    }
+    .compiled-text, .response-text {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    /* Buttons */
+    .run-control-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .run-btn {
+      background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .run-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+    }
+    .run-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Loader animations */
+    .pulse-loader {
+      display: flex;
+      gap: 6px;
+    }
+    .pulse-loader span {
+      width: 8px;
+      height: 8px;
+      background: var(--primary-color, #4f46e5);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+    .pulse-loader span:nth-child(1) { animation-delay: -0.32s; }
+    .pulse-loader span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1.0); }
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;prompt-studio-wrapper&quot;&gt;
+  &lt;div class&#x3D;&quot;prompt-studio-grid&quot;&gt;
+
+    &lt;!-- Left Panel: Prompt Configuration --&gt;
+    &lt;div class&#x3D;&quot;studio-config-card&quot;&gt;
+      &lt;div class&#x3D;&quot;card-header&quot;&gt;
+        &lt;div class&#x3D;&quot;header-top-row&quot;&gt;
+          &lt;div&gt;
+            &lt;h3&gt;Prompt Engineering Studio&lt;/h3&gt;
+            &lt;p&gt;Design instructions, parse template variables, and estimate token costs.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;model-select-wrap&quot;&gt;
+            &lt;label class&#x3D;&quot;model-label&quot;&gt;Model Engine&lt;/label&gt;
+            &lt;select
+              class&#x3D;&quot;studio-select&quot;
+              [ngModel]&#x3D;&quot;selectedModel()&quot;
+              (ngModelChange)&#x3D;&quot;selectedModel.set($event)&quot;
+            &gt;
+              &lt;option value&#x3D;&quot;gpt-4o&quot;&gt;GPT-4o ($0.0025/1k)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;gpt-4o-mini&quot;&gt;GPT-4o-mini ($0.00015/1k)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;claude-3-5-sonnet&quot;&gt;Claude 3.5 Sonnet ($0.003/1k)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;gemini-1-5-pro&quot;&gt;Gemini 1.5 Pro ($0.00125/1k)&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Token &amp; Cost Metrics Banner --&gt;
+        &lt;div class&#x3D;&quot;metrics-banner&quot;&gt;
+          &lt;div class&#x3D;&quot;metric-card&quot;&gt;
+            &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ systemTokens() }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;System Tokens&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;metric-card&quot;&gt;
+            &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ compiledTokens() }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;Prompt Tokens&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;metric-card highlight&quot;&gt;
+            &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ totalPromptTokens() }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;Total Tokens&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;metric-card cost&quot;&gt;
+            &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ estimatedCost() }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;Est. Cost / Run&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;config-body&quot;&gt;
+        &lt;!-- System Instructions --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;group-label&quot;&gt;System Instructions&lt;/label&gt;
+          &lt;textarea
+            class&#x3D;&quot;studio-textarea&quot;
+            rows&#x3D;&quot;3&quot;
+            [ngModel]&#x3D;&quot;systemPrompt&quot;
+            (ngModelChange)&#x3D;&quot;onSystemPromptChange($event)&quot;
+            placeholder&#x3D;&quot;You are a helpful and precise assistant...&quot;
+          &gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Prompt Template --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;div class&#x3D;&quot;label-with-tools&quot;&gt;
+            &lt;label class&#x3D;&quot;group-label&quot;&gt;Prompt Template&lt;/label&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;add-var-btn&quot; (click)&#x3D;&quot;addNewVariable()&quot;&gt;+ Add {{ &#x27;{&#x27; }}{{ &#x27;{&#x27; }}var{{ &#x27;}&#x27; }}{{ &#x27;}&#x27; }}&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;help-text&quot;&gt;Use double braces &lt;code&gt;{{ &#x27;{&#x27; }}{{ &#x27;{&#x27; }}variable{{ &#x27;}&#x27; }}{{ &#x27;}&#x27; }}&lt;/code&gt; to define dynamic parameters.&lt;/div&gt;
+          &lt;textarea
+            class&#x3D;&quot;studio-textarea template-textarea&quot;
+            rows&#x3D;&quot;6&quot;
+            [ngModel]&#x3D;&quot;templateText()&quot;
+            (ngModelChange)&#x3D;&quot;onTemplateChange($event)&quot;
+            placeholder&#x3D;&quot;Write your template here...&quot;
+          &gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Parameters Grid --&gt;
+        &lt;div class&#x3D;&quot;parameters-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;group-label&quot;&gt;Temperature: {{ temperature() }}&lt;/label&gt;
+            &lt;input
+              type&#x3D;&quot;range&quot;
+              min&#x3D;&quot;0&quot;
+              max&#x3D;&quot;1&quot;
+              step&#x3D;&quot;0.05&quot;
+              [ngModel]&#x3D;&quot;temperature()&quot;
+              (input)&#x3D;&quot;onTempChange($event)&quot;
+              class&#x3D;&quot;studio-slider&quot;
+            /&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;group-label&quot;&gt;Max Output Tokens&lt;/label&gt;
+            &lt;input
+              type&#x3D;&quot;number&quot;
+              [(ngModel)]&#x3D;&quot;maxTokens&quot;
+              class&#x3D;&quot;studio-input&quot;
+              min&#x3D;&quot;1&quot;
+              max&#x3D;&quot;4096&quot;
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Dynamic Variables --&gt;
+        @if (parsedVariables().length &gt; 0) {
+          &lt;div class&#x3D;&quot;form-group variables-section&quot;&gt;
+            &lt;label class&#x3D;&quot;group-label&quot;&gt;Parsed Template Variables&lt;/label&gt;
+            &lt;div class&#x3D;&quot;variables-grid&quot;&gt;
+              @for (v of parsedVariables(); track v) {
+                &lt;div class&#x3D;&quot;var-row&quot;&gt;
+                  &lt;span class&#x3D;&quot;var-name&quot;&gt;{{ v }}&lt;/span&gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    [value]&#x3D;&quot;getVarValue(v)&quot;
+                    (input)&#x3D;&quot;setVarValue(v, $event)&quot;
+                    class&#x3D;&quot;studio-input var-input&quot;
+                    [placeholder]&#x3D;&quot;&#x27;Value for &#x27; + v&quot;
+                  /&gt;
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Right Panel: Live Compiler &amp; Simulator --&gt;
+    &lt;div class&#x3D;&quot;studio-output-card&quot;&gt;
+      &lt;div class&#x3D;&quot;card-header&quot;&gt;
+        &lt;h3&gt;Live Preview &amp;amp; Test&lt;/h3&gt;
+        &lt;p&gt;Inspect compiled prompt outputs and trigger mock run generations.&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;output-body&quot;&gt;
+        &lt;!-- Compiled Output Box --&gt;
+        &lt;div class&#x3D;&quot;preview-group&quot;&gt;
+          &lt;label class&#x3D;&quot;group-label&quot;&gt;Compiled Prompt Preview&lt;/label&gt;
+          &lt;div class&#x3D;&quot;prompt-preview-box&quot;&gt;
+            @if (compiledPrompt()) {
+              &lt;p class&#x3D;&quot;compiled-text&quot;&gt;{{ compiledPrompt() }}&lt;/p&gt;
+            } @else {
+              &lt;span class&#x3D;&quot;empty-text&quot;&gt;Write a template to preview compiled text...&lt;/span&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Run Control --&gt;
+        &lt;div class&#x3D;&quot;run-control-row&quot;&gt;
+          &lt;button
+            class&#x3D;&quot;run-btn&quot;
+            [disabled]&#x3D;&quot;isRunning()&quot;
+            (click)&#x3D;&quot;triggerRun()&quot;
+          &gt;
+            {{ isRunning() ? &#x27;Generating Response...&#x27; : &#x27;⚡ Run Simulation&#x27; }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Simulated Output Response --&gt;
+        &lt;div class&#x3D;&quot;preview-group flex-fill&quot;&gt;
+          &lt;label class&#x3D;&quot;group-label&quot;&gt;Simulated AI Response&lt;/label&gt;
+          &lt;div class&#x3D;&quot;simulation-response-box&quot; [class.loading]&#x3D;&quot;isRunning()&quot;&gt;
+            @if (isRunning()) {
+              &lt;div class&#x3D;&quot;pulse-loader&quot;&gt;
+                &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+              &lt;/div&gt;
+            } @else if (simulatedResponse()) {
+              &lt;div class&#x3D;&quot;response-text&quot;&gt;{{ simulatedResponse() }}&lt;/div&gt;
+            } @else {
+              &lt;span class&#x3D;&quot;empty-text&quot;&gt;Click Run Simulation to generate a mock response.&lt;/span&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#compiledPrompt" >compiledPrompt</a>
+                            </li>
+                            <li>
+                                <a href="#compiledTokens" >compiledTokens</a>
+                            </li>
+                            <li>
+                                <a href="#estimatedCost" >estimatedCost</a>
+                            </li>
+                            <li>
+                                <a href="#isRunning" >isRunning</a>
+                            </li>
+                            <li>
+                                <a href="#maxTokens" >maxTokens</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#MODEL_RATES" >MODEL_RATES</a>
+                            </li>
+                            <li>
+                                <a href="#parsedVariables" >parsedVariables</a>
+                            </li>
+                            <li>
+                                <a href="#selectedModel" >selectedModel</a>
+                            </li>
+                            <li>
+                                <a href="#simulatedResponse" >simulatedResponse</a>
+                            </li>
+                            <li>
+                                <a href="#systemPromptSignal" >systemPromptSignal</a>
+                            </li>
+                            <li>
+                                <a href="#systemTokens" >systemTokens</a>
+                            </li>
+                            <li>
+                                <a href="#temperature" >temperature</a>
+                            </li>
+                            <li>
+                                <a href="#templateText" >templateText</a>
+                            </li>
+                            <li>
+                                <a href="#totalPromptTokens" >totalPromptTokens</a>
+                            </li>
+                            <li>
+                                <a href="#varValues" >varValues</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addNewVariable" >addNewVariable</a>
+                            </li>
+                            <li>
+                                <a href="#getVarValue" >getVarValue</a>
+                            </li>
+                            <li>
+                                <a href="#onSystemPromptChange" >onSystemPromptChange</a>
+                            </li>
+                            <li>
+                                <a href="#onTempChange" >onTempChange</a>
+                            </li>
+                            <li>
+                                <a href="#onTemplateChange" >onTemplateChange</a>
+                            </li>
+                            <li>
+                                <a href="#setVarValue" >setVarValue</a>
+                            </li>
+                            <li>
+                                <a href="#triggerRun" >triggerRun</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#initialSystem" >initialSystem</a>
+                            </li>
+                            <li>
+                                <a href="#initialTemplate" >initialTemplate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#systemPrompt" >systemPrompt</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="574" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:574</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="initialSystem"></a>
+                        <b>initialSystem</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;You are an encouraging and helpful product specialist.&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="536" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:536</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="initialTemplate"></a>
+                        <b>initialTemplate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Write a greeting letter to {{user_name}} recommending dynamic integrations for {{product_name}}.&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="535" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:535</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addNewVariable"></a>
+                    <span class="name">
+                        <span ><b>addNewVariable</b></span>
+                        <a href="#addNewVariable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addNewVariable()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="636"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:636</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVarValue"></a>
+                    <span class="name">
+                        <span ><b>getVarValue</b></span>
+                        <a href="#getVarValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVarValue(vName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="620"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:620</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSystemPromptChange"></a>
+                    <span class="name">
+                        <span ><b>onSystemPromptChange</b></span>
+                        <a href="#onSystemPromptChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSystemPromptChange(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="584"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:584</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTempChange"></a>
+                    <span class="name">
+                        <span ><b>onTempChange</b></span>
+                        <a href="#onTempChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTempChange(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="615"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:615</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTemplateChange"></a>
+                    <span class="name">
+                        <span ><b>onTemplateChange</b></span>
+                        <a href="#onTemplateChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTemplateChange(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="611"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:611</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setVarValue"></a>
+                    <span class="name">
+                        <span ><b>setVarValue</b></span>
+                        <a href="#setVarValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setVarValue(vName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="631"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:631</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="triggerRun"></a>
+                    <span class="name">
+                        <span ><b>triggerRun</b></span>
+                        <a href="#triggerRun"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>triggerRun()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="646"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:646</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="compiledPrompt"></a>
+                    <span class="name">
+                        <span ><b>compiledPrompt</b></span>
+                        <a href="#compiledPrompt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    let t &#x3D; this.templateText();
+    const dict &#x3D; this.varValues();
+    
+    this.parsedVariables().forEach(v &#x3D;&gt; {
+      const placeholder &#x3D; &#x60;{{${v}}}&#x60;;
+      const val &#x3D; dict[v] || &#x27;&#x27;;
+      t &#x3D; t.split(placeholder).join(val);
+    });
+
+    return t;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="598" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:598</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="compiledTokens"></a>
+                    <span class="name">
+                        <span ><b>compiledTokens</b></span>
+                        <a href="#compiledTokens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.ceil((this.compiledPrompt() || &#x27;&#x27;).length / 4))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="565" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:565</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="estimatedCost"></a>
+                    <span class="name">
+                        <span ><b>estimatedCost</b></span>
+                        <a href="#estimatedCost"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const rate &#x3D; this.MODEL_RATES[this.selectedModel()]?.ratePer1k || 0.0025;
+    const total &#x3D; this.totalPromptTokens();
+    const cost &#x3D; (total / 1000) * rate;
+    return cost &lt; 0.00005 ? &#x27;&lt; $0.0001&#x27; : &#x60;$${cost.toFixed(5)}&#x60;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="569" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:569</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRunning"></a>
+                    <span class="name">
+                        <span ><b>isRunning</b></span>
+                        <a href="#isRunning"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="553" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:553</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="maxTokens"></a>
+                    <span class="name">
+                        <span ><b>maxTokens</b></span>
+                        <a href="#maxTokens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>512</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="549" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:549</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MODEL_RATES"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>MODEL_RATES</b></span>
+                        <a href="#MODEL_RATES"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string | literal type&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    &#x27;gpt-4o&#x27;: { name: &#x27;GPT-4o&#x27;, ratePer1k: 0.0025 },
+    &#x27;gpt-4o-mini&#x27;: { name: &#x27;GPT-4o-mini&#x27;, ratePer1k: 0.00015 },
+    &#x27;claude-3-5-sonnet&#x27;: { name: &#x27;Claude 3.5 Sonnet&#x27;, ratePer1k: 0.003 },
+    &#x27;gemini-1-5-pro&#x27;: { name: &#x27;Gemini 1.5 Pro&#x27;, ratePer1k: 0.00125 },
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="556" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:556</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parsedVariables"></a>
+                    <span class="name">
+                        <span ><b>parsedVariables</b></span>
+                        <a href="#parsedVariables"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const text &#x3D; this.templateText();
+    const matches &#x3D; text.match(/\{\{([^}]+)\}\}/g) || [];
+    // Deduplicate array values
+    const unique &#x3D; [...new Set(matches.map(m &#x3D;&gt; m.replace(/[{}]/g, &#x27;&#x27;).trim()))];
+    return unique;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="589" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:589</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedModel"></a>
+                    <span class="name">
+                        <span ><b>selectedModel</b></span>
+                        <a href="#selectedModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;&#x27;gpt-4o&#x27; | &#x27;gpt-4o-mini&#x27; | &#x27;claude-3-5-sonnet&#x27; | &#x27;gemini-1-5-pro&#x27;&gt;(&#x27;gpt-4o&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="551" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:551</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="simulatedResponse"></a>
+                    <span class="name">
+                        <span ><b>simulatedResponse</b></span>
+                        <a href="#simulatedResponse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="554" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:554</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="systemPromptSignal"></a>
+                    <span class="name">
+                        <span ><b>systemPromptSignal</b></span>
+                        <a href="#systemPromptSignal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="539" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:539</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="systemTokens"></a>
+                    <span class="name">
+                        <span ><b>systemTokens</b></span>
+                        <a href="#systemTokens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.ceil((this.systemPromptSignal() || &#x27;&#x27;).length / 4))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="564" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:564</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="temperature"></a>
+                    <span class="name">
+                        <span ><b>temperature</b></span>
+                        <a href="#temperature"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(0.7)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="548" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:548</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="templateText"></a>
+                    <span class="name">
+                        <span ><b>templateText</b></span>
+                        <a href="#templateText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="547" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:547</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalPromptTokens"></a>
+                    <span class="name">
+                        <span ><b>totalPromptTokens</b></span>
+                        <a href="#totalPromptTokens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.systemTokens() + this.compiledTokens())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="566" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:566</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="varValues"></a>
+                    <span class="name">
+                        <span ><b>varValues</b></span>
+                        <a href="#varValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Record&lt;string, string&gt;&gt;({})</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="552" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:552</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="systemPrompt"></a>
+                        <span class="name"><b>systemPrompt</b><a href="#systemPrompt"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>systemPrompt()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="540" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:540</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>systemPrompt(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="543" class="link-to-prism">projects/ngx-core-components/ai/ai-prompt-editor/ai-prompt-editor.component.ts:543</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>val</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, computed, effect } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+@Component({
+  selector: &#x27;ngx-ai-prompt-editor&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;prompt-studio-wrapper&quot;&gt;
+      &lt;div class&#x3D;&quot;prompt-studio-grid&quot;&gt;
+        
+        &lt;!-- Left Panel: Prompt Configuration --&gt;
+        &lt;div class&#x3D;&quot;studio-config-card&quot;&gt;
+          &lt;div class&#x3D;&quot;card-header&quot;&gt;
+            &lt;div class&#x3D;&quot;header-top-row&quot;&gt;
+              &lt;div&gt;
+                &lt;h3&gt;Prompt Engineering Studio&lt;/h3&gt;
+                &lt;p&gt;Design instructions, parse template variables, and estimate token costs.&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;model-select-wrap&quot;&gt;
+                &lt;label class&#x3D;&quot;model-label&quot;&gt;Model Engine&lt;/label&gt;
+                &lt;select 
+                  class&#x3D;&quot;studio-select&quot; 
+                  [ngModel]&#x3D;&quot;selectedModel()&quot; 
+                  (ngModelChange)&#x3D;&quot;selectedModel.set($event)&quot;
+                &gt;
+                  &lt;option value&#x3D;&quot;gpt-4o&quot;&gt;GPT-4o ($0.0025/1k)&lt;/option&gt;
+                  &lt;option value&#x3D;&quot;gpt-4o-mini&quot;&gt;GPT-4o-mini ($0.00015/1k)&lt;/option&gt;
+                  &lt;option value&#x3D;&quot;claude-3-5-sonnet&quot;&gt;Claude 3.5 Sonnet ($0.003/1k)&lt;/option&gt;
+                  &lt;option value&#x3D;&quot;gemini-1-5-pro&quot;&gt;Gemini 1.5 Pro ($0.00125/1k)&lt;/option&gt;
+                &lt;/select&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Token &amp; Cost Metrics Banner --&gt;
+            &lt;div class&#x3D;&quot;metrics-banner&quot;&gt;
+              &lt;div class&#x3D;&quot;metric-card&quot;&gt;
+                &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ systemTokens() }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;System Tokens&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;metric-card&quot;&gt;
+                &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ compiledTokens() }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;Prompt Tokens&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;metric-card highlight&quot;&gt;
+                &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ totalPromptTokens() }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;Total Tokens&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;metric-card cost&quot;&gt;
+                &lt;span class&#x3D;&quot;metric-val&quot;&gt;{{ estimatedCost() }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;metric-lbl&quot;&gt;Est. Cost / Run&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;config-body&quot;&gt;
+            &lt;!-- System Instructions --&gt;
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;label class&#x3D;&quot;group-label&quot;&gt;System Instructions&lt;/label&gt;
+              &lt;textarea
+                class&#x3D;&quot;studio-textarea&quot;
+                rows&#x3D;&quot;3&quot;
+                [ngModel]&#x3D;&quot;systemPrompt&quot;
+                (ngModelChange)&#x3D;&quot;onSystemPromptChange($event)&quot;
+                placeholder&#x3D;&quot;You are a helpful and precise assistant...&quot;
+              &gt;&lt;/textarea&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Prompt Template --&gt;
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;div class&#x3D;&quot;label-with-tools&quot;&gt;
+                &lt;label class&#x3D;&quot;group-label&quot;&gt;Prompt Template&lt;/label&gt;
+                &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;add-var-btn&quot; (click)&#x3D;&quot;addNewVariable()&quot;&gt;+ Add {{ &#x27;{&#x27; }}{{ &#x27;{&#x27; }}var{{ &#x27;}&#x27; }}{{ &#x27;}&#x27; }}&lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;help-text&quot;&gt;Use double braces &lt;code&gt;{{ &#x27;{&#x27; }}{{ &#x27;{&#x27; }}variable{{ &#x27;}&#x27; }}{{ &#x27;}&#x27; }}&lt;/code&gt; to define dynamic parameters.&lt;/div&gt;
+              &lt;textarea
+                class&#x3D;&quot;studio-textarea template-textarea&quot;
+                rows&#x3D;&quot;6&quot;
+                [ngModel]&#x3D;&quot;templateText()&quot;
+                (ngModelChange)&#x3D;&quot;onTemplateChange($event)&quot;
+                placeholder&#x3D;&quot;Write your template here...&quot;
+              &gt;&lt;/textarea&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Parameters Grid --&gt;
+            &lt;div class&#x3D;&quot;parameters-grid&quot;&gt;
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label class&#x3D;&quot;group-label&quot;&gt;Temperature: {{ temperature() }}&lt;/label&gt;
+                &lt;input
+                  type&#x3D;&quot;range&quot;
+                  min&#x3D;&quot;0&quot;
+                  max&#x3D;&quot;1&quot;
+                  step&#x3D;&quot;0.05&quot;
+                  [ngModel]&#x3D;&quot;temperature()&quot;
+                  (input)&#x3D;&quot;onTempChange($event)&quot;
+                  class&#x3D;&quot;studio-slider&quot;
+                /&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label class&#x3D;&quot;group-label&quot;&gt;Max Output Tokens&lt;/label&gt;
+                &lt;input
+                  type&#x3D;&quot;number&quot;
+                  [(ngModel)]&#x3D;&quot;maxTokens&quot;
+                  class&#x3D;&quot;studio-input&quot;
+                  min&#x3D;&quot;1&quot;
+                  max&#x3D;&quot;4096&quot;
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Dynamic Variables --&gt;
+            @if (parsedVariables().length &gt; 0) {
+              &lt;div class&#x3D;&quot;form-group variables-section&quot;&gt;
+                &lt;label class&#x3D;&quot;group-label&quot;&gt;Parsed Template Variables&lt;/label&gt;
+                &lt;div class&#x3D;&quot;variables-grid&quot;&gt;
+                  @for (v of parsedVariables(); track v) {
+                    &lt;div class&#x3D;&quot;var-row&quot;&gt;
+                      &lt;span class&#x3D;&quot;var-name&quot;&gt;{{ v }}&lt;/span&gt;
+                      &lt;input
+                        type&#x3D;&quot;text&quot;
+                        [value]&#x3D;&quot;getVarValue(v)&quot;
+                        (input)&#x3D;&quot;setVarValue(v, $event)&quot;
+                        class&#x3D;&quot;studio-input var-input&quot;
+                        [placeholder]&#x3D;&quot;&#x27;Value for &#x27; + v&quot;
+                      /&gt;
+                    &lt;/div&gt;
+                  }
+                &lt;/div&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Right Panel: Live Compiler &amp; Simulator --&gt;
+        &lt;div class&#x3D;&quot;studio-output-card&quot;&gt;
+          &lt;div class&#x3D;&quot;card-header&quot;&gt;
+            &lt;h3&gt;Live Preview &amp;amp; Test&lt;/h3&gt;
+            &lt;p&gt;Inspect compiled prompt outputs and trigger mock run generations.&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;output-body&quot;&gt;
+            &lt;!-- Compiled Output Box --&gt;
+            &lt;div class&#x3D;&quot;preview-group&quot;&gt;
+              &lt;label class&#x3D;&quot;group-label&quot;&gt;Compiled Prompt Preview&lt;/label&gt;
+              &lt;div class&#x3D;&quot;prompt-preview-box&quot;&gt;
+                @if (compiledPrompt()) {
+                  &lt;p class&#x3D;&quot;compiled-text&quot;&gt;{{ compiledPrompt() }}&lt;/p&gt;
+                } @else {
+                  &lt;span class&#x3D;&quot;empty-text&quot;&gt;Write a template to preview compiled text...&lt;/span&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Run Control --&gt;
+            &lt;div class&#x3D;&quot;run-control-row&quot;&gt;
+              &lt;button
+                class&#x3D;&quot;run-btn&quot;
+                [disabled]&#x3D;&quot;isRunning()&quot;
+                (click)&#x3D;&quot;triggerRun()&quot;
+              &gt;
+                {{ isRunning() ? &#x27;Generating Response...&#x27; : &#x27;⚡ Run Simulation&#x27; }}
+              &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Simulated Output Response --&gt;
+            &lt;div class&#x3D;&quot;preview-group flex-fill&quot;&gt;
+              &lt;label class&#x3D;&quot;group-label&quot;&gt;Simulated AI Response&lt;/label&gt;
+              &lt;div class&#x3D;&quot;simulation-response-box&quot; [class.loading]&#x3D;&quot;isRunning()&quot;&gt;
+                @if (isRunning()) {
+                  &lt;div class&#x3D;&quot;pulse-loader&quot;&gt;
+                    &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+                  &lt;/div&gt;
+                } @else if (simulatedResponse()) {
+                  &lt;div class&#x3D;&quot;response-text&quot;&gt;{{ simulatedResponse() }}&lt;/div&gt;
+                } @else {
+                  &lt;span class&#x3D;&quot;empty-text&quot;&gt;Click Run Simulation to generate a mock response.&lt;/span&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    .prompt-studio-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 4px;
+      font-family: inherit;
+    }
+
+    .prompt-studio-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .prompt-studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cards layouts */
+    .studio-config-card, .studio-output-card {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .header-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .card-header h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+    }
+    .card-header p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-secondary, #64748b);
+    }
+
+    .model-select-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .model-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .studio-select {
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .metrics-banner {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .metric-card {
+      flex: 1;
+      min-width: 90px;
+      background: var(--bg-primary, #f8fafc);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .metric-card.highlight {
+      background: rgba(79, 70, 229, 0.08);
+      border-color: rgba(79, 70, 229, 0.3);
+    }
+    .metric-card.cost {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .metric-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+    }
+    .metric-card.cost .metric-val {
+      color: #059669;
+    }
+    .metric-card.highlight .metric-val {
+      color: #4f46e5;
+    }
+    .metric-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .label-with-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .add-var-btn {
+      background: transparent;
+      border: 1px solid #4f46e5;
+      color: #4f46e5;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .add-var-btn:hover {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    .config-body, .output-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+    .flex-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Forms */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .group-label {
+      font-size: 11px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary, #64748b);
+    }
+    .help-text {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      margin-bottom: 2px;
+    }
+    .help-text code {
+      background: var(--border-light, #f1f5f9);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-weight: 700;
+    }
+
+    /* Input elements */
+    .studio-textarea {
+      width: 100%;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+    .template-textarea {
+      font-family: &#x27;Cascadia Code&#x27;, Consolas, Monaco, monospace;
+      font-size: 12px;
+    }
+    .studio-textarea:focus, .studio-input:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    .studio-input {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: inherit;
+    }
+
+    .parameters-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .studio-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--primary-color, #4f46e5);
+      margin-top: 6px;
+    }
+
+    /* Variables settings */
+    .variables-section {
+      border-top: 1px dashed var(--border-color, #e2e8f0);
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+    .variables-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .var-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+    .var-name {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-color, #4f46e5);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .var-input {
+      padding: 6px 12px;
+    }
+
+    /* Live Output Box styling */
+    .preview-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .prompt-preview-box, .simulation-response-box {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: var(--bg-primary, #f8fafc);
+      min-height: 80px;
+      max-height: 180px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .prompt-preview-box {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-primary, #0f172a);
+    }
+    .simulation-response-box {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+    }
+    .simulation-response-box.loading {
+      align-items: center;
+      justify-content: center;
+    }
+    .empty-text {
+      color: var(--text-secondary, #64748b);
+      font-style: italic;
+    }
+    .compiled-text, .response-text {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    /* Buttons */
+    .run-control-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .run-btn {
+      background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .run-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+    }
+    .run-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Loader animations */
+    .pulse-loader {
+      display: flex;
+      gap: 6px;
+    }
+    .pulse-loader span {
+      width: 8px;
+      height: 8px;
+      background: var(--primary-color, #4f46e5);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+    .pulse-loader span:nth-child(1) { animation-delay: -0.32s; }
+    .pulse-loader span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1.0); }
+    }
+  &#x60;]
+})
+export class AIPromptEditorComponent {
+  // Inputs Binds
+  initialTemplate &#x3D; input&lt;string&gt;(&#x27;Write a greeting letter to {{user_name}} recommending dynamic integrations for {{product_name}}.&#x27;);
+  initialSystem &#x3D; input&lt;string&gt;(&#x27;You are an encouraging and helpful product specialist.&#x27;);
+
+  // Component Internal State Signals
+  systemPromptSignal &#x3D; signal(&#x27;&#x27;);
+  get systemPrompt(): string {
+    return this.systemPromptSignal();
+  }
+  set systemPrompt(val: string) {
+    this.systemPromptSignal.set(val || &#x27;&#x27;);
+  }
+
+  templateText &#x3D; signal(&#x27;&#x27;);
+  temperature &#x3D; signal(0.7);
+  maxTokens &#x3D; 512;
+  
+  selectedModel &#x3D; signal&lt;&#x27;gpt-4o&#x27; | &#x27;gpt-4o-mini&#x27; | &#x27;claude-3-5-sonnet&#x27; | &#x27;gemini-1-5-pro&#x27;&gt;(&#x27;gpt-4o&#x27;);
+  varValues &#x3D; signal&lt;Record&lt;string, string&gt;&gt;({});
+  isRunning &#x3D; signal(false);
+  simulatedResponse &#x3D; signal(&#x27;&#x27;);
+
+  readonly MODEL_RATES: Record&lt;string, { name: string; ratePer1k: number }&gt; &#x3D; {
+    &#x27;gpt-4o&#x27;: { name: &#x27;GPT-4o&#x27;, ratePer1k: 0.0025 },
+    &#x27;gpt-4o-mini&#x27;: { name: &#x27;GPT-4o-mini&#x27;, ratePer1k: 0.00015 },
+    &#x27;claude-3-5-sonnet&#x27;: { name: &#x27;Claude 3.5 Sonnet&#x27;, ratePer1k: 0.003 },
+    &#x27;gemini-1-5-pro&#x27;: { name: &#x27;Gemini 1.5 Pro&#x27;, ratePer1k: 0.00125 },
+  };
+
+  // Real-time Token Count Calculations (~4 chars per token)
+  systemTokens &#x3D; computed(() &#x3D;&gt; Math.ceil((this.systemPromptSignal() || &#x27;&#x27;).length / 4));
+  compiledTokens &#x3D; computed(() &#x3D;&gt; Math.ceil((this.compiledPrompt() || &#x27;&#x27;).length / 4));
+  totalPromptTokens &#x3D; computed(() &#x3D;&gt; this.systemTokens() + this.compiledTokens());
+
+  // Real-time Cost Estimation ($ per request)
+  estimatedCost &#x3D; computed(() &#x3D;&gt; {
+    const rate &#x3D; this.MODEL_RATES[this.selectedModel()]?.ratePer1k || 0.0025;
+    const total &#x3D; this.totalPromptTokens();
+    const cost &#x3D; (total / 1000) * rate;
+    return cost &lt; 0.00005 ? &#x27;&lt; $0.0001&#x27; : &#x60;$${cost.toFixed(5)}&#x60;;
+  });
+
+  constructor() {
+    // Populate defaults on initialize
+    effect(() &#x3D;&gt; {
+      this.templateText.set(this.initialTemplate());
+      this.systemPromptSignal.set(this.initialSystem());
+    }, { allowSignalWrites: true });
+  }
+
+  onSystemPromptChange(text: string): void {
+    this.systemPromptSignal.set(text || &#x27;&#x27;);
+  }
+
+  // Parse variables from template string dynamically
+  parsedVariables &#x3D; computed(() &#x3D;&gt; {
+    const text &#x3D; this.templateText();
+    const matches &#x3D; text.match(/\{\{([^}]+)\}\}/g) || [];
+    // Deduplicate array values
+    const unique &#x3D; [...new Set(matches.map(m &#x3D;&gt; m.replace(/[{}]/g, &#x27;&#x27;).trim()))];
+    return unique;
+  });
+
+  // Compiled dynamic prompt preview
+  compiledPrompt &#x3D; computed(() &#x3D;&gt; {
+    let t &#x3D; this.templateText();
+    const dict &#x3D; this.varValues();
+    
+    this.parsedVariables().forEach(v &#x3D;&gt; {
+      const placeholder &#x3D; &#x60;{{${v}}}&#x60;;
+      const val &#x3D; dict[v] || &#x27;&#x27;;
+      t &#x3D; t.split(placeholder).join(val);
+    });
+
+    return t;
+  });
+
+  onTemplateChange(text: string): void {
+    this.templateText.set(text);
+  }
+
+  onTempChange(event: Event): void {
+    const val &#x3D; (event.target as HTMLInputElement).value;
+    this.temperature.set(Number(val));
+  }
+
+  getVarValue(vName: string): string {
+    // Default initial values to make playground look populated
+    const values &#x3D; this.varValues();
+    if (values[vName] !&#x3D;&#x3D; undefined) return values[vName];
+    
+    // Set typical defaults
+    if (vName &#x3D;&#x3D;&#x3D; &#x27;user_name&#x27;) return &#x27;John Doe&#x27;;
+    if (vName &#x3D;&#x3D;&#x3D; &#x27;product_name&#x27;) return &#x27;ngx-core-components&#x27;;
+    return &#x27;&#x27;;
+  }
+
+  setVarValue(vName: string, event: Event): void {
+    const val &#x3D; (event.target as HTMLInputElement).value;
+    this.varValues.update(dict &#x3D;&gt; ({ ...dict, [vName]: val }));
+  }
+
+  addNewVariable(): void {
+    const varName &#x3D; prompt(&#x27;Enter new template variable name (e.g. user_role):&#x27;);
+    if (varName) {
+      const clean &#x3D; varName.trim().replace(/[^a-zA-Z0-9_]/g, &#x27;&#x27;);
+      if (clean) {
+        this.templateText.update(t &#x3D;&gt; t + (t.endsWith(&#x27; &#x27;) || t &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? &#x27;&#x27; : &#x27; &#x27;) + &#x60;{{${clean}}}&#x60;);
+      }
+    }
+  }
+
+  triggerRun(): void {
+    if (this.isRunning()) return;
+    this.isRunning.set(true);
+    this.simulatedResponse.set(&#x27;&#x27;);
+
+    // Simulate Streaming response output
+    setTimeout(() &#x3D;&gt; {
+      this.isRunning.set(false);
+      const name &#x3D; this.varValues()[&#x27;user_name&#x27;] || &#x27;John Doe&#x27;;
+      const prod &#x3D; this.varValues()[&#x27;product_name&#x27;] || &#x27;ngx-core-components&#x27;;
+      
+      this.simulatedResponse.set(
+        &#x60;Dear ${name},\n\n&#x60; +
+        &#x60;Thank you for exploring ${prod}! We are thrilled to assist you. &#x60; +
+        &#x60;Implementing our modular Angular components will instantly modernize your user interface and ensure 100% signal-driven reactive state transitions.\n\n&#x60; +
+        &#x60;Best regards,\n&#x60; +
+        &#x60;The Product Specialist Team&#x60;
+      );
+    }, 1800);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    .prompt-studio-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 4px;
+      font-family: inherit;
+    }
+
+    .prompt-studio-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .prompt-studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cards layouts */
+    .studio-config-card, .studio-output-card {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .header-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .card-header h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+    }
+    .card-header p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-secondary, #64748b);
+    }
+
+    .model-select-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .model-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .studio-select {
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .metrics-banner {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .metric-card {
+      flex: 1;
+      min-width: 90px;
+      background: var(--bg-primary, #f8fafc);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .metric-card.highlight {
+      background: rgba(79, 70, 229, 0.08);
+      border-color: rgba(79, 70, 229, 0.3);
+    }
+    .metric-card.cost {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .metric-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+    }
+    .metric-card.cost .metric-val {
+      color: #059669;
+    }
+    .metric-card.highlight .metric-val {
+      color: #4f46e5;
+    }
+    .metric-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .label-with-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .add-var-btn {
+      background: transparent;
+      border: 1px solid #4f46e5;
+      color: #4f46e5;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .add-var-btn:hover {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    .config-body, .output-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+    .flex-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Forms */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .group-label {
+      font-size: 11px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary, #64748b);
+    }
+    .help-text {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      margin-bottom: 2px;
+    }
+    .help-text code {
+      background: var(--border-light, #f1f5f9);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-weight: 700;
+    }
+
+    /* Input elements */
+    .studio-textarea {
+      width: 100%;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+    .template-textarea {
+      font-family: &#x27;Cascadia Code&#x27;, Consolas, Monaco, monospace;
+      font-size: 12px;
+    }
+    .studio-textarea:focus, .studio-input:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    .studio-input {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: inherit;
+    }
+
+    .parameters-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .studio-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--primary-color, #4f46e5);
+      margin-top: 6px;
+    }
+
+    /* Variables settings */
+    .variables-section {
+      border-top: 1px dashed var(--border-color, #e2e8f0);
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+    .variables-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .var-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+    .var-name {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-color, #4f46e5);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .var-input {
+      padding: 6px 12px;
+    }
+
+    /* Live Output Box styling */
+    .preview-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .prompt-preview-box, .simulation-response-box {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: var(--bg-primary, #f8fafc);
+      min-height: 80px;
+      max-height: 180px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .prompt-preview-box {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-primary, #0f172a);
+    }
+    .simulation-response-box {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+    }
+    .simulation-response-box.loading {
+      align-items: center;
+      justify-content: center;
+    }
+    .empty-text {
+      color: var(--text-secondary, #64748b);
+      font-style: italic;
+    }
+    .compiled-text, .response-text {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    /* Buttons */
+    .run-control-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .run-btn {
+      background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .run-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+    }
+    .run-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Loader animations */
+    .pulse-loader {
+      display: flex;
+      gap: 6px;
+    }
+    .pulse-loader span {
+      width: 8px;
+      height: 8px;
+      background: var(--primary-color, #4f46e5);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+    .pulse-loader span:nth-child(1) { animation-delay: -0.32s; }
+    .pulse-loader span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1.0); }
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="prompt-studio-wrapper">  <div class="prompt-studio-grid">    <!-- Left Panel: Prompt Configuration -->    <div class="studio-config-card">      <div class="card-header">        <div class="header-top-row">          <div>            <h3>Prompt Engineering Studio</h3>            <p>Design instructions, parse template variables, and estimate token costs.</p>          </div>          <div class="model-select-wrap">            <label class="model-label">Model Engine</label>            <select              class="studio-select"              [ngModel]="selectedModel()"              (ngModelChange)="selectedModel.set($event)"            >              <option value="gpt-4o">GPT-4o ($0.0025/1k)</option>              <option value="gpt-4o-mini">GPT-4o-mini ($0.00015/1k)</option>              <option value="claude-3-5-sonnet">Claude 3.5 Sonnet ($0.003/1k)</option>              <option value="gemini-1-5-pro">Gemini 1.5 Pro ($0.00125/1k)</option>            </select>          </div>        </div>        <!-- Token & Cost Metrics Banner -->        <div class="metrics-banner">          <div class="metric-card">            <span class="metric-val">{{ systemTokens() }}</span>            <span class="metric-lbl">System Tokens</span>          </div>          <div class="metric-card">            <span class="metric-val">{{ compiledTokens() }}</span>            <span class="metric-lbl">Prompt Tokens</span>          </div>          <div class="metric-card highlight">            <span class="metric-val">{{ totalPromptTokens() }}</span>            <span class="metric-lbl">Total Tokens</span>          </div>          <div class="metric-card cost">            <span class="metric-val">{{ estimatedCost() }}</span>            <span class="metric-lbl">Est. Cost / Run</span>          </div>        </div>      </div>      <div class="config-body">        <!-- System Instructions -->        <div class="form-group">          <label class="group-label">System Instructions</label>          <textarea            class="studio-textarea"            rows="3"            [ngModel]="systemPrompt"            (ngModelChange)="onSystemPromptChange($event)"            placeholder="You are a helpful and precise assistant..."          ></textarea>        </div>        <!-- Prompt Template -->        <div class="form-group">          <div class="label-with-tools">            <label class="group-label">Prompt Template</label>            <button type="button" class="add-var-btn" (click)="addNewVariable()">+ Add {{ \'{\' }}{{ \'{\' }}var{{ \'}\' }}{{ \'}\' }}</button>          </div>          <div class="help-text">Use double braces <code>{{ \'{\' }}{{ \'{\' }}variable{{ \'}\' }}{{ \'}\' }}</code> to define dynamic parameters.</div>          <textarea            class="studio-textarea template-textarea"            rows="6"            [ngModel]="templateText()"            (ngModelChange)="onTemplateChange($event)"            placeholder="Write your template here..."          ></textarea>        </div>        <!-- Parameters Grid -->        <div class="parameters-grid">          <div class="form-group">            <label class="group-label">Temperature: {{ temperature() }}</label>            <input              type="range"              min="0"              max="1"              step="0.05"              [ngModel]="temperature()"              (input)="onTempChange($event)"              class="studio-slider"            />          </div>          <div class="form-group">            <label class="group-label">Max Output Tokens</label>            <input              type="number"              [(ngModel)]="maxTokens"              class="studio-input"              min="1"              max="4096"            />          </div>        </div>        <!-- Dynamic Variables -->        @if (parsedVariables().length > 0) {          <div class="form-group variables-section">            <label class="group-label">Parsed Template Variables</label>            <div class="variables-grid">              @for (v of parsedVariables(); track v) {                <div class="var-row">                  <span class="var-name">{{ v }}</span>                  <input                    type="text"                    [value]="getVarValue(v)"                    (input)="setVarValue(v, $event)"                    class="studio-input var-input"                    [placeholder]="\'Value for \' + v"                  />                </div>              }            </div>          </div>        }      </div>    </div>    <!-- Right Panel: Live Compiler & Simulator -->    <div class="studio-output-card">      <div class="card-header">        <h3>Live Preview &amp; Test</h3>        <p>Inspect compiled prompt outputs and trigger mock run generations.</p>      </div>      <div class="output-body">        <!-- Compiled Output Box -->        <div class="preview-group">          <label class="group-label">Compiled Prompt Preview</label>          <div class="prompt-preview-box">            @if (compiledPrompt()) {              <p class="compiled-text">{{ compiledPrompt() }}</p>            } @else {              <span class="empty-text">Write a template to preview compiled text...</span>            }          </div>        </div>        <!-- Run Control -->        <div class="run-control-row">          <button            class="run-btn"            [disabled]="isRunning()"            (click)="triggerRun()"          >            {{ isRunning() ? \'Generating Response...\' : \'⚡ Run Simulation\' }}          </button>        </div>        <!-- Simulated Output Response -->        <div class="preview-group flex-fill">          <label class="group-label">Simulated AI Response</label>          <div class="simulation-response-box" [class.loading]="isRunning()">            @if (isRunning()) {              <div class="pulse-loader">                <span></span><span></span><span></span>              </div>            } @else if (simulatedResponse()) {              <div class="response-text">{{ simulatedResponse() }}</div>            } @else {              <span class="empty-text">Click Run Simulation to generate a mock response.</span>            }          </div>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'AIPromptEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AIPromptEditorComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

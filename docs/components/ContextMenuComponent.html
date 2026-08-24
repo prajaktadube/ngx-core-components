@@ -1,0 +1,1412 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ContextMenuComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/navigation/context-menu/context-menu.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-context-menu</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    @keyframes contextMenuFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ngx-context-menu-backdrop { position: fixed; inset: 0; z-index: 9998; background: transparent; }
+    .ngx-context-menu {
+      position: fixed; z-index: 9999; padding: 6px;
+      border: 1px solid var(--border-color, rgba(217, 222, 232, 0.6));
+      border-radius: 10px;
+      background: var(--bg-secondary, rgba(255, 255, 255, 0.82));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 4px 6px -1px rgba(15, 23, 42, 0.06),
+        0 10px 15px -3px rgba(15, 23, 42, 0.08),
+        0 20px 40px -4px rgba(15, 23, 42, 0.12);
+      color: var(--text-primary, #111827);
+      font-family: var(--ngx-font-family, inherit);
+      animation: contextMenuFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-entry { position: relative; }
+    .menu-item {
+      position: relative; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 9px;
+      width: 100%; border: 0; border-radius: 6px; background: transparent; color: inherit; cursor: pointer;
+      font: inherit; font-size: 13px; line-height: 1.2; padding: 8px 10px; text-align: left; white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .menu-item:hover:not(:disabled), .menu-item.focused:not(:disabled) { background: var(--border-light, #f3f6fb); outline: none; }
+    .menu-item:focus-visible { background: var(--border-light, #f3f6fb); outline: 2px solid var(--primary-color, #4f46e5); outline-offset: -2px; border-radius: 6px; }
+    .menu-item:disabled { color: var(--text-secondary, #94a3b8); cursor: not-allowed; }
+    .menu-item.danger { color: var(--ngx-danger, #dc2626); }
+    .menu-item.danger:hover:not(:disabled), .menu-item.danger.focused:not(:disabled) { background: rgba(220, 38, 38, 0.08); }
+    .menu-icon { width: 16px; text-align: center; color: var(--text-secondary, #64748b); }
+    .menu-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    .menu-shortcut { font-size: 10px; font-weight: 600; color: var(--text-secondary, #64748b); background: var(--border-light, #f1f5f9); border: 1px solid var(--border-color, #e2e8f0); padding: 2px 6px; border-radius: 4px; font-family: monospace; margin-left: auto; }
+    .menu-arrow { color: var(--text-secondary, #64748b); }
+    .menu-separator { height: 1px; margin: 5px 4px; background: var(--border-color, #e5e7eb); }
+    .submenu {
+      display: none; position: absolute; left: calc(100% - 4px); top: -6px; min-width: 190px; padding: 6px;
+      border: 1px solid var(--border-color, rgba(217, 222, 232, 0.6));
+      border-radius: 10px;
+      background: var(--bg-secondary, rgba(255, 255, 255, 0.82));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 4px 6px -1px rgba(15, 23, 42, 0.06),
+        0 10px 15px -3px rgba(15, 23, 42, 0.08),
+        0 20px 40px -4px rgba(15, 23, 42, 0.12);
+      animation: contextMenuFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-entry:hover &gt; .submenu, .menu-entry:focus-within &gt; .submenu { display: block; }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">@if (open()) {
+  &lt;div
+    class&#x3D;&quot;ngx-context-menu-backdrop&quot;
+    (click)&#x3D;&quot;close()&quot;
+    (contextmenu)&#x3D;&quot;$event.preventDefault(); close()&quot;
+  &gt;&lt;/div&gt;
+  &lt;div
+    class&#x3D;&quot;ngx-context-menu&quot;
+    role&#x3D;&quot;menu&quot;
+    [style.left.px]&#x3D;&quot;x()&quot;
+    [style.top.px]&#x3D;&quot;y()&quot;
+    [style.min-width.px]&#x3D;&quot;width()&quot;
+    (click)&#x3D;&quot;$event.stopPropagation()&quot;
+  &gt;
+    &lt;ng-container *ngTemplateOutlet&#x3D;&quot;menuList; context: { items: items() }&quot;&gt;&lt;/ng-container&gt;
+  &lt;/div&gt;
+}
+
+&lt;ng-template #menuList let-items&#x3D;&quot;items&quot;&gt;
+  @for (item of items; track item.id; let i &#x3D; $index) {
+    @if (item.separator) {
+      &lt;div class&#x3D;&quot;menu-separator&quot; role&#x3D;&quot;separator&quot;&gt;&lt;/div&gt;
+    } @else {
+      &lt;div class&#x3D;&quot;menu-entry&quot;&gt;
+        &lt;button
+          class&#x3D;&quot;menu-item&quot;
+          type&#x3D;&quot;button&quot;
+          role&#x3D;&quot;menuitem&quot;
+          [class.danger]&#x3D;&quot;item.danger&quot;
+          [class.has-children]&#x3D;&quot;item.children?.length&quot;
+          [class.focused]&#x3D;&quot;focusedIndex() &#x3D;&#x3D;&#x3D; flatIndexOf(item)&quot;
+          [disabled]&#x3D;&quot;item.disabled&quot;
+          (click)&#x3D;&quot;selectItem(item, $event)&quot;
+        &gt;
+          @if (item.icon) { &lt;span class&#x3D;&quot;menu-icon&quot;&gt;{{ item.icon }}&lt;/span&gt; }
+          &lt;span class&#x3D;&quot;menu-label&quot;&gt;{{ item.label }}&lt;/span&gt;
+          @if (item.shortcut) { &lt;span class&#x3D;&quot;menu-shortcut&quot;&gt;{{ item.shortcut }}&lt;/span&gt; }
+          @if (item.children?.length) { &lt;span class&#x3D;&quot;menu-arrow&quot;&gt;&amp;gt;&lt;/span&gt; }
+        &lt;/button&gt;
+        @if (item.children?.length) {
+          &lt;div class&#x3D;&quot;submenu&quot; role&#x3D;&quot;menu&quot;&gt;
+            &lt;ng-container *ngTemplateOutlet&#x3D;&quot;menuList; context: { items: item.children }&quot;&gt;&lt;/ng-container&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  }
+&lt;/ng-template&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#focusedIndex" >focusedIndex</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#close" >close</a>
+                            </li>
+                            <li>
+                                <a href="#flatIndexOf" >flatIndexOf</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#handleKeyDown" >handleKeyDown</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#navigableIndices" >navigableIndices</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#navigableItems" >navigableItems</a>
+                            </li>
+                            <li>
+                                <a href="#selectItem" >selectItem</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#items" >items</a>
+                            </li>
+                            <li>
+                                <a href="#open" >open</a>
+                            </li>
+                            <li>
+                                <a href="#width" >width</a>
+                            </li>
+                            <li>
+                                <a href="#x" >x</a>
+                            </li>
+                            <li>
+                                <a href="#y" >y</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#itemSelected" >itemSelected</a>
+                            </li>
+                            <li>
+                                <a href="#openChange" >openChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:keydown" >document:keydown</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:133</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="items"></a>
+                        <b>items</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ContextMenuItem[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:123</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="open"></a>
+                        <b>open</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:124</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <b>width</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>200</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:127</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="x"></a>
+                        <b>x</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="125" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:125</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="y"></a>
+                        <b>y</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="126" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:126</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="itemSelected"></a>
+                        <b>itemSelected</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ContextMenuItem.html" target="_self" >ContextMenuItem</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="129" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:129</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="openChange"></a>
+                        <b>openChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:130</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:keydown"></a>
+                    <span class="name">
+                        <span ><b>document:keydown</b></span>
+                        <a href="#document:keydown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:keydown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <span ><b>close</b></span>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="207"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:207</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="flatIndexOf"></a>
+                    <span class="name">
+                        <span ><b>flatIndexOf</b></span>
+                        <a href="#flatIndexOf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>flatIndexOf(item: <a href="../interfaces/ContextMenuItem.html" target="_self">ContextMenuItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Returns the flat index of an item across all top-level items (excluding separators).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ContextMenuItem.html" target="_self" >ContextMenuItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleKeyDown"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>handleKeyDown</b></span>
+                        <a href="#handleKeyDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleKeyDown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:keydown&#x27;, [&#x27;$event&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>KeyboardEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigableIndices"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>navigableIndices</b></span>
+                        <a href="#navigableIndices"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>navigableIndices()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:154</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Navigable and non-disabled items indices used for arrow-key movement.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>number[]</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigableItems"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>navigableItems</b></span>
+                        <a href="#navigableItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>navigableItems()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Flat list of navigable (non-separator) top-level items.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>ContextMenuItem[]</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectItem"></a>
+                    <span class="name">
+                        <span ><b>selectItem</b></span>
+                        <a href="#selectItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectItem(item: <a href="../interfaces/ContextMenuItem.html" target="_self">ContextMenuItem</a>, event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ContextMenuItem.html" target="_self" >ContextMenuItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="focusedIndex"></a>
+                    <span class="name">
+                        <span ><b>focusedIndex</b></span>
+                        <a href="#focusedIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(-1)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">projects/ngx-core-components/navigation/context-menu/context-menu.component.ts:133</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tracks the focused item index for keyboard navigation (-1 = none).</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, input, output, signal, effect, HostListener } from &#x27;@angular/core&#x27;;
+
+export interface ContextMenuItem {
+  id: string;
+  label: string;
+  icon?: string;
+  disabled?: boolean;
+  danger?: boolean;
+  separator?: boolean;
+  shortcut?: string;
+  children?: ContextMenuItem[];
+}
+
+@Component({
+  selector: &#x27;ngx-context-menu&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    @if (open()) {
+      &lt;div
+        class&#x3D;&quot;ngx-context-menu-backdrop&quot;
+        (click)&#x3D;&quot;close()&quot;
+        (contextmenu)&#x3D;&quot;$event.preventDefault(); close()&quot;
+      &gt;&lt;/div&gt;
+      &lt;div
+        class&#x3D;&quot;ngx-context-menu&quot;
+        role&#x3D;&quot;menu&quot;
+        [style.left.px]&#x3D;&quot;x()&quot;
+        [style.top.px]&#x3D;&quot;y()&quot;
+        [style.min-width.px]&#x3D;&quot;width()&quot;
+        (click)&#x3D;&quot;$event.stopPropagation()&quot;
+      &gt;
+        &lt;ng-container *ngTemplateOutlet&#x3D;&quot;menuList; context: { items: items() }&quot;&gt;&lt;/ng-container&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;ng-template #menuList let-items&#x3D;&quot;items&quot;&gt;
+      @for (item of items; track item.id; let i &#x3D; $index) {
+        @if (item.separator) {
+          &lt;div class&#x3D;&quot;menu-separator&quot; role&#x3D;&quot;separator&quot;&gt;&lt;/div&gt;
+        } @else {
+          &lt;div class&#x3D;&quot;menu-entry&quot;&gt;
+            &lt;button
+              class&#x3D;&quot;menu-item&quot;
+              type&#x3D;&quot;button&quot;
+              role&#x3D;&quot;menuitem&quot;
+              [class.danger]&#x3D;&quot;item.danger&quot;
+              [class.has-children]&#x3D;&quot;item.children?.length&quot;
+              [class.focused]&#x3D;&quot;focusedIndex() &#x3D;&#x3D;&#x3D; flatIndexOf(item)&quot;
+              [disabled]&#x3D;&quot;item.disabled&quot;
+              (click)&#x3D;&quot;selectItem(item, $event)&quot;
+            &gt;
+              @if (item.icon) { &lt;span class&#x3D;&quot;menu-icon&quot;&gt;{{ item.icon }}&lt;/span&gt; }
+              &lt;span class&#x3D;&quot;menu-label&quot;&gt;{{ item.label }}&lt;/span&gt;
+              @if (item.shortcut) { &lt;span class&#x3D;&quot;menu-shortcut&quot;&gt;{{ item.shortcut }}&lt;/span&gt; }
+              @if (item.children?.length) { &lt;span class&#x3D;&quot;menu-arrow&quot;&gt;&amp;gt;&lt;/span&gt; }
+            &lt;/button&gt;
+            @if (item.children?.length) {
+              &lt;div class&#x3D;&quot;submenu&quot; role&#x3D;&quot;menu&quot;&gt;
+                &lt;ng-container *ngTemplateOutlet&#x3D;&quot;menuList; context: { items: item.children }&quot;&gt;&lt;/ng-container&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      }
+    &lt;/ng-template&gt;
+  &#x60;,
+  styles: [&#x60;
+    @keyframes contextMenuFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ngx-context-menu-backdrop { position: fixed; inset: 0; z-index: 9998; background: transparent; }
+    .ngx-context-menu {
+      position: fixed; z-index: 9999; padding: 6px;
+      border: 1px solid var(--border-color, rgba(217, 222, 232, 0.6));
+      border-radius: 10px;
+      background: var(--bg-secondary, rgba(255, 255, 255, 0.82));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 4px 6px -1px rgba(15, 23, 42, 0.06),
+        0 10px 15px -3px rgba(15, 23, 42, 0.08),
+        0 20px 40px -4px rgba(15, 23, 42, 0.12);
+      color: var(--text-primary, #111827);
+      font-family: var(--ngx-font-family, inherit);
+      animation: contextMenuFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-entry { position: relative; }
+    .menu-item {
+      position: relative; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 9px;
+      width: 100%; border: 0; border-radius: 6px; background: transparent; color: inherit; cursor: pointer;
+      font: inherit; font-size: 13px; line-height: 1.2; padding: 8px 10px; text-align: left; white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .menu-item:hover:not(:disabled), .menu-item.focused:not(:disabled) { background: var(--border-light, #f3f6fb); outline: none; }
+    .menu-item:focus-visible { background: var(--border-light, #f3f6fb); outline: 2px solid var(--primary-color, #4f46e5); outline-offset: -2px; border-radius: 6px; }
+    .menu-item:disabled { color: var(--text-secondary, #94a3b8); cursor: not-allowed; }
+    .menu-item.danger { color: var(--ngx-danger, #dc2626); }
+    .menu-item.danger:hover:not(:disabled), .menu-item.danger.focused:not(:disabled) { background: rgba(220, 38, 38, 0.08); }
+    .menu-icon { width: 16px; text-align: center; color: var(--text-secondary, #64748b); }
+    .menu-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    .menu-shortcut { font-size: 10px; font-weight: 600; color: var(--text-secondary, #64748b); background: var(--border-light, #f1f5f9); border: 1px solid var(--border-color, #e2e8f0); padding: 2px 6px; border-radius: 4px; font-family: monospace; margin-left: auto; }
+    .menu-arrow { color: var(--text-secondary, #64748b); }
+    .menu-separator { height: 1px; margin: 5px 4px; background: var(--border-color, #e5e7eb); }
+    .submenu {
+      display: none; position: absolute; left: calc(100% - 4px); top: -6px; min-width: 190px; padding: 6px;
+      border: 1px solid var(--border-color, rgba(217, 222, 232, 0.6));
+      border-radius: 10px;
+      background: var(--bg-secondary, rgba(255, 255, 255, 0.82));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 4px 6px -1px rgba(15, 23, 42, 0.06),
+        0 10px 15px -3px rgba(15, 23, 42, 0.08),
+        0 20px 40px -4px rgba(15, 23, 42, 0.12);
+      animation: contextMenuFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-entry:hover &gt; .submenu, .menu-entry:focus-within &gt; .submenu { display: block; }
+  &#x60;]
+})
+export class ContextMenuComponent {
+  items &#x3D; input&lt;ContextMenuItem[]&gt;([]);
+  open &#x3D; input(false);
+  x &#x3D; input(0);
+  y &#x3D; input(0);
+  width &#x3D; input(200);
+
+  itemSelected &#x3D; output&lt;ContextMenuItem&gt;();
+  openChange &#x3D; output&lt;boolean&gt;();
+
+  /** Tracks the focused item index for keyboard navigation (-1 &#x3D; none). */
+  focusedIndex &#x3D; signal&lt;number&gt;(-1);
+
+  constructor() {
+    // Reset focused index whenever the menu opens or closes
+    effect(() &#x3D;&gt; {
+      this.open(); // subscribe to changes
+      this.focusedIndex.set(-1);
+    });
+  }
+
+  /** Returns the flat index of an item across all top-level items (excluding separators). */
+  flatIndexOf(item: ContextMenuItem): number {
+    return this.navigableItems().indexOf(item);
+  }
+
+  /** Flat list of navigable (non-separator) top-level items. */
+  private navigableItems(): ContextMenuItem[] {
+    return this.items().filter(i &#x3D;&gt; !i.separator);
+  }
+
+  /** Navigable and non-disabled items indices used for arrow-key movement. */
+  private navigableIndices(): number[] {
+    return this.navigableItems()
+      .map((item, idx) &#x3D;&gt; (!item.disabled ? idx : -1))
+      .filter(idx &#x3D;&gt; idx !&#x3D;&#x3D; -1);
+  }
+
+  @HostListener(&#x27;document:keydown&#x27;, [&#x27;$event&#x27;])
+  handleKeyDown(event: KeyboardEvent): void {
+    if (!this.open()) return;
+
+    const indices &#x3D; this.navigableIndices();
+    if (indices.length &#x3D;&#x3D;&#x3D; 0) {
+      if (event.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+        event.preventDefault();
+        this.close();
+      }
+      return;
+    }
+
+    const current &#x3D; this.focusedIndex();
+
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowDown&#x27;) {
+      event.preventDefault();
+      const nextIdx &#x3D; indices.find(i &#x3D;&gt; i &gt; current) ?? indices[0];
+      this.focusedIndex.set(nextIdx);
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowUp&#x27;) {
+      event.preventDefault();
+      const reversed &#x3D; [...indices].reverse();
+      const prevIdx &#x3D; reversed.find(i &#x3D;&gt; i &lt; current) ?? reversed[0];
+      this.focusedIndex.set(prevIdx);
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;Enter&#x27; || event.key &#x3D;&#x3D;&#x3D; &#x27; &#x27;) {
+      event.preventDefault();
+      const items &#x3D; this.navigableItems();
+      if (current &gt;&#x3D; 0 &amp;&amp; current &lt; items.length) {
+        const item &#x3D; items[current];
+        if (!item.disabled &amp;&amp; !item.children?.length) {
+          this.itemSelected.emit(item);
+          this.close();
+        }
+      }
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+      event.preventDefault();
+      this.close();
+    }
+  }
+
+  selectItem(item: ContextMenuItem, event: MouseEvent): void {
+    event.stopPropagation();
+    if (item.disabled || item.children?.length) return;
+    this.itemSelected.emit(item);
+    this.close();
+  }
+
+  close(): void {
+    this.openChange.emit(false);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    @keyframes contextMenuFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ngx-context-menu-backdrop { position: fixed; inset: 0; z-index: 9998; background: transparent; }
+    .ngx-context-menu {
+      position: fixed; z-index: 9999; padding: 6px;
+      border: 1px solid var(--border-color, rgba(217, 222, 232, 0.6));
+      border-radius: 10px;
+      background: var(--bg-secondary, rgba(255, 255, 255, 0.82));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 4px 6px -1px rgba(15, 23, 42, 0.06),
+        0 10px 15px -3px rgba(15, 23, 42, 0.08),
+        0 20px 40px -4px rgba(15, 23, 42, 0.12);
+      color: var(--text-primary, #111827);
+      font-family: var(--ngx-font-family, inherit);
+      animation: contextMenuFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-entry { position: relative; }
+    .menu-item {
+      position: relative; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 9px;
+      width: 100%; border: 0; border-radius: 6px; background: transparent; color: inherit; cursor: pointer;
+      font: inherit; font-size: 13px; line-height: 1.2; padding: 8px 10px; text-align: left; white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .menu-item:hover:not(:disabled), .menu-item.focused:not(:disabled) { background: var(--border-light, #f3f6fb); outline: none; }
+    .menu-item:focus-visible { background: var(--border-light, #f3f6fb); outline: 2px solid var(--primary-color, #4f46e5); outline-offset: -2px; border-radius: 6px; }
+    .menu-item:disabled { color: var(--text-secondary, #94a3b8); cursor: not-allowed; }
+    .menu-item.danger { color: var(--ngx-danger, #dc2626); }
+    .menu-item.danger:hover:not(:disabled), .menu-item.danger.focused:not(:disabled) { background: rgba(220, 38, 38, 0.08); }
+    .menu-icon { width: 16px; text-align: center; color: var(--text-secondary, #64748b); }
+    .menu-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    .menu-shortcut { font-size: 10px; font-weight: 600; color: var(--text-secondary, #64748b); background: var(--border-light, #f1f5f9); border: 1px solid var(--border-color, #e2e8f0); padding: 2px 6px; border-radius: 4px; font-family: monospace; margin-left: auto; }
+    .menu-arrow { color: var(--text-secondary, #64748b); }
+    .menu-separator { height: 1px; margin: 5px 4px; background: var(--border-color, #e5e7eb); }
+    .submenu {
+      display: none; position: absolute; left: calc(100% - 4px); top: -6px; min-width: 190px; padding: 6px;
+      border: 1px solid var(--border-color, rgba(217, 222, 232, 0.6));
+      border-radius: 10px;
+      background: var(--bg-secondary, rgba(255, 255, 255, 0.82));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 4px 6px -1px rgba(15, 23, 42, 0.06),
+        0 10px 15px -3px rgba(15, 23, 42, 0.08),
+        0 20px 40px -4px rgba(15, 23, 42, 0.12);
+      animation: contextMenuFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-entry:hover &gt; .submenu, .menu-entry:focus-within &gt; .submenu { display: block; }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>@if (open()) {  <div    class="ngx-context-menu-backdrop"    (click)="close()"    (contextmenu)="$event.preventDefault(); close()"  ></div>  <div    class="ngx-context-menu"    role="menu"    [style.left.px]="x()"    [style.top.px]="y()"    [style.min-width.px]="width()"    (click)="$event.stopPropagation()"  >    <ng-container *ngTemplateOutlet="menuList; context: { items: items() }"></ng-container>  </div>}<ng-template #menuList let-items="items">  @for (item of items; track item.id; let i = $index) {    @if (item.separator) {      <div class="menu-separator" role="separator"></div>    } @else {      <div class="menu-entry">        <button          class="menu-item"          type="button"          role="menuitem"          [class.danger]="item.danger"          [class.has-children]="item.children?.length"          [class.focused]="focusedIndex() === flatIndexOf(item)"          [disabled]="item.disabled"          (click)="selectItem(item, $event)"        >          @if (item.icon) { <span class="menu-icon">{{ item.icon }}</span> }          <span class="menu-label">{{ item.label }}</span>          @if (item.shortcut) { <span class="menu-shortcut">{{ item.shortcut }}</span> }          @if (item.children?.length) { <span class="menu-arrow">&gt;</span> }        </button>        @if (item.children?.length) {          <div class="submenu" role="menu">            <ng-container *ngTemplateOutlet="menuList; context: { items: item.children }"></ng-container>          </div>        }      </div>    }  }</ng-template></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'ContextMenuComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContextMenuComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

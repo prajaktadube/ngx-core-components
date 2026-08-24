@@ -1,0 +1,3474 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  GaugeChartComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-gauge-chart</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-gauge-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+
+    .ngx-gauge-container {
+      position: relative;
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-gauge-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Arcs transition */
+    .progress-arc {
+      transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+    }
+    .progress-arc-glow {
+      transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+    }
+
+    /* Needle transition animations */
+    .gauge-needle-group {
+      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: 100px 100px;
+    }
+    .gauge-needle {
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.22));
+    }
+
+    /* Center Value Indicator */
+    .gauge-center-badge {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gauge-center-badge.semi-mode {
+      transform: translateY(18px);
+    }
+
+    .gauge-value {
+      font-size: 32px;
+      font-weight: 850;
+      letter-spacing: -0.8px;
+      line-height: 1;
+      transition: color 0.3s ease;
+      font-family: var(--ngx-heading-font-family, inherit);
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
+    }
+    .gauge-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 750;
+      color: var(--text-secondary, #64748b);
+      letter-spacing: 0.8px;
+      margin-top: 6px;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Header and Export dropdown styles */
+    .chart-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .chart-export-menu {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;ngx-gauge-wrapper&quot;
+  (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+  (mouseenter)&#x3D;&quot;hovered.set(true)&quot;
+  (mouseleave)&#x3D;&quot;hovered.set(false)&quot;
+&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;hovered.set(false)&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+    @if (showExport()) {
+      &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+        &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+        @if (exportMenuOpen()) {
+          &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;ngx-gauge-container&quot;&gt;
+    &lt;!-- SVG Gauge dial --&gt;
+    &lt;svg
+      #svgEl
+      class&#x3D;&quot;ngx-gauge-svg&quot;
+      viewBox&#x3D;&quot;0 0 200 200&quot;
+    &gt;
+      &lt;defs&gt;
+        &lt;linearGradient id&#x3D;&quot;gauge-progress-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;100%&quot; x2&#x3D;&quot;100%&quot; y2&#x3D;&quot;0%&quot;&gt;
+          &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; stop-opacity&#x3D;&quot;0.85&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; /&gt;
+        &lt;/linearGradient&gt;
+        &lt;linearGradient id&#x3D;&quot;pivot-cap-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;100%&quot; y2&#x3D;&quot;100%&quot;&gt;
+          &lt;stop offset&#x3D;&quot;0%&quot; stop-color&#x3D;&quot;#64748b&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;50%&quot; stop-color&#x3D;&quot;#334155&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;100%&quot; stop-color&#x3D;&quot;#0f172a&quot; /&gt;
+        &lt;/linearGradient&gt;
+        &lt;linearGradient id&#x3D;&quot;needle-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;100%&quot; x2&#x3D;&quot;0%&quot; y2&#x3D;&quot;0%&quot;&gt;
+          &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; stop-opacity&#x3D;&quot;0.75&quot; /&gt;
+          &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; /&gt;
+        &lt;/linearGradient&gt;
+        &lt;filter id&#x3D;&quot;gauge-blur-glow&quot; x&#x3D;&quot;-20%&quot; y&#x3D;&quot;-20%&quot; width&#x3D;&quot;140%&quot; height&#x3D;&quot;140%&quot;&gt;
+          &lt;feGaussianBlur stdDeviation&#x3D;&quot;3&quot; result&#x3D;&quot;blur&quot; /&gt;
+          &lt;feComposite in&#x3D;&quot;SourceGraphic&quot; in2&#x3D;&quot;blur&quot; operator&#x3D;&quot;over&quot; /&gt;
+        &lt;/filter&gt;
+      &lt;/defs&gt;
+
+      &lt;!-- Outer background guide track --&gt;
+      &lt;path
+        [attr.d]&#x3D;&quot;backgroundArcPath()&quot;
+        fill&#x3D;&quot;none&quot;
+        stroke&#x3D;&quot;var(--ngx-gauge-track-bg, rgba(148, 163, 184, 0.12))&quot;
+        stroke-width&#x3D;&quot;14&quot;
+        stroke-linecap&#x3D;&quot;round&quot;
+      /&gt;
+
+      &lt;!-- Colored background glow track --&gt;
+      &lt;path
+        [attr.d]&#x3D;&quot;backgroundArcPath()&quot;
+        fill&#x3D;&quot;none&quot;
+        [attr.stroke]&#x3D;&quot;gaugeColor()&quot;
+        stroke-width&#x3D;&quot;18&quot;
+        stroke-linecap&#x3D;&quot;round&quot;
+        opacity&#x3D;&quot;0.15&quot;
+        [attr.stroke-dasharray]&#x3D;&quot;arcLength() + &#x27;,&#x27; + arcLength()&quot;
+        [attr.stroke-dashoffset]&#x3D;&quot;progressDashOffset()&quot;
+        class&#x3D;&quot;progress-arc-glow&quot;
+      /&gt;
+
+      &lt;!-- Colored progress arc --&gt;
+      &lt;path
+        [attr.d]&#x3D;&quot;backgroundArcPath()&quot;
+        fill&#x3D;&quot;none&quot;
+        stroke&#x3D;&quot;url(#gauge-progress-grad)&quot;
+        stroke-width&#x3D;&quot;14&quot;
+        stroke-linecap&#x3D;&quot;round&quot;
+        [attr.stroke-dasharray]&#x3D;&quot;arcLength() + &#x27;,&#x27; + arcLength()&quot;
+        [attr.stroke-dashoffset]&#x3D;&quot;progressDashOffset()&quot;
+        class&#x3D;&quot;progress-arc&quot;
+      /&gt;
+
+      &lt;!-- Colored threshold zone lines (Outer edge) --&gt;
+      &lt;g class&#x3D;&quot;gauge-thresholds&quot;&gt;
+        @for (arc of thresholdArcs(); track $index) {
+          &lt;path
+            [attr.d]&#x3D;&quot;arc.path&quot;
+            fill&#x3D;&quot;none&quot;
+            [attr.stroke]&#x3D;&quot;arc.color&quot;
+            stroke-width&#x3D;&quot;3&quot;
+            stroke-linecap&#x3D;&quot;round&quot;
+            opacity&#x3D;&quot;0.65&quot;
+          /&gt;
+        }
+      &lt;/g&gt;
+
+      &lt;!-- Instrument Dial Ticks &amp; Labels --&gt;
+      &lt;g class&#x3D;&quot;gauge-ticks&quot;&gt;
+        @for (tick of ticks(); track $index) {
+          &lt;!-- Radial Tick Mark --&gt;
+          &lt;line
+            [attr.x1]&#x3D;&quot;tick.x1&quot;
+            [attr.y1]&#x3D;&quot;tick.y1&quot;
+            [attr.x2]&#x3D;&quot;tick.x2&quot;
+            [attr.y2]&#x3D;&quot;tick.y2&quot;
+            [attr.stroke]&#x3D;&quot;tick.isMajor ? &#x27;var(--text-secondary, #64748b)&#x27; : &#x27;var(--border-color, #cbd5e1)&#x27;&quot;
+            [attr.stroke-width]&#x3D;&quot;tick.isMajor ? 1.5 : 1&quot;
+            opacity&#x3D;&quot;0.6&quot;
+          /&gt;
+          &lt;!-- Value Label --&gt;
+          @if (tick.isMajor) {
+            &lt;text
+              [attr.x]&#x3D;&quot;tick.textX&quot;
+              [attr.y]&#x3D;&quot;tick.textY&quot;
+              fill&#x3D;&quot;var(--text-secondary, #64748b)&quot;
+              font-size&#x3D;&quot;8px&quot;
+              font-weight&#x3D;&quot;700&quot;
+              text-anchor&#x3D;&quot;middle&quot;
+              dominant-baseline&#x3D;&quot;middle&quot;
+              font-family&#x3D;&quot;monospace&quot;
+            &gt;{{ tick.valueText }}&lt;/text&gt;
+          }
+        }
+      &lt;/g&gt;
+
+      &lt;!-- Needle / Indicator dial --&gt;
+      @if (showNeedle()) {
+        &lt;g [attr.transform]&#x3D;&quot;needleTransformString()&quot; class&#x3D;&quot;gauge-needle-group&quot;&gt;
+          &lt;!-- Tapered needle spear --&gt;
+          &lt;path
+            d&#x3D;&quot;M 100 100 L 98 32 L 100 20 L 102 32 Z&quot;
+            fill&#x3D;&quot;url(#needle-grad)&quot;
+            class&#x3D;&quot;gauge-needle&quot;
+          /&gt;
+          &lt;!-- Core pin highlighting line --&gt;
+          &lt;line
+            x1&#x3D;&quot;100&quot; y1&#x3D;&quot;98&quot;
+            x2&#x3D;&quot;100&quot; y2&#x3D;&quot;24&quot;
+            stroke&#x3D;&quot;#ffffff&quot;
+            stroke-width&#x3D;&quot;1.2&quot;
+            stroke-linecap&#x3D;&quot;round&quot;
+            opacity&#x3D;&quot;0.9&quot;
+          /&gt;
+          &lt;!-- Multi-layered pivot cap --&gt;
+          &lt;circle
+            cx&#x3D;&quot;100&quot;
+            cy&#x3D;&quot;100&quot;
+            r&#x3D;&quot;10&quot;
+            fill&#x3D;&quot;url(#pivot-cap-grad)&quot;
+            stroke&#x3D;&quot;rgba(0, 0, 0, 0.2)&quot;
+            stroke-width&#x3D;&quot;1&quot;
+          /&gt;
+          &lt;circle
+            cx&#x3D;&quot;100&quot;
+            cy&#x3D;&quot;100&quot;
+            r&#x3D;&quot;4&quot;
+            fill&#x3D;&quot;#ffffff&quot;
+            opacity&#x3D;&quot;0.25&quot;
+          /&gt;
+        &lt;/g&gt;
+      }
+    &lt;/svg&gt;
+
+    &lt;!-- Center values badge --&gt;
+    &lt;div class&#x3D;&quot;gauge-center-badge&quot; [class.semi-mode]&#x3D;&quot;type() &#x3D;&#x3D;&#x3D; &#x27;semi&#x27;&quot;&gt;
+      &lt;div class&#x3D;&quot;gauge-value&quot; [style.color]&#x3D;&quot;gaugeColor()&quot;&gt;{{ value().toLocaleString() }}&lt;/div&gt;
+      @if (label()) {
+        &lt;div class&#x3D;&quot;gauge-label&quot;&gt;{{ label() }}&lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Glassmorphic Tooltip --&gt;
+  @if (hovered()) {
+    &lt;div
+      class&#x3D;&quot;chart-tooltip&quot;
+      [style.left.px]&#x3D;&quot;tooltipX()&quot;
+      [style.top.px]&#x3D;&quot;tooltipY()&quot;
+    &gt;
+      @if (label()) {
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ label() }}&lt;/div&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;tt-cat&quot;&gt;Gauge Metric&lt;/div&gt;
+      }
+      &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+        &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;gaugeColor()&quot;&gt;&lt;/span&gt;
+        &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+        &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ value().toLocaleString() }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+        &lt;span class&#x3D;&quot;tt-dot&quot; style&#x3D;&quot;background: transparent;&quot;&gt;&lt;/span&gt;
+        &lt;span class&#x3D;&quot;tt-name&quot;&gt;Range&lt;/span&gt;
+        &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ min() }} - {{ max() }}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#animateState" >animateState</a>
+                            </li>
+                            <li>
+                                <a href="#arcLength" >arcLength</a>
+                            </li>
+                            <li>
+                                <a href="#backgroundArcPath" >backgroundArcPath</a>
+                            </li>
+                            <li>
+                                <a href="#endAngle" >endAngle</a>
+                            </li>
+                            <li>
+                                <a href="#exportMenuOpen" >exportMenuOpen</a>
+                            </li>
+                            <li>
+                                <a href="#gaugeColor" >gaugeColor</a>
+                            </li>
+                            <li>
+                                <a href="#hovered" >hovered</a>
+                            </li>
+                            <li>
+                                <a href="#needleTransformString" >needleTransformString</a>
+                            </li>
+                            <li>
+                                <a href="#progressDashOffset" >progressDashOffset</a>
+                            </li>
+                            <li>
+                                <a href="#startAngle" >startAngle</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#thresholdArcs" >thresholdArcs</a>
+                            </li>
+                            <li>
+                                <a href="#ticks" >ticks</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipX" >tooltipX</a>
+                            </li>
+                            <li>
+                                <a href="#tooltipY" >tooltipY</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#closeExportMenu" >closeExportMenu</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#describeArc" >describeArc</a>
+                            </li>
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getThresholdColorForValue" >getThresholdColorForValue</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseMove" >onMouseMove</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#polarToCartesian" >polarToCartesian</a>
+                            </li>
+                            <li>
+                                <a href="#toggleExportMenu" >toggleExportMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#color" >color</a>
+                            </li>
+                            <li>
+                                <a href="#label" >label</a>
+                            </li>
+                            <li>
+                                <a href="#max" >max</a>
+                            </li>
+                            <li>
+                                <a href="#min" >min</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#showNeedle" >showNeedle</a>
+                            </li>
+                            <li>
+                                <a href="#thresholds" >thresholds</a>
+                            </li>
+                            <li>
+                                <a href="#type" >type</a>
+                            </li>
+                            <li>
+                                <a href="#value" >value</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="438" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:438</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="color"></a>
+                        <b>color</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;var(--primary-color, #4f46e5)&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="427" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:427</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="label"></a>
+                        <b>label</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="424" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:424</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="max"></a>
+                        <b>max</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>100</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="423" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:423</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="min"></a>
+                        <b>min</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="422" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:422</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="429" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:429</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showNeedle"></a>
+                        <b>showNeedle</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="426" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:426</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="thresholds"></a>
+                        <b>thresholds</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>GaugeThreshold[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="428" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:428</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="type"></a>
+                        <b>type</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;full&quot; | &quot;semi&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;semi&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="425" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:425</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="value"></a>
+                        <b>value</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="421" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:421</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="626"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:626</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeExportMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>closeExportMenu</b></span>
+                        <a href="#closeExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeExportMenu()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="626"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:626</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="describeArc"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>describeArc</b></span>
+                        <a href="#describeArc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>describeArc(x: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, y: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, radius: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, startAngle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, endAngle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="768"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:768</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>x</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>y</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>radius</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>startAngle</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>endAngle</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="654"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:654</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="638"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:638</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="687"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:687</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="666"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:666</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getThresholdColorForValue"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getThresholdColorForValue</b></span>
+                        <a href="#getThresholdColorForValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getThresholdColorForValue(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="518"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:518</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: "json" | "csv" | "svg" | "pdf")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="630"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:630</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;json&quot; | &quot;csv&quot; | &quot;svg&quot; | &quot;pdf&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseMove"></a>
+                    <span class="name">
+                        <span ><b>onMouseMove</b></span>
+                        <a href="#onMouseMove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseMove(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="751"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:751</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="polarToCartesian"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>polarToCartesian</b></span>
+                        <a href="#polarToCartesian"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>polarToCartesian(centerX: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, centerY: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, radius: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, angleInDegrees: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="759"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:759</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>centerX</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>centerY</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>radius</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>angleInDegrees</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>{ x: number; y: number; }</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleExportMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleExportMenu</b></span>
+                        <a href="#toggleExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleExportMenu(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="620"
+                                    class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:620</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="animateState"></a>
+                    <span class="name">
+                        <span ><b>animateState</b></span>
+                        <a href="#animateState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="435" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:435</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="arcLength"></a>
+                    <span class="name">
+                        <span ><b>arcLength</b></span>
+                        <a href="#arcLength"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const radius &#x3D; 72;
+    const angleRange &#x3D; this.endAngle() - this.startAngle();
+    return (2 * Math.PI * radius * angleRange) / 360;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="455" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:455</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="backgroundArcPath"></a>
+                    <span class="name">
+                        <span ><b>backgroundArcPath</b></span>
+                        <a href="#backgroundArcPath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.describeArc(100, 100, 72, this.startAngle(), this.endAngle());
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="473" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:473</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="endAngle"></a>
+                    <span class="name">
+                        <span ><b>endAngle</b></span>
+                        <a href="#endAngle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.type() &#x3D;&#x3D;&#x3D; &#x27;semi&#x27; ? 450 : 495;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="450" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:450</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>exportMenuOpen</b></span>
+                        <a href="#exportMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="436" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:436</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gaugeColor"></a>
+                    <span class="name">
+                        <span ><b>gaugeColor</b></span>
+                        <a href="#gaugeColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const val &#x3D; this.value();
+    const thresholdList &#x3D; this.thresholds();
+
+    if (thresholdList.length &#x3D;&#x3D;&#x3D; 0) {
+      return this.color();
+    }
+
+    // Sort thresholds ascending
+    const sorted &#x3D; [...thresholdList].sort((a, b) &#x3D;&gt; a.value - b.value);
+    
+    // Find the first threshold color where values exceed the limit
+    for (const t of sorted) {
+      if (val &lt;&#x3D; t.value) {
+        return t.color;
+      }
+    }
+
+    // Default to the last threshold color if value exceeds all thresholds
+    return sorted[sorted.length - 1].color;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="496" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:496</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hovered"></a>
+                    <span class="name">
+                        <span ><b>hovered</b></span>
+                        <a href="#hovered"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="432" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:432</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="needleTransformString"></a>
+                    <span class="name">
+                        <span ><b>needleTransformString</b></span>
+                        <a href="#needleTransformString"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const currentVal &#x3D; Math.max(minVal, Math.min(maxVal, this.value()));
+    const range &#x3D; maxVal - minVal;
+    const fraction &#x3D; range &#x3D;&#x3D;&#x3D; 0 ? 0 : (currentVal - minVal) / range;
+
+    const angleRange &#x3D; this.endAngle() - this.startAngle();
+    const targetAngle &#x3D; this.startAngle() + angleRange * fraction;
+
+    const angle &#x3D; this.animateState() ? targetAngle : this.startAngle();
+
+    // Needle points straight up at 0 deg rotation (12 o&#x27;clock, which is 360 in polar offset)
+    const rotateAngle &#x3D; angle - 360;
+    return &#x60;rotate(${rotateAngle})&#x60;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="478" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:478</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="progressDashOffset"></a>
+                    <span class="name">
+                        <span ><b>progressDashOffset</b></span>
+                        <a href="#progressDashOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const L &#x3D; this.arcLength();
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const currentVal &#x3D; Math.max(minVal, Math.min(maxVal, this.value()));
+    const range &#x3D; maxVal - minVal;
+    const fraction &#x3D; range &#x3D;&#x3D;&#x3D; 0 ? 0 : (currentVal - minVal) / range;
+    const targetOffset &#x3D; L - (fraction * L);
+    return this.animateState() ? targetOffset : L;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="461" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:461</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startAngle"></a>
+                    <span class="name">
+                        <span ><b>startAngle</b></span>
+                        <a href="#startAngle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.type() &#x3D;&#x3D;&#x3D; &#x27;semi&#x27; ? 270 : 225;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="446" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:446</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="438" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:438</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="thresholdArcs"></a>
+                    <span class="name">
+                        <span ><b>thresholdArcs</b></span>
+                        <a href="#thresholdArcs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const list &#x3D; this.thresholds();
+    if (list.length &#x3D;&#x3D;&#x3D; 0) return [];
+    
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const range &#x3D; maxVal - minVal;
+    const startA &#x3D; this.startAngle();
+    const endA &#x3D; this.endAngle();
+    const angleRange &#x3D; endA - startA;
+    
+    // Sort thresholds ascending
+    const sorted &#x3D; [...list].sort((a, b) &#x3D;&gt; a.value - b.value);
+    
+    const arcs &#x3D; [];
+    let currentVal &#x3D; minVal;
+    
+    for (let i &#x3D; 0; i &lt; sorted.length; i++) {
+      const nextVal &#x3D; Math.min(maxVal, sorted[i].value);
+      if (nextVal &lt;&#x3D; currentVal) continue;
+      
+      const startFraction &#x3D; (currentVal - minVal) / range;
+      const endFraction &#x3D; (nextVal - minVal) / range;
+      
+      const startAngleSegment &#x3D; startA + angleRange * startFraction;
+      const endAngleSegment &#x3D; startA + angleRange * endFraction;
+      
+      // Radius slightly outside: e.g. 81px
+      const path &#x3D; this.describeArc(100, 100, 81, startAngleSegment, endAngleSegment);
+      
+      arcs.push({
+        path,
+        color: sorted[i].color
+      });
+      
+      currentVal &#x3D; nextVal;
+    }
+    
+    return arcs;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="579" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:579</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ticks"></a>
+                    <span class="name">
+                        <span ><b>ticks</b></span>
+                        <a href="#ticks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const range &#x3D; maxVal - minVal;
+    const startA &#x3D; this.startAngle();
+    const endA &#x3D; this.endAngle();
+    const angleRange &#x3D; endA - startA;
+    
+    // We want 11 ticks (every 10%)
+    const tickCount &#x3D; 11;
+    const result &#x3D; [];
+    
+    for (let i &#x3D; 0; i &lt; tickCount; i++) {
+      const fraction &#x3D; i / (tickCount - 1);
+      const val &#x3D; minVal + range * fraction;
+      const angle &#x3D; startA + angleRange * fraction;
+      
+      // Radial line coords
+      const outerRad &#x3D; 64;
+      const innerRad &#x3D; i % 2 &#x3D;&#x3D;&#x3D; 0 ? 56 : 60; // Major vs minor ticks
+      
+      const outerPt &#x3D; this.polarToCartesian(100, 100, outerRad, angle);
+      const innerPt &#x3D; this.polarToCartesian(100, 100, innerRad, angle);
+      
+      // Text coords (for major ticks)
+      let textPt &#x3D; null;
+      if (i % 2 &#x3D;&#x3D;&#x3D; 0) {
+        textPt &#x3D; this.polarToCartesian(100, 100, 44, angle);
+      }
+      
+      const color &#x3D; this.getThresholdColorForValue(val);
+      
+      result.push({
+        x1: innerPt.x,
+        y1: innerPt.y,
+        x2: outerPt.x,
+        y2: outerPt.y,
+        textX: textPt?.x ?? 0,
+        textY: textPt?.y ?? 0,
+        valueText: Math.round(val).toString(),
+        isMajor: i % 2 &#x3D;&#x3D;&#x3D; 0,
+        color
+      });
+    }
+    return result;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="532" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:532</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipX"></a>
+                    <span class="name">
+                        <span ><b>tooltipX</b></span>
+                        <a href="#tooltipX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="433" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:433</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltipY"></a>
+                    <span class="name">
+                        <span ><b>tooltipY</b></span>
+                        <a href="#tooltipY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="434" class="link-to-prism">projects/ngx-core-components/charts/gauge-chart/gauge-chart.component.ts:434</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, input, computed, signal, ChangeDetectionStrategy,
+  ElementRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export interface GaugeThreshold {
+  value: number; // The threshold limit (inclusive upper boundary)
+  color: string; // The color associated with this threshold
+}
+
+@Component({
+  selector: &#x27;ngx-gauge-chart&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-gauge-wrapper&quot;
+      (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+      (mouseenter)&#x3D;&quot;hovered.set(true)&quot;
+      (mouseleave)&#x3D;&quot;hovered.set(false)&quot;
+    &gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;hovered.set(false)&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;ngx-gauge-container&quot;&gt;
+        &lt;!-- SVG Gauge dial --&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;ngx-gauge-svg&quot;
+          viewBox&#x3D;&quot;0 0 200 200&quot;
+        &gt;
+          &lt;defs&gt;
+            &lt;linearGradient id&#x3D;&quot;gauge-progress-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;100%&quot; x2&#x3D;&quot;100%&quot; y2&#x3D;&quot;0%&quot;&gt;
+              &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; stop-opacity&#x3D;&quot;0.85&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; /&gt;
+            &lt;/linearGradient&gt;
+            &lt;linearGradient id&#x3D;&quot;pivot-cap-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;0%&quot; x2&#x3D;&quot;100%&quot; y2&#x3D;&quot;100%&quot;&gt;
+              &lt;stop offset&#x3D;&quot;0%&quot; stop-color&#x3D;&quot;#64748b&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;50%&quot; stop-color&#x3D;&quot;#334155&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;100%&quot; stop-color&#x3D;&quot;#0f172a&quot; /&gt;
+            &lt;/linearGradient&gt;
+            &lt;linearGradient id&#x3D;&quot;needle-grad&quot; x1&#x3D;&quot;0%&quot; y1&#x3D;&quot;100%&quot; x2&#x3D;&quot;0%&quot; y2&#x3D;&quot;0%&quot;&gt;
+              &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; stop-opacity&#x3D;&quot;0.75&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;gaugeColor()&quot; /&gt;
+            &lt;/linearGradient&gt;
+            &lt;filter id&#x3D;&quot;gauge-blur-glow&quot; x&#x3D;&quot;-20%&quot; y&#x3D;&quot;-20%&quot; width&#x3D;&quot;140%&quot; height&#x3D;&quot;140%&quot;&gt;
+              &lt;feGaussianBlur stdDeviation&#x3D;&quot;3&quot; result&#x3D;&quot;blur&quot; /&gt;
+              &lt;feComposite in&#x3D;&quot;SourceGraphic&quot; in2&#x3D;&quot;blur&quot; operator&#x3D;&quot;over&quot; /&gt;
+            &lt;/filter&gt;
+          &lt;/defs&gt;
+
+          &lt;!-- Outer background guide track --&gt;
+          &lt;path
+            [attr.d]&#x3D;&quot;backgroundArcPath()&quot;
+            fill&#x3D;&quot;none&quot;
+            stroke&#x3D;&quot;var(--ngx-gauge-track-bg, rgba(148, 163, 184, 0.12))&quot;
+            stroke-width&#x3D;&quot;14&quot;
+            stroke-linecap&#x3D;&quot;round&quot;
+          /&gt;
+
+          &lt;!-- Colored background glow track --&gt;
+          &lt;path
+            [attr.d]&#x3D;&quot;backgroundArcPath()&quot;
+            fill&#x3D;&quot;none&quot;
+            [attr.stroke]&#x3D;&quot;gaugeColor()&quot;
+            stroke-width&#x3D;&quot;18&quot;
+            stroke-linecap&#x3D;&quot;round&quot;
+            opacity&#x3D;&quot;0.15&quot;
+            [attr.stroke-dasharray]&#x3D;&quot;arcLength() + &#x27;,&#x27; + arcLength()&quot;
+            [attr.stroke-dashoffset]&#x3D;&quot;progressDashOffset()&quot;
+            class&#x3D;&quot;progress-arc-glow&quot;
+          /&gt;
+
+          &lt;!-- Colored progress arc --&gt;
+          &lt;path
+            [attr.d]&#x3D;&quot;backgroundArcPath()&quot;
+            fill&#x3D;&quot;none&quot;
+            stroke&#x3D;&quot;url(#gauge-progress-grad)&quot;
+            stroke-width&#x3D;&quot;14&quot;
+            stroke-linecap&#x3D;&quot;round&quot;
+            [attr.stroke-dasharray]&#x3D;&quot;arcLength() + &#x27;,&#x27; + arcLength()&quot;
+            [attr.stroke-dashoffset]&#x3D;&quot;progressDashOffset()&quot;
+            class&#x3D;&quot;progress-arc&quot;
+          /&gt;
+
+          &lt;!-- Colored threshold zone lines (Outer edge) --&gt;
+          &lt;g class&#x3D;&quot;gauge-thresholds&quot;&gt;
+            @for (arc of thresholdArcs(); track $index) {
+              &lt;path
+                [attr.d]&#x3D;&quot;arc.path&quot;
+                fill&#x3D;&quot;none&quot;
+                [attr.stroke]&#x3D;&quot;arc.color&quot;
+                stroke-width&#x3D;&quot;3&quot;
+                stroke-linecap&#x3D;&quot;round&quot;
+                opacity&#x3D;&quot;0.65&quot;
+              /&gt;
+            }
+          &lt;/g&gt;
+
+          &lt;!-- Instrument Dial Ticks &amp; Labels --&gt;
+          &lt;g class&#x3D;&quot;gauge-ticks&quot;&gt;
+            @for (tick of ticks(); track $index) {
+              &lt;!-- Radial Tick Mark --&gt;
+              &lt;line
+                [attr.x1]&#x3D;&quot;tick.x1&quot;
+                [attr.y1]&#x3D;&quot;tick.y1&quot;
+                [attr.x2]&#x3D;&quot;tick.x2&quot;
+                [attr.y2]&#x3D;&quot;tick.y2&quot;
+                [attr.stroke]&#x3D;&quot;tick.isMajor ? &#x27;var(--text-secondary, #64748b)&#x27; : &#x27;var(--border-color, #cbd5e1)&#x27;&quot;
+                [attr.stroke-width]&#x3D;&quot;tick.isMajor ? 1.5 : 1&quot;
+                opacity&#x3D;&quot;0.6&quot;
+              /&gt;
+              &lt;!-- Value Label --&gt;
+              @if (tick.isMajor) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;tick.textX&quot;
+                  [attr.y]&#x3D;&quot;tick.textY&quot;
+                  fill&#x3D;&quot;var(--text-secondary, #64748b)&quot;
+                  font-size&#x3D;&quot;8px&quot;
+                  font-weight&#x3D;&quot;700&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  dominant-baseline&#x3D;&quot;middle&quot;
+                  font-family&#x3D;&quot;monospace&quot;
+                &gt;{{ tick.valueText }}&lt;/text&gt;
+              }
+            }
+          &lt;/g&gt;
+
+          &lt;!-- Needle / Indicator dial --&gt;
+          @if (showNeedle()) {
+            &lt;g [attr.transform]&#x3D;&quot;needleTransformString()&quot; class&#x3D;&quot;gauge-needle-group&quot;&gt;
+              &lt;!-- Tapered needle spear --&gt;
+              &lt;path
+                d&#x3D;&quot;M 100 100 L 98 32 L 100 20 L 102 32 Z&quot;
+                fill&#x3D;&quot;url(#needle-grad)&quot;
+                class&#x3D;&quot;gauge-needle&quot;
+              /&gt;
+              &lt;!-- Core pin highlighting line --&gt;
+              &lt;line
+                x1&#x3D;&quot;100&quot; y1&#x3D;&quot;98&quot;
+                x2&#x3D;&quot;100&quot; y2&#x3D;&quot;24&quot;
+                stroke&#x3D;&quot;#ffffff&quot;
+                stroke-width&#x3D;&quot;1.2&quot;
+                stroke-linecap&#x3D;&quot;round&quot;
+                opacity&#x3D;&quot;0.9&quot;
+              /&gt;
+              &lt;!-- Multi-layered pivot cap --&gt;
+              &lt;circle
+                cx&#x3D;&quot;100&quot;
+                cy&#x3D;&quot;100&quot;
+                r&#x3D;&quot;10&quot;
+                fill&#x3D;&quot;url(#pivot-cap-grad)&quot;
+                stroke&#x3D;&quot;rgba(0, 0, 0, 0.2)&quot;
+                stroke-width&#x3D;&quot;1&quot;
+              /&gt;
+              &lt;circle
+                cx&#x3D;&quot;100&quot;
+                cy&#x3D;&quot;100&quot;
+                r&#x3D;&quot;4&quot;
+                fill&#x3D;&quot;#ffffff&quot;
+                opacity&#x3D;&quot;0.25&quot;
+              /&gt;
+            &lt;/g&gt;
+          }
+        &lt;/svg&gt;
+
+        &lt;!-- Center values badge --&gt;
+        &lt;div class&#x3D;&quot;gauge-center-badge&quot; [class.semi-mode]&#x3D;&quot;type() &#x3D;&#x3D;&#x3D; &#x27;semi&#x27;&quot;&gt;
+          &lt;div class&#x3D;&quot;gauge-value&quot; [style.color]&#x3D;&quot;gaugeColor()&quot;&gt;{{ value().toLocaleString() }}&lt;/div&gt;
+          @if (label()) {
+            &lt;div class&#x3D;&quot;gauge-label&quot;&gt;{{ label() }}&lt;/div&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (hovered()) {
+        &lt;div
+          class&#x3D;&quot;chart-tooltip&quot;
+          [style.left.px]&#x3D;&quot;tooltipX()&quot;
+          [style.top.px]&#x3D;&quot;tooltipY()&quot;
+        &gt;
+          @if (label()) {
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ label() }}&lt;/div&gt;
+          } @else {
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;Gauge Metric&lt;/div&gt;
+          }
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;gaugeColor()&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ value().toLocaleString() }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-dot&quot; style&#x3D;&quot;background: transparent;&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;Range&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ min() }} - {{ max() }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-gauge-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+
+    .ngx-gauge-container {
+      position: relative;
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-gauge-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Arcs transition */
+    .progress-arc {
+      transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+    }
+    .progress-arc-glow {
+      transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+    }
+
+    /* Needle transition animations */
+    .gauge-needle-group {
+      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: 100px 100px;
+    }
+    .gauge-needle {
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.22));
+    }
+
+    /* Center Value Indicator */
+    .gauge-center-badge {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gauge-center-badge.semi-mode {
+      transform: translateY(18px);
+    }
+
+    .gauge-value {
+      font-size: 32px;
+      font-weight: 850;
+      letter-spacing: -0.8px;
+      line-height: 1;
+      transition: color 0.3s ease;
+      font-family: var(--ngx-heading-font-family, inherit);
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
+    }
+    .gauge-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 750;
+      color: var(--text-secondary, #64748b);
+      letter-spacing: 0.8px;
+      margin-top: 6px;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Header and Export dropdown styles */
+    .chart-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .chart-export-menu {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  &#x60;]
+})
+export class GaugeChartComponent {
+  // Input Configs
+  value &#x3D; input.required&lt;number&gt;();
+  min &#x3D; input&lt;number&gt;(0);
+  max &#x3D; input&lt;number&gt;(100);
+  label &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  type &#x3D; input&lt;&#x27;full&#x27; | &#x27;semi&#x27;&gt;(&#x27;semi&#x27;); // &#x27;full&#x27; is 280deg, &#x27;semi&#x27; is 180deg
+  showNeedle &#x3D; input&lt;boolean&gt;(true);
+  color &#x3D; input&lt;string&gt;(&#x27;var(--primary-color, #4f46e5)&#x27;);
+  thresholds &#x3D; input&lt;GaugeThreshold[]&gt;([]);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  // State Signals
+  hovered &#x3D; signal&lt;boolean&gt;(false);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+  animateState &#x3D; signal&lt;boolean&gt;(false);
+  exportMenuOpen &#x3D; signal(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  constructor() {
+    setTimeout(() &#x3D;&gt; this.animateState.set(true), 50);
+  }
+
+  // Gauge angles definitions
+  // 0 deg in polar is to the right (3 o&#x27;clock). 90 deg is straight down (6 o&#x27;clock).
+  startAngle &#x3D; computed(() &#x3D;&gt; {
+    return this.type() &#x3D;&#x3D;&#x3D; &#x27;semi&#x27; ? 270 : 225;
+  });
+
+  endAngle &#x3D; computed(() &#x3D;&gt; {
+    return this.type() &#x3D;&#x3D;&#x3D; &#x27;semi&#x27; ? 450 : 495;
+  });
+
+  // Arc length calculations
+  arcLength &#x3D; computed(() &#x3D;&gt; {
+    const radius &#x3D; 72;
+    const angleRange &#x3D; this.endAngle() - this.startAngle();
+    return (2 * Math.PI * radius * angleRange) / 360;
+  });
+
+  progressDashOffset &#x3D; computed(() &#x3D;&gt; {
+    const L &#x3D; this.arcLength();
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const currentVal &#x3D; Math.max(minVal, Math.min(maxVal, this.value()));
+    const range &#x3D; maxVal - minVal;
+    const fraction &#x3D; range &#x3D;&#x3D;&#x3D; 0 ? 0 : (currentVal - minVal) / range;
+    const targetOffset &#x3D; L - (fraction * L);
+    return this.animateState() ? targetOffset : L;
+  });
+
+  // Calculate coordinates and build path for background track
+  backgroundArcPath &#x3D; computed(() &#x3D;&gt; {
+    return this.describeArc(100, 100, 72, this.startAngle(), this.endAngle());
+  });
+
+  // Needle rotation calculation
+  needleTransformString &#x3D; computed(() &#x3D;&gt; {
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const currentVal &#x3D; Math.max(minVal, Math.min(maxVal, this.value()));
+    const range &#x3D; maxVal - minVal;
+    const fraction &#x3D; range &#x3D;&#x3D;&#x3D; 0 ? 0 : (currentVal - minVal) / range;
+
+    const angleRange &#x3D; this.endAngle() - this.startAngle();
+    const targetAngle &#x3D; this.startAngle() + angleRange * fraction;
+
+    const angle &#x3D; this.animateState() ? targetAngle : this.startAngle();
+
+    // Needle points straight up at 0 deg rotation (12 o&#x27;clock, which is 360 in polar offset)
+    const rotateAngle &#x3D; angle - 360;
+    return &#x60;rotate(${rotateAngle})&#x60;;
+  });
+
+  // Evaluate the gauge color depending on bound thresholds
+  gaugeColor &#x3D; computed(() &#x3D;&gt; {
+    const val &#x3D; this.value();
+    const thresholdList &#x3D; this.thresholds();
+
+    if (thresholdList.length &#x3D;&#x3D;&#x3D; 0) {
+      return this.color();
+    }
+
+    // Sort thresholds ascending
+    const sorted &#x3D; [...thresholdList].sort((a, b) &#x3D;&gt; a.value - b.value);
+    
+    // Find the first threshold color where values exceed the limit
+    for (const t of sorted) {
+      if (val &lt;&#x3D; t.value) {
+        return t.color;
+      }
+    }
+
+    // Default to the last threshold color if value exceeds all thresholds
+    return sorted[sorted.length - 1].color;
+  });
+
+  private getThresholdColorForValue(val: number): string {
+    const thresholdList &#x3D; this.thresholds();
+    if (thresholdList.length &#x3D;&#x3D;&#x3D; 0) {
+      return this.color();
+    }
+    const sorted &#x3D; [...thresholdList].sort((a, b) &#x3D;&gt; a.value - b.value);
+    for (const t of sorted) {
+      if (val &lt;&#x3D; t.value) {
+        return t.color;
+      }
+    }
+    return sorted[sorted.length - 1].color;
+  }
+
+  ticks &#x3D; computed(() &#x3D;&gt; {
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const range &#x3D; maxVal - minVal;
+    const startA &#x3D; this.startAngle();
+    const endA &#x3D; this.endAngle();
+    const angleRange &#x3D; endA - startA;
+    
+    // We want 11 ticks (every 10%)
+    const tickCount &#x3D; 11;
+    const result &#x3D; [];
+    
+    for (let i &#x3D; 0; i &lt; tickCount; i++) {
+      const fraction &#x3D; i / (tickCount - 1);
+      const val &#x3D; minVal + range * fraction;
+      const angle &#x3D; startA + angleRange * fraction;
+      
+      // Radial line coords
+      const outerRad &#x3D; 64;
+      const innerRad &#x3D; i % 2 &#x3D;&#x3D;&#x3D; 0 ? 56 : 60; // Major vs minor ticks
+      
+      const outerPt &#x3D; this.polarToCartesian(100, 100, outerRad, angle);
+      const innerPt &#x3D; this.polarToCartesian(100, 100, innerRad, angle);
+      
+      // Text coords (for major ticks)
+      let textPt &#x3D; null;
+      if (i % 2 &#x3D;&#x3D;&#x3D; 0) {
+        textPt &#x3D; this.polarToCartesian(100, 100, 44, angle);
+      }
+      
+      const color &#x3D; this.getThresholdColorForValue(val);
+      
+      result.push({
+        x1: innerPt.x,
+        y1: innerPt.y,
+        x2: outerPt.x,
+        y2: outerPt.y,
+        textX: textPt?.x ?? 0,
+        textY: textPt?.y ?? 0,
+        valueText: Math.round(val).toString(),
+        isMajor: i % 2 &#x3D;&#x3D;&#x3D; 0,
+        color
+      });
+    }
+    return result;
+  });
+
+  thresholdArcs &#x3D; computed(() &#x3D;&gt; {
+    const list &#x3D; this.thresholds();
+    if (list.length &#x3D;&#x3D;&#x3D; 0) return [];
+    
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    const range &#x3D; maxVal - minVal;
+    const startA &#x3D; this.startAngle();
+    const endA &#x3D; this.endAngle();
+    const angleRange &#x3D; endA - startA;
+    
+    // Sort thresholds ascending
+    const sorted &#x3D; [...list].sort((a, b) &#x3D;&gt; a.value - b.value);
+    
+    const arcs &#x3D; [];
+    let currentVal &#x3D; minVal;
+    
+    for (let i &#x3D; 0; i &lt; sorted.length; i++) {
+      const nextVal &#x3D; Math.min(maxVal, sorted[i].value);
+      if (nextVal &lt;&#x3D; currentVal) continue;
+      
+      const startFraction &#x3D; (currentVal - minVal) / range;
+      const endFraction &#x3D; (nextVal - minVal) / range;
+      
+      const startAngleSegment &#x3D; startA + angleRange * startFraction;
+      const endAngleSegment &#x3D; startA + angleRange * endFraction;
+      
+      // Radius slightly outside: e.g. 81px
+      const path &#x3D; this.describeArc(100, 100, 81, startAngleSegment, endAngleSegment);
+      
+      arcs.push({
+        path,
+        color: sorted[i].color
+      });
+      
+      currentVal &#x3D; nextVal;
+    }
+    
+    return arcs;
+  });
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const data &#x3D; {
+      label: this.label(),
+      value: this.value(),
+      min: this.min(),
+      max: this.max()
+    };
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;gauge-chart-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    let csv &#x3D; &#x27;Label,Value,Min,Max\n&#x27;;
+    csv +&#x3D; &#x60;&quot;${this.label() || &#x27;&#x27;}&quot;,${this.value()},${this.min()},${this.max()}\n&#x60;;
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;gauge-chart-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns\:xlink&#x3D;&quot;http\:\/\/www\.w3\.org\/1999\/xlink&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns:xlink&#x3D;&quot;http://www.w3.org/1999/xlink&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;gauge-chart.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) return;
+    const svgClone &#x3D; svg.cloneNode(true) as SVGElement;
+    svgClone.setAttribute(&#x27;xmlns&#x27;, &#x27;http://www.w3.org/2000/svg&#x27;);
+    const svgString &#x3D; new XMLSerializer().serializeToString(svgClone);
+    
+    printWindow.document.write(&#x60;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;Export PDF&lt;/title&gt;
+          &lt;style&gt;
+            body {
+              margin: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background-color: #ffffff;
+              font-family: system-ui, sans-serif;
+            }
+            .print-container {
+              text-align: center;
+              width: 100%;
+              max-width: 800px;
+              padding: 20px;
+            }
+            svg {
+              width: 100%;
+              height: auto;
+              max-height: 90vh;
+            }
+            @media print {
+              body {
+                background: none;
+              }
+              .print-container {
+                max-width: 100%;
+                padding: 0;
+              }
+              svg {
+                page-break-inside: avoid;
+              }
+            }
+          &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          &lt;div class&#x3D;&quot;print-container&quot;&gt;
+            ${svgString}
+          &lt;/div&gt;
+          &lt;script&gt;
+            window.onload &#x3D; () &#x3D;&gt; {
+              window.print();
+              window.close();
+            };
+          &lt;/script&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;);
+    printWindow.document.close();
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as HTMLElement;
+    const rect &#x3D; el.getBoundingClientRect();
+    this.tooltipX.set(event.clientX - rect.left);
+    this.tooltipY.set(event.clientY - rect.top);
+  }
+
+  // Polar to Cartesian Math helpers
+  private polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number) {
+    const angleInRadians &#x3D; ((angleInDegrees - 90) * Math.PI) / 180.0;
+
+    return {
+      x: centerX + radius * Math.cos(angleInRadians),
+      y: centerY + radius * Math.sin(angleInRadians)
+    };
+  }
+
+  private describeArc(x: number, y: number, radius: number, startAngle: number, endAngle: number): string {
+    const start &#x3D; this.polarToCartesian(x, y, radius, startAngle);
+    const end &#x3D; this.polarToCartesian(x, y, radius, endAngle);
+
+    // If starting and ending angle range exceeds 180 degrees, set largeArcFlag
+    const largeArcFlag &#x3D; endAngle - startAngle &lt;&#x3D; 180 ? &#x27;0&#x27; : &#x27;1&#x27;;
+
+    return [
+      &#x27;M&#x27;, start.x, start.y,
+      &#x27;A&#x27;, radius, radius, 0, largeArcFlag, 1, end.x, end.y
+    ].join(&#x27; &#x27;);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-gauge-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+
+    .ngx-gauge-container {
+      position: relative;
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-gauge-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Arcs transition */
+    .progress-arc {
+      transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+    }
+    .progress-arc-glow {
+      transition: stroke-dashoffset 1.0s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+    }
+
+    /* Needle transition animations */
+    .gauge-needle-group {
+      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: 100px 100px;
+    }
+    .gauge-needle {
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.22));
+    }
+
+    /* Center Value Indicator */
+    .gauge-center-badge {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gauge-center-badge.semi-mode {
+      transform: translateY(18px);
+    }
+
+    .gauge-value {
+      font-size: 32px;
+      font-weight: 850;
+      letter-spacing: -0.8px;
+      line-height: 1;
+      transition: color 0.3s ease;
+      font-family: var(--ngx-heading-font-family, inherit);
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
+    }
+    .gauge-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 750;
+      color: var(--text-secondary, #64748b);
+      letter-spacing: 0.8px;
+      margin-top: 6px;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Header and Export dropdown styles */
+    .chart-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .chart-export-menu {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div  class="ngx-gauge-wrapper"  (mousemove)="onMouseMove($event)"  (mouseenter)="hovered.set(true)"  (mouseleave)="hovered.set(false)">  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hovered.set(false)">    <div class="chart-title-space"></div>    @if (showExport()) {      <div class="chart-export-menu">        <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>        @if (exportMenuOpen()) {          <div class="export-dropdown">            <button (click)="onExport(\'json\')">📊 Export JSON</button>            <button (click)="onExport(\'csv\')">📄 Export CSV</button>            <button (click)="onExport(\'svg\')">🖼️ Export SVG</button>            <button (click)="onExport(\'pdf\')">📕 Export PDF</button>          </div>        }      </div>    }  </div>  <div class="ngx-gauge-container">    <!-- SVG Gauge dial -->    <svg      #svgEl      class="ngx-gauge-svg"      viewBox="0 0 200 200"    >      <defs>        <linearGradient id="gauge-progress-grad" x1="0%" y1="100%" x2="100%" y2="0%">          <stop offset="0%" [attr.stop-color]="gaugeColor()" stop-opacity="0.85" />          <stop offset="100%" [attr.stop-color]="gaugeColor()" />        </linearGradient>        <linearGradient id="pivot-cap-grad" x1="0%" y1="0%" x2="100%" y2="100%">          <stop offset="0%" stop-color="#64748b" />          <stop offset="50%" stop-color="#334155" />          <stop offset="100%" stop-color="#0f172a" />        </linearGradient>        <linearGradient id="needle-grad" x1="0%" y1="100%" x2="0%" y2="0%">          <stop offset="0%" [attr.stop-color]="gaugeColor()" stop-opacity="0.75" />          <stop offset="100%" [attr.stop-color]="gaugeColor()" />        </linearGradient>        <filter id="gauge-blur-glow" x="-20%" y="-20%" width="140%" height="140%">          <feGaussianBlur stdDeviation="3" result="blur" />          <feComposite in="SourceGraphic" in2="blur" operator="over" />        </filter>      </defs>      <!-- Outer background guide track -->      <path        [attr.d]="backgroundArcPath()"        fill="none"        stroke="var(--ngx-gauge-track-bg, rgba(148, 163, 184, 0.12))"        stroke-width="14"        stroke-linecap="round"      />      <!-- Colored background glow track -->      <path        [attr.d]="backgroundArcPath()"        fill="none"        [attr.stroke]="gaugeColor()"        stroke-width="18"        stroke-linecap="round"        opacity="0.15"        [attr.stroke-dasharray]="arcLength() + \',\' + arcLength()"        [attr.stroke-dashoffset]="progressDashOffset()"        class="progress-arc-glow"      />      <!-- Colored progress arc -->      <path        [attr.d]="backgroundArcPath()"        fill="none"        stroke="url(#gauge-progress-grad)"        stroke-width="14"        stroke-linecap="round"        [attr.stroke-dasharray]="arcLength() + \',\' + arcLength()"        [attr.stroke-dashoffset]="progressDashOffset()"        class="progress-arc"      />      <!-- Colored threshold zone lines (Outer edge) -->      <g class="gauge-thresholds">        @for (arc of thresholdArcs(); track $index) {          <path            [attr.d]="arc.path"            fill="none"            [attr.stroke]="arc.color"            stroke-width="3"            stroke-linecap="round"            opacity="0.65"          />        }      </g>      <!-- Instrument Dial Ticks & Labels -->      <g class="gauge-ticks">        @for (tick of ticks(); track $index) {          <!-- Radial Tick Mark -->          <line            [attr.x1]="tick.x1"            [attr.y1]="tick.y1"            [attr.x2]="tick.x2"            [attr.y2]="tick.y2"            [attr.stroke]="tick.isMajor ? \'var(--text-secondary, #64748b)\' : \'var(--border-color, #cbd5e1)\'"            [attr.stroke-width]="tick.isMajor ? 1.5 : 1"            opacity="0.6"          />          <!-- Value Label -->          @if (tick.isMajor) {            <text              [attr.x]="tick.textX"              [attr.y]="tick.textY"              fill="var(--text-secondary, #64748b)"              font-size="8px"              font-weight="700"              text-anchor="middle"              dominant-baseline="middle"              font-family="monospace"            >{{ tick.valueText }}</text>          }        }      </g>      <!-- Needle / Indicator dial -->      @if (showNeedle()) {        <g [attr.transform]="needleTransformString()" class="gauge-needle-group">          <!-- Tapered needle spear -->          <path            d="M 100 100 L 98 32 L 100 20 L 102 32 Z"            fill="url(#needle-grad)"            class="gauge-needle"          />          <!-- Core pin highlighting line -->          <line            x1="100" y1="98"            x2="100" y2="24"            stroke="#ffffff"            stroke-width="1.2"            stroke-linecap="round"            opacity="0.9"          />          <!-- Multi-layered pivot cap -->          <circle            cx="100"            cy="100"            r="10"            fill="url(#pivot-cap-grad)"            stroke="rgba(0, 0, 0, 0.2)"            stroke-width="1"          />          <circle            cx="100"            cy="100"            r="4"            fill="#ffffff"            opacity="0.25"          />        </g>      }    </svg>    <!-- Center values badge -->    <div class="gauge-center-badge" [class.semi-mode]="type() === \'semi\'">      <div class="gauge-value" [style.color]="gaugeColor()">{{ value().toLocaleString() }}</div>      @if (label()) {        <div class="gauge-label">{{ label() }}</div>      }    </div>  </div>  <!-- Glassmorphic Tooltip -->  @if (hovered()) {    <div      class="chart-tooltip"      [style.left.px]="tooltipX()"      [style.top.px]="tooltipY()"    >      @if (label()) {        <div class="tt-cat">{{ label() }}</div>      } @else {        <div class="tt-cat">Gauge Metric</div>      }      <div class="tt-row">        <span class="tt-dot" [style.background]="gaugeColor()"></span>        <span class="tt-name">Value</span>        <span class="tt-val">{{ value().toLocaleString() }}</span>      </div>      <div class="tt-row">        <span class="tt-dot" style="background: transparent;"></span>        <span class="tt-name">Range</span>        <span class="tt-val">{{ min() }} - {{ max() }}</span>      </div>    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'GaugeChartComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'GaugeChartComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,857 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  PivotValueDef</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/grid/pivot-grid/pivot-grid.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#aggregate" 
+>
+                                            aggregate
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#customAggregate" 
+>
+                                            customAggregate
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#field" 
+>
+                                            field
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#formatter" 
+>
+                                            formatter
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="aggregate"></a>
+                                        <span class="name "><b>aggregate</b>
+                                            <a href="#aggregate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>aggregate:     <code>&quot;sum&quot; | &quot;count&quot; | &quot;avg&quot; | &quot;min&quot; | &quot;max&quot; | &quot;custom&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;sum&quot; | &quot;count&quot; | &quot;avg&quot; | &quot;min&quot; | &quot;max&quot; | &quot;custom&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="customAggregate"></a>
+                                        <span class="name "><b>customAggregate</b>
+                                            <a href="#customAggregate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>customAggregate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="field"></a>
+                                        <span class="name "><b>field</b>
+                                            <a href="#field">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>field:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="formatter"></a>
+                                        <span class="name "><b>formatter</b>
+                                            <a href="#formatter">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>formatter:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, computed, input, signal, effect } from &#x27;@angular/core&#x27;;
+
+export interface PivotValueDef {
+  field: string;
+  label?: string;
+  aggregate?: &#x27;sum&#x27; | &#x27;count&#x27; | &#x27;avg&#x27; | &#x27;min&#x27; | &#x27;max&#x27; | &#x27;custom&#x27;;
+  customAggregate?: (items: Record&lt;string, unknown&gt;[]) &#x3D;&gt; number | string;
+  formatter?: (value: number | string) &#x3D;&gt; string;
+}
+
+interface PivotColumn {
+  key: string;
+  label: string;
+  isTotal?: boolean;
+}
+
+interface PivotRow {
+  key: string;
+  label: string;
+  values: Record&lt;string, unknown&gt;;
+  isTotal?: boolean;
+}
+
+@Component({
+  selector: &#x27;ngx-pivot-grid&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-pivot-grid-wrapper&quot;&gt;
+      &lt;!-- Toolbar &amp; Field Chooser Header --&gt;
+      &lt;div class&#x3D;&quot;pivot-toolbar&quot; *ngIf&#x3D;&quot;showFieldChooser()&quot;&gt;
+        &lt;div class&#x3D;&quot;toolbar-title&quot;&gt;
+          &lt;span class&#x3D;&quot;pivot-icon&quot;&gt;📊&lt;/span&gt;
+          &lt;span class&#x3D;&quot;title-text&quot;&gt;Pivot Analysis Studio&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;field-chooser-toggle&quot; (click)&#x3D;&quot;isChooserOpen.set(!isChooserOpen())&quot;&gt;
+          ⚙ Field Chooser
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Collapsible Field Chooser Drawer --&gt;
+      &lt;div class&#x3D;&quot;field-chooser-drawer&quot; *ngIf&#x3D;&quot;showFieldChooser() &amp;&amp; isChooserOpen()&quot;&gt;
+        &lt;div class&#x3D;&quot;chooser-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;chooser-section&quot;&gt;
+            &lt;span class&#x3D;&quot;section-label&quot;&gt;Row Dimensions&lt;/span&gt;
+            &lt;div class&#x3D;&quot;field-chips-list&quot;&gt;
+              @for (field of activeRows(); track field) {
+                &lt;span class&#x3D;&quot;field-chip row-chip&quot;&gt;
+                  {{ field }}
+                  &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;remove-chip&quot; (click)&#x3D;&quot;removeRowField(field)&quot;&gt;✕&lt;/button&gt;
+                &lt;/span&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;chooser-section&quot;&gt;
+            &lt;span class&#x3D;&quot;section-label&quot;&gt;Column Dimensions&lt;/span&gt;
+            &lt;div class&#x3D;&quot;field-chips-list&quot;&gt;
+              @for (field of activeCols(); track field) {
+                &lt;span class&#x3D;&quot;field-chip col-chip&quot;&gt;
+                  {{ field }}
+                  &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;remove-chip&quot; (click)&#x3D;&quot;removeColField(field)&quot;&gt;✕&lt;/button&gt;
+                &lt;/span&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Pivot Data Table --&gt;
+      &lt;div class&#x3D;&quot;ngx-pivot-grid&quot;&gt;
+        &lt;table&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th class&#x3D;&quot;row-header&quot;&gt;{{ rowHeaderLabel() }}&lt;/th&gt;
+              @for (column of pivotColumns(); track column.key) {
+                @for (value of activeValues(); track value.field) {
+                  &lt;th [class.total-col-header]&#x3D;&quot;column.isTotal&quot;&gt;
+                    {{ column.label }}@if (activeValues().length &gt; 1) { &lt;span&gt; / {{ value.label || value.field }}&lt;/span&gt; }
+                  &lt;/th&gt;
+                }
+              }
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            @for (row of pivotRows(); track row.key) {
+              &lt;tr [class.grand-total-row]&#x3D;&quot;row.isTotal&quot;&gt;
+                &lt;th class&#x3D;&quot;row-label&quot; [class.grand-total-header]&#x3D;&quot;row.isTotal&quot;&gt;{{ row.label }}&lt;/th&gt;
+                @for (column of pivotColumns(); track column.key) {
+                  @for (value of activeValues(); track value.field) {
+                    &lt;td [class.grand-total-cell]&#x3D;&quot;row.isTotal || column.isTotal&quot;&gt;
+                      {{ aggregateCell(row, column, value) }}
+                    &lt;/td&gt;
+                  }
+                }
+              &lt;/tr&gt;
+            }
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; }
+
+    .ngx-pivot-grid-wrapper {
+      width: 100%;
+      border: 1px solid var(--border-color, #dbe3ee);
+      border-radius: 12px;
+      background: var(--bg-secondary, #ffffff);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      font-family: var(--ngx-font-family, inherit);
+    }
+
+    .pivot-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--border-light, #f8fafc);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .toolbar-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary, #0f172a);
+    }
+    .field-chooser-toggle {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-primary, #334155);
+      transition: all 0.2s;
+    }
+    .field-chooser-toggle:hover {
+      background: #f1f5f9;
+    }
+
+    .field-chooser-drawer {
+      padding: 14px 16px;
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .chooser-grid {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .chooser-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 180px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .field-chips-list {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .field-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+    }
+    .row-chip { border-color: #3b82f6; color: #1d4ed8; }
+    .col-chip { border-color: #10b981; color: #047857; }
+    .remove-chip {
+      background: transparent;
+      border: none;
+      font-size: 10px;
+      cursor: pointer;
+      color: #94a3b8;
+      padding: 0;
+    }
+    .remove-chip:hover { color: #ef4444; }
+
+    .ngx-pivot-grid {
+      width: 100%;
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+      font-size: 13px;
+      color: var(--text-primary, #0f172a);
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-light, #edf2f7);
+      border-right: 1px solid var(--border-light, #edf2f7);
+      text-align: right;
+      white-space: nowrap;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--border-light, #f8fafc);
+      color: var(--text-secondary, #475569);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    thead th span { color: var(--text-primary, #0f172a); }
+    .row-header, .row-label {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      text-align: left;
+      background: var(--bg-secondary, #ffffff);
+    }
+    thead .row-header { z-index: 3; background: var(--border-light, #f8fafc); }
+    tbody tr:hover td, tbody tr:hover .row-label {
+      background: var(--primary-glow, rgba(79, 70, 229, 0.04));
+    }
+    tr:last-child th, tr:last-child td { border-bottom: none; }
+
+    /* Grand Total Row &amp; Column styles */
+    .grand-total-row {
+      background: rgba(79, 70, 229, 0.06) !important;
+      font-weight: 700;
+    }
+    .grand-total-header {
+      background: #f1f5f9 !important;
+      font-weight: 800;
+    }
+    .grand-total-cell {
+      font-weight: 700;
+      background: rgba(79, 70, 229, 0.03);
+    }
+    .total-col-header {
+      background: #e2e8f0 !important;
+      color: #1e293b !important;
+      font-weight: 800 !important;
+    }
+  &#x60;]
+})
+export class PivotGridComponent {
+  data &#x3D; input&lt;Record&lt;string, unknown&gt;[]&gt;([]);
+  rows &#x3D; input&lt;string[]&gt;([]);
+  columns &#x3D; input&lt;string[]&gt;([]);
+  values &#x3D; input&lt;PivotValueDef[]&gt;([{ field: &#x27;value&#x27;, aggregate: &#x27;sum&#x27; }]);
+  emptyValue &#x3D; input(&#x27;-&#x27;);
+  showGrandTotals &#x3D; input&lt;boolean&gt;(true);
+  showFieldChooser &#x3D; input&lt;boolean&gt;(true);
+
+  isChooserOpen &#x3D; signal(false);
+  activeRows &#x3D; signal&lt;string[]&gt;([]);
+  activeCols &#x3D; signal&lt;string[]&gt;([]);
+  activeValues &#x3D; signal&lt;PivotValueDef[]&gt;([]);
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      this.activeRows.set([...this.rows()]);
+      this.activeCols.set([...this.columns()]);
+      this.activeValues.set([...this.values()]);
+    }, { allowSignalWrites: true });
+  }
+
+  pivotColumns &#x3D; computed&lt;PivotColumn[]&gt;(() &#x3D;&gt; {
+    const keys &#x3D; new Map&lt;string, string&gt;();
+    const cols &#x3D; this.activeCols();
+    for (const item of this.data()) {
+      const key &#x3D; this.keyFor(item, cols);
+      keys.set(key, this.labelFor(item, cols));
+    }
+    const colsList: PivotColumn[] &#x3D; Array.from(keys, ([key, label]) &#x3D;&gt; ({ key, label }));
+
+    if (this.showGrandTotals()) {
+      colsList.push({ key: &#x27;__GRAND_TOTAL__&#x27;, label: &#x27;Grand Total&#x27;, isTotal: true });
+    }
+
+    return colsList;
+  });
+
+  pivotRows &#x3D; computed&lt;PivotRow[]&gt;(() &#x3D;&gt; {
+    const rowsMap &#x3D; new Map&lt;string, PivotRow&gt;();
+    const rowFields &#x3D; this.activeRows();
+    for (const item of this.data()) {
+      const key &#x3D; this.keyFor(item, rowFields);
+      if (!rowsMap.has(key)) {
+        rowsMap.set(key, { key, label: this.labelFor(item, rowFields), values: item });
+      }
+    }
+    const rowsList: PivotRow[] &#x3D; Array.from(rowsMap.values());
+
+    if (this.showGrandTotals()) {
+      rowsList.push({ key: &#x27;__GRAND_TOTAL__&#x27;, label: &#x27;Grand Total&#x27;, values: {}, isTotal: true });
+    }
+
+    return rowsList;
+  });
+
+  rowHeaderLabel(): string {
+    return this.activeRows().join(&#x27; / &#x27;) || &#x27;Rows&#x27;;
+  }
+
+  removeRowField(field: string): void {
+    this.activeRows.update(r &#x3D;&gt; r.filter(f &#x3D;&gt; f !&#x3D;&#x3D; field));
+  }
+
+  removeColField(field: string): void {
+    this.activeCols.update(c &#x3D;&gt; c.filter(f &#x3D;&gt; f !&#x3D;&#x3D; field));
+  }
+
+  aggregateCell(row: PivotRow, column: PivotColumn, value: PivotValueDef): string | number {
+    let items &#x3D; this.data();
+
+    // Filter by row keys (unless Grand Total row)
+    if (!row.isTotal) {
+      items &#x3D; items.filter(item &#x3D;&gt; this.keyFor(item, this.activeRows()) &#x3D;&#x3D;&#x3D; row.key);
+    }
+
+    // Filter by column keys (unless Grand Total column)
+    if (!column.isTotal) {
+      items &#x3D; items.filter(item &#x3D;&gt; this.keyFor(item, this.activeCols()) &#x3D;&#x3D;&#x3D; column.key);
+    }
+
+    if (!items.length) return this.emptyValue();
+
+    let computedVal: number | string &#x3D; 0;
+    const aggregate &#x3D; value.aggregate ?? &#x27;sum&#x27;;
+
+    if (aggregate &#x3D;&#x3D;&#x3D; &#x27;custom&#x27; &amp;&amp; value.customAggregate) {
+      computedVal &#x3D; value.customAggregate(items);
+    } else if (aggregate &#x3D;&#x3D;&#x3D; &#x27;count&#x27;) {
+      computedVal &#x3D; items.length;
+    } else {
+      const numbers &#x3D; items.map(item &#x3D;&gt; Number(item[value.field])).filter(item &#x3D;&gt; Number.isFinite(item));
+      if (!numbers.length) return this.emptyValue();
+      if (aggregate &#x3D;&#x3D;&#x3D; &#x27;avg&#x27;) computedVal &#x3D; this.round(numbers.reduce((sum, item) &#x3D;&gt; sum + item, 0) / numbers.length);
+      else if (aggregate &#x3D;&#x3D;&#x3D; &#x27;min&#x27;) computedVal &#x3D; Math.min(...numbers);
+      else if (aggregate &#x3D;&#x3D;&#x3D; &#x27;max&#x27;) computedVal &#x3D; Math.max(...numbers);
+      else computedVal &#x3D; this.round(numbers.reduce((sum, item) &#x3D;&gt; sum + item, 0));
+    }
+
+    if (value.formatter &amp;&amp; typeof computedVal &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+      return value.formatter(computedVal);
+    }
+
+    return computedVal;
+  }
+
+  private keyFor(item: Record&lt;string, unknown&gt;, fields: string[]): string {
+    return fields.map(field &#x3D;&gt; String(item[field] ?? &#x27;&#x27;)).join(&#x27;||&#x27;) || &#x27;__total__&#x27;;
+  }
+
+  private labelFor(item: Record&lt;string, unknown&gt;, fields: string[]): string {
+    return fields.map(field &#x3D;&gt; String(item[field] ?? &#x27;&#x27;)).filter(Boolean).join(&#x27; / &#x27;) || &#x27;Total&#x27;;
+  }
+
+  private round(value: number): number {
+    return Math.round(value * 100) / 100;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'PivotValueDef.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

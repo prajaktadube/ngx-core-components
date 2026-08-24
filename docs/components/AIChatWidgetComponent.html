@@ -1,0 +1,2202 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AIChatWidgetComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-ai-chat-widget</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      font-family: inherit;
+    }
+
+    /* FAB styling */
+    .widget-fab {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
+      color: #ffffff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .widget-fab:hover {
+      transform: scale(1.06);
+    }
+    .widget-fab.active {
+      transform: rotate(90deg) scale(0.95);
+      background: #0f172a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .fab-icon {
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Overlay container pane */
+    .widget-overlay-pane {
+      position: absolute;
+      bottom: 72px;
+      right: 0;
+      width: 360px;
+      height: 500px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15), 0 8px 10px -6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      pointer-events: none;
+      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: bottom right;
+    }
+    .widget-overlay-pane.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Header styling */
+    .widget-header {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .header-details {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .widget-avatar {
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .widget-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 750;
+    }
+    .widget-status {
+      font-size: 10px;
+      color: #10b981;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .widget-status::before {
+      content: &#x27;&#x27;;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.15s;
+    }
+    .close-btn:hover {
+      color: #ffffff;
+    }
+
+    /* Body messages list feed */
+    .widget-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--bg-primary, #f8fafc);
+    }
+    .message-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      max-width: 85%;
+    }
+    .message-row.user-row {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .msg-bubble {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border-top-left-radius: 2px;
+      box-shadow: var(--shadow-sm);
+    }
+    .message-row.user-row .msg-bubble {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border: none;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 2px;
+    }
+    .msg-text {
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .msg-time {
+      font-size: 9px;
+      color: var(--text-secondary, #64748b);
+      text-align: right;
+      margin-top: 4px;
+    }
+    .message-row.user-row .msg-time {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Quick replies section */
+    .widget-quick-replies {
+      padding: 8px 12px;
+      background: var(--bg-primary, #f8fafc);
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      white-space: nowrap;
+    }
+    .widget-quick-replies::-webkit-scrollbar {
+      display: none;
+    }
+    .reply-pill {
+      padding: 6px 12px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: var(--primary-color, #4f46e5);
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .reply-pill:hover {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Footer text area input */
+    .widget-footer {
+      padding: 12px 14px;
+      background: var(--bg-secondary, #ffffff);
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .widget-input {
+      flex: 1;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      outline: none;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      transition: border-color 0.15s;
+    }
+    .widget-input:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .send-btn:hover {
+      background: var(--primary-color-dark, #3730a3);
+    }
+
+    /* Scroll to bottom pill */
+    .widget-body {
+      position: relative;
+    }
+    .widget-scroll-bottom-pill {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
+      transition: all 0.2s ease;
+    }
+    .widget-scroll-bottom-pill:hover {
+      background: #4338ca;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;!-- Floating Action Button (FAB) --&gt;
+&lt;button
+  class&#x3D;&quot;widget-fab&quot;
+  [class.active]&#x3D;&quot;isOpen()&quot;
+  (click)&#x3D;&quot;toggleOpen()&quot;
+  [title]&#x3D;&quot;isOpen() ? &#x27;Close Chat&#x27; : &#x27;Open Chat&#x27;&quot;
+&gt;
+  &lt;span class&#x3D;&quot;fab-icon&quot;&gt;{{ isOpen() ? &#x27;✕&#x27; : icon() }}&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Chat Overlay Pane --&gt;
+&lt;div class&#x3D;&quot;widget-overlay-pane&quot; [class.open]&#x3D;&quot;isOpen()&quot;&gt;
+  &lt;!-- Header --&gt;
+  &lt;div class&#x3D;&quot;widget-header&quot;&gt;
+    &lt;div class&#x3D;&quot;header-details&quot;&gt;
+      &lt;div class&#x3D;&quot;widget-avatar&quot;&gt;🤖&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h4 class&#x3D;&quot;widget-title&quot;&gt;{{ agentName() }}&lt;/h4&gt;
+        &lt;span class&#x3D;&quot;widget-status&quot;&gt;Online&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;closeOpen()&quot;&gt;✕&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Feed Body --&gt;
+  &lt;div class&#x3D;&quot;widget-body&quot; #scrollContainer (scroll)&#x3D;&quot;onBodyScroll()&quot;&gt;
+    @if (isUserScrolledUp()) {
+      &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;widget-scroll-bottom-pill&quot; (click)&#x3D;&quot;scrollToBottom(true)&quot;&gt;
+        ↓ New messages
+      &lt;/button&gt;
+    }
+    @for (msg of messages(); track $index) {
+      &lt;div class&#x3D;&quot;message-row&quot; [class.user-row]&#x3D;&quot;msg.sender &#x3D;&#x3D;&#x3D; &#x27;user&#x27;&quot;&gt;
+        @if (msg.sender &#x3D;&#x3D;&#x3D; &#x27;assistant&#x27;) {
+          &lt;div class&#x3D;&quot;msg-avatar&quot;&gt;🤖&lt;/div&gt;
+        }
+        &lt;div class&#x3D;&quot;msg-bubble&quot; [class.user-bubble]&#x3D;&quot;msg.sender &#x3D;&#x3D;&#x3D; &#x27;user&#x27;&quot;&gt;
+          &lt;div class&#x3D;&quot;msg-text&quot;&gt;{{ msg.text }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;msg-time&quot;&gt;{{ msg.timestamp | date:&#x27;shortTime&#x27; }}&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;!-- Quick Replies --&gt;
+  @if (quickReplies().length &gt; 0) {
+    &lt;div class&#x3D;&quot;widget-quick-replies&quot;&gt;
+      @for (reply of quickReplies(); track reply) {
+        &lt;button class&#x3D;&quot;reply-pill&quot; (click)&#x3D;&quot;selectReply(reply)&quot;&gt;
+          {{ reply }}
+        &lt;/button&gt;
+      }
+    &lt;/div&gt;
+  }
+
+  &lt;!-- Footer Input --&gt;
+  &lt;div class&#x3D;&quot;widget-footer&quot;&gt;
+    &lt;input
+      #inputBox
+      type&#x3D;&quot;text&quot;
+      [placeholder]&#x3D;&quot;placeholder()&quot;
+      (keydown.enter)&#x3D;&quot;sendMessage(inputBox.value); inputBox.value &#x3D; &#x27;&#x27;&quot;
+      class&#x3D;&quot;widget-input&quot;
+    /&gt;
+    &lt;button
+      class&#x3D;&quot;send-btn&quot;
+      (click)&#x3D;&quot;sendMessage(inputBox.value); inputBox.value &#x3D; &#x27;&#x27;&quot;
+    &gt;
+      ➔
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isOpen" >isOpen</a>
+                            </li>
+                            <li>
+                                <a href="#isUserScrolledUp" >isUserScrolledUp</a>
+                            </li>
+                            <li>
+                                <a href="#messages" >messages</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#scrollContainer" >scrollContainer</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addAssistantReply" >addAssistantReply</a>
+                            </li>
+                            <li>
+                                <a href="#closeOpen" >closeOpen</a>
+                            </li>
+                            <li>
+                                <a href="#onBodyScroll" >onBodyScroll</a>
+                            </li>
+                            <li>
+                                <a href="#scrollToBottom" >scrollToBottom</a>
+                            </li>
+                            <li>
+                                <a href="#selectReply" >selectReply</a>
+                            </li>
+                            <li>
+                                <a href="#sendMessage" >sendMessage</a>
+                            </li>
+                            <li>
+                                <a href="#toggleOpen" >toggleOpen</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#agentName" >agentName</a>
+                            </li>
+                            <li>
+                                <a href="#icon" >icon</a>
+                            </li>
+                            <li>
+                                <a href="#placeholder" >placeholder</a>
+                            </li>
+                            <li>
+                                <a href="#quickReplies" >quickReplies</a>
+                            </li>
+                            <li>
+                                <a href="#welcomeMessage" >welcomeMessage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#messageSent" >messageSent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="agentName"></a>
+                        <b>agentName</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;AI Assistant&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="372" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:372</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="icon"></a>
+                        <b>icon</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;💬&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="373" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:373</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="placeholder"></a>
+                        <b>placeholder</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Type a message...&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="374" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:374</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="quickReplies"></a>
+                        <b>quickReplies</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="376" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:376</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="welcomeMessage"></a>
+                        <b>welcomeMessage</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Hi! How can I help you today?&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="375" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:375</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="messageSent"></a>
+                        <b>messageSent</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="378" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:378</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addAssistantReply"></a>
+                    <span class="name">
+                        <span ><b>addAssistantReply</b></span>
+                        <a href="#addAssistantReply"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addAssistantReply(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="423"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:423</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeOpen"></a>
+                    <span class="name">
+                        <span ><b>closeOpen</b></span>
+                        <a href="#closeOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeOpen()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="403"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:403</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onBodyScroll"></a>
+                    <span class="name">
+                        <span ><b>onBodyScroll</b></span>
+                        <a href="#onBodyScroll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onBodyScroll()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="386"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:386</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollToBottom"></a>
+                    <span class="name">
+                        <span ><b>scrollToBottom</b></span>
+                        <a href="#scrollToBottom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>scrollToBottom(force: unknown)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="431"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:431</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>force</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>false</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectReply"></a>
+                    <span class="name">
+                        <span ><b>selectReply</b></span>
+                        <a href="#selectReply"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectReply(reply: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="419"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:419</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendMessage"></a>
+                    <span class="name">
+                        <span ><b>sendMessage</b></span>
+                        <a href="#sendMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sendMessage(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="407"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:407</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleOpen"></a>
+                    <span class="name">
+                        <span ><b>toggleOpen</b></span>
+                        <a href="#toggleOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleOpen()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="394"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:394</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOpen"></a>
+                    <span class="name">
+                        <span ><b>isOpen</b></span>
+                        <a href="#isOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="380" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:380</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isUserScrolledUp"></a>
+                    <span class="name">
+                        <span ><b>isUserScrolledUp</b></span>
+                        <a href="#isUserScrolledUp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="382" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:382</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="messages"></a>
+                    <span class="name">
+                        <span ><b>messages</b></span>
+                        <a href="#messages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;WidgetMessage[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="381" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:381</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollContainer"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>scrollContainer</b></span>
+                        <a href="#scrollContainer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLDivElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;scrollContainer&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="384" class="link-to-prism">projects/ngx-core-components/ai/ai-chat-widget/ai-chat-widget.component.ts:384</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, output, ElementRef, ViewChild } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export interface WidgetMessage {
+  sender: &#x27;user&#x27; | &#x27;assistant&#x27;;
+  text: string;
+  timestamp: Date;
+}
+
+@Component({
+  selector: &#x27;ngx-ai-chat-widget&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    &lt;!-- Floating Action Button (FAB) --&gt;
+    &lt;button
+      class&#x3D;&quot;widget-fab&quot;
+      [class.active]&#x3D;&quot;isOpen()&quot;
+      (click)&#x3D;&quot;toggleOpen()&quot;
+      [title]&#x3D;&quot;isOpen() ? &#x27;Close Chat&#x27; : &#x27;Open Chat&#x27;&quot;
+    &gt;
+      &lt;span class&#x3D;&quot;fab-icon&quot;&gt;{{ isOpen() ? &#x27;✕&#x27; : icon() }}&lt;/span&gt;
+    &lt;/button&gt;
+
+    &lt;!-- Chat Overlay Pane --&gt;
+    &lt;div class&#x3D;&quot;widget-overlay-pane&quot; [class.open]&#x3D;&quot;isOpen()&quot;&gt;
+      &lt;!-- Header --&gt;
+      &lt;div class&#x3D;&quot;widget-header&quot;&gt;
+        &lt;div class&#x3D;&quot;header-details&quot;&gt;
+          &lt;div class&#x3D;&quot;widget-avatar&quot;&gt;🤖&lt;/div&gt;
+          &lt;div&gt;
+            &lt;h4 class&#x3D;&quot;widget-title&quot;&gt;{{ agentName() }}&lt;/h4&gt;
+            &lt;span class&#x3D;&quot;widget-status&quot;&gt;Online&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;closeOpen()&quot;&gt;✕&lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Feed Body --&gt;
+      &lt;div class&#x3D;&quot;widget-body&quot; #scrollContainer (scroll)&#x3D;&quot;onBodyScroll()&quot;&gt;
+        @if (isUserScrolledUp()) {
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;widget-scroll-bottom-pill&quot; (click)&#x3D;&quot;scrollToBottom(true)&quot;&gt;
+            ↓ New messages
+          &lt;/button&gt;
+        }
+        @for (msg of messages(); track $index) {
+          &lt;div class&#x3D;&quot;message-row&quot; [class.user-row]&#x3D;&quot;msg.sender &#x3D;&#x3D;&#x3D; &#x27;user&#x27;&quot;&gt;
+            @if (msg.sender &#x3D;&#x3D;&#x3D; &#x27;assistant&#x27;) {
+              &lt;div class&#x3D;&quot;msg-avatar&quot;&gt;🤖&lt;/div&gt;
+            }
+            &lt;div class&#x3D;&quot;msg-bubble&quot; [class.user-bubble]&#x3D;&quot;msg.sender &#x3D;&#x3D;&#x3D; &#x27;user&#x27;&quot;&gt;
+              &lt;div class&#x3D;&quot;msg-text&quot;&gt;{{ msg.text }}&lt;/div&gt;
+              &lt;div class&#x3D;&quot;msg-time&quot;&gt;{{ msg.timestamp | date:&#x27;shortTime&#x27; }}&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Quick Replies --&gt;
+      @if (quickReplies().length &gt; 0) {
+        &lt;div class&#x3D;&quot;widget-quick-replies&quot;&gt;
+          @for (reply of quickReplies(); track reply) {
+            &lt;button class&#x3D;&quot;reply-pill&quot; (click)&#x3D;&quot;selectReply(reply)&quot;&gt;
+              {{ reply }}
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Footer Input --&gt;
+      &lt;div class&#x3D;&quot;widget-footer&quot;&gt;
+        &lt;input
+          #inputBox
+          type&#x3D;&quot;text&quot;
+          [placeholder]&#x3D;&quot;placeholder()&quot;
+          (keydown.enter)&#x3D;&quot;sendMessage(inputBox.value); inputBox.value &#x3D; &#x27;&#x27;&quot;
+          class&#x3D;&quot;widget-input&quot;
+        /&gt;
+        &lt;button
+          class&#x3D;&quot;send-btn&quot;
+          (click)&#x3D;&quot;sendMessage(inputBox.value); inputBox.value &#x3D; &#x27;&#x27;&quot;
+        &gt;
+          ➔
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      font-family: inherit;
+    }
+
+    /* FAB styling */
+    .widget-fab {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
+      color: #ffffff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .widget-fab:hover {
+      transform: scale(1.06);
+    }
+    .widget-fab.active {
+      transform: rotate(90deg) scale(0.95);
+      background: #0f172a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .fab-icon {
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Overlay container pane */
+    .widget-overlay-pane {
+      position: absolute;
+      bottom: 72px;
+      right: 0;
+      width: 360px;
+      height: 500px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15), 0 8px 10px -6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      pointer-events: none;
+      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: bottom right;
+    }
+    .widget-overlay-pane.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Header styling */
+    .widget-header {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .header-details {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .widget-avatar {
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .widget-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 750;
+    }
+    .widget-status {
+      font-size: 10px;
+      color: #10b981;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .widget-status::before {
+      content: &#x27;&#x27;;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.15s;
+    }
+    .close-btn:hover {
+      color: #ffffff;
+    }
+
+    /* Body messages list feed */
+    .widget-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--bg-primary, #f8fafc);
+    }
+    .message-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      max-width: 85%;
+    }
+    .message-row.user-row {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .msg-bubble {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border-top-left-radius: 2px;
+      box-shadow: var(--shadow-sm);
+    }
+    .message-row.user-row .msg-bubble {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border: none;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 2px;
+    }
+    .msg-text {
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .msg-time {
+      font-size: 9px;
+      color: var(--text-secondary, #64748b);
+      text-align: right;
+      margin-top: 4px;
+    }
+    .message-row.user-row .msg-time {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Quick replies section */
+    .widget-quick-replies {
+      padding: 8px 12px;
+      background: var(--bg-primary, #f8fafc);
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      white-space: nowrap;
+    }
+    .widget-quick-replies::-webkit-scrollbar {
+      display: none;
+    }
+    .reply-pill {
+      padding: 6px 12px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: var(--primary-color, #4f46e5);
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .reply-pill:hover {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Footer text area input */
+    .widget-footer {
+      padding: 12px 14px;
+      background: var(--bg-secondary, #ffffff);
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .widget-input {
+      flex: 1;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      outline: none;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      transition: border-color 0.15s;
+    }
+    .widget-input:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .send-btn:hover {
+      background: var(--primary-color-dark, #3730a3);
+    }
+
+    /* Scroll to bottom pill */
+    .widget-body {
+      position: relative;
+    }
+    .widget-scroll-bottom-pill {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
+      transition: all 0.2s ease;
+    }
+    .widget-scroll-bottom-pill:hover {
+      background: #4338ca;
+    }
+  &#x60;]
+})
+export class AIChatWidgetComponent {
+  agentName &#x3D; input&lt;string&gt;(&#x27;AI Assistant&#x27;);
+  icon &#x3D; input&lt;string&gt;(&#x27;💬&#x27;);
+  placeholder &#x3D; input&lt;string&gt;(&#x27;Type a message...&#x27;);
+  welcomeMessage &#x3D; input&lt;string&gt;(&#x27;Hi! How can I help you today?&#x27;);
+  quickReplies &#x3D; input&lt;string[]&gt;([]);
+
+  messageSent &#x3D; output&lt;string&gt;();
+
+  isOpen &#x3D; signal&lt;boolean&gt;(false);
+  messages &#x3D; signal&lt;WidgetMessage[]&gt;([]);
+  isUserScrolledUp &#x3D; signal&lt;boolean&gt;(false);
+
+  @ViewChild(&#x27;scrollContainer&#x27;) scrollContainer!: ElementRef&lt;HTMLDivElement&gt;;
+
+  onBodyScroll(): void {
+    if (this.scrollContainer?.nativeElement) {
+      const el &#x3D; this.scrollContainer.nativeElement;
+      const isAtBottom &#x3D; el.scrollHeight - el.scrollTop - el.clientHeight &lt; 30;
+      this.isUserScrolledUp.set(!isAtBottom);
+    }
+  }
+
+  toggleOpen(): void {
+    this.isOpen.update(o &#x3D;&gt; !o);
+    if (this.isOpen() &amp;&amp; this.messages().length &#x3D;&#x3D;&#x3D; 0) {
+      this.messages.set([
+        { sender: &#x27;assistant&#x27;, text: this.welcomeMessage(), timestamp: new Date() }
+      ]);
+    }
+  }
+
+  closeOpen(): void {
+    this.isOpen.set(false);
+  }
+
+  sendMessage(text: string): void {
+    const trimmed &#x3D; text.trim();
+    if (!trimmed) return;
+
+    this.messages.update(msgs &#x3D;&gt; [
+      ...msgs,
+      { sender: &#x27;user&#x27;, text: trimmed, timestamp: new Date() }
+    ]);
+    this.messageSent.emit(trimmed);
+    this.scrollToBottom(true);
+  }
+
+  selectReply(reply: string): void {
+    this.sendMessage(reply);
+  }
+
+  addAssistantReply(text: string): void {
+    this.messages.update(msgs &#x3D;&gt; [
+      ...msgs,
+      { sender: &#x27;assistant&#x27;, text, timestamp: new Date() }
+    ]);
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(force &#x3D; false): void {
+    if (this.isUserScrolledUp() &amp;&amp; !force) return;
+    setTimeout(() &#x3D;&gt; {
+      if (this.scrollContainer?.nativeElement) {
+        this.scrollContainer.nativeElement.scrollTop &#x3D; this.scrollContainer.nativeElement.scrollHeight;
+        if (force) this.isUserScrolledUp.set(false);
+      }
+    }, 50);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      font-family: inherit;
+    }
+
+    /* FAB styling */
+    .widget-fab {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
+      color: #ffffff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .widget-fab:hover {
+      transform: scale(1.06);
+    }
+    .widget-fab.active {
+      transform: rotate(90deg) scale(0.95);
+      background: #0f172a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .fab-icon {
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Overlay container pane */
+    .widget-overlay-pane {
+      position: absolute;
+      bottom: 72px;
+      right: 0;
+      width: 360px;
+      height: 500px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15), 0 8px 10px -6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      pointer-events: none;
+      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: bottom right;
+    }
+    .widget-overlay-pane.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Header styling */
+    .widget-header {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .header-details {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .widget-avatar {
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .widget-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 750;
+    }
+    .widget-status {
+      font-size: 10px;
+      color: #10b981;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .widget-status::before {
+      content: &#x27;&#x27;;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.15s;
+    }
+    .close-btn:hover {
+      color: #ffffff;
+    }
+
+    /* Body messages list feed */
+    .widget-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--bg-primary, #f8fafc);
+    }
+    .message-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      max-width: 85%;
+    }
+    .message-row.user-row {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .msg-bubble {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border-top-left-radius: 2px;
+      box-shadow: var(--shadow-sm);
+    }
+    .message-row.user-row .msg-bubble {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border: none;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 2px;
+    }
+    .msg-text {
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .msg-time {
+      font-size: 9px;
+      color: var(--text-secondary, #64748b);
+      text-align: right;
+      margin-top: 4px;
+    }
+    .message-row.user-row .msg-time {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Quick replies section */
+    .widget-quick-replies {
+      padding: 8px 12px;
+      background: var(--bg-primary, #f8fafc);
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      white-space: nowrap;
+    }
+    .widget-quick-replies::-webkit-scrollbar {
+      display: none;
+    }
+    .reply-pill {
+      padding: 6px 12px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: var(--primary-color, #4f46e5);
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .reply-pill:hover {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Footer text area input */
+    .widget-footer {
+      padding: 12px 14px;
+      background: var(--bg-secondary, #ffffff);
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .widget-input {
+      flex: 1;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      outline: none;
+      background: var(--bg-primary, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      transition: border-color 0.15s;
+    }
+    .widget-input:focus {
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .send-btn:hover {
+      background: var(--primary-color-dark, #3730a3);
+    }
+
+    /* Scroll to bottom pill */
+    .widget-body {
+      position: relative;
+    }
+    .widget-scroll-bottom-pill {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
+      transition: all 0.2s ease;
+    }
+    .widget-scroll-bottom-pill:hover {
+      background: #4338ca;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Floating Action Button (FAB) --><button  class="widget-fab"  [class.active]="isOpen()"  (click)="toggleOpen()"  [title]="isOpen() ? \'Close Chat\' : \'Open Chat\'">  <span class="fab-icon">{{ isOpen() ? \'✕\' : icon() }}</span></button><!-- Chat Overlay Pane --><div class="widget-overlay-pane" [class.open]="isOpen()">  <!-- Header -->  <div class="widget-header">    <div class="header-details">      <div class="widget-avatar">🤖</div>      <div>        <h4 class="widget-title">{{ agentName() }}</h4>        <span class="widget-status">Online</span>      </div>    </div>    <button class="close-btn" (click)="closeOpen()">✕</button>  </div>  <!-- Feed Body -->  <div class="widget-body" #scrollContainer (scroll)="onBodyScroll()">    @if (isUserScrolledUp()) {      <button type="button" class="widget-scroll-bottom-pill" (click)="scrollToBottom(true)">        ↓ New messages      </button>    }    @for (msg of messages(); track $index) {      <div class="message-row" [class.user-row]="msg.sender === \'user\'">        @if (msg.sender === \'assistant\') {          <div class="msg-avatar">🤖</div>        }        <div class="msg-bubble" [class.user-bubble]="msg.sender === \'user\'">          <div class="msg-text">{{ msg.text }}</div>          <div class="msg-time">{{ msg.timestamp | date:\'shortTime\' }}</div>        </div>      </div>    }  </div>  <!-- Quick Replies -->  @if (quickReplies().length > 0) {    <div class="widget-quick-replies">      @for (reply of quickReplies(); track reply) {        <button class="reply-pill" (click)="selectReply(reply)">          {{ reply }}        </button>      }    </div>  }  <!-- Footer Input -->  <div class="widget-footer">    <input      #inputBox      type="text"      [placeholder]="placeholder()"      (keydown.enter)="sendMessage(inputBox.value); inputBox.value = \'\'"      class="widget-input"    />    <button      class="send-btn"      (click)="sendMessage(inputBox.value); inputBox.value = \'\'"    >      ➔    </button>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'AIChatWidgetComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AIChatWidgetComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

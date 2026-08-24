@@ -1,0 +1,1352 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  UploadFileItem</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/inputs/file-upload/file-upload.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#errorMessage" 
+>
+                                            errorMessage
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#fileObject" 
+>
+                                            fileObject
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#formattedSize" 
+>
+                                            formattedSize
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#progress" 
+>
+                                            progress
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#size" 
+>
+                                            size
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#status" 
+>
+                                            status
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="errorMessage"></a>
+                                        <span class="name "><b>errorMessage</b>
+                                            <a href="#errorMessage">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>errorMessage:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="fileObject"></a>
+                                        <span class="name "><b>fileObject</b>
+                                            <a href="#fileObject">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>fileObject:     <code>File</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>File</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="formattedSize"></a>
+                                        <span class="name "><b>formattedSize</b>
+                                            <a href="#formattedSize">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>formattedSize:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="progress"></a>
+                                        <span class="name "><b>progress</b>
+                                            <a href="#progress">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>progress:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="size"></a>
+                                        <span class="name "><b>size</b>
+                                            <a href="#size">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>size:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="status"></a>
+                                        <span class="name "><b>status</b>
+                                            <a href="#status">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>status:     <code>&quot;pending&quot; | &quot;uploading&quot; | &quot;success&quot; | &quot;error&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;pending&quot; | &quot;uploading&quot; | &quot;success&quot; | &quot;error&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, output, HostListener, ViewChild, ElementRef, inject } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { NGX_CORE_I18N } from &#x27;ngx-core-components/i18n&#x27;;
+
+export interface UploadFileItem {
+  id: string;
+  name: string;
+  size: number;
+  type: string;
+  progress: number;
+  status: &#x27;pending&#x27; | &#x27;uploading&#x27; | &#x27;success&#x27; | &#x27;error&#x27;;
+  errorMessage?: string;
+  formattedSize: string;
+  fileObject: File;
+}
+
+@Component({
+  selector: &#x27;ngx-file-upload&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;file-upload-wrapper&quot;
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      [class.drag-over]&#x3D;&quot;isDragOver()&quot;
+      [class.disabled]&#x3D;&quot;disabled()&quot;
+    &gt;
+      &lt;!-- Dropzone Border Frame --&gt;
+      &lt;div
+        class&#x3D;&quot;dropzone-area&quot;
+        (dragover)&#x3D;&quot;onDragOver($event)&quot;
+        (dragleave)&#x3D;&quot;onDragLeave($event)&quot;
+        (drop)&#x3D;&quot;onDrop($event)&quot;
+        (click)&#x3D;&quot;fileInput.click()&quot;
+        (keydown)&#x3D;&quot;onDropzoneKeyDown($event)&quot;
+        [attr.tabindex]&#x3D;&quot;disabled() ? -1 : 0&quot;
+        role&#x3D;&quot;button&quot;
+        [attr.aria-disabled]&#x3D;&quot;disabled()&quot;
+        aria-label&#x3D;&quot;Upload files&quot;
+      &gt;
+        &lt;input
+          #fileInput
+          type&#x3D;&quot;file&quot;
+          [multiple]&#x3D;&quot;multiple()&quot;
+          [accept]&#x3D;&quot;accept()&quot;
+          [disabled]&#x3D;&quot;disabled()&quot;
+          (change)&#x3D;&quot;onFileSelected($event)&quot;
+          class&#x3D;&quot;hidden-file-input&quot;
+        /&gt;
+
+        &lt;div class&#x3D;&quot;dropzone-content&quot;&gt;
+          &lt;div class&#x3D;&quot;upload-icon-circle&quot;&gt;
+            &lt;svg class&#x3D;&quot;upload-arrow-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+              &lt;path d&#x3D;&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+              &lt;polyline points&#x3D;&quot;17 8 12 3 7 8&quot;/&gt;
+              &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;3&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;15&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;upload-headline&quot;&gt;
+            &lt;span class&#x3D;&quot;highlight&quot;&gt;{{ i18n.fileUpload.browse }}&lt;/span&gt; {{ i18n.fileUpload.dragDrop }}
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;upload-subtext&quot;&gt;
+            {{ getHelperText() }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- File Queue List --&gt;
+      @if (fileQueue().length &gt; 0) {
+        &lt;div class&#x3D;&quot;file-queue-list&quot;&gt;
+          &lt;div class&#x3D;&quot;queue-header&quot;&gt;
+            &lt;h4&gt;Files Queue ({{ fileQueue().length }})&lt;/h4&gt;
+            &lt;button class&#x3D;&quot;clear-all-btn&quot; (click)&#x3D;&quot;clearAll()&quot; [disabled]&#x3D;&quot;disabled()&quot;&gt;{{ i18n.datePicker.clear }} All&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;queue-items&quot;&gt;
+            @for (item of fileQueue(); track item.id) {
+              &lt;div class&#x3D;&quot;queue-item-card&quot; [class]&#x3D;&quot;item.status&quot;&gt;
+                &lt;div class&#x3D;&quot;item-icon&quot;&gt;
+                  &lt;svg class&#x3D;&quot;file-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                    &lt;path d&#x3D;&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+                    &lt;polyline points&#x3D;&quot;14 2 14 8 20 8&quot;/&gt;
+                  &lt;/svg&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;item-details&quot;&gt;
+                  &lt;div class&#x3D;&quot;item-meta&quot;&gt;
+                    &lt;span class&#x3D;&quot;item-name&quot; [title]&#x3D;&quot;item.name&quot;&gt;{{ item.name }}&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;item-size&quot;&gt;{{ item.formattedSize }}&lt;/span&gt;
+                  &lt;/div&gt;
+
+                  &lt;!-- Progress meter --&gt;
+                  @if (item.status &#x3D;&#x3D;&#x3D; &#x27;uploading&#x27;) {
+                    &lt;div class&#x3D;&quot;item-progress-wrap&quot;&gt;
+                      &lt;div class&#x3D;&quot;progress-track&quot;&gt;
+                        &lt;div class&#x3D;&quot;progress-bar-fill&quot; [style.width.%]&#x3D;&quot;item.progress&quot;&gt;&lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;span class&#x3D;&quot;progress-text&quot;&gt;{{ item.progress }}%&lt;/span&gt;
+                    &lt;/div&gt;
+                  }
+
+                  &lt;!-- Error message alert --&gt;
+                  @if (item.status &#x3D;&#x3D;&#x3D; &#x27;error&#x27; &amp;&amp; item.errorMessage) {
+                    &lt;div class&#x3D;&quot;item-error-msg&quot;&gt;
+                      ⚠️ {{ item.errorMessage }}
+                    &lt;/div&gt;
+                  }
+
+                  &lt;!-- Status badges --&gt;
+                  @if (item.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+                    &lt;div class&#x3D;&quot;item-status-badge success&quot;&gt;✓ Uploaded&lt;/div&gt;
+                  }
+                &lt;/div&gt;
+
+                &lt;!-- Actions --&gt;
+                &lt;div class&#x3D;&quot;item-actions&quot;&gt;
+                  @if (item.status &#x3D;&#x3D;&#x3D; &#x27;error&#x27;) {
+                    &lt;button class&#x3D;&quot;action-btn retry-btn&quot; (click)&#x3D;&quot;retryUpload(item)&quot; title&#x3D;&quot;Retry upload&quot;&gt;
+                      🔄
+                    &lt;/button&gt;
+                  }
+                  &lt;button class&#x3D;&quot;action-btn remove-btn&quot; (click)&#x3D;&quot;removeFile(item)&quot; [title]&#x3D;&quot;i18n.fileUpload.removeFile&quot; [disabled]&#x3D;&quot;disabled()&quot;&gt;
+                    ✕
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .file-upload-wrapper {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.25s;
+    }
+
+    .file-upload-wrapper.drag-over {
+      border-color: var(--primary-color, #4f46e5);
+      background: rgba(79, 70, 229, 0.01);
+    }
+
+    .file-upload-wrapper.disabled {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    /* Dropzone area */
+    .dropzone-area {
+      border: 2px dashed var(--border-color, #cbd5e1);
+      border-radius: var(--radius-md, 10px);
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.005);
+      transition: all 0.2s ease-in-out;
+      position: relative;
+    }
+
+    .dropzone-area:hover {
+      border-color: var(--primary-color, #4f46e5);
+      background: rgba(79, 70, 229, 0.02);
+    }
+
+    .dropzone-area:focus-visible {
+      outline: 2px dashed var(--primary-color, #4f46e5);
+      outline-offset: 2px;
+      border-color: var(--primary-color, #4f46e5);
+      background: rgba(79, 70, 229, 0.02);
+    }
+
+    .drag-over .dropzone-area {
+      border-color: var(--primary-color, #4f46e5);
+      background: rgba(79, 70, 229, 0.05);
+    }
+
+    .hidden-file-input {
+      display: none;
+    }
+
+    .dropzone-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      user-select: none;
+    }
+
+    .upload-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--border-light, #f1f5f9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary, #475569);
+      transition: all 0.2s;
+    }
+
+    .dropzone-area:hover .upload-icon-circle {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    .upload-arrow-svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .upload-headline {
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 14px;
+      font-weight: 550;
+      color: var(--text-primary, #0f172a);
+    }
+
+    .upload-headline .highlight {
+      color: var(--primary-color, #4f46e5);
+      font-weight: 700;
+    }
+
+    .upload-subtext {
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+    }
+
+    /* Queue list */
+    .file-queue-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding-top: 16px;
+    }
+
+    .queue-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .queue-header h4 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 750;
+      color: var(--text-primary, #0f172a);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .clear-all-btn {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .clear-all-btn:hover {
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .queue-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .queue-item-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      background: var(--bg-secondary, #ffffff);
+      transition: all 0.2s;
+    }
+
+    .queue-item-card:hover {
+      border-color: var(--text-secondary, #94a3b8);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .queue-item-card.success { border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.005); }
+    .queue-item-card.error { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.005); }
+
+    .item-icon {
+      color: var(--text-secondary, #64748b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .file-icon-svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .item-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow: hidden;
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .item-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .item-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary, #0f172a);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-size {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      white-space: nowrap;
+    }
+
+    /* Progress and error layouts */
+    .item-progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: var(--border-light, #f1f5f9);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-color, #4f46e5);
+      border-radius: 2px;
+      transition: width 0.15s;
+    }
+
+    .progress-text {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-secondary, #475569);
+      min-width: 28px;
+      text-align: right;
+    }
+
+    .item-error-msg {
+      font-size: 11px;
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    .item-status-badge {
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 1px 6px;
+      width: fit-content;
+    }
+
+    .item-status-badge.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    /* Actions buttons */
+    .item-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary, #64748b);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .action-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+    }
+
+    .action-btn.remove-btn:hover {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    /* Dark Mode */
+    .file-upload-wrapper.dark {
+      background: #0f172a;
+      border-color: #1f2937;
+    }
+    .file-upload-wrapper.dark .dropzone-area {
+      border-color: #374151;
+    }
+    .file-upload-wrapper.dark .dropzone-area:hover {
+      border-color: var(--primary-color, #6366f1);
+      background: rgba(99, 102, 241, 0.02);
+    }
+    .file-upload-wrapper.dark .upload-icon-circle {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .file-upload-wrapper.dark .dropzone-area:hover .upload-icon-circle {
+      background: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .file-upload-wrapper.dark .upload-headline {
+      color: #e2e8f0;
+    }
+    .file-upload-wrapper.dark .upload-headline .highlight {
+      color: var(--primary-color, #6366f1);
+    }
+    .file-upload-wrapper.dark .upload-subtext {
+      color: #94a3b8;
+    }
+    .file-upload-wrapper.dark .file-queue-list {
+      border-top-color: #1f2937;
+    }
+    .file-upload-wrapper.dark .queue-header h4 {
+      color: #e2e8f0;
+    }
+    .file-upload-wrapper.dark .queue-item-card {
+      border-color: #1f2937;
+      background: #111827;
+    }
+    .file-upload-wrapper.dark .queue-item-card:hover {
+      border-color: #4b5563;
+    }
+    .file-upload-wrapper.dark .queue-item-card.success {
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+    .file-upload-wrapper.dark .queue-item-card.error {
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+    .file-upload-wrapper.dark .item-name {
+      color: #e2e8f0;
+    }
+    .file-upload-wrapper.dark .item-size {
+      color: #94a3b8;
+    }
+    .file-upload-wrapper.dark .progress-track {
+      background: #1e293b;
+    }
+    .file-upload-wrapper.dark .progress-bar-fill {
+      background: var(--primary-color, #6366f1);
+    }
+    .file-upload-wrapper.dark .progress-text {
+      color: #94a3b8;
+    }
+    .file-upload-wrapper.dark .action-btn:hover {
+      background: #1e293b;
+      color: #f8fafc;
+    }
+    .file-upload-wrapper.dark .action-btn.remove-btn:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+  &#x60;]
+})
+export class FileUploadComponent {
+  i18n &#x3D; inject(NGX_CORE_I18N);
+
+  // Inputs
+  multiple &#x3D; input&lt;boolean&gt;(false);
+  accept &#x3D; input&lt;string&gt;(&#x27;&#x27;); // comma separated file rules
+  maxSize &#x3D; input&lt;number&gt;(0);  // max bytes limit (e.g. 5242880 for 5MB). 0 means unlimited
+  disabled &#x3D; input&lt;boolean&gt;(false);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  uploadUrl &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+
+  // Outputs
+  filesSelected &#x3D; output&lt;File[]&gt;();
+  fileRemoved &#x3D; output&lt;File&gt;();
+  uploadProgress &#x3D; output&lt;{ file: File, progress: number }&gt;();
+  uploadComplete &#x3D; output&lt;{ file: File, response: any }&gt;();
+  uploadError &#x3D; output&lt;{ file: File, error: any }&gt;();
+
+  // State
+  isDragOver &#x3D; signal&lt;boolean&gt;(false);
+  fileQueue &#x3D; signal&lt;UploadFileItem[]&gt;([]);
+
+  onDropzoneKeyDown(event: KeyboardEvent) {
+    if (this.disabled()) return;
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;Enter&#x27; || event.key &#x3D;&#x3D;&#x3D; &#x27; &#x27;) {
+      event.preventDefault();
+      const inputEl &#x3D; event.currentTarget as HTMLElement;
+      const fileInputEl &#x3D; inputEl.querySelector(&#x27;.hidden-file-input&#x27;) as HTMLInputElement;
+      fileInputEl?.click();
+    }
+  }
+
+  onDragOver(event: DragEvent) {
+    if (this.disabled()) return;
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver.set(true);
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver.set(false);
+  }
+
+  onDrop(event: DragEvent) {
+    if (this.disabled()) return;
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver.set(false);
+
+    if (event.dataTransfer &amp;&amp; event.dataTransfer.files) {
+      this.handleFiles(Array.from(event.dataTransfer.files));
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const inputEl &#x3D; event.target as HTMLInputElement;
+    if (inputEl.files) {
+      this.handleFiles(Array.from(inputEl.files));
+      inputEl.value &#x3D; &#x27;&#x27;; // clear input selection
+    }
+  }
+
+  // Handle addition of files to the queue, runs validation, and triggers simulated upload
+  private handleFiles(incomingFiles: File[]) {
+    if (incomingFiles.length &#x3D;&#x3D;&#x3D; 0) return;
+
+    // Filter by single vs multiple
+    const filesToProcess &#x3D; this.multiple() ? incomingFiles : [incomingFiles[0]];
+
+    const newQueueItems: UploadFileItem[] &#x3D; [];
+    const validFiles: File[] &#x3D; [];
+
+    for (const file of filesToProcess) {
+      const formattedSize &#x3D; this.formatBytes(file.size);
+      const id &#x3D; Date.now().toString() + &#x27;-&#x27; + Math.random().toString(36).substr(2, 9);
+      
+      const item: UploadFileItem &#x3D; {
+        id,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        progress: 0,
+        status: &#x27;pending&#x27;,
+        formattedSize,
+        fileObject: file
+      };
+
+      // Validation
+      const errorMsg &#x3D; this.validateFile(file);
+      if (errorMsg) {
+        item.status &#x3D; &#x27;error&#x27;;
+        item.errorMessage &#x3D; errorMsg;
+      } else {
+        validFiles.push(file);
+      }
+
+      newQueueItems.push(item);
+    }
+
+    if (this.multiple()) {
+      this.fileQueue.update(q &#x3D;&gt; [...q, ...newQueueItems]);
+    } else {
+      this.fileQueue.set(newQueueItems);
+    }
+
+    if (validFiles.length &gt; 0) {
+      this.filesSelected.emit(validFiles);
+      
+      // Trigger simulation or actual file upload
+      for (const item of newQueueItems) {
+        if (item.status &#x3D;&#x3D;&#x3D; &#x27;pending&#x27;) {
+          this.uploadFile(item);
+        }
+      }
+    }
+  }
+
+  private validateFile(file: File): string | null {
+    // 1. Max Size check
+    const maxLimit &#x3D; this.maxSize();
+    if (maxLimit &gt; 0 &amp;&amp; file.size &gt; maxLimit) {
+      return &#x60;${this.i18n.fileUpload.maxSizeError} (${this.formatBytes(maxLimit)})&#x60;;
+    }
+
+    // 2. Type/Accept format check
+    const acceptRule &#x3D; this.accept();
+    if (acceptRule) {
+      const allowedRules &#x3D; acceptRule.split(&#x27;,&#x27;).map(r &#x3D;&gt; r.trim().toLowerCase());
+      const ext &#x3D; (&#x27;.&#x27; + file.name.split(&#x27;.&#x27;).pop()).toLowerCase();
+      const mime &#x3D; file.type.toLowerCase();
+      
+      const isAllowed &#x3D; allowedRules.some(rule &#x3D;&gt; {
+        if (rule.startsWith(&#x27;.&#x27;)) {
+          return rule &#x3D;&#x3D;&#x3D; ext;
+        } else if (rule.endsWith(&#x27;/*&#x27;)) {
+          const prefix &#x3D; rule.slice(0, -2);
+          return mime.startsWith(prefix);
+        } else {
+          return rule &#x3D;&#x3D;&#x3D; mime;
+        }
+      });
+
+      if (!isAllowed) {
+        return &#x60;${this.i18n.fileUpload.invalidTypeError} (&quot;${acceptRule}&quot;)&#x60;;
+      }
+    }
+
+    return null;
+  }
+
+  private uploadFile(item: UploadFileItem) {
+    this.updateItemStatus(item.id, &#x27;uploading&#x27;, 0);
+
+    // Mock Upload simulation
+    // Increment progress linearly in steps
+    let currentProgress &#x3D; 0;
+    const interval &#x3D; setInterval(() &#x3D;&gt; {
+      currentProgress +&#x3D; Math.floor(Math.random() * 15) + 5;
+      if (currentProgress &gt;&#x3D; 100) {
+        currentProgress &#x3D; 100;
+        clearInterval(interval);
+        
+        // Randomly simulate 5% errors to showcase error recovery states
+        const simulatedSuccess &#x3D; Math.random() &gt; 0.05;
+        if (simulatedSuccess) {
+          this.updateItemStatus(item.id, &#x27;success&#x27;, 100);
+          this.uploadComplete.emit({ file: item.fileObject, response: { success: true } });
+        } else {
+          this.updateItemStatus(item.id, &#x27;error&#x27;, 100, &#x27;Simulated connection failure during file upload.&#x27;);
+          this.uploadError.emit({ file: item.fileObject, error: &#x27;Simulated connection failure&#x27; });
+        }
+      } else {
+        this.updateItemStatus(item.id, &#x27;uploading&#x27;, currentProgress);
+        this.uploadProgress.emit({ file: item.fileObject, progress: currentProgress });
+      }
+    }, 250);
+  }
+
+  retryUpload(item: UploadFileItem) {
+    this.uploadFile(item);
+  }
+
+  removeFile(item: UploadFileItem) {
+    this.fileQueue.update(q &#x3D;&gt; q.filter(x &#x3D;&gt; x.id !&#x3D;&#x3D; item.id));
+    this.fileRemoved.emit(item.fileObject);
+  }
+
+  clearAll() {
+    this.fileQueue.set([]);
+  }
+
+  private updateItemStatus(id: string, status: UploadFileItem[&#x27;status&#x27;], progress: number, errorMsg?: string) {
+    this.fileQueue.update(queue &#x3D;&gt; {
+      return queue.map(x &#x3D;&gt; {
+        if (x.id &#x3D;&#x3D;&#x3D; id) {
+          return {
+            ...x,
+            status,
+            progress,
+            errorMessage: errorMsg
+          };
+        }
+        return x;
+      });
+    });
+  }
+
+  // Utility text mappings
+  getHelperText(): string {
+    const limits: string[] &#x3D; [];
+    if (this.accept()) {
+      limits.push(&#x60;Accepted: ${this.accept()}&#x60;);
+    }
+    if (this.maxSize() &gt; 0) {
+      limits.push(&#x60;Max: ${this.formatBytes(this.maxSize())}&#x60;);
+    }
+    return limits.length &gt; 0 ? limits.join(&#x27; • &#x27;) : &#x27;Supports any file&#x27;;
+  }
+
+  // Byte formats convertor utility
+  private formatBytes(bytes: number, decimals &#x3D; 2): string {
+    if (bytes &#x3D;&#x3D;&#x3D; 0) return &#x27;0 Bytes&#x27;;
+    const k &#x3D; 1024;
+    const dm &#x3D; decimals &lt; 0 ? 0 : decimals;
+    const sizes &#x3D; [&#x27;Bytes&#x27;, &#x27;KB&#x27;, &#x27;MB&#x27;, &#x27;GB&#x27;, &#x27;TB&#x27;];
+    const i &#x3D; Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + &#x27; &#x27; + sizes[i];
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'UploadFileItem.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

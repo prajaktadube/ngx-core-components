@@ -1,0 +1,2684 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AIAudioWaveComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-ai-audio-wave</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .audio-wave-wrapper {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      padding: 20px;
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    /* Header info */
+    .wave-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .state-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .state-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94a3b8;
+      transition: background 0.3s;
+    }
+
+    .state-indicator.idle .state-dot { background: #94a3b8; }
+    .state-indicator.listening .state-dot { background: #10b981; animation: blink 1.2s infinite; }
+    .state-indicator.thinking .state-dot { background: #3b82f6; animation: spin-color 2s infinite; }
+    .state-indicator.speaking .state-dot { background: #8b5cf6; }
+
+    .state-indicator.idle { color: var(--text-secondary, #475569); }
+    .state-indicator.listening { color: #10b981; }
+    .state-indicator.thinking { color: #3b82f6; }
+    .state-indicator.speaking { color: #8b5cf6; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes spin-color {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.2); filter: brightness(1.2); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    .amplitude-label {
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+      font-weight: 500;
+    }
+
+    /* Equalizer wave container */
+    .equalizer-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      height: 70px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm, 6px);
+      background: var(--border-light, #f1f5f9);
+      overflow: hidden;
+      transition: background 0.3s, opacity 0.3s;
+    }
+
+    .equalizer-container.muted {
+      opacity: 0.5;
+    }
+
+    /* Bar Styling &amp; Animations */
+    .wave-bar {
+      width: 4px;
+      border-radius: 9999px;
+      transition: height 0.3s, background 0.3s;
+    }
+
+    /* IDLE state */
+    .wave-bar.idle {
+      height: 6px !important;
+      opacity: 0.4;
+    }
+
+    /* LISTENING state: pulsing heights */
+    .wave-bar.listening {
+      animation: listenPulse 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes listenPulse {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(3.5); }
+    }
+
+    /* THINKING state: flowing wave */
+    .wave-bar.thinking {
+      animation: thinkFlow 1.6s ease-in-out infinite;
+    }
+
+    @keyframes thinkFlow {
+      0%, 100% { transform: scaleY(1.2); }
+      50% { transform: scaleY(5); }
+    }
+
+    /* SPEAKING state: bouncy sound peaks */
+    .wave-bar.speaking {
+      animation: speakBounce 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) infinite alternate;
+    }
+
+    @keyframes speakBounce {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(7.5); }
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding-top: 16px;
+    }
+
+    .control-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+
+    .control-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+      border-color: var(--text-secondary, #475569);
+    }
+
+    .control-btn.active {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+
+    .control-btn.muted {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.2);
+      background: rgba(239, 68, 68, 0.05);
+    }
+    .control-btn.muted:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Slider styling */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+    }
+
+    .wave-speed-slider {
+      width: 80px;
+      height: 4px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 2px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .wave-speed-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary-color, #4f46e5);
+      transition: transform 0.15s;
+    }
+    .wave-speed-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* Dark Mode */
+    .audio-wave-wrapper.dark {
+      background: #0f172a;
+      border-color: #1f2937;
+    }
+    .audio-wave-wrapper.dark .equalizer-container {
+      background: #1e293b;
+    }
+    .audio-wave-wrapper.dark .control-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .control-btn:hover {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .control-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .audio-wave-wrapper.dark .controls-panel {
+      border-top-color: #1f2937;
+    }
+    .audio-wave-wrapper.dark .amplitude-label,
+    .audio-wave-wrapper.dark .slider-label {
+      color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .wave-speed-slider {
+      background: #374151;
+    }
+    .audio-wave-wrapper.dark .wave-speed-slider::-webkit-slider-thumb {
+      background: var(--primary-color, #6366f1);
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;audio-wave-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+  &lt;!-- Status Badge &amp; Description --&gt;
+  &lt;div class&#x3D;&quot;wave-header&quot;&gt;
+    &lt;div class&#x3D;&quot;state-indicator&quot; [class]&#x3D;&quot;state()&quot;&gt;
+      &lt;span class&#x3D;&quot;state-dot&quot;&gt;&lt;/span&gt;
+      &lt;span class&#x3D;&quot;state-text&quot;&gt;{{ stateLabel() }}&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;amplitude-label&quot; *ngIf&#x3D;&quot;state() &#x3D;&#x3D;&#x3D; &#x27;speaking&#x27; || state() &#x3D;&#x3D;&#x3D; &#x27;listening&#x27;&quot;&gt;
+      Sensitivity: {{ volumePercent() }}%
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Equalizer Wave Container --&gt;
+  &lt;div class&#x3D;&quot;equalizer-container&quot; [class.muted]&#x3D;&quot;isMuted()&quot;&gt;
+    @for (bar of bars(); track $index) {
+      &lt;div
+        class&#x3D;&quot;wave-bar&quot;
+        [class]&#x3D;&quot;state()&quot;
+        [style.animation-delay]&#x3D;&quot;bar.delay&quot;
+        [style.animation-duration]&#x3D;&quot;barDuration()&quot;
+        [style.height.px]&#x3D;&quot;bar.height&quot;
+        [style.background]&#x3D;&quot;barColor()&quot;
+      &gt;&lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;!-- Controls Panel --&gt;
+  &lt;div class&#x3D;&quot;controls-panel&quot;&gt;
+    &lt;!-- Mic Toggle --&gt;
+    &lt;button
+      class&#x3D;&quot;control-btn mic-btn&quot;
+      [class.active]&#x3D;&quot;micEnabled() &amp;&amp; !isMuted()&quot;
+      (click)&#x3D;&quot;toggleMic()&quot;
+      [title]&#x3D;&quot;micEnabled() ? &#x27;Disable Microphone&#x27; : &#x27;Enable Microphone&#x27;&quot;
+    &gt;
+      &lt;!-- SVG Mic Icon --&gt;
+      &lt;svg class&#x3D;&quot;icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+        @if (micEnabled()) {
+          &lt;path d&#x3D;&quot;M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z&quot;/&gt;
+          &lt;path d&#x3D;&quot;M19 10v2a7 7 0 0 1-14 0v-2&quot;/&gt;
+          &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;19&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;23&quot;/&gt;
+          &lt;line x1&#x3D;&quot;8&quot; y1&#x3D;&quot;23&quot; x2&#x3D;&quot;16&quot; y2&#x3D;&quot;23&quot;/&gt;
+        } @else {
+          &lt;path d&#x3D;&quot;M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+          &lt;path d&#x3D;&quot;M19 10v2a7 7 0 0 1-14 0v-2&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+          &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;19&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;23&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+          &lt;line x1&#x3D;&quot;10&quot; y1&#x3D;&quot;23&quot; x2&#x3D;&quot;14&quot; y2&#x3D;&quot;23&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+          &lt;line x1&#x3D;&quot;1&quot; y1&#x3D;&quot;1&quot; x2&#x3D;&quot;23&quot; y2&#x3D;&quot;23&quot; stroke-width&#x3D;&quot;2.5&quot;/&gt;
+        }
+      &lt;/svg&gt;
+    &lt;/button&gt;
+
+    &lt;!-- Mute/Unmute audio output --&gt;
+    &lt;button
+      class&#x3D;&quot;control-btn volume-btn&quot;
+      [class.muted]&#x3D;&quot;isMuted()&quot;
+      (click)&#x3D;&quot;toggleMute()&quot;
+      [title]&#x3D;&quot;isMuted() ? &#x27;Unmute Audio&#x27; : &#x27;Mute Audio&#x27;&quot;
+    &gt;
+      &lt;!-- SVG Audio Icon --&gt;
+      &lt;svg class&#x3D;&quot;icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+        @if (!isMuted()) {
+          &lt;polygon points&#x3D;&quot;11 5 6 9 2 9 2 15 6 15 11 19 11 5&quot;/&gt;
+          &lt;path d&#x3D;&quot;M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07&quot;/&gt;
+        } @else {
+          &lt;polygon points&#x3D;&quot;11 5 6 9 2 9 2 15 6 15 11 19 11 5&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+          &lt;line x1&#x3D;&quot;23&quot; y1&#x3D;&quot;9&quot; x2&#x3D;&quot;17&quot; y2&#x3D;&quot;15&quot;/&gt;
+          &lt;line x1&#x3D;&quot;17&quot; y1&#x3D;&quot;9&quot; x2&#x3D;&quot;23&quot; y2&#x3D;&quot;15&quot;/&gt;
+        }
+      &lt;/svg&gt;
+    &lt;/button&gt;
+
+    &lt;!-- Wave Sensitivity/Speed slider --&gt;
+    &lt;div class&#x3D;&quot;slider-container&quot; *ngIf&#x3D;&quot;state() &#x3D;&#x3D;&#x3D; &#x27;speaking&#x27; || state() &#x3D;&#x3D;&#x3D; &#x27;listening&#x27;&quot;&gt;
+      &lt;span class&#x3D;&quot;slider-label&quot;&gt;Speed&lt;/span&gt;
+      &lt;input
+        type&#x3D;&quot;range&quot;
+        min&#x3D;&quot;0.3&quot;
+        max&#x3D;&quot;2.0&quot;
+        step&#x3D;&quot;0.1&quot;
+        [value]&#x3D;&quot;speedMultiplier()&quot;
+        (input)&#x3D;&quot;onSpeedChange($event)&quot;
+        class&#x3D;&quot;wave-speed-slider&quot;
+      /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#analyser" >analyser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#animationFrameId" >animationFrameId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#audioCtx" >audioCtx</a>
+                            </li>
+                            <li>
+                                <a href="#barColor" >barColor</a>
+                            </li>
+                            <li>
+                                <a href="#barDuration" >barDuration</a>
+                            </li>
+                            <li>
+                                <a href="#bars" >bars</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#dataArray" >dataArray</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#defaultHeights" >defaultHeights</a>
+                            </li>
+                            <li>
+                                <a href="#isMuted" >isMuted</a>
+                            </li>
+                            <li>
+                                <a href="#localMuted" >localMuted</a>
+                            </li>
+                            <li>
+                                <a href="#micEnabled" >micEnabled</a>
+                            </li>
+                            <li>
+                                <a href="#speedMultiplier" >speedMultiplier</a>
+                            </li>
+                            <li>
+                                <a href="#stateLabel" >stateLabel</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#stream" >stream</a>
+                            </li>
+                            <li>
+                                <a href="#volumePercent" >volumePercent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#onSpeedChange" >onSpeedChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resetBars" >resetBars</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#startMicCapture" >startMicCapture</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#stopMicCapture" >stopMicCapture</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMic" >toggleMic</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMute" >toggleMute</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateBarsFromAudio" >updateBarsFromAudio</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#autoCapture" >autoCapture</a>
+                            </li>
+                            <li>
+                                <a href="#color" >color</a>
+                            </li>
+                            <li>
+                                <a href="#muted" >muted</a>
+                            </li>
+                            <li>
+                                <a href="#state" >state</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#micToggle" >micToggle</a>
+                            </li>
+                            <li>
+                                <a href="#mutedChange" >mutedChange</a>
+                            </li>
+                            <li>
+                                <a href="#stateChange" >stateChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="388" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:388</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="autoCapture"></a>
+                        <b>autoCapture</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="355" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:355</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="color"></a>
+                        <b>color</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="352" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:352</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="muted"></a>
+                        <b>muted</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="354" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:354</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="state"></a>
+                        <b>state</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#AIAudioState" target="_self" >AIAudioState</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;idle&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="351" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:351</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="353" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:353</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="micToggle"></a>
+                        <b>micToggle</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="360" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:360</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mutedChange"></a>
+                        <b>mutedChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="359" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:359</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="stateChange"></a>
+                        <b>stateChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#AIAudioState" target="_self" >AIAudioState</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="358" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:358</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="404"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:404</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSpeedChange"></a>
+                    <span class="name">
+                        <span ><b>onSpeedChange</b></span>
+                        <a href="#onSpeedChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSpeedChange(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="519"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:519</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetBars"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>resetBars</b></span>
+                        <a href="#resetBars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetBars()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="472"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:472</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startMicCapture"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>startMicCapture</b></span>
+                        <a href="#startMicCapture"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>startMicCapture()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="408"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:408</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stopMicCapture"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>stopMicCapture</b></span>
+                        <a href="#stopMicCapture"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>stopMicCapture()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="454"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:454</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMic"></a>
+                    <span class="name">
+                        <span ><b>toggleMic</b></span>
+                        <a href="#toggleMic"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMic()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="526"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:526</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMute"></a>
+                    <span class="name">
+                        <span ><b>toggleMute</b></span>
+                        <a href="#toggleMute"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMute()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="532"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:532</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateBarsFromAudio"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>updateBarsFromAudio</b></span>
+                        <a href="#updateBarsFromAudio"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateBarsFromAudio()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="431"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:431</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="analyser"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>analyser</b></span>
+                        <a href="#analyser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AnalyserNode</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="385" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:385</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="animationFrameId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>animationFrameId</b></span>
+                        <a href="#animationFrameId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="388" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:388</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="audioCtx"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>audioCtx</b></span>
+                        <a href="#audioCtx"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AudioContext</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="384" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:384</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="barColor"></a>
+                    <span class="name">
+                        <span ><b>barColor</b></span>
+                        <a href="#barColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    if (this.color()) return this.color();
+
+    // Context colors matching states
+    if (this.isMuted()) return &#x27;#94a3b8&#x27;;
+    switch (this.state()) {
+      case &#x27;listening&#x27;: return &#x27;#10b981&#x27;; // Green
+      case &#x27;thinking&#x27;: return &#x27;#3b82f6&#x27;;  // Blue
+      case &#x27;speaking&#x27;: return &#x27;#8b5cf6&#x27;;  // Purple
+      default: return &#x27;#cbd5e1&#x27;;          // Muted slate
+    }
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="506" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:506</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="barDuration"></a>
+                    <span class="name">
+                        <span ><b>barDuration</b></span>
+                        <a href="#barDuration"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const rawVal &#x3D; 1.0 / this.speedMultiplier();
+    return &#x60;${rawVal.toFixed(2)}s&#x60;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="501" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:501</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bars"></a>
+                    <span class="name">
+                        <span ><b>bars</b></span>
+                        <a href="#bars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;{ height: number; delay: string }[]&gt;([
+    { height: 16, delay: &#x27;0.1s&#x27; },
+    { height: 28, delay: &#x27;0.3s&#x27; },
+    { height: 42, delay: &#x27;0.5s&#x27; },
+    { height: 50, delay: &#x27;0.2s&#x27; },
+    { height: 36, delay: &#x27;0.4s&#x27; },
+    { height: 22, delay: &#x27;0.6s&#x27; },
+    { height: 30, delay: &#x27;0.15s&#x27; },
+    { height: 48, delay: &#x27;0.35s&#x27; },
+    { height: 52, delay: &#x27;0.55s&#x27; },
+    { height: 38, delay: &#x27;0.25s&#x27; },
+    { height: 24, delay: &#x27;0.45s&#x27; },
+    { height: 14, delay: &#x27;0.05s&#x27; }
+  ])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="368" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:368</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataArray"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>dataArray</b></span>
+                        <a href="#dataArray"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Uint8Array</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="386" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:386</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultHeights"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>defaultHeights</b></span>
+                        <a href="#defaultHeights"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[16, 28, 42, 50, 36, 22, 30, 48, 52, 38, 24, 14]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="383" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:383</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMuted"></a>
+                    <span class="name">
+                        <span ><b>isMuted</b></span>
+                        <a href="#isMuted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.muted() || this.localMuted() || !this.micEnabled())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="481" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:481</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="localMuted"></a>
+                    <span class="name">
+                        <span ><b>localMuted</b></span>
+                        <a href="#localMuted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="364" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:364</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="micEnabled"></a>
+                    <span class="name">
+                        <span ><b>micEnabled</b></span>
+                        <a href="#micEnabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(true)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="363" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:363</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="speedMultiplier"></a>
+                    <span class="name">
+                        <span ><b>speedMultiplier</b></span>
+                        <a href="#speedMultiplier"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(1.0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="365" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:365</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stateLabel"></a>
+                    <span class="name">
+                        <span ><b>stateLabel</b></span>
+                        <a href="#stateLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    switch (this.state()) {
+      case &#x27;listening&#x27;: return &#x27;Listening...&#x27;;
+      case &#x27;thinking&#x27;: return &#x27;Thinking...&#x27;;
+      case &#x27;speaking&#x27;: return &#x27;Speaking...&#x27;;
+      default: return &#x27;Assistant Idle&#x27;;
+    }
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="483" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:483</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stream"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>stream</b></span>
+                        <a href="#stream"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MediaStream</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="387" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:387</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="volumePercent"></a>
+                    <span class="name">
+                        <span ><b>volumePercent</b></span>
+                        <a href="#volumePercent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    if (this.isMuted()) return 0;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;idle&#x27;) return 5;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;listening&#x27;) return 45;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;thinking&#x27;) return 12;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;speaking&#x27;) return 78;
+    return 0;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="492" class="link-to-prism">projects/ngx-core-components/ai/ai-audio-wave/ai-audio-wave.component.ts:492</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, output, computed, effect, OnDestroy } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export type AIAudioState &#x3D; &#x27;idle&#x27; | &#x27;listening&#x27; | &#x27;thinking&#x27; | &#x27;speaking&#x27;;
+
+@Component({
+  selector: &#x27;ngx-ai-audio-wave&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;audio-wave-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+      &lt;!-- Status Badge &amp; Description --&gt;
+      &lt;div class&#x3D;&quot;wave-header&quot;&gt;
+        &lt;div class&#x3D;&quot;state-indicator&quot; [class]&#x3D;&quot;state()&quot;&gt;
+          &lt;span class&#x3D;&quot;state-dot&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;state-text&quot;&gt;{{ stateLabel() }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;amplitude-label&quot; *ngIf&#x3D;&quot;state() &#x3D;&#x3D;&#x3D; &#x27;speaking&#x27; || state() &#x3D;&#x3D;&#x3D; &#x27;listening&#x27;&quot;&gt;
+          Sensitivity: {{ volumePercent() }}%
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Equalizer Wave Container --&gt;
+      &lt;div class&#x3D;&quot;equalizer-container&quot; [class.muted]&#x3D;&quot;isMuted()&quot;&gt;
+        @for (bar of bars(); track $index) {
+          &lt;div
+            class&#x3D;&quot;wave-bar&quot;
+            [class]&#x3D;&quot;state()&quot;
+            [style.animation-delay]&#x3D;&quot;bar.delay&quot;
+            [style.animation-duration]&#x3D;&quot;barDuration()&quot;
+            [style.height.px]&#x3D;&quot;bar.height&quot;
+            [style.background]&#x3D;&quot;barColor()&quot;
+          &gt;&lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Controls Panel --&gt;
+      &lt;div class&#x3D;&quot;controls-panel&quot;&gt;
+        &lt;!-- Mic Toggle --&gt;
+        &lt;button
+          class&#x3D;&quot;control-btn mic-btn&quot;
+          [class.active]&#x3D;&quot;micEnabled() &amp;&amp; !isMuted()&quot;
+          (click)&#x3D;&quot;toggleMic()&quot;
+          [title]&#x3D;&quot;micEnabled() ? &#x27;Disable Microphone&#x27; : &#x27;Enable Microphone&#x27;&quot;
+        &gt;
+          &lt;!-- SVG Mic Icon --&gt;
+          &lt;svg class&#x3D;&quot;icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+            @if (micEnabled()) {
+              &lt;path d&#x3D;&quot;M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z&quot;/&gt;
+              &lt;path d&#x3D;&quot;M19 10v2a7 7 0 0 1-14 0v-2&quot;/&gt;
+              &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;19&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;23&quot;/&gt;
+              &lt;line x1&#x3D;&quot;8&quot; y1&#x3D;&quot;23&quot; x2&#x3D;&quot;16&quot; y2&#x3D;&quot;23&quot;/&gt;
+            } @else {
+              &lt;path d&#x3D;&quot;M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+              &lt;path d&#x3D;&quot;M19 10v2a7 7 0 0 1-14 0v-2&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+              &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;19&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;23&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+              &lt;line x1&#x3D;&quot;10&quot; y1&#x3D;&quot;23&quot; x2&#x3D;&quot;14&quot; y2&#x3D;&quot;23&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+              &lt;line x1&#x3D;&quot;1&quot; y1&#x3D;&quot;1&quot; x2&#x3D;&quot;23&quot; y2&#x3D;&quot;23&quot; stroke-width&#x3D;&quot;2.5&quot;/&gt;
+            }
+          &lt;/svg&gt;
+        &lt;/button&gt;
+
+        &lt;!-- Mute/Unmute audio output --&gt;
+        &lt;button
+          class&#x3D;&quot;control-btn volume-btn&quot;
+          [class.muted]&#x3D;&quot;isMuted()&quot;
+          (click)&#x3D;&quot;toggleMute()&quot;
+          [title]&#x3D;&quot;isMuted() ? &#x27;Unmute Audio&#x27; : &#x27;Mute Audio&#x27;&quot;
+        &gt;
+          &lt;!-- SVG Audio Icon --&gt;
+          &lt;svg class&#x3D;&quot;icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+            @if (!isMuted()) {
+              &lt;polygon points&#x3D;&quot;11 5 6 9 2 9 2 15 6 15 11 19 11 5&quot;/&gt;
+              &lt;path d&#x3D;&quot;M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07&quot;/&gt;
+            } @else {
+              &lt;polygon points&#x3D;&quot;11 5 6 9 2 9 2 15 6 15 11 19 11 5&quot; opacity&#x3D;&quot;0.4&quot;/&gt;
+              &lt;line x1&#x3D;&quot;23&quot; y1&#x3D;&quot;9&quot; x2&#x3D;&quot;17&quot; y2&#x3D;&quot;15&quot;/&gt;
+              &lt;line x1&#x3D;&quot;17&quot; y1&#x3D;&quot;9&quot; x2&#x3D;&quot;23&quot; y2&#x3D;&quot;15&quot;/&gt;
+            }
+          &lt;/svg&gt;
+        &lt;/button&gt;
+
+        &lt;!-- Wave Sensitivity/Speed slider --&gt;
+        &lt;div class&#x3D;&quot;slider-container&quot; *ngIf&#x3D;&quot;state() &#x3D;&#x3D;&#x3D; &#x27;speaking&#x27; || state() &#x3D;&#x3D;&#x3D; &#x27;listening&#x27;&quot;&gt;
+          &lt;span class&#x3D;&quot;slider-label&quot;&gt;Speed&lt;/span&gt;
+          &lt;input
+            type&#x3D;&quot;range&quot;
+            min&#x3D;&quot;0.3&quot;
+            max&#x3D;&quot;2.0&quot;
+            step&#x3D;&quot;0.1&quot;
+            [value]&#x3D;&quot;speedMultiplier()&quot;
+            (input)&#x3D;&quot;onSpeedChange($event)&quot;
+            class&#x3D;&quot;wave-speed-slider&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .audio-wave-wrapper {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      padding: 20px;
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    /* Header info */
+    .wave-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .state-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .state-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94a3b8;
+      transition: background 0.3s;
+    }
+
+    .state-indicator.idle .state-dot { background: #94a3b8; }
+    .state-indicator.listening .state-dot { background: #10b981; animation: blink 1.2s infinite; }
+    .state-indicator.thinking .state-dot { background: #3b82f6; animation: spin-color 2s infinite; }
+    .state-indicator.speaking .state-dot { background: #8b5cf6; }
+
+    .state-indicator.idle { color: var(--text-secondary, #475569); }
+    .state-indicator.listening { color: #10b981; }
+    .state-indicator.thinking { color: #3b82f6; }
+    .state-indicator.speaking { color: #8b5cf6; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes spin-color {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.2); filter: brightness(1.2); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    .amplitude-label {
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+      font-weight: 500;
+    }
+
+    /* Equalizer wave container */
+    .equalizer-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      height: 70px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm, 6px);
+      background: var(--border-light, #f1f5f9);
+      overflow: hidden;
+      transition: background 0.3s, opacity 0.3s;
+    }
+
+    .equalizer-container.muted {
+      opacity: 0.5;
+    }
+
+    /* Bar Styling &amp; Animations */
+    .wave-bar {
+      width: 4px;
+      border-radius: 9999px;
+      transition: height 0.3s, background 0.3s;
+    }
+
+    /* IDLE state */
+    .wave-bar.idle {
+      height: 6px !important;
+      opacity: 0.4;
+    }
+
+    /* LISTENING state: pulsing heights */
+    .wave-bar.listening {
+      animation: listenPulse 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes listenPulse {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(3.5); }
+    }
+
+    /* THINKING state: flowing wave */
+    .wave-bar.thinking {
+      animation: thinkFlow 1.6s ease-in-out infinite;
+    }
+
+    @keyframes thinkFlow {
+      0%, 100% { transform: scaleY(1.2); }
+      50% { transform: scaleY(5); }
+    }
+
+    /* SPEAKING state: bouncy sound peaks */
+    .wave-bar.speaking {
+      animation: speakBounce 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) infinite alternate;
+    }
+
+    @keyframes speakBounce {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(7.5); }
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding-top: 16px;
+    }
+
+    .control-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+
+    .control-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+      border-color: var(--text-secondary, #475569);
+    }
+
+    .control-btn.active {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+
+    .control-btn.muted {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.2);
+      background: rgba(239, 68, 68, 0.05);
+    }
+    .control-btn.muted:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Slider styling */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+    }
+
+    .wave-speed-slider {
+      width: 80px;
+      height: 4px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 2px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .wave-speed-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary-color, #4f46e5);
+      transition: transform 0.15s;
+    }
+    .wave-speed-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* Dark Mode */
+    .audio-wave-wrapper.dark {
+      background: #0f172a;
+      border-color: #1f2937;
+    }
+    .audio-wave-wrapper.dark .equalizer-container {
+      background: #1e293b;
+    }
+    .audio-wave-wrapper.dark .control-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .control-btn:hover {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .control-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .audio-wave-wrapper.dark .controls-panel {
+      border-top-color: #1f2937;
+    }
+    .audio-wave-wrapper.dark .amplitude-label,
+    .audio-wave-wrapper.dark .slider-label {
+      color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .wave-speed-slider {
+      background: #374151;
+    }
+    .audio-wave-wrapper.dark .wave-speed-slider::-webkit-slider-thumb {
+      background: var(--primary-color, #6366f1);
+    }
+  &#x60;]
+})
+export class AIAudioWaveComponent implements OnDestroy {
+  // Inputs
+  state &#x3D; input&lt;AIAudioState&gt;(&#x27;idle&#x27;);
+  color &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  muted &#x3D; input&lt;boolean&gt;(false);
+  autoCapture &#x3D; input&lt;boolean&gt;(false);
+
+  // Outputs
+  stateChange &#x3D; output&lt;AIAudioState&gt;();
+  mutedChange &#x3D; output&lt;boolean&gt;();
+  micToggle &#x3D; output&lt;boolean&gt;();
+
+  // State
+  micEnabled &#x3D; signal&lt;boolean&gt;(true);
+  localMuted &#x3D; signal&lt;boolean&gt;(false);
+  speedMultiplier &#x3D; signal&lt;number&gt;(1.0);
+
+  // Pre-configured equalizer bars representation
+  bars &#x3D; signal&lt;{ height: number; delay: string }[]&gt;([
+    { height: 16, delay: &#x27;0.1s&#x27; },
+    { height: 28, delay: &#x27;0.3s&#x27; },
+    { height: 42, delay: &#x27;0.5s&#x27; },
+    { height: 50, delay: &#x27;0.2s&#x27; },
+    { height: 36, delay: &#x27;0.4s&#x27; },
+    { height: 22, delay: &#x27;0.6s&#x27; },
+    { height: 30, delay: &#x27;0.15s&#x27; },
+    { height: 48, delay: &#x27;0.35s&#x27; },
+    { height: 52, delay: &#x27;0.55s&#x27; },
+    { height: 38, delay: &#x27;0.25s&#x27; },
+    { height: 24, delay: &#x27;0.45s&#x27; },
+    { height: 14, delay: &#x27;0.05s&#x27; }
+  ]);
+
+  private defaultHeights &#x3D; [16, 28, 42, 50, 36, 22, 30, 48, 52, 38, 24, 14];
+  private audioCtx?: AudioContext;
+  private analyser?: AnalyserNode;
+  private dataArray?: Uint8Array;
+  private stream?: MediaStream;
+  private animationFrameId?: number;
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      const capture &#x3D; this.autoCapture();
+      const stateVal &#x3D; this.state();
+      const isMutedVal &#x3D; this.isMuted();
+
+      if (capture &amp;&amp; stateVal &#x3D;&#x3D;&#x3D; &#x27;listening&#x27; &amp;&amp; !isMutedVal) {
+        this.startMicCapture();
+      } else {
+        this.stopMicCapture();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.stopMicCapture();
+  }
+
+  private startMicCapture() {
+    if (typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      return;
+    }
+    
+    this.stopMicCapture();
+
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(s &#x3D;&gt; {
+      this.stream &#x3D; s;
+      const AudioContextClass &#x3D; window.AudioContext || (window as any).webkitAudioContext;
+      this.audioCtx &#x3D; new AudioContextClass();
+      const source &#x3D; this.audioCtx.createMediaStreamSource(s);
+      this.analyser &#x3D; this.audioCtx.createAnalyser();
+      this.analyser.fftSize &#x3D; 64; // Small fft size for our 12 bars
+      const bufferLength &#x3D; this.analyser.frequencyBinCount;
+      this.dataArray &#x3D; new Uint8Array(bufferLength);
+      source.connect(this.analyser);
+      this.updateBarsFromAudio();
+    }).catch(err &#x3D;&gt; {
+      console.warn(&#x27;Microphone access denied or failed:&#x27;, err);
+    });
+  }
+
+  private updateBarsFromAudio() {
+    if (!this.analyser || !this.dataArray) return;
+    this.analyser.getByteFrequencyData(this.dataArray);
+    
+    const barsLength &#x3D; this.bars().length;
+    const binSize &#x3D; Math.floor(this.dataArray.length / barsLength) || 1;
+    
+    this.bars.update(current &#x3D;&gt; {
+      return current.map((bar, i) &#x3D;&gt; {
+        let sum &#x3D; 0;
+        for (let j &#x3D; 0; j &lt; binSize; j++) {
+          sum +&#x3D; this.dataArray![i * binSize + j] || 0;
+        }
+        const avg &#x3D; sum / binSize;
+        const baseHeight &#x3D; 10;
+        const calculatedHeight &#x3D; baseHeight + (avg / 255) * 55;
+        return { ...bar, height: calculatedHeight };
+      });
+    });
+    
+    this.animationFrameId &#x3D; requestAnimationFrame(() &#x3D;&gt; this.updateBarsFromAudio());
+  }
+
+  private stopMicCapture() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId &#x3D; undefined;
+    }
+    if (this.stream) {
+      this.stream.getTracks().forEach(track &#x3D;&gt; track.stop());
+      this.stream &#x3D; undefined;
+    }
+    if (this.audioCtx &amp;&amp; this.audioCtx.state !&#x3D;&#x3D; &#x27;closed&#x27;) {
+      this.audioCtx.close();
+      this.audioCtx &#x3D; undefined;
+    }
+    this.analyser &#x3D; undefined;
+    this.dataArray &#x3D; undefined;
+    this.resetBars();
+  }
+
+  private resetBars() {
+    this.bars.update(current &#x3D;&gt; {
+      return current.map((bar, i) &#x3D;&gt; ({
+        ...bar,
+        height: this.defaultHeights[i] || 16
+      }));
+    });
+  }
+
+  isMuted &#x3D; computed(() &#x3D;&gt; this.muted() || this.localMuted() || !this.micEnabled());
+
+  stateLabel &#x3D; computed(() &#x3D;&gt; {
+    switch (this.state()) {
+      case &#x27;listening&#x27;: return &#x27;Listening...&#x27;;
+      case &#x27;thinking&#x27;: return &#x27;Thinking...&#x27;;
+      case &#x27;speaking&#x27;: return &#x27;Speaking...&#x27;;
+      default: return &#x27;Assistant Idle&#x27;;
+    }
+  });
+
+  volumePercent &#x3D; computed(() &#x3D;&gt; {
+    if (this.isMuted()) return 0;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;idle&#x27;) return 5;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;listening&#x27;) return 45;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;thinking&#x27;) return 12;
+    if (this.state() &#x3D;&#x3D;&#x3D; &#x27;speaking&#x27;) return 78;
+    return 0;
+  });
+
+  barDuration &#x3D; computed(() &#x3D;&gt; {
+    const rawVal &#x3D; 1.0 / this.speedMultiplier();
+    return &#x60;${rawVal.toFixed(2)}s&#x60;;
+  });
+
+  barColor &#x3D; computed(() &#x3D;&gt; {
+    if (this.color()) return this.color();
+
+    // Context colors matching states
+    if (this.isMuted()) return &#x27;#94a3b8&#x27;;
+    switch (this.state()) {
+      case &#x27;listening&#x27;: return &#x27;#10b981&#x27;; // Green
+      case &#x27;thinking&#x27;: return &#x27;#3b82f6&#x27;;  // Blue
+      case &#x27;speaking&#x27;: return &#x27;#8b5cf6&#x27;;  // Purple
+      default: return &#x27;#cbd5e1&#x27;;          // Muted slate
+    }
+  });
+
+  onSpeedChange(event: Event) {
+    const inputEl &#x3D; event.target as HTMLInputElement;
+    if (inputEl) {
+      this.speedMultiplier.set(parseFloat(inputEl.value));
+    }
+  }
+
+  toggleMic() {
+    const nextVal &#x3D; !this.micEnabled();
+    this.micEnabled.set(nextVal);
+    this.micToggle.emit(nextVal);
+  }
+
+  toggleMute() {
+    const nextVal &#x3D; !this.localMuted();
+    this.localMuted.set(nextVal);
+    this.mutedChange.emit(nextVal);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .audio-wave-wrapper {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      padding: 20px;
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    /* Header info */
+    .wave-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .state-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .state-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94a3b8;
+      transition: background 0.3s;
+    }
+
+    .state-indicator.idle .state-dot { background: #94a3b8; }
+    .state-indicator.listening .state-dot { background: #10b981; animation: blink 1.2s infinite; }
+    .state-indicator.thinking .state-dot { background: #3b82f6; animation: spin-color 2s infinite; }
+    .state-indicator.speaking .state-dot { background: #8b5cf6; }
+
+    .state-indicator.idle { color: var(--text-secondary, #475569); }
+    .state-indicator.listening { color: #10b981; }
+    .state-indicator.thinking { color: #3b82f6; }
+    .state-indicator.speaking { color: #8b5cf6; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes spin-color {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.2); filter: brightness(1.2); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    .amplitude-label {
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+      font-weight: 500;
+    }
+
+    /* Equalizer wave container */
+    .equalizer-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      height: 70px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm, 6px);
+      background: var(--border-light, #f1f5f9);
+      overflow: hidden;
+      transition: background 0.3s, opacity 0.3s;
+    }
+
+    .equalizer-container.muted {
+      opacity: 0.5;
+    }
+
+    /* Bar Styling &amp; Animations */
+    .wave-bar {
+      width: 4px;
+      border-radius: 9999px;
+      transition: height 0.3s, background 0.3s;
+    }
+
+    /* IDLE state */
+    .wave-bar.idle {
+      height: 6px !important;
+      opacity: 0.4;
+    }
+
+    /* LISTENING state: pulsing heights */
+    .wave-bar.listening {
+      animation: listenPulse 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes listenPulse {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(3.5); }
+    }
+
+    /* THINKING state: flowing wave */
+    .wave-bar.thinking {
+      animation: thinkFlow 1.6s ease-in-out infinite;
+    }
+
+    @keyframes thinkFlow {
+      0%, 100% { transform: scaleY(1.2); }
+      50% { transform: scaleY(5); }
+    }
+
+    /* SPEAKING state: bouncy sound peaks */
+    .wave-bar.speaking {
+      animation: speakBounce 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) infinite alternate;
+    }
+
+    @keyframes speakBounce {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(7.5); }
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding-top: 16px;
+    }
+
+    .control-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+
+    .control-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+      border-color: var(--text-secondary, #475569);
+    }
+
+    .control-btn.active {
+      background: var(--primary-color, #4f46e5);
+      color: #ffffff;
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+
+    .control-btn.muted {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.2);
+      background: rgba(239, 68, 68, 0.05);
+    }
+    .control-btn.muted:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Slider styling */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+    }
+
+    .wave-speed-slider {
+      width: 80px;
+      height: 4px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 2px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .wave-speed-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary-color, #4f46e5);
+      transition: transform 0.15s;
+    }
+    .wave-speed-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* Dark Mode */
+    .audio-wave-wrapper.dark {
+      background: #0f172a;
+      border-color: #1f2937;
+    }
+    .audio-wave-wrapper.dark .equalizer-container {
+      background: #1e293b;
+    }
+    .audio-wave-wrapper.dark .control-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .control-btn:hover {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .control-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .audio-wave-wrapper.dark .controls-panel {
+      border-top-color: #1f2937;
+    }
+    .audio-wave-wrapper.dark .amplitude-label,
+    .audio-wave-wrapper.dark .slider-label {
+      color: #94a3b8;
+    }
+    .audio-wave-wrapper.dark .wave-speed-slider {
+      background: #374151;
+    }
+    .audio-wave-wrapper.dark .wave-speed-slider::-webkit-slider-thumb {
+      background: var(--primary-color, #6366f1);
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="audio-wave-wrapper" [class.dark]="theme() === \'dark\'">  <!-- Status Badge & Description -->  <div class="wave-header">    <div class="state-indicator" [class]="state()">      <span class="state-dot"></span>      <span class="state-text">{{ stateLabel() }}</span>    </div>    <div class="amplitude-label" *ngIf="state() === \'speaking\' || state() === \'listening\'">      Sensitivity: {{ volumePercent() }}%    </div>  </div>  <!-- Equalizer Wave Container -->  <div class="equalizer-container" [class.muted]="isMuted()">    @for (bar of bars(); track $index) {      <div        class="wave-bar"        [class]="state()"        [style.animation-delay]="bar.delay"        [style.animation-duration]="barDuration()"        [style.height.px]="bar.height"        [style.background]="barColor()"      ></div>    }  </div>  <!-- Controls Panel -->  <div class="controls-panel">    <!-- Mic Toggle -->    <button      class="control-btn mic-btn"      [class.active]="micEnabled() && !isMuted()"      (click)="toggleMic()"      [title]="micEnabled() ? \'Disable Microphone\' : \'Enable Microphone\'"    >      <!-- SVG Mic Icon -->      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">        @if (micEnabled()) {          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>          <line x1="12" y1="19" x2="12" y2="23"/>          <line x1="8" y1="23" x2="16" y2="23"/>        } @else {          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" opacity="0.4"/>          <path d="M19 10v2a7 7 0 0 1-14 0v-2" opacity="0.4"/>          <line x1="12" y1="19" x2="12" y2="23" opacity="0.4"/>          <line x1="10" y1="23" x2="14" y2="23" opacity="0.4"/>          <line x1="1" y1="1" x2="23" y2="23" stroke-width="2.5"/>        }      </svg>    </button>    <!-- Mute/Unmute audio output -->    <button      class="control-btn volume-btn"      [class.muted]="isMuted()"      (click)="toggleMute()"      [title]="isMuted() ? \'Unmute Audio\' : \'Mute Audio\'"    >      <!-- SVG Audio Icon -->      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">        @if (!isMuted()) {          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>        } @else {          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" opacity="0.4"/>          <line x1="23" y1="9" x2="17" y2="15"/>          <line x1="17" y1="9" x2="23" y2="15"/>        }      </svg>    </button>    <!-- Wave Sensitivity/Speed slider -->    <div class="slider-container" *ngIf="state() === \'speaking\' || state() === \'listening\'">      <span class="slider-label">Speed</span>      <input        type="range"        min="0.3"        max="2.0"        step="0.1"        [value]="speedMultiplier()"        (input)="onSpeedChange($event)"        class="wave-speed-slider"      />    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'AIAudioWaveComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AIAudioWaveComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

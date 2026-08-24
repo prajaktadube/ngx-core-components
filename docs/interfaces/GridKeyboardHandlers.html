@@ -1,0 +1,942 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  GridKeyboardHandlers</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/grid/data-grid/services/grid-keyboard.service.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onBeginEdit" 
+>
+                                            onBeginEdit
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onCancelEdit" 
+>
+                                            onCancelEdit
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onCopy" 
+>
+                                            onCopy
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onNavigate" 
+>
+                                            onNavigate
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onPaste" 
+>
+                                            onPaste
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onRedo" 
+>
+                                            onRedo
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onSaveEdit" 
+>
+                                            onSaveEdit
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#onUndo" 
+>
+                                            onUndo
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onBeginEdit"></a>
+                                        <span class="name "><b>onBeginEdit</b>
+                                            <a href="#onBeginEdit">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onBeginEdit:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onCancelEdit"></a>
+                                        <span class="name "><b>onCancelEdit</b>
+                                            <a href="#onCancelEdit">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onCancelEdit:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onCopy"></a>
+                                        <span class="name "><b>onCopy</b>
+                                            <a href="#onCopy">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onCopy:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onNavigate"></a>
+                                        <span class="name "><b>onNavigate</b>
+                                            <a href="#onNavigate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onNavigate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onPaste"></a>
+                                        <span class="name "><b>onPaste</b>
+                                            <a href="#onPaste">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onPaste:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onRedo"></a>
+                                        <span class="name "><b>onRedo</b>
+                                            <a href="#onRedo">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onRedo:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onSaveEdit"></a>
+                                        <span class="name "><b>onSaveEdit</b>
+                                            <a href="#onSaveEdit">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onSaveEdit:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="onUndo"></a>
+                                        <span class="name "><b>onUndo</b>
+                                            <a href="#onUndo">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>onUndo:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal } from &#x27;@angular/core&#x27;;
+
+/**
+ * Enterprise keyboard navigation service for the DataGrid.
+ * Centralizes all keyboard event handling including:
+ * - Arrow key cell navigation
+ * - Tab / Shift+Tab traversal
+ * - Enter/Escape for edit mode
+ * - Ctrl+Z/Y for undo/redo
+ * - Ctrl+A for select all
+ * - Ctrl+C/X/V for clipboard
+ * - F2 for edit mode
+ * - Delete for clearing cells
+ */
+@Injectable()
+export class GridKeyboardService {
+  /** Currently focused cell coordinates */
+  readonly focusedRow &#x3D; signal&lt;number&gt;(-1);
+  readonly focusedCol &#x3D; signal&lt;number&gt;(-1);
+
+  /** Whether the grid is in keyboard navigation mode */
+  readonly isNavigating &#x3D; signal&lt;boolean&gt;(false);
+
+  /** Whether we&#x27;re currently in cell edit mode */
+  readonly isEditMode &#x3D; signal&lt;boolean&gt;(false);
+
+  /** Grid boundaries */
+  private maxRow &#x3D; 0;
+  private maxCol &#x3D; 0;
+  private editableFields: Set&lt;string&gt; &#x3D; new Set();
+  private columnFields: string[] &#x3D; [];
+
+  /** Callbacks registered by the grid component */
+  private handlers: GridKeyboardHandlers &#x3D; {};
+
+  /** Initialize the keyboard service with grid dimensions and handlers */
+  initialize(config: GridKeyboardConfig): void {
+    this.maxRow &#x3D; config.maxRow;
+    this.maxCol &#x3D; config.maxCol;
+    this.columnFields &#x3D; config.columnFields;
+    this.editableFields &#x3D; new Set(config.editableFields ?? []);
+    this.handlers &#x3D; config.handlers ?? {};
+  }
+
+  /** Update grid dimensions (e.g., after data change) */
+  updateDimensions(maxRow: number, maxCol: number): void {
+    this.maxRow &#x3D; maxRow;
+    this.maxCol &#x3D; maxCol;
+
+    // Clamp focused cell within bounds
+    if (this.focusedRow() &gt;&#x3D; maxRow) this.focusedRow.set(Math.max(0, maxRow - 1));
+    if (this.focusedCol() &gt;&#x3D; maxCol) this.focusedCol.set(Math.max(0, maxCol - 1));
+  }
+
+  /** Handle keydown events from the grid */
+  handleKeyDown(event: KeyboardEvent): GridKeyboardAction | null {
+    const key &#x3D; event.key;
+    const ctrl &#x3D; event.ctrlKey || event.metaKey;
+    const shift &#x3D; event.shiftKey;
+
+    // ─── Edit Mode Shortcuts ───────────────────────────────────────
+    if (this.isEditMode()) {
+      switch (key) {
+        case &#x27;Escape&#x27;:
+          event.preventDefault();
+          this.isEditMode.set(false);
+          return { type: &#x27;cancel-edit&#x27; };
+        case &#x27;Enter&#x27;:
+          event.preventDefault();
+          this.isEditMode.set(false);
+          return { type: &#x27;save-edit&#x27; };
+        case &#x27;Tab&#x27;:
+          event.preventDefault();
+          this.isEditMode.set(false);
+          if (shift) {
+            this.moveFocus(&#x27;left&#x27;);
+          } else {
+            this.moveFocus(&#x27;right&#x27;);
+          }
+          return { type: &#x27;save-edit-and-move&#x27;, direction: shift ? &#x27;left&#x27; : &#x27;right&#x27; };
+        default:
+          return null; // Let the input handle the key
+      }
+    }
+
+    // ─── Navigation Keys ───────────────────────────────────────────
+    switch (key) {
+      case &#x27;ArrowUp&#x27;:
+        event.preventDefault();
+        if (shift) return this.extendSelection(&#x27;up&#x27;);
+        this.moveFocus(&#x27;up&#x27;);
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;ArrowDown&#x27;:
+        event.preventDefault();
+        if (shift) return this.extendSelection(&#x27;down&#x27;);
+        this.moveFocus(&#x27;down&#x27;);
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;ArrowLeft&#x27;:
+        event.preventDefault();
+        if (shift) return this.extendSelection(&#x27;left&#x27;);
+        this.moveFocus(&#x27;left&#x27;);
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;ArrowRight&#x27;:
+        event.preventDefault();
+        if (shift) return this.extendSelection(&#x27;right&#x27;);
+        this.moveFocus(&#x27;right&#x27;);
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;Tab&#x27;:
+        event.preventDefault();
+        this.moveFocus(shift ? &#x27;left&#x27; : &#x27;right&#x27;);
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;Home&#x27;:
+        event.preventDefault();
+        if (ctrl) {
+          this.focusedRow.set(0);
+          this.focusedCol.set(0);
+        } else {
+          this.focusedCol.set(0);
+        }
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;End&#x27;:
+        event.preventDefault();
+        if (ctrl) {
+          this.focusedRow.set(this.maxRow - 1);
+          this.focusedCol.set(this.maxCol - 1);
+        } else {
+          this.focusedCol.set(this.maxCol - 1);
+        }
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;PageUp&#x27;:
+        event.preventDefault();
+        this.focusedRow.update(r &#x3D;&gt; Math.max(0, r - 10));
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      case &#x27;PageDown&#x27;:
+        event.preventDefault();
+        this.focusedRow.update(r &#x3D;&gt; Math.min(this.maxRow - 1, r + 10));
+        return { type: &#x27;navigate&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+
+      // ─── Edit Mode Entry ───────────────────────────────────────
+      case &#x27;Enter&#x27;:
+        event.preventDefault();
+        if (this.canEditCurrentCell()) {
+          this.isEditMode.set(true);
+          return { type: &#x27;begin-edit&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+        }
+        return null;
+
+      case &#x27;F2&#x27;:
+        event.preventDefault();
+        if (this.canEditCurrentCell()) {
+          this.isEditMode.set(true);
+          return { type: &#x27;begin-edit&#x27;, row: this.focusedRow(), col: this.focusedCol() };
+        }
+        return null;
+
+      // ─── Deletion ──────────────────────────────────────────────
+      case &#x27;Delete&#x27;:
+      case &#x27;Backspace&#x27;:
+        if (ctrl) return null;
+        event.preventDefault();
+        return { type: &#x27;clear-cells&#x27; };
+
+      // ─── Clipboard &amp; Undo ──────────────────────────────────────
+      default:
+        break;
+    }
+
+    // ─── Ctrl Shortcuts ──────────────────────────────────────────
+    if (ctrl) {
+      switch (key.toLowerCase()) {
+        case &#x27;c&#x27;:
+          return { type: &#x27;copy&#x27; };
+        case &#x27;x&#x27;:
+          return { type: &#x27;cut&#x27; };
+        case &#x27;v&#x27;:
+          return { type: &#x27;paste&#x27; };
+        case &#x27;z&#x27;:
+          event.preventDefault();
+          return shift ? { type: &#x27;redo&#x27; } : { type: &#x27;undo&#x27; };
+        case &#x27;y&#x27;:
+          event.preventDefault();
+          return { type: &#x27;redo&#x27; };
+        case &#x27;a&#x27;:
+          event.preventDefault();
+          return { type: &#x27;select-all&#x27; };
+        default:
+          return null;
+      }
+    }
+
+    // ─── Quick Edit: printable character starts edit mode ─────────
+    if (key.length &#x3D;&#x3D;&#x3D; 1 &amp;&amp; !ctrl &amp;&amp; this.canEditCurrentCell()) {
+      this.isEditMode.set(true);
+      return { type: &#x27;quick-edit&#x27;, row: this.focusedRow(), col: this.focusedCol(), char: key };
+    }
+
+    return null;
+  }
+
+  /** Set focus to a specific cell */
+  setFocus(row: number, col: number): void {
+    this.focusedRow.set(Math.max(0, Math.min(row, this.maxRow - 1)));
+    this.focusedCol.set(Math.max(0, Math.min(col, this.maxCol - 1)));
+    this.isNavigating.set(true);
+  }
+
+  /** Clear focus */
+  clearFocus(): void {
+    this.focusedRow.set(-1);
+    this.focusedCol.set(-1);
+    this.isNavigating.set(false);
+    this.isEditMode.set(false);
+  }
+
+  /** Get the field name of the currently focused column */
+  getFocusedField(): string | null {
+    const col &#x3D; this.focusedCol();
+    return col &gt;&#x3D; 0 &amp;&amp; col &lt; this.columnFields.length ? this.columnFields[col] : null;
+  }
+
+  // ─── Private Methods ────────────────────────────────────────────────
+
+  private moveFocus(direction: &#x27;up&#x27; | &#x27;down&#x27; | &#x27;left&#x27; | &#x27;right&#x27;): void {
+    switch (direction) {
+      case &#x27;up&#x27;:
+        this.focusedRow.update(r &#x3D;&gt; Math.max(0, r - 1));
+        break;
+      case &#x27;down&#x27;:
+        this.focusedRow.update(r &#x3D;&gt; Math.min(this.maxRow - 1, r + 1));
+        break;
+      case &#x27;left&#x27;:
+        this.focusedCol.update(c &#x3D;&gt; {
+          if (c &gt; 0) return c - 1;
+          // Wrap to previous row
+          const row &#x3D; this.focusedRow();
+          if (row &gt; 0) {
+            this.focusedRow.set(row - 1);
+            return this.maxCol - 1;
+          }
+          return 0;
+        });
+        break;
+      case &#x27;right&#x27;:
+        this.focusedCol.update(c &#x3D;&gt; {
+          if (c &lt; this.maxCol - 1) return c + 1;
+          // Wrap to next row
+          const row &#x3D; this.focusedRow();
+          if (row &lt; this.maxRow - 1) {
+            this.focusedRow.set(row + 1);
+            return 0;
+          }
+          return this.maxCol - 1;
+        });
+        break;
+    }
+  }
+
+  private extendSelection(direction: &#x27;up&#x27; | &#x27;down&#x27; | &#x27;left&#x27; | &#x27;right&#x27;): GridKeyboardAction {
+    this.moveFocus(direction);
+    return {
+      type: &#x27;extend-selection&#x27;,
+      row: this.focusedRow(),
+      col: this.focusedCol(),
+      direction
+    };
+  }
+
+  private canEditCurrentCell(): boolean {
+    const field &#x3D; this.getFocusedField();
+    return field !&#x3D;&#x3D; null &amp;&amp; this.editableFields.has(field);
+  }
+}
+
+// ─── Interfaces ──────────────────────────────────────────────────────────
+
+export interface GridKeyboardConfig {
+  maxRow: number;
+  maxCol: number;
+  columnFields: string[];
+  editableFields?: string[];
+  handlers?: GridKeyboardHandlers;
+}
+
+export interface GridKeyboardHandlers {
+  onNavigate?: (row: number, col: number) &#x3D;&gt; void;
+  onBeginEdit?: (row: number, col: number) &#x3D;&gt; void;
+  onSaveEdit?: () &#x3D;&gt; void;
+  onCancelEdit?: () &#x3D;&gt; void;
+  onCopy?: () &#x3D;&gt; void;
+  onPaste?: () &#x3D;&gt; void;
+  onUndo?: () &#x3D;&gt; void;
+  onRedo?: () &#x3D;&gt; void;
+}
+
+export interface GridKeyboardAction {
+  type:
+    | &#x27;navigate&#x27;
+    | &#x27;begin-edit&#x27;
+    | &#x27;quick-edit&#x27;
+    | &#x27;save-edit&#x27;
+    | &#x27;cancel-edit&#x27;
+    | &#x27;save-edit-and-move&#x27;
+    | &#x27;extend-selection&#x27;
+    | &#x27;copy&#x27;
+    | &#x27;cut&#x27;
+    | &#x27;paste&#x27;
+    | &#x27;undo&#x27;
+    | &#x27;redo&#x27;
+    | &#x27;select-all&#x27;
+    | &#x27;clear-cells&#x27;;
+  row?: number;
+  col?: number;
+  direction?: &#x27;up&#x27; | &#x27;down&#x27; | &#x27;left&#x27; | &#x27;right&#x27;;
+  char?: string;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'GridKeyboardHandlers.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

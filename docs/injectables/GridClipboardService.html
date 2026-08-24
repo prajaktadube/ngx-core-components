@@ -1,0 +1,1162 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >GridClipboardService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#copyToClipboard" >copyToClipboard</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#cutToClipboard" >cutToClipboard</a>
+                            </li>
+                            <li>
+                                <a href="#fillRange" >fillRange</a>
+                            </li>
+                            <li>
+                                <a href="#formatAsTsv" >formatAsTsv</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getBounds" >getBounds</a>
+                            </li>
+                            <li>
+                                <a href="#parseClipboardText" >parseClipboardText</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#pasteFromClipboard" >pasteFromClipboard</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="copyToClipboard"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>copyToClipboard</b></span>
+                        <a href="#copyToClipboard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>copyToClipboard(data: T[], ranges: <a href="../interfaces/CellRange.html" target="_self">CellRange[]</a>, fields: string[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="8"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts:8</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Copy selected cell values as TSV to clipboard</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>T[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>ranges</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CellRange.html" target="_self" >CellRange[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fields</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cutToClipboard"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>cutToClipboard</b></span>
+                        <a href="#cutToClipboard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>cutToClipboard(data: T[], ranges: <a href="../interfaces/CellRange.html" target="_self">CellRange[]</a>, fields: string[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts:36</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cut selected cells (copy + clear values)</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>T[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>ranges</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CellRange.html" target="_self" >CellRange[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fields</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fillRange"></a>
+                    <span class="name">
+                        <span ><b>fillRange</b></span>
+                        <a href="#fillRange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>fillRange(data: T[], sourceRange: <a href="../interfaces/CellRange.html" target="_self">CellRange</a>, targetRange: <a href="../interfaces/CellRange.html" target="_self">CellRange</a>, fields: string[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts:147</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fill handle: extend values from source range into target range</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>T[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>sourceRange</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CellRange.html" target="_self" >CellRange</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>targetRange</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CellRange.html" target="_self" >CellRange</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fields</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatAsTsv"></a>
+                    <span class="name">
+                        <span ><b>formatAsTsv</b></span>
+                        <a href="#formatAsTsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatAsTsv(values: unknown[][])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Format a 2D array of values as TSV string</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>values</td>
+                                            <td>
+                                                        <code>unknown[][]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBounds"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getBounds</b></span>
+                        <a href="#getBounds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getBounds(ranges: <a href="../interfaces/CellRange.html" target="_self">CellRange[]</a>, fields: string[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Helper to get min/max row and col indices from ranges</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ranges</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CellRange.html" target="_self" >CellRange[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fields</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>{ minRow: any; maxRow: number; minCol: any; maxCol: number; }</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parseClipboardText"></a>
+                    <span class="name">
+                        <span ><b>parseClipboardText</b></span>
+                        <a href="#parseClipboardText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>parseClipboardText(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Parse clipboard TSV/CSV text into a 2D cell matrix</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>[][]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pasteFromClipboard"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>pasteFromClipboard</b></span>
+                        <a href="#pasteFromClipboard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>pasteFromClipboard(data: T[], startCoord: <a href="../interfaces/CellCoordinate.html" target="_self">CellCoordinate</a>, editableFields: string[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-clipboard.service.ts:107</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Paste clipboard data into grid starting from a coordinate</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>T[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>startCoord</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CellCoordinate.html" target="_self" >CellCoordinate</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>editableFields</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { CellCoordinate, CellRange } from &#x27;./grid-selection.service&#x27;;
+
+@Injectable()
+export class GridClipboardService {
+  
+  /** Copy selected cell values as TSV to clipboard */
+  async copyToClipboard&lt;T extends Record&lt;string, unknown&gt;&gt;(
+    data: T[], 
+    ranges: CellRange[], 
+    fields: string[]
+  ): Promise&lt;void&gt; {
+    if (ranges.length &#x3D;&#x3D;&#x3D; 0) return;
+    
+    const { minRow, maxRow, minCol, maxCol } &#x3D; this.getBounds(ranges, fields);
+    
+    const gridData: unknown[][] &#x3D; [];
+    for (let r &#x3D; minRow; r &lt;&#x3D; maxRow; r++) {
+      const rowData &#x3D; data[r];
+      const rowArr: unknown[] &#x3D; [];
+      for (let c &#x3D; minCol; c &lt;&#x3D; maxCol; c++) {
+        rowArr.push(rowData ? rowData[fields[c]] : &#x27;&#x27;);
+      }
+      gridData.push(rowArr);
+    }
+    
+    const tsvText &#x3D; this.formatAsTsv(gridData);
+    try {
+      await navigator.clipboard.writeText(tsvText);
+    } catch (err) {
+      console.warn(&#x27;GridClipboardService: Failed to copy to clipboard&#x27;, err);
+    }
+  }
+  
+  /** Cut selected cells (copy + clear values) */
+  async cutToClipboard&lt;T extends Record&lt;string, unknown&gt;&gt;(
+    data: T[], 
+    ranges: CellRange[], 
+    fields: string[]
+  ): Promise&lt;{ clearedCells: { rowIndex: number; field: string; previousValue: unknown }[] }&gt; {
+    await this.copyToClipboard(data, ranges, fields);
+    
+    const clearedCells: { rowIndex: number; field: string; previousValue: unknown }[] &#x3D; [];
+    
+    const { minRow, maxRow, minCol, maxCol } &#x3D; this.getBounds(ranges, fields);
+    for (let r &#x3D; minRow; r &lt;&#x3D; maxRow; r++) {
+      for (let c &#x3D; minCol; c &lt;&#x3D; maxCol; c++) {
+        const field &#x3D; fields[c];
+        if (data[r] &amp;&amp; field) {
+          clearedCells.push({ rowIndex: r, field, previousValue: data[r][field] });
+          // Note: State mutation logic belongs to the controller/edit service.
+        }
+      }
+    }
+    
+    return { clearedCells };
+  }
+  
+  /** Parse clipboard TSV/CSV text into a 2D cell matrix */
+  parseClipboardText(text: string): string[][] {
+    if (!text) return [];
+    
+    const isCsv &#x3D; text.includes(&#x27;,&#x27;) &amp;&amp; !text.includes(&#x27;\t&#x27;);
+    const delimiter &#x3D; isCsv ? &#x27;,&#x27; : &#x27;\t&#x27;;
+    
+    // Basic CSV/TSV parser handling quotes
+    const rows: string[][] &#x3D; [];
+    let currentRow: string[] &#x3D; [];
+    let currentCell &#x3D; &#x27;&#x27;;
+    let inQuotes &#x3D; false;
+    
+    for (let i &#x3D; 0; i &lt; text.length; i++) {
+      const char &#x3D; text[i];
+      const nextChar &#x3D; text[i + 1];
+      
+      if (char &#x3D;&#x3D;&#x3D; &#x27;&quot;&#x27;) {
+        if (inQuotes &amp;&amp; nextChar &#x3D;&#x3D;&#x3D; &#x27;&quot;&#x27;) {
+          currentCell +&#x3D; &#x27;&quot;&#x27;;
+          i++; // skip next quote
+        } else {
+          inQuotes &#x3D; !inQuotes;
+        }
+      } else if (char &#x3D;&#x3D;&#x3D; delimiter &amp;&amp; !inQuotes) {
+        currentRow.push(currentCell);
+        currentCell &#x3D; &#x27;&#x27;;
+      } else if (char &#x3D;&#x3D;&#x3D; &#x27;\n&#x27; &amp;&amp; !inQuotes) {
+        currentRow.push(currentCell);
+        rows.push(currentRow);
+        currentRow &#x3D; [];
+        currentCell &#x3D; &#x27;&#x27;;
+      } else if (char &#x3D;&#x3D;&#x3D; &#x27;\r&#x27; &amp;&amp; !inQuotes) {
+        // ignore carriage return
+      } else {
+        currentCell +&#x3D; char;
+      }
+    }
+    
+    if (currentCell || currentRow.length &gt; 0) {
+      currentRow.push(currentCell);
+      rows.push(currentRow);
+    }
+    
+    return rows;
+  }
+  
+  /** Paste clipboard data into grid starting from a coordinate */
+  async pasteFromClipboard&lt;T extends Record&lt;string, unknown&gt;&gt;(
+    data: T[],
+    startCoord: CellCoordinate,
+    editableFields: string[]
+  ): Promise&lt;{ pastedCells: { rowIndex: number; field: string; previousValue: unknown; newValue: string }[] }&gt; {
+    try {
+      const text &#x3D; await navigator.clipboard.readText();
+      const matrix &#x3D; this.parseClipboardText(text);
+      
+      const pastedCells: { rowIndex: number; field: string; previousValue: unknown; newValue: string }[] &#x3D; [];
+      const startColIndex &#x3D; editableFields.indexOf(startCoord.colField);
+      
+      if (startColIndex &#x3D;&#x3D;&#x3D; -1) return { pastedCells };
+      
+      for (let r &#x3D; 0; r &lt; matrix.length; r++) {
+        const targetRow &#x3D; startCoord.rowIndex + r;
+        if (targetRow &gt;&#x3D; data.length) break;
+        
+        const sourceRow &#x3D; matrix[r];
+        for (let c &#x3D; 0; c &lt; sourceRow.length; c++) {
+          const targetCol &#x3D; startColIndex + c;
+          if (targetCol &gt;&#x3D; editableFields.length) break;
+          
+          const field &#x3D; editableFields[targetCol];
+          pastedCells.push({
+            rowIndex: targetRow,
+            field,
+            previousValue: data[targetRow]?.[field],
+            newValue: sourceRow[c]
+          });
+        }
+      }
+      return { pastedCells };
+    } catch (err) {
+      console.warn(&#x27;GridClipboardService: Failed to read from clipboard&#x27;, err);
+      return { pastedCells: [] };
+    }
+  }
+  
+  /** Fill handle: extend values from source range into target range */
+  fillRange&lt;T extends Record&lt;string, unknown&gt;&gt;(
+    data: T[],
+    sourceRange: CellRange,
+    targetRange: CellRange,
+    fields: string[]
+  ): { filledCells: { rowIndex: number; field: string; previousValue: unknown; newValue: unknown }[] } {
+    const filledCells: { rowIndex: number; field: string; previousValue: unknown; newValue: unknown }[] &#x3D; [];
+    
+    const src &#x3D; this.getBounds([sourceRange], fields);
+    const tgt &#x3D; this.getBounds([targetRange], fields);
+    
+    const srcHeight &#x3D; src.maxRow - src.minRow + 1;
+    const srcWidth &#x3D; src.maxCol - src.minCol + 1;
+    
+    // Repeat source pattern into target
+    for (let r &#x3D; tgt.minRow; r &lt;&#x3D; tgt.maxRow; r++) {
+      for (let c &#x3D; tgt.minCol; c &lt;&#x3D; tgt.maxCol; c++) {
+        // Skip if inside source
+        if (r &gt;&#x3D; src.minRow &amp;&amp; r &lt;&#x3D; src.maxRow &amp;&amp; c &gt;&#x3D; src.minCol &amp;&amp; c &lt;&#x3D; src.maxCol) {
+          continue;
+        }
+        
+        const srcR &#x3D; src.minRow + ((r - tgt.minRow) % srcHeight);
+        const srcC &#x3D; src.minCol + ((c - tgt.minCol) % srcWidth);
+        
+        const field &#x3D; fields[c];
+        const srcField &#x3D; fields[srcC];
+        
+        if (data[r] &amp;&amp; data[srcR]) {
+          filledCells.push({
+            rowIndex: r,
+            field,
+            previousValue: data[r][field],
+            newValue: data[srcR][srcField]
+          });
+        }
+      }
+    }
+    
+    return { filledCells };
+  }
+  
+  /** Format a 2D array of values as TSV string */
+  formatAsTsv(values: unknown[][]): string {
+    return values.map(row &#x3D;&gt; {
+      return row.map(val &#x3D;&gt; {
+        if (val &#x3D;&#x3D;&#x3D; null || val &#x3D;&#x3D;&#x3D; undefined) return &#x27;&#x27;;
+        let str &#x3D; String(val);
+        // Escape quotes and wrap in quotes if contains delimiter or newline
+        if (str.includes(&#x27;\t&#x27;) || str.includes(&#x27;\n&#x27;) || str.includes(&#x27;&quot;&#x27;)) {
+          str &#x3D; &#x60;&quot;${str.replace(/&quot;/g, &#x27;&quot;&quot;&#x27;)}&quot;&#x60;;
+        }
+        return str;
+      }).join(&#x27;\t&#x27;);
+    }).join(&#x27;\n&#x27;);
+  }
+
+  /** Helper to get min/max row and col indices from ranges */
+  private getBounds(ranges: CellRange[], fields: string[]) {
+    let minRow &#x3D; Infinity;
+    let maxRow &#x3D; -Infinity;
+    let minCol &#x3D; Infinity;
+    let maxCol &#x3D; -Infinity;
+
+    for (const range of ranges) {
+      minRow &#x3D; Math.min(minRow, range.start.rowIndex, range.end.rowIndex);
+      maxRow &#x3D; Math.max(maxRow, range.start.rowIndex, range.end.rowIndex);
+      
+      const startCol &#x3D; fields.indexOf(range.start.colField);
+      const endCol &#x3D; fields.indexOf(range.end.colField);
+      
+      if (startCol !&#x3D;&#x3D; -1 &amp;&amp; endCol !&#x3D;&#x3D; -1) {
+        minCol &#x3D; Math.min(minCol, startCol, endCol);
+        maxCol &#x3D; Math.max(maxCol, startCol, endCol);
+      }
+    }
+    
+    return { minRow, maxRow, minCol, maxCol };
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'GridClipboardService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

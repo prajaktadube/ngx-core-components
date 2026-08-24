@@ -1,0 +1,2336 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TreeGraphComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/treegraph/treegraph.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-treegraph</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-treegraph {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+    }
+    .link-line {
+      transition: stroke 0.25s, stroke-width 0.25s;
+    }
+    .link-line.highlighted {
+      stroke: var(--primary-color, #4f46e5);
+      stroke-width: 3px;
+    }
+    .node-group {
+      cursor: pointer;
+      transition: transform 0.2s ease-out;
+    }
+    .node-circle {
+      transition: stroke 0.15s, stroke-width 0.15s, r 0.15s;
+    }
+    .node-group:hover .node-circle {
+      r: 9;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+    .node-label {
+      fill: var(--ngx-chart-text, #1e293b);
+      font-size: 11px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 145px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex; align-items: flex-start; gap: 8px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+    .tt-content { display: flex; flex-direction: column; gap: 2px; }
+    .tt-sub { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
+    .tt-val { font-weight: 700; }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-treegraph&quot;&gt;
+  &lt;!-- Toolbar with Export option --&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;tooltip.set(null)&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+    @if (showExport()) {
+      &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+        &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+        @if (exportMenuOpen()) {
+          &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;chart-body&quot;&gt;
+    &lt;svg
+      #svgEl
+      class&#x3D;&quot;chart-svg&quot;
+      [attr.viewBox]&#x3D;&quot;&#x27;0 0 &#x27; + width() + &#x27; &#x27; + height()&quot;
+      [attr.width]&#x3D;&quot;width()&quot;
+      [attr.height]&#x3D;&quot;height()&quot;
+    &gt;
+      &lt;!-- Tree Links (Bezier Curves) --&gt;
+      @for (link of computedLinks(); track link.parentId + &#x27;-&#x27; + link.childId) {
+        &lt;path
+          [attr.d]&#x3D;&quot;link.path&quot;
+          fill&#x3D;&quot;none&quot;
+          stroke&#x3D;&quot;var(--ngx-chart-grid, #cbd5e1)&quot;
+          stroke-width&#x3D;&quot;2&quot;
+          class&#x3D;&quot;link-line&quot;
+          [class.highlighted]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; link.parentId || hoveredNodeId() &#x3D;&#x3D;&#x3D; link.childId&quot;
+        /&gt;
+      }
+
+      &lt;!-- Tree Nodes --&gt;
+      @for (node of computedNodes(); track node.id) {
+        &lt;g
+          class&#x3D;&quot;node-group&quot;
+          [class.hovered]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id&quot;
+          [style.transform]&#x3D;&quot;&#x27;translate(&#x27; + node.x + &#x27;px,&#x27; + node.y + &#x27;px)&#x27;&quot;
+          (mouseenter)&#x3D;&quot;hoveredNodeId.set(node.id); onNodeHover($event, node)&quot;
+          (mouseleave)&#x3D;&quot;hoveredNodeId.set(null); tooltip.set(null)&quot;
+        &gt;
+          &lt;circle
+            r&#x3D;&quot;7&quot;
+            [attr.fill]&#x3D;&quot;node.color&quot;
+            [attr.stroke]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id ? &#x27;var(--primary-color, #4f46e5)&#x27; : &#x27;#ffffff&#x27;&quot;
+            stroke-width&#x3D;&quot;2&quot;
+            class&#x3D;&quot;node-circle&quot;
+          /&gt;
+          &lt;text
+            [attr.x]&#x3D;&quot;node.children.length &#x3D;&#x3D;&#x3D; 0 ? 10 : -10&quot;
+            [attr.y]&#x3D;&quot;4&quot;
+            [attr.text-anchor]&#x3D;&quot;node.children.length &#x3D;&#x3D;&#x3D; 0 ? &#x27;start&#x27; : &#x27;end&#x27;&quot;
+            class&#x3D;&quot;node-label&quot;
+          &gt;
+            {{ node.label }}
+          &lt;/text&gt;
+        &lt;/g&gt;
+      }
+    &lt;/svg&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Premium Glassmorphic Tooltip --&gt;
+  @if (tooltip(); as t) {
+    &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+      &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+      &lt;div class&#x3D;&quot;tt-content&quot;&gt;
+        &lt;strong&gt;{{ t.label }}&lt;/strong&gt;
+        &lt;div class&#x3D;&quot;tt-sub&quot;&gt;Depth: Level {{ t.depth }}&lt;/div&gt;
+        @if (t.value &gt; 0) {
+          &lt;div class&#x3D;&quot;tt-val&quot;&gt;Value: {{ fmtNum(t.value) }}&lt;/div&gt;
+        }
+        &lt;div class&#x3D;&quot;tt-sub&quot;&gt;Children: {{ t.childrenCount }}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#computedLinks" >computedLinks</a>
+                            </li>
+                            <li>
+                                <a href="#computedNodes" >computedNodes</a>
+                            </li>
+                            <li>
+                                <a href="#computedTree" >computedTree</a>
+                            </li>
+                            <li>
+                                <a href="#exportMenuOpen" >exportMenuOpen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#fmtNum" >fmtNum</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredNodeId" >hoveredNodeId</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#closeExportMenu" >closeExportMenu</a>
+                            </li>
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onNodeHover" >onNodeHover</a>
+                            </li>
+                            <li>
+                                <a href="#toggleExportMenu" >toggleExportMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#showLabels" >showLabels</a>
+                            </li>
+                            <li>
+                                <a href="#width" >width</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CHART_COLORS</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="262" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:262</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <b>data</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TreeGraphNode.html" target="_self" >TreeGraphNode[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="259" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:259</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>300</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="260" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:260</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="264" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:264</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showLabels"></a>
+                        <b>showLabels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="263" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:263</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <b>width</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>500</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="261" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:261</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="425"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:425</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeExportMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>closeExportMenu</b></span>
+                        <a href="#closeExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeExportMenu()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="425"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:425</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="437"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:437</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="453"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:453</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="483"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:483</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="465"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:465</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: "json" | "csv" | "svg" | "pdf")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="429"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:429</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;json&quot; | &quot;csv&quot; | &quot;svg&quot; | &quot;pdf&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onNodeHover"></a>
+                    <span class="name">
+                        <span ><b>onNodeHover</b></span>
+                        <a href="#onNodeHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onNodeHover(event: MouseEvent, node: <a href="../interfaces/ProcessedNode.html" target="_self">ProcessedNode</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="405"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:405</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>node</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ProcessedNode.html" target="_self" >ProcessedNode</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleExportMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleExportMenu</b></span>
+                        <a href="#toggleExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleExportMenu(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="419"
+                                    class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:419</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedLinks"></a>
+                    <span class="name">
+                        <span ><b>computedLinks</b></span>
+                        <a href="#computedLinks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;TreeLink[]&gt;(() &#x3D;&gt; {
+    const nodes &#x3D; this.computedNodes();
+    const links: TreeLink[] &#x3D; [];
+
+    nodes.forEach(node &#x3D;&gt; {
+      node.children.forEach(child &#x3D;&gt; {
+        // Horizontal Bezier curve from parent to child
+        const path &#x3D; &#x60;M ${node.x} ${node.y} C ${(node.x + child.x) / 2} ${node.y}, ${(node.x + child.x) / 2} ${child.y}, ${child.x} ${child.y}&#x60;;
+        links.push({
+          parentId: node.id,
+          childId: child.id,
+          path
+        });
+      });
+    });
+
+    return links;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="386" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:386</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedNodes"></a>
+                    <span class="name">
+                        <span ><b>computedNodes</b></span>
+                        <a href="#computedNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;ProcessedNode[]&gt;(() &#x3D;&gt; {
+    return this.computedTree().nodes;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="382" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:382</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedTree"></a>
+                    <span class="name">
+                        <span ><b>computedTree</b></span>
+                        <a href="#computedTree"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;{ nodes: ProcessedNode[]; root: ProcessedNode | null }&gt;(() &#x3D;&gt; {
+    const rawData &#x3D; this.data();
+    if (!rawData.length) return { nodes: [], root: null };
+
+    // 1. Build basic structure
+    const nodeMap &#x3D; new Map&lt;string, ProcessedNode&gt;();
+    rawData.forEach(item &#x3D;&gt; {
+      nodeMap.set(item.id, {
+        id: item.id,
+        label: item.label,
+        parentId: item.parentId,
+        value: item.value || 0,
+        depth: 0,
+        x: 0,
+        y: 0,
+        color: item.color || &#x27;&#x27;,
+        children: []
+      });
+    });
+
+    let root: ProcessedNode | null &#x3D; null;
+
+    // Link parents to children and identify root
+    nodeMap.forEach(node &#x3D;&gt; {
+      if (node.parentId &amp;&amp; nodeMap.has(node.parentId)) {
+        nodeMap.get(node.parentId)!.children.push(node);
+      } else {
+        // Assume first node with no valid parent is root
+        if (!root) root &#x3D; node;
+      }
+    });
+
+    if (!root &amp;&amp; nodeMap.size &gt; 0) {
+      root &#x3D; nodeMap.values().next().value || null;
+    }
+
+    if (!root) return { nodes: [], root: null };
+
+    // Assign depths recursively
+    const setDepth &#x3D; (node: ProcessedNode, depth: number) &#x3D;&gt; {
+      node.depth &#x3D; depth;
+      node.children.forEach(c &#x3D;&gt; setDepth(c, depth + 1));
+    };
+    setDepth(root, 0);
+
+    // Get max depth in the tree
+    let maxDepth &#x3D; 0;
+    const allNodes: ProcessedNode[] &#x3D; [];
+    nodeMap.forEach(n &#x3D;&gt; {
+      allNodes.push(n);
+      if (n.depth &gt; maxDepth) maxDepth &#x3D; n.depth;
+    });
+
+    // 2. Compute Layout (Horizontal Balanced Layout)
+    // Sibling layout vertical coordinates: We assign coordinates to leaf nodes first,
+    // and parent coordinate is the average of its children.
+    const leftMargin &#x3D; 70;
+    const rightMargin &#x3D; 70;
+    const topMargin &#x3D; 25;
+    const bottomMargin &#x3D; 25;
+
+    const printableW &#x3D; this.width() - leftMargin - rightMargin;
+    const levelWidth &#x3D; maxDepth &gt; 0 ? printableW / maxDepth : printableW;
+
+    let leafIndex &#x3D; 0;
+    const leaves: ProcessedNode[] &#x3D; [];
+    
+    // Count leaves recursively
+    const findLeaves &#x3D; (node: ProcessedNode) &#x3D;&gt; {
+      if (node.children.length &#x3D;&#x3D;&#x3D; 0) {
+        leaves.push(node);
+      } else {
+        node.children.forEach(findLeaves);
+      }
+    };
+    findLeaves(root);
+
+    const totalLeaves &#x3D; leaves.length || 1;
+    const printableH &#x3D; this.height() - topMargin - bottomMargin;
+    const leafSpacing &#x3D; totalLeaves &gt; 1 ? printableH / (totalLeaves - 1) : printableH;
+
+    // DFS layout assignment
+    const layoutNode &#x3D; (node: ProcessedNode) &#x3D;&gt; {
+      // Set X based on depth
+      node.x &#x3D; leftMargin + node.depth * levelWidth;
+
+      if (node.children.length &#x3D;&#x3D;&#x3D; 0) {
+        // Leaf node y-coordinate
+        node.y &#x3D; topMargin + leafIndex * leafSpacing;
+        leafIndex++;
+      } else {
+        // Lay out children first
+        node.children.forEach(layoutNode);
+        // Parent y is the average of children&#x27;s y coords
+        const sumY &#x3D; node.children.reduce((sum, child) &#x3D;&gt; sum + child.y, 0);
+        node.y &#x3D; sumY / node.children.length;
+      }
+
+      // Assign colors based on depth
+      if (!node.color) {
+        node.color &#x3D; this.colors()[node.depth % this.colors().length];
+      }
+    };
+
+    layoutNode(root);
+
+    return { nodes: allNodes, root };
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="273" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:273</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>exportMenuOpen</b></span>
+                        <a href="#exportMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="268" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:268</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fmtNum"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fmtNum</b></span>
+                        <a href="#fmtNum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>fmtNum</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="535" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:535</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredNodeId"></a>
+                    <span class="name">
+                        <span ><b>hoveredNodeId</b></span>
+                        <a href="#hoveredNodeId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="269" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:269</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="266" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:266</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;any | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="270" class="link-to-prism">projects/ngx-core-components/charts/treegraph/treegraph.component.ts:270</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface TreeGraphNode {
+  id: string;
+  label: string;
+  parentId?: string; // Undefined for root node
+  value?: number;    // Optional node value/size
+  color?: string;
+}
+
+interface ProcessedNode {
+  id: string;
+  label: string;
+  parentId?: string;
+  value: number;
+  depth: number;
+  x: number;
+  y: number;
+  color: string;
+  children: ProcessedNode[];
+}
+
+interface TreeLink {
+  parentId: string;
+  childId: string;
+  path: string;
+}
+
+@Component({
+  selector: &#x27;ngx-treegraph&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-treegraph&quot;&gt;
+      &lt;!-- Toolbar with Export option --&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;tooltip.set(null)&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;chart-body&quot;&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;chart-svg&quot;
+          [attr.viewBox]&#x3D;&quot;&#x27;0 0 &#x27; + width() + &#x27; &#x27; + height()&quot;
+          [attr.width]&#x3D;&quot;width()&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+        &gt;
+          &lt;!-- Tree Links (Bezier Curves) --&gt;
+          @for (link of computedLinks(); track link.parentId + &#x27;-&#x27; + link.childId) {
+            &lt;path
+              [attr.d]&#x3D;&quot;link.path&quot;
+              fill&#x3D;&quot;none&quot;
+              stroke&#x3D;&quot;var(--ngx-chart-grid, #cbd5e1)&quot;
+              stroke-width&#x3D;&quot;2&quot;
+              class&#x3D;&quot;link-line&quot;
+              [class.highlighted]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; link.parentId || hoveredNodeId() &#x3D;&#x3D;&#x3D; link.childId&quot;
+            /&gt;
+          }
+
+          &lt;!-- Tree Nodes --&gt;
+          @for (node of computedNodes(); track node.id) {
+            &lt;g
+              class&#x3D;&quot;node-group&quot;
+              [class.hovered]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id&quot;
+              [style.transform]&#x3D;&quot;&#x27;translate(&#x27; + node.x + &#x27;px,&#x27; + node.y + &#x27;px)&#x27;&quot;
+              (mouseenter)&#x3D;&quot;hoveredNodeId.set(node.id); onNodeHover($event, node)&quot;
+              (mouseleave)&#x3D;&quot;hoveredNodeId.set(null); tooltip.set(null)&quot;
+            &gt;
+              &lt;circle
+                r&#x3D;&quot;7&quot;
+                [attr.fill]&#x3D;&quot;node.color&quot;
+                [attr.stroke]&#x3D;&quot;hoveredNodeId() &#x3D;&#x3D;&#x3D; node.id ? &#x27;var(--primary-color, #4f46e5)&#x27; : &#x27;#ffffff&#x27;&quot;
+                stroke-width&#x3D;&quot;2&quot;
+                class&#x3D;&quot;node-circle&quot;
+              /&gt;
+              &lt;text
+                [attr.x]&#x3D;&quot;node.children.length &#x3D;&#x3D;&#x3D; 0 ? 10 : -10&quot;
+                [attr.y]&#x3D;&quot;4&quot;
+                [attr.text-anchor]&#x3D;&quot;node.children.length &#x3D;&#x3D;&#x3D; 0 ? &#x27;start&#x27; : &#x27;end&#x27;&quot;
+                class&#x3D;&quot;node-label&quot;
+              &gt;
+                {{ node.label }}
+              &lt;/text&gt;
+            &lt;/g&gt;
+          }
+        &lt;/svg&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Premium Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+          &lt;div class&#x3D;&quot;tt-content&quot;&gt;
+            &lt;strong&gt;{{ t.label }}&lt;/strong&gt;
+            &lt;div class&#x3D;&quot;tt-sub&quot;&gt;Depth: Level {{ t.depth }}&lt;/div&gt;
+            @if (t.value &gt; 0) {
+              &lt;div class&#x3D;&quot;tt-val&quot;&gt;Value: {{ fmtNum(t.value) }}&lt;/div&gt;
+            }
+            &lt;div class&#x3D;&quot;tt-sub&quot;&gt;Children: {{ t.childrenCount }}&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-treegraph {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+    }
+    .link-line {
+      transition: stroke 0.25s, stroke-width 0.25s;
+    }
+    .link-line.highlighted {
+      stroke: var(--primary-color, #4f46e5);
+      stroke-width: 3px;
+    }
+    .node-group {
+      cursor: pointer;
+      transition: transform 0.2s ease-out;
+    }
+    .node-circle {
+      transition: stroke 0.15s, stroke-width 0.15s, r 0.15s;
+    }
+    .node-group:hover .node-circle {
+      r: 9;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+    .node-label {
+      fill: var(--ngx-chart-text, #1e293b);
+      font-size: 11px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 145px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex; align-items: flex-start; gap: 8px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+    .tt-content { display: flex; flex-direction: column; gap: 2px; }
+    .tt-sub { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
+    .tt-val { font-weight: 700; }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+  &#x60;]
+})
+export class TreeGraphComponent {
+  data &#x3D; input&lt;TreeGraphNode[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(300);
+  width &#x3D; input&lt;number&gt;(500);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  exportMenuOpen &#x3D; signal(false);
+  hoveredNodeId &#x3D; signal&lt;string | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+
+  // Computes the node structure recursively and maps coordinate layouts
+  computedTree &#x3D; computed&lt;{ nodes: ProcessedNode[]; root: ProcessedNode | null }&gt;(() &#x3D;&gt; {
+    const rawData &#x3D; this.data();
+    if (!rawData.length) return { nodes: [], root: null };
+
+    // 1. Build basic structure
+    const nodeMap &#x3D; new Map&lt;string, ProcessedNode&gt;();
+    rawData.forEach(item &#x3D;&gt; {
+      nodeMap.set(item.id, {
+        id: item.id,
+        label: item.label,
+        parentId: item.parentId,
+        value: item.value || 0,
+        depth: 0,
+        x: 0,
+        y: 0,
+        color: item.color || &#x27;&#x27;,
+        children: []
+      });
+    });
+
+    let root: ProcessedNode | null &#x3D; null;
+
+    // Link parents to children and identify root
+    nodeMap.forEach(node &#x3D;&gt; {
+      if (node.parentId &amp;&amp; nodeMap.has(node.parentId)) {
+        nodeMap.get(node.parentId)!.children.push(node);
+      } else {
+        // Assume first node with no valid parent is root
+        if (!root) root &#x3D; node;
+      }
+    });
+
+    if (!root &amp;&amp; nodeMap.size &gt; 0) {
+      root &#x3D; nodeMap.values().next().value || null;
+    }
+
+    if (!root) return { nodes: [], root: null };
+
+    // Assign depths recursively
+    const setDepth &#x3D; (node: ProcessedNode, depth: number) &#x3D;&gt; {
+      node.depth &#x3D; depth;
+      node.children.forEach(c &#x3D;&gt; setDepth(c, depth + 1));
+    };
+    setDepth(root, 0);
+
+    // Get max depth in the tree
+    let maxDepth &#x3D; 0;
+    const allNodes: ProcessedNode[] &#x3D; [];
+    nodeMap.forEach(n &#x3D;&gt; {
+      allNodes.push(n);
+      if (n.depth &gt; maxDepth) maxDepth &#x3D; n.depth;
+    });
+
+    // 2. Compute Layout (Horizontal Balanced Layout)
+    // Sibling layout vertical coordinates: We assign coordinates to leaf nodes first,
+    // and parent coordinate is the average of its children.
+    const leftMargin &#x3D; 70;
+    const rightMargin &#x3D; 70;
+    const topMargin &#x3D; 25;
+    const bottomMargin &#x3D; 25;
+
+    const printableW &#x3D; this.width() - leftMargin - rightMargin;
+    const levelWidth &#x3D; maxDepth &gt; 0 ? printableW / maxDepth : printableW;
+
+    let leafIndex &#x3D; 0;
+    const leaves: ProcessedNode[] &#x3D; [];
+    
+    // Count leaves recursively
+    const findLeaves &#x3D; (node: ProcessedNode) &#x3D;&gt; {
+      if (node.children.length &#x3D;&#x3D;&#x3D; 0) {
+        leaves.push(node);
+      } else {
+        node.children.forEach(findLeaves);
+      }
+    };
+    findLeaves(root);
+
+    const totalLeaves &#x3D; leaves.length || 1;
+    const printableH &#x3D; this.height() - topMargin - bottomMargin;
+    const leafSpacing &#x3D; totalLeaves &gt; 1 ? printableH / (totalLeaves - 1) : printableH;
+
+    // DFS layout assignment
+    const layoutNode &#x3D; (node: ProcessedNode) &#x3D;&gt; {
+      // Set X based on depth
+      node.x &#x3D; leftMargin + node.depth * levelWidth;
+
+      if (node.children.length &#x3D;&#x3D;&#x3D; 0) {
+        // Leaf node y-coordinate
+        node.y &#x3D; topMargin + leafIndex * leafSpacing;
+        leafIndex++;
+      } else {
+        // Lay out children first
+        node.children.forEach(layoutNode);
+        // Parent y is the average of children&#x27;s y coords
+        const sumY &#x3D; node.children.reduce((sum, child) &#x3D;&gt; sum + child.y, 0);
+        node.y &#x3D; sumY / node.children.length;
+      }
+
+      // Assign colors based on depth
+      if (!node.color) {
+        node.color &#x3D; this.colors()[node.depth % this.colors().length];
+      }
+    };
+
+    layoutNode(root);
+
+    return { nodes: allNodes, root };
+  });
+
+  computedNodes &#x3D; computed&lt;ProcessedNode[]&gt;(() &#x3D;&gt; {
+    return this.computedTree().nodes;
+  });
+
+  computedLinks &#x3D; computed&lt;TreeLink[]&gt;(() &#x3D;&gt; {
+    const nodes &#x3D; this.computedNodes();
+    const links: TreeLink[] &#x3D; [];
+
+    nodes.forEach(node &#x3D;&gt; {
+      node.children.forEach(child &#x3D;&gt; {
+        // Horizontal Bezier curve from parent to child
+        const path &#x3D; &#x60;M ${node.x} ${node.y} C ${(node.x + child.x) / 2} ${node.y}, ${(node.x + child.x) / 2} ${child.y}, ${child.x} ${child.y}&#x60;;
+        links.push({
+          parentId: node.id,
+          childId: child.id,
+          path
+        });
+      });
+    });
+
+    return links;
+  });
+
+  onNodeHover(event: MouseEvent, node: ProcessedNode): void {
+    const el &#x3D; (event.currentTarget as HTMLElement).closest(&#x27;.ngx-treegraph&#x27;) as HTMLElement;
+    const rect &#x3D; el.getBoundingClientRect();
+    this.tooltip.set({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      label: node.label,
+      depth: node.depth,
+      value: node.value,
+      childrenCount: node.children.length,
+      color: node.color
+    });
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToCsv(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    let csv &#x3D; &#x27;ID,Label,ParentID,Value\n&#x27;;
+    data.forEach(d &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${d.id}&quot;,&quot;${d.label}&quot;,&quot;${d.parentId || &#x27;&#x27;}&quot;,${d.value || 0}\n&#x60;;
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tree-graph-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToJson(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tree-graph-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tree-graph.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof document &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) {
+      alert(&#x27;Pop-up blocker prevented printing. Please allow pop-ups for this site.&#x27;);
+      return;
+    }
+
+    const svgHtml &#x3D; svg.outerHTML;
+    const printTemplate &#x3D; &#x60;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Tree Graph Export&lt;/title&gt;
+        &lt;style&gt;
+          body { font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; }
+          svg { max-width: 100%; height: auto; }
+          .link-line { stroke: #cbd5e1; }
+          .node-label { fill: #1e293b; font-size: 11px; font-weight: 600; }
+          @media print {
+            body { padding: 0; }
+            .chart-container { border: none; padding: 0; }
+          }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+          &lt;div class&#x3D;&quot;title&quot;&gt;Tree Graph Analytics&lt;/div&gt;
+          &lt;div class&#x3D;&quot;date&quot;&gt;${new Date().toLocaleString()}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;chart-container&quot;&gt;
+          ${svgHtml}
+        &lt;/div&gt;
+        &lt;script&gt;
+          window.onload &#x3D; function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
+  }
+
+  readonly fmtNum &#x3D; fmtNum;
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-treegraph {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+    }
+    .link-line {
+      transition: stroke 0.25s, stroke-width 0.25s;
+    }
+    .link-line.highlighted {
+      stroke: var(--primary-color, #4f46e5);
+      stroke-width: 3px;
+    }
+    .node-group {
+      cursor: pointer;
+      transition: transform 0.2s ease-out;
+    }
+    .node-circle {
+      transition: stroke 0.15s, stroke-width 0.15s, r 0.15s;
+    }
+    .node-group:hover .node-circle {
+      r: 9;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+    .node-label {
+      fill: var(--ngx-chart-text, #1e293b);
+      font-size: 11px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 145px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex; align-items: flex-start; gap: 8px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+    .tt-content { display: flex; flex-direction: column; gap: 2px; }
+    .tt-sub { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
+    .tt-val { font-weight: 700; }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-treegraph">  <!-- Toolbar with Export option -->  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="tooltip.set(null)">    <div class="chart-title-space"></div>    @if (showExport()) {      <div class="chart-export-menu">        <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>        @if (exportMenuOpen()) {          <div class="export-dropdown">            <button (click)="onExport(\'json\')">📊 Export JSON</button>            <button (click)="onExport(\'csv\')">📄 Export CSV</button>            <button (click)="onExport(\'svg\')">🖼️ Export SVG</button>            <button (click)="onExport(\'pdf\')">📕 Export PDF</button>          </div>        }      </div>    }  </div>  <div class="chart-body">    <svg      #svgEl      class="chart-svg"      [attr.viewBox]="\'0 0 \' + width() + \' \' + height()"      [attr.width]="width()"      [attr.height]="height()"    >      <!-- Tree Links (Bezier Curves) -->      @for (link of computedLinks(); track link.parentId + \'-\' + link.childId) {        <path          [attr.d]="link.path"          fill="none"          stroke="var(--ngx-chart-grid, #cbd5e1)"          stroke-width="2"          class="link-line"          [class.highlighted]="hoveredNodeId() === link.parentId || hoveredNodeId() === link.childId"        />      }      <!-- Tree Nodes -->      @for (node of computedNodes(); track node.id) {        <g          class="node-group"          [class.hovered]="hoveredNodeId() === node.id"          [style.transform]="\'translate(\' + node.x + \'px,\' + node.y + \'px)\'"          (mouseenter)="hoveredNodeId.set(node.id); onNodeHover($event, node)"          (mouseleave)="hoveredNodeId.set(null); tooltip.set(null)"        >          <circle            r="7"            [attr.fill]="node.color"            [attr.stroke]="hoveredNodeId() === node.id ? \'var(--primary-color, #4f46e5)\' : \'#ffffff\'"            stroke-width="2"            class="node-circle"          />          <text            [attr.x]="node.children.length === 0 ? 10 : -10"            [attr.y]="4"            [attr.text-anchor]="node.children.length === 0 ? \'start\' : \'end\'"            class="node-label"          >            {{ node.label }}          </text>        </g>      }    </svg>  </div>  <!-- Premium Glassmorphic Tooltip -->  @if (tooltip(); as t) {    <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">      <span class="tt-dot" [style.background]="t.color"></span>      <div class="tt-content">        <strong>{{ t.label }}</strong>        <div class="tt-sub">Depth: Level {{ t.depth }}</div>        @if (t.value > 0) {          <div class="tt-val">Value: {{ fmtNum(t.value) }}</div>        }        <div class="tt-sub">Children: {{ t.childrenCount }}</div>      </div>    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'TreeGraphComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TreeGraphComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

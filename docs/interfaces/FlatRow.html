@@ -1,0 +1,764 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  FlatRow</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/gantt-chart/services/gantt-layout.service.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#depth" 
+>
+                                            depth
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#extraTasks" 
+>
+                                            extraTasks
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#group" 
+>
+                                            group
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#hasChildren" 
+>
+                                            hasChildren
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#isGroupHeader" 
+>
+                                            isGroupHeader
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#isVisible" 
+>
+                                            isVisible
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#rowIndex" 
+>
+                                            rowIndex
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#task" 
+>
+                                            task
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="depth"></a>
+                                        <span class="name "><b>depth</b>
+                                            <a href="#depth">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>depth:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="extraTasks"></a>
+                                        <span class="name "><b>extraTasks</b>
+                                            <a href="#extraTasks">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>extraTasks:         <code><a href="../interfaces/GanttTask.html" target="_self" >GanttTask[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/GanttTask.html" target="_self" >GanttTask[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Additional tasks that share this row (same rowId).</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="group"></a>
+                                        <span class="name "><b>group</b>
+                                            <a href="#group">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>group:         <code><a href="../interfaces/GanttGroup.html" target="_self" >GanttGroup</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/GanttGroup.html" target="_self" >GanttGroup</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Set when this row is a group header.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="hasChildren"></a>
+                                        <span class="name "><b>hasChildren</b>
+                                            <a href="#hasChildren">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>hasChildren:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="isGroupHeader"></a>
+                                        <span class="name "><b>isGroupHeader</b>
+                                            <a href="#isGroupHeader">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>isGroupHeader:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Whether this is a group header row.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="isVisible"></a>
+                                        <span class="name "><b>isVisible</b>
+                                            <a href="#isVisible">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>isVisible:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="rowIndex"></a>
+                                        <span class="name "><b>rowIndex</b>
+                                            <a href="#rowIndex">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>rowIndex:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="task"></a>
+                                        <span class="name "><b>task</b>
+                                            <a href="#task">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>task:         <code><a href="../interfaces/GanttTask.html" target="_self" >GanttTask</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/GanttTask.html" target="_self" >GanttTask</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { GanttTask } from &#x27;../models/gantt-task.model&#x27;;
+import { GanttGroup } from &#x27;../models/gantt-group.model&#x27;;
+
+export interface FlatRow {
+  task: GanttTask;
+  /** Additional tasks that share this row (same rowId). */
+  extraTasks: GanttTask[];
+  depth: number;
+  rowIndex: number;
+  hasChildren: boolean;
+  isVisible: boolean;
+  /** Set when this row is a group header. */
+  group?: GanttGroup;
+  /** Whether this is a group header row. */
+  isGroupHeader: boolean;
+}
+
+interface RowGroup {
+  primary: GanttTask;
+  extra: GanttTask[];
+}
+
+@Injectable()
+export class GanttLayoutService {
+  flattenTasks(tasks: GanttTask[], groups?: GanttGroup[]): FlatRow[] {
+    if (groups &amp;&amp; groups.length &gt; 0) {
+      return this.flattenWithGroups(tasks, groups);
+    }
+    return this.flattenTree(tasks);
+  }
+
+  private flattenTree(tasks: GanttTask[]): FlatRow[] {
+    const childrenMap &#x3D; new Map&lt;string | null, GanttTask[]&gt;();
+    for (const task of tasks) {
+      const parentId &#x3D; task.parentId;
+      if (!childrenMap.has(parentId)) {
+        childrenMap.set(parentId, []);
+      }
+      childrenMap.get(parentId)!.push(task);
+    }
+
+    const rows: FlatRow[] &#x3D; [];
+    let rowIndex &#x3D; 0;
+
+    const traverse &#x3D; (parentId: string | null, depth: number, parentVisible: boolean): void &#x3D;&gt; {
+      const children &#x3D; childrenMap.get(parentId) || [];
+
+      // Group children by rowId, preserving original order for primary tasks.
+      const rowGroups: RowGroup[] &#x3D; [];
+      const rowIdToGroup &#x3D; new Map&lt;string, RowGroup&gt;();
+
+      for (const task of children) {
+        if (task.rowId) {
+          const existing &#x3D; rowIdToGroup.get(task.rowId);
+          if (existing) {
+            existing.extra.push(task);
+          } else {
+            const group &#x3D; { primary: task, extra: [] as GanttTask[] };
+            rowGroups.push(group);
+            rowIdToGroup.set(task.rowId, group);
+          }
+        } else {
+          rowGroups.push({ primary: task, extra: [] });
+        }
+      }
+
+      for (const { primary: task, extra: extraTasks } of rowGroups) {
+        const hasChildren &#x3D; childrenMap.has(task.id) &amp;&amp; childrenMap.get(task.id)!.length &gt; 0;
+        const isVisible &#x3D; parentVisible;
+        rows.push({ task, extraTasks, depth, rowIndex: isVisible ? rowIndex : -1, hasChildren, isVisible, isGroupHeader: false });
+        if (isVisible) rowIndex++;
+        const childVisible &#x3D; isVisible &amp;&amp; !task.collapsed;
+        traverse(task.id, depth + 1, childVisible);
+      }
+    };
+
+    traverse(null, 0, true);
+    return rows;
+  }
+
+  private flattenWithGroups(tasks: GanttTask[], groups: GanttGroup[]): FlatRow[] {
+    const rows: FlatRow[] &#x3D; [];
+    let rowIndex &#x3D; 0;
+
+    // Build a map of tasks by group_id
+    const tasksByGroup &#x3D; new Map&lt;string, GanttTask[]&gt;();
+    const ungroupedTasks: GanttTask[] &#x3D; [];
+    for (const task of tasks) {
+      if (task.group_id) {
+        if (!tasksByGroup.has(task.group_id)) {
+          tasksByGroup.set(task.group_id, []);
+        }
+        tasksByGroup.get(task.group_id)!.push(task);
+      } else {
+        ungroupedTasks.push(task);
+      }
+    }
+
+    for (const group of groups) {
+      // Create a pseudo-task for the group header
+      const groupTask: GanttTask &#x3D; {
+        id: &#x60;__group__${group.id}&#x60;,
+        name: group.title,
+        start: new Date(),
+        end: new Date(),
+        progress: 0,
+        parentId: null,
+        collapsed: group.expanded &#x3D;&#x3D;&#x3D; false,
+        isMilestone: false,
+        cssClass: group.class,
+      };
+
+      const groupTasks &#x3D; tasksByGroup.get(group.id) || [];
+
+      // Calculate group date range
+      if (groupTasks.length &gt; 0) {
+        let minStart &#x3D; groupTasks[0].start.getTime();
+        let maxEnd &#x3D; groupTasks[0].end.getTime();
+        let totalProgress &#x3D; 0;
+        for (const t of groupTasks) {
+          if (t.start.getTime() &lt; minStart) minStart &#x3D; t.start.getTime();
+          if (t.end.getTime() &gt; maxEnd) maxEnd &#x3D; t.end.getTime();
+          totalProgress +&#x3D; t.progress;
+        }
+        groupTask.start &#x3D; new Date(minStart);
+        groupTask.end &#x3D; new Date(maxEnd);
+        groupTask.progress &#x3D; Math.round(totalProgress / groupTasks.length);
+      }
+
+      const hasChildren &#x3D; groupTasks.length &gt; 0;
+      rows.push({
+        task: groupTask,
+        extraTasks: [],
+        depth: 0,
+        rowIndex: rowIndex++,
+        hasChildren,
+        isVisible: true,
+        group,
+        isGroupHeader: true,
+      });
+
+      if (group.expanded !&#x3D;&#x3D; false) {
+        // Flatten group tasks using tree logic
+        const groupRows &#x3D; this.flattenTree(groupTasks);
+        for (const r of groupRows) {
+          if (r.isVisible) {
+            r.rowIndex &#x3D; rowIndex++;
+            r.depth +&#x3D; 1; // indent within group
+          }
+          rows.push(r);
+        }
+      }
+    }
+
+    // Also flatten any ungrouped tasks
+    if (ungroupedTasks.length &gt; 0) {
+      const ungroupedRows &#x3D; this.flattenTree(ungroupedTasks);
+      for (const r of ungroupedRows) {
+        if (r.isVisible) {
+          r.rowIndex &#x3D; rowIndex++;
+        }
+        rows.push(r);
+      }
+    }
+
+    return rows;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'FlatRow.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

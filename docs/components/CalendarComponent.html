@@ -1,0 +1,4662 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CalendarComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/views/calendar/calendar.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-calendar</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+      --ngx-calendar-border: #cbd5e1;
+      --ngx-calendar-bg: #ffffff;
+      --ngx-calendar-header-bg: #f8fafc;
+      --ngx-calendar-text: #0f172a;
+      --ngx-calendar-text-muted: #64748b;
+      --ngx-calendar-cell-other-bg: #f8fafc;
+      --ngx-calendar-hover-bg: #f1f5f9;
+      --ngx-calendar-focus-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      --ngx-calendar-active-color: #4f46e5;
+      --ngx-calendar-selected-bg: rgba(79, 70, 229, 0.05);
+      --ngx-calendar-selected-border: #4f46e5;
+      
+      --event-pill-bg: #f1f5f9;
+      --event-pill-text: #334155;
+    }
+
+    :host-context(body.dark),
+    :host-context(.dark),
+    :host-context(.dark-theme) {
+      --ngx-calendar-border: #334155;
+      --ngx-calendar-bg: #0f172a;
+      --ngx-calendar-header-bg: #1e293b;
+      --ngx-calendar-text: #f8fafc;
+      --ngx-calendar-text-muted: #94a3b8;
+      --ngx-calendar-cell-other-bg: #0b0f19;
+      --ngx-calendar-hover-bg: #1e293b;
+      --ngx-calendar-focus-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+      --ngx-calendar-active-color: #818cf8;
+      --ngx-calendar-selected-bg: rgba(129, 140, 248, 0.08);
+      --ngx-calendar-selected-border: #818cf8;
+      
+      --event-pill-bg: #1e293b;
+      --event-pill-text: #cbd5e1;
+    }
+
+    .ngx-calendar-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 12px;
+      background: var(--ngx-calendar-bg);
+      color: var(--ngx-calendar-text);
+      font-family: inherit;
+      overflow: hidden;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* HEADER */
+    .ngx-calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--ngx-calendar-header-bg);
+      border-bottom: 1px solid var(--ngx-calendar-border);
+    }
+
+    .ngx-calendar-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .ngx-calendar-title-link {
+      background: none;
+      border: none;
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .ngx-calendar-title-link:hover {
+      color: var(--ngx-calendar-active-color);
+    }
+
+    .ngx-calendar-title-static {
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+
+    .ngx-calendar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ngx-cal-btn {
+      background: var(--ngx-calendar-bg);
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 8px;
+      color: var(--ngx-calendar-text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-cal-btn:hover {
+      background: var(--ngx-calendar-hover-bg);
+      border-color: var(--ngx-calendar-active-color);
+      color: var(--ngx-calendar-active-color);
+    }
+
+    .prev-btn, .next-btn {
+      font-size: 16px;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+    }
+
+    /* VIEW AREA */
+    .ngx-calendar-view-area {
+      position: relative;
+      width: 100%;
+      background: var(--ngx-calendar-bg);
+    }
+
+    /* GRID */
+    .ngx-calendar-grid {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .ngx-calendar-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%;
+    }
+
+    /* WEEKDAYS */
+    .weekdays-row {
+      border-bottom: 1px solid var(--ngx-calendar-border);
+      background: var(--ngx-calendar-header-bg);
+    }
+
+    .ngx-calendar-weekday {
+      padding: 12px 6px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--ngx-calendar-text-muted);
+    }
+
+    /* CELLS */
+    .ngx-calendar-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ngx-calendar-cell {
+      min-height: 100px;
+      border-right: 1px solid var(--ngx-calendar-border);
+      border-bottom: 1px solid var(--ngx-calendar-border);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      outline: none;
+      background: var(--ngx-calendar-bg);
+    }
+
+    .ngx-calendar-row .ngx-calendar-cell:last-child {
+      border-right: none;
+    }
+
+    .ngx-calendar-body .ngx-calendar-row:last-child .ngx-calendar-cell {
+      border-bottom: none;
+    }
+
+    .ngx-calendar-cell.other-month {
+      background: var(--ngx-calendar-cell-other-bg);
+    }
+
+    .ngx-calendar-cell.other-month .day-number {
+      color: var(--ngx-calendar-text-muted);
+      opacity: 0.6;
+    }
+
+    .ngx-calendar-cell:not(.selected):not(.disabled):hover {
+      background: var(--ngx-calendar-hover-bg);
+      cursor: pointer;
+    }
+
+    /* Selection &amp; Focus States */
+    .ngx-calendar-cell.selected {
+      background: var(--ngx-calendar-selected-bg);
+    }
+
+    .ngx-calendar-cell.selected::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 4px;
+      pointer-events: none;
+      animation: select-pulse 0.25s ease-out;
+    }
+
+    .ngx-calendar-cell.focused {
+      z-index: 2;
+    }
+    
+    .ngx-calendar-cell.focused:focus-visible {
+      box-shadow: var(--ngx-calendar-focus-shadow);
+      border-color: var(--ngx-calendar-active-color);
+    }
+
+    /* Range Selection CSS */
+    .ngx-calendar-cell.in-range {
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-end {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 8px 0 0 8px;
+      pointer-events: none;
+    }
+
+    .ngx-calendar-cell.range-end::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 0 8px 8px 0;
+      pointer-events: none;
+    }
+
+    /* Disabled Cell CSS */
+    .ngx-calendar-cell.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      background: var(--ngx-calendar-cell-other-bg);
+      cursor: not-allowed;
+    }
+
+    .ngx-calendar-cell.disabled .day-number {
+      text-decoration: line-through;
+      color: var(--ngx-calendar-text-muted);
+    }
+
+    .cell-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .day-number {
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .today .day-number {
+      background: var(--ngx-calendar-active-color);
+      color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+    }
+
+    .today-indicator {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ngx-calendar-active-color);
+      margin-right: 4px;
+    }
+
+    /* Events Content */
+    .cell-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow: hidden;
+    }
+
+    .calendar-event-pill {
+      font-size: 11px;
+      font-weight: 550;
+      padding: 3px 6px;
+      border-radius: 4px;
+      border-left: 3px solid #4f46e5;
+      background: var(--event-pill-bg);
+      color: var(--event-pill-text);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .calendar-event-pill:hover {
+      transform: translateX(2px);
+      background: var(--ngx-calendar-hover-bg);
+    }
+
+    .events-overflow-indicator {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ngx-calendar-active-color);
+      padding-left: 6px;
+      margin-top: 2px;
+    }
+
+    /* PICKER GRID */
+    .ngx-calendar-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 24px;
+      background: var(--ngx-calendar-bg);
+      animation: view-fade-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes view-fade-in {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ngx-picker-item {
+      background: var(--ngx-calendar-bg);
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 8px;
+      color: var(--ngx-calendar-text);
+      padding: 16px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ngx-picker-item:hover {
+      background: var(--ngx-calendar-hover-bg);
+      border-color: var(--ngx-calendar-active-color);
+      color: var(--ngx-calendar-active-color);
+      transform: translateY(-1px);
+    }
+
+    .ngx-picker-item.active {
+      background: var(--ngx-calendar-active-color);
+      color: #ffffff;
+      border-color: var(--ngx-calendar-active-color);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    @keyframes select-pulse {
+      0% { transform: scale(0.98); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .ngx-calendar-cell {
+        min-height: 70px;
+        padding: 4px;
+      }
+      .calendar-event-pill {
+        display: none;
+      }
+      .ngx-calendar-cell.has-events::after {
+        content: &#x27;•&#x27;;
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--ngx-calendar-active-color);
+        font-size: 16px;
+      }
+      .ngx-calendar-picker-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;ngx-calendar-container&quot;
+  role&#x3D;&quot;application&quot;
+  aria-label&#x3D;&quot;Interactive Calendar&quot;
+&gt;
+  &lt;!-- HEADER --&gt;
+  &lt;div class&#x3D;&quot;ngx-calendar-header&quot;&gt;
+    &lt;h2 class&#x3D;&quot;ngx-calendar-title&quot; aria-live&#x3D;&quot;polite&quot;&gt;
+      @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) {
+        &lt;button class&#x3D;&quot;ngx-calendar-title-link&quot; (click)&#x3D;&quot;setView(&#x27;month-picker&#x27;)&quot; type&#x3D;&quot;button&quot;&gt;
+          {{ monthLabel() }}
+        &lt;/button&gt;
+      } @else if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month-picker&#x27;) {
+        &lt;button class&#x3D;&quot;ngx-calendar-title-link&quot; (click)&#x3D;&quot;setView(&#x27;year-picker&#x27;)&quot; type&#x3D;&quot;button&quot;&gt;
+          {{ activeMonthDate().getFullYear() }}
+        &lt;/button&gt;
+      } @else {
+        &lt;span class&#x3D;&quot;ngx-calendar-title-static&quot;&gt;
+          Select Year
+        &lt;/span&gt;
+      }
+    &lt;/h2&gt;
+    &lt;div class&#x3D;&quot;ngx-calendar-actions&quot;&gt;
+      @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) {
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn prev-btn&quot;
+          (click)&#x3D;&quot;prevMonth()&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Previous Month&quot;
+        &gt;
+          ‹
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn today-btn&quot;
+          (click)&#x3D;&quot;goToToday()&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Go to Today&quot;
+        &gt;
+          Today
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn next-btn&quot;
+          (click)&#x3D;&quot;nextMonth()&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Next Month&quot;
+        &gt;
+          ›
+        &lt;/button&gt;
+      } @else if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month-picker&#x27;) {
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn prev-btn&quot;
+          (click)&#x3D;&quot;changeYear(-1)&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Previous Year&quot;
+        &gt;
+          ‹
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn back-btn&quot;
+          (click)&#x3D;&quot;setView(&#x27;month&#x27;)&quot;
+          type&#x3D;&quot;button&quot;
+        &gt;
+          Back
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn next-btn&quot;
+          (click)&#x3D;&quot;changeYear(1)&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Next Year&quot;
+        &gt;
+          ›
+        &lt;/button&gt;
+      } @else {
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn prev-btn&quot;
+          (click)&#x3D;&quot;changeYearRange(-12)&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Previous Years&quot;
+        &gt;
+          ‹
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn back-btn&quot;
+          (click)&#x3D;&quot;setView(&#x27;month-picker&#x27;)&quot;
+          type&#x3D;&quot;button&quot;
+        &gt;
+          Back
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;ngx-cal-btn next-btn&quot;
+          (click)&#x3D;&quot;changeYearRange(12)&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Next Years&quot;
+        &gt;
+          ›
+        &lt;/button&gt;
+      }
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- MAIN VIEW AREA --&gt;
+  &lt;div class&#x3D;&quot;ngx-calendar-view-area&quot;&gt;
+    &lt;!-- MONTH VIEW (GRID) --&gt;
+    @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) {
+      &lt;div
+        class&#x3D;&quot;ngx-calendar-grid&quot;
+        role&#x3D;&quot;grid&quot;
+        [attr.aria-label]&#x3D;&quot;monthLabel()&quot;
+      &gt;
+        &lt;!-- WEEKDAYS HEADER --&gt;
+        &lt;div class&#x3D;&quot;ngx-calendar-row weekdays-row&quot; role&#x3D;&quot;row&quot;&gt;
+          @for (day of weekDays(); track day) {
+            &lt;div
+              class&#x3D;&quot;ngx-calendar-weekday&quot;
+              role&#x3D;&quot;columnheader&quot;
+              [attr.aria-label]&#x3D;&quot;day&quot;
+            &gt;
+              {{ day.slice(0, 3) }}
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        &lt;!-- DAYS GRID --&gt;
+        &lt;div class&#x3D;&quot;ngx-calendar-body&quot;&gt;
+          @for (row of gridRows(); track $index) {
+            &lt;div class&#x3D;&quot;ngx-calendar-row&quot; role&#x3D;&quot;row&quot;&gt;
+              @for (cell of row; track cell.date.getTime()) {
+                &lt;div
+                  #cellEl
+                  class&#x3D;&quot;ngx-calendar-cell&quot;
+                  [class.current-month]&#x3D;&quot;cell.isCurrentMonth&quot;
+                  [class.other-month]&#x3D;&quot;!cell.isCurrentMonth&quot;
+                  [class.today]&#x3D;&quot;cell.isToday&quot;
+                  [class.selected]&#x3D;&quot;cell.isSelected&quot;
+                  [class.focused]&#x3D;&quot;cell.isFocused&quot;
+                  [class.has-events]&#x3D;&quot;cell.events.length &gt; 0&quot;
+                  [class.range-start]&#x3D;&quot;cell.isRangeStart&quot;
+                  [class.range-end]&#x3D;&quot;cell.isRangeEnd&quot;
+                  [class.in-range]&#x3D;&quot;cell.isInRange&quot;
+                  [class.disabled]&#x3D;&quot;cell.isDisabled&quot;
+                  role&#x3D;&quot;gridcell&quot;
+                  [attr.aria-selected]&#x3D;&quot;cell.isSelected&quot;
+                  [attr.aria-disabled]&#x3D;&quot;cell.isDisabled&quot;
+                  [attr.aria-label]&#x3D;&quot;cell.date | date:&#x27;longDate&#x27;&quot;
+                  [attr.tabindex]&#x3D;&quot;cell.isFocused &amp;&amp; !readonly() &amp;&amp; !cell.isDisabled ? &#x27;0&#x27; : &#x27;-1&#x27;&quot;
+                  (click)&#x3D;&quot;selectCell(cell)&quot;
+                  (keydown)&#x3D;&quot;onCellKeyDown($event, cell)&quot;
+                &gt;
+                  &lt;!-- Cell Header (Day Number) --&gt;
+                  &lt;div class&#x3D;&quot;cell-header&quot;&gt;
+                    &lt;span class&#x3D;&quot;day-number&quot;&gt;{{ cell.dayNumber }}&lt;/span&gt;
+                    @if (cell.isToday) {
+                      &lt;span class&#x3D;&quot;today-indicator&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;/span&gt;
+                    }
+                  &lt;/div&gt;
+
+                  &lt;!-- Events List or Custom Day Template --&gt;
+                  &lt;div class&#x3D;&quot;cell-content&quot;&gt;
+                    @if (dayTemplate()) {
+                      &lt;ng-container
+                        *ngTemplateOutlet&#x3D;&quot;dayTemplate()!; context: { $implicit: cell.date, events: cell.events }&quot;
+                      &gt;&lt;/ng-container&gt;
+                    } @else {
+                      @for (event of cell.events.slice(0, 3); track event.title) {
+                        &lt;div
+                          class&#x3D;&quot;calendar-event-pill&quot;
+                          [style.border-left-color]&#x3D;&quot;event.color || &#x27;#4f46e5&#x27;&quot;
+                          [attr.title]&#x3D;&quot;event.title + (event.description ? &#x27;: &#x27; + event.description : &#x27;&#x27;)&quot;
+                          (click)&#x3D;&quot;onEventClick($event, event)&quot;
+                        &gt;
+                          {{ event.title }}
+                        &lt;/div&gt;
+                      }
+                      @if (cell.events.length &gt; 3) {
+                        &lt;div class&#x3D;&quot;events-overflow-indicator&quot;&gt;
+                          +{{ cell.events.length - 3 }} more
+                        &lt;/div&gt;
+                      }
+                    }
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;!-- MONTH PICKER GRID --&gt;
+    @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month-picker&#x27;) {
+      &lt;div class&#x3D;&quot;ngx-calendar-picker-grid month-picker-grid&quot;&gt;
+        @for (month of monthsList(); track $index) {
+          &lt;button
+            class&#x3D;&quot;ngx-picker-item&quot;
+            [class.active]&#x3D;&quot;isCurrentActiveMonth($index)&quot;
+            (click)&#x3D;&quot;selectMonth($index)&quot;
+            type&#x3D;&quot;button&quot;
+          &gt;
+            {{ month.slice(0, 3) }}
+          &lt;/button&gt;
+        }
+      &lt;/div&gt;
+    }
+
+    &lt;!-- YEAR PICKER GRID --&gt;
+    @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;year-picker&#x27;) {
+      &lt;div class&#x3D;&quot;ngx-calendar-picker-grid year-picker-grid&quot;&gt;
+        @for (year of yearPickerYears(); track year) {
+          &lt;button
+            class&#x3D;&quot;ngx-picker-item&quot;
+            [class.active]&#x3D;&quot;isCurrentActiveYear(year)&quot;
+            (click)&#x3D;&quot;selectYear(year)&quot;
+            type&#x3D;&quot;button&quot;
+          &gt;
+            {{ year }}
+          &lt;/button&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeMonthDate" >activeMonthDate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#cellElements" >cellElements</a>
+                            </li>
+                            <li>
+                                <a href="#currentView" >currentView</a>
+                            </li>
+                            <li>
+                                <a href="#dayTemplate" >dayTemplate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#dayTemplateSignal" >dayTemplateSignal</a>
+                            </li>
+                            <li>
+                                <a href="#focusedDate" >focusedDate</a>
+                            </li>
+                            <li>
+                                <a href="#gridCells" >gridCells</a>
+                            </li>
+                            <li>
+                                <a href="#gridRows" >gridRows</a>
+                            </li>
+                            <li>
+                                <a href="#monthLabel" >monthLabel</a>
+                            </li>
+                            <li>
+                                <a href="#monthsList" >monthsList</a>
+                            </li>
+                            <li>
+                                <a href="#weekDays" >weekDays</a>
+                            </li>
+                            <li>
+                                <a href="#yearPickerStart" >yearPickerStart</a>
+                            </li>
+                            <li>
+                                <a href="#yearPickerYears" >yearPickerYears</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changeYear" >changeYear</a>
+                            </li>
+                            <li>
+                                <a href="#changeYearRange" >changeYearRange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#createCellObj" >createCellObj</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#emitMonthChange" >emitMonthChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getEventsForDate" >getEventsForDate</a>
+                            </li>
+                            <li>
+                                <a href="#goToToday" >goToToday</a>
+                            </li>
+                            <li>
+                                <a href="#isCurrentActiveMonth" >isCurrentActiveMonth</a>
+                            </li>
+                            <li>
+                                <a href="#isCurrentActiveYear" >isCurrentActiveYear</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isDateDisabled" >isDateDisabled</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isSameDay" >isSameDay</a>
+                            </li>
+                            <li>
+                                <a href="#nextMonth" >nextMonth</a>
+                            </li>
+                            <li>
+                                <a href="#onCellKeyDown" >onCellKeyDown</a>
+                            </li>
+                            <li>
+                                <a href="#onEventClick" >onEventClick</a>
+                            </li>
+                            <li>
+                                <a href="#prevMonth" >prevMonth</a>
+                            </li>
+                            <li>
+                                <a href="#selectCell" >selectCell</a>
+                            </li>
+                            <li>
+                                <a href="#selectMonth" >selectMonth</a>
+                            </li>
+                            <li>
+                                <a href="#selectYear" >selectYear</a>
+                            </li>
+                            <li>
+                                <a href="#setView" >setView</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#events" >events</a>
+                            </li>
+                            <li>
+                                <a href="#max" >max</a>
+                            </li>
+                            <li>
+                                <a href="#min" >min</a>
+                            </li>
+                            <li>
+                                <a href="#rangeEnd" >rangeEnd</a>
+                            </li>
+                            <li>
+                                <a href="#rangeStart" >rangeStart</a>
+                            </li>
+                            <li>
+                                <a href="#readonly" >readonly</a>
+                            </li>
+                            <li>
+                                <a href="#selectionMode" >selectionMode</a>
+                            </li>
+                            <li>
+                                <a href="#value" >value</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#dateSelect" >dateSelect</a>
+                            </li>
+                            <li>
+                                <a href="#eventClick" >eventClick</a>
+                            </li>
+                            <li>
+                                <a href="#monthChange" >monthChange</a>
+                            </li>
+                            <li>
+                                <a href="#rangeEnd" >rangeEnd</a>
+                            </li>
+                            <li>
+                                <a href="#rangeSelect" >rangeSelect</a>
+                            </li>
+                            <li>
+                                <a href="#rangeStart" >rangeStart</a>
+                            </li>
+                            <li>
+                                <a href="#value" >value</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="events"></a>
+                        <b>events</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/CalendarEvent.html" target="_self" >CalendarEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="679" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:679</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="max"></a>
+                        <b>max</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="683" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:683</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="min"></a>
+                        <b>min</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="682" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:682</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rangeEnd"></a>
+                        <b>rangeEnd</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="678" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:678</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rangeStart"></a>
+                        <b>rangeStart</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="677" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:677</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="readonly"></a>
+                        <b>readonly</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="680" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:680</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectionMode"></a>
+                        <b>selectionMode</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;single&quot; | &quot;range&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;single&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="681" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:681</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="value"></a>
+                        <b>value</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="676" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:676</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dateSelect"></a>
+                        <b>dateSelect</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="695" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:695</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="eventClick"></a>
+                        <b>eventClick</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/CalendarEvent.html" target="_self" >CalendarEvent</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="698" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:698</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="monthChange"></a>
+                        <b>monthChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>{ year: number; month: number }</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="697" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:697</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rangeEnd"></a>
+                        <b>rangeEnd</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="678" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:678</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rangeSelect"></a>
+                        <b>rangeSelect</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>{ start: Date | null; end: Date | null }</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="696" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:696</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rangeStart"></a>
+                        <b>rangeStart</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="677" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:677</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="value"></a>
+                        <b>value</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="676" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:676</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeYear"></a>
+                    <span class="name">
+                        <span ><b>changeYear</b></span>
+                        <a href="#changeYear"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeYear(delta: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="942"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:942</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>delta</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeYearRange"></a>
+                    <span class="name">
+                        <span ><b>changeYearRange</b></span>
+                        <a href="#changeYearRange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeYearRange(delta: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="950"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:950</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>delta</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createCellObj"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>createCellObj</b></span>
+                        <a href="#createCellObj"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createCellObj(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, dayNumber: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, isCurrentMonth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, selectedVal: Date | null, focusedVal: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, rangeStartVal: Date | null, rangeEndVal: Date | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="773"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:773</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>dayNumber</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>isCurrentMonth</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>selectedVal</td>
+                                            <td>
+                                                        <code>Date | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>focusedVal</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>rangeStartVal</td>
+                                            <td>
+                                                        <code>Date | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>rangeEndVal</td>
+                                            <td>
+                                                        <code>Date | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/CalendarCell.html" target="_self" >CalendarCell</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emitMonthChange"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>emitMonthChange</b></span>
+                        <a href="#emitMonthChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>emitMonthChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="900"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:900</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEventsForDate"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getEventsForDate</b></span>
+                        <a href="#getEventsForDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getEventsForDate(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="832"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:832</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/CalendarEvent.html" target="_self" >CalendarEvent[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToToday"></a>
+                    <span class="name">
+                        <span ><b>goToToday</b></span>
+                        <a href="#goToToday"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToToday()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="857"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:857</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isCurrentActiveMonth"></a>
+                    <span class="name">
+                        <span ><b>isCurrentActiveMonth</b></span>
+                        <a href="#isCurrentActiveMonth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isCurrentActiveMonth(monthIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="916"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:916</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>monthIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isCurrentActiveYear"></a>
+                    <span class="name">
+                        <span ><b>isCurrentActiveYear</b></span>
+                        <a href="#isCurrentActiveYear"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isCurrentActiveYear(year: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="920"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:920</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>year</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDateDisabled"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isDateDisabled</b></span>
+                        <a href="#isDateDisabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isDateDisabled(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="812"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:812</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSameDay"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isSameDay</b></span>
+                        <a href="#isSameDay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isSameDay(d1: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, d2: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="804"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:804</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>d1</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>d2</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextMonth"></a>
+                    <span class="name">
+                        <span ><b>nextMonth</b></span>
+                        <a href="#nextMonth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextMonth()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="848"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:848</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCellKeyDown"></a>
+                    <span class="name">
+                        <span ><b>onCellKeyDown</b></span>
+                        <a href="#onCellKeyDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCellKeyDown(event: KeyboardEvent, cell: <a href="../interfaces/CalendarCell.html" target="_self">CalendarCell</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="961"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:961</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>KeyboardEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cell</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CalendarCell.html" target="_self" >CalendarCell</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEventClick"></a>
+                    <span class="name">
+                        <span ><b>onEventClick</b></span>
+                        <a href="#onEventClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEventClick(event: MouseEvent, calEvent: <a href="../interfaces/CalendarEvent.html" target="_self">CalendarEvent</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="954"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:954</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>calEvent</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CalendarEvent.html" target="_self" >CalendarEvent</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prevMonth"></a>
+                    <span class="name">
+                        <span ><b>prevMonth</b></span>
+                        <a href="#prevMonth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prevMonth()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="839"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:839</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectCell"></a>
+                    <span class="name">
+                        <span ><b>selectCell</b></span>
+                        <a href="#selectCell"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectCell(cell: <a href="../interfaces/CalendarCell.html" target="_self">CalendarCell</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="864"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:864</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cell</td>
+                                            <td>
+                                                            <code><a href="../interfaces/CalendarCell.html" target="_self" >CalendarCell</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectMonth"></a>
+                    <span class="name">
+                        <span ><b>selectMonth</b></span>
+                        <a href="#selectMonth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectMonth(monthIdx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="924"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:924</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>monthIdx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectYear"></a>
+                    <span class="name">
+                        <span ><b>selectYear</b></span>
+                        <a href="#selectYear"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectYear(year: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="933"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:933</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>year</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setView"></a>
+                    <span class="name">
+                        <span ><b>setView</b></span>
+                        <a href="#setView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setView(view: "month" | "month-picker" | "year-picker")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="908"
+                                    class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:908</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>view</td>
+                                            <td>
+                                                        <code>&quot;month&quot; | &quot;month-picker&quot; | &quot;year-picker&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeMonthDate"></a>
+                    <span class="name">
+                        <span ><b>activeMonthDate</b></span>
+                        <a href="#activeMonthDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Date&gt;(new Date())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="690" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:690</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cellElements"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>cellElements</b></span>
+                        <a href="#cellElements"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>QueryList&lt;ElementRef&lt;HTMLDivElement&gt;&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChildren(&#x27;cellEl&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="709" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:709</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentView"></a>
+                    <span class="name">
+                        <span ><b>currentView</b></span>
+                        <a href="#currentView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;&#x27;month&#x27; | &#x27;month-picker&#x27; | &#x27;year-picker&#x27;&gt;(&#x27;month&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="692" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:692</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dayTemplate"></a>
+                    <span class="name">
+                        <span ><b>dayTemplate</b></span>
+                        <a href="#dayTemplate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.dayTemplateSignal)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="688" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:688</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dayTemplateSignal"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>dayTemplateSignal</b></span>
+                        <a href="#dayTemplateSignal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>TemplateRef&lt;literal type&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ContentChild(&#x27;dayTemplate&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="686" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:686</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="focusedDate"></a>
+                    <span class="name">
+                        <span ><b>focusedDate</b></span>
+                        <a href="#focusedDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Date&gt;(new Date())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="691" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:691</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gridCells"></a>
+                    <span class="name">
+                        <span ><b>gridCells</b></span>
+                        <a href="#gridCells"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const activeDate &#x3D; this.activeMonthDate();
+    const year &#x3D; activeDate.getFullYear();
+    const month &#x3D; activeDate.getMonth();
+
+    const firstDay &#x3D; new Date(year, month, 1);
+    const startDayOfWeek &#x3D; firstDay.getDay();
+    const totalDays &#x3D; new Date(year, month + 1, 0).getDate();
+    const prevMonthTotalDays &#x3D; new Date(year, month, 0).getDate();
+
+    const cells: CalendarCell[] &#x3D; [];
+    const selectedVal &#x3D; this.value();
+    const focusedVal &#x3D; this.focusedDate();
+    const rangeStartVal &#x3D; this.rangeStart();
+    const rangeEndVal &#x3D; this.rangeEnd();
+
+    // Previous month cells
+    for (let i &#x3D; startDayOfWeek - 1; i &gt;&#x3D; 0; i--) {
+      const day &#x3D; prevMonthTotalDays - i;
+      const date &#x3D; new Date(year, month - 1, day);
+      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
+    }
+
+    // Current month cells
+    for (let day &#x3D; 1; day &lt;&#x3D; totalDays; day++) {
+      const date &#x3D; new Date(year, month, day);
+      cells.push(this.createCellObj(date, day, true, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
+    }
+
+    // Next month cells
+    const remainingCells &#x3D; 42 - cells.length;
+    for (let day &#x3D; 1; day &lt;&#x3D; remainingCells; day++) {
+      const date &#x3D; new Date(year, month + 1, day);
+      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
+    }
+
+    return cells;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="724" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:724</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gridRows"></a>
+                    <span class="name">
+                        <span ><b>gridRows</b></span>
+                        <a href="#gridRows"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const cells &#x3D; this.gridCells();
+    const rows: CalendarCell[][] &#x3D; [];
+    for (let i &#x3D; 0; i &lt; cells.length; i +&#x3D; 7) {
+      rows.push(cells.slice(i, i + 7));
+    }
+    return rows;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="764" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:764</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="monthLabel"></a>
+                    <span class="name">
+                        <span ><b>monthLabel</b></span>
+                        <a href="#monthLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.activeMonthDate().toLocaleDateString(&#x27;en-US&#x27;, {
+      month: &#x27;long&#x27;,
+      year: &#x27;numeric&#x27;
+    });
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="711" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:711</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="monthsList"></a>
+                    <span class="name">
+                        <span ><b>monthsList</b></span>
+                        <a href="#monthsList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string[]&gt;([
+    &#x27;January&#x27;, &#x27;February&#x27;, &#x27;March&#x27;, &#x27;April&#x27;, &#x27;May&#x27;, &#x27;June&#x27;,
+    &#x27;July&#x27;, &#x27;August&#x27;, &#x27;September&#x27;, &#x27;October&#x27;, &#x27;November&#x27;, &#x27;December&#x27;
+  ])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="704" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:704</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="weekDays"></a>
+                    <span class="name">
+                        <span ><b>weekDays</b></span>
+                        <a href="#weekDays"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string[]&gt;([
+    &#x27;Sunday&#x27;, &#x27;Monday&#x27;, &#x27;Tuesday&#x27;, &#x27;Wednesday&#x27;, &#x27;Thursday&#x27;, &#x27;Friday&#x27;, &#x27;Saturday&#x27;
+  ])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="700" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:700</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yearPickerStart"></a>
+                    <span class="name">
+                        <span ><b>yearPickerStart</b></span>
+                        <a href="#yearPickerStart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(new Date().getFullYear() - 5)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="693" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:693</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yearPickerYears"></a>
+                    <span class="name">
+                        <span ><b>yearPickerYears</b></span>
+                        <a href="#yearPickerYears"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const start &#x3D; this.yearPickerStart();
+    return Array.from({ length: 12 }, (_, i) &#x3D;&gt; start + i);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="718" class="link-to-prism">projects/ngx-core-components/views/calendar/calendar.component.ts:718</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, input, output, signal, computed, model, ContentChild, TemplateRef,
+  ElementRef, ViewChildren, QueryList, ChangeDetectionStrategy, HostListener
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export interface CalendarEvent {
+  id?: string;
+  title: string;
+  date: Date | string;
+  color?: string;
+  description?: string;
+}
+
+export interface CalendarCell {
+  date: Date;
+  dayNumber: number;
+  isCurrentMonth: boolean;
+  isToday: boolean;
+  isSelected: boolean;
+  isFocused: boolean;
+  events: CalendarEvent[];
+  isRangeStart?: boolean;
+  isRangeEnd?: boolean;
+  isInRange?: boolean;
+  isDisabled?: boolean;
+}
+
+@Component({
+  selector: &#x27;ngx-calendar&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-calendar-container&quot;
+      role&#x3D;&quot;application&quot;
+      aria-label&#x3D;&quot;Interactive Calendar&quot;
+    &gt;
+      &lt;!-- HEADER --&gt;
+      &lt;div class&#x3D;&quot;ngx-calendar-header&quot;&gt;
+        &lt;h2 class&#x3D;&quot;ngx-calendar-title&quot; aria-live&#x3D;&quot;polite&quot;&gt;
+          @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) {
+            &lt;button class&#x3D;&quot;ngx-calendar-title-link&quot; (click)&#x3D;&quot;setView(&#x27;month-picker&#x27;)&quot; type&#x3D;&quot;button&quot;&gt;
+              {{ monthLabel() }}
+            &lt;/button&gt;
+          } @else if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month-picker&#x27;) {
+            &lt;button class&#x3D;&quot;ngx-calendar-title-link&quot; (click)&#x3D;&quot;setView(&#x27;year-picker&#x27;)&quot; type&#x3D;&quot;button&quot;&gt;
+              {{ activeMonthDate().getFullYear() }}
+            &lt;/button&gt;
+          } @else {
+            &lt;span class&#x3D;&quot;ngx-calendar-title-static&quot;&gt;
+              Select Year
+            &lt;/span&gt;
+          }
+        &lt;/h2&gt;
+        &lt;div class&#x3D;&quot;ngx-calendar-actions&quot;&gt;
+          @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) {
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn prev-btn&quot;
+              (click)&#x3D;&quot;prevMonth()&quot;
+              type&#x3D;&quot;button&quot;
+              aria-label&#x3D;&quot;Previous Month&quot;
+            &gt;
+              ‹
+            &lt;/button&gt;
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn today-btn&quot;
+              (click)&#x3D;&quot;goToToday()&quot;
+              type&#x3D;&quot;button&quot;
+              aria-label&#x3D;&quot;Go to Today&quot;
+            &gt;
+              Today
+            &lt;/button&gt;
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn next-btn&quot;
+              (click)&#x3D;&quot;nextMonth()&quot;
+              type&#x3D;&quot;button&quot;
+              aria-label&#x3D;&quot;Next Month&quot;
+            &gt;
+              ›
+            &lt;/button&gt;
+          } @else if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month-picker&#x27;) {
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn prev-btn&quot;
+              (click)&#x3D;&quot;changeYear(-1)&quot;
+              type&#x3D;&quot;button&quot;
+              aria-label&#x3D;&quot;Previous Year&quot;
+            &gt;
+              ‹
+            &lt;/button&gt;
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn back-btn&quot;
+              (click)&#x3D;&quot;setView(&#x27;month&#x27;)&quot;
+              type&#x3D;&quot;button&quot;
+            &gt;
+              Back
+            &lt;/button&gt;
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn next-btn&quot;
+              (click)&#x3D;&quot;changeYear(1)&quot;
+              type&#x3D;&quot;button&quot;
+              aria-label&#x3D;&quot;Next Year&quot;
+            &gt;
+              ›
+            &lt;/button&gt;
+          } @else {
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn prev-btn&quot;
+              (click)&#x3D;&quot;changeYearRange(-12)&quot;
+              type&#x3D;&quot;button&quot;
+              aria-label&#x3D;&quot;Previous Years&quot;
+            &gt;
+              ‹
+            &lt;/button&gt;
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn back-btn&quot;
+              (click)&#x3D;&quot;setView(&#x27;month-picker&#x27;)&quot;
+              type&#x3D;&quot;button&quot;
+            &gt;
+              Back
+            &lt;/button&gt;
+            &lt;button
+              class&#x3D;&quot;ngx-cal-btn next-btn&quot;
+              (click)&#x3D;&quot;changeYearRange(12)&quot;
+              type&#x3D;&quot;button&quot;
+              aria-label&#x3D;&quot;Next Years&quot;
+            &gt;
+              ›
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- MAIN VIEW AREA --&gt;
+      &lt;div class&#x3D;&quot;ngx-calendar-view-area&quot;&gt;
+        &lt;!-- MONTH VIEW (GRID) --&gt;
+        @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) {
+          &lt;div
+            class&#x3D;&quot;ngx-calendar-grid&quot;
+            role&#x3D;&quot;grid&quot;
+            [attr.aria-label]&#x3D;&quot;monthLabel()&quot;
+          &gt;
+            &lt;!-- WEEKDAYS HEADER --&gt;
+            &lt;div class&#x3D;&quot;ngx-calendar-row weekdays-row&quot; role&#x3D;&quot;row&quot;&gt;
+              @for (day of weekDays(); track day) {
+                &lt;div
+                  class&#x3D;&quot;ngx-calendar-weekday&quot;
+                  role&#x3D;&quot;columnheader&quot;
+                  [attr.aria-label]&#x3D;&quot;day&quot;
+                &gt;
+                  {{ day.slice(0, 3) }}
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+
+            &lt;!-- DAYS GRID --&gt;
+            &lt;div class&#x3D;&quot;ngx-calendar-body&quot;&gt;
+              @for (row of gridRows(); track $index) {
+                &lt;div class&#x3D;&quot;ngx-calendar-row&quot; role&#x3D;&quot;row&quot;&gt;
+                  @for (cell of row; track cell.date.getTime()) {
+                    &lt;div
+                      #cellEl
+                      class&#x3D;&quot;ngx-calendar-cell&quot;
+                      [class.current-month]&#x3D;&quot;cell.isCurrentMonth&quot;
+                      [class.other-month]&#x3D;&quot;!cell.isCurrentMonth&quot;
+                      [class.today]&#x3D;&quot;cell.isToday&quot;
+                      [class.selected]&#x3D;&quot;cell.isSelected&quot;
+                      [class.focused]&#x3D;&quot;cell.isFocused&quot;
+                      [class.has-events]&#x3D;&quot;cell.events.length &gt; 0&quot;
+                      [class.range-start]&#x3D;&quot;cell.isRangeStart&quot;
+                      [class.range-end]&#x3D;&quot;cell.isRangeEnd&quot;
+                      [class.in-range]&#x3D;&quot;cell.isInRange&quot;
+                      [class.disabled]&#x3D;&quot;cell.isDisabled&quot;
+                      role&#x3D;&quot;gridcell&quot;
+                      [attr.aria-selected]&#x3D;&quot;cell.isSelected&quot;
+                      [attr.aria-disabled]&#x3D;&quot;cell.isDisabled&quot;
+                      [attr.aria-label]&#x3D;&quot;cell.date | date:&#x27;longDate&#x27;&quot;
+                      [attr.tabindex]&#x3D;&quot;cell.isFocused &amp;&amp; !readonly() &amp;&amp; !cell.isDisabled ? &#x27;0&#x27; : &#x27;-1&#x27;&quot;
+                      (click)&#x3D;&quot;selectCell(cell)&quot;
+                      (keydown)&#x3D;&quot;onCellKeyDown($event, cell)&quot;
+                    &gt;
+                      &lt;!-- Cell Header (Day Number) --&gt;
+                      &lt;div class&#x3D;&quot;cell-header&quot;&gt;
+                        &lt;span class&#x3D;&quot;day-number&quot;&gt;{{ cell.dayNumber }}&lt;/span&gt;
+                        @if (cell.isToday) {
+                          &lt;span class&#x3D;&quot;today-indicator&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;/span&gt;
+                        }
+                      &lt;/div&gt;
+
+                      &lt;!-- Events List or Custom Day Template --&gt;
+                      &lt;div class&#x3D;&quot;cell-content&quot;&gt;
+                        @if (dayTemplate()) {
+                          &lt;ng-container
+                            *ngTemplateOutlet&#x3D;&quot;dayTemplate()!; context: { $implicit: cell.date, events: cell.events }&quot;
+                          &gt;&lt;/ng-container&gt;
+                        } @else {
+                          @for (event of cell.events.slice(0, 3); track event.title) {
+                            &lt;div
+                              class&#x3D;&quot;calendar-event-pill&quot;
+                              [style.border-left-color]&#x3D;&quot;event.color || &#x27;#4f46e5&#x27;&quot;
+                              [attr.title]&#x3D;&quot;event.title + (event.description ? &#x27;: &#x27; + event.description : &#x27;&#x27;)&quot;
+                              (click)&#x3D;&quot;onEventClick($event, event)&quot;
+                            &gt;
+                              {{ event.title }}
+                            &lt;/div&gt;
+                          }
+                          @if (cell.events.length &gt; 3) {
+                            &lt;div class&#x3D;&quot;events-overflow-indicator&quot;&gt;
+                              +{{ cell.events.length - 3 }} more
+                            &lt;/div&gt;
+                          }
+                        }
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  }
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+
+        &lt;!-- MONTH PICKER GRID --&gt;
+        @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;month-picker&#x27;) {
+          &lt;div class&#x3D;&quot;ngx-calendar-picker-grid month-picker-grid&quot;&gt;
+            @for (month of monthsList(); track $index) {
+              &lt;button
+                class&#x3D;&quot;ngx-picker-item&quot;
+                [class.active]&#x3D;&quot;isCurrentActiveMonth($index)&quot;
+                (click)&#x3D;&quot;selectMonth($index)&quot;
+                type&#x3D;&quot;button&quot;
+              &gt;
+                {{ month.slice(0, 3) }}
+              &lt;/button&gt;
+            }
+          &lt;/div&gt;
+        }
+
+        &lt;!-- YEAR PICKER GRID --&gt;
+        @if (currentView() &#x3D;&#x3D;&#x3D; &#x27;year-picker&#x27;) {
+          &lt;div class&#x3D;&quot;ngx-calendar-picker-grid year-picker-grid&quot;&gt;
+            @for (year of yearPickerYears(); track year) {
+              &lt;button
+                class&#x3D;&quot;ngx-picker-item&quot;
+                [class.active]&#x3D;&quot;isCurrentActiveYear(year)&quot;
+                (click)&#x3D;&quot;selectYear(year)&quot;
+                type&#x3D;&quot;button&quot;
+              &gt;
+                {{ year }}
+              &lt;/button&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+      --ngx-calendar-border: #cbd5e1;
+      --ngx-calendar-bg: #ffffff;
+      --ngx-calendar-header-bg: #f8fafc;
+      --ngx-calendar-text: #0f172a;
+      --ngx-calendar-text-muted: #64748b;
+      --ngx-calendar-cell-other-bg: #f8fafc;
+      --ngx-calendar-hover-bg: #f1f5f9;
+      --ngx-calendar-focus-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      --ngx-calendar-active-color: #4f46e5;
+      --ngx-calendar-selected-bg: rgba(79, 70, 229, 0.05);
+      --ngx-calendar-selected-border: #4f46e5;
+      
+      --event-pill-bg: #f1f5f9;
+      --event-pill-text: #334155;
+    }
+
+    :host-context(body.dark),
+    :host-context(.dark),
+    :host-context(.dark-theme) {
+      --ngx-calendar-border: #334155;
+      --ngx-calendar-bg: #0f172a;
+      --ngx-calendar-header-bg: #1e293b;
+      --ngx-calendar-text: #f8fafc;
+      --ngx-calendar-text-muted: #94a3b8;
+      --ngx-calendar-cell-other-bg: #0b0f19;
+      --ngx-calendar-hover-bg: #1e293b;
+      --ngx-calendar-focus-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+      --ngx-calendar-active-color: #818cf8;
+      --ngx-calendar-selected-bg: rgba(129, 140, 248, 0.08);
+      --ngx-calendar-selected-border: #818cf8;
+      
+      --event-pill-bg: #1e293b;
+      --event-pill-text: #cbd5e1;
+    }
+
+    .ngx-calendar-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 12px;
+      background: var(--ngx-calendar-bg);
+      color: var(--ngx-calendar-text);
+      font-family: inherit;
+      overflow: hidden;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* HEADER */
+    .ngx-calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--ngx-calendar-header-bg);
+      border-bottom: 1px solid var(--ngx-calendar-border);
+    }
+
+    .ngx-calendar-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .ngx-calendar-title-link {
+      background: none;
+      border: none;
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .ngx-calendar-title-link:hover {
+      color: var(--ngx-calendar-active-color);
+    }
+
+    .ngx-calendar-title-static {
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+
+    .ngx-calendar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ngx-cal-btn {
+      background: var(--ngx-calendar-bg);
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 8px;
+      color: var(--ngx-calendar-text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-cal-btn:hover {
+      background: var(--ngx-calendar-hover-bg);
+      border-color: var(--ngx-calendar-active-color);
+      color: var(--ngx-calendar-active-color);
+    }
+
+    .prev-btn, .next-btn {
+      font-size: 16px;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+    }
+
+    /* VIEW AREA */
+    .ngx-calendar-view-area {
+      position: relative;
+      width: 100%;
+      background: var(--ngx-calendar-bg);
+    }
+
+    /* GRID */
+    .ngx-calendar-grid {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .ngx-calendar-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%;
+    }
+
+    /* WEEKDAYS */
+    .weekdays-row {
+      border-bottom: 1px solid var(--ngx-calendar-border);
+      background: var(--ngx-calendar-header-bg);
+    }
+
+    .ngx-calendar-weekday {
+      padding: 12px 6px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--ngx-calendar-text-muted);
+    }
+
+    /* CELLS */
+    .ngx-calendar-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ngx-calendar-cell {
+      min-height: 100px;
+      border-right: 1px solid var(--ngx-calendar-border);
+      border-bottom: 1px solid var(--ngx-calendar-border);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      outline: none;
+      background: var(--ngx-calendar-bg);
+    }
+
+    .ngx-calendar-row .ngx-calendar-cell:last-child {
+      border-right: none;
+    }
+
+    .ngx-calendar-body .ngx-calendar-row:last-child .ngx-calendar-cell {
+      border-bottom: none;
+    }
+
+    .ngx-calendar-cell.other-month {
+      background: var(--ngx-calendar-cell-other-bg);
+    }
+
+    .ngx-calendar-cell.other-month .day-number {
+      color: var(--ngx-calendar-text-muted);
+      opacity: 0.6;
+    }
+
+    .ngx-calendar-cell:not(.selected):not(.disabled):hover {
+      background: var(--ngx-calendar-hover-bg);
+      cursor: pointer;
+    }
+
+    /* Selection &amp; Focus States */
+    .ngx-calendar-cell.selected {
+      background: var(--ngx-calendar-selected-bg);
+    }
+
+    .ngx-calendar-cell.selected::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 4px;
+      pointer-events: none;
+      animation: select-pulse 0.25s ease-out;
+    }
+
+    .ngx-calendar-cell.focused {
+      z-index: 2;
+    }
+    
+    .ngx-calendar-cell.focused:focus-visible {
+      box-shadow: var(--ngx-calendar-focus-shadow);
+      border-color: var(--ngx-calendar-active-color);
+    }
+
+    /* Range Selection CSS */
+    .ngx-calendar-cell.in-range {
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-end {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 8px 0 0 8px;
+      pointer-events: none;
+    }
+
+    .ngx-calendar-cell.range-end::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 0 8px 8px 0;
+      pointer-events: none;
+    }
+
+    /* Disabled Cell CSS */
+    .ngx-calendar-cell.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      background: var(--ngx-calendar-cell-other-bg);
+      cursor: not-allowed;
+    }
+
+    .ngx-calendar-cell.disabled .day-number {
+      text-decoration: line-through;
+      color: var(--ngx-calendar-text-muted);
+    }
+
+    .cell-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .day-number {
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .today .day-number {
+      background: var(--ngx-calendar-active-color);
+      color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+    }
+
+    .today-indicator {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ngx-calendar-active-color);
+      margin-right: 4px;
+    }
+
+    /* Events Content */
+    .cell-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow: hidden;
+    }
+
+    .calendar-event-pill {
+      font-size: 11px;
+      font-weight: 550;
+      padding: 3px 6px;
+      border-radius: 4px;
+      border-left: 3px solid #4f46e5;
+      background: var(--event-pill-bg);
+      color: var(--event-pill-text);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .calendar-event-pill:hover {
+      transform: translateX(2px);
+      background: var(--ngx-calendar-hover-bg);
+    }
+
+    .events-overflow-indicator {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ngx-calendar-active-color);
+      padding-left: 6px;
+      margin-top: 2px;
+    }
+
+    /* PICKER GRID */
+    .ngx-calendar-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 24px;
+      background: var(--ngx-calendar-bg);
+      animation: view-fade-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes view-fade-in {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ngx-picker-item {
+      background: var(--ngx-calendar-bg);
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 8px;
+      color: var(--ngx-calendar-text);
+      padding: 16px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ngx-picker-item:hover {
+      background: var(--ngx-calendar-hover-bg);
+      border-color: var(--ngx-calendar-active-color);
+      color: var(--ngx-calendar-active-color);
+      transform: translateY(-1px);
+    }
+
+    .ngx-picker-item.active {
+      background: var(--ngx-calendar-active-color);
+      color: #ffffff;
+      border-color: var(--ngx-calendar-active-color);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    @keyframes select-pulse {
+      0% { transform: scale(0.98); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .ngx-calendar-cell {
+        min-height: 70px;
+        padding: 4px;
+      }
+      .calendar-event-pill {
+        display: none;
+      }
+      .ngx-calendar-cell.has-events::after {
+        content: &#x27;•&#x27;;
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--ngx-calendar-active-color);
+        font-size: 16px;
+      }
+      .ngx-calendar-picker-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  &#x60;]
+})
+export class CalendarComponent {
+  value &#x3D; model&lt;Date | null&gt;(null);
+  rangeStart &#x3D; model&lt;Date | null&gt;(null);
+  rangeEnd &#x3D; model&lt;Date | null&gt;(null);
+  events &#x3D; input&lt;CalendarEvent[]&gt;([]);
+  readonly &#x3D; input(false);
+  selectionMode &#x3D; input&lt;&#x27;single&#x27; | &#x27;range&#x27;&gt;(&#x27;single&#x27;);
+  min &#x3D; input&lt;Date | string | null&gt;(null);
+  max &#x3D; input&lt;Date | string | null&gt;(null);
+
+  // Content Projection for custom cell
+  @ContentChild(&#x27;dayTemplate&#x27;) dayTemplateSignal?: TemplateRef&lt;{ $implicit: Date, events: CalendarEvent[] }&gt;;
+
+  dayTemplate &#x3D; computed(() &#x3D;&gt; this.dayTemplateSignal);
+
+  activeMonthDate &#x3D; signal&lt;Date&gt;(new Date());
+  focusedDate &#x3D; signal&lt;Date&gt;(new Date());
+  currentView &#x3D; signal&lt;&#x27;month&#x27; | &#x27;month-picker&#x27; | &#x27;year-picker&#x27;&gt;(&#x27;month&#x27;);
+  yearPickerStart &#x3D; signal&lt;number&gt;(new Date().getFullYear() - 5);
+
+  dateSelect &#x3D; output&lt;Date&gt;();
+  rangeSelect &#x3D; output&lt;{ start: Date | null; end: Date | null }&gt;();
+  monthChange &#x3D; output&lt;{ year: number; month: number }&gt;();
+  eventClick &#x3D; output&lt;CalendarEvent&gt;();
+
+  weekDays &#x3D; signal&lt;string[]&gt;([
+    &#x27;Sunday&#x27;, &#x27;Monday&#x27;, &#x27;Tuesday&#x27;, &#x27;Wednesday&#x27;, &#x27;Thursday&#x27;, &#x27;Friday&#x27;, &#x27;Saturday&#x27;
+  ]);
+
+  monthsList &#x3D; signal&lt;string[]&gt;([
+    &#x27;January&#x27;, &#x27;February&#x27;, &#x27;March&#x27;, &#x27;April&#x27;, &#x27;May&#x27;, &#x27;June&#x27;,
+    &#x27;July&#x27;, &#x27;August&#x27;, &#x27;September&#x27;, &#x27;October&#x27;, &#x27;November&#x27;, &#x27;December&#x27;
+  ]);
+
+  @ViewChildren(&#x27;cellEl&#x27;) cellElements!: QueryList&lt;ElementRef&lt;HTMLDivElement&gt;&gt;;
+
+  monthLabel &#x3D; computed(() &#x3D;&gt; {
+    return this.activeMonthDate().toLocaleDateString(&#x27;en-US&#x27;, {
+      month: &#x27;long&#x27;,
+      year: &#x27;numeric&#x27;
+    });
+  });
+
+  yearPickerYears &#x3D; computed(() &#x3D;&gt; {
+    const start &#x3D; this.yearPickerStart();
+    return Array.from({ length: 12 }, (_, i) &#x3D;&gt; start + i);
+  });
+
+  // Flat 42 cell list computed signal
+  gridCells &#x3D; computed(() &#x3D;&gt; {
+    const activeDate &#x3D; this.activeMonthDate();
+    const year &#x3D; activeDate.getFullYear();
+    const month &#x3D; activeDate.getMonth();
+
+    const firstDay &#x3D; new Date(year, month, 1);
+    const startDayOfWeek &#x3D; firstDay.getDay();
+    const totalDays &#x3D; new Date(year, month + 1, 0).getDate();
+    const prevMonthTotalDays &#x3D; new Date(year, month, 0).getDate();
+
+    const cells: CalendarCell[] &#x3D; [];
+    const selectedVal &#x3D; this.value();
+    const focusedVal &#x3D; this.focusedDate();
+    const rangeStartVal &#x3D; this.rangeStart();
+    const rangeEndVal &#x3D; this.rangeEnd();
+
+    // Previous month cells
+    for (let i &#x3D; startDayOfWeek - 1; i &gt;&#x3D; 0; i--) {
+      const day &#x3D; prevMonthTotalDays - i;
+      const date &#x3D; new Date(year, month - 1, day);
+      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
+    }
+
+    // Current month cells
+    for (let day &#x3D; 1; day &lt;&#x3D; totalDays; day++) {
+      const date &#x3D; new Date(year, month, day);
+      cells.push(this.createCellObj(date, day, true, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
+    }
+
+    // Next month cells
+    const remainingCells &#x3D; 42 - cells.length;
+    for (let day &#x3D; 1; day &lt;&#x3D; remainingCells; day++) {
+      const date &#x3D; new Date(year, month + 1, day);
+      cells.push(this.createCellObj(date, day, false, selectedVal, focusedVal, rangeStartVal, rangeEndVal));
+    }
+
+    return cells;
+  });
+
+  // Group cells by 7 for visual rows
+  gridRows &#x3D; computed(() &#x3D;&gt; {
+    const cells &#x3D; this.gridCells();
+    const rows: CalendarCell[][] &#x3D; [];
+    for (let i &#x3D; 0; i &lt; cells.length; i +&#x3D; 7) {
+      rows.push(cells.slice(i, i + 7));
+    }
+    return rows;
+  });
+
+  private createCellObj(
+    date: Date,
+    dayNumber: number,
+    isCurrentMonth: boolean,
+    selectedVal: Date | null,
+    focusedVal: Date,
+    rangeStartVal: Date | null,
+    rangeEndVal: Date | null
+  ): CalendarCell {
+    const isRangeStart &#x3D; rangeStartVal ? this.isSameDay(date, rangeStartVal) : false;
+    const isRangeEnd &#x3D; rangeEndVal ? this.isSameDay(date, rangeEndVal) : false;
+    const isInRange &#x3D; rangeStartVal &amp;&amp; rangeEndVal &amp;&amp; date &gt;&#x3D; rangeStartVal &amp;&amp; date &lt;&#x3D; rangeEndVal;
+    const isDisabled &#x3D; this.isDateDisabled(date);
+
+    return {
+      date,
+      dayNumber,
+      isCurrentMonth,
+      isToday: this.isSameDay(date, new Date()),
+      isSelected: this.selectionMode() &#x3D;&#x3D;&#x3D; &#x27;range&#x27;
+        ? (isRangeStart || isRangeEnd)
+        : (selectedVal ? this.isSameDay(date, selectedVal) : false),
+      isFocused: this.isSameDay(date, focusedVal),
+      events: this.getEventsForDate(date),
+      isRangeStart,
+      isRangeEnd,
+      isInRange: !!isInRange,
+      isDisabled
+    };
+  }
+
+  private isSameDay(d1: Date, d2: Date): boolean {
+    return (
+      d1.getFullYear() &#x3D;&#x3D;&#x3D; d2.getFullYear() &amp;&amp;
+      d1.getMonth() &#x3D;&#x3D;&#x3D; d2.getMonth() &amp;&amp;
+      d1.getDate() &#x3D;&#x3D;&#x3D; d2.getDate()
+    );
+  }
+
+  private isDateDisabled(date: Date): boolean {
+    const minVal &#x3D; this.min();
+    const maxVal &#x3D; this.max();
+    
+    // Reset times for exact day comparisons
+    const checkDate &#x3D; new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    if (minVal) {
+      const minDate &#x3D; typeof minVal &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? new Date(minVal) : minVal;
+      const minCheck &#x3D; new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+      if (checkDate &lt; minCheck) return true;
+    }
+    if (maxVal) {
+      const maxDate &#x3D; typeof maxVal &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? new Date(maxVal) : maxVal;
+      const maxCheck &#x3D; new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
+      if (checkDate &gt; maxCheck) return true;
+    }
+    return false;
+  }
+
+  private getEventsForDate(date: Date): CalendarEvent[] {
+    return this.events().filter(e &#x3D;&gt; {
+      const eDate &#x3D; typeof e.date &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? new Date(e.date) : e.date;
+      return this.isSameDay(date, eDate);
+    });
+  }
+
+  prevMonth(): void {
+    const current &#x3D; this.activeMonthDate();
+    const prev &#x3D; new Date(current.getFullYear(), current.getMonth() - 1, 1);
+    this.activeMonthDate.set(prev);
+    // Align focus with 1st of the new active month
+    this.focusedDate.set(prev);
+    this.emitMonthChange();
+  }
+
+  nextMonth(): void {
+    const current &#x3D; this.activeMonthDate();
+    const next &#x3D; new Date(current.getFullYear(), current.getMonth() + 1, 1);
+    this.activeMonthDate.set(next);
+    // Align focus with 1st of the new active month
+    this.focusedDate.set(next);
+    this.emitMonthChange();
+  }
+
+  goToToday(): void {
+    const today &#x3D; new Date();
+    this.activeMonthDate.set(new Date(today.getFullYear(), today.getMonth(), 1));
+    this.focusedDate.set(today);
+    this.emitMonthChange();
+  }
+
+  selectCell(cell: CalendarCell): void {
+    if (this.readonly() || cell.isDisabled) return;
+
+    if (this.selectionMode() &#x3D;&#x3D;&#x3D; &#x27;range&#x27;) {
+      const clickedDate &#x3D; cell.date;
+      const start &#x3D; this.rangeStart();
+      const end &#x3D; this.rangeEnd();
+
+      if (!start || (start &amp;&amp; end)) {
+        this.rangeStart.set(clickedDate);
+        this.rangeEnd.set(null);
+        this.rangeSelect.emit({ start: clickedDate, end: null });
+      } else {
+        if (clickedDate &lt; start) {
+          this.rangeStart.set(clickedDate);
+          this.rangeEnd.set(start);
+          this.rangeSelect.emit({ start: clickedDate, end: start });
+        } else {
+          this.rangeEnd.set(clickedDate);
+          this.rangeSelect.emit({ start, end: clickedDate });
+        }
+      }
+    } else {
+      this.value.set(cell.date);
+      this.dateSelect.emit(cell.date);
+    }
+
+    this.focusedDate.set(cell.date);
+
+    // If clicked other month day, snap page view
+    if (!cell.isCurrentMonth) {
+      this.activeMonthDate.set(new Date(cell.date.getFullYear(), cell.date.getMonth(), 1));
+      this.emitMonthChange();
+    }
+  }
+
+  private emitMonthChange(): void {
+    const active &#x3D; this.activeMonthDate();
+    this.monthChange.emit({
+      year: active.getFullYear(),
+      month: active.getMonth()
+    });
+  }
+
+  setView(view: &#x27;month&#x27; | &#x27;month-picker&#x27; | &#x27;year-picker&#x27;): void {
+    this.currentView.set(view);
+    if (view &#x3D;&#x3D;&#x3D; &#x27;year-picker&#x27;) {
+      const year &#x3D; this.activeMonthDate().getFullYear();
+      this.yearPickerStart.set(year - 5);
+    }
+  }
+
+  isCurrentActiveMonth(monthIdx: number): boolean {
+    return this.activeMonthDate().getMonth() &#x3D;&#x3D;&#x3D; monthIdx;
+  }
+
+  isCurrentActiveYear(year: number): boolean {
+    return this.activeMonthDate().getFullYear() &#x3D;&#x3D;&#x3D; year;
+  }
+
+  selectMonth(monthIdx: number): void {
+    const current &#x3D; this.activeMonthDate();
+    const updated &#x3D; new Date(current.getFullYear(), monthIdx, 1);
+    this.activeMonthDate.set(updated);
+    this.focusedDate.set(updated);
+    this.setView(&#x27;month&#x27;);
+    this.emitMonthChange();
+  }
+
+  selectYear(year: number): void {
+    const current &#x3D; this.activeMonthDate();
+    const updated &#x3D; new Date(year, current.getMonth(), 1);
+    this.activeMonthDate.set(updated);
+    this.focusedDate.set(updated);
+    this.setView(&#x27;month-picker&#x27;);
+    this.emitMonthChange();
+  }
+
+  changeYear(delta: number): void {
+    const current &#x3D; this.activeMonthDate();
+    const updated &#x3D; new Date(current.getFullYear() + delta, current.getMonth(), 1);
+    this.activeMonthDate.set(updated);
+    this.focusedDate.set(updated);
+    this.emitMonthChange();
+  }
+
+  changeYearRange(delta: number): void {
+    this.yearPickerStart.update(start &#x3D;&gt; start + delta);
+  }
+
+  onEventClick(event: MouseEvent, calEvent: CalendarEvent): void {
+    event.stopPropagation();
+    if (this.readonly()) return;
+    this.eventClick.emit(calEvent);
+  }
+
+  // Keyboard navigation
+  onCellKeyDown(event: KeyboardEvent, cell: CalendarCell): void {
+    if (this.readonly() || cell.isDisabled) return;
+
+    let handled &#x3D; false;
+    const currentFocus &#x3D; new Date(this.focusedDate());
+
+    switch (event.key) {
+      case &#x27;ArrowLeft&#x27;:
+        currentFocus.setDate(currentFocus.getDate() - 1);
+        handled &#x3D; true;
+        break;
+      case &#x27;ArrowRight&#x27;:
+        currentFocus.setDate(currentFocus.getDate() + 1);
+        handled &#x3D; true;
+        break;
+      case &#x27;ArrowUp&#x27;:
+        currentFocus.setDate(currentFocus.getDate() - 7);
+        handled &#x3D; true;
+        break;
+      case &#x27;ArrowDown&#x27;:
+        currentFocus.setDate(currentFocus.getDate() + 7);
+        handled &#x3D; true;
+        break;
+      case &#x27;Enter&#x27;:
+      case &#x27; &#x27;:
+        this.selectCell(cell);
+        handled &#x3D; true;
+        break;
+    }
+
+    if (handled) {
+      event.preventDefault();
+      
+      // Prevent moving focus to a disabled date
+      if (this.isDateDisabled(currentFocus)) {
+        return;
+      }
+
+      this.focusedDate.set(currentFocus);
+
+      // Check if we navigated to a date outside the current active month, and auto-snap activeMonth
+      const active &#x3D; this.activeMonthDate();
+      if (
+        currentFocus.getFullYear() !&#x3D;&#x3D; active.getFullYear() ||
+        currentFocus.getMonth() !&#x3D;&#x3D; active.getMonth()
+      ) {
+        this.activeMonthDate.set(new Date(currentFocus.getFullYear(), currentFocus.getMonth(), 1));
+        this.emitMonthChange();
+      }
+
+      // Delay focus slightly so angular updates DOM tab-indices
+      setTimeout(() &#x3D;&gt; {
+        const activeCellEl &#x3D; this.cellElements.find(el &#x3D;&gt; 
+          el.nativeElement.getAttribute(&#x27;tabindex&#x27;) &#x3D;&#x3D;&#x3D; &#x27;0&#x27;
+        );
+        if (activeCellEl) {
+          activeCellEl.nativeElement.focus();
+        }
+      }, 0);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+      --ngx-calendar-border: #cbd5e1;
+      --ngx-calendar-bg: #ffffff;
+      --ngx-calendar-header-bg: #f8fafc;
+      --ngx-calendar-text: #0f172a;
+      --ngx-calendar-text-muted: #64748b;
+      --ngx-calendar-cell-other-bg: #f8fafc;
+      --ngx-calendar-hover-bg: #f1f5f9;
+      --ngx-calendar-focus-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      --ngx-calendar-active-color: #4f46e5;
+      --ngx-calendar-selected-bg: rgba(79, 70, 229, 0.05);
+      --ngx-calendar-selected-border: #4f46e5;
+      
+      --event-pill-bg: #f1f5f9;
+      --event-pill-text: #334155;
+    }
+
+    :host-context(body.dark),
+    :host-context(.dark),
+    :host-context(.dark-theme) {
+      --ngx-calendar-border: #334155;
+      --ngx-calendar-bg: #0f172a;
+      --ngx-calendar-header-bg: #1e293b;
+      --ngx-calendar-text: #f8fafc;
+      --ngx-calendar-text-muted: #94a3b8;
+      --ngx-calendar-cell-other-bg: #0b0f19;
+      --ngx-calendar-hover-bg: #1e293b;
+      --ngx-calendar-focus-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+      --ngx-calendar-active-color: #818cf8;
+      --ngx-calendar-selected-bg: rgba(129, 140, 248, 0.08);
+      --ngx-calendar-selected-border: #818cf8;
+      
+      --event-pill-bg: #1e293b;
+      --event-pill-text: #cbd5e1;
+    }
+
+    .ngx-calendar-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 12px;
+      background: var(--ngx-calendar-bg);
+      color: var(--ngx-calendar-text);
+      font-family: inherit;
+      overflow: hidden;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* HEADER */
+    .ngx-calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--ngx-calendar-header-bg);
+      border-bottom: 1px solid var(--ngx-calendar-border);
+    }
+
+    .ngx-calendar-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .ngx-calendar-title-link {
+      background: none;
+      border: none;
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .ngx-calendar-title-link:hover {
+      color: var(--ngx-calendar-active-color);
+    }
+
+    .ngx-calendar-title-static {
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+
+    .ngx-calendar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ngx-cal-btn {
+      background: var(--ngx-calendar-bg);
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 8px;
+      color: var(--ngx-calendar-text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-cal-btn:hover {
+      background: var(--ngx-calendar-hover-bg);
+      border-color: var(--ngx-calendar-active-color);
+      color: var(--ngx-calendar-active-color);
+    }
+
+    .prev-btn, .next-btn {
+      font-size: 16px;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+    }
+
+    /* VIEW AREA */
+    .ngx-calendar-view-area {
+      position: relative;
+      width: 100%;
+      background: var(--ngx-calendar-bg);
+    }
+
+    /* GRID */
+    .ngx-calendar-grid {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .ngx-calendar-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%;
+    }
+
+    /* WEEKDAYS */
+    .weekdays-row {
+      border-bottom: 1px solid var(--ngx-calendar-border);
+      background: var(--ngx-calendar-header-bg);
+    }
+
+    .ngx-calendar-weekday {
+      padding: 12px 6px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--ngx-calendar-text-muted);
+    }
+
+    /* CELLS */
+    .ngx-calendar-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ngx-calendar-cell {
+      min-height: 100px;
+      border-right: 1px solid var(--ngx-calendar-border);
+      border-bottom: 1px solid var(--ngx-calendar-border);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      outline: none;
+      background: var(--ngx-calendar-bg);
+    }
+
+    .ngx-calendar-row .ngx-calendar-cell:last-child {
+      border-right: none;
+    }
+
+    .ngx-calendar-body .ngx-calendar-row:last-child .ngx-calendar-cell {
+      border-bottom: none;
+    }
+
+    .ngx-calendar-cell.other-month {
+      background: var(--ngx-calendar-cell-other-bg);
+    }
+
+    .ngx-calendar-cell.other-month .day-number {
+      color: var(--ngx-calendar-text-muted);
+      opacity: 0.6;
+    }
+
+    .ngx-calendar-cell:not(.selected):not(.disabled):hover {
+      background: var(--ngx-calendar-hover-bg);
+      cursor: pointer;
+    }
+
+    /* Selection &amp; Focus States */
+    .ngx-calendar-cell.selected {
+      background: var(--ngx-calendar-selected-bg);
+    }
+
+    .ngx-calendar-cell.selected::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 4px;
+      pointer-events: none;
+      animation: select-pulse 0.25s ease-out;
+    }
+
+    .ngx-calendar-cell.focused {
+      z-index: 2;
+    }
+    
+    .ngx-calendar-cell.focused:focus-visible {
+      box-shadow: var(--ngx-calendar-focus-shadow);
+      border-color: var(--ngx-calendar-active-color);
+    }
+
+    /* Range Selection CSS */
+    .ngx-calendar-cell.in-range {
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-end {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      background: var(--ngx-calendar-selected-bg) !important;
+    }
+
+    .ngx-calendar-cell.range-start::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 8px 0 0 8px;
+      pointer-events: none;
+    }
+
+    .ngx-calendar-cell.range-end::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--ngx-calendar-selected-border);
+      border-radius: 0 8px 8px 0;
+      pointer-events: none;
+    }
+
+    /* Disabled Cell CSS */
+    .ngx-calendar-cell.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      background: var(--ngx-calendar-cell-other-bg);
+      cursor: not-allowed;
+    }
+
+    .ngx-calendar-cell.disabled .day-number {
+      text-decoration: line-through;
+      color: var(--ngx-calendar-text-muted);
+    }
+
+    .cell-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .day-number {
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .today .day-number {
+      background: var(--ngx-calendar-active-color);
+      color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+    }
+
+    .today-indicator {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ngx-calendar-active-color);
+      margin-right: 4px;
+    }
+
+    /* Events Content */
+    .cell-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow: hidden;
+    }
+
+    .calendar-event-pill {
+      font-size: 11px;
+      font-weight: 550;
+      padding: 3px 6px;
+      border-radius: 4px;
+      border-left: 3px solid #4f46e5;
+      background: var(--event-pill-bg);
+      color: var(--event-pill-text);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .calendar-event-pill:hover {
+      transform: translateX(2px);
+      background: var(--ngx-calendar-hover-bg);
+    }
+
+    .events-overflow-indicator {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ngx-calendar-active-color);
+      padding-left: 6px;
+      margin-top: 2px;
+    }
+
+    /* PICKER GRID */
+    .ngx-calendar-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 24px;
+      background: var(--ngx-calendar-bg);
+      animation: view-fade-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes view-fade-in {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ngx-picker-item {
+      background: var(--ngx-calendar-bg);
+      border: 1px solid var(--ngx-calendar-border);
+      border-radius: 8px;
+      color: var(--ngx-calendar-text);
+      padding: 16px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ngx-picker-item:hover {
+      background: var(--ngx-calendar-hover-bg);
+      border-color: var(--ngx-calendar-active-color);
+      color: var(--ngx-calendar-active-color);
+      transform: translateY(-1px);
+    }
+
+    .ngx-picker-item.active {
+      background: var(--ngx-calendar-active-color);
+      color: #ffffff;
+      border-color: var(--ngx-calendar-active-color);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    @keyframes select-pulse {
+      0% { transform: scale(0.98); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .ngx-calendar-cell {
+        min-height: 70px;
+        padding: 4px;
+      }
+      .calendar-event-pill {
+        display: none;
+      }
+      .ngx-calendar-cell.has-events::after {
+        content: &#x27;•&#x27;;
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--ngx-calendar-active-color);
+        font-size: 16px;
+      }
+      .ngx-calendar-picker-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div  class="ngx-calendar-container"  role="application"  aria-label="Interactive Calendar">  <!-- HEADER -->  <div class="ngx-calendar-header">    <h2 class="ngx-calendar-title" aria-live="polite">      @if (currentView() === \'month\') {        <button class="ngx-calendar-title-link" (click)="setView(\'month-picker\')" type="button">          {{ monthLabel() }}        </button>      } @else if (currentView() === \'month-picker\') {        <button class="ngx-calendar-title-link" (click)="setView(\'year-picker\')" type="button">          {{ activeMonthDate().getFullYear() }}        </button>      } @else {        <span class="ngx-calendar-title-static">          Select Year        </span>      }    </h2>    <div class="ngx-calendar-actions">      @if (currentView() === \'month\') {        <button          class="ngx-cal-btn prev-btn"          (click)="prevMonth()"          type="button"          aria-label="Previous Month"        >          ‹        </button>        <button          class="ngx-cal-btn today-btn"          (click)="goToToday()"          type="button"          aria-label="Go to Today"        >          Today        </button>        <button          class="ngx-cal-btn next-btn"          (click)="nextMonth()"          type="button"          aria-label="Next Month"        >          ›        </button>      } @else if (currentView() === \'month-picker\') {        <button          class="ngx-cal-btn prev-btn"          (click)="changeYear(-1)"          type="button"          aria-label="Previous Year"        >          ‹        </button>        <button          class="ngx-cal-btn back-btn"          (click)="setView(\'month\')"          type="button"        >          Back        </button>        <button          class="ngx-cal-btn next-btn"          (click)="changeYear(1)"          type="button"          aria-label="Next Year"        >          ›        </button>      } @else {        <button          class="ngx-cal-btn prev-btn"          (click)="changeYearRange(-12)"          type="button"          aria-label="Previous Years"        >          ‹        </button>        <button          class="ngx-cal-btn back-btn"          (click)="setView(\'month-picker\')"          type="button"        >          Back        </button>        <button          class="ngx-cal-btn next-btn"          (click)="changeYearRange(12)"          type="button"          aria-label="Next Years"        >          ›        </button>      }    </div>  </div>  <!-- MAIN VIEW AREA -->  <div class="ngx-calendar-view-area">    <!-- MONTH VIEW (GRID) -->    @if (currentView() === \'month\') {      <div        class="ngx-calendar-grid"        role="grid"        [attr.aria-label]="monthLabel()"      >        <!-- WEEKDAYS HEADER -->        <div class="ngx-calendar-row weekdays-row" role="row">          @for (day of weekDays(); track day) {            <div              class="ngx-calendar-weekday"              role="columnheader"              [attr.aria-label]="day"            >              {{ day.slice(0, 3) }}            </div>          }        </div>        <!-- DAYS GRID -->        <div class="ngx-calendar-body">          @for (row of gridRows(); track $index) {            <div class="ngx-calendar-row" role="row">              @for (cell of row; track cell.date.getTime()) {                <div                  #cellEl                  class="ngx-calendar-cell"                  [class.current-month]="cell.isCurrentMonth"                  [class.other-month]="!cell.isCurrentMonth"                  [class.today]="cell.isToday"                  [class.selected]="cell.isSelected"                  [class.focused]="cell.isFocused"                  [class.has-events]="cell.events.length > 0"                  [class.range-start]="cell.isRangeStart"                  [class.range-end]="cell.isRangeEnd"                  [class.in-range]="cell.isInRange"                  [class.disabled]="cell.isDisabled"                  role="gridcell"                  [attr.aria-selected]="cell.isSelected"                  [attr.aria-disabled]="cell.isDisabled"                  [attr.aria-label]="cell.date | date:\'longDate\'"                  [attr.tabindex]="cell.isFocused && !readonly() && !cell.isDisabled ? \'0\' : \'-1\'"                  (click)="selectCell(cell)"                  (keydown)="onCellKeyDown($event, cell)"                >                  <!-- Cell Header (Day Number) -->                  <div class="cell-header">                    <span class="day-number">{{ cell.dayNumber }}</span>                    @if (cell.isToday) {                      <span class="today-indicator" aria-hidden="true"></span>                    }                  </div>                  <!-- Events List or Custom Day Template -->                  <div class="cell-content">                    @if (dayTemplate()) {                      <ng-container                        *ngTemplateOutlet="dayTemplate()!; context: { $implicit: cell.date, events: cell.events }"                      ></ng-container>                    } @else {                      @for (event of cell.events.slice(0, 3); track event.title) {                        <div                          class="calendar-event-pill"                          [style.border-left-color]="event.color || \'#4f46e5\'"                          [attr.title]="event.title + (event.description ? \': \' + event.description : \'\')"                          (click)="onEventClick($event, event)"                        >                          {{ event.title }}                        </div>                      }                      @if (cell.events.length > 3) {                        <div class="events-overflow-indicator">                          +{{ cell.events.length - 3 }} more                        </div>                      }                    }                  </div>                </div>              }            </div>          }        </div>      </div>    }    <!-- MONTH PICKER GRID -->    @if (currentView() === \'month-picker\') {      <div class="ngx-calendar-picker-grid month-picker-grid">        @for (month of monthsList(); track $index) {          <button            class="ngx-picker-item"            [class.active]="isCurrentActiveMonth($index)"            (click)="selectMonth($index)"            type="button"          >            {{ month.slice(0, 3) }}          </button>        }      </div>    }    <!-- YEAR PICKER GRID -->    @if (currentView() === \'year-picker\') {      <div class="ngx-calendar-picker-grid year-picker-grid">        @for (year of yearPickerYears(); track year) {          <button            class="ngx-picker-item"            [class.active]="isCurrentActiveYear(year)"            (click)="selectYear(year)"            type="button"          >            {{ year }}          </button>        }      </div>    }  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'CalendarComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CalendarComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

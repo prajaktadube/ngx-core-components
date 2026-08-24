@@ -1,0 +1,2303 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AIModelCompareComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-ai-model-compare</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .model-compare-wrapper {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+    }
+
+    /* Toolbar headers */
+    .toolbar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-sm, 6px);
+      padding: 6px 12px;
+      background: var(--bg-primary, #f8fafc);
+      min-width: 250px;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-icon {
+      font-size: 14px;
+    }
+
+    .filter-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      color: var(--text-primary, #0f172a);
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tag-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+    }
+    .tag-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+    }
+    .tag-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Table styles */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 13px;
+    }
+
+    .compare-table th {
+      padding: 14px 20px;
+      font-weight: 700;
+      color: var(--text-secondary, #475569);
+      background: var(--border-light, #f1f5f9);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      user-select: none;
+    }
+
+    .compare-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-light, #f1f5f9);
+      vertical-align: middle;
+      color: var(--text-primary, #0f172a);
+      transition: background 0.15s;
+    }
+
+    .model-row {
+      cursor: pointer;
+    }
+
+    .model-row:hover td {
+      background: rgba(79, 70, 229, 0.02);
+    }
+
+    .model-row.selected td {
+      background: rgba(79, 70, 229, 0.05);
+    }
+
+    .model-row.recommended {
+      position: relative;
+    }
+
+    .model-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .model-name {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .model-provider {
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+    }
+
+    /* Badges */
+    .badge-recommended {
+      background: #e0e7ff;
+      color: #4f46e5;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .badge-beta {
+      background: #fef3c7;
+      color: #d97706;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .param-tag {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-secondary, #475569);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .pricing-wrap {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .price-slash {
+      color: var(--text-muted, #94a3b8);
+      margin: 0 4px;
+    }
+
+    /* Latency bar graphs */
+    .latency-graph-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100px;
+    }
+
+    .latency-metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary, #475569);
+    }
+
+    .bar-track {
+      height: 6px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .bar-fill.fast { background: #10b981; }
+    .bar-fill.moderate { background: #f59e0b; }
+    .bar-fill.slow { background: #ef4444; }
+
+    /* Capabilities */
+    .capabilities-icons {
+      display: flex;
+      gap: 6px;
+      font-size: 15px;
+    }
+
+    .capabilities-icons span {
+      opacity: 0.2;
+      filter: grayscale(1);
+      transition: opacity 0.2s;
+    }
+
+    .capabilities-icons span.active {
+      opacity: 1;
+      filter: none;
+    }
+
+    /* Star ratings */
+    .rating-stars {
+      color: #f59e0b;
+      font-size: 14px;
+      letter-spacing: -2px;
+      white-space: nowrap;
+    }
+
+    .star {
+      opacity: 0.2;
+    }
+
+    .star.filled {
+      opacity: 1;
+    }
+
+    /* Action selection button */
+    .select-btn {
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+      width: 76px;
+    }
+
+    .select-btn:hover {
+      background: rgba(79, 70, 229, 0.05);
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    .select-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px !important;
+      color: var(--text-secondary, #475569);
+      font-style: italic;
+    }
+
+    /* Dark Mode */
+    .model-compare-wrapper.dark {
+      background: #0f172a;
+      border-color: #1f2937;
+    }
+    .model-compare-wrapper.dark .toolbar-header {
+      border-bottom-color: #1f2937;
+    }
+    .model-compare-wrapper.dark .search-box {
+      border-color: #1f2937;
+      background: #0b0f19;
+    }
+    .model-compare-wrapper.dark .filter-input {
+      color: #f8fafc;
+    }
+    .model-compare-wrapper.dark .tag-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .tag-btn:hover {
+      background: #1f2937;
+      color: #f8fafc;
+    }
+    .model-compare-wrapper.dark .tag-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .model-compare-wrapper.dark .compare-table th {
+      background: #1e293b;
+      border-bottom-color: #1f2937;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .compare-table td {
+      border-bottom-color: #1f2937;
+      color: #e2e8f0;
+    }
+    .model-compare-wrapper.dark .model-row:hover td {
+      background: rgba(99, 102, 241, 0.02);
+    }
+    .model-compare-wrapper.dark .model-row.selected td {
+      background: rgba(99, 102, 241, 0.05);
+    }
+    .model-compare-wrapper.dark .badge-recommended {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+    }
+    .model-compare-wrapper.dark .badge-beta {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+    .model-compare-wrapper.dark .param-tag {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .model-provider {
+      color: #6b7280;
+    }
+    .model-compare-wrapper.dark .bar-track {
+      background: #1f2937;
+    }
+    .model-compare-wrapper.dark .latency-metrics {
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .select-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .select-btn:hover {
+      background: rgba(99, 102, 241, 0.05);
+      color: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+    }
+    .model-compare-wrapper.dark .select-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;model-compare-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+  &lt;!-- Toolbar Filter Bar --&gt;
+  &lt;div class&#x3D;&quot;toolbar-header&quot;&gt;
+    &lt;div class&#x3D;&quot;search-box&quot;&gt;
+      &lt;span class&#x3D;&quot;search-icon&quot;&gt;🔍&lt;/span&gt;
+      &lt;input
+        type&#x3D;&quot;text&quot;
+        [ngModel]&#x3D;&quot;searchQuery()&quot;
+        (ngModelChange)&#x3D;&quot;searchQuery.set($event)&quot;
+        placeholder&#x3D;&quot;Search model or provider...&quot;
+        class&#x3D;&quot;filter-input&quot;
+      /&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Filter Tags --&gt;
+    &lt;div class&#x3D;&quot;filter-tags&quot;&gt;
+      @for (tag of tags; track tag.value) {
+        &lt;button
+          class&#x3D;&quot;tag-btn&quot;
+          [class.active]&#x3D;&quot;activeTag() &#x3D;&#x3D;&#x3D; tag.value&quot;
+          (click)&#x3D;&quot;activeTag.set(tag.value)&quot;
+        &gt;
+          {{ tag.label }}
+        &lt;/button&gt;
+      }
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Comparison Grid Container --&gt;
+  &lt;div class&#x3D;&quot;table-container&quot;&gt;
+    &lt;table class&#x3D;&quot;compare-table&quot;&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th class&#x3D;&quot;cell-model&quot;&gt;Model&lt;/th&gt;
+          &lt;th&gt;Parameters&lt;/th&gt;
+          &lt;th&gt;Context&lt;/th&gt;
+          &lt;th&gt;Cost (In/Out per 1M)&lt;/th&gt;
+          &lt;th class&#x3D;&quot;cell-latency&quot;&gt;Latency&lt;/th&gt;
+          &lt;th&gt;Capabilities&lt;/th&gt;
+          &lt;th&gt;Rating&lt;/th&gt;
+          &lt;th class&#x3D;&quot;cell-action&quot;&gt;Action&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        @if (filteredModels().length &#x3D;&#x3D;&#x3D; 0) {
+          &lt;tr&gt;
+            &lt;td colspan&#x3D;&quot;8&quot; class&#x3D;&quot;empty-state&quot;&gt;
+              No models match the current filter or search criteria.
+            &lt;/td&gt;
+          &lt;/tr&gt;
+        } @else {
+          @for (model of filteredModels(); track model.name) {
+            &lt;tr
+              class&#x3D;&quot;model-row&quot;
+              [class.recommended]&#x3D;&quot;model.recommended&quot;
+              [class.selected]&#x3D;&quot;selectedModel()?.name &#x3D;&#x3D;&#x3D; model.name&quot;
+              (click)&#x3D;&quot;selectModel(model)&quot;
+            &gt;
+              &lt;!-- Model Info --&gt;
+              &lt;td class&#x3D;&quot;cell-model&quot;&gt;
+                &lt;div class&#x3D;&quot;model-title-wrap&quot;&gt;
+                  &lt;div class&#x3D;&quot;model-name&quot;&gt;
+                    {{ model.name }}
+                    &lt;span *ngIf&#x3D;&quot;model.recommended&quot; class&#x3D;&quot;badge-recommended&quot;&gt;Rec&lt;/span&gt;
+                    &lt;span *ngIf&#x3D;&quot;model.status &#x3D;&#x3D;&#x3D; &#x27;beta&#x27;&quot; class&#x3D;&quot;badge-beta&quot;&gt;Beta&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;model-provider&quot;&gt;{{ model.provider }}&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/td&gt;
+
+              &lt;!-- Parameters --&gt;
+              &lt;td&gt;
+                &lt;span class&#x3D;&quot;param-tag&quot;&gt;{{ model.parameters }}&lt;/span&gt;
+              &lt;/td&gt;
+
+              &lt;!-- Context Window --&gt;
+              &lt;td&gt;{{ model.contextWindow }}&lt;/td&gt;
+
+              &lt;!-- Pricing --&gt;
+              &lt;td&gt;
+                &lt;div class&#x3D;&quot;pricing-wrap&quot;&gt;
+                  &lt;span class&#x3D;&quot;price-val&quot;&gt;${{ model.pricingInput }}&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;price-slash&quot;&gt;/&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;price-val&quot;&gt;${{ model.pricingOutput }}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/td&gt;
+
+              &lt;!-- Latency Bar --&gt;
+              &lt;td class&#x3D;&quot;cell-latency&quot;&gt;
+                &lt;div class&#x3D;&quot;latency-graph-wrap&quot;&gt;
+                  &lt;div class&#x3D;&quot;latency-metrics&quot;&gt;
+                    &lt;span&gt;{{ model.avgLatency }}s&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;bar-track&quot;&gt;
+                    &lt;div
+                      class&#x3D;&quot;bar-fill&quot;
+                      [style.width.%]&#x3D;&quot;getLatencyPercentage(model.avgLatency)&quot;
+                      [class.fast]&#x3D;&quot;model.avgLatency &lt;&#x3D; 1.0&quot;
+                      [class.moderate]&#x3D;&quot;model.avgLatency &gt; 1.0 &amp;&amp; model.avgLatency &lt;&#x3D; 2.2&quot;
+                      [class.slow]&#x3D;&quot;model.avgLatency &gt; 2.2&quot;
+                    &gt;&lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/td&gt;
+
+              &lt;!-- Capabilities --&gt;
+              &lt;td&gt;
+                &lt;div class&#x3D;&quot;capabilities-icons&quot;&gt;
+                  &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;text&#x27;)&quot; title&#x3D;&quot;Text processing&quot;&gt;💬&lt;/span&gt;
+                  &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;code&#x27;)&quot; title&#x3D;&quot;Code generation&quot;&gt;💻&lt;/span&gt;
+                  &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;vision&#x27;)&quot; title&#x3D;&quot;Computer vision&quot;&gt;👁️&lt;/span&gt;
+                  &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;audio&#x27;)&quot; title&#x3D;&quot;Voice/Audio input&quot;&gt;🎙️&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/td&gt;
+
+              &lt;!-- Rating --&gt;
+              &lt;td&gt;
+                &lt;div class&#x3D;&quot;rating-stars&quot; [title]&#x3D;&quot;model.rating + &#x27; stars&#x27;&quot;&gt;
+                  @for (star of [1, 2, 3, 4, 5]; track star) {
+                    &lt;span class&#x3D;&quot;star&quot; [class.filled]&#x3D;&quot;star &lt;&#x3D; model.rating&quot;&gt;★&lt;/span&gt;
+                  }
+                &lt;/div&gt;
+              &lt;/td&gt;
+
+              &lt;!-- Select Button --&gt;
+              &lt;td class&#x3D;&quot;cell-action&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+                &lt;button
+                  class&#x3D;&quot;select-btn&quot;
+                  [class.active]&#x3D;&quot;selectedModel()?.name &#x3D;&#x3D;&#x3D; model.name&quot;
+                  (click)&#x3D;&quot;selectModel(model)&quot;
+                &gt;
+                  {{ selectedModel()?.name &#x3D;&#x3D;&#x3D; model.name ? &#x27;Selected&#x27; : &#x27;Compare&#x27; }}
+                &lt;/button&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          }
+        }
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeTag" >activeTag</a>
+                            </li>
+                            <li>
+                                <a href="#filteredModels" >filteredModels</a>
+                            </li>
+                            <li>
+                                <a href="#searchQuery" >searchQuery</a>
+                            </li>
+                            <li>
+                                <a href="#selectedModel" >selectedModel</a>
+                            </li>
+                            <li>
+                                <a href="#tags" >tags</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getLatencyPercentage" >getLatencyPercentage</a>
+                            </li>
+                            <li>
+                                <a href="#selectModel" >selectModel</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#models" >models</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#modelSelected" >modelSelected</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="models"></a>
+                        <b>models</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/AIModel.html" target="_self" >AIModel[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="534" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:534</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="535" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:535</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelSelected"></a>
+                        <b>modelSelected</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/AIModel.html" target="_self" >AIModel</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="538" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:538</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLatencyPercentage"></a>
+                    <span class="name">
+                        <span ><b>getLatencyPercentage</b></span>
+                        <a href="#getLatencyPercentage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getLatencyPercentage(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="555"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:555</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectModel"></a>
+                    <span class="name">
+                        <span ><b>selectModel</b></span>
+                        <a href="#selectModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectModel(model: <a href="../interfaces/AIModel.html" target="_self">AIModel</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="591"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:591</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>model</td>
+                                            <td>
+                                                            <code><a href="../interfaces/AIModel.html" target="_self" >AIModel</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeTag"></a>
+                    <span class="name">
+                        <span ><b>activeTag</b></span>
+                        <a href="#activeTag"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;all&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="542" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:542</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredModels"></a>
+                    <span class="name">
+                        <span ><b>filteredModels</b></span>
+                        <a href="#filteredModels"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const query &#x3D; this.searchQuery().toLowerCase().trim();
+    const tag &#x3D; this.activeTag();
+    let list &#x3D; this.models() || [];
+
+    // Apply text search filter
+    if (query) {
+      list &#x3D; list.filter(
+        m &#x3D;&gt;
+          m.name.toLowerCase().includes(query) ||
+          m.provider.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply category tag filter
+    if (tag &#x3D;&#x3D;&#x3D; &#x27;fast&#x27;) {
+      list &#x3D; list.filter(m &#x3D;&gt; m.avgLatency &lt;&#x3D; 1.2);
+    } else if (tag &#x3D;&#x3D;&#x3D; &#x27;cheap&#x27;) {
+      // Cheapest input price: less than $5
+      list &#x3D; list.filter(m &#x3D;&gt; m.pricingInput &lt;&#x3D; 5.0);
+    } else if (tag &#x3D;&#x3D;&#x3D; &#x27;vision&#x27;) {
+      list &#x3D; list.filter(m &#x3D;&gt; m.capabilities.includes(&#x27;vision&#x27;));
+    } else if (tag &#x3D;&#x3D;&#x3D; &#x27;code&#x27;) {
+      list &#x3D; list.filter(m &#x3D;&gt; m.capabilities.includes(&#x27;code&#x27;));
+    }
+
+    return list;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="562" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:562</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchQuery"></a>
+                    <span class="name">
+                        <span ><b>searchQuery</b></span>
+                        <a href="#searchQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="541" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:541</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedModel"></a>
+                    <span class="name">
+                        <span ><b>selectedModel</b></span>
+                        <a href="#selectedModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;AIModel | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="543" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:543</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tags"></a>
+                    <span class="name">
+                        <span ><b>tags</b></span>
+                        <a href="#tags"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { label: &#x27;All Models&#x27;, value: &#x27;all&#x27; },
+    { label: &#x27;Fastest (&lt; 1.2s)&#x27;, value: &#x27;fast&#x27; },
+    { label: &#x27;Cheapest ($/1M)&#x27;, value: &#x27;cheap&#x27; },
+    { label: &#x27;Vision Support&#x27;, value: &#x27;vision&#x27; },
+    { label: &#x27;Coding Tools&#x27;, value: &#x27;code&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="546" class="link-to-prism">projects/ngx-core-components/ai/ai-model-compare/ai-model-compare.component.ts:546</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, output, computed } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+export interface AIModel {
+  name: string;
+  provider: string;
+  parameters: string;
+  contextWindow: string;
+  pricingInput: number;  // per 1M tokens
+  pricingOutput: number; // per 1M tokens
+  avgLatency: number;    // seconds
+  capabilities: (&#x27;text&#x27; | &#x27;code&#x27; | &#x27;vision&#x27; | &#x27;audio&#x27;)[];
+  rating: number;
+  status: &#x27;stable&#x27; | &#x27;beta&#x27; | &#x27;deprecated&#x27;;
+  recommended?: boolean;
+}
+
+@Component({
+  selector: &#x27;ngx-ai-model-compare&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;model-compare-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+      &lt;!-- Toolbar Filter Bar --&gt;
+      &lt;div class&#x3D;&quot;toolbar-header&quot;&gt;
+        &lt;div class&#x3D;&quot;search-box&quot;&gt;
+          &lt;span class&#x3D;&quot;search-icon&quot;&gt;🔍&lt;/span&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            [ngModel]&#x3D;&quot;searchQuery()&quot;
+            (ngModelChange)&#x3D;&quot;searchQuery.set($event)&quot;
+            placeholder&#x3D;&quot;Search model or provider...&quot;
+            class&#x3D;&quot;filter-input&quot;
+          /&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Filter Tags --&gt;
+        &lt;div class&#x3D;&quot;filter-tags&quot;&gt;
+          @for (tag of tags; track tag.value) {
+            &lt;button
+              class&#x3D;&quot;tag-btn&quot;
+              [class.active]&#x3D;&quot;activeTag() &#x3D;&#x3D;&#x3D; tag.value&quot;
+              (click)&#x3D;&quot;activeTag.set(tag.value)&quot;
+            &gt;
+              {{ tag.label }}
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Comparison Grid Container --&gt;
+      &lt;div class&#x3D;&quot;table-container&quot;&gt;
+        &lt;table class&#x3D;&quot;compare-table&quot;&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th class&#x3D;&quot;cell-model&quot;&gt;Model&lt;/th&gt;
+              &lt;th&gt;Parameters&lt;/th&gt;
+              &lt;th&gt;Context&lt;/th&gt;
+              &lt;th&gt;Cost (In/Out per 1M)&lt;/th&gt;
+              &lt;th class&#x3D;&quot;cell-latency&quot;&gt;Latency&lt;/th&gt;
+              &lt;th&gt;Capabilities&lt;/th&gt;
+              &lt;th&gt;Rating&lt;/th&gt;
+              &lt;th class&#x3D;&quot;cell-action&quot;&gt;Action&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            @if (filteredModels().length &#x3D;&#x3D;&#x3D; 0) {
+              &lt;tr&gt;
+                &lt;td colspan&#x3D;&quot;8&quot; class&#x3D;&quot;empty-state&quot;&gt;
+                  No models match the current filter or search criteria.
+                &lt;/td&gt;
+              &lt;/tr&gt;
+            } @else {
+              @for (model of filteredModels(); track model.name) {
+                &lt;tr
+                  class&#x3D;&quot;model-row&quot;
+                  [class.recommended]&#x3D;&quot;model.recommended&quot;
+                  [class.selected]&#x3D;&quot;selectedModel()?.name &#x3D;&#x3D;&#x3D; model.name&quot;
+                  (click)&#x3D;&quot;selectModel(model)&quot;
+                &gt;
+                  &lt;!-- Model Info --&gt;
+                  &lt;td class&#x3D;&quot;cell-model&quot;&gt;
+                    &lt;div class&#x3D;&quot;model-title-wrap&quot;&gt;
+                      &lt;div class&#x3D;&quot;model-name&quot;&gt;
+                        {{ model.name }}
+                        &lt;span *ngIf&#x3D;&quot;model.recommended&quot; class&#x3D;&quot;badge-recommended&quot;&gt;Rec&lt;/span&gt;
+                        &lt;span *ngIf&#x3D;&quot;model.status &#x3D;&#x3D;&#x3D; &#x27;beta&#x27;&quot; class&#x3D;&quot;badge-beta&quot;&gt;Beta&lt;/span&gt;
+                      &lt;/div&gt;
+                      &lt;div class&#x3D;&quot;model-provider&quot;&gt;{{ model.provider }}&lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/td&gt;
+
+                  &lt;!-- Parameters --&gt;
+                  &lt;td&gt;
+                    &lt;span class&#x3D;&quot;param-tag&quot;&gt;{{ model.parameters }}&lt;/span&gt;
+                  &lt;/td&gt;
+
+                  &lt;!-- Context Window --&gt;
+                  &lt;td&gt;{{ model.contextWindow }}&lt;/td&gt;
+
+                  &lt;!-- Pricing --&gt;
+                  &lt;td&gt;
+                    &lt;div class&#x3D;&quot;pricing-wrap&quot;&gt;
+                      &lt;span class&#x3D;&quot;price-val&quot;&gt;\${{ model.pricingInput }}&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;price-slash&quot;&gt;/&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;price-val&quot;&gt;\${{ model.pricingOutput }}&lt;/span&gt;
+                    &lt;/div&gt;
+                  &lt;/td&gt;
+
+                  &lt;!-- Latency Bar --&gt;
+                  &lt;td class&#x3D;&quot;cell-latency&quot;&gt;
+                    &lt;div class&#x3D;&quot;latency-graph-wrap&quot;&gt;
+                      &lt;div class&#x3D;&quot;latency-metrics&quot;&gt;
+                        &lt;span&gt;{{ model.avgLatency }}s&lt;/span&gt;
+                      &lt;/div&gt;
+                      &lt;div class&#x3D;&quot;bar-track&quot;&gt;
+                        &lt;div
+                          class&#x3D;&quot;bar-fill&quot;
+                          [style.width.%]&#x3D;&quot;getLatencyPercentage(model.avgLatency)&quot;
+                          [class.fast]&#x3D;&quot;model.avgLatency &lt;&#x3D; 1.0&quot;
+                          [class.moderate]&#x3D;&quot;model.avgLatency &gt; 1.0 &amp;&amp; model.avgLatency &lt;&#x3D; 2.2&quot;
+                          [class.slow]&#x3D;&quot;model.avgLatency &gt; 2.2&quot;
+                        &gt;&lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/td&gt;
+
+                  &lt;!-- Capabilities --&gt;
+                  &lt;td&gt;
+                    &lt;div class&#x3D;&quot;capabilities-icons&quot;&gt;
+                      &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;text&#x27;)&quot; title&#x3D;&quot;Text processing&quot;&gt;💬&lt;/span&gt;
+                      &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;code&#x27;)&quot; title&#x3D;&quot;Code generation&quot;&gt;💻&lt;/span&gt;
+                      &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;vision&#x27;)&quot; title&#x3D;&quot;Computer vision&quot;&gt;👁️&lt;/span&gt;
+                      &lt;span [class.active]&#x3D;&quot;model.capabilities.includes(&#x27;audio&#x27;)&quot; title&#x3D;&quot;Voice/Audio input&quot;&gt;🎙️&lt;/span&gt;
+                    &lt;/div&gt;
+                  &lt;/td&gt;
+
+                  &lt;!-- Rating --&gt;
+                  &lt;td&gt;
+                    &lt;div class&#x3D;&quot;rating-stars&quot; [title]&#x3D;&quot;model.rating + &#x27; stars&#x27;&quot;&gt;
+                      @for (star of [1, 2, 3, 4, 5]; track star) {
+                        &lt;span class&#x3D;&quot;star&quot; [class.filled]&#x3D;&quot;star &lt;&#x3D; model.rating&quot;&gt;★&lt;/span&gt;
+                      }
+                    &lt;/div&gt;
+                  &lt;/td&gt;
+
+                  &lt;!-- Select Button --&gt;
+                  &lt;td class&#x3D;&quot;cell-action&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+                    &lt;button
+                      class&#x3D;&quot;select-btn&quot;
+                      [class.active]&#x3D;&quot;selectedModel()?.name &#x3D;&#x3D;&#x3D; model.name&quot;
+                      (click)&#x3D;&quot;selectModel(model)&quot;
+                    &gt;
+                      {{ selectedModel()?.name &#x3D;&#x3D;&#x3D; model.name ? &#x27;Selected&#x27; : &#x27;Compare&#x27; }}
+                    &lt;/button&gt;
+                  &lt;/td&gt;
+                &lt;/tr&gt;
+              }
+            }
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .model-compare-wrapper {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+    }
+
+    /* Toolbar headers */
+    .toolbar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-sm, 6px);
+      padding: 6px 12px;
+      background: var(--bg-primary, #f8fafc);
+      min-width: 250px;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-icon {
+      font-size: 14px;
+    }
+
+    .filter-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      color: var(--text-primary, #0f172a);
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tag-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+    }
+    .tag-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+    }
+    .tag-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Table styles */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 13px;
+    }
+
+    .compare-table th {
+      padding: 14px 20px;
+      font-weight: 700;
+      color: var(--text-secondary, #475569);
+      background: var(--border-light, #f1f5f9);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      user-select: none;
+    }
+
+    .compare-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-light, #f1f5f9);
+      vertical-align: middle;
+      color: var(--text-primary, #0f172a);
+      transition: background 0.15s;
+    }
+
+    .model-row {
+      cursor: pointer;
+    }
+
+    .model-row:hover td {
+      background: rgba(79, 70, 229, 0.02);
+    }
+
+    .model-row.selected td {
+      background: rgba(79, 70, 229, 0.05);
+    }
+
+    .model-row.recommended {
+      position: relative;
+    }
+
+    .model-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .model-name {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .model-provider {
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+    }
+
+    /* Badges */
+    .badge-recommended {
+      background: #e0e7ff;
+      color: #4f46e5;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .badge-beta {
+      background: #fef3c7;
+      color: #d97706;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .param-tag {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-secondary, #475569);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .pricing-wrap {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .price-slash {
+      color: var(--text-muted, #94a3b8);
+      margin: 0 4px;
+    }
+
+    /* Latency bar graphs */
+    .latency-graph-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100px;
+    }
+
+    .latency-metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary, #475569);
+    }
+
+    .bar-track {
+      height: 6px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .bar-fill.fast { background: #10b981; }
+    .bar-fill.moderate { background: #f59e0b; }
+    .bar-fill.slow { background: #ef4444; }
+
+    /* Capabilities */
+    .capabilities-icons {
+      display: flex;
+      gap: 6px;
+      font-size: 15px;
+    }
+
+    .capabilities-icons span {
+      opacity: 0.2;
+      filter: grayscale(1);
+      transition: opacity 0.2s;
+    }
+
+    .capabilities-icons span.active {
+      opacity: 1;
+      filter: none;
+    }
+
+    /* Star ratings */
+    .rating-stars {
+      color: #f59e0b;
+      font-size: 14px;
+      letter-spacing: -2px;
+      white-space: nowrap;
+    }
+
+    .star {
+      opacity: 0.2;
+    }
+
+    .star.filled {
+      opacity: 1;
+    }
+
+    /* Action selection button */
+    .select-btn {
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+      width: 76px;
+    }
+
+    .select-btn:hover {
+      background: rgba(79, 70, 229, 0.05);
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    .select-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px !important;
+      color: var(--text-secondary, #475569);
+      font-style: italic;
+    }
+
+    /* Dark Mode */
+    .model-compare-wrapper.dark {
+      background: #0f172a;
+      border-color: #1f2937;
+    }
+    .model-compare-wrapper.dark .toolbar-header {
+      border-bottom-color: #1f2937;
+    }
+    .model-compare-wrapper.dark .search-box {
+      border-color: #1f2937;
+      background: #0b0f19;
+    }
+    .model-compare-wrapper.dark .filter-input {
+      color: #f8fafc;
+    }
+    .model-compare-wrapper.dark .tag-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .tag-btn:hover {
+      background: #1f2937;
+      color: #f8fafc;
+    }
+    .model-compare-wrapper.dark .tag-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .model-compare-wrapper.dark .compare-table th {
+      background: #1e293b;
+      border-bottom-color: #1f2937;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .compare-table td {
+      border-bottom-color: #1f2937;
+      color: #e2e8f0;
+    }
+    .model-compare-wrapper.dark .model-row:hover td {
+      background: rgba(99, 102, 241, 0.02);
+    }
+    .model-compare-wrapper.dark .model-row.selected td {
+      background: rgba(99, 102, 241, 0.05);
+    }
+    .model-compare-wrapper.dark .badge-recommended {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+    }
+    .model-compare-wrapper.dark .badge-beta {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+    .model-compare-wrapper.dark .param-tag {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .model-provider {
+      color: #6b7280;
+    }
+    .model-compare-wrapper.dark .bar-track {
+      background: #1f2937;
+    }
+    .model-compare-wrapper.dark .latency-metrics {
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .select-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .select-btn:hover {
+      background: rgba(99, 102, 241, 0.05);
+      color: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+    }
+    .model-compare-wrapper.dark .select-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+  &#x60;]
+})
+export class AIModelCompareComponent {
+  // Inputs
+  models &#x3D; input&lt;AIModel[]&gt;([]);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+
+  // Outputs
+  modelSelected &#x3D; output&lt;AIModel&gt;();
+
+  // State
+  searchQuery &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  activeTag &#x3D; signal&lt;string&gt;(&#x27;all&#x27;);
+  selectedModel &#x3D; signal&lt;AIModel | null&gt;(null);
+
+  // Available Filter Tags
+  tags &#x3D; [
+    { label: &#x27;All Models&#x27;, value: &#x27;all&#x27; },
+    { label: &#x27;Fastest (&lt; 1.2s)&#x27;, value: &#x27;fast&#x27; },
+    { label: &#x27;Cheapest ($/1M)&#x27;, value: &#x27;cheap&#x27; },
+    { label: &#x27;Vision Support&#x27;, value: &#x27;vision&#x27; },
+    { label: &#x27;Coding Tools&#x27;, value: &#x27;code&#x27; }
+  ];
+
+  // Helper calculation for latency meter width
+  getLatencyPercentage(val: number): number {
+    // Max scale set to 5.0 seconds
+    const percentage &#x3D; (val / 5.0) * 100;
+    return Math.min(Math.max(percentage, 5), 100);
+  }
+
+  // Filtered/searched list of models
+  filteredModels &#x3D; computed(() &#x3D;&gt; {
+    const query &#x3D; this.searchQuery().toLowerCase().trim();
+    const tag &#x3D; this.activeTag();
+    let list &#x3D; this.models() || [];
+
+    // Apply text search filter
+    if (query) {
+      list &#x3D; list.filter(
+        m &#x3D;&gt;
+          m.name.toLowerCase().includes(query) ||
+          m.provider.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply category tag filter
+    if (tag &#x3D;&#x3D;&#x3D; &#x27;fast&#x27;) {
+      list &#x3D; list.filter(m &#x3D;&gt; m.avgLatency &lt;&#x3D; 1.2);
+    } else if (tag &#x3D;&#x3D;&#x3D; &#x27;cheap&#x27;) {
+      // Cheapest input price: less than $5
+      list &#x3D; list.filter(m &#x3D;&gt; m.pricingInput &lt;&#x3D; 5.0);
+    } else if (tag &#x3D;&#x3D;&#x3D; &#x27;vision&#x27;) {
+      list &#x3D; list.filter(m &#x3D;&gt; m.capabilities.includes(&#x27;vision&#x27;));
+    } else if (tag &#x3D;&#x3D;&#x3D; &#x27;code&#x27;) {
+      list &#x3D; list.filter(m &#x3D;&gt; m.capabilities.includes(&#x27;code&#x27;));
+    }
+
+    return list;
+  });
+
+  selectModel(model: AIModel) {
+    this.selectedModel.set(model);
+    this.modelSelected.emit(model);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .model-compare-wrapper {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+    }
+
+    /* Toolbar headers */
+    .toolbar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-sm, 6px);
+      padding: 6px 12px;
+      background: var(--bg-primary, #f8fafc);
+      min-width: 250px;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-icon {
+      font-size: 14px;
+    }
+
+    .filter-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      color: var(--text-primary, #0f172a);
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tag-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+    }
+    .tag-btn:hover {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-primary, #0f172a);
+    }
+    .tag-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Table styles */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-family: var(--ngx-font-family, sans-serif);
+      font-size: 13px;
+    }
+
+    .compare-table th {
+      padding: 14px 20px;
+      font-weight: 700;
+      color: var(--text-secondary, #475569);
+      background: var(--border-light, #f1f5f9);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      user-select: none;
+    }
+
+    .compare-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-light, #f1f5f9);
+      vertical-align: middle;
+      color: var(--text-primary, #0f172a);
+      transition: background 0.15s;
+    }
+
+    .model-row {
+      cursor: pointer;
+    }
+
+    .model-row:hover td {
+      background: rgba(79, 70, 229, 0.02);
+    }
+
+    .model-row.selected td {
+      background: rgba(79, 70, 229, 0.05);
+    }
+
+    .model-row.recommended {
+      position: relative;
+    }
+
+    .model-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .model-name {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .model-provider {
+      font-size: 11px;
+      color: var(--text-secondary, #475569);
+    }
+
+    /* Badges */
+    .badge-recommended {
+      background: #e0e7ff;
+      color: #4f46e5;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .badge-beta {
+      background: #fef3c7;
+      color: #d97706;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .param-tag {
+      background: var(--border-light, #f1f5f9);
+      color: var(--text-secondary, #475569);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .pricing-wrap {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .price-slash {
+      color: var(--text-muted, #94a3b8);
+      margin: 0 4px;
+    }
+
+    /* Latency bar graphs */
+    .latency-graph-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100px;
+    }
+
+    .latency-metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary, #475569);
+    }
+
+    .bar-track {
+      height: 6px;
+      background: var(--border-color, #e2e8f0);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .bar-fill.fast { background: #10b981; }
+    .bar-fill.moderate { background: #f59e0b; }
+    .bar-fill.slow { background: #ef4444; }
+
+    /* Capabilities */
+    .capabilities-icons {
+      display: flex;
+      gap: 6px;
+      font-size: 15px;
+    }
+
+    .capabilities-icons span {
+      opacity: 0.2;
+      filter: grayscale(1);
+      transition: opacity 0.2s;
+    }
+
+    .capabilities-icons span.active {
+      opacity: 1;
+      filter: none;
+    }
+
+    /* Star ratings */
+    .rating-stars {
+      color: #f59e0b;
+      font-size: 14px;
+      letter-spacing: -2px;
+      white-space: nowrap;
+    }
+
+    .star {
+      opacity: 0.2;
+    }
+
+    .star.filled {
+      opacity: 1;
+    }
+
+    /* Action selection button */
+    .select-btn {
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+      width: 76px;
+    }
+
+    .select-btn:hover {
+      background: rgba(79, 70, 229, 0.05);
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+
+    .select-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px !important;
+      color: var(--text-secondary, #475569);
+      font-style: italic;
+    }
+
+    /* Dark Mode */
+    .model-compare-wrapper.dark {
+      background: #0f172a;
+      border-color: #1f2937;
+    }
+    .model-compare-wrapper.dark .toolbar-header {
+      border-bottom-color: #1f2937;
+    }
+    .model-compare-wrapper.dark .search-box {
+      border-color: #1f2937;
+      background: #0b0f19;
+    }
+    .model-compare-wrapper.dark .filter-input {
+      color: #f8fafc;
+    }
+    .model-compare-wrapper.dark .tag-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .tag-btn:hover {
+      background: #1f2937;
+      color: #f8fafc;
+    }
+    .model-compare-wrapper.dark .tag-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .model-compare-wrapper.dark .compare-table th {
+      background: #1e293b;
+      border-bottom-color: #1f2937;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .compare-table td {
+      border-bottom-color: #1f2937;
+      color: #e2e8f0;
+    }
+    .model-compare-wrapper.dark .model-row:hover td {
+      background: rgba(99, 102, 241, 0.02);
+    }
+    .model-compare-wrapper.dark .model-row.selected td {
+      background: rgba(99, 102, 241, 0.05);
+    }
+    .model-compare-wrapper.dark .badge-recommended {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+    }
+    .model-compare-wrapper.dark .badge-beta {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+    .model-compare-wrapper.dark .param-tag {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .model-provider {
+      color: #6b7280;
+    }
+    .model-compare-wrapper.dark .bar-track {
+      background: #1f2937;
+    }
+    .model-compare-wrapper.dark .latency-metrics {
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .select-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .model-compare-wrapper.dark .select-btn:hover {
+      background: rgba(99, 102, 241, 0.05);
+      color: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+    }
+    .model-compare-wrapper.dark .select-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="model-compare-wrapper" [class.dark]="theme() === \'dark\'">  <!-- Toolbar Filter Bar -->  <div class="toolbar-header">    <div class="search-box">      <span class="search-icon">🔍</span>      <input        type="text"        [ngModel]="searchQuery()"        (ngModelChange)="searchQuery.set($event)"        placeholder="Search model or provider..."        class="filter-input"      />    </div>    <!-- Filter Tags -->    <div class="filter-tags">      @for (tag of tags; track tag.value) {        <button          class="tag-btn"          [class.active]="activeTag() === tag.value"          (click)="activeTag.set(tag.value)"        >          {{ tag.label }}        </button>      }    </div>  </div>  <!-- Comparison Grid Container -->  <div class="table-container">    <table class="compare-table">      <thead>        <tr>          <th class="cell-model">Model</th>          <th>Parameters</th>          <th>Context</th>          <th>Cost (In/Out per 1M)</th>          <th class="cell-latency">Latency</th>          <th>Capabilities</th>          <th>Rating</th>          <th class="cell-action">Action</th>        </tr>      </thead>      <tbody>        @if (filteredModels().length === 0) {          <tr>            <td colspan="8" class="empty-state">              No models match the current filter or search criteria.            </td>          </tr>        } @else {          @for (model of filteredModels(); track model.name) {            <tr              class="model-row"              [class.recommended]="model.recommended"              [class.selected]="selectedModel()?.name === model.name"              (click)="selectModel(model)"            >              <!-- Model Info -->              <td class="cell-model">                <div class="model-title-wrap">                  <div class="model-name">                    {{ model.name }}                    <span *ngIf="model.recommended" class="badge-recommended">Rec</span>                    <span *ngIf="model.status === \'beta\'" class="badge-beta">Beta</span>                  </div>                  <div class="model-provider">{{ model.provider }}</div>                </div>              </td>              <!-- Parameters -->              <td>                <span class="param-tag">{{ model.parameters }}</span>              </td>              <!-- Context Window -->              <td>{{ model.contextWindow }}</td>              <!-- Pricing -->              <td>                <div class="pricing-wrap">                  <span class="price-val">${{ model.pricingInput }}</span>                  <span class="price-slash">/</span>                  <span class="price-val">${{ model.pricingOutput }}</span>                </div>              </td>              <!-- Latency Bar -->              <td class="cell-latency">                <div class="latency-graph-wrap">                  <div class="latency-metrics">                    <span>{{ model.avgLatency }}s</span>                  </div>                  <div class="bar-track">                    <div                      class="bar-fill"                      [style.width.%]="getLatencyPercentage(model.avgLatency)"                      [class.fast]="model.avgLatency <= 1.0"                      [class.moderate]="model.avgLatency > 1.0 && model.avgLatency <= 2.2"                      [class.slow]="model.avgLatency > 2.2"                    ></div>                  </div>                </div>              </td>              <!-- Capabilities -->              <td>                <div class="capabilities-icons">                  <span [class.active]="model.capabilities.includes(\'text\')" title="Text processing">💬</span>                  <span [class.active]="model.capabilities.includes(\'code\')" title="Code generation">💻</span>                  <span [class.active]="model.capabilities.includes(\'vision\')" title="Computer vision">👁️</span>                  <span [class.active]="model.capabilities.includes(\'audio\')" title="Voice/Audio input">🎙️</span>                </div>              </td>              <!-- Rating -->              <td>                <div class="rating-stars" [title]="model.rating + \' stars\'">                  @for (star of [1, 2, 3, 4, 5]; track star) {                    <span class="star" [class.filled]="star <= model.rating">★</span>                  }                </div>              </td>              <!-- Select Button -->              <td class="cell-action" (click)="$event.stopPropagation()">                <button                  class="select-btn"                  [class.active]="selectedModel()?.name === model.name"                  (click)="selectModel(model)"                >                  {{ selectedModel()?.name === model.name ? \'Selected\' : \'Compare\' }}                </button>              </td>            </tr>          }        }      </tbody>    </table>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'AIModelCompareComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AIModelCompareComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

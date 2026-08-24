@@ -1,0 +1,4006 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AICodeEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-ai-code-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+      font-family: Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;
+    }
+
+    .code-editor-wrapper {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      background: var(--bg-secondary, #ffffff);
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .code-editor-wrapper.focused {
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+
+    /* Toolbar Header */
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--border-light, #f1f5f9);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .editor-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .editor-dot.red { background: #ef4444; }
+    .editor-dot.yellow { background: #f59e0b; }
+    .editor-dot.green { background: #10b981; }
+
+    .editor-lang-badge {
+      margin-left: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary, #475569);
+      background: rgba(0, 0, 0, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-pill {
+      font-size: 11px;
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+      color: #6d28d9;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .icon-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-primary, #0f172a);
+    }
+
+    /* Editor Canvas */
+    .editor-canvas {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      min-height: 150px;
+      background: var(--bg-secondary, #ffffff);
+      cursor: text;
+    }
+
+    .line-numbers {
+      padding: 16px 8px 16px 12px;
+      border-right: 1px solid var(--border-color, #e2e8f0);
+      background: rgba(0, 0, 0, 0.01);
+      user-select: none;
+      text-align: right;
+      min-width: 40px;
+    }
+
+    .line-num {
+      color: var(--text-muted, #94a3b8);
+      font-size: 12px;
+      line-height: 1.6;
+      height: 19.2px;
+    }
+
+    .code-content-container {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .hidden-textarea {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 2;
+      resize: none;
+      border: none;
+      outline: none;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .rendered-code {
+      margin: 0;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-primary, #0f172a);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      pointer-events: none;
+      z-index: 1;
+      overflow-y: auto;
+    }
+
+    .cursor-pipe {
+      color: var(--primary-color, #4f46e5);
+      font-weight: bold;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    .ghost-text {
+      color: var(--text-muted, #94a3b8);
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    /* Footer controls */
+    .editor-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--border-light, #f1f5f9);
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .editor-footer.justify-end {
+      justify-content: flex-end;
+    }
+
+    .suggestion-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary, #475569);
+    }
+
+    .sparkle {
+      font-size: 14px;
+    }
+
+    .editor-kbd {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 3px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      padding: 1px 4px;
+      font-size: 11px;
+      font-family: sans-serif;
+      font-weight: 600;
+      color: var(--text-primary, #0f172a);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .footer-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+    }
+
+    .accept-btn {
+      background: var(--primary-color, #4f46e5);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .accept-btn:hover {
+      background: var(--primary-hover, #4338ca);
+    }
+
+    .reject-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #e2e8f0);
+      color: var(--text-secondary, #475569);
+    }
+    .reject-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--text-secondary, #475569);
+    }
+
+    .primary-btn {
+      background: var(--primary-color, #4f46e5);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .primary-btn:hover {
+      background: var(--primary-hover, #4338ca);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #e2e8f0);
+      color: var(--text-secondary, #475569);
+    }
+    .secondary-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Explanation Panel */
+    .explanation-panel {
+      background: linear-gradient(to right, rgba(79, 70, 229, 0.03), rgba(124, 58, 237, 0.03));
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding: 16px;
+    }
+
+    .explanation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--primary-color, #4f46e5);
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .close-explanation-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted, #94a3b8);
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .close-explanation-btn:hover {
+      color: var(--text-primary, #0f172a);
+    }
+
+    .explanation-body {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-secondary, #475569);
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    /* Toolbar Toggle Button */
+    .toolbar-toggle-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .toolbar-toggle-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: var(--text-primary, #0f172a);
+      color: var(--text-primary, #0f172a);
+    }
+    .toolbar-toggle-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Diff Canvas */
+    .diff-canvas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 180px;
+      background: var(--bg-secondary, #ffffff);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-pane {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-pane:last-child {
+      border-right: none;
+    }
+    .diff-pane-title {
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.02);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-secondary, #64748b);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-code {
+      margin: 0;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .original-pane .diff-code {
+      background: rgba(239, 68, 68, 0.02);
+      color: #991b1b;
+    }
+    .proposed-pane .diff-code {
+      background: rgba(16, 185, 129, 0.02);
+    }
+    .diff-highlight {
+      background: rgba(16, 185, 129, 0.15);
+      color: #065f46;
+      border-radius: 2px;
+      padding: 1px 2px;
+      font-weight: 600;
+    }
+
+    /* Suggestions Navigator */
+    .suggestions-navigator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid var(--border-color, #cbd5e1);
+    }
+    .nav-arrow {
+      background: none;
+      border: none;
+      color: var(--primary-color, #4f46e5);
+      cursor: pointer;
+      font-size: 10px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .nav-arrow:hover {
+      background: rgba(79, 70, 229, 0.1);
+    }
+    .nav-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-primary, #0f172a);
+    }
+
+    /* Dark Mode Diff Styling */
+    .code-editor-wrapper.dark .toolbar-toggle-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .code-editor-wrapper.dark .toolbar-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f8fafc;
+    }
+    .code-editor-wrapper.dark .toolbar-toggle-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .code-editor-wrapper.dark .diff-canvas {
+      background: #0f172a;
+      border-bottom-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .diff-pane {
+      border-right-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .diff-pane-title {
+      background: rgba(255, 255, 255, 0.02);
+      color: #94a3b8;
+      border-bottom-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .original-pane .diff-code {
+      background: rgba(239, 68, 68, 0.05);
+      color: #fca5a5;
+    }
+    .code-editor-wrapper.dark .proposed-pane .diff-code {
+      background: rgba(16, 185, 129, 0.05);
+      color: #e2e8f0;
+    }
+    .code-editor-wrapper.dark .diff-highlight {
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
+    }
+    .code-editor-wrapper.dark .suggestions-navigator {
+      border-left-color: #374151;
+    }
+    .code-editor-wrapper.dark .nav-count {
+      color: #cbd5e1;
+    }
+    .code-editor-wrapper.dark .nav-arrow {
+      color: #818cf8;
+    }
+    .code-editor-wrapper.dark .nav-arrow:hover {
+      background: rgba(99, 102, 241, 0.15);
+    }
+
+    /* Syntax Highlighting */
+    .hl-keyword { color: #2563eb; font-weight: 600; }
+    .hl-builtin { color: #7c3aed; }
+    .hl-number { color: #ea580c; }
+    .hl-string { color: #16a34a; }
+    .hl-comment { color: #94a3b8; font-style: italic; }
+    .hl-function { color: #d97706; }
+    .hl-tag { color: #2563eb; }
+    .hl-attr { color: #7c3aed; }
+    .hl-class { color: #d97706; }
+    .hl-id { color: #ef4444; }
+    .hl-pseudo { color: #8b5cf6; }
+    .hl-property { color: #0284c7; }
+    .hl-key { color: #2563eb; font-weight: 600; }
+
+    .code-editor-wrapper.dark .hl-keyword { color: #60a5fa; }
+    .code-editor-wrapper.dark .hl-builtin { color: #a78bfa; }
+    .code-editor-wrapper.dark .hl-number { color: #fb923c; }
+    .code-editor-wrapper.dark .hl-string { color: #4ade80; }
+    .code-editor-wrapper.dark .hl-comment { color: #64748b; }
+    .code-editor-wrapper.dark .hl-function { color: #f59e0b; }
+    .code-editor-wrapper.dark .hl-tag { color: #60a5fa; }
+    .code-editor-wrapper.dark .hl-attr { color: #a78bfa; }
+    .code-editor-wrapper.dark .hl-class { color: #f59e0b; }
+    .code-editor-wrapper.dark .hl-id { color: #f87171; }
+    .code-editor-wrapper.dark .hl-pseudo { color: #c084fc; }
+    .code-editor-wrapper.dark .hl-property { color: #38bdf8; }
+    .code-editor-wrapper.dark .hl-key { color: #60a5fa; }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;code-editor-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot; [class.focused]&#x3D;&quot;isFocused()&quot;&gt;
+  &lt;!-- Toolbar Header --&gt;
+  &lt;div class&#x3D;&quot;editor-header&quot;&gt;
+    &lt;div class&#x3D;&quot;header-left&quot;&gt;
+      &lt;span class&#x3D;&quot;editor-dot red&quot;&gt;&lt;/span&gt;
+      &lt;span class&#x3D;&quot;editor-dot yellow&quot;&gt;&lt;/span&gt;
+      &lt;span class&#x3D;&quot;editor-dot green&quot;&gt;&lt;/span&gt;
+      &lt;span class&#x3D;&quot;editor-lang-badge&quot;&gt;{{ language() | uppercase }}&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;header-right&quot;&gt;
+      &lt;button
+        *ngIf&#x3D;&quot;hasSuggestion() &amp;&amp; !suggestionAccepted()&quot;
+        class&#x3D;&quot;toolbar-toggle-btn&quot;
+        [class.active]&#x3D;&quot;diffMode()&quot;
+        (click)&#x3D;&quot;toggleDiffMode()&quot;
+      &gt;
+        {{ diffMode() ? &#x27;👁️ Editor&#x27; : &#x27;🔍 Diff View&#x27; }}
+      &lt;/button&gt;
+      &lt;span class&#x3D;&quot;ai-pill&quot;&gt;✨ AI Suggestion Active&lt;/span&gt;
+      &lt;button class&#x3D;&quot;icon-btn&quot; (click)&#x3D;&quot;copyCode()&quot; [title]&#x3D;&quot;copyTooltip()&quot;&gt;
+        {{ copyText() }}
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Editor Canvas --&gt;
+  &lt;div class&#x3D;&quot;editor-canvas&quot; *ngIf&#x3D;&quot;!diffMode()&quot; (click)&#x3D;&quot;focusTextarea()&quot;&gt;
+    &lt;!-- Line Numbers --&gt;
+    &lt;div class&#x3D;&quot;line-numbers&quot;&gt;
+      @for (line of lines(); track $index) {
+        &lt;div class&#x3D;&quot;line-num&quot;&gt;{{ $index + 1 }}&lt;/div&gt;
+      }
+    &lt;/div&gt;
+
+    &lt;!-- Code Content Area --&gt;
+    &lt;div class&#x3D;&quot;code-content-container&quot;&gt;
+      &lt;textarea
+        #editorInput
+        class&#x3D;&quot;hidden-textarea&quot;
+        [ngModel]&#x3D;&quot;code()&quot;
+        (ngModelChange)&#x3D;&quot;onCodeChange($event)&quot;
+        (focus)&#x3D;&quot;isFocused.set(true)&quot;
+        (blur)&#x3D;&quot;isFocused.set(false)&quot;
+        (keydown)&#x3D;&quot;handleKeydown($event)&quot;
+        [disabled]&#x3D;&quot;disabled()&quot;
+      &gt;&lt;/textarea&gt;
+
+      &lt;!-- Rendered Code Grid with Ghost Text --&gt;
+      &lt;pre class&#x3D;&quot;rendered-code&quot;&gt;&lt;code&gt;&lt;span [innerHTML]&#x3D;&quot;highlightedCode()&quot;&gt;&lt;/span&gt;&lt;span class&#x3D;&quot;cursor-pipe&quot; *ngIf&#x3D;&quot;isFocused()&quot;&gt;|&lt;/span&gt;&lt;span
+        *ngIf&#x3D;&quot;hasSuggestion() &amp;&amp; !suggestionAccepted()&quot;
+        class&#x3D;&quot;ghost-text&quot;
+      &gt;{{ currentSuggestion() }}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Diff Canvas --&gt;
+  &lt;div class&#x3D;&quot;diff-canvas&quot; *ngIf&#x3D;&quot;diffMode() &amp;&amp; hasSuggestion() &amp;&amp; !suggestionAccepted()&quot;&gt;
+    &lt;!-- Left original panel --&gt;
+    &lt;div class&#x3D;&quot;diff-pane original-pane&quot;&gt;
+      &lt;div class&#x3D;&quot;diff-pane-title&quot;&gt;Original&lt;/div&gt;
+      &lt;pre class&#x3D;&quot;diff-code&quot;&gt;&lt;code&gt;{{ code() }}&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;!-- Right proposed panel --&gt;
+    &lt;div class&#x3D;&quot;diff-pane proposed-pane&quot;&gt;
+      &lt;div class&#x3D;&quot;diff-pane-title&quot;&gt;Proposed&lt;/div&gt;
+      &lt;pre class&#x3D;&quot;diff-code&quot;&gt;&lt;code&gt;{{ code() }}&lt;span class&#x3D;&quot;diff-highlight&quot;&gt;{{ currentSuggestion() }}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Suggestion Panel Controls --&gt;
+  &lt;div class&#x3D;&quot;editor-footer&quot; *ngIf&#x3D;&quot;hasSuggestion() &amp;&amp; !suggestionAccepted()&quot;&gt;
+    &lt;div class&#x3D;&quot;suggestion-info&quot;&gt;
+      &lt;span class&#x3D;&quot;sparkle&quot;&gt;✨&lt;/span&gt;
+      &lt;span class&#x3D;&quot;desc&quot;&gt;Press &lt;kbd class&#x3D;&quot;editor-kbd&quot;&gt;Tab&lt;/kbd&gt; to accept, or &lt;kbd class&#x3D;&quot;editor-kbd&quot;&gt;Esc&lt;/kbd&gt; to dismiss.&lt;/span&gt;
+      @if (suggestions().length &gt; 1) {
+        &lt;div class&#x3D;&quot;suggestions-navigator&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;nav-arrow&quot; (click)&#x3D;&quot;prevSuggestion()&quot; title&#x3D;&quot;Previous suggestion&quot;&gt;◀&lt;/button&gt;
+          &lt;span class&#x3D;&quot;nav-count&quot;&gt;{{ activeSuggestionIndex() + 1 }} / {{ suggestions().length }}&lt;/span&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;nav-arrow&quot; (click)&#x3D;&quot;nextSuggestion()&quot; title&#x3D;&quot;Next suggestion&quot;&gt;▶&lt;/button&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;action-buttons&quot;&gt;
+      &lt;button class&#x3D;&quot;footer-btn reject-btn&quot; (click)&#x3D;&quot;decline()&quot;&gt;Decline (Esc)&lt;/button&gt;
+      &lt;button class&#x3D;&quot;footer-btn accept-btn&quot; (click)&#x3D;&quot;accept()&quot;&gt;Accept (Tab)&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Explanation Panel --&gt;
+  &lt;div class&#x3D;&quot;explanation-panel&quot; *ngIf&#x3D;&quot;explanation() &amp;&amp; showExplanation()&quot;&gt;
+    &lt;div class&#x3D;&quot;explanation-header&quot;&gt;
+      &lt;span class&#x3D;&quot;sparkle&quot;&gt;💡 AI Explanation&lt;/span&gt;
+      &lt;button class&#x3D;&quot;close-explanation-btn&quot; (click)&#x3D;&quot;showExplanation.set(false)&quot;&gt;✕&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;explanation-body&quot;&gt;
+      {{ explanation() }}
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Secondary Panel Controls (when suggestion is accepted or inactive) --&gt;
+  &lt;div class&#x3D;&quot;editor-footer justify-end&quot; *ngIf&#x3D;&quot;!hasSuggestion() || suggestionAccepted()&quot;&gt;
+    &lt;div class&#x3D;&quot;action-buttons&quot;&gt;
+      &lt;button class&#x3D;&quot;footer-btn secondary-btn&quot; (click)&#x3D;&quot;explainSuggestedCode()&quot;&gt;Explain Code&lt;/button&gt;
+      &lt;button class&#x3D;&quot;footer-btn primary-btn&quot; (click)&#x3D;&quot;triggerRegenerate()&quot;&gt;Re-generate Suggestion&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeSuggestionIndex" >activeSuggestionIndex</a>
+                            </li>
+                            <li>
+                                <a href="#copyText" >copyText</a>
+                            </li>
+                            <li>
+                                <a href="#copyTooltip" >copyTooltip</a>
+                            </li>
+                            <li>
+                                <a href="#currentSuggestion" >currentSuggestion</a>
+                            </li>
+                            <li>
+                                <a href="#diffMode" >diffMode</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#editorInput" >editorInput</a>
+                            </li>
+                            <li>
+                                <a href="#hasSuggestion" >hasSuggestion</a>
+                            </li>
+                            <li>
+                                <a href="#highlightedCode" >highlightedCode</a>
+                            </li>
+                            <li>
+                                <a href="#isFocused" >isFocused</a>
+                            </li>
+                            <li>
+                                <a href="#lines" >lines</a>
+                            </li>
+                            <li>
+                                <a href="#showExplanation" >showExplanation</a>
+                            </li>
+                            <li>
+                                <a href="#suggestionAccepted" >suggestionAccepted</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#accept" >accept</a>
+                            </li>
+                            <li>
+                                <a href="#copyCode" >copyCode</a>
+                            </li>
+                            <li>
+                                <a href="#decline" >decline</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#escapeHtml" >escapeHtml</a>
+                            </li>
+                            <li>
+                                <a href="#explainSuggestedCode" >explainSuggestedCode</a>
+                            </li>
+                            <li>
+                                <a href="#focusTextarea" >focusTextarea</a>
+                            </li>
+                            <li>
+                                <a href="#handleKeydown" >handleKeydown</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#highlightCSS" >highlightCSS</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#highlightHTML" >highlightHTML</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#highlightJS" >highlightJS</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#highlightJSON" >highlightJSON</a>
+                            </li>
+                            <li>
+                                <a href="#nextSuggestion" >nextSuggestion</a>
+                            </li>
+                            <li>
+                                <a href="#onCodeChange" >onCodeChange</a>
+                            </li>
+                            <li>
+                                <a href="#prevSuggestion" >prevSuggestion</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDiffMode" >toggleDiffMode</a>
+                            </li>
+                            <li>
+                                <a href="#triggerRegenerate" >triggerRegenerate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#code" >code</a>
+                            </li>
+                            <li>
+                                <a href="#disabled" >disabled</a>
+                            </li>
+                            <li>
+                                <a href="#explanation" >explanation</a>
+                            </li>
+                            <li>
+                                <a href="#language" >language</a>
+                            </li>
+                            <li>
+                                <a href="#suggestion" >suggestion</a>
+                            </li>
+                            <li>
+                                <a href="#suggestions" >suggestions</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#acceptSuggestion" >acceptSuggestion</a>
+                            </li>
+                            <li>
+                                <a href="#codeChange" >codeChange</a>
+                            </li>
+                            <li>
+                                <a href="#declineSuggestion" >declineSuggestion</a>
+                            </li>
+                            <li>
+                                <a href="#regenerate" >regenerate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="code"></a>
+                        <b>code</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="603" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:603</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disabled"></a>
+                        <b>disabled</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="608" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:608</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="explanation"></a>
+                        <b>explanation</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="609" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:609</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="language"></a>
+                        <b>language</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;typescript&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="606" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:606</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="suggestion"></a>
+                        <b>suggestion</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="604" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:604</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="suggestions"></a>
+                        <b>suggestions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="605" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:605</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="607" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:607</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="acceptSuggestion"></a>
+                        <b>acceptSuggestion</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="613" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:613</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="codeChange"></a>
+                        <b>codeChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="612" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:612</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="declineSuggestion"></a>
+                        <b>declineSuggestion</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="614" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:614</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="regenerate"></a>
+                        <b>regenerate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="615" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:615</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accept"></a>
+                    <span class="name">
+                        <span ><b>accept</b></span>
+                        <a href="#accept"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>accept()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="892"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:892</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="copyCode"></a>
+                    <span class="name">
+                        <span ><b>copyCode</b></span>
+                        <a href="#copyCode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>copyCode()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="915"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:915</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="decline"></a>
+                    <span class="name">
+                        <span ><b>decline</b></span>
+                        <a href="#decline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>decline()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="900"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:900</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="escapeHtml"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>escapeHtml</b></span>
+                        <a href="#escapeHtml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>escapeHtml(unsafe: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="817"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:817</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>unsafe</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="explainSuggestedCode"></a>
+                    <span class="name">
+                        <span ><b>explainSuggestedCode</b></span>
+                        <a href="#explainSuggestedCode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>explainSuggestedCode()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="911"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:911</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="focusTextarea"></a>
+                    <span class="name">
+                        <span ><b>focusTextarea</b></span>
+                        <a href="#focusTextarea"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>focusTextarea()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="828"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:828</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleKeydown"></a>
+                    <span class="name">
+                        <span ><b>handleKeydown</b></span>
+                        <a href="#handleKeydown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleKeydown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="843"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:843</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>KeyboardEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="highlightCSS"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>highlightCSS</b></span>
+                        <a href="#highlightCSS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>highlightCSS(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="727"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:727</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="highlightHTML"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>highlightHTML</b></span>
+                        <a href="#highlightHTML"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>highlightHTML(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="762"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:762</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="highlightJS"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>highlightJS</b></span>
+                        <a href="#highlightJS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>highlightJS(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="663"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:663</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="highlightJSON"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>highlightJSON</b></span>
+                        <a href="#highlightJSON"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>highlightJSON(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="794"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:794</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextSuggestion"></a>
+                    <span class="name">
+                        <span ><b>nextSuggestion</b></span>
+                        <a href="#nextSuggestion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextSuggestion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="880"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:880</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCodeChange"></a>
+                    <span class="name">
+                        <span ><b>onCodeChange</b></span>
+                        <a href="#onCodeChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCodeChange(newVal: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="835"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:835</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>newVal</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prevSuggestion"></a>
+                    <span class="name">
+                        <span ><b>prevSuggestion</b></span>
+                        <a href="#prevSuggestion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prevSuggestion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="873"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:873</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDiffMode"></a>
+                    <span class="name">
+                        <span ><b>toggleDiffMode</b></span>
+                        <a href="#toggleDiffMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDiffMode()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="887"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:887</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="triggerRegenerate"></a>
+                    <span class="name">
+                        <span ><b>triggerRegenerate</b></span>
+                        <a href="#triggerRegenerate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>triggerRegenerate()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="905"
+                                    class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:905</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeSuggestionIndex"></a>
+                    <span class="name">
+                        <span ><b>activeSuggestionIndex</b></span>
+                        <a href="#activeSuggestionIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="624" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:624</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="copyText"></a>
+                    <span class="name">
+                        <span ><b>copyText</b></span>
+                        <a href="#copyText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;Copy&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="621" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:621</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="copyTooltip"></a>
+                    <span class="name">
+                        <span ><b>copyTooltip</b></span>
+                        <a href="#copyTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;Copy code to clipboard&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="622" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:622</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentSuggestion"></a>
+                    <span class="name">
+                        <span ><b>currentSuggestion</b></span>
+                        <a href="#currentSuggestion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const list &#x3D; this.suggestions() || [];
+    if (list.length &gt; 0) {
+      const idx &#x3D; this.activeSuggestionIndex();
+      return list[idx] || &#x27;&#x27;;
+    }
+    return this.suggestion() || &#x27;&#x27;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="628" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:628</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="diffMode"></a>
+                    <span class="name">
+                        <span ><b>diffMode</b></span>
+                        <a href="#diffMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="625" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:625</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editorInput"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>editorInput</b></span>
+                        <a href="#editorInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;editorInput&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="826" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:826</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasSuggestion"></a>
+                    <span class="name">
+                        <span ><b>hasSuggestion</b></span>
+                        <a href="#hasSuggestion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; !!this.currentSuggestion())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="637" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:637</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="highlightedCode"></a>
+                    <span class="name">
+                        <span ><b>highlightedCode</b></span>
+                        <a href="#highlightedCode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const raw &#x3D; this.code() || &#x27;&#x27;;
+    if (!raw) return &#x27;&#x27;;
+    const escaped &#x3D; this.escapeHtml(raw);
+    const lang &#x3D; (this.language() || &#x27;typescript&#x27;).toLowerCase();
+
+    if (lang &#x3D;&#x3D;&#x3D; &#x27;typescript&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;javascript&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;js&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;ts&#x27;) {
+      return this.highlightJS(escaped);
+    } else if (lang &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) {
+      return this.highlightJSON(escaped);
+    } else if (lang &#x3D;&#x3D;&#x3D; &#x27;css&#x27;) {
+      return this.highlightCSS(escaped);
+    } else if (lang &#x3D;&#x3D;&#x3D; &#x27;html&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;xml&#x27;) {
+      return this.highlightHTML(escaped);
+    }
+    return escaped;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="645" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:645</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFocused"></a>
+                    <span class="name">
+                        <span ><b>isFocused</b></span>
+                        <a href="#isFocused"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="618" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:618</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lines"></a>
+                    <span class="name">
+                        <span ><b>lines</b></span>
+                        <a href="#lines"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="640" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:640</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showExplanation"></a>
+                    <span class="name">
+                        <span ><b>showExplanation</b></span>
+                        <a href="#showExplanation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="620" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:620</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suggestionAccepted"></a>
+                    <span class="name">
+                        <span ><b>suggestionAccepted</b></span>
+                        <a href="#suggestionAccepted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="619" class="link-to-prism">projects/ngx-core-components/ai/ai-code-editor/ai-code-editor.component.ts:619</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, output, HostListener, ViewChild, computed } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+@Component({
+  selector: &#x27;ngx-ai-code-editor&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;code-editor-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot; [class.focused]&#x3D;&quot;isFocused()&quot;&gt;
+      &lt;!-- Toolbar Header --&gt;
+      &lt;div class&#x3D;&quot;editor-header&quot;&gt;
+        &lt;div class&#x3D;&quot;header-left&quot;&gt;
+          &lt;span class&#x3D;&quot;editor-dot red&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;editor-dot yellow&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;editor-dot green&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;editor-lang-badge&quot;&gt;{{ language() | uppercase }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;header-right&quot;&gt;
+          &lt;button 
+            *ngIf&#x3D;&quot;hasSuggestion() &amp;&amp; !suggestionAccepted()&quot;
+            class&#x3D;&quot;toolbar-toggle-btn&quot;
+            [class.active]&#x3D;&quot;diffMode()&quot;
+            (click)&#x3D;&quot;toggleDiffMode()&quot;
+          &gt;
+            {{ diffMode() ? &#x27;👁️ Editor&#x27; : &#x27;🔍 Diff View&#x27; }}
+          &lt;/button&gt;
+          &lt;span class&#x3D;&quot;ai-pill&quot;&gt;✨ AI Suggestion Active&lt;/span&gt;
+          &lt;button class&#x3D;&quot;icon-btn&quot; (click)&#x3D;&quot;copyCode()&quot; [title]&#x3D;&quot;copyTooltip()&quot;&gt;
+            {{ copyText() }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Editor Canvas --&gt;
+      &lt;div class&#x3D;&quot;editor-canvas&quot; *ngIf&#x3D;&quot;!diffMode()&quot; (click)&#x3D;&quot;focusTextarea()&quot;&gt;
+        &lt;!-- Line Numbers --&gt;
+        &lt;div class&#x3D;&quot;line-numbers&quot;&gt;
+          @for (line of lines(); track $index) {
+            &lt;div class&#x3D;&quot;line-num&quot;&gt;{{ $index + 1 }}&lt;/div&gt;
+          }
+        &lt;/div&gt;
+ 
+        &lt;!-- Code Content Area --&gt;
+        &lt;div class&#x3D;&quot;code-content-container&quot;&gt;
+          &lt;textarea
+            #editorInput
+            class&#x3D;&quot;hidden-textarea&quot;
+            [ngModel]&#x3D;&quot;code()&quot;
+            (ngModelChange)&#x3D;&quot;onCodeChange($event)&quot;
+            (focus)&#x3D;&quot;isFocused.set(true)&quot;
+            (blur)&#x3D;&quot;isFocused.set(false)&quot;
+            (keydown)&#x3D;&quot;handleKeydown($event)&quot;
+            [disabled]&#x3D;&quot;disabled()&quot;
+          &gt;&lt;/textarea&gt;
+ 
+          &lt;!-- Rendered Code Grid with Ghost Text --&gt;
+          &lt;pre class&#x3D;&quot;rendered-code&quot;&gt;&lt;code&gt;&lt;span [innerHTML]&#x3D;&quot;highlightedCode()&quot;&gt;&lt;/span&gt;&lt;span class&#x3D;&quot;cursor-pipe&quot; *ngIf&#x3D;&quot;isFocused()&quot;&gt;|&lt;/span&gt;&lt;span 
+            *ngIf&#x3D;&quot;hasSuggestion() &amp;&amp; !suggestionAccepted()&quot; 
+            class&#x3D;&quot;ghost-text&quot;
+          &gt;{{ currentSuggestion() }}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Diff Canvas --&gt;
+      &lt;div class&#x3D;&quot;diff-canvas&quot; *ngIf&#x3D;&quot;diffMode() &amp;&amp; hasSuggestion() &amp;&amp; !suggestionAccepted()&quot;&gt;
+        &lt;!-- Left original panel --&gt;
+        &lt;div class&#x3D;&quot;diff-pane original-pane&quot;&gt;
+          &lt;div class&#x3D;&quot;diff-pane-title&quot;&gt;Original&lt;/div&gt;
+          &lt;pre class&#x3D;&quot;diff-code&quot;&gt;&lt;code&gt;{{ code() }}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+        &lt;!-- Right proposed panel --&gt;
+        &lt;div class&#x3D;&quot;diff-pane proposed-pane&quot;&gt;
+          &lt;div class&#x3D;&quot;diff-pane-title&quot;&gt;Proposed&lt;/div&gt;
+          &lt;pre class&#x3D;&quot;diff-code&quot;&gt;&lt;code&gt;{{ code() }}&lt;span class&#x3D;&quot;diff-highlight&quot;&gt;{{ currentSuggestion() }}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Suggestion Panel Controls --&gt;
+      &lt;div class&#x3D;&quot;editor-footer&quot; *ngIf&#x3D;&quot;hasSuggestion() &amp;&amp; !suggestionAccepted()&quot;&gt;
+        &lt;div class&#x3D;&quot;suggestion-info&quot;&gt;
+          &lt;span class&#x3D;&quot;sparkle&quot;&gt;✨&lt;/span&gt;
+          &lt;span class&#x3D;&quot;desc&quot;&gt;Press &lt;kbd class&#x3D;&quot;editor-kbd&quot;&gt;Tab&lt;/kbd&gt; to accept, or &lt;kbd class&#x3D;&quot;editor-kbd&quot;&gt;Esc&lt;/kbd&gt; to dismiss.&lt;/span&gt;
+          @if (suggestions().length &gt; 1) {
+            &lt;div class&#x3D;&quot;suggestions-navigator&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;nav-arrow&quot; (click)&#x3D;&quot;prevSuggestion()&quot; title&#x3D;&quot;Previous suggestion&quot;&gt;◀&lt;/button&gt;
+              &lt;span class&#x3D;&quot;nav-count&quot;&gt;{{ activeSuggestionIndex() + 1 }} / {{ suggestions().length }}&lt;/span&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;nav-arrow&quot; (click)&#x3D;&quot;nextSuggestion()&quot; title&#x3D;&quot;Next suggestion&quot;&gt;▶&lt;/button&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;action-buttons&quot;&gt;
+          &lt;button class&#x3D;&quot;footer-btn reject-btn&quot; (click)&#x3D;&quot;decline()&quot;&gt;Decline (Esc)&lt;/button&gt;
+          &lt;button class&#x3D;&quot;footer-btn accept-btn&quot; (click)&#x3D;&quot;accept()&quot;&gt;Accept (Tab)&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Explanation Panel --&gt;
+      &lt;div class&#x3D;&quot;explanation-panel&quot; *ngIf&#x3D;&quot;explanation() &amp;&amp; showExplanation()&quot;&gt;
+        &lt;div class&#x3D;&quot;explanation-header&quot;&gt;
+          &lt;span class&#x3D;&quot;sparkle&quot;&gt;💡 AI Explanation&lt;/span&gt;
+          &lt;button class&#x3D;&quot;close-explanation-btn&quot; (click)&#x3D;&quot;showExplanation.set(false)&quot;&gt;✕&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;explanation-body&quot;&gt;
+          {{ explanation() }}
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Secondary Panel Controls (when suggestion is accepted or inactive) --&gt;
+      &lt;div class&#x3D;&quot;editor-footer justify-end&quot; *ngIf&#x3D;&quot;!hasSuggestion() || suggestionAccepted()&quot;&gt;
+        &lt;div class&#x3D;&quot;action-buttons&quot;&gt;
+          &lt;button class&#x3D;&quot;footer-btn secondary-btn&quot; (click)&#x3D;&quot;explainSuggestedCode()&quot;&gt;Explain Code&lt;/button&gt;
+          &lt;button class&#x3D;&quot;footer-btn primary-btn&quot; (click)&#x3D;&quot;triggerRegenerate()&quot;&gt;Re-generate Suggestion&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+      font-family: Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;
+    }
+
+    .code-editor-wrapper {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      background: var(--bg-secondary, #ffffff);
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .code-editor-wrapper.focused {
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+
+    /* Toolbar Header */
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--border-light, #f1f5f9);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .editor-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .editor-dot.red { background: #ef4444; }
+    .editor-dot.yellow { background: #f59e0b; }
+    .editor-dot.green { background: #10b981; }
+
+    .editor-lang-badge {
+      margin-left: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary, #475569);
+      background: rgba(0, 0, 0, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-pill {
+      font-size: 11px;
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+      color: #6d28d9;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .icon-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-primary, #0f172a);
+    }
+
+    /* Editor Canvas */
+    .editor-canvas {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      min-height: 150px;
+      background: var(--bg-secondary, #ffffff);
+      cursor: text;
+    }
+
+    .line-numbers {
+      padding: 16px 8px 16px 12px;
+      border-right: 1px solid var(--border-color, #e2e8f0);
+      background: rgba(0, 0, 0, 0.01);
+      user-select: none;
+      text-align: right;
+      min-width: 40px;
+    }
+
+    .line-num {
+      color: var(--text-muted, #94a3b8);
+      font-size: 12px;
+      line-height: 1.6;
+      height: 19.2px;
+    }
+
+    .code-content-container {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .hidden-textarea {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 2;
+      resize: none;
+      border: none;
+      outline: none;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .rendered-code {
+      margin: 0;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-primary, #0f172a);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      pointer-events: none;
+      z-index: 1;
+      overflow-y: auto;
+    }
+
+    .cursor-pipe {
+      color: var(--primary-color, #4f46e5);
+      font-weight: bold;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    .ghost-text {
+      color: var(--text-muted, #94a3b8);
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    /* Footer controls */
+    .editor-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--border-light, #f1f5f9);
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .editor-footer.justify-end {
+      justify-content: flex-end;
+    }
+
+    .suggestion-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary, #475569);
+    }
+
+    .sparkle {
+      font-size: 14px;
+    }
+
+    .editor-kbd {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 3px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      padding: 1px 4px;
+      font-size: 11px;
+      font-family: sans-serif;
+      font-weight: 600;
+      color: var(--text-primary, #0f172a);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .footer-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+    }
+
+    .accept-btn {
+      background: var(--primary-color, #4f46e5);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .accept-btn:hover {
+      background: var(--primary-hover, #4338ca);
+    }
+
+    .reject-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #e2e8f0);
+      color: var(--text-secondary, #475569);
+    }
+    .reject-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--text-secondary, #475569);
+    }
+
+    .primary-btn {
+      background: var(--primary-color, #4f46e5);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .primary-btn:hover {
+      background: var(--primary-hover, #4338ca);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #e2e8f0);
+      color: var(--text-secondary, #475569);
+    }
+    .secondary-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Explanation Panel */
+    .explanation-panel {
+      background: linear-gradient(to right, rgba(79, 70, 229, 0.03), rgba(124, 58, 237, 0.03));
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding: 16px;
+    }
+
+    .explanation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--primary-color, #4f46e5);
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .close-explanation-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted, #94a3b8);
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .close-explanation-btn:hover {
+      color: var(--text-primary, #0f172a);
+    }
+
+    .explanation-body {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-secondary, #475569);
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    /* Toolbar Toggle Button */
+    .toolbar-toggle-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .toolbar-toggle-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: var(--text-primary, #0f172a);
+      color: var(--text-primary, #0f172a);
+    }
+    .toolbar-toggle-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Diff Canvas */
+    .diff-canvas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 180px;
+      background: var(--bg-secondary, #ffffff);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-pane {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-pane:last-child {
+      border-right: none;
+    }
+    .diff-pane-title {
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.02);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-secondary, #64748b);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-code {
+      margin: 0;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .original-pane .diff-code {
+      background: rgba(239, 68, 68, 0.02);
+      color: #991b1b;
+    }
+    .proposed-pane .diff-code {
+      background: rgba(16, 185, 129, 0.02);
+    }
+    .diff-highlight {
+      background: rgba(16, 185, 129, 0.15);
+      color: #065f46;
+      border-radius: 2px;
+      padding: 1px 2px;
+      font-weight: 600;
+    }
+
+    /* Suggestions Navigator */
+    .suggestions-navigator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid var(--border-color, #cbd5e1);
+    }
+    .nav-arrow {
+      background: none;
+      border: none;
+      color: var(--primary-color, #4f46e5);
+      cursor: pointer;
+      font-size: 10px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .nav-arrow:hover {
+      background: rgba(79, 70, 229, 0.1);
+    }
+    .nav-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-primary, #0f172a);
+    }
+
+    /* Dark Mode Diff Styling */
+    .code-editor-wrapper.dark .toolbar-toggle-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .code-editor-wrapper.dark .toolbar-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f8fafc;
+    }
+    .code-editor-wrapper.dark .toolbar-toggle-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .code-editor-wrapper.dark .diff-canvas {
+      background: #0f172a;
+      border-bottom-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .diff-pane {
+      border-right-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .diff-pane-title {
+      background: rgba(255, 255, 255, 0.02);
+      color: #94a3b8;
+      border-bottom-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .original-pane .diff-code {
+      background: rgba(239, 68, 68, 0.05);
+      color: #fca5a5;
+    }
+    .code-editor-wrapper.dark .proposed-pane .diff-code {
+      background: rgba(16, 185, 129, 0.05);
+      color: #e2e8f0;
+    }
+    .code-editor-wrapper.dark .diff-highlight {
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
+    }
+    .code-editor-wrapper.dark .suggestions-navigator {
+      border-left-color: #374151;
+    }
+    .code-editor-wrapper.dark .nav-count {
+      color: #cbd5e1;
+    }
+    .code-editor-wrapper.dark .nav-arrow {
+      color: #818cf8;
+    }
+    .code-editor-wrapper.dark .nav-arrow:hover {
+      background: rgba(99, 102, 241, 0.15);
+    }
+
+    /* Syntax Highlighting */
+    .hl-keyword { color: #2563eb; font-weight: 600; }
+    .hl-builtin { color: #7c3aed; }
+    .hl-number { color: #ea580c; }
+    .hl-string { color: #16a34a; }
+    .hl-comment { color: #94a3b8; font-style: italic; }
+    .hl-function { color: #d97706; }
+    .hl-tag { color: #2563eb; }
+    .hl-attr { color: #7c3aed; }
+    .hl-class { color: #d97706; }
+    .hl-id { color: #ef4444; }
+    .hl-pseudo { color: #8b5cf6; }
+    .hl-property { color: #0284c7; }
+    .hl-key { color: #2563eb; font-weight: 600; }
+
+    .code-editor-wrapper.dark .hl-keyword { color: #60a5fa; }
+    .code-editor-wrapper.dark .hl-builtin { color: #a78bfa; }
+    .code-editor-wrapper.dark .hl-number { color: #fb923c; }
+    .code-editor-wrapper.dark .hl-string { color: #4ade80; }
+    .code-editor-wrapper.dark .hl-comment { color: #64748b; }
+    .code-editor-wrapper.dark .hl-function { color: #f59e0b; }
+    .code-editor-wrapper.dark .hl-tag { color: #60a5fa; }
+    .code-editor-wrapper.dark .hl-attr { color: #a78bfa; }
+    .code-editor-wrapper.dark .hl-class { color: #f59e0b; }
+    .code-editor-wrapper.dark .hl-id { color: #f87171; }
+    .code-editor-wrapper.dark .hl-pseudo { color: #c084fc; }
+    .code-editor-wrapper.dark .hl-property { color: #38bdf8; }
+    .code-editor-wrapper.dark .hl-key { color: #60a5fa; }
+  &#x60;]
+})
+export class AICodeEditorComponent {
+  // Inputs
+  code &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  suggestion &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  suggestions &#x3D; input&lt;string[]&gt;([]);
+  language &#x3D; input&lt;string&gt;(&#x27;typescript&#x27;);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  disabled &#x3D; input&lt;boolean&gt;(false);
+  explanation &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+
+  // Outputs
+  codeChange &#x3D; output&lt;string&gt;();
+  acceptSuggestion &#x3D; output&lt;void&gt;();
+  declineSuggestion &#x3D; output&lt;void&gt;();
+  regenerate &#x3D; output&lt;void&gt;();
+
+  // State
+  isFocused &#x3D; signal&lt;boolean&gt;(false);
+  suggestionAccepted &#x3D; signal&lt;boolean&gt;(false);
+  showExplanation &#x3D; signal&lt;boolean&gt;(false);
+  copyText &#x3D; signal&lt;string&gt;(&#x27;Copy&#x27;);
+  copyTooltip &#x3D; signal&lt;string&gt;(&#x27;Copy code to clipboard&#x27;);
+
+  activeSuggestionIndex &#x3D; signal&lt;number&gt;(0);
+  diffMode &#x3D; signal&lt;boolean&gt;(false);
+
+  // Computed suggestion resolution
+  currentSuggestion &#x3D; computed(() &#x3D;&gt; {
+    const list &#x3D; this.suggestions() || [];
+    if (list.length &gt; 0) {
+      const idx &#x3D; this.activeSuggestionIndex();
+      return list[idx] || &#x27;&#x27;;
+    }
+    return this.suggestion() || &#x27;&#x27;;
+  });
+
+  hasSuggestion &#x3D; computed(() &#x3D;&gt; !!this.currentSuggestion());
+
+  // Lines computed property for line numbers
+  lines &#x3D; () &#x3D;&gt; {
+    const rawCode &#x3D; this.code() || &#x27;&#x27;;
+    return rawCode.split(&#x27;\n&#x27;);
+  };
+
+  highlightedCode &#x3D; computed(() &#x3D;&gt; {
+    const raw &#x3D; this.code() || &#x27;&#x27;;
+    if (!raw) return &#x27;&#x27;;
+    const escaped &#x3D; this.escapeHtml(raw);
+    const lang &#x3D; (this.language() || &#x27;typescript&#x27;).toLowerCase();
+
+    if (lang &#x3D;&#x3D;&#x3D; &#x27;typescript&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;javascript&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;js&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;ts&#x27;) {
+      return this.highlightJS(escaped);
+    } else if (lang &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) {
+      return this.highlightJSON(escaped);
+    } else if (lang &#x3D;&#x3D;&#x3D; &#x27;css&#x27;) {
+      return this.highlightCSS(escaped);
+    } else if (lang &#x3D;&#x3D;&#x3D; &#x27;html&#x27; || lang &#x3D;&#x3D;&#x3D; &#x27;xml&#x27;) {
+      return this.highlightHTML(escaped);
+    }
+    return escaped;
+  });
+
+  private highlightJS(text: string): string {
+    const comments: string[] &#x3D; [];
+    const strings: string[] &#x3D; [];
+    let temp &#x3D; text;
+
+    temp &#x3D; temp.replace(/\/\*[\s\S]*?\*\//g, (match) &#x3D;&gt; {
+      comments.push(match);
+      return &#x60;___COMMENT_${comments.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/(?&lt;!:)\/\/.*$/gm, (match) &#x3D;&gt; {
+      comments.push(match);
+      return &#x60;___COMMENT_${comments.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/&quot;(\\.|[^&quot;\\])*&quot;/g, (match) &#x3D;&gt; {
+      strings.push(match);
+      return &#x60;___STRING_${strings.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/&#x27;(\\.|[^&#x27;\\])*&#x27;/g, (match) &#x3D;&gt; {
+      strings.push(match);
+      return &#x60;___STRING_${strings.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/&#x60;(\\.|[^&#x60;\\])*&#x60;/g, (match) &#x3D;&gt; {
+      strings.push(match);
+      return &#x60;___STRING_${strings.length - 1}___&#x60;;
+    });
+
+    const keywords &#x3D; [
+      &#x27;const&#x27;, &#x27;let&#x27;, &#x27;var&#x27;, &#x27;function&#x27;, &#x27;class&#x27;, &#x27;return&#x27;, &#x27;import&#x27;, &#x27;export&#x27;, &#x27;from&#x27;, &#x27;as&#x27;,
+      &#x27;extends&#x27;, &#x27;implements&#x27;, &#x27;if&#x27;, &#x27;else&#x27;, &#x27;for&#x27;, &#x27;while&#x27;, &#x27;do&#x27;, &#x27;switch&#x27;, &#x27;case&#x27;, &#x27;break&#x27;,
+      &#x27;continue&#x27;, &#x27;default&#x27;, &#x27;new&#x27;, &#x27;this&#x27;, &#x27;typeof&#x27;, &#x27;instanceof&#x27;, &#x27;async&#x27;, &#x27;await&#x27;,
+      &#x27;try&#x27;, &#x27;catch&#x27;, &#x27;finally&#x27;, &#x27;throw&#x27;, &#x27;interface&#x27;, &#x27;type&#x27;, &#x27;readonly&#x27;, &#x27;private&#x27;,
+      &#x27;public&#x27;, &#x27;protected&#x27;, &#x27;constructor&#x27;, &#x27;super&#x27;, &#x27;get&#x27;, &#x27;set&#x27;
+    ];
+
+    const builtins &#x3D; [
+      &#x27;String&#x27;, &#x27;Number&#x27;, &#x27;Boolean&#x27;, &#x27;Array&#x27;, &#x27;Object&#x27;, &#x27;Function&#x27;, &#x27;Promise&#x27;, &#x27;Observable&#x27;,
+      &#x27;signal&#x27;, &#x27;computed&#x27;, &#x27;input&#x27;, &#x27;output&#x27;, &#x27;Component&#x27;, &#x27;Injectable&#x27;, &#x27;Directive&#x27;, &#x27;Pipe&#x27;, &#x27;NgModule&#x27;,
+      &#x27;true&#x27;, &#x27;false&#x27;, &#x27;null&#x27;, &#x27;undefined&#x27;
+    ];
+
+    const keywordRegex &#x3D; new RegExp(&#x60;\\b(${keywords.join(&#x27;|&#x27;)})\\b&#x60;, &#x27;g&#x27;);
+    temp &#x3D; temp.replace(keywordRegex, &#x27;&lt;span class&#x3D;&quot;hl-keyword&quot;&gt;$1&lt;/span&gt;&#x27;);
+
+    const builtinRegex &#x3D; new RegExp(&#x60;\\b(${builtins.join(&#x27;|&#x27;)})\\b&#x60;, &#x27;g&#x27;);
+    temp &#x3D; temp.replace(builtinRegex, &#x27;&lt;span class&#x3D;&quot;hl-builtin&quot;&gt;$1&lt;/span&gt;&#x27;);
+
+    temp &#x3D; temp.replace(/\b(\d+)\b/g, &#x27;&lt;span class&#x3D;&quot;hl-number&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/\b(\w+)(?&#x3D;\()/g, &#x27;&lt;span class&#x3D;&quot;hl-function&quot;&gt;$1&lt;/span&gt;&#x27;);
+
+    strings.forEach((str, idx) &#x3D;&gt; {
+      temp &#x3D; temp.replace(&#x60;___STRING_${idx}___&#x60;, &#x60;&lt;span class&#x3D;&quot;hl-string&quot;&gt;${str}&lt;/span&gt;&#x60;);
+    });
+
+    comments.forEach((comment, idx) &#x3D;&gt; {
+      temp &#x3D; temp.replace(&#x60;___COMMENT_${idx}___&#x60;, &#x60;&lt;span class&#x3D;&quot;hl-comment&quot;&gt;${comment}&lt;/span&gt;&#x60;);
+    });
+
+    return temp;
+  }
+
+  private highlightCSS(text: string): string {
+    const comments: string[] &#x3D; [];
+    const strings: string[] &#x3D; [];
+    let temp &#x3D; text;
+
+    temp &#x3D; temp.replace(/\/\*[\s\S]*?\*\//g, (match) &#x3D;&gt; {
+      comments.push(match);
+      return &#x60;___COMMENT_${comments.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/&quot;(\\.|[^&quot;\\])*&quot;/g, (match) &#x3D;&gt; {
+      strings.push(match);
+      return &#x60;___STRING_${strings.length - 1}___&#x60;;
+    });
+    temp &#x3D; temp.replace(/&#x27;(\\.|[^&#x27;\\])*&#x27;/g, (match) &#x3D;&gt; {
+      strings.push(match);
+      return &#x60;___STRING_${strings.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/(\.[a-zA-Z_-][\w_-]*)/g, &#x27;&lt;span class&#x3D;&quot;hl-class&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/(#[a-zA-Z_-][\w_-]*)/g, &#x27;&lt;span class&#x3D;&quot;hl-id&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/(:\w+)\b/g, &#x27;&lt;span class&#x3D;&quot;hl-pseudo&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/\b([a-zA-Z-]+)(?&#x3D;\s*:)/g, &#x27;&lt;span class&#x3D;&quot;hl-property&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/\b(\d+(?:px|em|rem|%|ms|s|deg|fr|vh|vw|pt)?)\b/g, &#x27;&lt;span class&#x3D;&quot;hl-number&quot;&gt;$1&lt;/span&gt;&#x27;);
+
+    strings.forEach((str, idx) &#x3D;&gt; {
+      temp &#x3D; temp.replace(&#x60;___STRING_${idx}___&#x60;, &#x60;&lt;span class&#x3D;&quot;hl-string&quot;&gt;${str}&lt;/span&gt;&#x60;);
+    });
+    comments.forEach((comment, idx) &#x3D;&gt; {
+      temp &#x3D; temp.replace(&#x60;___COMMENT_${idx}___&#x60;, &#x60;&lt;span class&#x3D;&quot;hl-comment&quot;&gt;${comment}&lt;/span&gt;&#x60;);
+    });
+
+    return temp;
+  }
+
+  private highlightHTML(text: string): string {
+    let temp &#x3D; text;
+    const comments: string[] &#x3D; [];
+    temp &#x3D; temp.replace(/&amp;lt;!--[\s\S]*?--&amp;gt;/g, (match) &#x3D;&gt; {
+      comments.push(match);
+      return &#x60;___COMMENT_${comments.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/(&amp;lt;\/?[a-zA-Z0-9:-]+)/g, &#x27;&lt;span class&#x3D;&quot;hl-tag&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/(\/?&amp;gt;)/g, &#x27;&lt;span class&#x3D;&quot;hl-tag&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/\b([a-zA-Z-]+)(?&#x3D;\s*&#x3D;)/g, &#x27;&lt;span class&#x3D;&quot;hl-attr&quot;&gt;$1&lt;/span&gt;&#x27;);
+
+    const strings: string[] &#x3D; [];
+    temp &#x3D; temp.replace(/&#x3D;&quot;([^&quot;]*)&quot;/g, (match, p1) &#x3D;&gt; {
+      strings.push(&#x60;&#x3D;&quot;${p1}&quot;&#x60;);
+      return &#x60;&#x3D;___STRING_${strings.length - 1}___&#x60;;
+    });
+    temp &#x3D; temp.replace(/&#x3D;&#x27;([^&#x27;]*)&#x27;/g, (match, p1) &#x3D;&gt; {
+      strings.push(&#x60;&#x3D;&#x27;${p1}&#x27;&#x60;);
+      return &#x60;&#x3D;___STRING_${strings.length - 1}___&#x60;;
+    });
+
+    strings.forEach((str, idx) &#x3D;&gt; {
+      temp &#x3D; temp.replace(&#x60;___STRING_${idx}___&#x60;, &#x60;&lt;span class&#x3D;&quot;hl-string&quot;&gt;${str}&lt;/span&gt;&#x60;);
+    });
+    comments.forEach((comment, idx) &#x3D;&gt; {
+      temp &#x3D; temp.replace(&#x60;___COMMENT_${idx}___&#x60;, &#x60;&lt;span class&#x3D;&quot;hl-comment&quot;&gt;${comment}&lt;/span&gt;&#x60;);
+    });
+
+    return temp;
+  }
+
+  private highlightJSON(text: string): string {
+    let temp &#x3D; text;
+    const strings: string[] &#x3D; [];
+    temp &#x3D; temp.replace(/&quot;(\\.|[^&quot;\\])*&quot;/g, (match) &#x3D;&gt; {
+      strings.push(match);
+      return &#x60;___STRING_${strings.length - 1}___&#x60;;
+    });
+
+    temp &#x3D; temp.replace(/(___STRING_\d+___)(?&#x3D;\s*:)/g, &#x27;&lt;span class&#x3D;&quot;hl-key&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/\b(true|false|null)\b/g, &#x27;&lt;span class&#x3D;&quot;hl-builtin&quot;&gt;$1&lt;/span&gt;&#x27;);
+    temp &#x3D; temp.replace(/\b(\d+)\b/g, &#x27;&lt;span class&#x3D;&quot;hl-number&quot;&gt;$1&lt;/span&gt;&#x27;);
+
+    strings.forEach((str, idx) &#x3D;&gt; {
+      if (temp.includes(&#x60;&lt;span class&#x3D;&quot;hl-key&quot;&gt;___STRING_${idx}___&lt;/span&gt;&#x60;)) {
+        temp &#x3D; temp.replace(&#x60;___STRING_${idx}___&#x60;, str);
+      } else {
+        temp &#x3D; temp.replace(&#x60;___STRING_${idx}___&#x60;, &#x60;&lt;span class&#x3D;&quot;hl-string&quot;&gt;${str}&lt;/span&gt;&#x60;);
+      }
+    });
+
+    return temp;
+  }
+
+  private escapeHtml(unsafe: string): string {
+    return unsafe
+      .replace(/&amp;/g, &#x27;&amp;amp;&#x27;)
+      .replace(/&lt;/g, &#x27;&amp;lt;&#x27;)
+      .replace(/&gt;/g, &#x27;&amp;gt;&#x27;)
+      .replace(/&quot;/g, &#x27;&amp;quot;&#x27;)
+      .replace(/&#x27;/g, &#x27;&amp;#039;&#x27;);
+  }
+
+  @ViewChild(&#x27;editorInput&#x27;) editorInput!: any;
+
+  focusTextarea() {
+    if (this.disabled()) return;
+    if (this.editorInput &amp;&amp; this.editorInput.nativeElement) {
+      this.editorInput.nativeElement.focus();
+    }
+  }
+
+  onCodeChange(newVal: string) {
+    this.codeChange.emit(newVal);
+    // If the suggestion is pending and user edits, we reset the acceptance signal
+    if (this.suggestionAccepted()) {
+      this.suggestionAccepted.set(false);
+    }
+  }
+
+  handleKeydown(event: KeyboardEvent) {
+    if (this.disabled()) return;
+
+    // Tab accepts suggestion if available
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;Tab&#x27; &amp;&amp; this.hasSuggestion() &amp;&amp; !this.suggestionAccepted()) {
+      event.preventDefault();
+      this.accept();
+    }
+    // Tab inserts spaces if no suggestion is active
+    else if (event.key &#x3D;&#x3D;&#x3D; &#x27;Tab&#x27; &amp;&amp; (!this.hasSuggestion() || this.suggestionAccepted())) {
+      event.preventDefault();
+      const textarea &#x3D; event.target as HTMLTextAreaElement;
+      const start &#x3D; textarea.selectionStart;
+      const end &#x3D; textarea.selectionEnd;
+      const val &#x3D; textarea.value;
+      const newVal &#x3D; val.substring(0, start) + &#x27;  &#x27; + val.substring(end);
+      this.onCodeChange(newVal);
+      // Wait for Angular to update the model, then restore cursor position
+      setTimeout(() &#x3D;&gt; {
+        textarea.selectionStart &#x3D; textarea.selectionEnd &#x3D; start + 2;
+      });
+    }
+
+    // Esc declines suggestion if available
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27; &amp;&amp; this.hasSuggestion() &amp;&amp; !this.suggestionAccepted()) {
+      event.preventDefault();
+      this.decline();
+    }
+  }
+
+  prevSuggestion(): void {
+    if (this.disabled()) return;
+    const len &#x3D; this.suggestions().length;
+    if (len &lt;&#x3D; 1) return;
+    this.activeSuggestionIndex.update(idx &#x3D;&gt; (idx - 1 + len) % len);
+  }
+
+  nextSuggestion(): void {
+    if (this.disabled()) return;
+    const len &#x3D; this.suggestions().length;
+    if (len &lt;&#x3D; 1) return;
+    this.activeSuggestionIndex.update(idx &#x3D;&gt; (idx + 1) % len);
+  }
+
+  toggleDiffMode(): void {
+    if (this.disabled()) return;
+    this.diffMode.update(d &#x3D;&gt; !d);
+  }
+
+  accept() {
+    this.suggestionAccepted.set(true);
+    const fullCode &#x3D; this.code() + this.currentSuggestion();
+    this.codeChange.emit(fullCode);
+    this.acceptSuggestion.emit();
+    this.diffMode.set(false); // Reset diff mode when suggestion is accepted
+  }
+
+  decline() {
+    this.declineSuggestion.emit();
+    this.diffMode.set(false); // Reset diff mode when suggestion is declined
+  }
+
+  triggerRegenerate() {
+    this.suggestionAccepted.set(false);
+    this.showExplanation.set(false);
+    this.regenerate.emit();
+  }
+
+  explainSuggestedCode() {
+    this.showExplanation.set(true);
+  }
+
+  copyCode() {
+    const combined &#x3D; this.code() + (this.suggestionAccepted() ? &#x27;&#x27; : this.currentSuggestion());
+    navigator.clipboard.writeText(combined).then(() &#x3D;&gt; {
+      this.copyText.set(&#x27;Copied!&#x27;);
+      setTimeout(() &#x3D;&gt; this.copyText.set(&#x27;Copy&#x27;), 2000);
+    });
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+      font-family: Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;
+    }
+
+    .code-editor-wrapper {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: var(--radius-md, 10px);
+      background: var(--bg-secondary, #ffffff);
+      box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .code-editor-wrapper.focused {
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+
+    /* Toolbar Header */
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--border-light, #f1f5f9);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .editor-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .editor-dot.red { background: #ef4444; }
+    .editor-dot.yellow { background: #f59e0b; }
+    .editor-dot.green { background: #10b981; }
+
+    .editor-lang-badge {
+      margin-left: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary, #475569);
+      background: rgba(0, 0, 0, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-pill {
+      font-size: 11px;
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+      color: #6d28d9;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .icon-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-primary, #0f172a);
+    }
+
+    /* Editor Canvas */
+    .editor-canvas {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      min-height: 150px;
+      background: var(--bg-secondary, #ffffff);
+      cursor: text;
+    }
+
+    .line-numbers {
+      padding: 16px 8px 16px 12px;
+      border-right: 1px solid var(--border-color, #e2e8f0);
+      background: rgba(0, 0, 0, 0.01);
+      user-select: none;
+      text-align: right;
+      min-width: 40px;
+    }
+
+    .line-num {
+      color: var(--text-muted, #94a3b8);
+      font-size: 12px;
+      line-height: 1.6;
+      height: 19.2px;
+    }
+
+    .code-content-container {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .hidden-textarea {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 2;
+      resize: none;
+      border: none;
+      outline: none;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .rendered-code {
+      margin: 0;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-primary, #0f172a);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      pointer-events: none;
+      z-index: 1;
+      overflow-y: auto;
+    }
+
+    .cursor-pipe {
+      color: var(--primary-color, #4f46e5);
+      font-weight: bold;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    .ghost-text {
+      color: var(--text-muted, #94a3b8);
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    /* Footer controls */
+    .editor-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--border-light, #f1f5f9);
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .editor-footer.justify-end {
+      justify-content: flex-end;
+    }
+
+    .suggestion-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary, #475569);
+    }
+
+    .sparkle {
+      font-size: 14px;
+    }
+
+    .editor-kbd {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 3px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      padding: 1px 4px;
+      font-size: 11px;
+      font-family: sans-serif;
+      font-weight: 600;
+      color: var(--text-primary, #0f172a);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .footer-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--ngx-font-family, sans-serif);
+      transition: all 0.2s;
+    }
+
+    .accept-btn {
+      background: var(--primary-color, #4f46e5);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .accept-btn:hover {
+      background: var(--primary-hover, #4338ca);
+    }
+
+    .reject-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #e2e8f0);
+      color: var(--text-secondary, #475569);
+    }
+    .reject-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--text-secondary, #475569);
+    }
+
+    .primary-btn {
+      background: var(--primary-color, #4f46e5);
+      border: 1px solid var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+    .primary-btn:hover {
+      background: var(--primary-hover, #4338ca);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #e2e8f0);
+      color: var(--text-secondary, #475569);
+    }
+    .secondary-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Explanation Panel */
+    .explanation-panel {
+      background: linear-gradient(to right, rgba(79, 70, 229, 0.03), rgba(124, 58, 237, 0.03));
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding: 16px;
+    }
+
+    .explanation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--primary-color, #4f46e5);
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    .close-explanation-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted, #94a3b8);
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .close-explanation-btn:hover {
+      color: var(--text-primary, #0f172a);
+    }
+
+    .explanation-body {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-secondary, #475569);
+      font-family: var(--ngx-font-family, sans-serif);
+    }
+
+    /* Toolbar Toggle Button */
+    .toolbar-toggle-btn {
+      background: transparent;
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 6px;
+      color: var(--text-secondary, #475569);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .toolbar-toggle-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: var(--text-primary, #0f172a);
+      color: var(--text-primary, #0f172a);
+    }
+    .toolbar-toggle-btn.active {
+      background: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+      color: #ffffff;
+    }
+
+    /* Diff Canvas */
+    .diff-canvas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 180px;
+      background: var(--bg-secondary, #ffffff);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-pane {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-pane:last-child {
+      border-right: none;
+    }
+    .diff-pane-title {
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.02);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-secondary, #64748b);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .diff-code {
+      margin: 0;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .original-pane .diff-code {
+      background: rgba(239, 68, 68, 0.02);
+      color: #991b1b;
+    }
+    .proposed-pane .diff-code {
+      background: rgba(16, 185, 129, 0.02);
+    }
+    .diff-highlight {
+      background: rgba(16, 185, 129, 0.15);
+      color: #065f46;
+      border-radius: 2px;
+      padding: 1px 2px;
+      font-weight: 600;
+    }
+
+    /* Suggestions Navigator */
+    .suggestions-navigator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid var(--border-color, #cbd5e1);
+    }
+    .nav-arrow {
+      background: none;
+      border: none;
+      color: var(--primary-color, #4f46e5);
+      cursor: pointer;
+      font-size: 10px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .nav-arrow:hover {
+      background: rgba(79, 70, 229, 0.1);
+    }
+    .nav-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-primary, #0f172a);
+    }
+
+    /* Dark Mode Diff Styling */
+    .code-editor-wrapper.dark .toolbar-toggle-btn {
+      border-color: #374151;
+      color: #94a3b8;
+    }
+    .code-editor-wrapper.dark .toolbar-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f8fafc;
+    }
+    .code-editor-wrapper.dark .toolbar-toggle-btn.active {
+      background: var(--primary-color, #6366f1);
+      border-color: var(--primary-color, #6366f1);
+      color: #ffffff;
+    }
+    .code-editor-wrapper.dark .diff-canvas {
+      background: #0f172a;
+      border-bottom-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .diff-pane {
+      border-right-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .diff-pane-title {
+      background: rgba(255, 255, 255, 0.02);
+      color: #94a3b8;
+      border-bottom-color: #1f2937;
+    }
+    .code-editor-wrapper.dark .original-pane .diff-code {
+      background: rgba(239, 68, 68, 0.05);
+      color: #fca5a5;
+    }
+    .code-editor-wrapper.dark .proposed-pane .diff-code {
+      background: rgba(16, 185, 129, 0.05);
+      color: #e2e8f0;
+    }
+    .code-editor-wrapper.dark .diff-highlight {
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
+    }
+    .code-editor-wrapper.dark .suggestions-navigator {
+      border-left-color: #374151;
+    }
+    .code-editor-wrapper.dark .nav-count {
+      color: #cbd5e1;
+    }
+    .code-editor-wrapper.dark .nav-arrow {
+      color: #818cf8;
+    }
+    .code-editor-wrapper.dark .nav-arrow:hover {
+      background: rgba(99, 102, 241, 0.15);
+    }
+
+    /* Syntax Highlighting */
+    .hl-keyword { color: #2563eb; font-weight: 600; }
+    .hl-builtin { color: #7c3aed; }
+    .hl-number { color: #ea580c; }
+    .hl-string { color: #16a34a; }
+    .hl-comment { color: #94a3b8; font-style: italic; }
+    .hl-function { color: #d97706; }
+    .hl-tag { color: #2563eb; }
+    .hl-attr { color: #7c3aed; }
+    .hl-class { color: #d97706; }
+    .hl-id { color: #ef4444; }
+    .hl-pseudo { color: #8b5cf6; }
+    .hl-property { color: #0284c7; }
+    .hl-key { color: #2563eb; font-weight: 600; }
+
+    .code-editor-wrapper.dark .hl-keyword { color: #60a5fa; }
+    .code-editor-wrapper.dark .hl-builtin { color: #a78bfa; }
+    .code-editor-wrapper.dark .hl-number { color: #fb923c; }
+    .code-editor-wrapper.dark .hl-string { color: #4ade80; }
+    .code-editor-wrapper.dark .hl-comment { color: #64748b; }
+    .code-editor-wrapper.dark .hl-function { color: #f59e0b; }
+    .code-editor-wrapper.dark .hl-tag { color: #60a5fa; }
+    .code-editor-wrapper.dark .hl-attr { color: #a78bfa; }
+    .code-editor-wrapper.dark .hl-class { color: #f59e0b; }
+    .code-editor-wrapper.dark .hl-id { color: #f87171; }
+    .code-editor-wrapper.dark .hl-pseudo { color: #c084fc; }
+    .code-editor-wrapper.dark .hl-property { color: #38bdf8; }
+    .code-editor-wrapper.dark .hl-key { color: #60a5fa; }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="code-editor-wrapper" [class.dark]="theme() === \'dark\'" [class.focused]="isFocused()">  <!-- Toolbar Header -->  <div class="editor-header">    <div class="header-left">      <span class="editor-dot red"></span>      <span class="editor-dot yellow"></span>      <span class="editor-dot green"></span>      <span class="editor-lang-badge">{{ language() | uppercase }}</span>    </div>    <div class="header-right">      <button        *ngIf="hasSuggestion() && !suggestionAccepted()"        class="toolbar-toggle-btn"        [class.active]="diffMode()"        (click)="toggleDiffMode()"      >        {{ diffMode() ? \'👁️ Editor\' : \'🔍 Diff View\' }}      </button>      <span class="ai-pill">✨ AI Suggestion Active</span>      <button class="icon-btn" (click)="copyCode()" [title]="copyTooltip()">        {{ copyText() }}      </button>    </div>  </div>  <!-- Editor Canvas -->  <div class="editor-canvas" *ngIf="!diffMode()" (click)="focusTextarea()">    <!-- Line Numbers -->    <div class="line-numbers">      @for (line of lines(); track $index) {        <div class="line-num">{{ $index + 1 }}</div>      }    </div>    <!-- Code Content Area -->    <div class="code-content-container">      <textarea        #editorInput        class="hidden-textarea"        [ngModel]="code()"        (ngModelChange)="onCodeChange($event)"        (focus)="isFocused.set(true)"        (blur)="isFocused.set(false)"        (keydown)="handleKeydown($event)"        [disabled]="disabled()"      ></textarea>      <!-- Rendered Code Grid with Ghost Text -->      <pre class="rendered-code"><code><span [innerHTML]="highlightedCode()"></span><span class="cursor-pipe" *ngIf="isFocused()">|</span><span        *ngIf="hasSuggestion() && !suggestionAccepted()"        class="ghost-text"      >{{ currentSuggestion() }}</span></code></pre>    </div>  </div>  <!-- Diff Canvas -->  <div class="diff-canvas" *ngIf="diffMode() && hasSuggestion() && !suggestionAccepted()">    <!-- Left original panel -->    <div class="diff-pane original-pane">      <div class="diff-pane-title">Original</div>      <pre class="diff-code"><code>{{ code() }}</code></pre>    </div>    <!-- Right proposed panel -->    <div class="diff-pane proposed-pane">      <div class="diff-pane-title">Proposed</div>      <pre class="diff-code"><code>{{ code() }}<span class="diff-highlight">{{ currentSuggestion() }}</span></code></pre>    </div>  </div>  <!-- Suggestion Panel Controls -->  <div class="editor-footer" *ngIf="hasSuggestion() && !suggestionAccepted()">    <div class="suggestion-info">      <span class="sparkle">✨</span>      <span class="desc">Press <kbd class="editor-kbd">Tab</kbd> to accept, or <kbd class="editor-kbd">Esc</kbd> to dismiss.</span>      @if (suggestions().length > 1) {        <div class="suggestions-navigator">          <button type="button" class="nav-arrow" (click)="prevSuggestion()" title="Previous suggestion">◀</button>          <span class="nav-count">{{ activeSuggestionIndex() + 1 }} / {{ suggestions().length }}</span>          <button type="button" class="nav-arrow" (click)="nextSuggestion()" title="Next suggestion">▶</button>        </div>      }    </div>    <div class="action-buttons">      <button class="footer-btn reject-btn" (click)="decline()">Decline (Esc)</button>      <button class="footer-btn accept-btn" (click)="accept()">Accept (Tab)</button>    </div>  </div>  <!-- Explanation Panel -->  <div class="explanation-panel" *ngIf="explanation() && showExplanation()">    <div class="explanation-header">      <span class="sparkle">💡 AI Explanation</span>      <button class="close-explanation-btn" (click)="showExplanation.set(false)">✕</button>    </div>    <div class="explanation-body">      {{ explanation() }}    </div>  </div>  <!-- Secondary Panel Controls (when suggestion is accepted or inactive) -->  <div class="editor-footer justify-end" *ngIf="!hasSuggestion() || suggestionAccepted()">    <div class="action-buttons">      <button class="footer-btn secondary-btn" (click)="explainSuggestedCode()">Explain Code</button>      <button class="footer-btn primary-btn" (click)="triggerRegenerate()">Re-generate Suggestion</button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'AICodeEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AICodeEditorComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

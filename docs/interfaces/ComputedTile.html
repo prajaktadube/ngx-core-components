@@ -1,0 +1,1219 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ComputedTile</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/tilemap/tilemap.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#color" 
+>
+                                            color
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#h" 
+>
+                                            h
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#index" 
+>
+                                            index
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#pointsPath" 
+>
+                                            pointsPath
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#raw" 
+>
+                                            raw
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#w" 
+>
+                                            w
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#x" 
+>
+                                            x
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#y" 
+>
+                                            y
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="color"></a>
+                                        <span class="name "><b>color</b>
+                                            <a href="#color">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>color:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="h"></a>
+                                        <span class="name "><b>h</b>
+                                            <a href="#h">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>h:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="index"></a>
+                                        <span class="name "><b>index</b>
+                                            <a href="#index">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>index:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pointsPath"></a>
+                                        <span class="name "><b>pointsPath</b>
+                                            <a href="#pointsPath">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pointsPath:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="raw"></a>
+                                        <span class="name "><b>raw</b>
+                                            <a href="#raw">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>raw:         <code><a href="../interfaces/TileItem.html" target="_self" >TileItem</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/TileItem.html" target="_self" >TileItem</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="w"></a>
+                                        <span class="name "><b>w</b>
+                                            <a href="#w">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>w:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="x"></a>
+                                        <span class="name "><b>x</b>
+                                            <a href="#x">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>x:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="y"></a>
+                                        <span class="name "><b>y</b>
+                                            <a href="#y">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>y:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { CommonModule, NgTemplateOutlet } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, fmtNum, scale } from &#x27;../shared/chart-utils&#x27;;
+
+export interface TileItem {
+  r: number;
+  c: number;
+  label: string;
+  value: number;
+  color?: string;
+  tooltipInfo?: string;
+}
+
+export interface ComputedTile {
+  raw: TileItem;
+  index: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  pointsPath: string; // for hexagon
+  color: string;
+}
+
+@Component({
+  selector: &#x27;ngx-tilemap&#x27;,
+  standalone: true,
+  imports: [CommonModule, NgTemplateOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-tilemap&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;header-info&quot;&gt;
+          &lt;span class&#x3D;&quot;header-title&quot;&gt;Grid Tilemap&lt;/span&gt;
+          &lt;span class&#x3D;&quot;header-subtitle&quot;&gt;Layout: {{ type() | titlecase }} Grid&lt;/span&gt;
+        &lt;/div&gt;
+        
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;svg
+        #svgEl
+        class&#x3D;&quot;tilemap-svg&quot;
+        [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+        [attr.height]&#x3D;&quot;svgHeight()&quot;
+      &gt;
+        &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+          @for (tile of computedTiles(); track tile.index; let i &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;tile-group&quot;
+              [class.dimmed]&#x3D;&quot;hoveredIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredIndex() !&#x3D;&#x3D; i&quot;
+              [class.highlighted]&#x3D;&quot;hoveredIndex() &#x3D;&#x3D;&#x3D; i&quot;
+              (mouseenter)&#x3D;&quot;onTileHover(i)&quot;
+              (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+            &gt;
+              @if (type() &#x3D;&#x3D;&#x3D; &#x27;rect&#x27;) {
+                &lt;rect
+                  [attr.x]&#x3D;&quot;tile.x&quot;
+                  [attr.y]&#x3D;&quot;tile.y&quot;
+                  [attr.width]&#x3D;&quot;tile.w&quot;
+                  [attr.height]&#x3D;&quot;tile.h&quot;
+                  [attr.fill]&#x3D;&quot;tile.color&quot;
+                  stroke&#x3D;&quot;#ffffff&quot;
+                  stroke-width&#x3D;&quot;1.5&quot;
+                  rx&#x3D;&quot;6&quot;
+                  ry&#x3D;&quot;6&quot;
+                  class&#x3D;&quot;tile-element&quot;
+                /&gt;
+              } @else {
+                &lt;path
+                  [attr.d]&#x3D;&quot;tile.pointsPath&quot;
+                  [attr.fill]&#x3D;&quot;tile.color&quot;
+                  stroke&#x3D;&quot;#ffffff&quot;
+                  stroke-width&#x3D;&quot;1.5&quot;
+                  class&#x3D;&quot;tile-element&quot;
+                /&gt;
+              }
+
+              @if (showLabels()) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;tile.x + tile.w / 2&quot;
+                  [attr.y]&#x3D;&quot;tile.y + tile.h / 2 + 3&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tile-label&quot;
+                  [attr.fill]&#x3D;&quot;getTextColor(tile.color)&quot;
+                &gt;
+                  {{ tile.raw.label }}
+                &lt;/text&gt;
+                &lt;text
+                  [attr.x]&#x3D;&quot;tile.x + tile.w / 2&quot;
+                  [attr.y]&#x3D;&quot;tile.y + tile.h / 2 + 14&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tile-sublabel&quot;
+                  [attr.fill]&#x3D;&quot;getTextColor(tile.color)&quot;
+                  opacity&#x3D;&quot;0.8&quot;
+                &gt;
+                  {{ formatNumber(tile.raw.value) }}
+                &lt;/text&gt;
+              }
+            &lt;/g&gt;
+          }
+        &lt;/g&gt;
+      &lt;/svg&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+          @if (tooltipTemplate()) {
+            &lt;ng-container
+              *ngTemplateOutlet&#x3D;&quot;tooltipTemplate()!; context: { $implicit: t }&quot;
+            &gt;&lt;/ng-container&gt;
+          } @else {
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Grid Pos&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;Row {{ t.r }}, Col {{ t.c }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ labelFormatter() ? labelFormatter()!(t.value) : formatNumber(t.value) }}&lt;/span&gt;
+            &lt;/div&gt;
+            @if (t.tooltipInfo) {
+              &lt;div class&#x3D;&quot;tt-info&quot;&gt;{{ t.tooltipInfo }}&lt;/div&gt;
+            }
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-tilemap {
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngx-chart-axis-text, #64748b);
+    }
+    .tilemap-svg {
+      display: block;
+      overflow: visible;
+    }
+    .tile-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .tile-group.dimmed {
+      opacity: 0.3 !important;
+    }
+    .tile-element {
+      transition: transform 0.2s ease, filter 0.2s ease;
+      transform-origin: center;
+    }
+    .tile-group.highlighted .tile-element {
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+      transform: scale(1.05);
+      stroke: #0f172a !important;
+      stroke-width: 2px !important;
+      z-index: 10;
+    }
+    .tile-label {
+      font-size: 11px;
+      font-weight: 700;
+      pointer-events: none;
+      user-select: none;
+    }
+    .tile-sublabel {
+      font-size: 8.5px;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .tt-info {
+      font-size: 10px;
+      color: #a7f3d0;
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 4px;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  &#x60;]
+})
+export class TilemapComponent {
+  data &#x3D; input&lt;TileItem[]&gt;([]);
+  type &#x3D; input&lt;&#x27;rect&#x27; | &#x27;hexagon&#x27;&gt;(&#x27;rect&#x27;);
+  height &#x3D; input&lt;number&gt;(350);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+  labelFormatter &#x3D; input&lt;((v: number) &#x3D;&gt; string) | undefined&gt;(undefined);
+  tooltipTemplate &#x3D; input&lt;TemplateRef&lt;any&gt; | null&gt;(null);
+
+  containerWidth &#x3D; signal&lt;number&gt;(500);
+  hoveredIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+  exportMenuOpen &#x3D; signal(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  margin &#x3D; computed(() &#x3D;&gt; ({
+    top: 15,
+    right: 15,
+    bottom: 15,
+    left: 15
+  }));
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; this.height());
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom));
+
+  computedTiles &#x3D; computed&lt;ComputedTile[]&gt;(() &#x3D;&gt; {
+    const raw &#x3D; this.data();
+    if (raw.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const rows &#x3D; raw.map(d &#x3D;&gt; d.r);
+    const cols &#x3D; raw.map(d &#x3D;&gt; d.c);
+
+    const minRow &#x3D; Math.min(...rows);
+    const maxRow &#x3D; Math.max(...rows);
+    const minCol &#x3D; Math.min(...cols);
+    const maxCol &#x3D; Math.max(...cols);
+
+    const rowCount &#x3D; maxRow - minRow + 1;
+    const colCount &#x3D; maxCol - minCol + 1;
+
+    const w &#x3D; this.innerW();
+    const h &#x3D; this.innerH();
+
+    const minVal &#x3D; Math.min(...raw.map(d &#x3D;&gt; d.value));
+    const maxVal &#x3D; Math.max(1, ...raw.map(d &#x3D;&gt; d.value));
+
+    // Colors mapping
+    const baseColor &#x3D; this.colors()[0] || &#x27;#4a90d9&#x27;;
+
+    if (this.type() &#x3D;&#x3D;&#x3D; &#x27;rect&#x27;) {
+      const cellW &#x3D; w / colCount;
+      const cellH &#x3D; h / rowCount;
+      const padding &#x3D; 4;
+
+      return raw.map((d, idx) &#x3D;&gt; {
+        const x &#x3D; (d.c - minCol) * cellW + padding / 2;
+        const y &#x3D; (d.r - minRow) * cellH + padding / 2;
+        const tileW &#x3D; cellW - padding;
+        const tileH &#x3D; cellH - padding;
+
+        return {
+          raw: d,
+          index: idx,
+          x,
+          y,
+          w: tileW,
+          h: tileH,
+          pointsPath: &#x27;&#x27;,
+          color: d.color || this.interpolateColor(baseColor, d.value, minVal, maxVal)
+        };
+      });
+    } else {
+      // Hexagonal layout
+      // Divide horizontal space by (colCount * 0.75 + 0.25)
+      const hexW &#x3D; w / (colCount * 0.75 + 0.25);
+      const hexH &#x3D; h / (rowCount + 0.5);
+      const padding &#x3D; 3;
+
+      // Hexagon radius
+      const radius &#x3D; Math.min(hexW / 2, hexH / Math.sqrt(3)) - padding / 2;
+
+      return raw.map((d, idx) &#x3D;&gt; {
+        const cx &#x3D; (d.c - minCol) * hexW * 0.75 + hexW / 2;
+        // Shift alternate columns vertically
+        const cy &#x3D; (d.r - minRow) * hexH + ((d.c - minCol) % 2 &#x3D;&#x3D;&#x3D; 0 ? 0 : hexH / 2) + hexH / 2;
+
+        // Draw hexagon corners path
+        let path &#x3D; &#x27;&#x27;;
+        for (let k &#x3D; 0; k &lt; 6; k++) {
+          const angleRad &#x3D; (k * 60 * Math.PI) / 180;
+          const x &#x3D; cx + radius * Math.cos(angleRad);
+          const y &#x3D; cy + radius * Math.sin(angleRad);
+          path +&#x3D; (k &#x3D;&#x3D;&#x3D; 0 ? &#x27;M&#x27; : &#x27;L&#x27;) + &#x60; ${x} ${y}&#x60;;
+        }
+        path +&#x3D; &#x27; Z&#x27;;
+
+        return {
+          raw: d,
+          index: idx,
+          x: cx - radius,
+          y: cy - radius,
+          w: radius * 2,
+          h: radius * 2,
+          pointsPath: path,
+          color: d.color || this.interpolateColor(baseColor, d.value, minVal, maxVal)
+        };
+      });
+    }
+  });
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  // Linear color interpolation from a light tone of the baseColor to the actual baseColor
+  private interpolateColor(baseHex: string, val: number, min: number, max: number): string {
+    const t &#x3D; max &#x3D;&#x3D;&#x3D; min ? 0.5 : (val - min) / (max - min);
+
+    // Standard base color parsing
+    let rB &#x3D; 74, gB &#x3D; 144, bB &#x3D; 217;
+    if (baseHex.startsWith(&#x27;#&#x27;)) {
+      const hex &#x3D; baseHex.substring(1);
+      if (hex.length &#x3D;&#x3D;&#x3D; 3) {
+        rB &#x3D; parseInt(hex[0] + hex[0], 16);
+        gB &#x3D; parseInt(hex[1] + hex[1], 16);
+        bB &#x3D; parseInt(hex[2] + hex[2], 16);
+      } else if (hex.length &#x3D;&#x3D;&#x3D; 6) {
+        rB &#x3D; parseInt(hex.substring(0, 2), 16);
+        gB &#x3D; parseInt(hex.substring(2, 4), 16);
+        bB &#x3D; parseInt(hex.substring(4, 6), 16);
+      }
+    }
+
+    // Interpolate with light color (e.g. RGB 240, 246, 255)
+    const rStart &#x3D; 240, gStart &#x3D; 246, bStart &#x3D; 255;
+    const r &#x3D; Math.round(rStart + t * (rB - rStart));
+    const g &#x3D; Math.round(gStart + t * (gB - gStart));
+    const b &#x3D; Math.round(bStart + t * (bB - bStart));
+
+    return &#x60;rgb(${r}, ${g}, ${b})&#x60;;
+  }
+
+  // Returns white text for dark backgrounds, dark text for light backgrounds
+  getTextColor(bgColor: string): string {
+    if (bgColor.startsWith(&#x27;rgb&#x27;)) {
+      const matches &#x3D; bgColor.match(/\d+/g);
+      if (matches &amp;&amp; matches.length &gt;&#x3D; 3) {
+        const r &#x3D; parseInt(matches[0]);
+        const g &#x3D; parseInt(matches[1]);
+        const b &#x3D; parseInt(matches[2]);
+        const brightness &#x3D; (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness &gt; 140 ? &#x27;#1e293b&#x27; : &#x27;#ffffff&#x27;;
+      }
+    }
+    return &#x27;#1e293b&#x27;;
+  }
+
+  onTileHover(idx: number) {
+    this.hoveredIndex.set(idx);
+    const tile &#x3D; this.computedTiles()[idx];
+    if (tile) {
+      this.tooltip.set(tile.raw);
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const container &#x3D; el.closest(&#x27;.ngx-tilemap&#x27;);
+    if (container) {
+      const rect &#x3D; container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToCsv(): void {
+    const tiles &#x3D; this.computedTiles();
+    if (!tiles.length) return;
+
+    let csv &#x3D; &#x27;Label,Row,Col,Value,TooltipInfo\n&#x27;;
+    tiles.forEach(t &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${t.raw.label}&quot;,${t.raw.r},${t.raw.c},${t.raw.value},&quot;${t.raw.tooltipInfo || &#x27;&#x27;}&quot;\n&#x60;;
+    });
+
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tilemap-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToJson(): void {
+    const tiles &#x3D; this.computedTiles();
+    if (!tiles.length) return;
+
+    const data &#x3D; tiles.map(t &#x3D;&gt; ({
+      label: t.raw.label,
+      row: t.raw.r,
+      col: t.raw.c,
+      value: t.raw.value,
+      tooltipInfo: t.raw.tooltipInfo
+    }));
+
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tilemap-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns\:xlink&#x3D;&quot;http\:\/\/www\.w3\.org\/1999\/xlink&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns:xlink&#x3D;&quot;http://www.w3.org/1999/xlink&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;tilemap.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof document &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) {
+      alert(&#x27;Pop-up blocker prevented printing. Please allow pop-ups for this site.&#x27;);
+      return;
+    }
+
+    const svgHtml &#x3D; svg.outerHTML;
+    const printTemplate &#x3D; &#x60;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Tilemap Export&lt;/title&gt;
+        &lt;style&gt;
+          body { font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; width: 90%; }
+          svg { width: 100%; height: auto; }
+          .tile-label { font-size: 11px; font-weight: bold; }
+          .tile-sublabel { font-size: 8.5px; }
+          @media print {
+            body { padding: 0; }
+            .chart-container { border: none; padding: 0; width: 100%; }
+          }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+          &lt;div class&#x3D;&quot;title&quot;&gt;Grid Tilemap Analysis&lt;/div&gt;
+          &lt;div class&#x3D;&quot;date&quot;&gt;${new Date().toLocaleString()}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;chart-container&quot;&gt;
+          ${svgHtml}
+        &lt;/div&gt;
+        &lt;script&gt;
+          window.onload &#x3D; function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
+  }
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ComputedTile.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,2674 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CountdownComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/feedback/countdown/countdown.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-countdown</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: inline-block;
+    }
+
+    .ngx-countdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      border-radius: 20px;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .ngx-countdown.dark {
+      background: rgba(30, 32, 48, 0.8);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ── SVG Ring ── */
+    .ngx-countdown__ring-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-countdown__svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-countdown__circle-bg {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .ngx-countdown__circle-bg {
+      stroke: rgba(255, 255, 255, 0.06);
+    }
+
+    .ngx-countdown__circle-progress {
+      fill: none;
+      stroke: var(--primary-color);
+      transition: stroke-dashoffset 1s linear;
+      stroke-dasharray: 326.7; /* 2 * PI * r (r&#x3D;52) */
+    }
+
+    .ngx-countdown__ring-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .ngx-countdown__ring-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+
+    .dark .ngx-countdown__ring-value {
+      color: #f1f5f9;
+    }
+
+    .ngx-countdown__ring-label {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .dark .ngx-countdown__ring-label {
+      color: #94a3b8;
+    }
+
+    /* ── Grid Cards ── */
+    .ngx-countdown__grid {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .ngx-countdown__grid.hidden {
+      display: none;
+    }
+
+    .ngx-countdown__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ngx-countdown__number-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark .ngx-countdown__number-wrap {
+      background: rgba(15, 23, 42, 0.45);
+      border-color: rgba(255, 255, 255, 0.06);
+      box-shadow: none;
+    }
+
+    .ngx-countdown__number {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0f172a;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .dark .ngx-countdown__number {
+      color: #f8fafc;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .ngx-countdown__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dark .ngx-countdown__label {
+      color: #94a3b8;
+    }
+
+    /* ── Controls Buttons ── */
+    .ngx-countdown__controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .ngx-countdown__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1.5px solid rgba(0, 0, 0, 0.06);
+      color: #334155;
+      transition: all 0.2s ease;
+    }
+
+    .ngx-countdown__btn svg {
+      transition: transform 0.2s ease;
+    }
+
+    .ngx-countdown__btn:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .ngx-countdown__btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .ngx-countdown__btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .dark .ngx-countdown__btn {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+
+    .dark .ngx-countdown__btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ── Variants ── */
+    .ngx-countdown.success .ngx-countdown__circle-progress {
+      stroke: #10b981 !important;
+    }
+    .ngx-countdown.danger .ngx-countdown__circle-progress {
+      stroke: #ef4444 !important;
+    }
+    .ngx-countdown.warning .ngx-countdown__circle-progress {
+      stroke: #f59e0b !important;
+    }
+    .ngx-countdown.info .ngx-countdown__circle-progress {
+      stroke: #3b82f6 !important;
+    }
+
+    .ngx-countdown.success .ngx-countdown__number-wrap {
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    .ngx-countdown.danger .ngx-countdown__number-wrap {
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+    .ngx-countdown.warning .ngx-countdown__number-wrap {
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+    .ngx-countdown.info .ngx-countdown__number-wrap {
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .dark.ngx-countdown.success .ngx-countdown__number-wrap {
+      border-color: rgba(16, 185, 129, 0.15);
+    }
+    .dark.ngx-countdown.danger .ngx-countdown__number-wrap {
+      border-color: rgba(239, 68, 68, 0.15);
+    }
+    .dark.ngx-countdown.warning .ngx-countdown__number-wrap {
+      border-color: rgba(245, 158, 11, 0.15);
+    }
+    .dark.ngx-countdown.info .ngx-countdown__number-wrap {
+      border-color: rgba(59, 130, 246, 0.15);
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;ngx-countdown&quot;
+  [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+  [class]&#x3D;&quot;variantClass()&quot;
+  [attr.id]&#x3D;&quot;id()&quot;
+&gt;
+  @if (showRing()) {
+    &lt;div class&#x3D;&quot;ngx-countdown__ring-container&quot;&gt;
+      &lt;svg class&#x3D;&quot;ngx-countdown__svg&quot; viewBox&#x3D;&quot;0 0 120 120&quot;&gt;
+        &lt;!-- Background circle --&gt;
+        &lt;circle
+          class&#x3D;&quot;ngx-countdown__circle-bg&quot;
+          cx&#x3D;&quot;60&quot;
+          cy&#x3D;&quot;60&quot;
+          r&#x3D;&quot;52&quot;
+          stroke-width&#x3D;&quot;6&quot;
+        /&gt;
+        &lt;!-- Progress circle --&gt;
+        &lt;circle
+          class&#x3D;&quot;ngx-countdown__circle-progress&quot;
+          cx&#x3D;&quot;60&quot;
+          cy&#x3D;&quot;60&quot;
+          r&#x3D;&quot;52&quot;
+          stroke-width&#x3D;&quot;6&quot;
+          [style.stroke]&#x3D;&quot;ringColor() || &#x27;var(--primary-color)&#x27;&quot;
+          [style.strokeDashoffset]&#x3D;&quot;strokeDashoffset()&quot;
+          stroke-linecap&#x3D;&quot;round&quot;
+          transform&#x3D;&quot;rotate(-90 60 60)&quot;
+        /&gt;
+      &lt;/svg&gt;
+      &lt;div class&#x3D;&quot;ngx-countdown__ring-content&quot;&gt;
+        &lt;span class&#x3D;&quot;ngx-countdown__ring-value&quot;&gt;{{ formattedCompactTime() }}&lt;/span&gt;
+        &lt;span class&#x3D;&quot;ngx-countdown__ring-label&quot;&gt;remaining&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+
+  &lt;!-- Flip-card style countdown layout --&gt;
+  &lt;div class&#x3D;&quot;ngx-countdown__grid&quot; [class.hidden]&#x3D;&quot;showRing() &amp;&amp; compactOnly()&quot;&gt;
+    &lt;!-- Days --&gt;
+    @if (days() &gt; 0 || forceShowDays()) {
+      &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+        &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+          &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(days()) }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Days&lt;/span&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Hours --&gt;
+    &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+      &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+        &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(hours()) }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Hours&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Minutes --&gt;
+    &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+      &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+        &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(minutes()) }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Minutes&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Seconds --&gt;
+    &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+      &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+        &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(seconds()) }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Seconds&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Controls --&gt;
+  @if (showControls()) {
+    &lt;div class&#x3D;&quot;ngx-countdown__controls&quot;&gt;
+      @if (isRunning()) {
+        &lt;button class&#x3D;&quot;ngx-countdown__btn btn-pause&quot; (click)&#x3D;&quot;pause()&quot; aria-label&#x3D;&quot;Pause timer&quot;&gt;
+          &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+            &lt;rect x&#x3D;&quot;6&quot; y&#x3D;&quot;4&quot; width&#x3D;&quot;4&quot; height&#x3D;&quot;16&quot; rx&#x3D;&quot;1&quot; /&gt;
+            &lt;rect x&#x3D;&quot;14&quot; y&#x3D;&quot;4&quot; width&#x3D;&quot;4&quot; height&#x3D;&quot;16&quot; rx&#x3D;&quot;1&quot; /&gt;
+          &lt;/svg&gt;
+          Pause
+        &lt;/button&gt;
+      } @else {
+        &lt;button class&#x3D;&quot;ngx-countdown__btn btn-start&quot; (click)&#x3D;&quot;start()&quot; [disabled]&#x3D;&quot;isFinished()&quot; aria-label&#x3D;&quot;Start timer&quot;&gt;
+          &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+            &lt;polygon points&#x3D;&quot;5 3 19 12 5 21 5 3&quot; /&gt;
+          &lt;/svg&gt;
+          Start
+        &lt;/button&gt;
+      }
+      &lt;button class&#x3D;&quot;ngx-countdown__btn btn-reset&quot; (click)&#x3D;&quot;reset()&quot; aria-label&#x3D;&quot;Reset timer&quot;&gt;
+        &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+          &lt;path d&#x3D;&quot;M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67&quot; /&gt;
+        &lt;/svg&gt;
+        Reset
+      &lt;/button&gt;
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#days" >days</a>
+                            </li>
+                            <li>
+                                <a href="#formattedCompactTime" >formattedCompactTime</a>
+                            </li>
+                            <li>
+                                <a href="#hours" >hours</a>
+                            </li>
+                            <li>
+                                <a href="#initialTotalSeconds" >initialTotalSeconds</a>
+                            </li>
+                            <li>
+                                <a href="#isFinished" >isFinished</a>
+                            </li>
+                            <li>
+                                <a href="#isRunning" >isRunning</a>
+                            </li>
+                            <li>
+                                <a href="#minutes" >minutes</a>
+                            </li>
+                            <li>
+                                <a href="#progressRatio" >progressRatio</a>
+                            </li>
+                            <li>
+                                <a href="#remainingSeconds" >remainingSeconds</a>
+                            </li>
+                            <li>
+                                <a href="#seconds" >seconds</a>
+                            </li>
+                            <li>
+                                <a href="#strokeDashoffset" >strokeDashoffset</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#timerId" >timerId</a>
+                            </li>
+                            <li>
+                                <a href="#variantClass" >variantClass</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#clearTimer" >clearTimer</a>
+                            </li>
+                            <li>
+                                <a href="#formatNumber" >formatNumber</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#pause" >pause</a>
+                            </li>
+                            <li>
+                                <a href="#reset" >reset</a>
+                            </li>
+                            <li>
+                                <a href="#start" >start</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#autoStart" >autoStart</a>
+                            </li>
+                            <li>
+                                <a href="#compactOnly" >compactOnly</a>
+                            </li>
+                            <li>
+                                <a href="#duration" >duration</a>
+                            </li>
+                            <li>
+                                <a href="#forceShowDays" >forceShowDays</a>
+                            </li>
+                            <li>
+                                <a href="#id" >id</a>
+                            </li>
+                            <li>
+                                <a href="#ringColor" >ringColor</a>
+                            </li>
+                            <li>
+                                <a href="#showControls" >showControls</a>
+                            </li>
+                            <li>
+                                <a href="#showRing" >showRing</a>
+                            </li>
+                            <li>
+                                <a href="#targetDate" >targetDate</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                            <li>
+                                <a href="#variant" >variant</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#finished" >finished</a>
+                            </li>
+                            <li>
+                                <a href="#tick" >tick</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="443" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:443</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="autoStart"></a>
+                        <b>autoStart</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="387" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:387</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="compactOnly"></a>
+                        <b>compactOnly</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="389" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:389</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="duration"></a>
+                        <b>duration</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="382" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:382</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="forceShowDays"></a>
+                        <b>forceShowDays</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="390" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:390</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="id"></a>
+                        <b>id</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;ngx-countdown-&#x27; + Math.random().toString(36).substring(2, 9)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="391" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:391</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ringColor"></a>
+                        <b>ringColor</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="384" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:384</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showControls"></a>
+                        <b>showControls</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="388" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:388</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showRing"></a>
+                        <b>showRing</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="383" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:383</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="targetDate"></a>
+                        <b>targetDate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | Date | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="381" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:381</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="385" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:385</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="variant"></a>
+                        <b>variant</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#CountdownVariant" target="_self" >CountdownVariant</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;default&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="386" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:386</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="finished"></a>
+                        <b>finished</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="394" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:394</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tick"></a>
+                        <b>tick</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>{    days: number;    hours: number;    minutes: number;    seconds: number;    totalSeconds: number;  }</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="395" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:395</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearTimer"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>clearTimer</b></span>
+                        <a href="#clearTimer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>clearTimer()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="519"
+                                    class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:519</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatNumber"></a>
+                    <span class="name">
+                        <span ><b>formatNumber</b></span>
+                        <a href="#formatNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatNumber(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="515"
+                                    class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:515</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="460"
+                                    class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:460</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pause"></a>
+                    <span class="name">
+                        <span ><b>pause</b></span>
+                        <a href="#pause"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>pause()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="490"
+                                    class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:490</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reset"></a>
+                    <span class="name">
+                        <span ><b>reset</b></span>
+                        <a href="#reset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>reset()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="495"
+                                    class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:495</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="start"></a>
+                    <span class="name">
+                        <span ><b>start</b></span>
+                        <a href="#start"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>start()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="464"
+                                    class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:464</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="days"></a>
+                    <span class="name">
+                        <span ><b>days</b></span>
+                        <a href="#days"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.floor(this.remainingSeconds() / 86400))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="411" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:411</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formattedCompactTime"></a>
+                    <span class="name">
+                        <span ><b>formattedCompactTime</b></span>
+                        <a href="#formattedCompactTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const d &#x3D; this.days();
+    const h &#x3D; this.formatNumber(this.hours());
+    const m &#x3D; this.formatNumber(this.minutes());
+    const s &#x3D; this.formatNumber(this.seconds());
+    if (d &gt; 0) {
+      return &#x60;${d}d ${h}:${m}&#x60;;
+    }
+    return &#x60;${h}:${m}:${s}&#x60;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="430" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:430</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hours"></a>
+                    <span class="name">
+                        <span ><b>hours</b></span>
+                        <a href="#hours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.floor((this.remainingSeconds() % 86400) / 3600))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="412" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:412</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initialTotalSeconds"></a>
+                    <span class="name">
+                        <span ><b>initialTotalSeconds</b></span>
+                        <a href="#initialTotalSeconds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(1)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="405" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:405</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFinished"></a>
+                    <span class="name">
+                        <span ><b>isFinished</b></span>
+                        <a href="#isFinished"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.remainingSeconds() &lt;&#x3D; 0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="416" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:416</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRunning"></a>
+                    <span class="name">
+                        <span ><b>isRunning</b></span>
+                        <a href="#isRunning"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="406" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:406</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minutes"></a>
+                    <span class="name">
+                        <span ><b>minutes</b></span>
+                        <a href="#minutes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.floor((this.remainingSeconds() % 3600) / 60))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="413" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:413</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="progressRatio"></a>
+                    <span class="name">
+                        <span ><b>progressRatio</b></span>
+                        <a href="#progressRatio"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    if (this.initialTotalSeconds() &lt;&#x3D; 0) return 0;
+    const ratio &#x3D; this.remainingSeconds() / this.initialTotalSeconds();
+    return Math.max(0, Math.min(1, ratio));
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="419" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:419</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="remainingSeconds"></a>
+                    <span class="name">
+                        <span ><b>remainingSeconds</b></span>
+                        <a href="#remainingSeconds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="404" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:404</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seconds"></a>
+                    <span class="name">
+                        <span ><b>seconds</b></span>
+                        <a href="#seconds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.remainingSeconds() % 60)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="414" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:414</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="strokeDashoffset"></a>
+                    <span class="name">
+                        <span ><b>strokeDashoffset</b></span>
+                        <a href="#strokeDashoffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const circumference &#x3D; 326.7; // 2 * Math.PI * 52
+    return circumference * (1 - this.progressRatio());
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="425" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:425</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timerId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>timerId</b></span>
+                        <a href="#timerId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="408" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:408</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="variantClass"></a>
+                    <span class="name">
+                        <span ><b>variantClass</b></span>
+                        <a href="#variantClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.variant() !&#x3D;&#x3D; &#x27;default&#x27; ? &#x60;success danger warning info&#x60;.split(&#x27; &#x27;).includes(this.variant()) ? this.variant() : &#x27;&#x27; : &#x27;&#x27;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="441" class="link-to-prism">projects/ngx-core-components/feedback/countdown/countdown.component.ts:441</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  signal,
+  computed,
+  OnDestroy,
+  effect,
+  untracked,
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export type CountdownVariant &#x3D; &#x27;default&#x27; | &#x27;success&#x27; | &#x27;danger&#x27; | &#x27;warning&#x27; | &#x27;info&#x27;;
+
+@Component({
+  selector: &#x27;ngx-countdown&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-countdown&quot;
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      [class]&#x3D;&quot;variantClass()&quot;
+      [attr.id]&#x3D;&quot;id()&quot;
+    &gt;
+      @if (showRing()) {
+        &lt;div class&#x3D;&quot;ngx-countdown__ring-container&quot;&gt;
+          &lt;svg class&#x3D;&quot;ngx-countdown__svg&quot; viewBox&#x3D;&quot;0 0 120 120&quot;&gt;
+            &lt;!-- Background circle --&gt;
+            &lt;circle
+              class&#x3D;&quot;ngx-countdown__circle-bg&quot;
+              cx&#x3D;&quot;60&quot;
+              cy&#x3D;&quot;60&quot;
+              r&#x3D;&quot;52&quot;
+              stroke-width&#x3D;&quot;6&quot;
+            /&gt;
+            &lt;!-- Progress circle --&gt;
+            &lt;circle
+              class&#x3D;&quot;ngx-countdown__circle-progress&quot;
+              cx&#x3D;&quot;60&quot;
+              cy&#x3D;&quot;60&quot;
+              r&#x3D;&quot;52&quot;
+              stroke-width&#x3D;&quot;6&quot;
+              [style.stroke]&#x3D;&quot;ringColor() || &#x27;var(--primary-color)&#x27;&quot;
+              [style.strokeDashoffset]&#x3D;&quot;strokeDashoffset()&quot;
+              stroke-linecap&#x3D;&quot;round&quot;
+              transform&#x3D;&quot;rotate(-90 60 60)&quot;
+            /&gt;
+          &lt;/svg&gt;
+          &lt;div class&#x3D;&quot;ngx-countdown__ring-content&quot;&gt;
+            &lt;span class&#x3D;&quot;ngx-countdown__ring-value&quot;&gt;{{ formattedCompactTime() }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;ngx-countdown__ring-label&quot;&gt;remaining&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Flip-card style countdown layout --&gt;
+      &lt;div class&#x3D;&quot;ngx-countdown__grid&quot; [class.hidden]&#x3D;&quot;showRing() &amp;&amp; compactOnly()&quot;&gt;
+        &lt;!-- Days --&gt;
+        @if (days() &gt; 0 || forceShowDays()) {
+          &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+            &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+              &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(days()) }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Days&lt;/span&gt;
+          &lt;/div&gt;
+        }
+
+        &lt;!-- Hours --&gt;
+        &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+          &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+            &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(hours()) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Hours&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Minutes --&gt;
+        &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+          &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+            &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(minutes()) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Minutes&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Seconds --&gt;
+        &lt;div class&#x3D;&quot;ngx-countdown__card&quot;&gt;
+          &lt;div class&#x3D;&quot;ngx-countdown__number-wrap&quot;&gt;
+            &lt;span class&#x3D;&quot;ngx-countdown__number&quot;&gt;{{ formatNumber(seconds()) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;span class&#x3D;&quot;ngx-countdown__label&quot;&gt;Seconds&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Controls --&gt;
+      @if (showControls()) {
+        &lt;div class&#x3D;&quot;ngx-countdown__controls&quot;&gt;
+          @if (isRunning()) {
+            &lt;button class&#x3D;&quot;ngx-countdown__btn btn-pause&quot; (click)&#x3D;&quot;pause()&quot; aria-label&#x3D;&quot;Pause timer&quot;&gt;
+              &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                &lt;rect x&#x3D;&quot;6&quot; y&#x3D;&quot;4&quot; width&#x3D;&quot;4&quot; height&#x3D;&quot;16&quot; rx&#x3D;&quot;1&quot; /&gt;
+                &lt;rect x&#x3D;&quot;14&quot; y&#x3D;&quot;4&quot; width&#x3D;&quot;4&quot; height&#x3D;&quot;16&quot; rx&#x3D;&quot;1&quot; /&gt;
+              &lt;/svg&gt;
+              Pause
+            &lt;/button&gt;
+          } @else {
+            &lt;button class&#x3D;&quot;ngx-countdown__btn btn-start&quot; (click)&#x3D;&quot;start()&quot; [disabled]&#x3D;&quot;isFinished()&quot; aria-label&#x3D;&quot;Start timer&quot;&gt;
+              &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                &lt;polygon points&#x3D;&quot;5 3 19 12 5 21 5 3&quot; /&gt;
+              &lt;/svg&gt;
+              Start
+            &lt;/button&gt;
+          }
+          &lt;button class&#x3D;&quot;ngx-countdown__btn btn-reset&quot; (click)&#x3D;&quot;reset()&quot; aria-label&#x3D;&quot;Reset timer&quot;&gt;
+            &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+              &lt;path d&#x3D;&quot;M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67&quot; /&gt;
+            &lt;/svg&gt;
+            Reset
+          &lt;/button&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: inline-block;
+    }
+
+    .ngx-countdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      border-radius: 20px;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .ngx-countdown.dark {
+      background: rgba(30, 32, 48, 0.8);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ── SVG Ring ── */
+    .ngx-countdown__ring-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-countdown__svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-countdown__circle-bg {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .ngx-countdown__circle-bg {
+      stroke: rgba(255, 255, 255, 0.06);
+    }
+
+    .ngx-countdown__circle-progress {
+      fill: none;
+      stroke: var(--primary-color);
+      transition: stroke-dashoffset 1s linear;
+      stroke-dasharray: 326.7; /* 2 * PI * r (r&#x3D;52) */
+    }
+
+    .ngx-countdown__ring-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .ngx-countdown__ring-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+
+    .dark .ngx-countdown__ring-value {
+      color: #f1f5f9;
+    }
+
+    .ngx-countdown__ring-label {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .dark .ngx-countdown__ring-label {
+      color: #94a3b8;
+    }
+
+    /* ── Grid Cards ── */
+    .ngx-countdown__grid {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .ngx-countdown__grid.hidden {
+      display: none;
+    }
+
+    .ngx-countdown__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ngx-countdown__number-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark .ngx-countdown__number-wrap {
+      background: rgba(15, 23, 42, 0.45);
+      border-color: rgba(255, 255, 255, 0.06);
+      box-shadow: none;
+    }
+
+    .ngx-countdown__number {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0f172a;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .dark .ngx-countdown__number {
+      color: #f8fafc;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .ngx-countdown__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dark .ngx-countdown__label {
+      color: #94a3b8;
+    }
+
+    /* ── Controls Buttons ── */
+    .ngx-countdown__controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .ngx-countdown__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1.5px solid rgba(0, 0, 0, 0.06);
+      color: #334155;
+      transition: all 0.2s ease;
+    }
+
+    .ngx-countdown__btn svg {
+      transition: transform 0.2s ease;
+    }
+
+    .ngx-countdown__btn:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .ngx-countdown__btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .ngx-countdown__btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .dark .ngx-countdown__btn {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+
+    .dark .ngx-countdown__btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ── Variants ── */
+    .ngx-countdown.success .ngx-countdown__circle-progress {
+      stroke: #10b981 !important;
+    }
+    .ngx-countdown.danger .ngx-countdown__circle-progress {
+      stroke: #ef4444 !important;
+    }
+    .ngx-countdown.warning .ngx-countdown__circle-progress {
+      stroke: #f59e0b !important;
+    }
+    .ngx-countdown.info .ngx-countdown__circle-progress {
+      stroke: #3b82f6 !important;
+    }
+
+    .ngx-countdown.success .ngx-countdown__number-wrap {
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    .ngx-countdown.danger .ngx-countdown__number-wrap {
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+    .ngx-countdown.warning .ngx-countdown__number-wrap {
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+    .ngx-countdown.info .ngx-countdown__number-wrap {
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .dark.ngx-countdown.success .ngx-countdown__number-wrap {
+      border-color: rgba(16, 185, 129, 0.15);
+    }
+    .dark.ngx-countdown.danger .ngx-countdown__number-wrap {
+      border-color: rgba(239, 68, 68, 0.15);
+    }
+    .dark.ngx-countdown.warning .ngx-countdown__number-wrap {
+      border-color: rgba(245, 158, 11, 0.15);
+    }
+    .dark.ngx-countdown.info .ngx-countdown__number-wrap {
+      border-color: rgba(59, 130, 246, 0.15);
+    }
+  &#x60;]
+})
+export class CountdownComponent implements OnDestroy {
+  // Inputs
+  targetDate &#x3D; input&lt;string | Date | null&gt;(null);
+  duration &#x3D; input&lt;number | null&gt;(null); // in seconds
+  showRing &#x3D; input&lt;boolean&gt;(true);
+  ringColor &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  variant &#x3D; input&lt;CountdownVariant&gt;(&#x27;default&#x27;);
+  autoStart &#x3D; input&lt;boolean&gt;(true);
+  showControls &#x3D; input&lt;boolean&gt;(true);
+  compactOnly &#x3D; input&lt;boolean&gt;(false);
+  forceShowDays &#x3D; input&lt;boolean&gt;(false);
+  id &#x3D; input&lt;string&gt;(&#x27;ngx-countdown-&#x27; + Math.random().toString(36).substring(2, 9));
+
+  // Outputs
+  finished &#x3D; output&lt;void&gt;();
+  tick &#x3D; output&lt;{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    totalSeconds: number;
+  }&gt;();
+
+  // Internal Signals
+  remainingSeconds &#x3D; signal&lt;number&gt;(0);
+  initialTotalSeconds &#x3D; signal&lt;number&gt;(1);
+  isRunning &#x3D; signal&lt;boolean&gt;(false);
+
+  private timerId: any &#x3D; null;
+
+  // Computeds
+  days &#x3D; computed(() &#x3D;&gt; Math.floor(this.remainingSeconds() / 86400));
+  hours &#x3D; computed(() &#x3D;&gt; Math.floor((this.remainingSeconds() % 86400) / 3600));
+  minutes &#x3D; computed(() &#x3D;&gt; Math.floor((this.remainingSeconds() % 3600) / 60));
+  seconds &#x3D; computed(() &#x3D;&gt; this.remainingSeconds() % 60);
+
+  isFinished &#x3D; computed(() &#x3D;&gt; this.remainingSeconds() &lt;&#x3D; 0);
+
+  // Compute progress ratio (0 to 1) for the SVG circle offset
+  progressRatio &#x3D; computed(() &#x3D;&gt; {
+    if (this.initialTotalSeconds() &lt;&#x3D; 0) return 0;
+    const ratio &#x3D; this.remainingSeconds() / this.initialTotalSeconds();
+    return Math.max(0, Math.min(1, ratio));
+  });
+
+  strokeDashoffset &#x3D; computed(() &#x3D;&gt; {
+    const circumference &#x3D; 326.7; // 2 * Math.PI * 52
+    return circumference * (1 - this.progressRatio());
+  });
+
+  formattedCompactTime &#x3D; computed(() &#x3D;&gt; {
+    const d &#x3D; this.days();
+    const h &#x3D; this.formatNumber(this.hours());
+    const m &#x3D; this.formatNumber(this.minutes());
+    const s &#x3D; this.formatNumber(this.seconds());
+    if (d &gt; 0) {
+      return &#x60;${d}d ${h}:${m}&#x60;;
+    }
+    return &#x60;${h}:${m}:${s}&#x60;;
+  });
+
+  variantClass &#x3D; computed(() &#x3D;&gt; {
+    return this.variant() !&#x3D;&#x3D; &#x27;default&#x27; ? &#x60;success danger warning info&#x60;.split(&#x27; &#x27;).includes(this.variant()) ? this.variant() : &#x27;&#x27; : &#x27;&#x27;;
+  });
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      // React to changes in inputs
+      this.targetDate();
+      this.duration();
+
+      untracked(() &#x3D;&gt; {
+        this.reset();
+        if (this.autoStart() &amp;&amp; !this.isFinished()) {
+          this.start();
+        }
+      });
+    }, { allowSignalWrites: true });
+  }
+
+  ngOnDestroy() {
+    this.clearTimer();
+  }
+
+  start() {
+    if (this.isFinished()) return;
+    if (this.timerId) return;
+
+    this.isRunning.set(true);
+    this.timerId &#x3D; setInterval(() &#x3D;&gt; {
+      const nextVal &#x3D; this.remainingSeconds() - 1;
+      if (nextVal &lt;&#x3D; 0) {
+        this.remainingSeconds.set(0);
+        this.clearTimer();
+        this.isRunning.set(false);
+        this.finished.emit();
+      } else {
+        this.remainingSeconds.set(nextVal);
+      }
+
+      this.tick.emit({
+        days: this.days(),
+        hours: this.hours(),
+        minutes: this.minutes(),
+        seconds: this.seconds(),
+        totalSeconds: this.remainingSeconds()
+      });
+    }, 1000);
+  }
+
+  pause() {
+    this.clearTimer();
+    this.isRunning.set(false);
+  }
+
+  reset() {
+    this.clearTimer();
+    this.isRunning.set(false);
+
+    let seconds &#x3D; 0;
+    const target &#x3D; this.targetDate();
+    const dur &#x3D; this.duration();
+
+    if (target) {
+      const targetTime &#x3D; new Date(target).getTime();
+      const now &#x3D; new Date().getTime();
+      seconds &#x3D; Math.max(0, Math.floor((targetTime - now) / 1000));
+    } else if (dur !&#x3D;&#x3D; null &amp;&amp; dur !&#x3D;&#x3D; undefined) {
+      seconds &#x3D; Math.max(0, dur);
+    }
+
+    this.remainingSeconds.set(seconds);
+    this.initialTotalSeconds.set(seconds &gt; 0 ? seconds : 1);
+  }
+
+  formatNumber(val: number): string {
+    return val &lt; 10 ? &#x60;0${val}&#x60; : &#x60;${val}&#x60;;
+  }
+
+  private clearTimer() {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId &#x3D; null;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: inline-block;
+    }
+
+    .ngx-countdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      border-radius: 20px;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .ngx-countdown.dark {
+      background: rgba(30, 32, 48, 0.8);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ── SVG Ring ── */
+    .ngx-countdown__ring-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ngx-countdown__svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ngx-countdown__circle-bg {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .ngx-countdown__circle-bg {
+      stroke: rgba(255, 255, 255, 0.06);
+    }
+
+    .ngx-countdown__circle-progress {
+      fill: none;
+      stroke: var(--primary-color);
+      transition: stroke-dashoffset 1s linear;
+      stroke-dasharray: 326.7; /* 2 * PI * r (r&#x3D;52) */
+    }
+
+    .ngx-countdown__ring-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .ngx-countdown__ring-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+
+    .dark .ngx-countdown__ring-value {
+      color: #f1f5f9;
+    }
+
+    .ngx-countdown__ring-label {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .dark .ngx-countdown__ring-label {
+      color: #94a3b8;
+    }
+
+    /* ── Grid Cards ── */
+    .ngx-countdown__grid {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .ngx-countdown__grid.hidden {
+      display: none;
+    }
+
+    .ngx-countdown__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ngx-countdown__number-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark .ngx-countdown__number-wrap {
+      background: rgba(15, 23, 42, 0.45);
+      border-color: rgba(255, 255, 255, 0.06);
+      box-shadow: none;
+    }
+
+    .ngx-countdown__number {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0f172a;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .dark .ngx-countdown__number {
+      color: #f8fafc;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .ngx-countdown__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dark .ngx-countdown__label {
+      color: #94a3b8;
+    }
+
+    /* ── Controls Buttons ── */
+    .ngx-countdown__controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .ngx-countdown__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1.5px solid rgba(0, 0, 0, 0.06);
+      color: #334155;
+      transition: all 0.2s ease;
+    }
+
+    .ngx-countdown__btn svg {
+      transition: transform 0.2s ease;
+    }
+
+    .ngx-countdown__btn:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .ngx-countdown__btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .ngx-countdown__btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .dark .ngx-countdown__btn {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+
+    .dark .ngx-countdown__btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ── Variants ── */
+    .ngx-countdown.success .ngx-countdown__circle-progress {
+      stroke: #10b981 !important;
+    }
+    .ngx-countdown.danger .ngx-countdown__circle-progress {
+      stroke: #ef4444 !important;
+    }
+    .ngx-countdown.warning .ngx-countdown__circle-progress {
+      stroke: #f59e0b !important;
+    }
+    .ngx-countdown.info .ngx-countdown__circle-progress {
+      stroke: #3b82f6 !important;
+    }
+
+    .ngx-countdown.success .ngx-countdown__number-wrap {
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    .ngx-countdown.danger .ngx-countdown__number-wrap {
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+    .ngx-countdown.warning .ngx-countdown__number-wrap {
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+    .ngx-countdown.info .ngx-countdown__number-wrap {
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .dark.ngx-countdown.success .ngx-countdown__number-wrap {
+      border-color: rgba(16, 185, 129, 0.15);
+    }
+    .dark.ngx-countdown.danger .ngx-countdown__number-wrap {
+      border-color: rgba(239, 68, 68, 0.15);
+    }
+    .dark.ngx-countdown.warning .ngx-countdown__number-wrap {
+      border-color: rgba(245, 158, 11, 0.15);
+    }
+    .dark.ngx-countdown.info .ngx-countdown__number-wrap {
+      border-color: rgba(59, 130, 246, 0.15);
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div  class="ngx-countdown"  [class.dark]="theme() === \'dark\'"  [class]="variantClass()"  [attr.id]="id()">  @if (showRing()) {    <div class="ngx-countdown__ring-container">      <svg class="ngx-countdown__svg" viewBox="0 0 120 120">        <!-- Background circle -->        <circle          class="ngx-countdown__circle-bg"          cx="60"          cy="60"          r="52"          stroke-width="6"        />        <!-- Progress circle -->        <circle          class="ngx-countdown__circle-progress"          cx="60"          cy="60"          r="52"          stroke-width="6"          [style.stroke]="ringColor() || \'var(--primary-color)\'"          [style.strokeDashoffset]="strokeDashoffset()"          stroke-linecap="round"          transform="rotate(-90 60 60)"        />      </svg>      <div class="ngx-countdown__ring-content">        <span class="ngx-countdown__ring-value">{{ formattedCompactTime() }}</span>        <span class="ngx-countdown__ring-label">remaining</span>      </div>    </div>  }  <!-- Flip-card style countdown layout -->  <div class="ngx-countdown__grid" [class.hidden]="showRing() && compactOnly()">    <!-- Days -->    @if (days() > 0 || forceShowDays()) {      <div class="ngx-countdown__card">        <div class="ngx-countdown__number-wrap">          <span class="ngx-countdown__number">{{ formatNumber(days()) }}</span>        </div>        <span class="ngx-countdown__label">Days</span>      </div>    }    <!-- Hours -->    <div class="ngx-countdown__card">      <div class="ngx-countdown__number-wrap">        <span class="ngx-countdown__number">{{ formatNumber(hours()) }}</span>      </div>      <span class="ngx-countdown__label">Hours</span>    </div>    <!-- Minutes -->    <div class="ngx-countdown__card">      <div class="ngx-countdown__number-wrap">        <span class="ngx-countdown__number">{{ formatNumber(minutes()) }}</span>      </div>      <span class="ngx-countdown__label">Minutes</span>    </div>    <!-- Seconds -->    <div class="ngx-countdown__card">      <div class="ngx-countdown__number-wrap">        <span class="ngx-countdown__number">{{ formatNumber(seconds()) }}</span>      </div>      <span class="ngx-countdown__label">Seconds</span>    </div>  </div>  <!-- Controls -->  @if (showControls()) {    <div class="ngx-countdown__controls">      @if (isRunning()) {        <button class="ngx-countdown__btn btn-pause" (click)="pause()" aria-label="Pause timer">          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">            <rect x="6" y="4" width="4" height="16" rx="1" />            <rect x="14" y="4" width="4" height="16" rx="1" />          </svg>          Pause        </button>      } @else {        <button class="ngx-countdown__btn btn-start" (click)="start()" [disabled]="isFinished()" aria-label="Start timer">          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">            <polygon points="5 3 19 12 5 21 5 3" />          </svg>          Start        </button>      }      <button class="ngx-countdown__btn btn-reset" (click)="reset()" aria-label="Reset timer">        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />        </svg>        Reset      </button>    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'CountdownComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CountdownComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

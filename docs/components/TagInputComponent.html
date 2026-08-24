@@ -1,0 +1,1819 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TagInputComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/inputs/tag-input/tag-input.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-tag-input</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+    }
+
+    /* ── Container ── */
+    .ngx-tag-input {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid var(--ngx-tag-border, hsl(220, 15%, 82%));
+      background: var(--ngx-tag-bg, #ffffff);
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      cursor: text;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .ngx-tag-input.focused {
+      border-color: var(--ngx-tag-focus-border, hsl(250, 70%, 58%));
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(124, 95, 240, 0.15));
+      outline: none;
+    }
+
+    .ngx-tag-input.disabled {
+      background: var(--ngx-tag-disabled-bg, hsl(220, 15%, 97%));
+      border-color: var(--ngx-tag-disabled-border, hsl(220, 10%, 88%));
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
+
+    /* ── Dark mode ── */
+    .ngx-tag-input.dark {
+      background: var(--ngx-tag-dark-bg, hsl(225, 20%, 14%));
+      border-color: var(--ngx-tag-dark-border, hsl(225, 15%, 28%));
+    }
+    .ngx-tag-input.dark.focused {
+      border-color: var(--ngx-tag-focus-border, hsl(250, 65%, 65%));
+      box-shadow: 0 0 0 3px rgba(124, 95, 240, 0.22);
+    }
+    .ngx-tag-input.dark.disabled {
+      background: hsl(225, 18%, 10%);
+      border-color: hsl(225, 12%, 22%);
+    }
+
+    /* ── Chips ── */
+    .ngx-tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px 3px 10px;
+      background: var(--ngx-tag-chip-bg, hsl(250, 65%, 94%));
+      color: var(--ngx-tag-chip-color, hsl(250, 55%, 38%));
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      border: 1px solid var(--ngx-tag-chip-border, hsl(250, 55%, 85%));
+      transition: background 0.15s ease, border-color 0.15s ease;
+      animation: chip-pop 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .dark .ngx-tag-chip {
+      background: var(--ngx-tag-chip-dark-bg, hsl(250, 45%, 20%));
+      color: var(--ngx-tag-chip-dark-color, hsl(250, 75%, 80%));
+      border-color: hsl(250, 45%, 30%);
+    }
+
+    @keyframes chip-pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .ngx-tag-chip__label {
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ngx-tag-chip__remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      color: inherit;
+      font-size: 9px;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.12s ease, background 0.12s ease;
+      flex-shrink: 0;
+    }
+    .ngx-tag-chip__remove:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.1);
+    }
+    .dark .ngx-tag-chip__remove:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* ── Text input field ── */
+    .ngx-tag-input__field {
+      flex: 1;
+      min-width: 100px;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ngx-tag-input-color, hsl(220, 20%, 18%));
+      padding: 2px 0;
+    }
+    .ngx-tag-input__field::placeholder {
+      color: var(--ngx-tag-placeholder-color, hsl(220, 12%, 65%));
+    }
+    .ngx-tag-input__field:disabled {
+      cursor: not-allowed;
+    }
+    .dark .ngx-tag-input__field {
+      color: var(--ngx-tag-input-dark-color, hsl(220, 15%, 88%));
+    }
+    .dark .ngx-tag-input__field::placeholder {
+      color: hsl(220, 12%, 48%);
+    }
+
+    /* ── Max tags hint ── */
+    .ngx-tag-input__max-hint {
+      font-size: 11px;
+      font-style: italic;
+      color: hsl(220, 10%, 58%);
+      padding: 2px 4px;
+      align-self: center;
+    }
+    .dark .ngx-tag-input__max-hint {
+      color: hsl(220, 10%, 48%);
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;ngx-tag-input&quot;
+  [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+  [class.disabled]&#x3D;&quot;disabled()&quot;
+  [class.focused]&#x3D;&quot;isFocused()&quot;
+  (click)&#x3D;&quot;focusInput()&quot;
+&gt;
+  &lt;!-- Existing chips --&gt;
+  @for (tag of internalTags(); track tag + $index) {
+    &lt;span class&#x3D;&quot;ngx-tag-chip&quot;&gt;
+      &lt;span class&#x3D;&quot;ngx-tag-chip__label&quot;&gt;{{ tag }}&lt;/span&gt;
+      @if (!disabled()) {
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;ngx-tag-chip__remove&quot;
+          (click)&#x3D;&quot;removeTag(tag, $event)&quot;
+          [attr.aria-label]&#x3D;&quot;&#x27;Remove &#x27; + tag&quot;
+        &gt;✕&lt;/button&gt;
+      }
+    &lt;/span&gt;
+  }
+
+  &lt;!-- Text input --&gt;
+  @if (!isAtMax()) {
+    &lt;input
+      #tagInput
+      class&#x3D;&quot;ngx-tag-input__field&quot;
+      type&#x3D;&quot;text&quot;
+      [placeholder]&#x3D;&quot;internalTags().length &#x3D;&#x3D;&#x3D; 0 ? placeholder() : &#x27;&#x27;&quot;
+      [disabled]&#x3D;&quot;disabled()&quot;
+      [(ngModel)]&#x3D;&quot;inputValue&quot;
+      (keydown)&#x3D;&quot;onKeydown($event)&quot;
+      (focus)&#x3D;&quot;isFocused.set(true)&quot;
+      (blur)&#x3D;&quot;onBlur()&quot;
+    /&gt;
+  }
+
+  &lt;!-- Max tags hint --&gt;
+  @if (isAtMax() &amp;&amp; !disabled()) {
+    &lt;span class&#x3D;&quot;ngx-tag-input__max-hint&quot;&gt;Max {{ maxTags() }} tags&lt;/span&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_inputEl" >_inputEl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#elementRef" >elementRef</a>
+                            </li>
+                            <li>
+                                <a href="#inputValue" >inputValue</a>
+                            </li>
+                            <li>
+                                <a href="#internalTags" >internalTags</a>
+                            </li>
+                            <li>
+                                <a href="#isAtMax" >isAtMax</a>
+                            </li>
+                            <li>
+                                <a href="#isFocused" >isFocused</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#syncTags" >syncTags</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#commitTag" >commitTag</a>
+                            </li>
+                            <li>
+                                <a href="#focusInput" >focusInput</a>
+                            </li>
+                            <li>
+                                <a href="#onBlur" >onBlur</a>
+                            </li>
+                            <li>
+                                <a href="#onKeydown" >onKeydown</a>
+                            </li>
+                            <li>
+                                <a href="#removeTag" >removeTag</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allowDuplicates" >allowDuplicates</a>
+                            </li>
+                            <li>
+                                <a href="#disabled" >disabled</a>
+                            </li>
+                            <li>
+                                <a href="#maxTags" >maxTags</a>
+                            </li>
+                            <li>
+                                <a href="#placeholder" >placeholder</a>
+                            </li>
+                            <li>
+                                <a href="#tags" >tags</a>
+                            </li>
+                            <li>
+                                <a href="#theme" >theme</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#tagAdded" >tagAdded</a>
+                            </li>
+                            <li>
+                                <a href="#tagRemoved" >tagRemoved</a>
+                            </li>
+                            <li>
+                                <a href="#tagsChange" >tagsChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="allowDuplicates"></a>
+                        <b>allowDuplicates</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="218" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:218</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disabled"></a>
+                        <b>disabled</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="219" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:219</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="maxTags"></a>
+                        <b>maxTags</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>20</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="217" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:217</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="placeholder"></a>
+                        <b>placeholder</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Add tag...&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="216" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:216</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tags"></a>
+                        <b>tags</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="215" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:215</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theme"></a>
+                        <b>theme</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;light&quot; | &quot;dark&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;light&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="220" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:220</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tagAdded"></a>
+                        <b>tagAdded</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="224" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:224</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tagRemoved"></a>
+                        <b>tagRemoved</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="225" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:225</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tagsChange"></a>
+                        <b>tagsChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="223" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:223</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commitTag"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>commitTag</b></span>
+                        <a href="#commitTag"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>commitTag()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="272"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:272</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="focusInput"></a>
+                    <span class="name">
+                        <span ><b>focusInput</b></span>
+                        <a href="#focusInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>focusInput()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="242"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:242</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onBlur"></a>
+                    <span class="name">
+                        <span ><b>onBlur</b></span>
+                        <a href="#onBlur"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onBlur()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="264"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:264</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onKeydown"></a>
+                    <span class="name">
+                        <span ><b>onKeydown</b></span>
+                        <a href="#onKeydown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onKeydown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:249</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>KeyboardEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeTag"></a>
+                    <span class="name">
+                        <span ><b>removeTag</b></span>
+                        <a href="#removeTag"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeTag(tag: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, event?: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="288"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:288</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tag</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_inputEl"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_inputEl</b></span>
+                        <a href="#_inputEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLInputElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="240" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:240</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Native input element reference (grabbed via ViewChild-less approach via the template variable).</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="elementRef"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>elementRef</b></span>
+                        <a href="#elementRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ElementRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="212" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:212</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inputValue"></a>
+                    <span class="name">
+                        <span ><b>inputValue</b></span>
+                        <a href="#inputValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="230" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:230</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="internalTags"></a>
+                    <span class="name">
+                        <span ><b>internalTags</b></span>
+                        <a href="#internalTags"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="228" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:228</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAtMax"></a>
+                    <span class="name">
+                        <span ><b>isAtMax</b></span>
+                        <a href="#isAtMax"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.internalTags().length &gt;&#x3D; this.maxTags())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="232" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:232</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFocused"></a>
+                    <span class="name">
+                        <span ><b>isFocused</b></span>
+                        <a href="#isFocused"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:229</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="syncTags"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>syncTags</b></span>
+                        <a href="#syncTags"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>effect(() &#x3D;&gt; {
+    const initial &#x3D; this.tags();
+    this.internalTags.set(initial ? [...initial] : []);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="234" class="link-to-prism">projects/ngx-core-components/inputs/tag-input/tag-input.component.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  signal,
+  computed,
+  ElementRef,
+  inject,
+  effect,
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+@Component({
+  selector: &#x27;ngx-tag-input&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-tag-input&quot;
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      [class.disabled]&#x3D;&quot;disabled()&quot;
+      [class.focused]&#x3D;&quot;isFocused()&quot;
+      (click)&#x3D;&quot;focusInput()&quot;
+    &gt;
+      &lt;!-- Existing chips --&gt;
+      @for (tag of internalTags(); track tag + $index) {
+        &lt;span class&#x3D;&quot;ngx-tag-chip&quot;&gt;
+          &lt;span class&#x3D;&quot;ngx-tag-chip__label&quot;&gt;{{ tag }}&lt;/span&gt;
+          @if (!disabled()) {
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;ngx-tag-chip__remove&quot;
+              (click)&#x3D;&quot;removeTag(tag, $event)&quot;
+              [attr.aria-label]&#x3D;&quot;&#x27;Remove &#x27; + tag&quot;
+            &gt;✕&lt;/button&gt;
+          }
+        &lt;/span&gt;
+      }
+
+      &lt;!-- Text input --&gt;
+      @if (!isAtMax()) {
+        &lt;input
+          #tagInput
+          class&#x3D;&quot;ngx-tag-input__field&quot;
+          type&#x3D;&quot;text&quot;
+          [placeholder]&#x3D;&quot;internalTags().length &#x3D;&#x3D;&#x3D; 0 ? placeholder() : &#x27;&#x27;&quot;
+          [disabled]&#x3D;&quot;disabled()&quot;
+          [(ngModel)]&#x3D;&quot;inputValue&quot;
+          (keydown)&#x3D;&quot;onKeydown($event)&quot;
+          (focus)&#x3D;&quot;isFocused.set(true)&quot;
+          (blur)&#x3D;&quot;onBlur()&quot;
+        /&gt;
+      }
+
+      &lt;!-- Max tags hint --&gt;
+      @if (isAtMax() &amp;&amp; !disabled()) {
+        &lt;span class&#x3D;&quot;ngx-tag-input__max-hint&quot;&gt;Max {{ maxTags() }} tags&lt;/span&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+    }
+
+    /* ── Container ── */
+    .ngx-tag-input {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid var(--ngx-tag-border, hsl(220, 15%, 82%));
+      background: var(--ngx-tag-bg, #ffffff);
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      cursor: text;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .ngx-tag-input.focused {
+      border-color: var(--ngx-tag-focus-border, hsl(250, 70%, 58%));
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(124, 95, 240, 0.15));
+      outline: none;
+    }
+
+    .ngx-tag-input.disabled {
+      background: var(--ngx-tag-disabled-bg, hsl(220, 15%, 97%));
+      border-color: var(--ngx-tag-disabled-border, hsl(220, 10%, 88%));
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
+
+    /* ── Dark mode ── */
+    .ngx-tag-input.dark {
+      background: var(--ngx-tag-dark-bg, hsl(225, 20%, 14%));
+      border-color: var(--ngx-tag-dark-border, hsl(225, 15%, 28%));
+    }
+    .ngx-tag-input.dark.focused {
+      border-color: var(--ngx-tag-focus-border, hsl(250, 65%, 65%));
+      box-shadow: 0 0 0 3px rgba(124, 95, 240, 0.22);
+    }
+    .ngx-tag-input.dark.disabled {
+      background: hsl(225, 18%, 10%);
+      border-color: hsl(225, 12%, 22%);
+    }
+
+    /* ── Chips ── */
+    .ngx-tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px 3px 10px;
+      background: var(--ngx-tag-chip-bg, hsl(250, 65%, 94%));
+      color: var(--ngx-tag-chip-color, hsl(250, 55%, 38%));
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      border: 1px solid var(--ngx-tag-chip-border, hsl(250, 55%, 85%));
+      transition: background 0.15s ease, border-color 0.15s ease;
+      animation: chip-pop 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .dark .ngx-tag-chip {
+      background: var(--ngx-tag-chip-dark-bg, hsl(250, 45%, 20%));
+      color: var(--ngx-tag-chip-dark-color, hsl(250, 75%, 80%));
+      border-color: hsl(250, 45%, 30%);
+    }
+
+    @keyframes chip-pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .ngx-tag-chip__label {
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ngx-tag-chip__remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      color: inherit;
+      font-size: 9px;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.12s ease, background 0.12s ease;
+      flex-shrink: 0;
+    }
+    .ngx-tag-chip__remove:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.1);
+    }
+    .dark .ngx-tag-chip__remove:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* ── Text input field ── */
+    .ngx-tag-input__field {
+      flex: 1;
+      min-width: 100px;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ngx-tag-input-color, hsl(220, 20%, 18%));
+      padding: 2px 0;
+    }
+    .ngx-tag-input__field::placeholder {
+      color: var(--ngx-tag-placeholder-color, hsl(220, 12%, 65%));
+    }
+    .ngx-tag-input__field:disabled {
+      cursor: not-allowed;
+    }
+    .dark .ngx-tag-input__field {
+      color: var(--ngx-tag-input-dark-color, hsl(220, 15%, 88%));
+    }
+    .dark .ngx-tag-input__field::placeholder {
+      color: hsl(220, 12%, 48%);
+    }
+
+    /* ── Max tags hint ── */
+    .ngx-tag-input__max-hint {
+      font-size: 11px;
+      font-style: italic;
+      color: hsl(220, 10%, 58%);
+      padding: 2px 4px;
+      align-self: center;
+    }
+    .dark .ngx-tag-input__max-hint {
+      color: hsl(220, 10%, 48%);
+    }
+  &#x60;],
+})
+export class TagInputComponent {
+  private elementRef &#x3D; inject(ElementRef);
+
+  // ── Inputs ──
+  tags            &#x3D; input&lt;string[]&gt;([]);
+  placeholder     &#x3D; input&lt;string&gt;(&#x27;Add tag...&#x27;);
+  maxTags         &#x3D; input&lt;number&gt;(20);
+  allowDuplicates &#x3D; input&lt;boolean&gt;(false);
+  disabled        &#x3D; input&lt;boolean&gt;(false);
+  theme           &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+
+  // ── Outputs ──
+  tagsChange  &#x3D; output&lt;string[]&gt;();
+  tagAdded    &#x3D; output&lt;string&gt;();
+  tagRemoved  &#x3D; output&lt;string&gt;();
+
+  // ── Internal state ──
+  internalTags &#x3D; signal&lt;string[]&gt;([]);
+  isFocused    &#x3D; signal&lt;boolean&gt;(false);
+  inputValue   &#x3D; &#x27;&#x27;;
+
+  isAtMax &#x3D; computed(() &#x3D;&gt; this.internalTags().length &gt;&#x3D; this.maxTags());
+
+  private syncTags &#x3D; effect(() &#x3D;&gt; {
+    const initial &#x3D; this.tags();
+    this.internalTags.set(initial ? [...initial] : []);
+  });
+
+  /** Native input element reference (grabbed via ViewChild-less approach via the template variable). */
+  private _inputEl: HTMLInputElement | null &#x3D; null;
+
+  focusInput(): void {
+    if (this.disabled() || this.isAtMax()) return;
+    // Query the rendered input inside this host element
+    const input &#x3D; this.elementRef.nativeElement.querySelector(&#x27;.ngx-tag-input__field&#x27;) as HTMLInputElement;
+    input?.focus();
+  }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (this.disabled()) return;
+
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;Enter&#x27; || event.key &#x3D;&#x3D;&#x3D; &#x27;,&#x27;) {
+      event.preventDefault();
+      this.commitTag();
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;Backspace&#x27; &amp;&amp; !this.inputValue) {
+      // Remove last tag on backspace when input is empty
+      const tags &#x3D; this.internalTags();
+      if (tags.length &gt; 0) {
+        this.removeTag(tags[tags.length - 1]);
+      }
+    }
+  }
+
+  onBlur(): void {
+    this.isFocused.set(false);
+    // Commit any pending text on blur
+    if (this.inputValue.trim()) {
+      this.commitTag();
+    }
+  }
+
+  private commitTag(): void {
+    const raw &#x3D; this.inputValue.replace(/,/g, &#x27;&#x27;).trim();
+    if (!raw) return;
+    if (this.isAtMax()) return;
+    if (!this.allowDuplicates() &amp;&amp; this.internalTags().includes(raw)) {
+      this.inputValue &#x3D; &#x27;&#x27;;
+      return;
+    }
+
+    const newTags &#x3D; [...this.internalTags(), raw];
+    this.internalTags.set(newTags);
+    this.inputValue &#x3D; &#x27;&#x27;;
+    this.tagsChange.emit(newTags);
+    this.tagAdded.emit(raw);
+  }
+
+  removeTag(tag: string, event?: MouseEvent): void {
+    event?.stopPropagation();
+    const newTags &#x3D; this.internalTags().filter(t &#x3D;&gt; t !&#x3D;&#x3D; tag);
+    this.internalTags.set(newTags);
+    this.tagsChange.emit(newTags);
+    this.tagRemoved.emit(tag);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+    }
+
+    /* ── Container ── */
+    .ngx-tag-input {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid var(--ngx-tag-border, hsl(220, 15%, 82%));
+      background: var(--ngx-tag-bg, #ffffff);
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      cursor: text;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .ngx-tag-input.focused {
+      border-color: var(--ngx-tag-focus-border, hsl(250, 70%, 58%));
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(124, 95, 240, 0.15));
+      outline: none;
+    }
+
+    .ngx-tag-input.disabled {
+      background: var(--ngx-tag-disabled-bg, hsl(220, 15%, 97%));
+      border-color: var(--ngx-tag-disabled-border, hsl(220, 10%, 88%));
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
+
+    /* ── Dark mode ── */
+    .ngx-tag-input.dark {
+      background: var(--ngx-tag-dark-bg, hsl(225, 20%, 14%));
+      border-color: var(--ngx-tag-dark-border, hsl(225, 15%, 28%));
+    }
+    .ngx-tag-input.dark.focused {
+      border-color: var(--ngx-tag-focus-border, hsl(250, 65%, 65%));
+      box-shadow: 0 0 0 3px rgba(124, 95, 240, 0.22);
+    }
+    .ngx-tag-input.dark.disabled {
+      background: hsl(225, 18%, 10%);
+      border-color: hsl(225, 12%, 22%);
+    }
+
+    /* ── Chips ── */
+    .ngx-tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px 3px 10px;
+      background: var(--ngx-tag-chip-bg, hsl(250, 65%, 94%));
+      color: var(--ngx-tag-chip-color, hsl(250, 55%, 38%));
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      border: 1px solid var(--ngx-tag-chip-border, hsl(250, 55%, 85%));
+      transition: background 0.15s ease, border-color 0.15s ease;
+      animation: chip-pop 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .dark .ngx-tag-chip {
+      background: var(--ngx-tag-chip-dark-bg, hsl(250, 45%, 20%));
+      color: var(--ngx-tag-chip-dark-color, hsl(250, 75%, 80%));
+      border-color: hsl(250, 45%, 30%);
+    }
+
+    @keyframes chip-pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .ngx-tag-chip__label {
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ngx-tag-chip__remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      color: inherit;
+      font-size: 9px;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.12s ease, background 0.12s ease;
+      flex-shrink: 0;
+    }
+    .ngx-tag-chip__remove:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.1);
+    }
+    .dark .ngx-tag-chip__remove:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* ── Text input field ── */
+    .ngx-tag-input__field {
+      flex: 1;
+      min-width: 100px;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ngx-tag-input-color, hsl(220, 20%, 18%));
+      padding: 2px 0;
+    }
+    .ngx-tag-input__field::placeholder {
+      color: var(--ngx-tag-placeholder-color, hsl(220, 12%, 65%));
+    }
+    .ngx-tag-input__field:disabled {
+      cursor: not-allowed;
+    }
+    .dark .ngx-tag-input__field {
+      color: var(--ngx-tag-input-dark-color, hsl(220, 15%, 88%));
+    }
+    .dark .ngx-tag-input__field::placeholder {
+      color: hsl(220, 12%, 48%);
+    }
+
+    /* ── Max tags hint ── */
+    .ngx-tag-input__max-hint {
+      font-size: 11px;
+      font-style: italic;
+      color: hsl(220, 10%, 58%);
+      padding: 2px 4px;
+      align-self: center;
+    }
+    .dark .ngx-tag-input__max-hint {
+      color: hsl(220, 10%, 48%);
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div  class="ngx-tag-input"  [class.dark]="theme() === \'dark\'"  [class.disabled]="disabled()"  [class.focused]="isFocused()"  (click)="focusInput()">  <!-- Existing chips -->  @for (tag of internalTags(); track tag + $index) {    <span class="ngx-tag-chip">      <span class="ngx-tag-chip__label">{{ tag }}</span>      @if (!disabled()) {        <button          type="button"          class="ngx-tag-chip__remove"          (click)="removeTag(tag, $event)"          [attr.aria-label]="\'Remove \' + tag"        >✕</button>      }    </span>  }  <!-- Text input -->  @if (!isAtMax()) {    <input      #tagInput      class="ngx-tag-input__field"      type="text"      [placeholder]="internalTags().length === 0 ? placeholder() : \'\'"      [disabled]="disabled()"      [(ngModel)]="inputValue"      (keydown)="onKeydown($event)"      (focus)="isFocused.set(true)"      (blur)="onBlur()"    />  }  <!-- Max tags hint -->  @if (isAtMax() && !disabled()) {    <span class="ngx-tag-input__max-hint">Max {{ maxTags() }} tags</span>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'TagInputComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TagInputComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

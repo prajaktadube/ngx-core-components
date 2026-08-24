@@ -1,0 +1,2210 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DatePickerComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/inputs/date-picker/date-picker.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/forms/ControlValueAccessor" target="_blank" >ControlValueAccessor</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-date-picker</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host { display: block; position: relative; }
+    .ngx-date-picker { font-family: var(--ngx-font-family, inherit); }
+    .ngx-date-label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+    .ngx-date-wrap { display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 8px; background: #ffffff; padding: 8px 12px; cursor: pointer; gap: 8px; }
+    .ngx-date-input { border: none; background: transparent; outline: none; flex: 1; font-size: 13px; color: #0f172a; cursor: pointer; }
+    .ngx-date-icon { font-size: 14px; }
+    .ngx-date-clear { border: none; background: transparent; cursor: pointer; color: #94a3b8; font-size: 12px; }
+    .ngx-date-popover { position: absolute; top: 100%; left: 0; margin-top: 4px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); padding: 14px; z-index: 1000; width: 280px; }
+    .ngx-date-presets { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; align-items: center; }
+    .presets-title { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-right: 4px; }
+    .preset-chip { border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 6px; padding: 2px 8px; font-size: 11px; cursor: pointer; color: #334155; transition: all 0.15s; }
+    .preset-chip:hover { border-color: #4f46e5; color: #4f46e5; background: #eef2ff; }
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .cal-title { font-weight: 700; font-size: 13px; color: #0f172a; }
+    .cal-nav { border: none; background: #f8fafc; border-radius: 6px; width: 24px; height: 24px; cursor: pointer; font-size: 14px; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+    .day-header { font-size: 10px; font-weight: 700; color: #94a3b8; padding: 4px 0; }
+    .day-cell { border: none; background: transparent; padding: 6px 0; font-size: 12px; border-radius: 6px; cursor: pointer; color: #0f172a; }
+    .day-cell:hover { background: #f1f5f9; }
+    .day-cell.other-month { color: #cbd5e1; }
+    .day-cell.selected { background: #4f46e5 !important; color: #ffffff !important; font-weight: 700; }
+    .day-cell.today { font-weight: 700; color: #4f46e5; text-decoration: underline; }
+    .ngx-date-error { font-size: 11px; color: #ef4444; margin-top: 4px; }
+    .ngx-date-hint { font-size: 11px; color: #64748b; margin-top: 4px; }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-date-picker&quot; [class.has-error]&#x3D;&quot;status() &#x3D;&#x3D;&#x3D; &#x27;error&#x27;&quot; [class.disabled]&#x3D;&quot;disabled()&quot;&gt;
+  @if (label()) {
+    &lt;label class&#x3D;&quot;ngx-date-label&quot;&gt;{{ label() }}&lt;/label&gt;
+  }
+  &lt;div class&#x3D;&quot;ngx-date-wrap&quot; (click)&#x3D;&quot;toggleCalendar()&quot;&gt;
+    &lt;span class&#x3D;&quot;ngx-date-icon&quot;&gt;📅&lt;/span&gt;
+    &lt;input
+      class&#x3D;&quot;ngx-date-input&quot;
+      type&#x3D;&quot;text&quot;
+      readonly
+      [value]&#x3D;&quot;displayValue()&quot;
+      [placeholder]&#x3D;&quot;placeholder()&quot;
+      [disabled]&#x3D;&quot;disabled()&quot;
+    /&gt;
+    @if (clearable() &amp;&amp; _resolvedValue() &amp;&amp; !disabled()) {
+      &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;ngx-date-clear&quot; (click)&#x3D;&quot;clearValue($event)&quot;&gt;✕&lt;/button&gt;
+    }
+  &lt;/div&gt;
+
+  @if (isOpen()) {
+    &lt;div class&#x3D;&quot;ngx-date-popover&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+      @if (showPresets()) {
+        &lt;div class&#x3D;&quot;ngx-date-presets&quot;&gt;
+          &lt;span class&#x3D;&quot;presets-title&quot;&gt;Presets:&lt;/span&gt;
+          @for (preset of activePresets(); track preset.label) {
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;preset-chip&quot; (click)&#x3D;&quot;selectPreset(preset)&quot;&gt;{{ preset.label }}&lt;/button&gt;
+          }
+        &lt;/div&gt;
+      }
+
+      &lt;div class&#x3D;&quot;calendar-header&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;cal-nav&quot; (click)&#x3D;&quot;prevMonth()&quot;&gt;‹&lt;/button&gt;
+        &lt;span class&#x3D;&quot;cal-title&quot;&gt;{{ monthName() }} {{ currentYear() }}&lt;/span&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;cal-nav&quot; (click)&#x3D;&quot;nextMonth()&quot;&gt;›&lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;calendar-grid&quot;&gt;
+        &lt;span class&#x3D;&quot;day-header&quot; *ngFor&#x3D;&quot;let d of [&#x27;Su&#x27;,&#x27;Mo&#x27;,&#x27;Tu&#x27;,&#x27;We&#x27;,&#x27;Th&#x27;,&#x27;Fr&#x27;,&#x27;Sa&#x27;]&quot;&gt;{{ d }}&lt;/span&gt;
+        &lt;button
+          *ngFor&#x3D;&quot;let cell of calendarDays()&quot;
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;day-cell&quot;
+          [class.other-month]&#x3D;&quot;!cell.inMonth&quot;
+          [class.selected]&#x3D;&quot;isSelected(cell.date)&quot;
+          [class.today]&#x3D;&quot;isToday(cell.date)&quot;
+          (click)&#x3D;&quot;selectDate(cell.date)&quot;
+        &gt;
+          {{ cell.date.getDate() }}
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+
+  @if (error()) {
+    &lt;div class&#x3D;&quot;ngx-date-error&quot;&gt;{{ error() }}&lt;/div&gt;
+  } @else if (hint()) {
+    &lt;div class&#x3D;&quot;ngx-date-hint&quot;&gt;{{ hint() }}&lt;/div&gt;
+  }
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_cvaActive" >_cvaActive</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_cvaValue" >_cvaValue</a>
+                            </li>
+                            <li>
+                                <a href="#_resolvedValue" >_resolvedValue</a>
+                            </li>
+                            <li>
+                                <a href="#activePresets" >activePresets</a>
+                            </li>
+                            <li>
+                                <a href="#calendarDays" >calendarDays</a>
+                            </li>
+                            <li>
+                                <a href="#currentMonth" >currentMonth</a>
+                            </li>
+                            <li>
+                                <a href="#currentYear" >currentYear</a>
+                            </li>
+                            <li>
+                                <a href="#displayValue" >displayValue</a>
+                            </li>
+                            <li>
+                                <a href="#isOpen" >isOpen</a>
+                            </li>
+                            <li>
+                                <a href="#monthName" >monthName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#onChange" >onChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#onTouched" >onTouched</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clearValue" >clearValue</a>
+                            </li>
+                            <li>
+                                <a href="#isSelected" >isSelected</a>
+                            </li>
+                            <li>
+                                <a href="#isToday" >isToday</a>
+                            </li>
+                            <li>
+                                <a href="#nextMonth" >nextMonth</a>
+                            </li>
+                            <li>
+                                <a href="#prevMonth" >prevMonth</a>
+                            </li>
+                            <li>
+                                <a href="#registerOnChange" >registerOnChange</a>
+                            </li>
+                            <li>
+                                <a href="#registerOnTouched" >registerOnTouched</a>
+                            </li>
+                            <li>
+                                <a href="#selectDate" >selectDate</a>
+                            </li>
+                            <li>
+                                <a href="#selectPreset" >selectPreset</a>
+                            </li>
+                            <li>
+                                <a href="#toggleCalendar" >toggleCalendar</a>
+                            </li>
+                            <li>
+                                <a href="#writeValue" >writeValue</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clearable" >clearable</a>
+                            </li>
+                            <li>
+                                <a href="#disabled" >disabled</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#hint" >hint</a>
+                            </li>
+                            <li>
+                                <a href="#label" >label</a>
+                            </li>
+                            <li>
+                                <a href="#placeholder" >placeholder</a>
+                            </li>
+                            <li>
+                                <a href="#showPresets" >showPresets</a>
+                            </li>
+                            <li>
+                                <a href="#status" >status</a>
+                            </li>
+                            <li>
+                                <a href="#value" >value</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#valueChange" >valueChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clearable"></a>
+                        <b>clearable</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="120" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:120</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disabled"></a>
+                        <b>disabled</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="116" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:116</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="error"></a>
+                        <b>error</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:118</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hint"></a>
+                        <b>hint</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:119</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="label"></a>
+                        <b>label</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:114</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="placeholder"></a>
+                        <b>placeholder</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Select date...&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:115</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showPresets"></a>
+                        <b>showPresets</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:121</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="status"></a>
+                        <b>status</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;normal&quot; | &quot;success&quot; | &quot;warning&quot; | &quot;error&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;normal&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="117" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:117</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="value"></a>
+                        <b>value</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:113</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="valueChange"></a>
+                        <b>valueChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:123</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearValue"></a>
+                    <span class="name">
+                        <span ><b>clearValue</b></span>
+                        <a href="#clearValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearValue(e: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="217"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:217</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>e</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSelected"></a>
+                    <span class="name">
+                        <span ><b>isSelected</b></span>
+                        <a href="#isSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isSelected(d: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="242"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:242</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>d</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isToday"></a>
+                    <span class="name">
+                        <span ><b>isToday</b></span>
+                        <a href="#isToday"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isToday(d: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="248"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:248</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>d</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextMonth"></a>
+                    <span class="name">
+                        <span ><b>nextMonth</b></span>
+                        <a href="#nextMonth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextMonth()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prevMonth"></a>
+                    <span class="name">
+                        <span ><b>prevMonth</b></span>
+                        <a href="#prevMonth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prevMonth()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="224"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:224</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registerOnChange"></a>
+                    <span class="name">
+                        <span ><b>registerOnChange</b></span>
+                        <a href="#registerOnChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registerOnChange(fn: (val: Date | null) => void)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fn</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registerOnTouched"></a>
+                    <span class="name">
+                        <span ><b>registerOnTouched</b></span>
+                        <a href="#registerOnTouched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registerOnTouched(fn: () => void)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fn</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectDate"></a>
+                    <span class="name">
+                        <span ><b>selectDate</b></span>
+                        <a href="#selectDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectDate(d: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:203</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>d</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectPreset"></a>
+                    <span class="name">
+                        <span ><b>selectPreset</b></span>
+                        <a href="#selectPreset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectPreset(preset: <a href="../interfaces/DatePreset.html" target="_self">DatePreset</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="210"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:210</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>preset</td>
+                                            <td>
+                                                            <code><a href="../interfaces/DatePreset.html" target="_self" >DatePreset</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleCalendar"></a>
+                    <span class="name">
+                        <span ><b>toggleCalendar</b></span>
+                        <a href="#toggleCalendar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleCalendar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="198"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="writeValue"></a>
+                    <span class="name">
+                        <span ><b>writeValue</b></span>
+                        <a href="#writeValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>writeValue(val: Date | string | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>val</td>
+                                            <td>
+                                                        <code>Date | string | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_cvaActive"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_cvaActive</b></span>
+                        <a href="#_cvaActive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_cvaValue"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_cvaValue</b></span>
+                        <a href="#_cvaValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Date | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="129" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_resolvedValue"></a>
+                    <span class="name">
+                        <span ><b>_resolvedValue</b></span>
+                        <a href="#_resolvedValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;Date | null&gt;(() &#x3D;&gt; {
+    const raw &#x3D; this._cvaActive ? this._cvaValue() : this.value();
+    if (!raw) return null;
+    return raw instanceof Date ? raw : new Date(raw);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="132" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activePresets"></a>
+                    <span class="name">
+                        <span ><b>activePresets</b></span>
+                        <a href="#activePresets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed&lt;DatePreset[]&gt;(() &#x3D;&gt; [
+    { label: &#x27;Today&#x27;, getValue: () &#x3D;&gt; new Date() },
+    { label: &#x27;Yesterday&#x27;, getValue: () &#x3D;&gt; { const d &#x3D; new Date(); d.setDate(d.getDate() - 1); return d; } },
+    { label: &#x27;Last 7 Days&#x27;, getValue: () &#x3D;&gt; { const d &#x3D; new Date(); d.setDate(d.getDate() - 7); return d; } },
+    { label: &#x27;First of Month&#x27;, getValue: () &#x3D;&gt; new Date(new Date().getFullYear(), new Date().getMonth(), 1) },
+  ])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calendarDays"></a>
+                    <span class="name">
+                        <span ><b>calendarDays</b></span>
+                        <a href="#calendarDays"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const m &#x3D; this.currentMonth();
+    const y &#x3D; this.currentYear();
+    const firstDay &#x3D; new Date(y, m, 1).getDay();
+    const daysInMonth &#x3D; new Date(y, m + 1, 0).getDate();
+    const daysInPrevMonth &#x3D; new Date(y, m, 0).getDate();
+
+    const cells: { date: Date; inMonth: boolean }[] &#x3D; [];
+
+    // Prev month padding
+    for (let i &#x3D; firstDay - 1; i &gt;&#x3D; 0; i--) {
+      cells.push({ date: new Date(y, m - 1, daysInPrevMonth - i), inMonth: false });
+    }
+    // Current month days
+    for (let i &#x3D; 1; i &lt;&#x3D; daysInMonth; i++) {
+      cells.push({ date: new Date(y, m, i), inMonth: true });
+    }
+    // Next month padding
+    const remaining &#x3D; 42 - cells.length;
+    for (let i &#x3D; 1; i &lt;&#x3D; remaining; i++) {
+      cells.push({ date: new Date(y, m + 1, i), inMonth: false });
+    }
+
+    return cells;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="156" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentMonth"></a>
+                    <span class="name">
+                        <span ><b>currentMonth</b></span>
+                        <a href="#currentMonth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(new Date().getMonth())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="126" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentYear"></a>
+                    <span class="name">
+                        <span ><b>currentYear</b></span>
+                        <a href="#currentYear"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(new Date().getFullYear())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayValue"></a>
+                    <span class="name">
+                        <span ><b>displayValue</b></span>
+                        <a href="#displayValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const val &#x3D; this._resolvedValue();
+    if (!val) return &#x27;&#x27;;
+    return val.toLocaleDateString();
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="145" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:145</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOpen"></a>
+                    <span class="name">
+                        <span ><b>isOpen</b></span>
+                        <a href="#isOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="125" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="monthName"></a>
+                    <span class="name">
+                        <span ><b>monthName</b></span>
+                        <a href="#monthName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const months &#x3D; [&#x27;January&#x27;,&#x27;February&#x27;,&#x27;March&#x27;,&#x27;April&#x27;,&#x27;May&#x27;,&#x27;June&#x27;,&#x27;July&#x27;,&#x27;August&#x27;,&#x27;September&#x27;,&#x27;October&#x27;,&#x27;November&#x27;,&#x27;December&#x27;];
+    return months[this.currentMonth()];
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="151" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onChange"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>onChange</b></span>
+                        <a href="#onChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="182" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:182</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTouched"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>onTouched</b></span>
+                        <a href="#onTouched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">projects/ngx-core-components/inputs/date-picker/date-picker.component.ts:183</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, output, signal, computed, forwardRef
+} from &#x27;@angular/core&#x27;;
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export interface DatePreset {
+  label: string;
+  getValue: () &#x3D;&gt; Date;
+}
+
+@Component({
+  selector: &#x27;ngx-date-picker&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() &#x3D;&gt; DatePickerComponent),
+      multi: true,
+    },
+  ],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-date-picker&quot; [class.has-error]&#x3D;&quot;status() &#x3D;&#x3D;&#x3D; &#x27;error&#x27;&quot; [class.disabled]&#x3D;&quot;disabled()&quot;&gt;
+      @if (label()) {
+        &lt;label class&#x3D;&quot;ngx-date-label&quot;&gt;{{ label() }}&lt;/label&gt;
+      }
+      &lt;div class&#x3D;&quot;ngx-date-wrap&quot; (click)&#x3D;&quot;toggleCalendar()&quot;&gt;
+        &lt;span class&#x3D;&quot;ngx-date-icon&quot;&gt;📅&lt;/span&gt;
+        &lt;input
+          class&#x3D;&quot;ngx-date-input&quot;
+          type&#x3D;&quot;text&quot;
+          readonly
+          [value]&#x3D;&quot;displayValue()&quot;
+          [placeholder]&#x3D;&quot;placeholder()&quot;
+          [disabled]&#x3D;&quot;disabled()&quot;
+        /&gt;
+        @if (clearable() &amp;&amp; _resolvedValue() &amp;&amp; !disabled()) {
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;ngx-date-clear&quot; (click)&#x3D;&quot;clearValue($event)&quot;&gt;✕&lt;/button&gt;
+        }
+      &lt;/div&gt;
+
+      @if (isOpen()) {
+        &lt;div class&#x3D;&quot;ngx-date-popover&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+          @if (showPresets()) {
+            &lt;div class&#x3D;&quot;ngx-date-presets&quot;&gt;
+              &lt;span class&#x3D;&quot;presets-title&quot;&gt;Presets:&lt;/span&gt;
+              @for (preset of activePresets(); track preset.label) {
+                &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;preset-chip&quot; (click)&#x3D;&quot;selectPreset(preset)&quot;&gt;{{ preset.label }}&lt;/button&gt;
+              }
+            &lt;/div&gt;
+          }
+
+          &lt;div class&#x3D;&quot;calendar-header&quot;&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;cal-nav&quot; (click)&#x3D;&quot;prevMonth()&quot;&gt;‹&lt;/button&gt;
+            &lt;span class&#x3D;&quot;cal-title&quot;&gt;{{ monthName() }} {{ currentYear() }}&lt;/span&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;cal-nav&quot; (click)&#x3D;&quot;nextMonth()&quot;&gt;›&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;calendar-grid&quot;&gt;
+            &lt;span class&#x3D;&quot;day-header&quot; *ngFor&#x3D;&quot;let d of [&#x27;Su&#x27;,&#x27;Mo&#x27;,&#x27;Tu&#x27;,&#x27;We&#x27;,&#x27;Th&#x27;,&#x27;Fr&#x27;,&#x27;Sa&#x27;]&quot;&gt;{{ d }}&lt;/span&gt;
+            &lt;button
+              *ngFor&#x3D;&quot;let cell of calendarDays()&quot;
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;day-cell&quot;
+              [class.other-month]&#x3D;&quot;!cell.inMonth&quot;
+              [class.selected]&#x3D;&quot;isSelected(cell.date)&quot;
+              [class.today]&#x3D;&quot;isToday(cell.date)&quot;
+              (click)&#x3D;&quot;selectDate(cell.date)&quot;
+            &gt;
+              {{ cell.date.getDate() }}
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+
+      @if (error()) {
+        &lt;div class&#x3D;&quot;ngx-date-error&quot;&gt;{{ error() }}&lt;/div&gt;
+      } @else if (hint()) {
+        &lt;div class&#x3D;&quot;ngx-date-hint&quot;&gt;{{ hint() }}&lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; position: relative; }
+    .ngx-date-picker { font-family: var(--ngx-font-family, inherit); }
+    .ngx-date-label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+    .ngx-date-wrap { display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 8px; background: #ffffff; padding: 8px 12px; cursor: pointer; gap: 8px; }
+    .ngx-date-input { border: none; background: transparent; outline: none; flex: 1; font-size: 13px; color: #0f172a; cursor: pointer; }
+    .ngx-date-icon { font-size: 14px; }
+    .ngx-date-clear { border: none; background: transparent; cursor: pointer; color: #94a3b8; font-size: 12px; }
+    .ngx-date-popover { position: absolute; top: 100%; left: 0; margin-top: 4px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); padding: 14px; z-index: 1000; width: 280px; }
+    .ngx-date-presets { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; align-items: center; }
+    .presets-title { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-right: 4px; }
+    .preset-chip { border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 6px; padding: 2px 8px; font-size: 11px; cursor: pointer; color: #334155; transition: all 0.15s; }
+    .preset-chip:hover { border-color: #4f46e5; color: #4f46e5; background: #eef2ff; }
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .cal-title { font-weight: 700; font-size: 13px; color: #0f172a; }
+    .cal-nav { border: none; background: #f8fafc; border-radius: 6px; width: 24px; height: 24px; cursor: pointer; font-size: 14px; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+    .day-header { font-size: 10px; font-weight: 700; color: #94a3b8; padding: 4px 0; }
+    .day-cell { border: none; background: transparent; padding: 6px 0; font-size: 12px; border-radius: 6px; cursor: pointer; color: #0f172a; }
+    .day-cell:hover { background: #f1f5f9; }
+    .day-cell.other-month { color: #cbd5e1; }
+    .day-cell.selected { background: #4f46e5 !important; color: #ffffff !important; font-weight: 700; }
+    .day-cell.today { font-weight: 700; color: #4f46e5; text-decoration: underline; }
+    .ngx-date-error { font-size: 11px; color: #ef4444; margin-top: 4px; }
+    .ngx-date-hint { font-size: 11px; color: #64748b; margin-top: 4px; }
+  &#x60;]
+})
+export class DatePickerComponent implements ControlValueAccessor {
+  value &#x3D; input&lt;Date | string | null&gt;(null);
+  label &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  placeholder &#x3D; input&lt;string&gt;(&#x27;Select date...&#x27;);
+  disabled &#x3D; input&lt;boolean&gt;(false);
+  status &#x3D; input&lt;&#x27;normal&#x27; | &#x27;success&#x27; | &#x27;warning&#x27; | &#x27;error&#x27;&gt;(&#x27;normal&#x27;);
+  error &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  hint &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  clearable &#x3D; input&lt;boolean&gt;(true);
+  showPresets &#x3D; input&lt;boolean&gt;(true);
+
+  valueChange &#x3D; output&lt;any&gt;();
+
+  isOpen &#x3D; signal&lt;boolean&gt;(false);
+  currentMonth &#x3D; signal&lt;number&gt;(new Date().getMonth());
+  currentYear &#x3D; signal&lt;number&gt;(new Date().getFullYear());
+
+  private _cvaValue &#x3D; signal&lt;Date | null&gt;(null);
+  private _cvaActive &#x3D; false;
+
+  _resolvedValue &#x3D; computed&lt;Date | null&gt;(() &#x3D;&gt; {
+    const raw &#x3D; this._cvaActive ? this._cvaValue() : this.value();
+    if (!raw) return null;
+    return raw instanceof Date ? raw : new Date(raw);
+  });
+
+  activePresets &#x3D; computed&lt;DatePreset[]&gt;(() &#x3D;&gt; [
+    { label: &#x27;Today&#x27;, getValue: () &#x3D;&gt; new Date() },
+    { label: &#x27;Yesterday&#x27;, getValue: () &#x3D;&gt; { const d &#x3D; new Date(); d.setDate(d.getDate() - 1); return d; } },
+    { label: &#x27;Last 7 Days&#x27;, getValue: () &#x3D;&gt; { const d &#x3D; new Date(); d.setDate(d.getDate() - 7); return d; } },
+    { label: &#x27;First of Month&#x27;, getValue: () &#x3D;&gt; new Date(new Date().getFullYear(), new Date().getMonth(), 1) },
+  ]);
+
+  displayValue &#x3D; computed(() &#x3D;&gt; {
+    const val &#x3D; this._resolvedValue();
+    if (!val) return &#x27;&#x27;;
+    return val.toLocaleDateString();
+  });
+
+  monthName &#x3D; computed(() &#x3D;&gt; {
+    const months &#x3D; [&#x27;January&#x27;,&#x27;February&#x27;,&#x27;March&#x27;,&#x27;April&#x27;,&#x27;May&#x27;,&#x27;June&#x27;,&#x27;July&#x27;,&#x27;August&#x27;,&#x27;September&#x27;,&#x27;October&#x27;,&#x27;November&#x27;,&#x27;December&#x27;];
+    return months[this.currentMonth()];
+  });
+
+  calendarDays &#x3D; computed(() &#x3D;&gt; {
+    const m &#x3D; this.currentMonth();
+    const y &#x3D; this.currentYear();
+    const firstDay &#x3D; new Date(y, m, 1).getDay();
+    const daysInMonth &#x3D; new Date(y, m + 1, 0).getDate();
+    const daysInPrevMonth &#x3D; new Date(y, m, 0).getDate();
+
+    const cells: { date: Date; inMonth: boolean }[] &#x3D; [];
+
+    // Prev month padding
+    for (let i &#x3D; firstDay - 1; i &gt;&#x3D; 0; i--) {
+      cells.push({ date: new Date(y, m - 1, daysInPrevMonth - i), inMonth: false });
+    }
+    // Current month days
+    for (let i &#x3D; 1; i &lt;&#x3D; daysInMonth; i++) {
+      cells.push({ date: new Date(y, m, i), inMonth: true });
+    }
+    // Next month padding
+    const remaining &#x3D; 42 - cells.length;
+    for (let i &#x3D; 1; i &lt;&#x3D; remaining; i++) {
+      cells.push({ date: new Date(y, m + 1, i), inMonth: false });
+    }
+
+    return cells;
+  });
+
+  private onChange: (val: Date | null) &#x3D;&gt; void &#x3D; () &#x3D;&gt; {};
+  private onTouched: () &#x3D;&gt; void &#x3D; () &#x3D;&gt; {};
+
+  writeValue(val: Date | string | null): void {
+    this._cvaActive &#x3D; true;
+    this._cvaValue.set(val ? (val instanceof Date ? val : new Date(val)) : null);
+  }
+
+  registerOnChange(fn: (val: Date | null) &#x3D;&gt; void): void {
+    this.onChange &#x3D; fn;
+  }
+
+  registerOnTouched(fn: () &#x3D;&gt; void): void {
+    this.onTouched &#x3D; fn;
+  }
+
+  toggleCalendar(): void {
+    if (this.disabled()) return;
+    this.isOpen.update(v &#x3D;&gt; !v);
+  }
+
+  selectDate(d: Date): void {
+    this._cvaValue.set(d);
+    this.onChange(d);
+    this.valueChange.emit(d);
+    this.isOpen.set(false);
+  }
+
+  selectPreset(preset: DatePreset): void {
+    const date &#x3D; preset.getValue();
+    this.currentMonth.set(date.getMonth());
+    this.currentYear.set(date.getFullYear());
+    this.selectDate(date);
+  }
+
+  clearValue(e: MouseEvent): void {
+    e.stopPropagation();
+    this._cvaValue.set(null);
+    this.onChange(null);
+    this.valueChange.emit(null);
+  }
+
+  prevMonth(): void {
+    if (this.currentMonth() &#x3D;&#x3D;&#x3D; 0) {
+      this.currentMonth.set(11);
+      this.currentYear.update(y &#x3D;&gt; y - 1);
+    } else {
+      this.currentMonth.update(m &#x3D;&gt; m - 1);
+    }
+  }
+
+  nextMonth(): void {
+    if (this.currentMonth() &#x3D;&#x3D;&#x3D; 11) {
+      this.currentMonth.set(0);
+      this.currentYear.update(y &#x3D;&gt; y + 1);
+    } else {
+      this.currentMonth.update(m &#x3D;&gt; m + 1);
+    }
+  }
+
+  isSelected(d: Date): boolean {
+    const val &#x3D; this._resolvedValue();
+    if (!val) return false;
+    return val.toDateString() &#x3D;&#x3D;&#x3D; d.toDateString();
+  }
+
+  isToday(d: Date): boolean {
+    return new Date().toDateString() &#x3D;&#x3D;&#x3D; d.toDateString();
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host { display: block; position: relative; }
+    .ngx-date-picker { font-family: var(--ngx-font-family, inherit); }
+    .ngx-date-label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+    .ngx-date-wrap { display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 8px; background: #ffffff; padding: 8px 12px; cursor: pointer; gap: 8px; }
+    .ngx-date-input { border: none; background: transparent; outline: none; flex: 1; font-size: 13px; color: #0f172a; cursor: pointer; }
+    .ngx-date-icon { font-size: 14px; }
+    .ngx-date-clear { border: none; background: transparent; cursor: pointer; color: #94a3b8; font-size: 12px; }
+    .ngx-date-popover { position: absolute; top: 100%; left: 0; margin-top: 4px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); padding: 14px; z-index: 1000; width: 280px; }
+    .ngx-date-presets { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; align-items: center; }
+    .presets-title { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-right: 4px; }
+    .preset-chip { border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 6px; padding: 2px 8px; font-size: 11px; cursor: pointer; color: #334155; transition: all 0.15s; }
+    .preset-chip:hover { border-color: #4f46e5; color: #4f46e5; background: #eef2ff; }
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .cal-title { font-weight: 700; font-size: 13px; color: #0f172a; }
+    .cal-nav { border: none; background: #f8fafc; border-radius: 6px; width: 24px; height: 24px; cursor: pointer; font-size: 14px; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+    .day-header { font-size: 10px; font-weight: 700; color: #94a3b8; padding: 4px 0; }
+    .day-cell { border: none; background: transparent; padding: 6px 0; font-size: 12px; border-radius: 6px; cursor: pointer; color: #0f172a; }
+    .day-cell:hover { background: #f1f5f9; }
+    .day-cell.other-month { color: #cbd5e1; }
+    .day-cell.selected { background: #4f46e5 !important; color: #ffffff !important; font-weight: 700; }
+    .day-cell.today { font-weight: 700; color: #4f46e5; text-decoration: underline; }
+    .ngx-date-error { font-size: 11px; color: #ef4444; margin-top: 4px; }
+    .ngx-date-hint { font-size: 11px; color: #64748b; margin-top: 4px; }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-date-picker" [class.has-error]="status() === \'error\'" [class.disabled]="disabled()">  @if (label()) {    <label class="ngx-date-label">{{ label() }}</label>  }  <div class="ngx-date-wrap" (click)="toggleCalendar()">    <span class="ngx-date-icon">📅</span>    <input      class="ngx-date-input"      type="text"      readonly      [value]="displayValue()"      [placeholder]="placeholder()"      [disabled]="disabled()"    />    @if (clearable() && _resolvedValue() && !disabled()) {      <button type="button" class="ngx-date-clear" (click)="clearValue($event)">✕</button>    }  </div>  @if (isOpen()) {    <div class="ngx-date-popover" (click)="$event.stopPropagation()">      @if (showPresets()) {        <div class="ngx-date-presets">          <span class="presets-title">Presets:</span>          @for (preset of activePresets(); track preset.label) {            <button type="button" class="preset-chip" (click)="selectPreset(preset)">{{ preset.label }}</button>          }        </div>      }      <div class="calendar-header">        <button type="button" class="cal-nav" (click)="prevMonth()">‹</button>        <span class="cal-title">{{ monthName() }} {{ currentYear() }}</span>        <button type="button" class="cal-nav" (click)="nextMonth()">›</button>      </div>      <div class="calendar-grid">        <span class="day-header" *ngFor="let d of [\'Su\',\'Mo\',\'Tu\',\'We\',\'Th\',\'Fr\',\'Sa\']">{{ d }}</span>        <button          *ngFor="let cell of calendarDays()"          type="button"          class="day-cell"          [class.other-month]="!cell.inMonth"          [class.selected]="isSelected(cell.date)"          [class.today]="isToday(cell.date)"          (click)="selectDate(cell.date)"        >          {{ cell.date.getDate() }}        </button>      </div>    </div>  }  @if (error()) {    <div class="ngx-date-error">{{ error() }}</div>  } @else if (hint()) {    <div class="ngx-date-hint">{{ hint() }}</div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'DatePickerComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DatePickerComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

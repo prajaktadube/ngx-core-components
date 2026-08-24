@@ -1,0 +1,825 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AccordionItemComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/layout/accordion/accordion.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-accordion-item</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;ng-template #contentTemplate&gt;
+  &lt;ng-content /&gt;
+&lt;/ng-template&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contentTemplate" >contentTemplate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#disabled" >disabled</a>
+                            </li>
+                            <li>
+                                <a href="#expanded" >expanded</a>
+                            </li>
+                            <li>
+                                <a href="#icon" >icon</a>
+                            </li>
+                            <li>
+                                <a href="#title" >title</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disabled"></a>
+                        <b>disabled</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/ngx-core-components/layout/accordion/accordion.component.ts:24</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="expanded"></a>
+                        <b>expanded</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/ngx-core-components/layout/accordion/accordion.component.ts:25</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="icon"></a>
+                        <b>icon</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">projects/ngx-core-components/layout/accordion/accordion.component.ts:23</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="title"></a>
+                        <b>title</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">projects/ngx-core-components/layout/accordion/accordion.component.ts:22</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contentTemplate"></a>
+                    <span class="name">
+                        <span ><b>contentTemplate</b></span>
+                        <a href="#contentTemplate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;TemplateRef&lt;any&gt;&gt;(&#x27;contentTemplate&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/ngx-core-components/layout/accordion/accordion.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, contentChildren, viewChild, TemplateRef, effect, untracked, ElementRef, inject } from &#x27;@angular/core&#x27;;
+import { NgTemplateOutlet } from &#x27;@angular/common&#x27;;
+
+export interface AccordionItem {
+  title: string;
+  content: string;
+  icon?: string;
+  disabled?: boolean;
+  expanded?: boolean;
+}
+
+@Component({
+  selector: &#x27;ngx-accordion-item&#x27;,
+  standalone: true,
+  template: &#x60;
+    &lt;ng-template #contentTemplate&gt;
+      &lt;ng-content /&gt;
+    &lt;/ng-template&gt;
+  &#x60;
+})
+export class AccordionItemComponent {
+  title &#x3D; input.required&lt;string&gt;();
+  icon &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  disabled &#x3D; input(false);
+  expanded &#x3D; input(false);
+
+  contentTemplate &#x3D; viewChild&lt;TemplateRef&lt;any&gt;&gt;(&#x27;contentTemplate&#x27;);
+}
+
+@Component({
+  selector: &#x27;ngx-accordion&#x27;,
+  standalone: true,
+  imports: [NgTemplateOutlet],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-accordion&quot;&gt;
+      @if (accordionItems().length &gt; 0) {
+        @for (child of accordionItems(); track child.title(); let i &#x3D; $index) {
+          &lt;div class&#x3D;&quot;accordion-item&quot; [class.expanded]&#x3D;&quot;isExpanded(i)&quot; [class.disabled]&#x3D;&quot;child.disabled()&quot;&gt;
+            &lt;button
+              class&#x3D;&quot;accordion-header&quot;
+              [id]&#x3D;&quot;&#x27;ngx-acc-header-&#x27; + i&quot;
+              [attr.aria-expanded]&#x3D;&quot;isExpanded(i)&quot;
+              [attr.aria-controls]&#x3D;&quot;&#x27;ngx-acc-panel-&#x27; + i&quot;
+              [disabled]&#x3D;&quot;child.disabled()&quot;
+              (click)&#x3D;&quot;toggle(i)&quot;
+              (keydown)&#x3D;&quot;handleKeydown($event, i)&quot;
+            &gt;
+              @if (child.icon()) { &lt;span class&#x3D;&quot;acc-icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;{{ child.icon() }}&lt;/span&gt; }
+              &lt;span class&#x3D;&quot;acc-title&quot;&gt;{{ child.title() }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;acc-chevron&quot; [class.open]&#x3D;&quot;isExpanded(i)&quot;&gt;
+                &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;14&quot; height&#x3D;&quot;14&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;3&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; class&#x3D;&quot;chevron-icon&quot;&gt;
+                  &lt;polyline points&#x3D;&quot;9 18 15 12 9 6&quot;&gt;&lt;/polyline&gt;
+                &lt;/svg&gt;
+              &lt;/span&gt;
+            &lt;/button&gt;
+            &lt;div 
+              class&#x3D;&quot;accordion-body-wrapper&quot; 
+              [class.expanded]&#x3D;&quot;isExpanded(i)&quot;
+              [id]&#x3D;&quot;&#x27;ngx-acc-panel-&#x27; + i&quot;
+              [attr.aria-labelledby]&#x3D;&quot;&#x27;ngx-acc-header-&#x27; + i&quot;
+              role&#x3D;&quot;region&quot;
+            &gt;
+              &lt;div class&#x3D;&quot;accordion-body&quot;&gt;
+                @if (child.contentTemplate()) {
+                  &lt;ng-container *ngTemplateOutlet&#x3D;&quot;child.contentTemplate()!&quot; /&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      } @else {
+        @for (item of items(); track item.title; let i &#x3D; $index) {
+          &lt;div class&#x3D;&quot;accordion-item&quot; [class.expanded]&#x3D;&quot;isExpanded(i)&quot; [class.disabled]&#x3D;&quot;item.disabled&quot;&gt;
+            &lt;button
+              class&#x3D;&quot;accordion-header&quot;
+              [id]&#x3D;&quot;&#x27;ngx-acc-header-&#x27; + i&quot;
+              [attr.aria-expanded]&#x3D;&quot;isExpanded(i)&quot;
+              [attr.aria-controls]&#x3D;&quot;&#x27;ngx-acc-panel-&#x27; + i&quot;
+              [disabled]&#x3D;&quot;item.disabled&quot;
+              (click)&#x3D;&quot;toggle(i)&quot;
+              (keydown)&#x3D;&quot;handleKeydown($event, i)&quot;
+            &gt;
+              @if (item.icon) { &lt;span class&#x3D;&quot;acc-icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;{{ item.icon }}&lt;/span&gt; }
+              &lt;span class&#x3D;&quot;acc-title&quot;&gt;{{ item.title }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;acc-chevron&quot; [class.open]&#x3D;&quot;isExpanded(i)&quot;&gt;
+                &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;14&quot; height&#x3D;&quot;14&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;3&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; class&#x3D;&quot;chevron-icon&quot;&gt;
+                  &lt;polyline points&#x3D;&quot;9 18 15 12 9 6&quot;&gt;&lt;/polyline&gt;
+                &lt;/svg&gt;
+              &lt;/span&gt;
+            &lt;/button&gt;
+            &lt;div 
+              class&#x3D;&quot;accordion-body-wrapper&quot; 
+              [class.expanded]&#x3D;&quot;isExpanded(i)&quot;
+              [id]&#x3D;&quot;&#x27;ngx-acc-panel-&#x27; + i&quot;
+              [attr.aria-labelledby]&#x3D;&quot;&#x27;ngx-acc-header-&#x27; + i&quot;
+              role&#x3D;&quot;region&quot;
+            &gt;
+              &lt;div class&#x3D;&quot;accordion-body&quot;&gt;
+                {{ item.content }}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; }
+    .ngx-accordion { 
+      border: 1px solid var(--ngx-acc-border, var(--border-color, #e2e8f0)); 
+      border-radius: var(--ngx-acc-radius, 12px); 
+      overflow: hidden; 
+      background: var(--ngx-acc-bg, var(--bg-primary, #ffffff));
+      box-shadow: var(--ngx-acc-shadow, 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01));
+    }
+    .accordion-item { 
+      border-bottom: 1px solid var(--ngx-acc-border, var(--border-color, #e2e8f0)); 
+      transition: all 0.2s ease;
+    }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-item.disabled { opacity: 0.5; }
+    
+    .accordion-header {
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      width: 100%; 
+      padding: 16px 20px;
+      background: var(--ngx-acc-header-bg, var(--bg-primary, #ffffff)); 
+      border: none; 
+      cursor: pointer; 
+      font-family: inherit;
+      font-size: 14px; 
+      font-weight: 600; 
+      color: var(--ngx-acc-header-color, var(--text-primary, #0f172a));
+      text-align: left; 
+      transition: all 0.2s ease;
+      outline: none;
+      position: relative;
+    }
+    .accordion-header:hover:not(:disabled) { 
+      background: var(--ngx-acc-header-hover-bg, var(--bg-secondary, #f8fafc)); 
+      color: var(--ngx-acc-header-hover-color, var(--primary-color, #1a73e8));
+    }
+    .accordion-header:focus-visible {
+      outline: 2px solid var(--ngx-acc-expanded-color, var(--primary-color, #1a73e8));
+      outline-offset: -2px;
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+      z-index: 2;
+    }
+    .accordion-item.expanded .accordion-header { 
+      background: var(--ngx-acc-expanded-bg, var(--bg-primary, #ffffff)); 
+      color: var(--ngx-acc-expanded-color, var(--primary-color, #1a73e8));
+    }
+    
+    .acc-icon { font-size: 16px; flex-shrink: 0; display: inline-flex; align-items: center; }
+    .acc-title { flex: 1; }
+    
+    .acc-chevron { 
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ngx-acc-chevron-color, var(--text-secondary, #94a3b8));
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+      flex-shrink: 0; 
+    }
+    .acc-chevron.open { 
+      transform: rotate(90deg); 
+      color: var(--ngx-acc-chevron-active-color, var(--primary-color, #1a73e8));
+    }
+
+    .accordion-body-wrapper {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;
+      box-sizing: border-box;
+    }
+    .accordion-body-wrapper.expanded {
+      max-height: 1000px;
+      opacity: 1;
+    }
+    
+    .accordion-body { 
+      padding: 16px 20px 20px 20px; 
+      font-size: 14px; 
+      color: var(--ngx-acc-body-color, var(--text-primary, #334155)); 
+      line-height: 1.6; 
+      background: var(--ngx-acc-body-bg, var(--bg-primary, #ffffff)); 
+      border-top: 1px solid var(--ngx-acc-border, var(--border-color, #e2e8f0)); 
+    }
+  &#x60;]
+})
+export class AccordionComponent {
+  items &#x3D; input&lt;AccordionItem[]&gt;([]);
+  multi &#x3D; input(false);
+
+  accordionItems &#x3D; contentChildren(AccordionItemComponent);
+  private expanded &#x3D; signal&lt;Set&lt;number&gt;&gt;(new Set());
+  private el &#x3D; inject(ElementRef);
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      const children &#x3D; this.accordionItems();
+      const arrayItems &#x3D; this.items();
+      const current &#x3D; new Set&lt;number&gt;();
+      
+      if (children.length &gt; 0) {
+        children.forEach((child, i) &#x3D;&gt; {
+          if (child.expanded()) {
+            current.add(i);
+          }
+        });
+      } else {
+        arrayItems.forEach((item, i) &#x3D;&gt; {
+          if (item.expanded) {
+            current.add(i);
+          }
+        });
+      }
+      
+      untracked(() &#x3D;&gt; {
+        if (this.expanded().size &#x3D;&#x3D;&#x3D; 0 &amp;&amp; current.size &gt; 0) {
+          this.expanded.set(current);
+        }
+      });
+    });
+  }
+
+  isExpanded(i: number): boolean {
+    return this.expanded().has(i);
+  }
+
+  toggle(i: number): void {
+    const s &#x3D; new Set(this.expanded());
+    if (s.has(i)) {
+      s.delete(i);
+    } else {
+      if (!this.multi()) {
+        s.clear();
+      }
+      s.add(i);
+    }
+    this.expanded.set(s);
+  }
+
+  expandAll(): void {
+    const total &#x3D; this.accordionItems().length &gt; 0 ? this.accordionItems().length : this.items().length;
+    const s &#x3D; new Set&lt;number&gt;();
+    for (let i &#x3D; 0; i &lt; total; i++) {
+      s.add(i);
+    }
+    this.expanded.set(s);
+  }
+
+  collapseAll(): void {
+    this.expanded.set(new Set());
+  }
+
+  expandItem(index: number): void {
+    const s &#x3D; new Set(this.expanded());
+    if (!this.multi()) {
+      s.clear();
+    }
+    s.add(index);
+    this.expanded.set(s);
+  }
+
+  collapseItem(index: number): void {
+    const s &#x3D; new Set(this.expanded());
+    s.delete(index);
+    this.expanded.set(s);
+  }
+
+  handleKeydown(event: KeyboardEvent, index: number) {
+    const total &#x3D; this.accordionItems().length &gt; 0 ? this.accordionItems().length : this.items().length;
+    let newIndex &#x3D; -1;
+
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowDown&#x27;) {
+      newIndex &#x3D; (index + 1) % total;
+      while (newIndex !&#x3D;&#x3D; index &amp;&amp; this.isItemDisabled(newIndex)) {
+        newIndex &#x3D; (newIndex + 1) % total;
+      }
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowUp&#x27;) {
+      newIndex &#x3D; (index - 1 + total) % total;
+      while (newIndex !&#x3D;&#x3D; index &amp;&amp; this.isItemDisabled(newIndex)) {
+        newIndex &#x3D; (newIndex - 1 + total) % total;
+      }
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;Home&#x27;) {
+      newIndex &#x3D; 0;
+      while (newIndex &lt; total &amp;&amp; this.isItemDisabled(newIndex)) {
+        newIndex++;
+      }
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;End&#x27;) {
+      newIndex &#x3D; total - 1;
+      while (newIndex &gt;&#x3D; 0 &amp;&amp; this.isItemDisabled(newIndex)) {
+        newIndex--;
+      }
+    }
+
+    if (newIndex !&#x3D;&#x3D; -1 &amp;&amp; newIndex !&#x3D;&#x3D; index &amp;&amp; !this.isItemDisabled(newIndex)) {
+      event.preventDefault();
+      // focus the new header button
+      const headers &#x3D; this.el.nativeElement.querySelectorAll(&#x27;.accordion-header&#x27;);
+      const targetHeader &#x3D; headers[newIndex] as HTMLElement;
+      targetHeader?.focus();
+    }
+  }
+
+  private isItemDisabled(index: number): boolean {
+    const children &#x3D; this.accordionItems();
+    if (children.length &gt; 0) {
+      return children[index].disabled();
+    }
+    const arrayItems &#x3D; this.items();
+    return !!arrayItems[index]?.disabled;
+  }
+}
+</code></pre>
+    </div>
+
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-template #contentTemplate>  <ng-content /></ng-template></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'AccordionItemComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AccordionItemComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

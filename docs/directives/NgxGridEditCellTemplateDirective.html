@@ -1,0 +1,4507 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content directive">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Directives</li>
+  <li class="breadcrumb-item" >NgxGridEditCellTemplateDirective</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/grid/data-grid/data-grid.component.ts</code>
+        </p>
+
+
+
+
+
+
+        <section data-compodoc="block-metadata">
+            <h3>Metadata</h3>
+            <table class="table table-sm table-hover metadata">
+                <tbody>
+
+                    <tr>
+                        <td class="col-md-3">Selector</td>
+                        <td class="col-md-9"><code>[ngxGridEditCellTemplate]</code></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-3">Standalone</td>
+                        <td class="col-md-9"><code>true</code></td>
+                    </tr>
+
+
+
+                </tbody>
+            </table>
+        </section>
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#templateRef" >templateRef</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngxGridEditCellTemplate" >ngxGridEditCellTemplate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngxGridEditCellTemplate"></a>
+                        <b>ngxGridEditCellTemplate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/ngx-core-components/grid/data-grid/data-grid.component.ts:84</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="templateRef"></a>
+                    <span class="name">
+                        <span ><b>templateRef</b></span>
+                        <a href="#templateRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(TemplateRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">projects/ngx-core-components/grid/data-grid/data-grid.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
+  inject,
+  ElementRef,
+  OnInit,
+  untracked,
+  DestroyRef,
+  HostListener,
+  ContentChildren,
+  Directive,
+  Input,
+  QueryList,
+} from &#x27;@angular/core&#x27;;
+import { NgTemplateOutlet } from &#x27;@angular/common&#x27;;
+import { NGX_CORE_I18N } from &#x27;ngx-core-components/i18n&#x27;;
+import { GridExportService } from &#x27;./grid-export.service&#x27;;
+import { GridExportXlsxService } from &#x27;./services/grid-export-xlsx.service&#x27;;
+import { GridStatusBarComponent } from &#x27;./components/grid-status-bar/grid-status-bar.component&#x27;;
+import { GridFilterBuilderComponent } from &#x27;./components/grid-filter-builder/grid-filter-builder.component&#x27;;
+import type { TreeDataConfig, FilterExpression, GridStatusBarAggregates, GridInfiniteScrollEvent } from &#x27;./models&#x27;;
+
+// Re-export all model types so existing imports from this file continue to work
+export type {
+  GridColumnDef,
+  GridSortState,
+  GridFilterState,
+  GridGroupState,
+  GridPageChangeEvent,
+  GridSortChangeEvent,
+  GridFilterChangeEvent,
+  GridGroupChangeEvent,
+  GridDataStateChangeEvent,
+  GridRowClickEvent,
+  GridRowUpdateEvent,
+  GridGroupResult,
+  GridHeaderTemplateContext,
+  GridCellTemplateContext,
+  GridRowTemplateContext,
+  GridDetailTemplateContext,
+  GridFooterTemplateContext,
+} from &#x27;./models&#x27;;
+
+import type {
+  GridColumnDef,
+  GridSortState,
+  GridFilterState,
+  GridGroupState,
+  GridPageChangeEvent,
+  GridSortChangeEvent,
+  GridFilterChangeEvent,
+  GridGroupChangeEvent,
+  GridDataStateChangeEvent,
+  GridRowClickEvent,
+  GridRowUpdateEvent,
+  GridGroupResult,
+  GridHeaderTemplateContext,
+  GridCellTemplateContext,
+  GridRowTemplateContext,
+  GridDetailTemplateContext,
+  GridFooterTemplateContext,
+} from &#x27;./models&#x27;;
+
+@Directive({
+  selector: &#x27;[ngxGridCellTemplate]&#x27;,
+  standalone: true
+})
+export class NgxGridCellTemplateDirective {
+  @Input(&#x27;ngxGridCellTemplate&#x27;) columnField!: string;
+  templateRef &#x3D; inject(TemplateRef);
+}
+
+@Directive({
+  selector: &#x27;[ngxGridEditCellTemplate]&#x27;,
+  standalone: true
+})
+export class NgxGridEditCellTemplateDirective {
+  @Input(&#x27;ngxGridEditCellTemplate&#x27;) columnField!: string;
+  templateRef &#x3D; inject(TemplateRef);
+}
+
+@Directive({
+  selector: &#x27;[ngxGridHeaderTemplate]&#x27;,
+  standalone: true
+})
+export class NgxGridHeaderTemplateDirective {
+  @Input(&#x27;ngxGridHeaderTemplate&#x27;) columnField!: string;
+  templateRef &#x3D; inject(TemplateRef);
+}
+
+@Directive({
+  selector: &#x27;[ngxGridFooterTemplate]&#x27;,
+  standalone: true
+})
+export class NgxGridFooterTemplateDirective {
+  @Input(&#x27;ngxGridFooterTemplate&#x27;) columnField!: string;
+  templateRef &#x3D; inject(TemplateRef);
+}
+
+@Component({
+  selector: &#x27;ngx-data-grid&#x27;,
+  standalone: true,
+  imports: [
+    NgTemplateOutlet,
+    GridStatusBarComponent,
+    GridFilterBuilderComponent
+  ],
+  providers: [
+    GridExportXlsxService
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-data-grid&quot; [class.loading]&#x3D;&quot;loading()&quot; [class.compact]&#x3D;&quot;compact()&quot;&gt;
+
+      @if (showGroupingPanel()) {
+        &lt;div
+          class&#x3D;&quot;grid-grouping-panel&quot;
+          (dragover)&#x3D;&quot;onGroupingPanelDragOver($event)&quot;
+          (dragleave)&#x3D;&quot;onGroupingPanelDragLeave($event)&quot;
+          (drop)&#x3D;&quot;onGroupingPanelDrop($event)&quot;
+          [class.drag-over]&#x3D;&quot;isGroupingPanelDragOver()&quot;
+        &gt;
+          &lt;div class&#x3D;&quot;grouping-panel-label&quot;&gt;
+            @if (internalGroupBy(); as gb) {
+              &lt;span&gt;Grouped by:&lt;/span&gt;
+              &lt;span class&#x3D;&quot;group-chip&quot;&gt;
+                {{ getColumnTitle(gb.field) }}
+                &lt;button class&#x3D;&quot;remove-group-btn&quot; (click)&#x3D;&quot;clearGrouping()&quot;&gt;×&lt;/button&gt;
+              &lt;/span&gt;
+            } @else {
+              &lt;span&gt;Drag a column header here to group&lt;/span&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;div class&#x3D;&quot;grid-toolbar&quot;&gt;
+        &lt;span class&#x3D;&quot;grid-toolbar-title&quot;&gt;Data Grid&lt;/span&gt;
+        &lt;div class&#x3D;&quot;grid-toolbar-actions&quot;&gt;
+          @if (showGlobalSearch()) {
+            &lt;div class&#x3D;&quot;grid-search-wrap&quot;&gt;
+              &lt;input
+                class&#x3D;&quot;grid-search-input&quot;
+                type&#x3D;&quot;text&quot;
+                [placeholder]&#x3D;&quot;globalSearchPlaceholder()&quot;
+                [value]&#x3D;&quot;searchText()&quot;
+                (input)&#x3D;&quot;searchText.set($any($event.target).value)&quot;
+              /&gt;
+              @if (searchText()) {
+                &lt;button class&#x3D;&quot;grid-search-clear&quot; (click)&#x3D;&quot;searchText.set(&#x27;&#x27;)&quot; title&#x3D;&quot;Clear search&quot;&gt;×&lt;/button&gt;
+              }
+            &lt;/div&gt;
+          }
+          @if (activeFilters().length &gt; 0) {
+            &lt;button class&#x3D;&quot;grid-action-btn clear-filters-btn&quot; (click)&#x3D;&quot;clearAllFilters()&quot; title&#x3D;&quot;Clear all active column filters&quot;&gt;Clear Filters&lt;/button&gt;
+          }
+          @if (showColumnChooser()) {
+            &lt;button class&#x3D;&quot;grid-action-btn&quot; (click)&#x3D;&quot;openColumnChooser($event)&quot; title&#x3D;&quot;Choose columns&quot;&gt;Columns&lt;/button&gt;
+          }
+          @if (showFilterBuilder()) {
+            &lt;button class&#x3D;&quot;grid-action-btn&quot; (click)&#x3D;&quot;isFilterBuilderOpen.set(true)&quot; title&#x3D;&quot;Advanced Filter Builder&quot;&gt;🔍 Filter&lt;/button&gt;
+          }
+          &lt;button class&#x3D;&quot;grid-action-btn&quot; (click)&#x3D;&quot;exportToJson()&quot; title&#x3D;&quot;Export JSON&quot;&gt;JSON&lt;/button&gt;
+          &lt;button class&#x3D;&quot;grid-action-btn&quot; (click)&#x3D;&quot;exportToCsv()&quot; title&#x3D;&quot;Export CSV&quot;&gt;CSV&lt;/button&gt;
+          &lt;button class&#x3D;&quot;grid-action-btn&quot; (click)&#x3D;&quot;exportToXlsx()&quot; title&#x3D;&quot;Export native XLSX workbook&quot;&gt;XLSX&lt;/button&gt;
+          &lt;button class&#x3D;&quot;grid-action-btn&quot; (click)&#x3D;&quot;exportToExcel()&quot; title&#x3D;&quot;Export HTML Excel&quot;&gt;Excel&lt;/button&gt;
+          &lt;button class&#x3D;&quot;grid-action-btn&quot; (click)&#x3D;&quot;exportToPdf()&quot; title&#x3D;&quot;Export PDF&quot;&gt;PDF&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;grid-table-wrap&quot; #viewportEl (scroll)&#x3D;&quot;onViewportScroll($event)&quot;&gt;
+        &lt;table class&#x3D;&quot;grid-table&quot; [class.striped]&#x3D;&quot;striped()&quot;&gt;
+          &lt;colgroup&gt;
+            @if (rowReorderable()) {
+              &lt;col style&#x3D;&quot;width: 44px&quot; /&gt;
+            }
+            @if (showDetailToggle()) {
+              &lt;col style&#x3D;&quot;width: 44px&quot; /&gt;
+            }
+            @if (selectable()) {
+              &lt;col style&#x3D;&quot;width: 44px&quot; /&gt;
+            }
+            @for (col of orderedColumns(); track col.field) {
+              &lt;col [style.width.px]&#x3D;&quot;getColumnWidth(col)&quot; /&gt;
+            }
+            @if (editable()) {
+              &lt;col style&#x3D;&quot;width: 120px&quot; /&gt;
+            }
+          &lt;/colgroup&gt;
+          &lt;thead&gt;
+            &lt;ng-template #headerCellContent let-col&#x3D;&quot;col&quot;&gt;
+              &lt;div class&#x3D;&quot;th-content-wrapper&quot;&gt;
+                @if (resolveHeaderTemplate(col); as activeHeaderTemplate) {
+                  &lt;ng-container *ngTemplateOutlet&#x3D;&quot;activeHeaderTemplate; context: {
+                    $implicit: col,
+                    column: col,
+                    sort: sortState(),
+                    filters: activeFilters(),
+                    isServerMode: isAnyServerMode()
+                  }&quot; /&gt;
+                } @else {
+                  &lt;span class&#x3D;&quot;th-text&quot;&gt;{{ col.title }}&lt;/span&gt;
+                  @if (col.sortable) {
+                    @if (getSortDirection(col); as dir) {
+                      &lt;span class&#x3D;&quot;sort-icon active&quot;&gt;
+                        {{ dir &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;↑&#x27; : &#x27;↓&#x27; }}
+                        @if (multiSort() &amp;&amp; sortStates().length &gt; 1) {
+                          &lt;sub class&#x3D;&quot;sort-order-badge&quot;&gt;{{ getSortIndex(col) }}&lt;/sub&gt;
+                        }
+                      &lt;/span&gt;
+                    } @else {
+                      &lt;span class&#x3D;&quot;sort-icon&quot;&gt;↕&lt;/span&gt;
+                    }
+                  }
+                }
+                @if (col.filterable) {
+                  &lt;button class&#x3D;&quot;grid-filter-btn&quot; [class.active]&#x3D;&quot;filterStates().has(col.field)&quot; (click)&#x3D;&quot;openFilterPopover($event, col.field); $event.stopPropagation()&quot; title&#x3D;&quot;Filter column&quot;&gt;
+                    &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;12&quot; height&#x3D;&quot;12&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
+                      &lt;polygon points&#x3D;&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;&gt;&lt;/polygon&gt;
+                    &lt;/svg&gt;
+                  &lt;/button&gt;
+                }
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;grid-resize-handle&quot; (mousedown)&#x3D;&quot;onResizeStart($event, col)&quot; (dblclick)&#x3D;&quot;onResizeDoubleClick($event, col)&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;&lt;/div&gt;
+            &lt;/ng-template&gt;
+
+            &lt;tr class&#x3D;&quot;grid-header-row&quot;&gt;
+              @if (rowReorderable()) {
+                &lt;th class&#x3D;&quot;grid-th grid-th-reorder pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isRowReorderableLastPinned()&quot; [attr.rowspan]&#x3D;&quot;hasColumnCategories() ? 2 : 1&quot; style&#x3D;&quot;width:44px; left:0px&quot;&gt;&lt;/th&gt;
+              }
+              @if (showDetailToggle()) {
+                &lt;th class&#x3D;&quot;grid-th grid-th-toggle pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isDetailToggleLastPinned()&quot; [attr.rowspan]&#x3D;&quot;hasColumnCategories() ? 2 : 1&quot; [style.left.px]&#x3D;&quot;rowReorderable() ? 44 : 0&quot; style&#x3D;&quot;width:44px&quot;&gt;&lt;/th&gt;
+              }
+              @if (selectable()) {
+                &lt;th class&#x3D;&quot;grid-th grid-th-check pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isSelectableLastPinned()&quot; [attr.rowspan]&#x3D;&quot;hasColumnCategories() ? 2 : 1&quot; [style.left.px]&#x3D;&quot;(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)&quot; style&#x3D;&quot;width:44px&quot;&gt;&lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;allSelected()&quot; [indeterminate]&#x3D;&quot;someSelected() &amp;&amp; !allSelected()&quot; (change)&#x3D;&quot;toggleAll()&quot; /&gt;&lt;/th&gt;
+              }
+              @for (cell of headerRows().row1; track cell.field) {
+                @if (cell.isCategory) {
+                  &lt;th
+                    class&#x3D;&quot;grid-th grid-category-th&quot;
+                    [class.pinned-left]&#x3D;&quot;cell.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot;
+                    [class.pinned-left-last]&#x3D;&quot;cell.isPinnedLast&quot;
+                    [class.pinned-right]&#x3D;&quot;cell.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot;
+                    [class.pinned-right-first]&#x3D;&quot;cell.isPinnedFirst&quot;
+                    [style.left.px]&#x3D;&quot;cell.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? cell.leftOffset : null&quot;
+                    [style.right.px]&#x3D;&quot;cell.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? cell.rightOffset : null&quot;
+                    [attr.colspan]&#x3D;&quot;cell.colSpan&quot;
+                    [attr.rowspan]&#x3D;&quot;cell.rowSpan&quot;
+                  &gt;
+                    &lt;span class&#x3D;&quot;category-title&quot;&gt;{{ cell.title }}&lt;/span&gt;
+                  &lt;/th&gt;
+                } @else {
+                  &lt;th
+                    class&#x3D;&quot;grid-th&quot;
+                    [class.pinned-left]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot;
+                    [class.pinned-left-last]&#x3D;&quot;cell.isPinnedLast&quot;
+                    [class.pinned-right]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot;
+                    [class.pinned-right-first]&#x3D;&quot;cell.isPinnedFirst&quot;
+                    [style.left.px]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? cell.leftOffset : null&quot;
+                    [style.right.px]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? cell.rightOffset : null&quot;
+                    [style.width.px]&#x3D;&quot;getColumnWidth(cell.column)&quot;
+                    [class.sortable]&#x3D;&quot;cell.column.sortable&quot;
+                    [class.sort-asc]&#x3D;&quot;getSortDirection(cell.column) &#x3D;&#x3D;&#x3D; &#x27;asc&#x27;&quot;
+                    [class.sort-desc]&#x3D;&quot;getSortDirection(cell.column) &#x3D;&#x3D;&#x3D; &#x27;desc&#x27;&quot;
+                    [class.dragging]&#x3D;&quot;draggingField() &#x3D;&#x3D;&#x3D; cell.column.field&quot;
+                    [class.drag-over]&#x3D;&quot;dragOverField() &#x3D;&#x3D;&#x3D; cell.column.field&quot;
+                    [attr.draggable]&#x3D;&quot;reorderable() || cell.column.groupable ? true : null&quot;
+                    (dragstart)&#x3D;&quot;onDragStart($event, cell.column)&quot;
+                    (dragover)&#x3D;&quot;onDragOver($event, cell.column)&quot;
+                    (drop)&#x3D;&quot;onDrop($event, cell.column)&quot;
+                    (dragend)&#x3D;&quot;onDragEnd()&quot;
+                    (click)&#x3D;&quot;cell.column.sortable ? onSort(cell.column, $event) : null&quot;
+                    [attr.colspan]&#x3D;&quot;cell.colSpan&quot;
+                    [attr.rowspan]&#x3D;&quot;cell.rowSpan&quot;
+                  &gt;
+                    &lt;ng-container *ngTemplateOutlet&#x3D;&quot;headerCellContent; context: { col: cell.column }&quot; /&gt;
+                  &lt;/th&gt;
+                }
+              }
+              @if (editable()) {
+                &lt;th
+                  class&#x3D;&quot;grid-th&quot;
+                  [class.pinned-right]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null&quot;
+                  [class.pinned-right-first]&#x3D;&quot;firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; null&quot;
+                  [style.right.px]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null ? 0 : null&quot;
+                  [attr.rowspan]&#x3D;&quot;hasColumnCategories() ? 2 : 1&quot;
+                  style&#x3D;&quot;width:120px&quot;
+                &gt;Actions&lt;/th&gt;
+              }
+            &lt;/tr&gt;
+            @if (hasColumnCategories()) {
+              &lt;tr class&#x3D;&quot;grid-header-row sub-header-row&quot;&gt;
+                @for (cell of headerRows().row2; track cell.field) {
+                  &lt;th
+                    class&#x3D;&quot;grid-th&quot;
+                    [class.pinned-left]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot;
+                    [class.pinned-left-last]&#x3D;&quot;cell.isPinnedLast&quot;
+                    [class.pinned-right]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot;
+                    [class.pinned-right-first]&#x3D;&quot;cell.isPinnedFirst&quot;
+                    [style.left.px]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? cell.leftOffset : null&quot;
+                    [style.right.px]&#x3D;&quot;cell.column.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? cell.rightOffset : null&quot;
+                    [style.width.px]&#x3D;&quot;getColumnWidth(cell.column)&quot;
+                    [class.sortable]&#x3D;&quot;cell.column.sortable&quot;
+                    [class.sort-asc]&#x3D;&quot;getSortDirection(cell.column) &#x3D;&#x3D;&#x3D; &#x27;asc&#x27;&quot;
+                    [class.sort-desc]&#x3D;&quot;getSortDirection(cell.column) &#x3D;&#x3D;&#x3D; &#x27;desc&#x27;&quot;
+                    [class.dragging]&#x3D;&quot;draggingField() &#x3D;&#x3D;&#x3D; cell.column.field&quot;
+                    [class.drag-over]&#x3D;&quot;dragOverField() &#x3D;&#x3D;&#x3D; cell.column.field&quot;
+                    [attr.draggable]&#x3D;&quot;reorderable() || cell.column.groupable ? true : null&quot;
+                    (dragstart)&#x3D;&quot;onDragStart($event, cell.column)&quot;
+                    (dragover)&#x3D;&quot;onDragOver($event, cell.column)&quot;
+                    (drop)&#x3D;&quot;onDrop($event, cell.column)&quot;
+                    (dragend)&#x3D;&quot;onDragEnd()&quot;
+                    (click)&#x3D;&quot;cell.column.sortable ? onSort(cell.column, $event) : null&quot;
+                    [attr.colspan]&#x3D;&quot;cell.colSpan&quot;
+                    [attr.rowspan]&#x3D;&quot;cell.rowSpan&quot;
+                  &gt;
+                    &lt;ng-container *ngTemplateOutlet&#x3D;&quot;headerCellContent; context: { col: cell.column }&quot; /&gt;
+                  &lt;/th&gt;
+                }
+              &lt;/tr&gt;
+            }
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            @if (loading()) {
+              &lt;tr&gt;
+                &lt;td [attr.colspan]&#x3D;&quot;renderColumnCount()&quot; class&#x3D;&quot;grid-loading-cell&quot;&gt;
+                  &lt;div class&#x3D;&quot;grid-spinner&quot;&gt;&lt;/div&gt;
+                &lt;/td&gt;
+              &lt;/tr&gt;
+            } @else if (flatRenderedRows().length &#x3D;&#x3D;&#x3D; 0 &amp;&amp; groupedRows().length &#x3D;&#x3D;&#x3D; 0) {
+              &lt;tr&gt;
+                &lt;td [attr.colspan]&#x3D;&quot;renderColumnCount()&quot; class&#x3D;&quot;grid-empty-cell&quot;&gt;{{ i18n.grid.noData }}&lt;/td&gt;
+              &lt;/tr&gt;
+            } @else if (groupedRows().length &gt; 0) {
+              @for (group of groupedRows(); track group.key) {
+                &lt;tr class&#x3D;&quot;grid-group-row&quot; (click)&#x3D;&quot;toggleGroup(group.key)&quot;&gt;
+                  @if (groupAggregations()) {
+                    @if (rowReorderable()) {
+                      &lt;td class&#x3D;&quot;grid-td grid-td-reorder pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isRowReorderableLastPinned()&quot; style&#x3D;&quot;left:0px; width:44px&quot;&gt;&lt;/td&gt;
+                    }
+                    @if (showDetailToggle()) {
+                      &lt;td class&#x3D;&quot;grid-td grid-td-toggle pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isDetailToggleLastPinned()&quot; [style.left.px]&#x3D;&quot;rowReorderable() ? 44 : 0&quot; style&#x3D;&quot;width:44px&quot;&gt;&lt;/td&gt;
+                    }
+                    @if (selectable()) {
+                      &lt;td class&#x3D;&quot;grid-td grid-td-check pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isSelectableLastPinned()&quot; [style.left.px]&#x3D;&quot;(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)&quot; style&#x3D;&quot;width:44px&quot;&gt;&lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;isGroupAllSelected(group)&quot; (change)&#x3D;&quot;toggleGroupSelection(group, $event)&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot; /&gt;&lt;/td&gt;
+                    }
+                    @for (col of orderedColumns(); track col.field; let first &#x3D; $first) {
+                      &lt;td
+                        class&#x3D;&quot;grid-td&quot;
+                        [class.pinned-left]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot;
+                        [class.pinned-left-last]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; lastPinnedColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                        [class.pinned-right]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot;
+                        [class.pinned-right-first]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                        [style.left.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? columnOffsets()[col.field] : null&quot;
+                        [style.right.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? columnRightOffsets()[col.field] : null&quot;
+                        [style.text-align]&#x3D;&quot;col.align ?? &#x27;left&#x27;&quot;
+                        [style.width.px]&#x3D;&quot;getColumnWidth(col)&quot;
+                      &gt;
+                        @if (first) {
+                          &lt;div style&#x3D;&quot;display: flex; align-items: center; gap: 4px;&quot;&gt;
+                            &lt;button class&#x3D;&quot;group-toggle&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;toggleGroup(group.key); $event.stopPropagation()&quot; style&#x3D;&quot;background: transparent; border: none; cursor: pointer; padding: 0 4px; font-weight: bold; color: inherit; outline: none;&quot;&gt;
+                              {{ isGroupCollapsed(group.key) ? &#x27;▸&#x27; : &#x27;▾&#x27; }}
+                            &lt;/button&gt;
+                            &lt;strong&gt;{{ col.category ? &#x27;&#x27; : group.field + &#x27;: &#x27; }}&lt;/strong&gt;{{ group.value }} &lt;span class&#x3D;&quot;group-count&quot;&gt;({{ group.count }})&lt;/span&gt;
+                          &lt;/div&gt;
+                        } @else if (col.aggregation) {
+                          &lt;span class&#x3D;&quot;agg-label&quot;&gt;{{ col.aggregation }}: &lt;/span&gt;
+                          &lt;strong class&#x3D;&quot;agg-value&quot;&gt;{{ getGroupAggregationValue(group, col) }}&lt;/strong&gt;
+                        }
+                      &lt;/td&gt;
+                    }
+                    @if (editable()) {
+                      &lt;td
+                        [class.pinned-right]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null&quot;
+                        [class.pinned-right-first]&#x3D;&quot;firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; null&quot;
+                        [style.right.px]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null ? 0 : null&quot;
+                      &gt;&lt;/td&gt;
+                    }
+                  } @else {
+                    &lt;td [attr.colspan]&#x3D;&quot;renderColumnCount()&quot;&gt;
+                      &lt;button class&#x3D;&quot;group-toggle&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;toggleGroup(group.key); $event.stopPropagation()&quot;&gt;
+                        {{ isGroupCollapsed(group.key) ? &#x27;▸&#x27; : &#x27;▾&#x27; }}
+                      &lt;/button&gt;
+                      &lt;strong&gt;{{ group.field }}&lt;/strong&gt;: {{ group.value }}
+                      &lt;span class&#x3D;&quot;group-count&quot;&gt;({{ group.count }})&lt;/span&gt;
+                    &lt;/td&gt;
+                  }
+                &lt;/tr&gt;
+
+                @if (!isGroupCollapsed(group.key)) {
+                  @for (row of group.items; track getKey(row, $index); let i &#x3D; $index) {
+                    &lt;tr
+                      [class]&#x3D;&quot;&#x27;grid-row &#x27; + getRowCustomClass(row)&quot;
+                      [class.selected]&#x3D;&quot;isRowSelected(row)&quot;
+                      [class.dragging-row]&#x3D;&quot;draggingRowIndex() &#x3D;&#x3D;&#x3D; i&quot;
+                      [class.drag-over-row]&#x3D;&quot;dragOverRowIndex() &#x3D;&#x3D;&#x3D; i&quot;
+                      (dragover)&#x3D;&quot;onRowDragOver($event, i)&quot;
+                      (drop)&#x3D;&quot;onRowDrop($event, i)&quot;
+                      (dragend)&#x3D;&quot;onRowDragEnd()&quot;
+                      (click)&#x3D;&quot;onRowClick(row, i)&quot;
+                      (dblclick)&#x3D;&quot;editable() ? beginEdit(row, i) : null&quot;
+                    &gt;
+                      @if (rowReorderable()) {
+                        &lt;td class&#x3D;&quot;grid-td grid-td-reorder pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isRowReorderableLastPinned()&quot; style&#x3D;&quot;left:0px; text-align:center; width:44px&quot;&gt;
+                          &lt;span class&#x3D;&quot;row-drag-handle&quot; draggable&#x3D;&quot;true&quot; (dragstart)&#x3D;&quot;onRowDragStart($event, i)&quot; (dragend)&#x3D;&quot;onRowDragEnd()&quot; title&#x3D;&quot;Drag row to reorder&quot;&gt;
+                            &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; style&#x3D;&quot;display: block;&quot;&gt;
+                              &lt;circle cx&#x3D;&quot;9&quot; cy&#x3D;&quot;5&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                              &lt;circle cx&#x3D;&quot;9&quot; cy&#x3D;&quot;12&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                              &lt;circle cx&#x3D;&quot;9&quot; cy&#x3D;&quot;19&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                              &lt;circle cx&#x3D;&quot;15&quot; cy&#x3D;&quot;5&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                              &lt;circle cx&#x3D;&quot;15&quot; cy&#x3D;&quot;12&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                              &lt;circle cx&#x3D;&quot;15&quot; cy&#x3D;&quot;19&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                            &lt;/svg&gt;
+                          &lt;/span&gt;
+                        &lt;/td&gt;
+                      }
+
+                      @if (showDetailToggle()) {
+                        &lt;td class&#x3D;&quot;grid-td grid-td-toggle pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isDetailToggleLastPinned()&quot; [style.left.px]&#x3D;&quot;rowReorderable() ? 44 : 0&quot;&gt;
+                          &lt;button class&#x3D;&quot;toggle-btn&quot; [class.expanded]&#x3D;&quot;isExpanded(row)&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;toggleDetail(row); $event.stopPropagation()&quot; title&#x3D;&quot;Toggle Detail&quot;&gt;
+                            &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;12&quot; height&#x3D;&quot;12&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;3.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; class&#x3D;&quot;chevron-icon&quot;&gt;
+                              &lt;polyline points&#x3D;&quot;9 18 15 12 9 6&quot;&gt;&lt;/polyline&gt;
+                            &lt;/svg&gt;
+                          &lt;/button&gt;
+                        &lt;/td&gt;
+                      }
+
+                      @if (selectable()) {
+                        &lt;td class&#x3D;&quot;grid-td grid-td-check pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isSelectableLastPinned()&quot; [style.left.px]&#x3D;&quot;(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)&quot;&gt;&lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;isRowSelected(row)&quot; (change)&#x3D;&quot;toggleRow(row)&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot; /&gt;&lt;/td&gt;
+                      }
+
+                      @if (rowTemplate()) {
+                        &lt;td class&#x3D;&quot;grid-td&quot; [attr.colspan]&#x3D;&quot;orderedColumns().length + (editable() ? 1 : 0)&quot;&gt;
+                          &lt;ng-container *ngTemplateOutlet&#x3D;&quot;rowTemplate(); context: {
+                            $implicit: row,
+                            row: row,
+                            index: i,
+                            editing: isEditing(row),
+                            expanded: isExpanded(row)
+                          }&quot; /&gt;
+                        &lt;/td&gt;
+                      } @else {
+                        @for (col of orderedColumns(); track col.field) {
+                          @if (getCellRowSpan(row, col.field, i, group.items) &gt; 0) {
+                            &lt;td
+                              class&#x3D;&quot;grid-td&quot;
+                              [attr.rowspan]&#x3D;&quot;getCellRowSpan(row, col.field, i, group.items)&quot;
+                              [class.pinned-left]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot;
+                              [class.pinned-left-last]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; lastPinnedColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                              [class.pinned-right]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot;
+                              [class.pinned-right-first]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                              [class.cell-focused]&#x3D;&quot;focusedCell()?.row &#x3D;&#x3D;&#x3D; row &amp;&amp; focusedCell()?.colField &#x3D;&#x3D;&#x3D; col.field&quot;
+                              [class.cell-focused-editing]&#x3D;&quot;focusedCell()?.row &#x3D;&#x3D;&#x3D; row &amp;&amp; focusedCell()?.colField &#x3D;&#x3D;&#x3D; col.field &amp;&amp; focusedCellEditActive()&quot;
+                              [style.left.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? columnOffsets()[col.field] : null&quot;
+                              [style.right.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? columnRightOffsets()[col.field] : null&quot;
+                              [style.text-align]&#x3D;&quot;col.align ?? &#x27;left&#x27;&quot;
+                              [style.width.px]&#x3D;&quot;getColumnWidth(col)&quot;
+                              [class.cell-selected]&#x3D;&quot;isCellSelected(row, col.field)&quot;
+                              (mousedown)&#x3D;&quot;onCellMouseDown($event, row, col.field)&quot;
+                              (mouseenter)&#x3D;&quot;onCellMouseEnter(row, col.field)&quot;
+                              (contextmenu)&#x3D;&quot;onCellContextMenu($event, row, col.field)&quot;
+                              (click)&#x3D;&quot;onCellClick(row, col.field)&quot;
+                            &gt;
+                              @if (isEditing(row) &amp;&amp; editable() &amp;&amp; col.editable) {
+                                @if (resolveEditCellTemplate(col); as activeEditTemplate) {
+                                  &lt;ng-container *ngTemplateOutlet&#x3D;&quot;activeEditTemplate; context: {
+                                    $implicit: getDraftValue(row, col.field),
+                                    value: getCellValue(row, col.field),
+                                    row: row,
+                                    column: col,
+                                    index: i,
+                                    editing: true,
+                                    draftValue: getDraftValue(row, col.field),
+                                    updateDraft: getUpdateDraftCallback(col.field)
+                                  }&quot; /&gt;
+                                } @else {
+                                  &lt;input
+                                    class&#x3D;&quot;grid-edit-input&quot;
+                                    [value]&#x3D;&quot;toStringSafe(getDraftValue(row, col.field))&quot;
+                                    (input)&#x3D;&quot;updateDraft(col.field, $any($event.target).value)&quot;
+                                    (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                                  /&gt;
+                                }
+                              } @else if (resolveCellTemplate(col)) {
+                                &lt;ng-container *ngTemplateOutlet&#x3D;&quot;resolveCellTemplate(col)!; context: {
+                                  $implicit: getCellValue(row, col.field),
+                                  value: getCellValue(row, col.field),
+                                  row: row,
+                                  column: col,
+                                  index: i,
+                                  editing: isEditing(row)
+                                }&quot; /&gt;
+                              } @else {
+                                @if (showGlobalSearch() &amp;&amp; searchText()) {
+                                  &lt;span [innerHTML]&#x3D;&quot;highlightSearchText(getCellValue(row, col.field))&quot;&gt;&lt;/span&gt;
+                                } @else {
+                                  {{ getCellValue(row, col.field) }}
+                                }
+                              }
+                            &lt;/td&gt;
+                          }
+                        }
+
+                        @if (editable()) {
+                          &lt;td
+                            class&#x3D;&quot;grid-td grid-actions&quot;
+                            [class.pinned-right]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null&quot;
+                            [class.pinned-right-first]&#x3D;&quot;firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; null&quot;
+                            [style.right.px]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null ? 0 : null&quot;
+                            style&#x3D;&quot;width:120px&quot;
+                          &gt;
+                            @if (!isEditing(row)) {
+                              &lt;button class&#x3D;&quot;action-btn&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;beginEdit(row, i); $event.stopPropagation()&quot;&gt;Edit&lt;/button&gt;
+                            } @else {
+                              &lt;button class&#x3D;&quot;action-btn save&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;saveEdit(row, i); $event.stopPropagation()&quot;&gt;Save&lt;/button&gt;
+                              &lt;button class&#x3D;&quot;action-btn&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;cancelEdit(); $event.stopPropagation()&quot;&gt;Cancel&lt;/button&gt;
+                            }
+                          &lt;/td&gt;
+                        }
+                      }
+                    &lt;/tr&gt;
+
+                    @if (showDetailToggle() &amp;&amp; detailRowTemplate()) {
+                      &lt;tr class&#x3D;&quot;grid-detail-row&quot; [class.expanded]&#x3D;&quot;isExpanded(row)&quot;&gt;
+                        &lt;td [attr.colspan]&#x3D;&quot;renderColumnCount()&quot; class&#x3D;&quot;grid-detail-cell&quot;&gt;
+                          &lt;div class&#x3D;&quot;detail-wrapper&quot; [class.expanded]&#x3D;&quot;isExpanded(row)&quot;&gt;
+                            &lt;ng-container *ngTemplateOutlet&#x3D;&quot;detailRowTemplate(); context: {
+                              $implicit: row,
+                              row: row,
+                              index: i
+                            }&quot; /&gt;
+                          &lt;/div&gt;
+                        &lt;/td&gt;
+                      &lt;/tr&gt;
+                    }
+                  }
+                }
+              }
+            } @else {
+              @if (virtualScroll()) {
+                &lt;tr [style.height.px]&#x3D;&quot;startIndex() * rowHeight()&quot;&gt;
+                  &lt;td [attr.colspan]&#x3D;&quot;renderColumnCount()&quot; style&#x3D;&quot;padding:0; border:none; height: inherit;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+              }
+              @for (row of (virtualScroll() ? visibleRows() : flatRenderedRows()); track getKey(row, $index); let i &#x3D; $index) {
+                @let actualIndex &#x3D; virtualScroll() ? startIndex() + i : i;
+                &lt;tr
+                  [class]&#x3D;&quot;&#x27;grid-row &#x27; + getRowCustomClass(row)&quot;
+                  [class.selected]&#x3D;&quot;isRowSelected(row)&quot;
+                  [class.dragging-row]&#x3D;&quot;draggingRowIndex() &#x3D;&#x3D;&#x3D; actualIndex&quot;
+                  [class.drag-over-row]&#x3D;&quot;dragOverRowIndex() &#x3D;&#x3D;&#x3D; actualIndex&quot;
+                  [style.transform]&#x3D;&quot;getRowTranslation(actualIndex)&quot;
+                  (dragover)&#x3D;&quot;onRowDragOver($event, actualIndex)&quot;
+                  (drop)&#x3D;&quot;onRowDrop($event, actualIndex)&quot;
+                  (dragend)&#x3D;&quot;onRowDragEnd()&quot;
+                  (click)&#x3D;&quot;onRowClick(row, actualIndex)&quot;
+                  (dblclick)&#x3D;&quot;editable() ? beginEdit(row, actualIndex) : null&quot;
+                &gt;
+                  @if (rowReorderable()) {
+                    &lt;td class&#x3D;&quot;grid-td grid-td-reorder pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isRowReorderableLastPinned()&quot; style&#x3D;&quot;left:0px; text-align:center; width:44px&quot;&gt;
+                      &lt;span class&#x3D;&quot;row-drag-handle&quot; draggable&#x3D;&quot;true&quot; (dragstart)&#x3D;&quot;onRowDragStart($event, actualIndex)&quot; (dragend)&#x3D;&quot;onRowDragEnd()&quot; title&#x3D;&quot;Drag row to reorder&quot;&gt;
+                        &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; style&#x3D;&quot;display: block;&quot;&gt;
+                          &lt;circle cx&#x3D;&quot;9&quot; cy&#x3D;&quot;5&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                          &lt;circle cx&#x3D;&quot;9&quot; cy&#x3D;&quot;12&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                          &lt;circle cx&#x3D;&quot;9&quot; cy&#x3D;&quot;19&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                          &lt;circle cx&#x3D;&quot;15&quot; cy&#x3D;&quot;5&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                          &lt;circle cx&#x3D;&quot;15&quot; cy&#x3D;&quot;12&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                          &lt;circle cx&#x3D;&quot;15&quot; cy&#x3D;&quot;19&quot; r&#x3D;&quot;1.5&quot;&gt;&lt;/circle&gt;
+                        &lt;/svg&gt;
+                      &lt;/span&gt;
+                    &lt;/td&gt;
+                  }
+
+                  @if (showDetailToggle()) {
+                    &lt;td class&#x3D;&quot;grid-td grid-td-toggle pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isDetailToggleLastPinned()&quot; [style.left.px]&#x3D;&quot;rowReorderable() ? 44 : 0&quot;&gt;
+                      &lt;button class&#x3D;&quot;toggle-btn&quot; [class.expanded]&#x3D;&quot;isExpanded(row)&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;toggleDetail(row); $event.stopPropagation()&quot; title&#x3D;&quot;Toggle Detail&quot;&gt;
+                        &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;12&quot; height&#x3D;&quot;12&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;3.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; class&#x3D;&quot;chevron-icon&quot;&gt;
+                          &lt;polyline points&#x3D;&quot;9 18 15 12 9 6&quot;&gt;&lt;/polyline&gt;
+                        &lt;/svg&gt;
+                      &lt;/button&gt;
+                    &lt;/td&gt;
+                  }
+
+                  @if (selectable()) {
+                    &lt;td class&#x3D;&quot;grid-td grid-td-check pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isSelectableLastPinned()&quot; [style.left.px]&#x3D;&quot;(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)&quot;&gt;&lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;isRowSelected(row)&quot; (change)&#x3D;&quot;toggleRow(row)&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot; /&gt;&lt;/td&gt;
+                  }
+
+                  @if (rowTemplate()) {
+                    &lt;td class&#x3D;&quot;grid-td&quot; [attr.colspan]&#x3D;&quot;orderedColumns().length + (editable() ? 1 : 0)&quot;&gt;
+                      &lt;ng-container *ngTemplateOutlet&#x3D;&quot;rowTemplate(); context: {
+                        $implicit: row,
+                        row: row,
+                        index: actualIndex,
+                        editing: isEditing(row),
+                        expanded: isExpanded(row)
+                      }&quot; /&gt;
+                    &lt;/td&gt;
+                  } @else {
+                    @for (col of orderedColumns(); track col.field) {
+                      @if (getCellRowSpan(row, col.field, actualIndex) &gt; 0) {
+                        &lt;td
+                          class&#x3D;&quot;grid-td&quot;
+                          [attr.rowspan]&#x3D;&quot;getCellRowSpan(row, col.field, actualIndex)&quot;
+                          [class.pinned-left]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot;
+                          [class.pinned-left-last]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; lastPinnedColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                          [class.pinned-right]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot;
+                          [class.pinned-right-first]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                          [class.cell-focused]&#x3D;&quot;focusedCell()?.row &#x3D;&#x3D;&#x3D; row &amp;&amp; focusedCell()?.colField &#x3D;&#x3D;&#x3D; col.field&quot;
+                          [class.cell-focused-editing]&#x3D;&quot;focusedCell()?.row &#x3D;&#x3D;&#x3D; row &amp;&amp; focusedCell()?.colField &#x3D;&#x3D;&#x3D; col.field &amp;&amp; focusedCellEditActive()&quot;
+                          [style.left.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? columnOffsets()[col.field] : null&quot;
+                          [style.right.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? columnRightOffsets()[col.field] : null&quot;
+                          [style.text-align]&#x3D;&quot;col.align ?? &#x27;left&#x27;&quot;
+                          [style.width.px]&#x3D;&quot;getColumnWidth(col)&quot;
+                          [class.cell-selected]&#x3D;&quot;isCellSelected(row, col.field)&quot;
+                          (mousedown)&#x3D;&quot;onCellMouseDown($event, row, col.field)&quot;
+                          (mouseenter)&#x3D;&quot;onCellMouseEnter(row, col.field)&quot;
+                          (contextmenu)&#x3D;&quot;onCellContextMenu($event, row, col.field)&quot;
+                          (click)&#x3D;&quot;onCellClick(row, col.field)&quot;
+                        &gt;
+                          @if (isEditing(row) &amp;&amp; editable() &amp;&amp; col.editable) {
+                            @if (resolveEditCellTemplate(col); as activeEditTemplate) {
+                              &lt;ng-container *ngTemplateOutlet&#x3D;&quot;activeEditTemplate; context: {
+                                $implicit: getDraftValue(row, col.field),
+                                value: getCellValue(row, col.field),
+                                row: row,
+                                column: col,
+                                index: actualIndex,
+                                editing: true,
+                                draftValue: getDraftValue(row, col.field),
+                                updateDraft: getUpdateDraftCallback(col.field)
+                              }&quot; /&gt;
+                            } @else {
+                              &lt;input
+                                class&#x3D;&quot;grid-edit-input&quot;
+                                [value]&#x3D;&quot;toStringSafe(getDraftValue(row, col.field))&quot;
+                                (input)&#x3D;&quot;updateDraft(col.field, $any($event.target).value)&quot;
+                                (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                              /&gt;
+                            }
+                          } @else if (resolveCellTemplate(col)) {
+                            &lt;ng-container *ngTemplateOutlet&#x3D;&quot;resolveCellTemplate(col)!; context: {
+                              $implicit: getCellValue(row, col.field),
+                              value: getCellValue(row, col.field),
+                              row: row,
+                              column: col,
+                              index: actualIndex,
+                              editing: isEditing(row)
+                            }&quot; /&gt;
+                          } @else {
+                            @if (showGlobalSearch() &amp;&amp; searchText()) {
+                              &lt;span [innerHTML]&#x3D;&quot;highlightSearchText(getCellValue(row, col.field))&quot;&gt;&lt;/span&gt;
+                            } @else {
+                              {{ getCellValue(row, col.field) }}
+                            }
+                          }
+                        &lt;/td&gt;
+                      }
+                    }
+
+                    @if (editable()) {
+                      &lt;td
+                        class&#x3D;&quot;grid-td grid-actions&quot;
+                        [class.pinned-right]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null&quot;
+                        [class.pinned-right-first]&#x3D;&quot;firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; null&quot;
+                        [style.right.px]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null ? 0 : null&quot;
+                        style&#x3D;&quot;width:120px&quot;
+                      &gt;
+                        @if (!isEditing(row)) {
+                          &lt;button class&#x3D;&quot;action-btn&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;beginEdit(row, actualIndex); $event.stopPropagation()&quot;&gt;Edit&lt;/button&gt;
+                        } @else {
+                          &lt;button class&#x3D;&quot;action-btn save&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;saveEdit(row, actualIndex); $event.stopPropagation()&quot;&gt;Save&lt;/button&gt;
+                          &lt;button class&#x3D;&quot;action-btn&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;cancelEdit(); $event.stopPropagation()&quot;&gt;Cancel&lt;/button&gt;
+                        }
+                      &lt;/td&gt;
+                    }
+                  }
+                &lt;/tr&gt;
+
+                @if (showDetailToggle() &amp;&amp; detailRowTemplate()) {
+                  &lt;tr class&#x3D;&quot;grid-detail-row&quot; [class.expanded]&#x3D;&quot;isExpanded(row)&quot;&gt;
+                    &lt;td [attr.colspan]&#x3D;&quot;renderColumnCount()&quot; class&#x3D;&quot;grid-detail-cell&quot;&gt;
+                      &lt;div class&#x3D;&quot;detail-wrapper&quot; [class.expanded]&#x3D;&quot;isExpanded(row)&quot;&gt;
+                        &lt;ng-container *ngTemplateOutlet&#x3D;&quot;detailRowTemplate(); context: {
+                          $implicit: row,
+                          row: row,
+                          index: actualIndex
+                        }&quot; /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                }
+              }
+              @if (virtualScroll()) {
+                &lt;tr [style.height.px]&#x3D;&quot;(flatRenderedRows().length - endIndex()) * rowHeight()&quot;&gt;
+                  &lt;td [attr.colspan]&#x3D;&quot;renderColumnCount()&quot; style&#x3D;&quot;padding:0; border:none; height: inherit;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+              }
+            }
+          &lt;/tbody&gt;
+          @if (hasAggregation()) {
+            &lt;tfoot&gt;
+              &lt;tr class&#x3D;&quot;grid-footer-row&quot;&gt;
+                @if (rowReorderable()) {
+                  &lt;td class&#x3D;&quot;grid-td-reorder pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isRowReorderableLastPinned()&quot; style&#x3D;&quot;left:0px; width:44px&quot;&gt;&lt;/td&gt;
+                }
+                @if (showDetailToggle()) {
+                  &lt;td class&#x3D;&quot;grid-td-toggle pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isDetailToggleLastPinned()&quot; [style.left.px]&#x3D;&quot;rowReorderable() ? 44 : 0&quot; style&#x3D;&quot;width:44px&quot;&gt;&lt;/td&gt;
+                }
+                @if (selectable()) {
+                  &lt;td class&#x3D;&quot;grid-td-check pinned-left&quot; [class.pinned-left-last]&#x3D;&quot;isSelectableLastPinned()&quot; [style.left.px]&#x3D;&quot;(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)&quot; style&#x3D;&quot;width:44px&quot;&gt;&lt;/td&gt;
+                }
+                @for (col of orderedColumns(); track col.field) {
+                  &lt;td
+                    class&#x3D;&quot;grid-td grid-footer-cell&quot;
+                    [class.pinned-left]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot;
+                    [class.pinned-left-last]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; lastPinnedColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                    [class.pinned-right]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot;
+                    [class.pinned-right-first]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; col.field&quot;
+                    [style.left.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? columnOffsets()[col.field] : null&quot;
+                    [style.right.px]&#x3D;&quot;col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? columnRightOffsets()[col.field] : null&quot;
+                    [style.text-align]&#x3D;&quot;col.align ?? &#x27;left&#x27;&quot;
+                    [style.width.px]&#x3D;&quot;getColumnWidth(col)&quot;
+                  &gt;
+                    @if (resolveFooterTemplate(col); as activeFooterTemplate) {
+                      &lt;ng-container *ngTemplateOutlet&#x3D;&quot;activeFooterTemplate; context: {
+                        $implicit: col,
+                        column: col,
+                        aggregationValue: getAggregationValue(col),
+                        data: flatRenderedRows()
+                      }&quot; /&gt;
+                    } @else if (col.aggregation) {
+                      &lt;span class&#x3D;&quot;agg-label&quot;&gt;{{ col.aggregation }}: &lt;/span&gt;
+                      &lt;strong class&#x3D;&quot;agg-value&quot;&gt;{{ getAggregationValue(col) }}&lt;/strong&gt;
+                    }
+                  &lt;/td&gt;
+                }
+                @if (editable()) {
+                  &lt;td
+                    [class.pinned-right]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null&quot;
+                    [class.pinned-right-first]&#x3D;&quot;firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; null&quot;
+                    [style.right.px]&#x3D;&quot;firstPinnedRightColumnField() !&#x3D;&#x3D; null ? 0 : null&quot;
+                  &gt;&lt;/td&gt;
+                }
+              &lt;/tr&gt;
+            &lt;/tfoot&gt;
+          }
+        &lt;/table&gt;
+      &lt;/div&gt;
+
+      @if (showPager()) {
+        &lt;div class&#x3D;&quot;grid-pagination&quot;&gt;
+          &lt;div class&#x3D;&quot;pagination-left&quot;&gt;
+            &lt;span class&#x3D;&quot;page-info&quot;&gt;
+              {{ i18n.pagination.page }} &lt;strong class&#x3D;&quot;page-info-highlight&quot;&gt;{{ pagerRangeStart() }}–{{ pagerRangeEnd() }}&lt;/strong&gt; {{ i18n.pagination.of }} &lt;strong class&#x3D;&quot;page-info-highlight&quot;&gt;{{ totalItems() }}&lt;/strong&gt;
+            &lt;/span&gt;
+            &lt;div class&#x3D;&quot;page-size-selector&quot;&gt;
+              &lt;span class&#x3D;&quot;page-size-label&quot;&gt;{{ i18n.pagination.itemsPerPage }}:&lt;/span&gt;
+              &lt;select [value]&#x3D;&quot;internalPageSize()&quot; (change)&#x3D;&quot;changePageSize(+$any($event.target).value)&quot; class&#x3D;&quot;page-size-select&quot;&gt;
+                &lt;option [value]&#x3D;&quot;5&quot;&gt;5&lt;/option&gt;
+                &lt;option [value]&#x3D;&quot;8&quot;&gt;8&lt;/option&gt;
+                &lt;option [value]&#x3D;&quot;10&quot;&gt;10&lt;/option&gt;
+                &lt;option [value]&#x3D;&quot;20&quot;&gt;20&lt;/option&gt;
+                &lt;option [value]&#x3D;&quot;50&quot;&gt;50&lt;/option&gt;
+                &lt;option [value]&#x3D;&quot;100&quot;&gt;100&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;page-btns&quot;&gt;
+            &lt;button class&#x3D;&quot;page-btn ctrl&quot; [disabled]&#x3D;&quot;currentPage() &#x3D;&#x3D;&#x3D; 1&quot; (click)&#x3D;&quot;goPage(1)&quot; [title]&#x3D;&quot;i18n.pagination.firstPage&quot;&gt;
+              &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;14&quot; height&#x3D;&quot;14&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
+                &lt;polyline points&#x3D;&quot;11 17 6 12 11 7&quot;&gt;&lt;/polyline&gt;
+                &lt;polyline points&#x3D;&quot;18 17 13 12 18 7&quot;&gt;&lt;/polyline&gt;
+              &lt;/svg&gt;
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;page-btn ctrl&quot; [disabled]&#x3D;&quot;currentPage() &#x3D;&#x3D;&#x3D; 1&quot; (click)&#x3D;&quot;goPage(currentPage() - 1)&quot; [title]&#x3D;&quot;i18n.pagination.previousPage&quot;&gt;
+              &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;14&quot; height&#x3D;&quot;14&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
+                &lt;polyline points&#x3D;&quot;15 18 9 12 15 6&quot;&gt;&lt;/polyline&gt;
+              &lt;/svg&gt;
+            &lt;/button&gt;
+            
+            &lt;div class&#x3D;&quot;page-numbers&quot;&gt;
+              @for (p of pageNumbers(); track p) {
+                &lt;button class&#x3D;&quot;page-btn number&quot; [class.active]&#x3D;&quot;p &#x3D;&#x3D;&#x3D; currentPage()&quot; (click)&#x3D;&quot;goPage(p)&quot;&gt;{{ p }}&lt;/button&gt;
+              }
+            &lt;/div&gt;
+
+            &lt;button class&#x3D;&quot;page-btn ctrl&quot; [disabled]&#x3D;&quot;currentPage() &#x3D;&#x3D;&#x3D; totalPages()&quot; (click)&#x3D;&quot;goPage(currentPage() + 1)&quot; [title]&#x3D;&quot;i18n.pagination.nextPage&quot;&gt;
+              &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;14&quot; height&#x3D;&quot;14&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
+                &lt;polyline points&#x3D;&quot;9 18 15 12 9 6&quot;&gt;&lt;/polyline&gt;
+              &lt;/svg&gt;
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;page-btn ctrl&quot; [disabled]&#x3D;&quot;currentPage() &#x3D;&#x3D;&#x3D; totalPages()&quot; (click)&#x3D;&quot;goPage(totalPages())&quot; [title]&#x3D;&quot;i18n.pagination.lastPage&quot;&gt;
+              &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;14&quot; height&#x3D;&quot;14&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
+                &lt;polyline points&#x3D;&quot;13 17 18 12 13 7&quot;&gt;&lt;/polyline&gt;
+                &lt;polyline points&#x3D;&quot;6 17 11 12 6 7&quot;&gt;&lt;/polyline&gt;
+              &lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Excel-Style Filter Popover Overlay --&gt;
+      @if (activeFilterPopover(); as pop) {
+        &lt;div class&#x3D;&quot;grid-filter-popover&quot; [style.top.px]&#x3D;&quot;pop.top&quot; [style.left.px]&#x3D;&quot;pop.left&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+          &lt;div class&#x3D;&quot;popover-section pinning-section&quot;&gt;
+            &lt;label class&#x3D;&quot;popover-label&quot;&gt;Pin Column&lt;/label&gt;
+            &lt;div class&#x3D;&quot;pinning-actions&quot;&gt;
+              &lt;button class&#x3D;&quot;pin-btn&quot; [class.active]&#x3D;&quot;getColumnPinnedState(pop.field) &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot; (click)&#x3D;&quot;pinColumnPopover(pop.field, &#x27;left&#x27;)&quot; type&#x3D;&quot;button&quot;&gt;Left&lt;/button&gt;
+              &lt;button class&#x3D;&quot;pin-btn&quot; [class.active]&#x3D;&quot;getColumnPinnedState(pop.field) &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot; (click)&#x3D;&quot;pinColumnPopover(pop.field, &#x27;right&#x27;)&quot; type&#x3D;&quot;button&quot;&gt;Right&lt;/button&gt;
+              &lt;button class&#x3D;&quot;pin-btn&quot; [class.active]&#x3D;&quot;getColumnPinnedState(pop.field) &#x3D;&#x3D;&#x3D; null&quot; (click)&#x3D;&quot;pinColumnPopover(pop.field, null)&quot; type&#x3D;&quot;button&quot;&gt;No Pin&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;popover-section text-filter-section&quot;&gt;
+            &lt;label class&#x3D;&quot;popover-label&quot;&gt;Text Filter&lt;/label&gt;
+            &lt;div class&#x3D;&quot;text-filter-row&quot;&gt;
+              &lt;select class&#x3D;&quot;popover-select&quot; [value]&#x3D;&quot;tempFilterOperator()&quot; (change)&#x3D;&quot;tempFilterOperator.set($any($event.target).value)&quot;&gt;
+                &lt;option value&#x3D;&quot;contains&quot;&gt;Contains&lt;/option&gt;
+                &lt;option value&#x3D;&quot;eq&quot;&gt;Equals&lt;/option&gt;
+                &lt;option value&#x3D;&quot;startsWith&quot;&gt;Starts With&lt;/option&gt;
+                &lt;option value&#x3D;&quot;endsWith&quot;&gt;Ends With&lt;/option&gt;
+              &lt;/select&gt;
+              &lt;input class&#x3D;&quot;popover-input&quot; type&#x3D;&quot;text&quot; [value]&#x3D;&quot;tempFilterValue()&quot; (input)&#x3D;&quot;tempFilterValue.set($any($event.target).value)&quot; [placeholder]&#x3D;&quot;i18n.grid.filterPlaceholder&quot; /&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          
+          &lt;div class&#x3D;&quot;popover-section checklist-section&quot;&gt;
+            &lt;label class&#x3D;&quot;popover-label&quot;&gt;Checklist Filter&lt;/label&gt;
+            &lt;input
+              class&#x3D;&quot;checklist-search&quot;
+              type&#x3D;&quot;text&quot;
+              [value]&#x3D;&quot;filterSearchQuery()&quot;
+              (input)&#x3D;&quot;filterSearchQuery.set($any($event.target).value)&quot;
+              [placeholder]&#x3D;&quot;i18n.common.search&quot;
+            /&gt;
+            &lt;div class&#x3D;&quot;checklist-actions&quot;&gt;
+              &lt;label class&#x3D;&quot;checklist-item select-all&quot;&gt;
+                &lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;tempSelectedValues().size &#x3D;&#x3D;&#x3D; getFilteredDistinctValues(pop.field).length&quot; [indeterminate]&#x3D;&quot;tempSelectedValues().size &gt; 0 &amp;&amp; tempSelectedValues().size &lt; getFilteredDistinctValues(pop.field).length&quot; (change)&#x3D;&quot;toggleSelectAllChecklist()&quot; /&gt;
+                &lt;span&gt;({{ i18n.grid.selectAll }})&lt;/span&gt;
+              &lt;/label&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;checklist-scroll&quot;&gt;
+              @for (val of getFilteredDistinctValues(pop.field); track val) {
+                &lt;label class&#x3D;&quot;checklist-item&quot;&gt;
+                  &lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;tempSelectedValues().has(val)&quot; (change)&#x3D;&quot;toggleChecklistItem(val)&quot; /&gt;
+                  &lt;span&gt;{{ val }}&lt;/span&gt;
+                &lt;/label&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+          
+          &lt;div class&#x3D;&quot;popover-footer&quot;&gt;
+            &lt;button class&#x3D;&quot;popover-btn clear&quot; (click)&#x3D;&quot;clearPopoverFilter()&quot;&gt;{{ i18n.datePicker.clear }}&lt;/button&gt;
+            &lt;div class&#x3D;&quot;footer-actions&quot;&gt;
+              &lt;button class&#x3D;&quot;popover-btn cancel&quot; (click)&#x3D;&quot;activeFilterPopover.set(null)&quot;&gt;{{ i18n.common.cancel }}&lt;/button&gt;
+              &lt;button class&#x3D;&quot;popover-btn apply&quot; (click)&#x3D;&quot;applyPopoverFilter()&quot;&gt;Apply&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Column Chooser Popover Overlay --&gt;
+      @if (activeColumnChooserPopover(); as pop) {
+        &lt;div class&#x3D;&quot;grid-column-chooser-popover&quot; [style.top.px]&#x3D;&quot;pop.top&quot; [style.left.px]&#x3D;&quot;pop.left&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+          &lt;div class&#x3D;&quot;popover-section checklist-section&quot; style&#x3D;&quot;border-top: none; padding-top: 0;&quot;&gt;
+            &lt;label class&#x3D;&quot;popover-label&quot;&gt;Visible Columns&lt;/label&gt;
+            &lt;div class&#x3D;&quot;checklist-scroll&quot;&gt;
+              @for (col of columns(); track col.field) {
+                &lt;label class&#x3D;&quot;checklist-item&quot;&gt;
+                  &lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;!hiddenColumns().has(col.field)&quot; (change)&#x3D;&quot;toggleColumnVisibility(col.field)&quot; /&gt;
+                  &lt;span&gt;{{ col.title }}&lt;/span&gt;
+                &lt;/label&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;popover-footer&quot;&gt;
+            &lt;button class&#x3D;&quot;popover-btn apply&quot; (click)&#x3D;&quot;activeColumnChooserPopover.set(null)&quot;&gt;Close&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Custom Context Menu Overlay --&gt;
+      @if (activeContextMenu(); as menu) {
+        &lt;div class&#x3D;&quot;grid-context-menu&quot; [style.top.px]&#x3D;&quot;menu.y&quot; [style.left.px]&#x3D;&quot;menu.x&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; [disabled]&#x3D;&quot;!selectedCellStart()&quot; (click)&#x3D;&quot;contextMenuCopy()&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📋&lt;/span&gt; Copy Selection
+          &lt;/button&gt;
+          &lt;div class&#x3D;&quot;menu-divider&quot;&gt;&lt;/div&gt;
+          @if (showDetailToggle() &amp;&amp; detailRowTemplate() &amp;&amp; menu.row) {
+            &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;contextMenuToggleDetail(menu.row)&quot;&gt;
+              &lt;span class&#x3D;&quot;menu-icon&quot;&gt;🔍&lt;/span&gt; {{ isExpanded(menu.row) ? &#x27;Collapse Details&#x27; : &#x27;Expand Details&#x27; }}
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;expandAllDetails()&quot;&gt;
+              &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📂&lt;/span&gt; Expand All Details
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;collapseAllDetails()&quot;&gt;
+              &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📁&lt;/span&gt; Collapse All Details
+            &lt;/button&gt;
+            &lt;div class&#x3D;&quot;menu-divider&quot;&gt;&lt;/div&gt;
+          }
+          @if (getColumnDef(menu.colField); as columnDef) {
+            @if (columnDef.groupable) {
+              @if (internalGroupBy()?.field &#x3D;&#x3D;&#x3D; menu.colField) {
+                &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;contextMenuClearGrouping()&quot;&gt;
+                  &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📁&lt;/span&gt; Clear Grouping
+                &lt;/button&gt;
+              } @else {
+                &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;contextMenuGroupBy(menu.colField)&quot;&gt;
+                  &lt;span class&#x3D;&quot;menu-icon&quot;&gt;🗂️&lt;/span&gt; Group by {{ columnDef.title }}
+                &lt;/button&gt;
+              }
+            }
+          }
+          @if (hasGrouping()) {
+            &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;expandAllGroups()&quot;&gt;
+              &lt;span class&#x3D;&quot;menu-icon&quot;&gt;↕️&lt;/span&gt; Expand All Groups
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;collapseAllGroups()&quot;&gt;
+              &lt;span class&#x3D;&quot;menu-icon&quot;&gt;⋯&lt;/span&gt; Collapse All Groups
+            &lt;/button&gt;
+          }
+          &lt;div class&#x3D;&quot;menu-divider&quot;&gt;&lt;/div&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;contextMenuTogglePin(menu.colField)&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📌&lt;/span&gt; {{ isColumnPinned(menu.colField) ? &#x27;Unpin Column&#x27; : &#x27;Pin Column Left&#x27; }}
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;contextMenuHideColumn(menu.colField)&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;👁️&lt;/span&gt; Hide Column
+          &lt;/button&gt;
+          &lt;div class&#x3D;&quot;menu-divider&quot;&gt;&lt;/div&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; [disabled]&#x3D;&quot;filterStates().size &#x3D;&#x3D;&#x3D; 0&quot; (click)&#x3D;&quot;contextMenuClearFilters()&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;🧹&lt;/span&gt; Clear All Filters
+          &lt;/button&gt;
+          &lt;div class&#x3D;&quot;menu-divider&quot;&gt;&lt;/div&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;exportToJson(); activeContextMenu.set(null)&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📄&lt;/span&gt; Export to JSON
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;exportToCsv(); activeContextMenu.set(null)&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📊&lt;/span&gt; Export to CSV
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;exportToExcel(); activeContextMenu.set(null)&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📈&lt;/span&gt; Export to Excel
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;exportToPdf(); activeContextMenu.set(null)&quot;&gt;
+            &lt;span class&#x3D;&quot;menu-icon&quot;&gt;📕&lt;/span&gt; Export to PDF
+          &lt;/button&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Status Bar --&gt;
+      &lt;ngx-grid-status-bar [aggregates]&#x3D;&quot;selectionAggregates()&quot; [visible]&#x3D;&quot;showStatusBar()&quot; /&gt;
+
+      &lt;!-- Advanced Filter Builder Overlay --&gt;
+      @if (isFilterBuilderOpen()) {
+        &lt;ngx-grid-filter-builder
+          [columns]&#x3D;&quot;$any(columns())&quot;
+          [expression]&#x3D;&quot;internalFilterExpression()&quot;
+          (expressionChange)&#x3D;&quot;onFilterExpressionChange($event)&quot;
+          (close)&#x3D;&quot;isFilterBuilderOpen.set(false)&quot;
+        /&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; }
+    
+    /* Custom Scrollbar Styles for premium feel */
+    .grid-table-wrap::-webkit-scrollbar,
+    .checklist-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .grid-table-wrap::-webkit-scrollbar-track,
+    .checklist-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .grid-table-wrap::-webkit-scrollbar-thumb,
+    .checklist-scroll::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.2);
+      border-radius: 99px;
+    }
+    .grid-table-wrap::-webkit-scrollbar-thumb:hover,
+    .checklist-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.4);
+    }
+
+    .ngx-data-grid {
+      position: relative;
+      font-family: inherit;
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-radius: var(--ngx-grid-radius, 12px);
+      overflow: hidden; /* Clamps inner children corners */
+      background: var(--ngx-grid-bg, #ffffff);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 4px 6px -4px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .grid-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .grid-toolbar-title {
+      font-family: var(--ngx-heading-font-family, &#x27;Outfit&#x27;, sans-serif);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--ngx-grid-text, #0f172a);
+      letter-spacing: -0.01em;
+    }
+    .grid-toolbar-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .grid-action-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-radius: 8px;
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .grid-action-btn:hover {
+      background: var(--ngx-grid-hover-bg, #f8fafc);
+      border-color: var(--ngx-input-focus, #4f46e5);
+      color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.08);
+      transform: translateY(-0.5px);
+    }
+    .grid-action-btn:active {
+      transform: scale(0.97);
+    }
+    .grid-table-wrap { overflow-x: auto; overflow-y: hidden; }
+    .grid-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+    /* Compact Mode styling */
+    .ngx-data-grid.compact .grid-td {
+      padding: 7px 12px;
+      font-size: 12px;
+    }
+    .ngx-data-grid.compact .grid-th {
+      padding: 9px 12px;
+      font-size: 10px;
+    }
+    .ngx-data-grid.compact .grid-grouping-panel {
+      padding: 8px 14px;
+    }
+    .ngx-data-grid.compact .grid-toolbar {
+      padding: 8px 14px;
+    }
+    
+    /* Clear Filters button styling */
+    .clear-filters-btn {
+      border-color: rgba(239, 68, 68, 0.25) !important;
+      background: rgba(239, 68, 68, 0.05) !important;
+      color: #ef4444 !important;
+      font-weight: 600;
+    }
+    .clear-filters-btn:hover {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+      border-color: transparent !important;
+    }
+
+    .grid-th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 750;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
+      white-space: nowrap;
+      user-select: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-family: var(--ngx-heading-font-family, &#x27;Outfit&#x27;, sans-serif);
+      transition: background-color 0.2s ease;
+    }
+    .grid-category-th {
+      text-align: center;
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-right: 1px solid var(--ngx-grid-border, #e2e8f0);
+    }
+    .sub-header-row .grid-th {
+      border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
+      border-right: 1px solid var(--ngx-grid-border, #f1f5f9);
+    }
+    .grid-th.sortable { cursor: pointer; }
+    .grid-th.sortable:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); color: var(--ngx-grid-text, #0f172a); }
+    .grid-th.sort-asc, .grid-th.sort-desc { color: var(--ngx-input-focus, #4f46e5); background: rgba(79, 70, 229, 0.02); }
+    .th-text { margin-right: 4px; }
+    .sort-icon { font-size: 10px; color: #cbd5e1; transition: color 0.2s ease; }
+    .sort-asc .sort-icon, .sort-desc .sort-icon { color: var(--ngx-input-focus, #4f46e5); }
+    
+    .th-content-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      width: 100%;
+    }
+    .grid-filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--ngx-grid-text-secondary, #94a3b8);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .grid-filter-btn:hover {
+      background: var(--ngx-grid-hover-bg, #cbd5e1);
+      color: var(--ngx-grid-text, #0f172a);
+    }
+    .grid-filter-btn.active {
+      color: var(--ngx-input-focus, #4f46e5);
+      background: rgba(79, 70, 229, 0.1);
+    }
+    .grid-resize-handle {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      cursor: col-resize;
+      background: transparent;
+      z-index: 10;
+      transition: background-color 0.2s;
+    }
+    .grid-resize-handle:hover,
+    .grid-resize-handle.resizing {
+      background: var(--ngx-input-focus, #4f46e5);
+    }
+    
+    .grid-filter-popover,
+    .grid-column-chooser-popover,
+    .grid-context-menu {
+      position: absolute;
+      width: 250px;
+      background: var(--ngx-grid-bg-glass, rgba(255, 255, 255, 0.8));
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 14px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      z-index: 1000;
+      padding: 12px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-family: inherit;
+      animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: top center;
+    }
+    .grid-context-menu {
+      width: 190px;
+      padding: 6px;
+      gap: 2px;
+    }
+    @keyframes popoverFadeIn {
+      from { opacity: 0; transform: scale(0.95) translateY(-5px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .checklist-search {
+      padding: 8px 12px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 4px;
+      transition: all 0.2s ease;
+    }
+    .checklist-search:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+    .pinning-section {
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      padding-bottom: 10px;
+    }
+    .pinning-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .pin-btn {
+      flex: 1;
+      padding: 6px 4px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 6px;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+      outline: none;
+    }
+    .pin-btn:hover {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      color: var(--ngx-input-focus, #4f46e5);
+      background: rgba(79, 70, 229, 0.02);
+    }
+    .pin-btn.active {
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+    }
+
+    .popover-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .popover-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .text-filter-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .popover-select {
+      padding: 6px 10px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      cursor: pointer;
+    }
+    .popover-input {
+      padding: 6px 10px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      transition: all 0.2s;
+    }
+    .popover-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+    .checklist-section {
+      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
+      padding-top: 10px;
+    }
+    .checklist-scroll {
+      max-height: 140px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-radius: 8px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.45);
+    }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ngx-grid-text, #0f172a);
+      cursor: pointer;
+      user-select: none;
+    }
+    .popover-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
+      padding-top: 10px;
+      margin-top: 4px;
+    }
+    .footer-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .popover-btn {
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .popover-btn:hover {
+      background: var(--ngx-grid-hover-bg, #f8fafc);
+      border-color: var(--ngx-input-border, #cbd5e1);
+    }
+    .popover-btn.apply {
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+    }
+    .popover-btn.apply:hover {
+      background: var(--ngx-btn-primary-hover, #4338ca);
+      border-color: var(--ngx-btn-primary-hover, #4338ca);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+    }
+    .popover-btn.clear {
+      color: #ef4444;
+      border-color: transparent;
+      background: transparent;
+    }
+    .popover-btn.clear:hover {
+      background: #fef2f2;
+    }
+
+    .grid-group-row td {
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-bottom: 1.5px solid var(--ngx-grid-border, #e2e8f0);
+      color: var(--ngx-grid-text, #0f172a);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 12px 18px;
+      cursor: pointer;
+    }
+    .group-toggle {
+      border: none;
+      background: transparent;
+      margin-right: 6px;
+      cursor: pointer;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-size: 12px;
+      transition: transform 0.2s ease;
+    }
+    .group-count { color: var(--ngx-grid-text-secondary, #64748b); margin-left: 6px; font-weight: 500; }
+    .grid-row {
+      border-bottom: 1px solid var(--ngx-grid-border, #f1f5f9);
+      transition: background-color 0.15s ease;
+    }
+    .grid-row:hover { background: var(--ngx-grid-hover-bg, #f5f3ff) !important; }
+    .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
+    .grid-row.selected:hover { background: var(--ngx-grid-selected-bg-hover, #c7d2fe) !important; }
+    .grid-table.striped .grid-row:nth-child(even) { background: var(--ngx-grid-stripe-bg, #f8fafc); }
+    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, #f5f3ff) !important; }
+    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
+    .grid-td {
+      padding: 12px 18px;
+      color: var(--ngx-grid-text, #0f172a);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      box-sizing: border-box;
+    }
+    .grid-th-check, .grid-td-check,
+    .grid-th-toggle, .grid-td-toggle,
+    .grid-td-reorder, .grid-th-reorder {
+      width: 44px !important;
+      text-align: center;
+      padding: 0 !important;
+      text-overflow: clip !important;
+    }
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+    }
+    .toggle-btn:hover {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      color: var(--ngx-input-focus, #4f46e5);
+    }
+    .toggle-btn .chevron-icon {
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .toggle-btn.expanded .chevron-icon {
+      transform: rotate(90deg);
+      color: var(--ngx-input-focus, #4f46e5);
+    }
+    .grid-detail-row {
+      background: var(--ngx-grid-bg, #ffffff);
+    }
+    .grid-detail-cell {
+      padding: 0 !important;
+      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+      white-space: normal;
+    }
+    .detail-wrapper {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 24px;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                  opacity 0.25s ease-out, 
+                  padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
+    }
+    .detail-wrapper.expanded {
+      max-height: 800px;
+      opacity: 1;
+      padding: 16px 24px 20px 24px;
+    }
+    .grid-edit-input {
+      width: 100%;
+      min-width: 80px;
+      padding: 6px 10px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: inherit;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .grid-edit-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+    .grid-actions { white-space: nowrap; }
+    .action-btn {
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      outline: none;
+    }
+    .action-btn:hover {
+      background: var(--ngx-grid-hover-bg, #f8fafc);
+      border-color: var(--ngx-input-border, #cbd5e1);
+    }
+    .action-btn.save {
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+    }
+    .action-btn.save:hover {
+      background: var(--ngx-btn-primary-hover, #4338ca);
+      border-color: var(--ngx-btn-primary-hover, #4338ca);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+    }
+    .action-btn:last-child { margin-right: 0; }
+    .grid-loading-cell, .grid-empty-cell {
+      padding: 48px;
+      text-align: center;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-weight: 500;
+    }
+    .grid-spinner {
+      width: 28px;
+      height: 28px;
+      border: 3.5px solid var(--ngx-grid-border, #e2e8f0);
+      border-top-color: var(--ngx-btn-primary-bg, #4f46e5);
+      border-radius: 50%;
+      animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .grid-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .pagination-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .page-info {
+      font-size: 13px;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-weight: 500;
+    }
+    .page-info-highlight {
+      color: var(--ngx-grid-text, #0f172a);
+      font-weight: 600;
+    }
+    .page-size-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .page-size-label {
+      font-size: 12px;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      font-weight: 500;
+    }
+    .page-size-select {
+      padding: 4px 28px 4px 10px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns&#x3D;&#x27;http://www.w3.org/2000/svg&#x27; fill&#x3D;&#x27;none&#x27; viewBox&#x3D;&#x27;0 0 24 24&#x27; stroke&#x3D;&#x27;%2364748b&#x27; stroke-width&#x3D;&#x27;2.5&#x27;%3E%3Cpath stroke-linecap&#x3D;&#x27;round&#x27; stroke-linejoin&#x3D;&#x27;round&#x27; d&#x3D;&#x27;M19.5 8.25l-7.5 7.5-7.5-7.5&#x27;/%3E%3C/svg%3E&quot;);
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 12px;
+    }
+    .page-size-select:hover {
+      border-color: var(--ngx-input-border-hover, #94a3b8);
+    }
+    .page-size-select:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+    }
+    .page-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-numbers {
+      display: flex;
+      gap: 4px;
+    }
+    .page-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      background: var(--ngx-grid-bg, #ffffff);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--ngx-grid-text, #0f172a);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-btn.ctrl {
+      color: var(--ngx-grid-text-secondary, #64748b);
+      background: var(--ngx-grid-bg, #ffffff);
+    }
+    .page-btn:hover:not(:disabled) {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      border-color: var(--ngx-input-border-hover, #cbd5e1);
+      color: var(--ngx-input-focus, #4f46e5);
+      transform: translateY(-0.5px);
+    }
+    .page-btn.active {
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff !important;
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.25);
+    }
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    .grid-footer-row td {
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border-top: 2px solid var(--ngx-grid-border, #e2e8f0);
+      font-size: 12px;
+      padding: 12px 18px;
+      color: var(--ngx-grid-text, #0f172a);
+    }
+    .agg-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .agg-value {
+      font-weight: 700;
+      color: var(--ngx-input-focus, #4f46e5);
+    }
+    .pinned-left {
+      position: sticky !important;
+      z-index: 5;
+      background: var(--ngx-grid-bg, #ffffff);
+    }
+    th.pinned-left {
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
+    }
+    .sticky-toggle {
+      position: sticky !important;
+      left: 0;
+      z-index: 5;
+      background: var(--ngx-grid-bg, #ffffff);
+    }
+    th.sticky-toggle {
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
+    }
+    .sticky-check {
+      position: sticky !important;
+      z-index: 5;
+      background: var(--ngx-grid-bg, #ffffff);
+    }
+    th.sticky-check {
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
+    }
+    .pinned-left-last,
+    .sticky-toggle-last,
+    .sticky-check-last {
+      border-right: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
+      box-shadow: 4px 0 10px -3px rgba(0, 0, 0, 0.08);
+    }
+    .grid-table.striped .grid-row:nth-child(even) .pinned-left,
+    .grid-table.striped .grid-row:nth-child(even) .sticky-toggle,
+    .grid-table.striped .grid-row:nth-child(even) .sticky-check {
+      background: var(--ngx-grid-stripe-bg, #f8fafc);
+    }
+    .grid-row:hover .pinned-left,
+    .grid-row:hover .sticky-toggle,
+    .grid-row:hover .sticky-check {
+      background: var(--ngx-grid-hover-bg, #f5f3ff) !important;
+    }
+    .grid-row.selected .pinned-left,
+    .grid-row.selected .sticky-toggle,
+    .grid-row.selected .sticky-check {
+      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
+    }
+    .grid-footer-row .pinned-left,
+    .grid-footer-row .sticky-toggle,
+    .grid-footer-row .sticky-check {
+      background: var(--ngx-grid-header-bg, #f8fafc);
+    }
+
+    .pinned-right {
+      position: sticky !important;
+      z-index: 5;
+      background: var(--ngx-grid-bg, #ffffff);
+    }
+    th.pinned-right {
+      position: sticky !important;
+      top: 0;
+      z-index: 30 !important;
+      background: var(--ngx-grid-header-bg, #f8fafc) !important;
+    }
+    .pinned-right-first {
+      border-left: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
+      box-shadow: -4px 0 10px -3px rgba(0, 0, 0, 0.08);
+    }
+    .grid-table.striped .grid-row:nth-child(even) .pinned-right {
+      background: var(--ngx-grid-stripe-bg, #f8fafc);
+    }
+    .grid-row:hover .pinned-right {
+      background: var(--ngx-grid-hover-bg, #f5f3ff) !important;
+    }
+    .grid-row.selected .pinned-right {
+      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
+    }
+    .grid-footer-row .pinned-right {
+      background: var(--ngx-grid-header-bg, #f8fafc);
+    }
+
+    /* Keyboard Navigation Styles */
+    .grid-td.cell-focused {
+      outline: 2px solid var(--ngx-input-focus, #4f46e5) !important;
+      outline-offset: -2px;
+      z-index: 5;
+    }
+    .grid-td.cell-focused-editing {
+      padding: 0 !important;
+    }
+    .grid-td.cell-focused-editing .grid-edit-input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      padding: 12px 18px;
+      box-sizing: border-box;
+      background: var(--ngx-grid-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      font-family: inherit;
+      font-size: inherit;
+      border-radius: 0;
+    }
+    
+    /* Drag &amp; Drop Reordering Styles */
+    .grid-th[draggable&#x3D;&quot;true&quot;] {
+      cursor: grab;
+    }
+    .grid-th[draggable&#x3D;&quot;true&quot;]:active {
+      cursor: grabbing;
+    }
+    .grid-th.dragging {
+      opacity: 0.4;
+      background: var(--ngx-grid-hover-bg, #f1f5f9) !important;
+      border: 1.5px dashed var(--ngx-input-border, #cbd5e1);
+    }
+    .grid-th.drag-over {
+      border-left: 3px solid var(--ngx-input-focus, #4f46e5) !important;
+    }
+    
+    /* Multi-Column Sorting order badge */
+    .sort-icon.active {
+      color: var(--ngx-input-focus, #4f46e5);
+      font-weight: 700;
+    }
+    .sort-order-badge {
+      font-size: 8px;
+      line-height: 1;
+      background: var(--ngx-input-focus, #4f46e5);
+      color: #ffffff;
+      padding: 2px 4px;
+      border-radius: 4px;
+      vertical-align: super;
+      margin-left: 2px;
+      font-weight: 700;
+    }
+    
+    /* Global Search Styles */
+    .grid-search-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .grid-search-input {
+      padding: 6px 30px 6px 12px;
+      border: 1px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      background: var(--ngx-input-bg, #ffffff);
+      color: var(--ngx-grid-text, #0f172a);
+      outline: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 180px;
+    }
+    .grid-search-input:focus {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
+      width: 220px;
+    }
+    .grid-search-clear {
+      position: absolute;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: var(--ngx-grid-text-secondary, #94a3b8);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      line-height: 1;
+    }
+    .grid-search-clear:hover {
+      color: var(--ngx-grid-text, #0f172a);
+    }
+    .search-highlight {
+      background-color: rgba(251, 191, 36, 0.25);
+      color: inherit;
+      font-weight: 600;
+      padding: 1px 2px;
+      border-radius: 4px;
+    }
+    .grid-td.cell-selected {
+      background: var(--ngx-grid-cell-selected-bg, rgba(79, 70, 229, 0.1)) !important;
+      outline: 1.5px solid var(--ngx-grid-cell-selected-border, #4f46e5);
+      outline-offset: -1.5px;
+    }
+
+    /* Row Drag &amp; Drop Styles */
+    .row-drag-handle {
+      cursor: grab;
+      user-select: none;
+      color: var(--ngx-grid-text-secondary, #94a3b8);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      padding: 0;
+      transition: all 0.2s ease;
+    }
+    .row-drag-handle:hover {
+      color: var(--ngx-input-focus, #4f46e5);
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      transform: scale(1.1);
+    }
+    .row-drag-handle:active {
+      cursor: grabbing;
+      transform: scale(0.95);
+    }
+    .grid-row {
+      transition: background-color 0.15s ease, opacity 0.2s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .grid-row.dragging-row td {
+      opacity: 0.35;
+      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.04)) !important;
+      color: var(--ngx-grid-text-secondary, #94a3b8);
+      transition: opacity 0.2s ease;
+    }
+    .grid-row.drag-over-row td {
+      border-top: 2.5px solid var(--ngx-btn-primary-bg, #4f46e5) !important;
+      background: rgba(79, 70, 229, 0.03) !important;
+      box-shadow: inset 0 2px 4px rgba(79, 70, 229, 0.05);
+    }
+
+    .grid-context-menu {
+      position: absolute;
+      width: 215px;
+      background: var(--ngx-grid-bg, rgba(255, 255, 255, 0.95));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-grid-border, #e2e8f0);
+      border-radius: 10px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      z-index: 2000;
+      padding: 6px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-family: inherit;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: none;
+      background: transparent;
+      color: var(--ngx-grid-text, #0f172a);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .menu-item:hover:not(:disabled) {
+      background: var(--ngx-grid-hover-bg, #f1f5f9);
+      color: var(--ngx-btn-primary-bg, #4f46e5);
+    }
+    .menu-item:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .menu-icon {
+      font-size: 14px;
+      width: 16px;
+      text-align: center;
+    }
+    .menu-divider {
+      height: 1px;
+      background: var(--ngx-grid-border, #e2e8f0);
+      margin: 4px 6px;
+    }
+
+    /* Checkbox Custom Styling for Premium Look */
+    .grid-th-check input[type&#x3D;&quot;checkbox&quot;],
+    .grid-td-check input[type&#x3D;&quot;checkbox&quot;],
+    .checklist-item input[type&#x3D;&quot;checkbox&quot;] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--ngx-grid-border, #cbd5e1);
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ngx-grid-bg, #ffffff);
+      transition: all 0.2s ease;
+      margin: 0;
+      position: relative;
+    }
+    .grid-th-check input[type&#x3D;&quot;checkbox&quot;]:hover,
+    .grid-td-check input[type&#x3D;&quot;checkbox&quot;]:hover,
+    .checklist-item input[type&#x3D;&quot;checkbox&quot;]:hover {
+      border-color: var(--ngx-input-focus, #4f46e5);
+      box-shadow: 0 0 0 2.5px rgba(79, 70, 229, 0.15);
+    }
+    .grid-th-check input[type&#x3D;&quot;checkbox&quot;]:checked,
+    .grid-td-check input[type&#x3D;&quot;checkbox&quot;]:checked,
+    .checklist-item input[type&#x3D;&quot;checkbox&quot;]:checked {
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+    }
+    .grid-th-check input[type&#x3D;&quot;checkbox&quot;]:checked::after,
+    .grid-td-check input[type&#x3D;&quot;checkbox&quot;]:checked::after,
+    .checklist-item input[type&#x3D;&quot;checkbox&quot;]:checked::after {
+      content: &quot;&quot;;
+      display: block;
+      width: 4px;
+      height: 8px;
+      border: solid #ffffff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      margin-bottom: 2px;
+    }
+    .grid-th-check input[type&#x3D;&quot;checkbox&quot;]:indeterminate {
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      border-color: var(--ngx-btn-primary-bg, #4f46e5);
+    }
+    .grid-th-check input[type&#x3D;&quot;checkbox&quot;]:indeterminate::after {
+      content: &quot;&quot;;
+      display: block;
+      width: 8px;
+      height: 2px;
+      background: #ffffff;
+    }
+    
+    /* Drag-and-Drop Grouping Panel Styles */
+    .grid-grouping-panel {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--ngx-grid-header-bg, #f8fafc);
+      border: 1.5px dashed var(--ngx-grid-border, #cbd5e1);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: var(--ngx-grid-text-secondary, #64748b);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+    .grid-grouping-panel.drag-over {
+      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.05));
+      border-color: var(--ngx-input-focus, #4f46e5);
+      border-style: solid;
+      color: var(--ngx-input-focus, #4f46e5);
+    }
+    .grouping-panel-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .group-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--ngx-btn-primary-bg, #4f46e5);
+      color: #ffffff;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+    }
+    .remove-group-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+    .remove-group-btn:hover {
+      opacity: 1;
+    }
+  &#x60;],
+})
+export class DataGridComponent&lt;T extends object &#x3D; Record&lt;string, unknown&gt;&gt; implements OnInit {
+  @ContentChildren(NgxGridCellTemplateDirective) cellTemplates!: QueryList&lt;NgxGridCellTemplateDirective&gt;;
+  @ContentChildren(NgxGridEditCellTemplateDirective) editCellTemplates!: QueryList&lt;NgxGridEditCellTemplateDirective&gt;;
+  @ContentChildren(NgxGridHeaderTemplateDirective) headerTemplates!: QueryList&lt;NgxGridHeaderTemplateDirective&gt;;
+  @ContentChildren(NgxGridFooterTemplateDirective) footerTemplates!: QueryList&lt;NgxGridFooterTemplateDirective&gt;;
+
+  /**
+   * The tabular dataset to render in the grid.
+   */
+  data &#x3D; input&lt;T[]&gt;([]);
+
+  /**
+   * The column definition metadata specifying header labels, fields, sorting/filtering settings, and templates.
+   */
+  columns &#x3D; input&lt;GridColumnDef&lt;T&gt;[]&gt;([]);
+
+  stateKey &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+  reorderable &#x3D; input&lt;boolean&gt;(false);
+  multiSort &#x3D; input&lt;boolean&gt;(false);
+  columnReorder &#x3D; output&lt;{ columns: GridColumnDef&lt;T&gt;[] }&gt;();
+  rowReorderable &#x3D; input&lt;boolean&gt;(false);
+  showGlobalSearch &#x3D; input&lt;boolean&gt;(false);
+  globalSearchPlaceholder &#x3D; input&lt;string&gt;(&#x27;Search...&#x27;);
+  rowReorder &#x3D; output&lt;{ previousIndex: number; currentIndex: number; data: T[] }&gt;();
+
+  // Enterprise feature inputs &amp; outputs
+  showStatusBar &#x3D; input&lt;boolean&gt;(false);
+  showFilterBuilder &#x3D; input&lt;boolean&gt;(false);
+  treeData &#x3D; input&lt;TreeDataConfig | null&gt;(null);
+  pinnedTopRows &#x3D; input&lt;T[]&gt;([]);
+  pinnedBottomRows &#x3D; input&lt;T[]&gt;([]);
+  infiniteScroll &#x3D; input&lt;boolean&gt;(false);
+  filterExpression &#x3D; input&lt;FilterExpression | null&gt;(null);
+  filterExpressionChange &#x3D; output&lt;FilterExpression | null&gt;();
+  infiniteScrollLoad &#x3D; output&lt;GridInfiniteScrollEvent&gt;();
+
+  // Injected services
+  private xlsxExportService &#x3D; inject(GridExportXlsxService);
+
+  // Filter builder state
+  isFilterBuilderOpen &#x3D; signal&lt;boolean&gt;(false);
+  internalFilterExpression &#x3D; signal&lt;FilterExpression | null&gt;(null);
+
+  /** Live selection aggregates for status bar */
+  selectionAggregates &#x3D; computed&lt;GridStatusBarAggregates&gt;(() &#x3D;&gt; {
+    const selectedText &#x3D; this.getSelectedCellsText();
+    if (!selectedText) {
+      const selRows &#x3D; this.selectedRows();
+      return { count: selRows.size, sum: null, average: null, min: null, max: null };
+    }
+    const numbers &#x3D; selectedText.split(/[\t\n]/)
+      .map(str &#x3D;&gt; str.trim())
+      .filter(str &#x3D;&gt; str !&#x3D;&#x3D; &#x27;&#x27; &amp;&amp; !isNaN(Number(str)))
+      .map(str &#x3D;&gt; Number(str));
+
+    const count &#x3D; numbers.length;
+    if (count &#x3D;&#x3D;&#x3D; 0) return { count: 0, sum: null, average: null, min: null, max: null };
+    const sum &#x3D; numbers.reduce((a, b) &#x3D;&gt; a + b, 0);
+    const average &#x3D; sum / count;
+    const min &#x3D; Math.min(...numbers);
+    const max &#x3D; Math.max(...numbers);
+    return { count, sum, average, min, max };
+  });
+
+  onFilterExpressionChange(expr: FilterExpression | null): void {
+    this.internalFilterExpression.set(expr);
+    this.filterExpressionChange.emit(expr);
+  }
+
+  exportToXlsx(filename &#x3D; &#x27;grid-data.xlsx&#x27;): void {
+    this.xlsxExportService.exportToXlsx(
+      this.clientFilteredData(),
+      this.columns() as GridColumnDef&lt;T&gt;[],
+      filename,
+      { groupBy: this.internalGroupBy() }
+    );
+  }
+
+  /**
+   * Number of rows to render per page in paginated mode.
+   * @default 10
+   */
+  pageSize &#x3D; input&lt;number&gt;(10);
+
+  /**
+   * The current active 1-indexed page number.
+   * @default 1
+   */
+  page &#x3D; input&lt;number&gt;(1);
+
+  total &#x3D; input&lt;number&gt;(0);
+
+  /**
+   * Whether row selection is enabled.
+   * @default false
+   */
+  selectable &#x3D; input&lt;boolean&gt;(false);
+
+  striped &#x3D; input&lt;boolean&gt;(true);
+  loading &#x3D; input&lt;boolean&gt;(false);
+
+  /**
+   * Whether inline cell/row editing is enabled.
+   * @default false
+   */
+  editable &#x3D; input&lt;boolean&gt;(false);
+
+  sortMode &#x3D; input&lt;&#x27;client&#x27; | &#x27;server&#x27;&gt;(&#x27;client&#x27;);
+  filterMode &#x3D; input&lt;&#x27;client&#x27; | &#x27;server&#x27;&gt;(&#x27;client&#x27;);
+  groupMode &#x3D; input&lt;&#x27;client&#x27; | &#x27;server&#x27;&gt;(&#x27;client&#x27;);
+  pagingMode &#x3D; input&lt;&#x27;client&#x27; | &#x27;server&#x27;&gt;(&#x27;client&#x27;);
+
+  groupBy &#x3D; input&lt;GridGroupState | null&gt;(null);
+  groupedData &#x3D; input&lt;GridGroupResult&lt;T&gt;[]&gt;([]);
+
+  headerTemplate &#x3D; input&lt;TemplateRef&lt;GridHeaderTemplateContext&lt;T&gt;&gt; | null&gt;(null);
+  cellTemplate &#x3D; input&lt;TemplateRef&lt;GridCellTemplateContext&lt;T&gt;&gt; | null&gt;(null);
+  editCellTemplate &#x3D; input&lt;TemplateRef&lt;GridCellTemplateContext&lt;T&gt;&gt; | null&gt;(null);
+  rowTemplate &#x3D; input&lt;TemplateRef&lt;GridRowTemplateContext&lt;T&gt;&gt; | null&gt;(null);
+  detailRowTemplate &#x3D; input&lt;TemplateRef&lt;GridDetailTemplateContext&lt;T&gt;&gt; | null&gt;(null);
+  footerTemplate &#x3D; input&lt;TemplateRef&lt;GridFooterTemplateContext&lt;T&gt;&gt; | null&gt;(null);
+
+  rowClick &#x3D; output&lt;GridRowClickEvent&lt;T&gt;&gt;();
+  selectionChange &#x3D; output&lt;T[]&gt;();
+  sortChange &#x3D; output&lt;GridSortChangeEvent&gt;();
+  filterChange &#x3D; output&lt;GridFilterChangeEvent&gt;();
+  groupChange &#x3D; output&lt;GridGroupChangeEvent&gt;();
+  pageChange &#x3D; output&lt;GridPageChangeEvent&gt;();
+  dataStateChange &#x3D; output&lt;GridDataStateChangeEvent&gt;();
+  rowUpdate &#x3D; output&lt;GridRowUpdateEvent&lt;T&gt;&gt;();
+
+  // New Enterprise Features
+  showColumnChooser &#x3D; input&lt;boolean&gt;(false);
+  cellSelection &#x3D; input&lt;boolean&gt;(false);
+  cellSelectionChange &#x3D; output&lt;{ start: { row: T; colField: string }; end: { row: T; colField: string } } | null&gt;();
+  enableContextMenu &#x3D; input&lt;boolean&gt;(false);
+  keyboardNavigation &#x3D; input&lt;boolean&gt;(false);
+  groupAggregations &#x3D; input&lt;boolean&gt;(false);
+  showGroupingPanel &#x3D; input&lt;boolean&gt;(false);
+  rowClass &#x3D; input&lt;((row: T) &#x3D;&gt; string) | null&gt;(null);
+  compact &#x3D; input&lt;boolean&gt;(false);
+
+  /**
+   * Whether to render only the visible rows using high-performance row virtualization.
+   * Useful when rendering large datasets (1,000+ items).
+   * @default false
+   */
+  virtualScroll &#x3D; input&lt;boolean&gt;(false);
+
+  /**
+   * The height of each row in pixels. Required for virtual scrolling viewport calculations.
+   * @default 49
+   */
+  rowHeight &#x3D; input&lt;number&gt;(49);
+
+  sortState &#x3D; signal&lt;GridSortState | null&gt;(null);
+  currentPage &#x3D; signal(1);
+  selectedRows &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  expandedRows &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  collapsedGroups &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  editingRowKey &#x3D; signal&lt;string | null&gt;(null);
+  editingDraft &#x3D; signal&lt;Record&lt;string, unknown&gt;&gt;({});
+  internalPageSize &#x3D; signal&lt;number&gt;(10);
+  internalGroupBy &#x3D; signal&lt;GridGroupState | null&gt;(null);
+  isGroupingPanelDragOver &#x3D; signal&lt;boolean&gt;(false);
+
+  scrollTop &#x3D; signal&lt;number&gt;(0);
+  viewportHeight &#x3D; signal&lt;number&gt;(400);
+
+  startIndex &#x3D; computed(() &#x3D;&gt; {
+    if (!this.virtualScroll()) return 0;
+    return Math.max(0, Math.floor(this.scrollTop() / this.rowHeight()) - 3);
+  });
+
+  endIndex &#x3D; computed(() &#x3D;&gt; {
+    const totalCount &#x3D; this.flatRenderedRows().length;
+    if (!this.virtualScroll()) return totalCount;
+    return Math.min(totalCount, Math.ceil((this.scrollTop() + this.viewportHeight()) / this.rowHeight()) + 3);
+  });
+
+  visibleRows &#x3D; computed(() &#x3D;&gt; {
+    const rendered &#x3D; this.flatRenderedRows();
+    if (!this.virtualScroll()) return rendered;
+    return rendered.slice(this.startIndex(), this.endIndex());
+  });
+  
+  // Enterprise Extensions
+  i18n &#x3D; inject(NGX_CORE_I18N);
+  private elementRef &#x3D; inject(ElementRef);
+  destroyRef &#x3D; inject(DestroyRef);
+  private gridExportService &#x3D; inject(GridExportService);
+  columnWidths &#x3D; signal&lt;Record&lt;string, number&gt;&gt;({});
+  filterStates &#x3D; signal&lt;Map&lt;string, GridFilterState&gt;&gt;(new Map());
+  sortStates &#x3D; signal&lt;GridSortState[]&gt;([]);
+  columnOrder &#x3D; signal&lt;string[]&gt;([]);
+  
+  // Column Chooser state
+  hiddenColumns &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  activeColumnChooserPopover &#x3D; signal&lt;{ top: number; left: number } | null&gt;(null);
+
+  // Cell Selection state
+  selectedCellStart &#x3D; signal&lt;{ row: T; colField: string } | null&gt;(null);
+  selectedCellEnd &#x3D; signal&lt;{ row: T; colField: string } | null&gt;(null);
+  isCellDragging &#x3D; signal&lt;boolean&gt;(false);
+
+  // Context Menu state
+  activeContextMenu &#x3D; signal&lt;{ x: number; y: number; row: T | null; colField: string | null } | null&gt;(null);
+  columnPinnedOverrides &#x3D; signal&lt;Record&lt;string, &#x27;left&#x27; | &#x27;right&#x27; | null&gt;&gt;({});
+
+  // Keyboard Navigation state
+  focusedCell &#x3D; signal&lt;{ row: T; colField: string } | null&gt;(null);
+  focusedCellEditActive &#x3D; signal&lt;boolean&gt;(false);
+
+  // Drag and drop state
+  draggingField &#x3D; signal&lt;string | null&gt;(null);
+  dragOverField &#x3D; signal&lt;string | null&gt;(null);
+  draggingRowIndex &#x3D; signal&lt;number | null&gt;(null);
+  dragOverRowIndex &#x3D; signal&lt;number | null&gt;(null);
+  
+  // Resizing state
+  private resizeStartWidth &#x3D; 0;
+  private resizeStartX &#x3D; 0;
+  private resizingField: string | null &#x3D; null;
+  private isInitialPageSync &#x3D; true;
+
+  // Filter Popover state
+  activeFilterPopover &#x3D; signal&lt;{ field: string; top: number; left: number } | null&gt;(null);
+  tempFilterValue &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  tempFilterOperator &#x3D; signal&lt;&#x27;contains&#x27; | &#x27;startsWith&#x27; | &#x27;endsWith&#x27; | &#x27;eq&#x27;&gt;(&#x27;contains&#x27;);
+  tempSelectedValues &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  filterSearchQuery &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  // Global search state
+  searchText &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      const externalPage &#x3D; this.page();
+      const current &#x3D; untracked(() &#x3D;&gt; this.currentPage());
+      if (this.isInitialPageSync) {
+        this.isInitialPageSync &#x3D; false;
+        if (this.stateKey()) {
+          return;
+        }
+      }
+      if (externalPage &gt; 0 &amp;&amp; externalPage !&#x3D;&#x3D; current) {
+        untracked(() &#x3D;&gt; this.currentPage.set(externalPage));
+      }
+    });
+
+    effect(() &#x3D;&gt; {
+      const max &#x3D; this.totalPages();
+      if (this.currentPage() &gt; max) {
+        this.currentPage.set(max);
+      }
+    });
+
+    effect(() &#x3D;&gt; {
+      const externalPageSize &#x3D; this.pageSize();
+      untracked(() &#x3D;&gt; this.internalPageSize.set(externalPageSize));
+    });
+
+    effect(() &#x3D;&gt; {
+      const externalGroupBy &#x3D; this.groupBy();
+      untracked(() &#x3D;&gt; this.internalGroupBy.set(externalGroupBy));
+    });
+
+    effect(() &#x3D;&gt; {
+      const states &#x3D; this.sortStates();
+      const current &#x3D; untracked(() &#x3D;&gt; this.sortState());
+      const first &#x3D; states.length &gt; 0 ? states[0] : null;
+      if (JSON.stringify(first) !&#x3D;&#x3D; JSON.stringify(current)) {
+        untracked(() &#x3D;&gt; this.sortState.set(first));
+      }
+    });
+
+    effect(() &#x3D;&gt; {
+      const single &#x3D; this.sortState();
+      const current &#x3D; untracked(() &#x3D;&gt; this.sortStates());
+      const first &#x3D; current.length &gt; 0 ? current[0] : null;
+      if (JSON.stringify(single) !&#x3D;&#x3D; JSON.stringify(first)) {
+        untracked(() &#x3D;&gt; this.sortStates.set(single ? [single] : []));
+      }
+    });
+
+    // Initialize hidden columns from definitions
+    effect(() &#x3D;&gt; {
+      const cols &#x3D; this.columns();
+      untracked(() &#x3D;&gt; {
+        const currentHidden &#x3D; this.hiddenColumns();
+        if (currentHidden.size &#x3D;&#x3D;&#x3D; 0 &amp;&amp; !this.stateKey()) {
+          const initialHidden &#x3D; new Set&lt;string&gt;();
+          cols.forEach(c &#x3D;&gt; {
+            if (c.hidden) {
+              initialHidden.add(c.field);
+            }
+          });
+          if (initialHidden.size &gt; 0) {
+            this.hiddenColumns.set(initialHidden);
+          }
+        }
+      });
+    }, { allowSignalWrites: true });
+
+    effect(() &#x3D;&gt; {
+      const key &#x3D; this.stateKey();
+      if (!key || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof localStorage &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+        return;
+      }
+      const state &#x3D; {
+        columnWidths: this.columnWidths(),
+        sortState: this.sortState(),
+        sortStates: this.sortStates(),
+        columnOrder: this.columnOrder(),
+        currentPage: this.currentPage(),
+        filters: Array.from(this.filterStates().values()),
+        searchText: this.searchText(),
+        hiddenColumns: Array.from(this.hiddenColumns()),
+        columnPinnedOverrides: this.columnPinnedOverrides()
+      };
+      try {
+        localStorage.setItem(&#x60;ngx_grid_state_${key}&#x60;, JSON.stringify(state));
+      } catch (e) {
+        console.warn(&#x27;Failed to save grid state to localStorage&#x27;, e);
+      }
+    });
+
+    // Window event listeners for closing popovers and copy behavior
+    if (typeof window !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const clickListener &#x3D; () &#x3D;&gt; {
+        this.activeFilterPopover.set(null);
+        this.activeColumnChooserPopover.set(null);
+        this.activeContextMenu.set(null);
+      };
+      const mouseUpListener &#x3D; () &#x3D;&gt; {
+        if (this.isCellDragging()) {
+          this.isCellDragging.set(false);
+        }
+      };
+      const keydownListener &#x3D; (e: KeyboardEvent) &#x3D;&gt; {
+        if (e.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+          this.activeFilterPopover.set(null);
+          this.activeColumnChooserPopover.set(null);
+          this.activeContextMenu.set(null);
+        }
+        if (!this.cellSelection()) return;
+        if ((e.ctrlKey || e.metaKey) &amp;&amp; e.key.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;c&#x27;) {
+          const start &#x3D; this.selectedCellStart();
+          const end &#x3D; this.selectedCellEnd();
+          if (!start || !end) return;
+
+          const text &#x3D; this.getSelectedCellsText();
+          if (text) {
+            e.preventDefault();
+            navigator.clipboard.writeText(text).catch(err &#x3D;&gt; {
+              console.error(&#x27;Failed to copy grid cell range to clipboard&#x27;, err);
+            });
+          }
+        }
+      };
+
+      window.addEventListener(&#x27;click&#x27;, clickListener);
+      window.addEventListener(&#x27;mouseup&#x27;, mouseUpListener);
+      window.addEventListener(&#x27;keydown&#x27;, keydownListener);
+
+      this.destroyRef.onDestroy(() &#x3D;&gt; {
+        window.removeEventListener(&#x27;click&#x27;, clickListener);
+        window.removeEventListener(&#x27;mouseup&#x27;, mouseUpListener);
+        window.removeEventListener(&#x27;keydown&#x27;, keydownListener);
+      });
+    }
+  }
+
+  ngOnInit(): void {
+    this.internalPageSize.set(this.pageSize());
+    this.internalGroupBy.set(this.groupBy());
+    this.loadState();
+  }
+
+  private loadState(): void {
+    const key &#x3D; this.stateKey();
+    if (!key || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof localStorage &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      return;
+    }
+    try {
+      const saved &#x3D; localStorage.getItem(&#x60;ngx_grid_state_${key}&#x60;);
+      if (saved) {
+        const state &#x3D; JSON.parse(saved);
+        if (state.columnWidths) {
+          this.columnWidths.set(state.columnWidths);
+        }
+        if (state.columnOrder) {
+          this.columnOrder.set(state.columnOrder);
+        }
+        if (state.sortStates) {
+          this.sortStates.set(state.sortStates);
+          this.sortState.set(state.sortStates.length &gt; 0 ? state.sortStates[0] : null);
+        } else if (state.sortState !&#x3D;&#x3D; undefined) {
+          this.sortState.set(state.sortState);
+          this.sortStates.set(state.sortState ? [state.sortState] : []);
+        }
+        if (state.currentPage !&#x3D;&#x3D; undefined) {
+          this.currentPage.set(state.currentPage);
+        }
+        if (state.filters) {
+          const map &#x3D; new Map&lt;string, GridFilterState&gt;();
+          (state.filters as GridFilterState[]).forEach((f: GridFilterState) &#x3D;&gt; {
+            map.set(f.field, f);
+          });
+          this.filterStates.set(map);
+        }
+        if (state.searchText !&#x3D;&#x3D; undefined) {
+          this.searchText.set(state.searchText);
+        }
+        if (state.hiddenColumns) {
+          this.hiddenColumns.set(new Set(state.hiddenColumns));
+        }
+        if (state.columnPinnedOverrides) {
+          this.columnPinnedOverrides.set(state.columnPinnedOverrides);
+        }
+      }
+    } catch (e) {
+      console.warn(&#x27;Failed to load grid state from localStorage&#x27;, e);
+    }
+  }
+
+  orderedColumns &#x3D; computed(() &#x3D;&gt; {
+    const cols &#x3D; this.columns();
+    const order &#x3D; this.columnOrder();
+    const hidden &#x3D; this.hiddenColumns();
+    const pinOverrides &#x3D; this.columnPinnedOverrides();
+    
+    let mapped &#x3D; cols
+      .filter(c &#x3D;&gt; !hidden.has(c.field))
+      .map(c &#x3D;&gt; {
+        const pinOverride &#x3D; pinOverrides[c.field];
+        if (pinOverride !&#x3D;&#x3D; undefined) {
+          return { ...c, pinned: pinOverride &#x3D;&#x3D;&#x3D; null ? undefined : pinOverride };
+        }
+        return c;
+      });
+
+    if (order.length &gt; 0) {
+      mapped.sort((a, b) &#x3D;&gt; {
+        const idxA &#x3D; order.indexOf(a.field);
+        const idxB &#x3D; order.indexOf(b.field);
+        if (idxA &#x3D;&#x3D;&#x3D; -1 &amp;&amp; idxB &#x3D;&#x3D;&#x3D; -1) return 0;
+        if (idxA &#x3D;&#x3D;&#x3D; -1) return 1;
+        if (idxB &#x3D;&#x3D;&#x3D; -1) return -1;
+        return idxA - idxB;
+      });
+    }
+    
+    const pinnedLeft &#x3D; mapped.filter(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;);
+    const pinnedRight &#x3D; mapped.filter(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;);
+    const normal &#x3D; mapped.filter(c &#x3D;&gt; c.pinned !&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; c.pinned !&#x3D;&#x3D; &#x27;right&#x27;);
+    return [...pinnedLeft, ...normal, ...pinnedRight];
+  });
+
+  hasPinnedColumns &#x3D; computed(() &#x3D;&gt; this.orderedColumns().some(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; || c.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;));
+
+  lastPinnedColumnField &#x3D; computed(() &#x3D;&gt; {
+    const pinned &#x3D; this.orderedColumns().filter(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;);
+    return pinned.length &gt; 0 ? pinned[pinned.length - 1].field : null;
+  });
+
+  isSelectableLastPinned &#x3D; computed(() &#x3D;&gt; {
+    const hasPinnedCols &#x3D; this.orderedColumns().some(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;);
+    return this.selectable() &amp;&amp; !hasPinnedCols;
+  });
+
+  isDetailToggleLastPinned &#x3D; computed(() &#x3D;&gt; {
+    const hasPinnedCols &#x3D; this.orderedColumns().some(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;);
+    return this.showDetailToggle() &amp;&amp; !this.selectable() &amp;&amp; !hasPinnedCols;
+  });
+
+  isRowReorderableLastPinned &#x3D; computed(() &#x3D;&gt; {
+    const hasPinnedCols &#x3D; this.orderedColumns().some(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;);
+    return this.rowReorderable() &amp;&amp; !this.showDetailToggle() &amp;&amp; !this.selectable() &amp;&amp; !hasPinnedCols;
+  });
+
+  firstPinnedRightColumnField &#x3D; computed(() &#x3D;&gt; {
+    const pinned &#x3D; this.orderedColumns().filter(c &#x3D;&gt; c.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;);
+    return pinned.length &gt; 0 ? pinned[0].field : null;
+  });
+
+  columnRightOffsets &#x3D; computed(() &#x3D;&gt; {
+    const offsets: Record&lt;string, number&gt; &#x3D; {};
+    let currentOffset &#x3D; 0;
+    
+    if (this.editable()) {
+      offsets[&#x27;__actions&#x27;] &#x3D; currentOffset;
+      currentOffset +&#x3D; 120;
+    }
+    
+    const cols &#x3D; this.orderedColumns();
+    for (let i &#x3D; cols.length - 1; i &gt;&#x3D; 0; i--) {
+      const col &#x3D; cols[i];
+      if (col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27;) {
+        offsets[col.field] &#x3D; currentOffset;
+        currentOffset +&#x3D; this.getColumnWidth(col) ?? 120;
+      }
+    }
+    return offsets;
+  });
+
+  columnOffsets &#x3D; computed(() &#x3D;&gt; {
+    const offsets: Record&lt;string, number&gt; &#x3D; {};
+    let currentOffset &#x3D; 0;
+    
+    if (this.rowReorderable()) {
+      currentOffset +&#x3D; 44;
+    }
+    if (this.showDetailToggle()) {
+      currentOffset +&#x3D; 44;
+    }
+    if (this.selectable()) {
+      currentOffset +&#x3D; 44;
+    }
+    
+    const cols &#x3D; this.orderedColumns();
+    for (const col of cols) {
+      if (col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;) {
+        offsets[col.field] &#x3D; currentOffset;
+        currentOffset +&#x3D; this.getColumnWidth(col) ?? 120;
+      }
+    }
+    return offsets;
+  });
+
+  hasColumnCategories &#x3D; computed(() &#x3D;&gt; {
+    return this.orderedColumns().some(c &#x3D;&gt; !!c.category);
+  });
+
+  headerRows &#x3D; computed(() &#x3D;&gt; {
+    const cols &#x3D; this.orderedColumns();
+    const hasCat &#x3D; this.hasColumnCategories();
+    if (!hasCat) {
+      return {
+        row1: cols.map(c &#x3D;&gt; ({
+          title: c.title,
+          column: c,
+          colSpan: 1,
+          rowSpan: 1,
+          isCategory: false,
+          field: c.field,
+          pinned: c.pinned,
+          leftOffset: c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? this.columnOffsets()[c.field] : null,
+          rightOffset: c.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? this.columnRightOffsets()[c.field] : null,
+          isPinnedLast: c.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; this.lastPinnedColumnField() &#x3D;&#x3D;&#x3D; c.field,
+          isPinnedFirst: c.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; this.firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; c.field
+        })),
+        row2: [] as any[]
+      };
+    }
+
+    const row1: any[] &#x3D; [];
+    const row2: any[] &#x3D; [];
+
+    let i &#x3D; 0;
+    while (i &lt; cols.length) {
+      const col &#x3D; cols[i];
+      if (!col.category) {
+        row1.push({
+          title: col.title,
+          column: col,
+          colSpan: 1,
+          rowSpan: 2,
+          isCategory: false,
+          field: col.field,
+          pinned: col.pinned,
+          leftOffset: col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? this.columnOffsets()[col.field] : null,
+          rightOffset: col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? this.columnRightOffsets()[col.field] : null,
+          isPinnedLast: col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; this.lastPinnedColumnField() &#x3D;&#x3D;&#x3D; col.field,
+          isPinnedFirst: col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; this.firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; col.field
+        });
+        i++;
+      } else {
+        const cat &#x3D; col.category;
+        const startIdx &#x3D; i;
+        while (i &lt; cols.length &amp;&amp; cols[i].category &#x3D;&#x3D;&#x3D; cat &amp;&amp; cols[i].pinned &#x3D;&#x3D;&#x3D; col.pinned) {
+          const currentCol &#x3D; cols[i];
+          row2.push({
+            title: currentCol.title,
+            column: currentCol,
+            colSpan: 1,
+            rowSpan: 1,
+            isCategory: false,
+            field: currentCol.field,
+            pinned: currentCol.pinned,
+            leftOffset: currentCol.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? this.columnOffsets()[currentCol.field] : null,
+            rightOffset: currentCol.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? this.columnRightOffsets()[currentCol.field] : null,
+            isPinnedLast: currentCol.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; this.lastPinnedColumnField() &#x3D;&#x3D;&#x3D; currentCol.field,
+            isPinnedFirst: currentCol.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; this.firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; currentCol.field
+          });
+          i++;
+        }
+        const groupCount &#x3D; i - startIdx;
+        const lastColInGroup &#x3D; cols[i - 1];
+        row1.push({
+          title: cat,
+          colSpan: groupCount,
+          rowSpan: 1,
+          isCategory: true,
+          pinned: col.pinned,
+          leftOffset: col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? this.columnOffsets()[col.field] : null,
+          rightOffset: col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; ? this.columnRightOffsets()[lastColInGroup.field] : null,
+          isPinnedLast: col.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27; &amp;&amp; this.lastPinnedColumnField() &#x3D;&#x3D;&#x3D; lastColInGroup.field,
+          isPinnedFirst: col.pinned &#x3D;&#x3D;&#x3D; &#x27;right&#x27; &amp;&amp; this.firstPinnedRightColumnField() &#x3D;&#x3D;&#x3D; col.field,
+          field: &#x60;__cat_${cat}_${startIdx}&#x60;
+        });
+      }
+    }
+
+    return { row1, row2 };
+  });
+
+  hasFilterableColumns &#x3D; computed(() &#x3D;&gt; this.columns().some(column &#x3D;&gt; column.filterable));
+  isAnyServerMode &#x3D; computed(() &#x3D;&gt;
+    this.sortMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27; ||
+    this.filterMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27; ||
+    this.groupMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27; ||
+    this.pagingMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27;
+  );
+  showDetailToggle &#x3D; computed(() &#x3D;&gt; this.detailRowTemplate() !&#x3D;&#x3D; null);
+
+  activeFilters &#x3D; computed&lt;GridFilterState[]&gt;(() &#x3D;&gt;
+    Array.from(this.filterStates().values())
+  );
+
+  private clientFilteredData &#x3D; computed(() &#x3D;&gt; {
+    if (this.filterMode() !&#x3D;&#x3D; &#x27;client&#x27;) {
+      return this.data();
+    }
+
+    let rows &#x3D; this.data() as T[];
+    for (const filter of this.activeFilters()) {
+      if (filter.operator &#x3D;&#x3D;&#x3D; &#x27;in&#x27;) {
+        const selected &#x3D; filter.selectedValues ?? [];
+        if (selected.length &gt; 0) {
+          rows &#x3D; rows.filter(row &#x3D;&gt; {
+            const cellVal &#x3D; String((row as Record&lt;string, unknown&gt;)[filter.field] ?? &#x27;&#x27;);
+            const displayVal &#x3D; cellVal &#x3D;&#x3D;&#x3D; &#x27;&#x27; || cellVal &#x3D;&#x3D; null ? &#x27;(Blank)&#x27; : cellVal;
+            return selected.includes(displayVal);
+          });
+        }
+      } else {
+        if (!filter.value) {
+          continue;
+        }
+        const query &#x3D; filter.value.toLowerCase();
+        const operator &#x3D; filter.operator ?? &#x27;contains&#x27;;
+        rows &#x3D; rows.filter(row &#x3D;&gt; {
+          const cellVal &#x3D; String((row as Record&lt;string, unknown&gt;)[filter.field] ?? &#x27;&#x27;).toLowerCase();
+          if (operator &#x3D;&#x3D;&#x3D; &#x27;eq&#x27;) return cellVal &#x3D;&#x3D;&#x3D; query;
+          if (operator &#x3D;&#x3D;&#x3D; &#x27;startsWith&#x27;) return cellVal.startsWith(query);
+          if (operator &#x3D;&#x3D;&#x3D; &#x27;endsWith&#x27;) return cellVal.endsWith(query);
+          return cellVal.includes(query); // contains
+        });
+      }
+    }
+    const searchVal &#x3D; this.searchText().trim().toLowerCase();
+    if (searchVal) {
+      const cols &#x3D; this.orderedColumns();
+      rows &#x3D; rows.filter(row &#x3D;&gt; {
+        return cols.some(col &#x3D;&gt; {
+          const cellVal &#x3D; String((row as Record&lt;string, unknown&gt;)[col.field] ?? &#x27;&#x27;).toLowerCase();
+          return cellVal.includes(searchVal);
+        });
+      });
+    }
+    return rows;
+  });
+
+  private clientSortedData &#x3D; computed(() &#x3D;&gt; {
+    const rows &#x3D; this.clientFilteredData();
+    if (this.sortMode() !&#x3D;&#x3D; &#x27;client&#x27;) {
+      return rows;
+    }
+
+    const activeSorts &#x3D; this.sortStates();
+    if (activeSorts.length &#x3D;&#x3D;&#x3D; 0) {
+      return rows;
+    }
+
+    return [...rows].sort((left, right) &#x3D;&gt; {
+      for (const state of activeSorts) {
+        const leftValue &#x3D; (left as Record&lt;string, unknown&gt;)[state.field];
+        const rightValue &#x3D; (right as Record&lt;string, unknown&gt;)[state.field];
+        const compared &#x3D; this.compareValues(leftValue, rightValue);
+        if (compared !&#x3D;&#x3D; 0) {
+          return state.dir &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? compared : -compared;
+        }
+      }
+      return 0;
+    });
+  });
+
+  private baseFlatData &#x3D; computed(() &#x3D;&gt; {
+    if (this.sortMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27; || this.filterMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27;) {
+      return this.data();
+    }
+    return this.clientSortedData();
+  });
+
+  totalItems &#x3D; computed(() &#x3D;&gt; {
+    if (this.pagingMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27;) {
+      return this.total() &gt; 0 ? this.total() : this.data().length;
+    }
+    return this.baseFlatData().length;
+  });
+
+  totalPages &#x3D; computed(() &#x3D;&gt; {
+    const pageSize &#x3D; Math.max(1, this.internalPageSize());
+    return Math.max(1, Math.ceil(this.totalItems() / pageSize));
+  });
+
+  flatRenderedRows &#x3D; computed(() &#x3D;&gt; {
+    if (this.hasGrouping()) {
+      return [] as T[];
+    }
+
+    if (this.pagingMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27;) {
+      return this.data();
+    }
+
+    const pageSize &#x3D; Math.max(1, this.internalPageSize());
+    const start &#x3D; (this.currentPage() - 1) * pageSize;
+    return this.baseFlatData().slice(start, start + pageSize);
+  });
+
+  groupedRows &#x3D; computed(() &#x3D;&gt; {
+    if (!this.hasGrouping()) {
+      return [] as GridGroupResult&lt;T&gt;[];
+    }
+
+    if (this.groupMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27;) {
+      return this.groupedData();
+    }
+
+    const group &#x3D; this.internalGroupBy();
+    if (!group) {
+      return [];
+    }
+
+    const source &#x3D; this.pagingMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27;
+      ? this.data()
+      : this.paginateRows(this.baseFlatData());
+
+    const map &#x3D; new Map&lt;string, GridGroupResult&lt;T&gt;&gt;();
+    for (const row of source) {
+      const value &#x3D; (row as Record&lt;string, unknown&gt;)[group.field];
+      const key &#x3D; String(value ?? &#x27;(empty)&#x27;);
+      const existing &#x3D; map.get(key);
+      if (existing) {
+        existing.items.push(row);
+        existing.count +&#x3D; 1;
+      } else {
+        map.set(key, { key, value, field: group.field, count: 1, items: [row] });
+      }
+    }
+
+    const groups &#x3D; Array.from(map.values());
+    groups.sort((a, b) &#x3D;&gt; {
+      const compared &#x3D; this.compareValues(a.value, b.value);
+      return (group.dir ?? &#x27;asc&#x27;) &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? compared : -compared;
+    });
+
+    return groups;
+  });
+
+  allSelected &#x3D; computed(() &#x3D;&gt; {
+    const rows &#x3D; this.visibleSelectionRows();
+    if (rows.length &#x3D;&#x3D;&#x3D; 0) {
+      return false;
+    }
+    const selected &#x3D; this.selectedRows();
+    return rows.every(row &#x3D;&gt; selected.has(this.keyOf(row)));
+  });
+
+  someSelected &#x3D; computed(() &#x3D;&gt; {
+    const rows &#x3D; this.visibleSelectionRows();
+    const selected &#x3D; this.selectedRows();
+    return rows.some(row &#x3D;&gt; selected.has(this.keyOf(row)));
+  });
+
+  pagerRangeStart &#x3D; computed(() &#x3D;&gt; {
+    if (this.totalItems() &#x3D;&#x3D;&#x3D; 0) {
+      return 0;
+    }
+    return (this.currentPage() - 1) * this.internalPageSize() + 1;
+  });
+
+  pagerRangeEnd &#x3D; computed(() &#x3D;&gt; {
+    if (this.totalItems() &#x3D;&#x3D;&#x3D; 0) {
+      return 0;
+    }
+    return Math.min(this.currentPage() * this.internalPageSize(), this.totalItems());
+  });
+
+  pageNumbers &#x3D; computed(() &#x3D;&gt; {
+    const total &#x3D; this.totalPages();
+    const current &#x3D; this.currentPage();
+    const pages: number[] &#x3D; [];
+    const from &#x3D; Math.max(1, current - 2);
+    const to &#x3D; Math.min(total, current + 2);
+    for (let page &#x3D; from; page &lt;&#x3D; to; page +&#x3D; 1) {
+      pages.push(page);
+    }
+    return pages;
+  });
+
+  renderColumnCount &#x3D; computed(() &#x3D;&gt;
+    this.orderedColumns().length +
+    (this.selectable() ? 1 : 0) +
+    (this.showDetailToggle() ? 1 : 0) +
+    (this.rowReorderable() ? 1 : 0) +
+    (this.editable() ? 1 : 0)
+  );
+
+  showPager &#x3D; computed(() &#x3D;&gt; this.totalItems() &gt; 0);
+
+  renderedRowsList &#x3D; computed(() &#x3D;&gt; {
+    if (this.hasGrouping()) {
+      const list: T[] &#x3D; [];
+      this.groupedRows().forEach(group &#x3D;&gt; {
+        if (!this.isGroupCollapsed(group.key)) {
+          list.push(...group.items);
+        }
+      });
+      return list;
+    }
+    return this.flatRenderedRows();
+  });
+
+  isCellSelected(row: T, colField: string): boolean {
+    const start &#x3D; this.selectedCellStart();
+    const end &#x3D; this.selectedCellEnd();
+    if (!start || !end) return false;
+
+    const rows &#x3D; this.renderedRowsList();
+    const cols &#x3D; this.orderedColumns();
+
+    const startRowIndex &#x3D; rows.indexOf(start.row);
+    const endRowIndex &#x3D; rows.indexOf(end.row);
+    const rowIndex &#x3D; rows.indexOf(row);
+
+    const startColIndex &#x3D; cols.findIndex(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; start.colField);
+    const endColIndex &#x3D; cols.findIndex(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; end.colField);
+    const colIndex &#x3D; cols.findIndex(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; colField);
+
+    if (startRowIndex &#x3D;&#x3D;&#x3D; -1 || endRowIndex &#x3D;&#x3D;&#x3D; -1 || rowIndex &#x3D;&#x3D;&#x3D; -1 ||
+        startColIndex &#x3D;&#x3D;&#x3D; -1 || endColIndex &#x3D;&#x3D;&#x3D; -1 || colIndex &#x3D;&#x3D;&#x3D; -1) {
+      return false;
+    }
+
+    const minRow &#x3D; Math.min(startRowIndex, endRowIndex);
+    const maxRow &#x3D; Math.max(startRowIndex, endRowIndex);
+    const minCol &#x3D; Math.min(startColIndex, endColIndex);
+    const maxCol &#x3D; Math.max(startColIndex, endColIndex);
+
+    return rowIndex &gt;&#x3D; minRow &amp;&amp; rowIndex &lt;&#x3D; maxRow &amp;&amp; colIndex &gt;&#x3D; minCol &amp;&amp; colIndex &lt;&#x3D; maxCol;
+  }
+
+  onCellContextMenu(event: MouseEvent, row: T, colField: string): void {
+    if (!this.enableContextMenu()) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    const gridEl &#x3D; this.elementRef.nativeElement.querySelector(&#x27;.ngx-data-grid&#x27;) as HTMLElement;
+    const gridRect &#x3D; gridEl.getBoundingClientRect();
+
+    const x &#x3D; event.clientX - gridRect.left;
+    const y &#x3D; event.clientY - gridRect.top;
+
+    this.activeFilterPopover.set(null);
+    this.activeColumnChooserPopover.set(null);
+
+    this.activeContextMenu.set({
+      x: Math.min(x, gridRect.width - 190),
+      y: y,
+      row,
+      colField
+    });
+  }
+
+  isColumnPinned(field: string | null): boolean {
+    if (!field) return false;
+    const pinOverride &#x3D; this.columnPinnedOverrides()[field];
+    if (pinOverride !&#x3D;&#x3D; undefined) {
+      return pinOverride &#x3D;&#x3D;&#x3D; &#x27;left&#x27;;
+    }
+    const col &#x3D; this.columns().find(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; field);
+    return col?.pinned &#x3D;&#x3D;&#x3D; &#x27;left&#x27;;
+  }
+
+  contextMenuTogglePin(field: string | null): void {
+    if (!field) return;
+    const currentlyPinned &#x3D; this.isColumnPinned(field);
+    const overrides &#x3D; { ...this.columnPinnedOverrides() };
+    overrides[field] &#x3D; currentlyPinned ? null : &#x27;left&#x27;;
+    this.columnPinnedOverrides.set(overrides);
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuHideColumn(field: string | null): void {
+    if (field) {
+      this.toggleColumnVisibility(field);
+    }
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuClearFilters(): void {
+    this.filterStates.set(new Map());
+    this.currentPage.set(1);
+    this.filterChange.emit({ filters: [] });
+    this.emitDataState();
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuCopy(): void {
+    const text &#x3D; this.getSelectedCellsText();
+    if (text) {
+      navigator.clipboard.writeText(text).catch(err &#x3D;&gt; {
+        console.error(&#x27;Failed to copy to clipboard&#x27;, err);
+      });
+    }
+    this.activeContextMenu.set(null);
+  }
+
+  onCellMouseDown(event: MouseEvent, row: T, colField: string): void {
+    if (!this.cellSelection()) return;
+    if (event.button !&#x3D;&#x3D; 0) return;
+
+    const target &#x3D; event.target as HTMLElement;
+    if (target &amp;&amp; (target.closest(&#x27;.grid-edit-input&#x27;) || target.closest(&#x27;.action-btn&#x27;) || target.closest(&#x27;.toggle-btn&#x27;) || target.closest(&#x27;input[type&#x3D;&quot;checkbox&quot;]&#x27;))) {
+      return;
+    }
+
+    event.preventDefault();
+    
+    this.selectedCellStart.set({ row, colField });
+    this.selectedCellEnd.set({ row, colField });
+    this.isCellDragging.set(true);
+
+    this.cellSelectionChange.emit({
+      start: { row, colField },
+      end: { row, colField }
+    });
+  }
+
+  onCellMouseEnter(row: T, colField: string): void {
+    if (!this.cellSelection() || !this.isCellDragging()) return;
+
+    this.selectedCellEnd.set({ row, colField });
+
+    const start &#x3D; this.selectedCellStart();
+    if (start) {
+      this.cellSelectionChange.emit({
+        start,
+        end: { row, colField }
+      });
+    }
+  }
+
+  openColumnChooser(event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.activeColumnChooserPopover()) {
+      this.activeColumnChooserPopover.set(null);
+      return;
+    }
+
+    this.activeFilterPopover.set(null);
+
+    const buttonEl &#x3D; event.currentTarget as HTMLElement;
+    const gridEl &#x3D; this.elementRef.nativeElement.querySelector(&#x27;.ngx-data-grid&#x27;) as HTMLElement;
+    const buttonRect &#x3D; buttonEl.getBoundingClientRect();
+    const gridRect &#x3D; gridEl.getBoundingClientRect();
+
+    const top &#x3D; buttonRect.bottom - gridRect.top;
+    const left &#x3D; buttonRect.left - gridRect.left;
+
+    this.activeColumnChooserPopover.set({
+      top,
+      left: Math.min(left, gridRect.width - 260)
+    });
+  }
+
+  toggleColumnVisibility(field: string): void {
+    const hidden &#x3D; new Set(this.hiddenColumns());
+    if (hidden.has(field)) {
+      hidden.delete(field);
+    } else {
+      if (hidden.size &lt; this.columns().length - 1) {
+        hidden.add(field);
+      }
+    }
+    this.hiddenColumns.set(hidden);
+  }
+
+  getSelectedCellsText(): string | null {
+    const start &#x3D; this.selectedCellStart();
+    const end &#x3D; this.selectedCellEnd();
+    if (!start || !end) return null;
+
+    const rows &#x3D; this.renderedRowsList();
+    const cols &#x3D; this.orderedColumns();
+
+    const startRowIndex &#x3D; rows.indexOf(start.row);
+    const endRowIndex &#x3D; rows.indexOf(end.row);
+
+    const startColIndex &#x3D; cols.findIndex(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; start.colField);
+    const endColIndex &#x3D; cols.findIndex(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; end.colField);
+
+    if (startRowIndex &#x3D;&#x3D;&#x3D; -1 || endRowIndex &#x3D;&#x3D;&#x3D; -1 || startColIndex &#x3D;&#x3D;&#x3D; -1 || endColIndex &#x3D;&#x3D;&#x3D; -1) {
+      return null;
+    }
+
+    const minRow &#x3D; Math.min(startRowIndex, endRowIndex);
+    const maxRow &#x3D; Math.max(startRowIndex, endRowIndex);
+    const minCol &#x3D; Math.min(startColIndex, endColIndex);
+    const maxCol &#x3D; Math.max(startColIndex, endColIndex);
+
+    const selectedCols &#x3D; cols.slice(minCol, maxCol + 1);
+
+    const textLines: string[] &#x3D; [];
+    for (let r &#x3D; minRow; r &lt;&#x3D; maxRow; r++) {
+      if (r &gt;&#x3D; 0 &amp;&amp; r &lt; rows.length) {
+        const rowData &#x3D; rows[r];
+        const rowValues &#x3D; selectedCols.map(col &#x3D;&gt; {
+          const val &#x3D; this.getCellValue(rowData, col.field);
+          return val !&#x3D;&#x3D; null &amp;&amp; val !&#x3D;&#x3D; undefined ? String(val) : &#x27;&#x27;;
+        });
+        textLines.push(rowValues.join(&#x27;\t&#x27;));
+      }
+    }
+
+    return textLines.join(&#x27;\n&#x27;);
+  }
+
+  getFilter(field: string): string {
+    return this.filterStates().get(field)?.value ?? &#x27;&#x27;;
+  }
+
+  exportToJson(): void {
+    this.gridExportService.exportToJson(this.baseFlatData());
+  }
+
+  exportToCsv(): void {
+    this.gridExportService.exportToCsv(this.baseFlatData(), this.orderedColumns(), &#x27;grid-data.csv&#x27;, this.internalGroupBy());
+  }
+
+  exportToExcel(): void {
+    this.gridExportService.exportToExcel(this.baseFlatData(), this.orderedColumns(), &#x27;grid-data.xls&#x27;, this.internalGroupBy());
+  }
+
+  exportToPdf(): void {
+    this.gridExportService.exportToPdf(this.baseFlatData(), this.orderedColumns(), &#x27;Data Grid Export&#x27;, this.internalGroupBy());
+  }
+
+  setFilter(field: string, value: string): void {
+    const nextStates &#x3D; new Map(this.filterStates());
+    if (value) {
+      nextStates.set(field, { field, value, operator: &#x27;contains&#x27; });
+    } else {
+      nextStates.delete(field);
+    }
+
+    this.filterStates.set(nextStates);
+    this.currentPage.set(1);
+
+    const filters &#x3D; this.activeFilters();
+    this.filterChange.emit({ filters });
+    this.emitDataState();
+  }
+
+  getColumnWidth(col: GridColumnDef&lt;T&gt;): number | undefined {
+    return this.columnWidths()[col.field] ?? col.width;
+  }
+
+  onResizeStart(event: MouseEvent, col: GridColumnDef&lt;T&gt;): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.resizingField &#x3D; col.field;
+    this.resizeStartX &#x3D; event.clientX;
+    this.resizeStartWidth &#x3D; this.columnWidths()[col.field] ?? col.width ?? 120;
+
+    const onMouseMove &#x3D; (moveEvent: MouseEvent) &#x3D;&gt; {
+      if (!this.resizingField) return;
+      const deltaX &#x3D; moveEvent.clientX - this.resizeStartX;
+      const newWidth &#x3D; Math.max(50, this.resizeStartWidth + deltaX);
+      this.columnWidths.update(widths &#x3D;&gt; ({
+        ...widths,
+        [this.resizingField!]: newWidth
+      }));
+    };
+
+    const onMouseUp &#x3D; () &#x3D;&gt; {
+      this.resizingField &#x3D; null;
+      window.removeEventListener(&#x27;mousemove&#x27;, onMouseMove);
+      window.removeEventListener(&#x27;mouseup&#x27;, onMouseUp);
+    };
+
+    window.addEventListener(&#x27;mousemove&#x27;, onMouseMove);
+    window.addEventListener(&#x27;mouseup&#x27;, onMouseUp);
+  }
+
+  onResizeDoubleClick(event: MouseEvent, col: GridColumnDef&lt;T&gt;): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.autoSizeColumn(col);
+  }
+
+  autoSizeColumn(col: GridColumnDef&lt;T&gt;): void {
+    const colField &#x3D; col.field;
+    let longestText &#x3D; &#x27;&#x27;;
+
+    if (col.title &amp;&amp; col.title.length &gt; longestText.length) {
+      longestText &#x3D; col.title;
+    }
+
+    const rows &#x3D; this.clientFilteredData();
+    for (const row of rows) {
+      const val &#x3D; this.getCellValue(row, colField);
+      const strVal &#x3D; val !&#x3D; null ? String(val) : &#x27;&#x27;;
+      if (strVal.length &gt; longestText.length) {
+        longestText &#x3D; strVal;
+      }
+    }
+
+    const padding &#x3D; col.filterable ? 44 : 24;
+    const computedWidth &#x3D; Math.max(60, Math.min(600, longestText.length * 8 + padding));
+
+    this.columnWidths.update(widths &#x3D;&gt; ({
+      ...widths,
+      [colField]: computedWidth
+    }));
+  }
+
+  getColumnPinnedState(field: string): &#x27;left&#x27; | &#x27;right&#x27; | null {
+    const override &#x3D; this.columnPinnedOverrides()[field];
+    if (override !&#x3D;&#x3D; undefined) {
+      return override;
+    }
+    const col &#x3D; this.columns().find(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; field);
+    return col?.pinned ?? null;
+  }
+
+  pinColumnPopover(field: string, pin: &#x27;left&#x27; | &#x27;right&#x27; | null): void {
+    const nextOverrides &#x3D; { ...this.columnPinnedOverrides(), [field]: pin };
+    this.columnPinnedOverrides.set(nextOverrides);
+  }
+
+  getRowCustomClass(row: T): string {
+    const fn &#x3D; this.rowClass();
+    return fn ? fn(row) : &#x27;&#x27;;
+  }
+
+  openFilterPopover(event: MouseEvent, field: string): void {
+    event.stopPropagation();
+    if (this.activeFilterPopover()?.field &#x3D;&#x3D;&#x3D; field) {
+      this.activeFilterPopover.set(null);
+      return;
+    }
+
+    this.filterSearchQuery.set(&#x27;&#x27;);
+
+    const current &#x3D; this.filterStates().get(field);
+    this.tempFilterValue.set(current?.value ?? &#x27;&#x27;);
+    this.tempFilterOperator.set(
+      (current?.operator &#x3D;&#x3D;&#x3D; &#x27;in&#x27; ? &#x27;contains&#x27; : current?.operator) ?? &#x27;contains&#x27;
+    );
+
+    const distinct &#x3D; this.getDistinctValues(field);
+    if (current?.selectedValues) {
+      this.tempSelectedValues.set(new Set(current.selectedValues));
+    } else {
+      this.tempSelectedValues.set(new Set(distinct));
+    }
+
+    const buttonEl &#x3D; event.currentTarget as HTMLElement;
+    const gridEl &#x3D; this.elementRef.nativeElement.querySelector(&#x27;.ngx-data-grid&#x27;) as HTMLElement;
+    const buttonRect &#x3D; buttonEl.getBoundingClientRect();
+    const gridRect &#x3D; gridEl.getBoundingClientRect();
+
+    const top &#x3D; buttonRect.bottom - gridRect.top;
+    const left &#x3D; buttonRect.left - gridRect.left;
+
+    this.activeFilterPopover.set({
+      field,
+      top,
+      left: Math.min(left, gridRect.width - 260)
+    });
+  }
+
+  getDistinctValues(field: string): string[] {
+    const vals &#x3D; new Set&lt;string&gt;();
+    this.data().forEach(row &#x3D;&gt; {
+      const val &#x3D; (row as Record&lt;string, unknown&gt;)[field];
+      vals.add(val &#x3D;&#x3D; null || val &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? &#x27;(Blank)&#x27; : String(val));
+    });
+    return Array.from(vals).sort();
+  }
+
+  getFilteredDistinctValues(field: string): string[] {
+    const distinct &#x3D; this.getDistinctValues(field);
+    const search &#x3D; this.filterSearchQuery().trim().toLowerCase();
+    if (!search) return distinct;
+    return distinct.filter(v &#x3D;&gt; v.toLowerCase().includes(search));
+  }
+
+  toggleChecklistItem(val: string): void {
+    const next &#x3D; new Set(this.tempSelectedValues());
+    if (next.has(val)) {
+      next.delete(val);
+    } else {
+      next.add(val);
+    }
+    this.tempSelectedValues.set(next);
+  }
+
+  toggleSelectAllChecklist(): void {
+    const pop &#x3D; this.activeFilterPopover();
+    if (!pop) return;
+    const distinct &#x3D; this.getFilteredDistinctValues(pop.field);
+    const current &#x3D; new Set(this.tempSelectedValues());
+    const allSelected &#x3D; distinct.every(val &#x3D;&gt; current.has(val));
+    
+    if (allSelected) {
+      distinct.forEach(val &#x3D;&gt; current.delete(val));
+    } else {
+      distinct.forEach(val &#x3D;&gt; current.add(val));
+    }
+    this.tempSelectedValues.set(current);
+  }
+
+  applyPopoverFilter(): void {
+    const pop &#x3D; this.activeFilterPopover();
+    if (!pop) return;
+
+    const field &#x3D; pop.field;
+    const distinct &#x3D; this.getDistinctValues(field);
+    const selected &#x3D; this.tempSelectedValues();
+
+    let filterState: GridFilterState | null &#x3D; null;
+
+    if (this.tempFilterValue()) {
+      filterState &#x3D; {
+        field,
+        value: this.tempFilterValue(),
+        operator: this.tempFilterOperator()
+      };
+    } else if (selected.size &lt; distinct.length) {
+      filterState &#x3D; {
+        field,
+        value: &#x27;&#x27;,
+        operator: &#x27;in&#x27;,
+        selectedValues: Array.from(selected)
+      };
+    }
+
+    const nextStates &#x3D; new Map(this.filterStates());
+    if (filterState) {
+      nextStates.set(field, filterState);
+    } else {
+      nextStates.delete(field);
+    }
+
+    this.filterStates.set(nextStates);
+    this.currentPage.set(1);
+    this.activeFilterPopover.set(null);
+
+    this.filterChange.emit({ filters: this.activeFilters() });
+    this.emitDataState();
+  }
+
+  clearPopoverFilter(): void {
+    const pop &#x3D; this.activeFilterPopover();
+    if (!pop) return;
+
+    const field &#x3D; pop.field;
+    const nextStates &#x3D; new Map(this.filterStates());
+    nextStates.delete(field);
+
+    this.filterStates.set(nextStates);
+    this.currentPage.set(1);
+    this.activeFilterPopover.set(null);
+
+    this.filterChange.emit({ filters: this.activeFilters() });
+    this.emitDataState();
+  }
+
+  clearAllFilters(): void {
+    this.filterStates.set(new Map());
+    this.currentPage.set(1);
+    this.activeFilterPopover.set(null);
+    this.filterChange.emit({ filters: [] });
+    this.emitDataState();
+  }
+
+  hasAggregation &#x3D; computed(() &#x3D;&gt; this.columns().some(col &#x3D;&gt; col.aggregation));
+
+  getAggregationValue(col: GridColumnDef&lt;T&gt;): string {
+    const rows &#x3D; this.clientFilteredData();
+    if (rows.length &#x3D;&#x3D;&#x3D; 0) return &#x27;-&#x27;;
+
+    const values &#x3D; rows.map(r &#x3D;&gt; {
+      const val &#x3D; (r as Record&lt;string, unknown&gt;)[col.field];
+      return typeof val &#x3D;&#x3D;&#x3D; &#x27;number&#x27; ? val : Number(val);
+    }).filter(v &#x3D;&gt; !isNaN(v));
+
+    if (col.aggregation &#x3D;&#x3D;&#x3D; &#x27;count&#x27;) {
+      return String(rows.length);
+    }
+
+    if (values.length &#x3D;&#x3D;&#x3D; 0) return &#x27;-&#x27;;
+
+    switch (col.aggregation) {
+      case &#x27;sum&#x27;: {
+        const sum &#x3D; values.reduce((acc, v) &#x3D;&gt; acc + v, 0);
+        return this.formatAggValue(sum);
+      }
+      case &#x27;avg&#x27;: {
+        const sum &#x3D; values.reduce((acc, v) &#x3D;&gt; acc + v, 0);
+        const avg &#x3D; sum / values.length;
+        return this.formatAggValue(avg);
+      }
+      case &#x27;min&#x27;: {
+        return this.formatAggValue(Math.min(...values));
+      }
+      case &#x27;max&#x27;: {
+        return this.formatAggValue(Math.max(...values));
+      }
+      default:
+        return &#x27;-&#x27;;
+    }
+  }
+
+  private formatAggValue(val: number): string {
+    return val % 1 &#x3D;&#x3D;&#x3D; 0 ? String(val) : val.toFixed(2);
+  }
+
+  onSort(column: GridColumnDef&lt;T&gt;, event?: MouseEvent): void {
+    const isMulti &#x3D; this.multiSort() &amp;&amp; event &amp;&amp; (event.ctrlKey || event.shiftKey);
+    const currentStates &#x3D; [...this.sortStates()];
+    const index &#x3D; currentStates.findIndex(s &#x3D;&gt; s.field &#x3D;&#x3D;&#x3D; column.field);
+
+    if (isMulti) {
+      if (index !&#x3D;&#x3D; -1) {
+        const current &#x3D; currentStates[index];
+        if (current.dir &#x3D;&#x3D;&#x3D; &#x27;asc&#x27;) {
+          currentStates[index] &#x3D; { field: column.field, dir: &#x27;desc&#x27; };
+        } else {
+          currentStates.splice(index, 1);
+        }
+      } else {
+        currentStates.push({ field: column.field, dir: &#x27;asc&#x27; });
+      }
+      this.sortStates.set(currentStates);
+    } else {
+      if (index !&#x3D;&#x3D; -1 &amp;&amp; currentStates.length &#x3D;&#x3D;&#x3D; 1) {
+        const current &#x3D; currentStates[0];
+        if (current.dir &#x3D;&#x3D;&#x3D; &#x27;asc&#x27;) {
+          this.sortStates.set([{ field: column.field, dir: &#x27;desc&#x27; }]);
+        } else {
+          this.sortStates.set([]);
+        }
+      } else {
+        this.sortStates.set([{ field: column.field, dir: &#x27;asc&#x27; }]);
+      }
+    }
+
+    this.currentPage.set(1);
+    this.sortChange.emit({ sort: this.sortState(), sorts: this.sortStates() } as any);
+    this.emitDataState();
+  }
+
+  onGroupingPanelDragOver(event: DragEvent): void {
+    const field &#x3D; this.draggingField();
+    if (!field) return;
+    const col &#x3D; this.columns().find(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; field);
+    if (col &amp;&amp; col.groupable) {
+      event.preventDefault();
+      this.isGroupingPanelDragOver.set(true);
+    }
+  }
+
+  onGroupingPanelDragLeave(event: DragEvent): void {
+    this.isGroupingPanelDragOver.set(false);
+  }
+
+  onGroupingPanelDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isGroupingPanelDragOver.set(false);
+    const field &#x3D; this.draggingField();
+    if (field) {
+      const col &#x3D; this.columns().find(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; field);
+      if (col &amp;&amp; col.groupable) {
+        const newGroup &#x3D; { field, dir: &#x27;asc&#x27; as const };
+        this.internalGroupBy.set(newGroup);
+        this.groupChange.emit({ group: newGroup });
+        this.emitDataState();
+      }
+    }
+    this.draggingField.set(null);
+  }
+
+  clearGrouping(): void {
+    this.internalGroupBy.set(null);
+    this.groupChange.emit({ group: null });
+    this.emitDataState();
+  }
+
+  getColumnTitle(field: string): string {
+    const col &#x3D; this.columns().find(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; field);
+    return col ? col.title : field;
+  }
+
+  onDragStart(event: DragEvent, col: GridColumnDef&lt;T&gt;): void {
+    if (!this.reorderable() &amp;&amp; !col.groupable) return;
+    this.draggingField.set(col.field);
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed &#x3D; &#x27;move&#x27;;
+      event.dataTransfer.setData(&#x27;text/plain&#x27;, col.field);
+    }
+  }
+
+  onDragOver(event: DragEvent, col: GridColumnDef&lt;T&gt;): void {
+    if (!this.reorderable() || this.draggingField() &#x3D;&#x3D;&#x3D; col.field) return;
+    event.preventDefault();
+    this.dragOverField.set(col.field);
+  }
+
+  onDrop(event: DragEvent, targetCol: GridColumnDef&lt;T&gt;): void {
+    if (!this.reorderable()) return;
+    const sourceField &#x3D; this.draggingField();
+    const targetField &#x3D; targetCol.field;
+    if (sourceField &amp;&amp; sourceField !&#x3D;&#x3D; targetField) {
+      const currentOrder &#x3D; this.columnOrder().length &gt; 0 
+        ? [...this.columnOrder()] 
+        : this.columns().map(c &#x3D;&gt; c.field);
+        
+      const sourceIndex &#x3D; currentOrder.indexOf(sourceField);
+      const targetIndex &#x3D; currentOrder.indexOf(targetField);
+      if (sourceIndex !&#x3D;&#x3D; -1 &amp;&amp; targetIndex !&#x3D;&#x3D; -1) {
+        currentOrder.splice(sourceIndex, 1);
+        currentOrder.splice(targetIndex, 0, sourceField);
+        this.columnOrder.set(currentOrder);
+        this.columnReorder.emit({ columns: this.orderedColumns() });
+      }
+    }
+    this.draggingField.set(null);
+    this.dragOverField.set(null);
+  }
+
+  onDragEnd(): void {
+    this.draggingField.set(null);
+    this.dragOverField.set(null);
+  }
+
+  onRowDragStart(event: DragEvent, index: number): void {
+    if (!this.rowReorderable()) return;
+    this.draggingRowIndex.set(index);
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed &#x3D; &#x27;move&#x27;;
+      event.dataTransfer.setData(&#x27;text/plain&#x27;, String(index));
+    }
+  }
+
+  onRowDragOver(event: DragEvent, index: number): void {
+    if (!this.rowReorderable() || this.draggingRowIndex() &#x3D;&#x3D;&#x3D; index) return;
+    event.preventDefault();
+    this.dragOverRowIndex.set(index);
+  }
+
+  onRowDrop(event: DragEvent, targetIndex: number): void {
+    if (!this.rowReorderable()) return;
+    const sourceIndex &#x3D; this.draggingRowIndex();
+    if (sourceIndex !&#x3D;&#x3D; null &amp;&amp; sourceIndex !&#x3D;&#x3D; targetIndex) {
+      const rendered &#x3D; this.flatRenderedRows();
+      const sourceItem &#x3D; rendered[sourceIndex];
+      const targetItem &#x3D; rendered[targetIndex];
+      
+      const currentData &#x3D; [...this.data()];
+      const actualSourceIdx &#x3D; currentData.indexOf(sourceItem);
+      const actualTargetIdx &#x3D; currentData.indexOf(targetItem);
+      
+      if (actualSourceIdx !&#x3D;&#x3D; -1 &amp;&amp; actualTargetIdx !&#x3D;&#x3D; -1) {
+        currentData.splice(actualSourceIdx, 1);
+        currentData.splice(actualTargetIdx, 0, sourceItem);
+        this.rowReorder.emit({
+          previousIndex: actualSourceIdx,
+          currentIndex: actualTargetIdx,
+          data: currentData
+        });
+      }
+    }
+    this.draggingRowIndex.set(null);
+    this.dragOverRowIndex.set(null);
+  }
+
+  onViewportScroll(event: Event): void {
+    const target &#x3D; event.target as HTMLElement;
+    if (target &amp;&amp; this.virtualScroll()) {
+      this.scrollTop.set(target.scrollTop);
+      this.viewportHeight.set(target.clientHeight || 400);
+    }
+  }
+
+  onRowDragEnd(): void {
+    this.draggingRowIndex.set(null);
+    this.dragOverRowIndex.set(null);
+  }
+
+  getRowTranslation(index: number): string {
+    const draggingIdx &#x3D; this.draggingRowIndex();
+    const dragOverIdx &#x3D; this.dragOverRowIndex();
+    
+    if (draggingIdx &#x3D;&#x3D;&#x3D; null || dragOverIdx &#x3D;&#x3D;&#x3D; null || draggingIdx &#x3D;&#x3D;&#x3D; dragOverIdx) {
+      return &#x27;&#x27;;
+    }
+    
+    // Disable sliding transforms in grouped mode as group segments render hierarchically.
+    if (this.groupedRows().length &gt; 0) {
+      return &#x27;&#x27;;
+    }
+    
+    const rowHeight &#x3D; 49;
+    
+    if (draggingIdx &lt; dragOverIdx) {
+      if (index &gt; draggingIdx &amp;&amp; index &lt;&#x3D; dragOverIdx) {
+        return &#x60;translateY(-${rowHeight}px)&#x60;;
+      }
+      if (index &#x3D;&#x3D;&#x3D; draggingIdx) {
+        return &#x60;translateY(${(dragOverIdx - draggingIdx) * rowHeight}px)&#x60;;
+      }
+    } else if (draggingIdx &gt; dragOverIdx) {
+      if (index &gt;&#x3D; dragOverIdx &amp;&amp; index &lt; draggingIdx) {
+        return &#x60;translateY(${rowHeight}px)&#x60;;
+      }
+      if (index &#x3D;&#x3D;&#x3D; draggingIdx) {
+        return &#x60;translateY(-${(draggingIdx - dragOverIdx) * rowHeight}px)&#x60;;
+      }
+    }
+    
+    return &#x27;&#x27;;
+  }
+
+  getSortIndex(col: GridColumnDef&lt;T&gt;): number {
+    return this.sortStates().findIndex(s &#x3D;&gt; s.field &#x3D;&#x3D;&#x3D; col.field) + 1;
+  }
+
+  getSortDirection(col: GridColumnDef&lt;T&gt;): &#x27;asc&#x27; | &#x27;desc&#x27; | null {
+    const found &#x3D; this.sortStates().find(s &#x3D;&gt; s.field &#x3D;&#x3D;&#x3D; col.field);
+    return found ? found.dir : null;
+  }
+
+  setGroup(state: GridGroupState | null): void {
+    this.groupChange.emit({ group: state });
+    this.currentPage.set(1);
+    this.emitDataState(state);
+  }
+
+  toggleGroup(key: string): void {
+    const next &#x3D; new Set(this.collapsedGroups());
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    this.collapsedGroups.set(next);
+  }
+
+  isGroupCollapsed(key: string): boolean {
+    return this.collapsedGroups().has(key);
+  }
+
+  goPage(page: number): void {
+    const safePage &#x3D; Math.max(1, Math.min(this.totalPages(), page));
+    this.currentPage.set(safePage);
+    this.pageChange.emit({ page: safePage, pageSize: this.internalPageSize() });
+    this.emitDataState();
+  }
+
+  changePageSize(size: number): void {
+    this.internalPageSize.set(size);
+    this.currentPage.set(1);
+    this.pageChange.emit({ page: 1, pageSize: size });
+    this.emitDataState();
+  }
+
+  getColumnDef(field: string | null): GridColumnDef&lt;T&gt; | null {
+    if (!field) return null;
+    return this.columns().find(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; field) ?? null;
+  }
+
+
+  contextMenuGroupBy(field: string | null): void {
+    if (!field) return;
+    const groupState &#x3D; { field, dir: &#x27;asc&#x27; as const };
+    this.internalGroupBy.set(groupState);
+    this.groupChange.emit({ group: groupState });
+    this.emitDataState(groupState);
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuClearGrouping(): void {
+    this.internalGroupBy.set(null);
+    this.groupChange.emit({ group: null });
+    this.emitDataState(null);
+    this.activeContextMenu.set(null);
+  }
+
+  collapseAllGroups(): void {
+    const keys &#x3D; this.groupedRows().map(g &#x3D;&gt; g.key);
+    this.collapsedGroups.set(new Set(keys));
+    this.activeContextMenu.set(null);
+  }
+
+  expandAllGroups(): void {
+    this.collapsedGroups.set(new Set());
+    this.activeContextMenu.set(null);
+  }
+
+  contextMenuToggleDetail(row: T): void {
+    this.toggleDetail(row);
+    this.activeContextMenu.set(null);
+  }
+
+  expandAllDetails(): void {
+    const keys &#x3D; this.flatRenderedRows().map(r &#x3D;&gt; this.keyOf(r));
+    this.expandedRows.set(new Set(keys));
+    this.activeContextMenu.set(null);
+  }
+
+  collapseAllDetails(): void {
+    this.expandedRows.set(new Set());
+    this.activeContextMenu.set(null);
+  }
+
+  onRowClick(row: T, index: number): void {
+    this.rowClick.emit({ row, index });
+  }
+
+  isRowSelected(row: T): boolean {
+    return this.selectedRows().has(this.keyOf(row));
+  }
+
+  toggleRow(row: T): void {
+    const key &#x3D; this.keyOf(row);
+    const next &#x3D; new Set(this.selectedRows());
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    this.selectedRows.set(next);
+    this.selectionChange.emit(this.resolveSelectedRows(next));
+  }
+
+  toggleAll(): void {
+    const next &#x3D; new Set(this.selectedRows());
+    const rows &#x3D; this.visibleSelectionRows();
+    if (this.allSelected()) {
+      for (const row of rows) {
+        next.delete(this.keyOf(row));
+      }
+    } else {
+      for (const row of rows) {
+        next.add(this.keyOf(row));
+      }
+    }
+    this.selectedRows.set(next);
+    this.selectionChange.emit(this.resolveSelectedRows(next));
+  }
+
+  toggleDetail(row: T): void {
+    const key &#x3D; this.keyOf(row);
+    const next &#x3D; new Set(this.expandedRows());
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    this.expandedRows.set(next);
+  }
+
+  isExpanded(row: T): boolean {
+    return this.expandedRows().has(this.keyOf(row));
+  }
+
+  beginEdit(row: T, _index: number): void {
+    if (!this.editable()) {
+      return;
+    }
+
+    const key &#x3D; this.keyOf(row);
+    this.editingRowKey.set(key);
+    this.editingDraft.set({ ...(row as Record&lt;string, unknown&gt;) });
+  }
+
+  isEditing(row: T): boolean {
+    return this.editingRowKey() &#x3D;&#x3D;&#x3D; this.keyOf(row);
+  }
+
+  updateDraft(field: string, value: unknown): void {
+    this.editingDraft.set({ ...this.editingDraft(), [field]: value });
+  }
+
+  getDraftValue(row: T, field: string): unknown {
+    if (!this.isEditing(row)) {
+      return (row as Record&lt;string, unknown&gt;)[field];
+    }
+
+    const draft &#x3D; this.editingDraft();
+    return Object.prototype.hasOwnProperty.call(draft, field)
+      ? draft[field]
+      : (row as Record&lt;string, unknown&gt;)[field];
+  }
+
+  saveEdit(row: T, index: number): void {
+    const updated &#x3D; { ...(row as Record&lt;string, unknown&gt;), ...this.editingDraft() } as T;
+    this.rowUpdate.emit({ previous: row, updated, index });
+    this.cancelEdit();
+  }
+
+  cancelEdit(): void {
+    this.editingRowKey.set(null);
+    this.editingDraft.set({});
+  }
+
+  getCellValue(row: T, field: string): unknown {
+    return (row as Record&lt;string, unknown&gt;)[field] ?? &#x27;&#x27;;
+  }
+
+  resolveHeaderTemplate(column: GridColumnDef&lt;T&gt;): TemplateRef&lt;GridHeaderTemplateContext&lt;T&gt;&gt; | null {
+    if (column.headerTemplate) {
+      return column.headerTemplate;
+    }
+    const match &#x3D; this.headerTemplates?.find(t &#x3D;&gt; t.columnField &#x3D;&#x3D;&#x3D; column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.headerTemplate();
+  }
+
+  resolveCellTemplate(column: GridColumnDef&lt;T&gt;): TemplateRef&lt;GridCellTemplateContext&lt;T&gt;&gt; | null {
+    if (column.cellTemplate) {
+      return column.cellTemplate;
+    }
+    const match &#x3D; this.cellTemplates?.find(t &#x3D;&gt; t.columnField &#x3D;&#x3D;&#x3D; column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.cellTemplate();
+  }
+
+  resolveEditCellTemplate(column: GridColumnDef&lt;T&gt;): TemplateRef&lt;GridCellTemplateContext&lt;T&gt;&gt; | null {
+    if (column.editCellTemplate) {
+      return column.editCellTemplate;
+    }
+    const match &#x3D; this.editCellTemplates?.find(t &#x3D;&gt; t.columnField &#x3D;&#x3D;&#x3D; column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.editCellTemplate();
+  }
+
+  resolveFooterTemplate(column: GridColumnDef&lt;T&gt;): TemplateRef&lt;GridFooterTemplateContext&lt;T&gt;&gt; | null {
+    if (column.footerTemplate) {
+      return column.footerTemplate;
+    }
+    const match &#x3D; this.footerTemplates?.find(t &#x3D;&gt; t.columnField &#x3D;&#x3D;&#x3D; column.field);
+    if (match) {
+      return match.templateRef;
+    }
+    return this.footerTemplate();
+  }
+
+  getUpdateDraftCallback(field: string): (val: unknown) &#x3D;&gt; void {
+    return (val: unknown) &#x3D;&gt; this.updateDraft(field, val);
+  }
+
+  toStringSafe(value: unknown): string {
+    return value &#x3D;&#x3D; null ? &#x27;&#x27; : String(value);
+  }
+
+  highlightSearchText(value: unknown): string {
+    const rawVal &#x3D; value &#x3D;&#x3D; null ? &#x27;&#x27; : String(value);
+    const searchVal &#x3D; this.searchText().trim();
+    if (!searchVal || !this.showGlobalSearch()) {
+      return this.escapeHtml(rawVal);
+    }
+    
+    const escapedVal &#x3D; this.escapeHtml(rawVal);
+    const escapedSearch &#x3D; this.escapeRegExp(searchVal);
+    try {
+      const regex &#x3D; new RegExp(&#x60;(${escapedSearch})&#x60;, &#x27;gi&#x27;);
+      return escapedVal.replace(regex, &#x27;&lt;mark class&#x3D;&quot;search-highlight&quot;&gt;$1&lt;/mark&gt;&#x27;);
+    } catch {
+      return escapedVal;
+    }
+  }
+
+  private escapeHtml(text: string): string {
+    return text
+      .replace(/&amp;/g, &#x27;&amp;amp;&#x27;)
+      .replace(/&lt;/g, &#x27;&amp;lt;&#x27;)
+      .replace(/&gt;/g, &#x27;&amp;gt;&#x27;)
+      .replace(/&quot;/g, &#x27;&amp;quot;&#x27;)
+      .replace(/&#x27;/g, &#x27;&amp;#039;&#x27;);
+  }
+
+  private escapeRegExp(text: string): string {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, &#x27;\\$&amp;&#x27;);
+  }
+
+  getKey(row: T, index: number): string {
+    const source &#x3D; row as Record&lt;string, unknown&gt;;
+    return String(source[&#x27;id&#x27;] ?? source[&#x27;key&#x27;] ?? index);
+  }
+
+  hasGrouping(): boolean {
+    return this.internalGroupBy() !&#x3D;&#x3D; null;
+  }
+
+  private paginateRows(rows: T[]): T[] {
+    if (this.pagingMode() &#x3D;&#x3D;&#x3D; &#x27;server&#x27;) {
+      return rows;
+    }
+
+    const pageSize &#x3D; Math.max(1, this.internalPageSize());
+    const start &#x3D; (this.currentPage() - 1) * pageSize;
+    return rows.slice(start, start + pageSize);
+  }
+
+  private compareValues(left: unknown, right: unknown): number {
+    if (left &#x3D;&#x3D; null &amp;&amp; right &#x3D;&#x3D; null) {
+      return 0;
+    }
+    if (left &#x3D;&#x3D; null) {
+      return -1;
+    }
+    if (right &#x3D;&#x3D; null) {
+      return 1;
+    }
+
+    if (typeof left &#x3D;&#x3D;&#x3D; &#x27;number&#x27; &amp;&amp; typeof right &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+      return left - right;
+    }
+
+    return String(left).localeCompare(String(right), undefined, { numeric: true, sensitivity: &#x27;base&#x27; });
+  }
+
+  private visibleSelectionRows(): T[] {
+    if (this.groupedRows().length &gt; 0) {
+      const rows: T[] &#x3D; [];
+      for (const group of this.groupedRows()) {
+        if (!this.isGroupCollapsed(group.key)) {
+          rows.push(...group.items);
+        }
+      }
+      return rows;
+    }
+
+    return this.flatRenderedRows();
+  }
+
+  private resolveSelectedRows(selection: Set&lt;string&gt;): T[] {
+    const source &#x3D; this.data();
+    return source.filter(row &#x3D;&gt; selection.has(this.keyOf(row)));
+  }
+
+  private keyOf(row: T): string {
+    const source &#x3D; row as Record&lt;string, unknown&gt;;
+    return String(source[&#x27;id&#x27;] ?? source[&#x27;key&#x27;] ?? JSON.stringify(row));
+  }
+
+  private emitDataState(overrideGroup?: GridGroupState | null): void {
+    this.dataStateChange.emit({
+      page: this.currentPage(),
+      pageSize: this.internalPageSize(),
+      sort: this.sortState(),
+      filters: this.activeFilters(),
+      group: overrideGroup &#x3D;&#x3D;&#x3D; undefined ? this.internalGroupBy() : overrideGroup,
+    });
+  }
+
+  onCellClick(row: T, colField: string): void {
+    if (!this.keyboardNavigation()) return;
+    this.focusedCell.set({ row, colField });
+    this.focusedCellEditActive.set(this.isEditing(row));
+  }
+
+  @HostListener(&#x27;keydown&#x27;, [&#x27;$event&#x27;])
+  handleKeyDown(event: KeyboardEvent): void {
+    if (!this.keyboardNavigation()) return;
+    const key &#x3D; event.key;
+    const focused &#x3D; this.focusedCell();
+    if (!focused) {
+      if (key &#x3D;&#x3D;&#x3D; &#x27;ArrowDown&#x27; || key &#x3D;&#x3D;&#x3D; &#x27;ArrowUp&#x27; || key &#x3D;&#x3D;&#x3D; &#x27;ArrowLeft&#x27; || key &#x3D;&#x3D;&#x3D; &#x27;ArrowRight&#x27;) {
+        const rows &#x3D; this.flatRenderedRows();
+        const cols &#x3D; this.orderedColumns();
+        if (rows.length &gt; 0 &amp;&amp; cols.length &gt; 0) {
+          this.focusedCell.set({ row: rows[0], colField: cols[0].field });
+          event.preventDefault();
+        }
+      }
+      return;
+    }
+
+    const rows &#x3D; this.flatRenderedRows();
+    const cols &#x3D; this.orderedColumns();
+    const rowIndex &#x3D; rows.indexOf(focused.row);
+    const colIndex &#x3D; cols.findIndex(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; focused.colField);
+
+    if (rowIndex &#x3D;&#x3D;&#x3D; -1 || colIndex &#x3D;&#x3D;&#x3D; -1) return;
+
+    if (this.focusedCellEditActive()) {
+      if (key &#x3D;&#x3D;&#x3D; &#x27;Enter&#x27;) {
+        this.saveEdit(focused.row, rowIndex);
+        this.focusedCellEditActive.set(false);
+        if (rowIndex &lt; rows.length - 1) {
+          this.focusedCell.set({ row: rows[rowIndex + 1], colField: focused.colField });
+        }
+        event.preventDefault();
+      } else if (key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+        this.cancelEdit();
+        this.focusedCellEditActive.set(false);
+        event.preventDefault();
+      }
+      return;
+    }
+
+    switch (key) {
+      case &#x27;ArrowUp&#x27;:
+        if (rowIndex &gt; 0) {
+          this.focusedCell.set({ row: rows[rowIndex - 1], colField: focused.colField });
+          event.preventDefault();
+        }
+        break;
+      case &#x27;ArrowDown&#x27;:
+        if (rowIndex &lt; rows.length - 1) {
+          this.focusedCell.set({ row: rows[rowIndex + 1], colField: focused.colField });
+          event.preventDefault();
+        }
+        break;
+      case &#x27;ArrowLeft&#x27;:
+        if (colIndex &gt; 0) {
+          this.focusedCell.set({ row: focused.row, colField: cols[colIndex - 1].field });
+          event.preventDefault();
+        }
+        break;
+      case &#x27;ArrowRight&#x27;:
+        if (colIndex &lt; cols.length - 1) {
+          this.focusedCell.set({ row: focused.row, colField: cols[colIndex + 1].field });
+          event.preventDefault();
+        }
+        break;
+      case &#x27;Tab&#x27;:
+        if (event.shiftKey) {
+          if (colIndex &gt; 0) {
+            this.focusedCell.set({ row: focused.row, colField: cols[colIndex - 1].field });
+          } else if (rowIndex &gt; 0) {
+            this.focusedCell.set({ row: rows[rowIndex - 1], colField: cols[cols.length - 1].field });
+          }
+        } else {
+          if (colIndex &lt; cols.length - 1) {
+            this.focusedCell.set({ row: focused.row, colField: cols[colIndex + 1].field });
+          } else if (rowIndex &lt; rows.length - 1) {
+            this.focusedCell.set({ row: rows[rowIndex + 1], colField: cols[0].field });
+          }
+        }
+        event.preventDefault();
+        break;
+      case &#x27;Enter&#x27;: {
+        const col &#x3D; cols[colIndex];
+        if (this.editable() &amp;&amp; col.editable) {
+          this.beginEdit(focused.row, rowIndex);
+          this.focusedCellEditActive.set(true);
+          setTimeout(() &#x3D;&gt; {
+            const inputEl &#x3D; this.elementRef.nativeElement.querySelector(&#x27;.grid-edit-input&#x27;) as HTMLInputElement;
+            if (inputEl) inputEl.focus();
+          }, 0);
+          event.preventDefault();
+        }
+        break;
+      }
+      case &#x27;Escape&#x27;:
+        this.focusedCell.set(null);
+        event.preventDefault();
+        break;
+      default:
+        if (key.length &#x3D;&#x3D;&#x3D; 1 &amp;&amp; !event.ctrlKey &amp;&amp; !event.altKey &amp;&amp; !event.metaKey) {
+          const currentCol &#x3D; cols[colIndex];
+          if (this.editable() &amp;&amp; currentCol.editable) {
+            this.beginEdit(focused.row, rowIndex);
+            this.focusedCellEditActive.set(true);
+            this.updateDraft(focused.colField, key);
+            setTimeout(() &#x3D;&gt; {
+              const inputEl &#x3D; this.elementRef.nativeElement.querySelector(&#x27;.grid-edit-input&#x27;) as HTMLInputElement;
+              if (inputEl) {
+                inputEl.focus();
+                inputEl.value &#x3D; key;
+              }
+            }, 0);
+            event.preventDefault();
+          }
+        }
+        break;
+    }
+  }
+
+  getCellRowSpan(row: T, colField: string, rowIndex: number, groupItems?: T[]): number {
+    const col &#x3D; this.columns().find(c &#x3D;&gt; c.field &#x3D;&#x3D;&#x3D; colField);
+    if (!col || !col.mergeRows) {
+      return 1;
+    }
+
+    const items &#x3D; groupItems ? groupItems : this.flatRenderedRows();
+    const currentValue &#x3D; this.getCellValue(row, colField);
+
+    if (rowIndex &gt; 0) {
+      const prevValue &#x3D; this.getCellValue(items[rowIndex - 1], colField);
+      if (prevValue &#x3D;&#x3D;&#x3D; currentValue) {
+        return 0;
+      }
+    }
+
+    let span &#x3D; 1;
+    for (let i &#x3D; rowIndex + 1; i &lt; items.length; i++) {
+      if (this.getCellValue(items[i], colField) &#x3D;&#x3D;&#x3D; currentValue) {
+        span++;
+      } else {
+        break;
+      }
+    }
+    return span;
+  }
+
+  isGroupAllSelected(group: GridGroupResult&lt;T&gt;): boolean {
+    const rows &#x3D; group.items;
+    if (rows.length &#x3D;&#x3D;&#x3D; 0) return false;
+    const selected &#x3D; this.selectedRows();
+    return rows.every(row &#x3D;&gt; selected.has(this.keyOf(row)));
+  }
+
+  toggleGroupSelection(group: GridGroupResult&lt;T&gt;, event: Event): void {
+    event.stopPropagation();
+    const checked &#x3D; (event.target as HTMLInputElement).checked;
+    const selected &#x3D; new Set(this.selectedRows());
+    group.items.forEach(row &#x3D;&gt; {
+      const key &#x3D; this.keyOf(row);
+      if (checked) {
+        selected.add(key);
+      } else {
+        selected.delete(key);
+      }
+    });
+    this.selectedRows.set(selected);
+    this.selectionChange.emit(this.resolveSelectedRows(selected));
+  }
+
+  getGroupAggregationValue(group: GridGroupResult&lt;T&gt;, col: GridColumnDef&lt;T&gt;): string {
+    const rows &#x3D; group.items;
+    if (rows.length &#x3D;&#x3D;&#x3D; 0) return &#x27;-&#x27;;
+
+    const values &#x3D; rows.map(r &#x3D;&gt; {
+      const val &#x3D; (r as Record&lt;string, unknown&gt;)[col.field];
+      return typeof val &#x3D;&#x3D;&#x3D; &#x27;number&#x27; ? val : Number(val);
+    }).filter(v &#x3D;&gt; !isNaN(v));
+
+    if (col.aggregation &#x3D;&#x3D;&#x3D; &#x27;count&#x27;) {
+      return String(rows.length);
+    }
+
+    if (values.length &#x3D;&#x3D;&#x3D; 0) return &#x27;-&#x27;;
+
+    switch (col.aggregation) {
+      case &#x27;sum&#x27;: {
+        const sum &#x3D; values.reduce((acc, v) &#x3D;&gt; acc + v, 0);
+        return this.formatAggValue(sum);
+      }
+      case &#x27;avg&#x27;: {
+        const sum &#x3D; values.reduce((acc, v) &#x3D;&gt; acc + v, 0);
+        const avg &#x3D; sum / values.length;
+        return this.formatAggValue(avg);
+      }
+      case &#x27;min&#x27;: {
+        return this.formatAggValue(Math.min(...values));
+      }
+      case &#x27;max&#x27;: {
+        return this.formatAggValue(Math.max(...values));
+      }
+      default:
+        return &#x27;-&#x27;;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'directive';
+            var COMPODOC_CURRENT_PAGE_URL = 'NgxGridEditCellTemplateDirective.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

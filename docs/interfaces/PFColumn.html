@@ -1,0 +1,870 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  PFColumn</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/point-figure-chart/point-figure-chart.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#maxBox" 
+>
+                                            maxBox
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#minBox" 
+>
+                                            minBox
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="maxBox"></a>
+                                        <span class="name "><b>maxBox</b>
+                                            <a href="#maxBox">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>maxBox:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="minBox"></a>
+                                        <span class="name "><b>minBox</b>
+                                            <a href="#minBox">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>minBox:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:     <code>&quot;X&quot; | &quot;O&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;X&quot; | &quot;O&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { NgTemplateOutlet } from &#x27;@angular/common&#x27;;
+import { ChartExportService } from &#x27;../shared/chart-export.service&#x27;;
+import { ChartExportMenuComponent } from &#x27;../shared/chart-export-menu.component&#x27;;
+import type { ExportFormat } from &#x27;../shared/chart-export-menu.component&#x27;;
+import { CHART_COLORS, fmtNum, niceTicks, scale } from &#x27;../shared/chart-utils&#x27;;
+
+export interface PFCell {
+  colIdx: number;
+  rowIdx: number;
+  type: &#x27;X&#x27; | &#x27;O&#x27;;
+  value: number;
+  color: string;
+  x: number;
+  y: number;
+  size: number;
+}
+
+interface PFColumn {
+  type: &#x27;X&#x27; | &#x27;O&#x27;;
+  minBox: number;
+  maxBox: number;
+}
+
+@Component({
+  selector: &#x27;ngx-point-figure-chart&#x27;,
+  standalone: true,
+  imports: [ChartExportMenuComponent, NgTemplateOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-point-figure-chart&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;header-info&quot;&gt;
+          &lt;span class&#x3D;&quot;header-title&quot;&gt;Point &amp; Figure Chart&lt;/span&gt;
+          &lt;span class&#x3D;&quot;header-settings&quot;&gt;Box: {{ boxSize() }} | Rev: {{ reversal() }}&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Export Menu --&gt;
+        @if (showExport()) {
+          &lt;ngx-chart-export-menu (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;svg
+        #svgEl
+        class&#x3D;&quot;pf-svg&quot;
+        [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+        [attr.height]&#x3D;&quot;svgHeight()&quot;
+      &gt;
+        &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+          
+          &lt;!-- Y Grid Lines --&gt;
+          @if (showGrid()) {
+            @for (row of yTicks(); track row) {
+              &lt;line
+                [attr.x1]&#x3D;&quot;0&quot;
+                [attr.x2]&#x3D;&quot;innerW()&quot;
+                [attr.y1]&#x3D;&quot;yPos(row)&quot;
+                [attr.y2]&#x3D;&quot;yPos(row)&quot;
+                class&#x3D;&quot;grid-line&quot;
+              /&gt;
+            }
+          }
+
+          &lt;!-- X&#x27;s and O&#x27;s Cell Shapes --&gt;
+          @for (cell of computedCells(); track cell.colIdx + &#x27;-&#x27; + cell.rowIdx; let idx &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;pf-cell-group&quot;
+              [class.dimmed]&#x3D;&quot;hoveredCellIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredCellIndex() !&#x3D;&#x3D; idx&quot;
+              (mouseenter)&#x3D;&quot;onCellHover(idx, $event)&quot;
+              (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+              [style.animation-delay]&#x3D;&quot;(cell.colIdx * 0.05) + &#x27;s&#x27;&quot;
+            &gt;
+              @if (cell.type &#x3D;&#x3D;&#x3D; &#x27;X&#x27;) {
+                &lt;line
+                  [attr.x1]&#x3D;&quot;cell.x + cell.size * 0.15&quot;
+                  [attr.y1]&#x3D;&quot;cell.y + cell.size * 0.15&quot;
+                  [attr.x2]&#x3D;&quot;cell.x + cell.size * 0.85&quot;
+                  [attr.y2]&#x3D;&quot;cell.y + cell.size * 0.85&quot;
+                  [attr.stroke]&#x3D;&quot;cell.color&quot;
+                  stroke-width&#x3D;&quot;2.5&quot;
+                  stroke-linecap&#x3D;&quot;round&quot;
+                  class&#x3D;&quot;pf-shape&quot;
+                /&gt;
+                &lt;line
+                  [attr.x1]&#x3D;&quot;cell.x + cell.size * 0.85&quot;
+                  [attr.y1]&#x3D;&quot;cell.y + cell.size * 0.15&quot;
+                  [attr.x2]&#x3D;&quot;cell.x + cell.size * 0.15&quot;
+                  [attr.y2]&#x3D;&quot;cell.y + cell.size * 0.85&quot;
+                  [attr.stroke]&#x3D;&quot;cell.color&quot;
+                  stroke-width&#x3D;&quot;2.5&quot;
+                  stroke-linecap&#x3D;&quot;round&quot;
+                  class&#x3D;&quot;pf-shape&quot;
+                /&gt;
+              } @else {
+                &lt;circle
+                  [attr.cx]&#x3D;&quot;cell.x + cell.size / 2&quot;
+                  [attr.cy]&#x3D;&quot;cell.y + cell.size / 2&quot;
+                  [attr.r]&#x3D;&quot;cell.size * 0.35&quot;
+                  [attr.stroke]&#x3D;&quot;cell.color&quot;
+                  fill&#x3D;&quot;none&quot;
+                  stroke-width&#x3D;&quot;2.5&quot;
+                  class&#x3D;&quot;pf-shape&quot;
+                /&gt;
+              }
+            &lt;/g&gt;
+          }
+
+          &lt;!-- Y Axis (Left side) --&gt;
+          &lt;g class&#x3D;&quot;y-axis&quot;&gt;
+            &lt;line [attr.x1]&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;0&quot; [attr.y1]&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;innerH()&quot; class&#x3D;&quot;axis-line&quot; /&gt;
+            @for (tick of yTicks(); track tick) {
+              &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(0,&#x27; + yPos(tick) + &#x27;)&#x27;&quot;&gt;
+                &lt;line [attr.x1]&#x3D;&quot;-4&quot; [attr.x2]&#x3D;&quot;0&quot; [attr.y1]&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;0&quot; class&#x3D;&quot;tick-line&quot; /&gt;
+                &lt;text
+                  [attr.x]&#x3D;&quot;-8&quot;
+                  text-anchor&#x3D;&quot;end&quot;
+                  dominant-baseline&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tick-label&quot;
+                &gt;
+                  {{ labelFormatter() ? labelFormatter()!(tick) : formatNumber(tick) }}
+                &lt;/text&gt;
+              &lt;/g&gt;
+            }
+          &lt;/g&gt;
+
+          &lt;!-- Bottom X Axis line --&gt;
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(0,&#x27; + innerH() + &#x27;)&#x27;&quot; class&#x3D;&quot;x-axis&quot;&gt;
+            &lt;line [attr.x1]&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; [attr.y1]&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;0&quot; class&#x3D;&quot;axis-line&quot; /&gt;
+          &lt;/g&gt;
+        &lt;/g&gt;
+      &lt;/svg&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+          @if (tooltipTemplate()) {
+            &lt;ng-container
+              *ngTemplateOutlet&#x3D;&quot;tooltipTemplate()!; context: { $implicit: t }&quot;
+            &gt;&lt;/ng-container&gt;
+          } @else {
+            &lt;div class&#x3D;&quot;tt-cat&quot; [style.color]&#x3D;&quot;t.color&quot;&gt;
+              {{ t.type &#x3D;&#x3D;&#x3D; &#x27;X&#x27; ? &#x27;Price Rise (X)&#x27; : &#x27;Price Fall (O)&#x27; }}
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Level&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ labelFormatter() ? labelFormatter()!(t.value) : formatNumber(t.value) }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Column&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;#{{ t.colIdx + 1 }}&lt;/span&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-point-figure-chart {
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 24px;
+      position: relative;
+    }
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ngx-chart-axis-text, #334155);
+    }
+    .header-settings {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: var(--ngx-chart-grid, #f1f5f9);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .pf-svg {
+      display: block;
+      overflow: visible;
+    }
+    .grid-line {
+      stroke: var(--ngx-chart-grid, #f1f5f9);
+      stroke-width: 1;
+    }
+    .axis-line {
+      stroke: var(--ngx-chart-axis, #cbd5e1);
+      stroke-width: 1.5;
+    }
+    .tick-line {
+      stroke: var(--ngx-chart-axis, #cbd5e1);
+      stroke-width: 1.5;
+    }
+    .tick-label {
+      font-size: 11px;
+      fill: var(--ngx-chart-axis-text, #64748b);
+      font-weight: 550;
+      user-select: none;
+    }
+    .pf-cell-group {
+      cursor: pointer;
+      opacity: 0;
+      animation: cellFadeIn 0.4s ease-out forwards;
+    }
+    @keyframes cellFadeIn {
+      to { opacity: 1; }
+    }
+    .pf-cell-group.dimmed {
+      opacity: 0.25 !important;
+    }
+    .pf-shape {
+      transition: stroke-width 0.15s ease;
+    }
+    .pf-cell-group:hover .pf-shape {
+      stroke-width: 3.5px !important;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 130px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+
+  &#x60;]
+})
+export class PointFigureChartComponent {
+  private readonly exportSvc &#x3D; inject(ChartExportService);
+  data &#x3D; input&lt;number[]&gt;([]);
+  boxSize &#x3D; input&lt;number&gt;(4);
+  reversal &#x3D; input&lt;number&gt;(3);
+  height &#x3D; input&lt;number&gt;(350);
+  showGrid &#x3D; input&lt;boolean&gt;(true);
+  xColor &#x3D; input&lt;string&gt;(&#x27;#10b981&#x27;);
+  oColor &#x3D; input&lt;string&gt;(&#x27;#ef4444&#x27;);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+  labelFormatter &#x3D; input&lt;((v: number) &#x3D;&gt; string) | undefined&gt;(undefined);
+  tooltipTemplate &#x3D; input&lt;TemplateRef&lt;any&gt; | null&gt;(null);
+
+  containerWidth &#x3D; signal&lt;number&gt;(500);
+  hoveredCellIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  margin &#x3D; computed(() &#x3D;&gt; ({
+    top: 20,
+    right: 20,
+    bottom: 20,
+    left: 45
+  }));
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; this.height());
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom));
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  // Calculate grid boxes populated with X or O
+  computedCells &#x3D; computed&lt;PFCell[]&gt;(() &#x3D;&gt; {
+    const prices &#x3D; this.data();
+    const size &#x3D; this.boxSize() || 4;
+    const revSize &#x3D; this.reversal() || 3;
+    if (prices.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const getBox &#x3D; (price: number) &#x3D;&gt; Math.floor(price / size);
+
+    const columns: PFColumn[] &#x3D; [];
+    let curType: &#x27;X&#x27; | &#x27;O&#x27; &#x3D; &#x27;X&#x27;;
+    let curMin &#x3D; getBox(prices[0]);
+    let curMax &#x3D; curMin;
+
+    for (let i &#x3D; 1; i &lt; prices.length; i++) {
+      const box &#x3D; getBox(prices[i]);
+
+      if (curType &#x3D;&#x3D;&#x3D; &#x27;X&#x27;) {
+        if (box &gt; curMax) {
+          curMax &#x3D; box;
+        } else if (curMax - box &gt;&#x3D; revSize) {
+          columns.push({ type: &#x27;X&#x27;, minBox: curMin, maxBox: curMax });
+          curType &#x3D; &#x27;O&#x27;;
+          curMin &#x3D; box;
+          curMax &#x3D; curMax - 1;
+        }
+      } else {
+        if (box &lt; curMin) {
+          curMin &#x3D; box;
+        } else if (box - curMin &gt;&#x3D; revSize) {
+          columns.push({ type: &#x27;O&#x27;, minBox: curMin, maxBox: curMax });
+          curType &#x3D; &#x27;X&#x27;;
+          curMax &#x3D; box;
+          curMin &#x3D; curMin + 1;
+        }
+      }
+    }
+    columns.push({ type: curType, minBox: curMin, maxBox: curMax });
+
+    const w &#x3D; this.innerW();
+    const h &#x3D; this.innerH();
+
+    const allBoxes &#x3D; columns.flatMap(c &#x3D;&gt; [c.minBox, c.maxBox]);
+    if (allBoxes.length &#x3D;&#x3D;&#x3D; 0) return [];
+    const minBoxIdx &#x3D; Math.min(...allBoxes);
+    const maxBoxIdx &#x3D; Math.max(...allBoxes);
+    const numRows &#x3D; maxBoxIdx - minBoxIdx + 1;
+
+    const cellSize &#x3D; Math.min(w / columns.length, h / numRows);
+
+    const cells: PFCell[] &#x3D; [];
+    columns.forEach((col, cIdx) &#x3D;&gt; {
+      for (let r &#x3D; col.minBox; r &lt;&#x3D; col.maxBox; r++) {
+        const val &#x3D; r * size;
+        const color &#x3D; col.type &#x3D;&#x3D;&#x3D; &#x27;X&#x27; ? this.xColor() : this.oColor();
+
+        const yOffset &#x3D; h - (r - minBoxIdx + 1) * cellSize;
+        const xOffset &#x3D; cIdx * cellSize;
+
+        cells.push({
+          colIdx: cIdx,
+          rowIdx: r,
+          type: col.type,
+          value: val,
+          color,
+          x: xOffset,
+          y: yOffset,
+          size: cellSize
+        });
+      }
+    });
+
+    return cells;
+  });
+
+  yTicks &#x3D; computed(() &#x3D;&gt; {
+    const cells &#x3D; this.computedCells();
+    if (cells.length &#x3D;&#x3D;&#x3D; 0) return [];
+    const rows &#x3D; Array.from(new Set(cells.map(c &#x3D;&gt; c.rowIdx))).sort((a, b) &#x3D;&gt; a - b);
+    const size &#x3D; this.boxSize() || 4;
+
+    const maxLabels &#x3D; 8;
+    const step &#x3D; Math.max(1, Math.floor(rows.length / maxLabels));
+
+    return rows.filter((r, idx) &#x3D;&gt; idx % step &#x3D;&#x3D;&#x3D; 0).map(r &#x3D;&gt; r * size);
+  });
+
+  yPos(val: number): number {
+    const cells &#x3D; this.computedCells();
+    if (cells.length &#x3D;&#x3D;&#x3D; 0) return 0;
+    const size &#x3D; this.boxSize() || 4;
+    const boxIdx &#x3D; val / size;
+
+    const rowIdxs &#x3D; cells.map(c &#x3D;&gt; c.rowIdx);
+    const minBoxIdx &#x3D; Math.min(...rowIdxs);
+    const cellS &#x3D; cells[0].size;
+
+    return this.innerH() - (boxIdx - minBoxIdx + 0.5) * cellS;
+  }
+
+  onCellHover(idx: number, event: MouseEvent) {
+    this.hoveredCellIndex.set(idx);
+    const cell &#x3D; this.computedCells()[idx];
+    if (cell) {
+      this.tooltip.set(cell);
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const container &#x3D; el.closest(&#x27;.ngx-point-figure-chart&#x27;);
+    if (container) {
+      const rect &#x3D; container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredCellIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  onExport(type: ExportFormat): void {
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const cells &#x3D; this.computedCells();
+    if (!cells.length) return;
+
+    const data &#x3D; cells.map(c &#x3D;&gt; ({
+      column: c.colIdx,
+      row: c.rowIdx,
+      type: c.type,
+      value: c.value
+    }));
+    this.exportSvc.downloadJson(data, &#x27;point-figure-chart-data.json&#x27;);
+  }
+
+  exportToCsv(): void {
+    const cells &#x3D; this.computedCells();
+    if (!cells.length) return;
+    const headers &#x3D; [&#x27;Column&#x27;, &#x27;Row&#x27;, &#x27;Type&#x27;, &#x27;Value&#x27;];
+    const rows &#x3D; cells.map(c &#x3D;&gt; [c.colIdx, c.rowIdx, c.type, c.value]);
+    this.exportSvc.downloadCsv(headers, rows, &#x27;point-figure-chart-data.csv&#x27;);
+  }
+
+  exportToSvg(): void {
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, &#x27;chart.svg&#x27;);
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, &#x27;Chart Export&#x27;, &#x27;chart.pdf&#x27;);
+  }
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'PFColumn.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,3550 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  FlagsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/ngx-core-components/charts/flags/flags.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-flags</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    .ngx-flags-chart {
+      position: relative;
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+    }
+    .chart-svg-container {
+      position: relative;
+      width: 100%;
+    }
+    .chart-svg {
+      display: block;
+      overflow: visible;
+    }
+    .axis-label {
+      font-size: 10px;
+      fill: #64748b;
+      font-weight: 500;
+    }
+
+    .flag-group {
+      transition: transform 0.15s ease-out;
+    }
+    .flag-group.hovered {
+      transform: scale(1.1);
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      z-index: 100;
+      min-width: 160px;
+      max-width: 250px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.08s ease-out, top 0.08s ease-out;
+    }
+    .tooltip-header {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flag-type-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .tooltip-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tooltip-date {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .tooltip-date strong {
+      color: #38bdf8;
+    }
+    .tooltip-desc {
+      font-size: 10.5px;
+      color: rgba(248, 250, 252, 0.95);
+      margin-top: 4px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .tooltip-val {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(248, 250, 252, 0.85);
+    }
+    .tooltip-val strong {
+      color: #f8fafc;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+      z-index: 60;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;ngx-flags-chart&quot; (mouseleave)&#x3D;&quot;hoveredFlagIndex.set(null); tooltip.set(null)&quot;&gt;
+  &lt;!-- Toolbar with Export option --&gt;
+  &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;hoveredFlagIndex.set(null); tooltip.set(null)&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+    @if (showExport()) {
+      &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+        &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+        @if (exportMenuOpen()) {
+          &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;chart-svg-container&quot; #container&gt;
+    &lt;svg
+      #svgEl
+      [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+      [attr.height]&#x3D;&quot;height()&quot;
+      class&#x3D;&quot;chart-svg&quot;
+    &gt;
+      &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + PAD_LEFT + &#x27;,&#x27; + PAD_TOP + &#x27;)&#x27;&quot;&gt;
+        &lt;!-- Grid Lines (Horizontal) --&gt;
+        @if (showGrid() &amp;&amp; hasDataset()) {
+          @for (tick of yTicks(); track tick) {
+            &lt;line
+              [attr.x1]&#x3D;&quot;0&quot;
+              [attr.x2]&#x3D;&quot;innerW()&quot;
+              [attr.y1]&#x3D;&quot;yPos(tick)&quot;
+              [attr.y2]&#x3D;&quot;yPos(tick)&quot;
+              stroke&#x3D;&quot;var(--ngx-chart-grid, #ebedf0)&quot;
+              stroke-dasharray&#x3D;&quot;3,3&quot;
+            /&gt;
+          }
+        }
+
+        &lt;!-- Y-Axis Labels --&gt;
+        @if (showLabels() &amp;&amp; hasDataset()) {
+          @for (tick of yTicks(); track tick) {
+            &lt;text
+              x&#x3D;&quot;-10&quot;
+              [attr.y]&#x3D;&quot;yPos(tick) + 4&quot;
+              class&#x3D;&quot;axis-label y&quot;
+              text-anchor&#x3D;&quot;end&quot;
+            &gt;{{ fmtNum(tick) }}&lt;/text&gt;
+          }
+        }
+
+        &lt;!-- Background Line Chart (if dataset is provided) --&gt;
+        @if (hasDataset() &amp;&amp; dataset(); as ds) {
+          &lt;!-- Area Fill --&gt;
+          &lt;path
+            [attr.d]&#x3D;&quot;areaPath(ds)&quot;
+            fill&#x3D;&quot;rgba(79, 70, 229, 0.05)&quot;
+            stroke&#x3D;&quot;none&quot;
+          /&gt;
+          &lt;!-- Line Path --&gt;
+          &lt;path
+            [attr.d]&#x3D;&quot;linePath(ds)&quot;
+            [attr.stroke]&#x3D;&quot;ds.color || &#x27;#6366f1&#x27;&quot;
+            fill&#x3D;&quot;none&quot;
+            stroke-width&#x3D;&quot;2&quot;
+            stroke-linejoin&#x3D;&quot;round&quot;
+            stroke-linecap&#x3D;&quot;round&quot;
+            opacity&#x3D;&quot;0.8&quot;
+          /&gt;
+        } @else {
+          &lt;!-- Timeline Horizontal Base Line --&gt;
+          &lt;line
+            [attr.x1]&#x3D;&quot;0&quot;
+            [attr.x2]&#x3D;&quot;innerW()&quot;
+            [attr.y1]&#x3D;&quot;innerH() / 2&quot;
+            [attr.y2]&#x3D;&quot;innerH() / 2&quot;
+            stroke&#x3D;&quot;#cbd5e1&quot;
+            stroke-width&#x3D;&quot;2&quot;
+          /&gt;
+        }
+
+        &lt;!-- X-Axis Labels --&gt;
+        @if (showLabels()) {
+          @for (cat of categories(); track cat; let i &#x3D; $index) {
+            @if (shouldShowXLabel(i)) {
+              &lt;text
+                [attr.x]&#x3D;&quot;xPos(i)&quot;
+                [attr.y]&#x3D;&quot;innerH() + 20&quot;
+                class&#x3D;&quot;axis-label x&quot;
+                text-anchor&#x3D;&quot;middle&quot;
+              &gt;{{ formatDate(cat) }}&lt;/text&gt;
+            }
+          }
+        }
+
+        &lt;!-- Flags Layer --&gt;
+        @for (flag of computedFlags(); track $index; let i &#x3D; $index) {
+          &lt;!-- Flagpole line --&gt;
+          &lt;line
+            [attr.x1]&#x3D;&quot;flag.cx&quot;
+            [attr.y1]&#x3D;&quot;flag.cy&quot;
+            [attr.x2]&#x3D;&quot;flag.cx&quot;
+            [attr.y2]&#x3D;&quot;flag.poleTop&quot;
+            [attr.stroke]&#x3D;&quot;flag.color&quot;
+            stroke-width&#x3D;&quot;1.5&quot;
+            [attr.stroke-dasharray]&#x3D;&quot;flag.shape &#x3D;&#x3D;&#x3D; &#x27;pin&#x27; ? &#x27;none&#x27; : &#x27;1,1&#x27;&quot;
+          /&gt;
+
+          &lt;!-- Flag Shape Banner --&gt;
+          &lt;g
+            class&#x3D;&quot;flag-group&quot;
+            [class.hovered]&#x3D;&quot;hoveredFlagIndex() &#x3D;&#x3D;&#x3D; i&quot;
+            (mouseenter)&#x3D;&quot;onFlagHover($event, flag.raw, i, flag.cx, flag.poleTop)&quot;
+            (mousemove)&#x3D;&quot;onFlagHover($event, flag.raw, i, flag.cx, flag.poleTop)&quot;
+            style&#x3D;&quot;cursor: pointer;&quot;
+          &gt;
+            &lt;!-- Render flag banner by shape --&gt;
+            @if (flag.shape &#x3D;&#x3D;&#x3D; &#x27;flag&#x27;) {
+              &lt;!-- Standard flag banner pointing right --&gt;
+              &lt;path
+                [attr.d]&#x3D;&quot;&#x27;M &#x27; + flag.cx + &#x27;,&#x27; + flag.poleTop +
+                          &#x27; L &#x27; + (flag.cx + flag.width) + &#x27;,&#x27; + flag.poleTop +
+                          &#x27; L &#x27; + (flag.cx + flag.width - 5) + &#x27;,&#x27; + (flag.poleTop + 9) +
+                          &#x27; L &#x27; + (flag.cx + flag.width) + &#x27;,&#x27; + (flag.poleTop + 18) +
+                          &#x27; L &#x27; + flag.cx + &#x27;,&#x27; + (flag.poleTop + 18) + &#x27; Z&#x27;&quot;
+                [attr.fill]&#x3D;&quot;flag.color&quot;
+                [attr.stroke]&#x3D;&quot;flag.color&quot;
+                stroke-width&#x3D;&quot;1&quot;
+              /&gt;
+              &lt;text
+                [attr.x]&#x3D;&quot;flag.cx + flag.width / 2 - 2&quot;
+                [attr.y]&#x3D;&quot;flag.poleTop + 12&quot;
+                text-anchor&#x3D;&quot;middle&quot;
+                fill&#x3D;&quot;#ffffff&quot;
+                font-size&#x3D;&quot;9px&quot;
+                font-weight&#x3D;&quot;700&quot;
+              &gt;{{ flag.title }}&lt;/text&gt;
+            } @else if (flag.shape &#x3D;&#x3D;&#x3D; &#x27;pin&#x27;) {
+              &lt;!-- Pin Circle shape --&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;flag.cx&quot;
+                [attr.cy]&#x3D;&quot;flag.poleTop - 8&quot;
+                [attr.r]&#x3D;&quot;10&quot;
+                [attr.fill]&#x3D;&quot;flag.color&quot;
+                [attr.stroke]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                stroke-width&#x3D;&quot;1.5&quot;
+                [attr.filter]&#x3D;&quot;hoveredFlagIndex() &#x3D;&#x3D;&#x3D; i ? &#x27;drop-shadow(0 2px 4px rgba(0,0,0,0.15))&#x27; : null&quot;
+              /&gt;
+              &lt;text
+                [attr.x]&#x3D;&quot;flag.cx&quot;
+                [attr.y]&#x3D;&quot;flag.poleTop - 5&quot;
+                text-anchor&#x3D;&quot;middle&quot;
+                fill&#x3D;&quot;#ffffff&quot;
+                font-size&#x3D;&quot;9px&quot;
+                font-weight&#x3D;&quot;700&quot;
+              &gt;{{ flag.title }}&lt;/text&gt;
+            } @else if (flag.shape &#x3D;&#x3D;&#x3D; &#x27;circle&#x27;) {
+              &lt;!-- Circle shape flag --&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;flag.cx&quot;
+                [attr.cy]&#x3D;&quot;flag.poleTop&quot;
+                [attr.r]&#x3D;&quot;9&quot;
+                [attr.fill]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                [attr.stroke]&#x3D;&quot;flag.color&quot;
+                stroke-width&#x3D;&quot;2&quot;
+              /&gt;
+              &lt;text
+                [attr.x]&#x3D;&quot;flag.cx&quot;
+                [attr.y]&#x3D;&quot;flag.poleTop + 3&quot;
+                text-anchor&#x3D;&quot;middle&quot;
+                [attr.fill]&#x3D;&quot;flag.color&quot;
+                font-size&#x3D;&quot;9px&quot;
+                font-weight&#x3D;&quot;700&quot;
+              &gt;{{ flag.title }}&lt;/text&gt;
+            } @else {
+              &lt;!-- Square shape flag (Default) --&gt;
+              &lt;rect
+                [attr.x]&#x3D;&quot;flag.cx - flag.width / 2&quot;
+                [attr.y]&#x3D;&quot;flag.poleTop - 18&quot;
+                [attr.width]&#x3D;&quot;flag.width&quot;
+                [attr.height]&#x3D;&quot;18&quot;
+                rx&#x3D;&quot;3&quot;
+                ry&#x3D;&quot;3&quot;
+                [attr.fill]&#x3D;&quot;flag.color&quot;
+                [attr.stroke]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                stroke-width&#x3D;&quot;1&quot;
+              /&gt;
+              &lt;text
+                [attr.x]&#x3D;&quot;flag.cx&quot;
+                [attr.y]&#x3D;&quot;flag.poleTop - 6&quot;
+                text-anchor&#x3D;&quot;middle&quot;
+                fill&#x3D;&quot;#ffffff&quot;
+                font-size&#x3D;&quot;9px&quot;
+                font-weight&#x3D;&quot;700&quot;
+              &gt;{{ flag.title }}&lt;/text&gt;
+            }
+          &lt;/g&gt;
+        }
+
+        &lt;!-- Base axes borders (Only when dataset is present) --&gt;
+        @if (hasDataset()) {
+          &lt;line x1&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; [attr.y1]&#x3D;&quot;innerH()&quot; [attr.y2]&#x3D;&quot;innerH()&quot; stroke&#x3D;&quot;var(--ngx-chart-axis, #ced4da)&quot;/&gt;
+          &lt;line x1&#x3D;&quot;0&quot; x2&#x3D;&quot;0&quot; y1&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;innerH()&quot; stroke&#x3D;&quot;var(--ngx-chart-axis, #ced4da)&quot;/&gt;
+        }
+      &lt;/g&gt;
+    &lt;/svg&gt;
+
+    &lt;!-- Tooltip --&gt;
+    @if (tooltip(); as t) {
+      &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+        &lt;div class&#x3D;&quot;tooltip-header&quot; [style.border-bottom-color]&#x3D;&quot;t.color&quot;&gt;
+          &lt;span class&#x3D;&quot;flag-type-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+          {{ t.title }}
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;tooltip-body&quot;&gt;
+          &lt;div class&#x3D;&quot;tooltip-date&quot;&gt;Date: &lt;strong&gt;{{ formatDate(t.date) }}&lt;/strong&gt;&lt;/div&gt;
+          @if (t.text) {
+            &lt;div class&#x3D;&quot;tooltip-desc&quot;&gt;{{ t.text }}&lt;/div&gt;
+          }
+          @if (t.yVal !&#x3D;&#x3D; undefined) {
+            &lt;div class&#x3D;&quot;tooltip-val&quot; style&#x3D;&quot;margin-top: 4px;&quot;&gt;
+              &lt;span&gt;Value:&lt;/span&gt;
+              &lt;strong&gt;{{ fmtNum(t.yVal) }}&lt;/strong&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#computedFlags" >computedFlags</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#container" >container</a>
+                            </li>
+                            <li>
+                                <a href="#containerWidth" >containerWidth</a>
+                            </li>
+                            <li>
+                                <a href="#exportMenuOpen" >exportMenuOpen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#fmtNum" >fmtNum</a>
+                            </li>
+                            <li>
+                                <a href="#hasDataset" >hasDataset</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredFlagIndex" >hoveredFlagIndex</a>
+                            </li>
+                            <li>
+                                <a href="#innerH" >innerH</a>
+                            </li>
+                            <li>
+                                <a href="#innerW" >innerW</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#PAD_BOTTOM" >PAD_BOTTOM</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#PAD_LEFT" >PAD_LEFT</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#PAD_RIGHT" >PAD_RIGHT</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#PAD_TOP" >PAD_TOP</a>
+                            </li>
+                            <li>
+                                <a href="#svgEl" >svgEl</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip" >tooltip</a>
+                            </li>
+                            <li>
+                                <a href="#yMax" >yMax</a>
+                            </li>
+                            <li>
+                                <a href="#yMin" >yMin</a>
+                            </li>
+                            <li>
+                                <a href="#yTicks" >yTicks</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#areaPath" >areaPath</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#closeExportMenu" >closeExportMenu</a>
+                            </li>
+                            <li>
+                                <a href="#exportToCsv" >exportToCsv</a>
+                            </li>
+                            <li>
+                                <a href="#exportToJson" >exportToJson</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToSvg" >exportToSvg</a>
+                            </li>
+                            <li>
+                                <a href="#formatDate" >formatDate</a>
+                            </li>
+                            <li>
+                                <a href="#linePath" >linePath</a>
+                            </li>
+                            <li>
+                                <a href="#onExport" >onExport</a>
+                            </li>
+                            <li>
+                                <a href="#onFlagHover" >onFlagHover</a>
+                            </li>
+                            <li>
+                                <a href="#shouldShowXLabel" >shouldShowXLabel</a>
+                            </li>
+                            <li>
+                                <a href="#toggleExportMenu" >toggleExportMenu</a>
+                            </li>
+                            <li>
+                                <a href="#xPos" >xPos</a>
+                            </li>
+                            <li>
+                                <a href="#yPos" >yPos</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <a href="#colors" >colors</a>
+                            </li>
+                            <li>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#dataset" >dataset</a>
+                            </li>
+                            <li>
+                                <a href="#height" >height</a>
+                            </li>
+                            <li>
+                                <a href="#showExport" >showExport</a>
+                            </li>
+                            <li>
+                                <a href="#showGrid" >showGrid</a>
+                            </li>
+                            <li>
+                                <a href="#showLabels" >showLabels</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="449" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:449</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="categories"></a>
+                        <b>categories</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="428" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:428</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colors"></a>
+                        <b>colors</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CHART_COLORS</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="433" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:433</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <b>data</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ChartFlag.html" target="_self" >ChartFlag[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="426" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:426</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dataset"></a>
+                        <b>dataset</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ChartSeries | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="427" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:427</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <b>height</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>300</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="429" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:429</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showExport"></a>
+                        <b>showExport</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="432" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:432</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showGrid"></a>
+                        <b>showGrid</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="430" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:430</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showLabels"></a>
+                        <b>showLabels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="431" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:431</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="617"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:617</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="areaPath"></a>
+                    <span class="name">
+                        <span ><b>areaPath</b></span>
+                        <a href="#areaPath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>areaPath(ds: <a href="../interfaces/ChartSeries.html" target="_self">ChartSeries</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="506"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:506</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ds</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ChartSeries.html" target="_self" >ChartSeries</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeExportMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>closeExportMenu</b></span>
+                        <a href="#closeExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeExportMenu()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="617"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:617</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToCsv"></a>
+                    <span class="name">
+                        <span ><b>exportToCsv</b></span>
+                        <a href="#exportToCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="629"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:629</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToJson"></a>
+                    <span class="name">
+                        <span ><b>exportToJson</b></span>
+                        <a href="#exportToJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="645"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:645</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="673"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:673</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToSvg"></a>
+                    <span class="name">
+                        <span ><b>exportToSvg</b></span>
+                        <a href="#exportToSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToSvg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="655"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:655</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                        <span ><b>formatDate</b></span>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatDate(d: string | Date | number)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="604"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:604</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>d</td>
+                                            <td>
+                                                        <code>string | Date | number</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="linePath"></a>
+                    <span class="name">
+                        <span ><b>linePath</b></span>
+                        <a href="#linePath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>linePath(ds: <a href="../interfaces/ChartSeries.html" target="_self">ChartSeries</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="501"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:501</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ds</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ChartSeries.html" target="_self" >ChartSeries</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExport"></a>
+                    <span class="name">
+                        <span ><b>onExport</b></span>
+                        <a href="#onExport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExport(type: "json" | "csv" | "svg" | "pdf")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="621"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:621</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;json&quot; | &quot;csv&quot; | &quot;svg&quot; | &quot;pdf&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFlagHover"></a>
+                    <span class="name">
+                        <span ><b>onFlagHover</b></span>
+                        <a href="#onFlagHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFlagHover(event: MouseEvent, flag: <a href="../interfaces/ChartFlag.html" target="_self">ChartFlag</a>, index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, cx: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, poleTop: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="575"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:575</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>flag</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ChartFlag.html" target="_self" >ChartFlag</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cx</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>poleTop</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldShowXLabel"></a>
+                    <span class="name">
+                        <span ><b>shouldShowXLabel</b></span>
+                        <a href="#shouldShowXLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>shouldShowXLabel(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="567"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:567</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleExportMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleExportMenu</b></span>
+                        <a href="#toggleExportMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleExportMenu(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="611"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:611</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="xPos"></a>
+                    <span class="name">
+                        <span ><b>xPos</b></span>
+                        <a href="#xPos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>xPos(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="491"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:491</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yPos"></a>
+                    <span class="name">
+                        <span ><b>yPos</b></span>
+                        <a href="#yPos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>yPos(y: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="497"
+                                    class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:497</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>y</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computedFlags"></a>
+                    <span class="name">
+                        <span ><b>computedFlags</b></span>
+                        <a href="#computedFlags"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const flags &#x3D; this.data();
+    const cats &#x3D; this.categories();
+    const hasDS &#x3D; this.hasDataset();
+    const ds &#x3D; this.dataset();
+
+    return flags.map(flag &#x3D;&gt; {
+      // Find category index matching flag.x
+      const flagXStr &#x3D; String(flag.x);
+      const idx &#x3D; cats.findIndex(cat &#x3D;&gt; String(cat) &#x3D;&#x3D;&#x3D; flagXStr);
+      
+      let cx &#x3D; this.innerW() / 2;
+      let cy &#x3D; this.innerH() / 2;
+      let yVal: number | undefined;
+
+      if (idx !&#x3D;&#x3D; -1) {
+        cx &#x3D; this.xPos(idx);
+        if (hasDS &amp;&amp; ds) {
+          yVal &#x3D; flag.y !&#x3D;&#x3D; undefined ? flag.y : ds.data[idx];
+          if (yVal !&#x3D;&#x3D; undefined) {
+            cy &#x3D; this.yPos(yVal);
+          }
+        } else {
+          cy &#x3D; this.innerH() / 2;
+        }
+      }
+
+      // Height of flagpole: e.g. 35px
+      const poleHeight &#x3D; 35;
+      const poleTop &#x3D; cy - poleHeight;
+
+      // Color
+      const color &#x3D; flag.color || this.colors()[0];
+      const shape &#x3D; flag.shape || &#x27;flag&#x27;;
+      
+      // Dynamic width based on title text
+      const width &#x3D; Math.max(18, flag.title.length * 8 + 8);
+
+      return {
+        cx,
+        cy,
+        poleTop,
+        color,
+        shape,
+        width,
+        title: flag.title,
+        text: flag.text,
+        yVal,
+        raw: flag
+      };
+    });
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="514" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:514</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="container"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>container</b></span>
+                        <a href="#container"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&gt;(&#x27;container&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="449" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:449</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="containerWidth"></a>
+                    <span class="name">
+                        <span ><b>containerWidth</b></span>
+                        <a href="#containerWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(600)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="447" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:447</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>exportMenuOpen</b></span>
+                        <a href="#exportMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="435" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:435</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fmtNum"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fmtNum</b></span>
+                        <a href="#fmtNum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>fmtNum</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="724" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:724</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasDataset"></a>
+                    <span class="name">
+                        <span ><b>hasDataset</b></span>
+                        <a href="#hasDataset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const ds &#x3D; this.dataset();
+    return !!(ds &amp;&amp; ds.data &amp;&amp; ds.data.length &gt; 0);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="470" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:470</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hoveredFlagIndex"></a>
+                    <span class="name">
+                        <span ><b>hoveredFlagIndex</b></span>
+                        <a href="#hoveredFlagIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="436" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:436</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="innerH"></a>
+                    <span class="name">
+                        <span ><b>innerH</b></span>
+                        <a href="#innerH"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.max(100, this.height() - this.PAD_TOP - this.PAD_BOTTOM))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="468" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:468</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="innerW"></a>
+                    <span class="name">
+                        <span ><b>innerW</b></span>
+                        <a href="#innerW"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; Math.max(200, this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="467" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:467</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PAD_BOTTOM"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>PAD_BOTTOM</b></span>
+                        <a href="#PAD_BOTTOM"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>36</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="424" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:424</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PAD_LEFT"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>PAD_LEFT</b></span>
+                        <a href="#PAD_LEFT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>52</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="421" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:421</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PAD_RIGHT"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>PAD_RIGHT</b></span>
+                        <a href="#PAD_RIGHT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>24</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="423" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:423</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PAD_TOP"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>PAD_TOP</b></span>
+                        <a href="#PAD_TOP"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>40</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="422" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:422</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="svgEl"></a>
+                    <span class="name">
+                        <span ><b>svgEl</b></span>
+                        <a href="#svgEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="448" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:448</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tooltip"></a>
+                    <span class="name">
+                        <span ><b>tooltip</b></span>
+                        <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;{
+    x: number;
+    y: number;
+    title: string;
+    text?: string;
+    date: string;
+    color: string;
+    yVal?: number;
+  } | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="437" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:437</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yMax"></a>
+                    <span class="name">
+                        <span ><b>yMax</b></span>
+                        <a href="#yMax"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    if (!this.hasDataset()) return 100;
+    const data &#x3D; this.dataset()?.data || [];
+    const maxVal &#x3D; Math.max(...data);
+    return maxVal * 1.05; // 5% margin
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="482" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:482</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yMin"></a>
+                    <span class="name">
+                        <span ><b>yMin</b></span>
+                        <a href="#yMin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    if (!this.hasDataset()) return 0;
+    const data &#x3D; this.dataset()?.data || [];
+    const minVal &#x3D; Math.min(...data);
+    return minVal &lt; 0 ? minVal * 1.1 : minVal * 0.95;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="475" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:475</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yTicks"></a>
+                    <span class="name">
+                        <span ><b>yTicks</b></span>
+                        <a href="#yTicks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; niceTicks(this.yMin(), this.yMax(), 5))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="489" class="link-to-prism">projects/ngx-core-components/charts/flags/flags.component.ts:489</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, HostListener, viewChild
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { niceTicks, scale, fmtNum, CHART_COLORS, smoothPath } from &#x27;../shared/chart-utils&#x27;;
+
+export interface ChartFlag {
+  x: string | Date | number;
+  y?: number;
+  title: string;
+  text?: string;
+  color?: string;
+  shape?: &#x27;flag&#x27; | &#x27;pin&#x27; | &#x27;square&#x27; | &#x27;circle&#x27;;
+}
+
+export interface ChartSeries {
+  name: string;
+  data: number[];
+  color?: string;
+}
+
+@Component({
+  selector: &#x27;ngx-flags&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-flags-chart&quot; (mouseleave)&#x3D;&quot;hoveredFlagIndex.set(null); tooltip.set(null)&quot;&gt;
+      &lt;!-- Toolbar with Export option --&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;hoveredFlagIndex.set(null); tooltip.set(null)&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;chart-svg-container&quot; #container&gt;
+        &lt;svg
+          #svgEl
+          [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+          class&#x3D;&quot;chart-svg&quot;
+        &gt;
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + PAD_LEFT + &#x27;,&#x27; + PAD_TOP + &#x27;)&#x27;&quot;&gt;
+            &lt;!-- Grid Lines (Horizontal) --&gt;
+            @if (showGrid() &amp;&amp; hasDataset()) {
+              @for (tick of yTicks(); track tick) {
+                &lt;line
+                  [attr.x1]&#x3D;&quot;0&quot;
+                  [attr.x2]&#x3D;&quot;innerW()&quot;
+                  [attr.y1]&#x3D;&quot;yPos(tick)&quot;
+                  [attr.y2]&#x3D;&quot;yPos(tick)&quot;
+                  stroke&#x3D;&quot;var(--ngx-chart-grid, #ebedf0)&quot;
+                  stroke-dasharray&#x3D;&quot;3,3&quot;
+                /&gt;
+              }
+            }
+
+            &lt;!-- Y-Axis Labels --&gt;
+            @if (showLabels() &amp;&amp; hasDataset()) {
+              @for (tick of yTicks(); track tick) {
+                &lt;text
+                  x&#x3D;&quot;-10&quot;
+                  [attr.y]&#x3D;&quot;yPos(tick) + 4&quot;
+                  class&#x3D;&quot;axis-label y&quot;
+                  text-anchor&#x3D;&quot;end&quot;
+                &gt;{{ fmtNum(tick) }}&lt;/text&gt;
+              }
+            }
+
+            &lt;!-- Background Line Chart (if dataset is provided) --&gt;
+            @if (hasDataset() &amp;&amp; dataset(); as ds) {
+              &lt;!-- Area Fill --&gt;
+              &lt;path
+                [attr.d]&#x3D;&quot;areaPath(ds)&quot;
+                fill&#x3D;&quot;rgba(79, 70, 229, 0.05)&quot;
+                stroke&#x3D;&quot;none&quot;
+              /&gt;
+              &lt;!-- Line Path --&gt;
+              &lt;path
+                [attr.d]&#x3D;&quot;linePath(ds)&quot;
+                [attr.stroke]&#x3D;&quot;ds.color || &#x27;#6366f1&#x27;&quot;
+                fill&#x3D;&quot;none&quot;
+                stroke-width&#x3D;&quot;2&quot;
+                stroke-linejoin&#x3D;&quot;round&quot;
+                stroke-linecap&#x3D;&quot;round&quot;
+                opacity&#x3D;&quot;0.8&quot;
+              /&gt;
+            } @else {
+              &lt;!-- Timeline Horizontal Base Line --&gt;
+              &lt;line
+                [attr.x1]&#x3D;&quot;0&quot;
+                [attr.x2]&#x3D;&quot;innerW()&quot;
+                [attr.y1]&#x3D;&quot;innerH() / 2&quot;
+                [attr.y2]&#x3D;&quot;innerH() / 2&quot;
+                stroke&#x3D;&quot;#cbd5e1&quot;
+                stroke-width&#x3D;&quot;2&quot;
+              /&gt;
+            }
+
+            &lt;!-- X-Axis Labels --&gt;
+            @if (showLabels()) {
+              @for (cat of categories(); track cat; let i &#x3D; $index) {
+                @if (shouldShowXLabel(i)) {
+                  &lt;text
+                    [attr.x]&#x3D;&quot;xPos(i)&quot;
+                    [attr.y]&#x3D;&quot;innerH() + 20&quot;
+                    class&#x3D;&quot;axis-label x&quot;
+                    text-anchor&#x3D;&quot;middle&quot;
+                  &gt;{{ formatDate(cat) }}&lt;/text&gt;
+                }
+              }
+            }
+
+            &lt;!-- Flags Layer --&gt;
+            @for (flag of computedFlags(); track $index; let i &#x3D; $index) {
+              &lt;!-- Flagpole line --&gt;
+              &lt;line
+                [attr.x1]&#x3D;&quot;flag.cx&quot;
+                [attr.y1]&#x3D;&quot;flag.cy&quot;
+                [attr.x2]&#x3D;&quot;flag.cx&quot;
+                [attr.y2]&#x3D;&quot;flag.poleTop&quot;
+                [attr.stroke]&#x3D;&quot;flag.color&quot;
+                stroke-width&#x3D;&quot;1.5&quot;
+                [attr.stroke-dasharray]&#x3D;&quot;flag.shape &#x3D;&#x3D;&#x3D; &#x27;pin&#x27; ? &#x27;none&#x27; : &#x27;1,1&#x27;&quot;
+              /&gt;
+
+              &lt;!-- Flag Shape Banner --&gt;
+              &lt;g
+                class&#x3D;&quot;flag-group&quot;
+                [class.hovered]&#x3D;&quot;hoveredFlagIndex() &#x3D;&#x3D;&#x3D; i&quot;
+                (mouseenter)&#x3D;&quot;onFlagHover($event, flag.raw, i, flag.cx, flag.poleTop)&quot;
+                (mousemove)&#x3D;&quot;onFlagHover($event, flag.raw, i, flag.cx, flag.poleTop)&quot;
+                style&#x3D;&quot;cursor: pointer;&quot;
+              &gt;
+                &lt;!-- Render flag banner by shape --&gt;
+                @if (flag.shape &#x3D;&#x3D;&#x3D; &#x27;flag&#x27;) {
+                  &lt;!-- Standard flag banner pointing right --&gt;
+                  &lt;path
+                    [attr.d]&#x3D;&quot;&#x27;M &#x27; + flag.cx + &#x27;,&#x27; + flag.poleTop + 
+                              &#x27; L &#x27; + (flag.cx + flag.width) + &#x27;,&#x27; + flag.poleTop + 
+                              &#x27; L &#x27; + (flag.cx + flag.width - 5) + &#x27;,&#x27; + (flag.poleTop + 9) + 
+                              &#x27; L &#x27; + (flag.cx + flag.width) + &#x27;,&#x27; + (flag.poleTop + 18) + 
+                              &#x27; L &#x27; + flag.cx + &#x27;,&#x27; + (flag.poleTop + 18) + &#x27; Z&#x27;&quot;
+                    [attr.fill]&#x3D;&quot;flag.color&quot;
+                    [attr.stroke]&#x3D;&quot;flag.color&quot;
+                    stroke-width&#x3D;&quot;1&quot;
+                  /&gt;
+                  &lt;text
+                    [attr.x]&#x3D;&quot;flag.cx + flag.width / 2 - 2&quot;
+                    [attr.y]&#x3D;&quot;flag.poleTop + 12&quot;
+                    text-anchor&#x3D;&quot;middle&quot;
+                    fill&#x3D;&quot;#ffffff&quot;
+                    font-size&#x3D;&quot;9px&quot;
+                    font-weight&#x3D;&quot;700&quot;
+                  &gt;{{ flag.title }}&lt;/text&gt;
+                } @else if (flag.shape &#x3D;&#x3D;&#x3D; &#x27;pin&#x27;) {
+                  &lt;!-- Pin Circle shape --&gt;
+                  &lt;circle
+                    [attr.cx]&#x3D;&quot;flag.cx&quot;
+                    [attr.cy]&#x3D;&quot;flag.poleTop - 8&quot;
+                    [attr.r]&#x3D;&quot;10&quot;
+                    [attr.fill]&#x3D;&quot;flag.color&quot;
+                    [attr.stroke]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                    stroke-width&#x3D;&quot;1.5&quot;
+                    [attr.filter]&#x3D;&quot;hoveredFlagIndex() &#x3D;&#x3D;&#x3D; i ? &#x27;drop-shadow(0 2px 4px rgba(0,0,0,0.15))&#x27; : null&quot;
+                  /&gt;
+                  &lt;text
+                    [attr.x]&#x3D;&quot;flag.cx&quot;
+                    [attr.y]&#x3D;&quot;flag.poleTop - 5&quot;
+                    text-anchor&#x3D;&quot;middle&quot;
+                    fill&#x3D;&quot;#ffffff&quot;
+                    font-size&#x3D;&quot;9px&quot;
+                    font-weight&#x3D;&quot;700&quot;
+                  &gt;{{ flag.title }}&lt;/text&gt;
+                } @else if (flag.shape &#x3D;&#x3D;&#x3D; &#x27;circle&#x27;) {
+                  &lt;!-- Circle shape flag --&gt;
+                  &lt;circle
+                    [attr.cx]&#x3D;&quot;flag.cx&quot;
+                    [attr.cy]&#x3D;&quot;flag.poleTop&quot;
+                    [attr.r]&#x3D;&quot;9&quot;
+                    [attr.fill]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                    [attr.stroke]&#x3D;&quot;flag.color&quot;
+                    stroke-width&#x3D;&quot;2&quot;
+                  /&gt;
+                  &lt;text
+                    [attr.x]&#x3D;&quot;flag.cx&quot;
+                    [attr.y]&#x3D;&quot;flag.poleTop + 3&quot;
+                    text-anchor&#x3D;&quot;middle&quot;
+                    [attr.fill]&#x3D;&quot;flag.color&quot;
+                    font-size&#x3D;&quot;9px&quot;
+                    font-weight&#x3D;&quot;700&quot;
+                  &gt;{{ flag.title }}&lt;/text&gt;
+                } @else {
+                  &lt;!-- Square shape flag (Default) --&gt;
+                  &lt;rect
+                    [attr.x]&#x3D;&quot;flag.cx - flag.width / 2&quot;
+                    [attr.y]&#x3D;&quot;flag.poleTop - 18&quot;
+                    [attr.width]&#x3D;&quot;flag.width&quot;
+                    [attr.height]&#x3D;&quot;18&quot;
+                    rx&#x3D;&quot;3&quot;
+                    ry&#x3D;&quot;3&quot;
+                    [attr.fill]&#x3D;&quot;flag.color&quot;
+                    [attr.stroke]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                    stroke-width&#x3D;&quot;1&quot;
+                  /&gt;
+                  &lt;text
+                    [attr.x]&#x3D;&quot;flag.cx&quot;
+                    [attr.y]&#x3D;&quot;flag.poleTop - 6&quot;
+                    text-anchor&#x3D;&quot;middle&quot;
+                    fill&#x3D;&quot;#ffffff&quot;
+                    font-size&#x3D;&quot;9px&quot;
+                    font-weight&#x3D;&quot;700&quot;
+                  &gt;{{ flag.title }}&lt;/text&gt;
+                }
+              &lt;/g&gt;
+            }
+
+            &lt;!-- Base axes borders (Only when dataset is present) --&gt;
+            @if (hasDataset()) {
+              &lt;line x1&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; [attr.y1]&#x3D;&quot;innerH()&quot; [attr.y2]&#x3D;&quot;innerH()&quot; stroke&#x3D;&quot;var(--ngx-chart-axis, #ced4da)&quot;/&gt;
+              &lt;line x1&#x3D;&quot;0&quot; x2&#x3D;&quot;0&quot; y1&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;innerH()&quot; stroke&#x3D;&quot;var(--ngx-chart-axis, #ced4da)&quot;/&gt;
+            }
+          &lt;/g&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Tooltip --&gt;
+        @if (tooltip(); as t) {
+          &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+            &lt;div class&#x3D;&quot;tooltip-header&quot; [style.border-bottom-color]&#x3D;&quot;t.color&quot;&gt;
+              &lt;span class&#x3D;&quot;flag-type-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+              {{ t.title }}
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tooltip-body&quot;&gt;
+              &lt;div class&#x3D;&quot;tooltip-date&quot;&gt;Date: &lt;strong&gt;{{ formatDate(t.date) }}&lt;/strong&gt;&lt;/div&gt;
+              @if (t.text) {
+                &lt;div class&#x3D;&quot;tooltip-desc&quot;&gt;{{ t.text }}&lt;/div&gt;
+              }
+              @if (t.yVal !&#x3D;&#x3D; undefined) {
+                &lt;div class&#x3D;&quot;tooltip-val&quot; style&#x3D;&quot;margin-top: 4px;&quot;&gt;
+                  &lt;span&gt;Value:&lt;/span&gt;
+                  &lt;strong&gt;{{ fmtNum(t.yVal) }}&lt;/strong&gt;
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+    .ngx-flags-chart {
+      position: relative;
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+    }
+    .chart-svg-container {
+      position: relative;
+      width: 100%;
+    }
+    .chart-svg {
+      display: block;
+      overflow: visible;
+    }
+    .axis-label {
+      font-size: 10px;
+      fill: #64748b;
+      font-weight: 500;
+    }
+
+    .flag-group {
+      transition: transform 0.15s ease-out;
+    }
+    .flag-group.hovered {
+      transform: scale(1.1);
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      z-index: 100;
+      min-width: 160px;
+      max-width: 250px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.08s ease-out, top 0.08s ease-out;
+    }
+    .tooltip-header {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flag-type-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .tooltip-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tooltip-date {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .tooltip-date strong {
+      color: #38bdf8;
+    }
+    .tooltip-desc {
+      font-size: 10.5px;
+      color: rgba(248, 250, 252, 0.95);
+      margin-top: 4px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .tooltip-val {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(248, 250, 252, 0.85);
+    }
+    .tooltip-val strong {
+      color: #f8fafc;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+      z-index: 60;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  &#x60;]
+})
+export class FlagsComponent {
+  readonly PAD_LEFT &#x3D; 52;
+  readonly PAD_TOP &#x3D; 40; // larger pad top to avoid flags clipping at the top
+  readonly PAD_RIGHT &#x3D; 24;
+  readonly PAD_BOTTOM &#x3D; 36;
+
+  data &#x3D; input.required&lt;ChartFlag[]&gt;();
+  dataset &#x3D; input&lt;ChartSeries | null&gt;(null);
+  categories &#x3D; input&lt;string[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(300);
+  showGrid &#x3D; input&lt;boolean&gt;(true);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+
+  exportMenuOpen &#x3D; signal(false);
+  hoveredFlagIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;{
+    x: number;
+    y: number;
+    title: string;
+    text?: string;
+    date: string;
+    color: string;
+    yVal?: number;
+  } | null&gt;(null);
+
+  containerWidth &#x3D; signal&lt;number&gt;(600);
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+  private container &#x3D; viewChild&lt;ElementRef&gt;(&#x27;container&#x27;);
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          // Subtract padding
+          this.containerWidth.set(width - 32);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(200, this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(100, this.height() - this.PAD_TOP - this.PAD_BOTTOM));
+
+  hasDataset &#x3D; computed(() &#x3D;&gt; {
+    const ds &#x3D; this.dataset();
+    return !!(ds &amp;&amp; ds.data &amp;&amp; ds.data.length &gt; 0);
+  });
+
+  yMin &#x3D; computed(() &#x3D;&gt; {
+    if (!this.hasDataset()) return 0;
+    const data &#x3D; this.dataset()?.data || [];
+    const minVal &#x3D; Math.min(...data);
+    return minVal &lt; 0 ? minVal * 1.1 : minVal * 0.95;
+  });
+
+  yMax &#x3D; computed(() &#x3D;&gt; {
+    if (!this.hasDataset()) return 100;
+    const data &#x3D; this.dataset()?.data || [];
+    const maxVal &#x3D; Math.max(...data);
+    return maxVal * 1.05; // 5% margin
+  });
+
+  yTicks &#x3D; computed(() &#x3D;&gt; niceTicks(this.yMin(), this.yMax(), 5));
+
+  xPos(index: number): number {
+    const count &#x3D; this.categories().length || 1;
+    if (count &lt;&#x3D; 1) return this.innerW() / 2;
+    return scale(index, 0, count - 1, 0, this.innerW());
+  }
+
+  yPos(y: number): number {
+    return scale(y, this.yMin(), this.yMax(), this.innerH(), 0);
+  }
+
+  linePath(ds: ChartSeries): string {
+    const pts: [number, number][] &#x3D; ds.data.map((v, i) &#x3D;&gt; [this.xPos(i), this.yPos(v)]);
+    return smoothPath(pts);
+  }
+
+  areaPath(ds: ChartSeries): string {
+    const pts: [number, number][] &#x3D; ds.data.map((v, i) &#x3D;&gt; [this.xPos(i), this.yPos(v)]);
+    const line &#x3D; smoothPath(pts);
+    const last &#x3D; pts[pts.length - 1];
+    const first &#x3D; pts[0];
+    return line + &#x60; L ${last[0]} ${this.innerH()} L ${first[0]} ${this.innerH()} Z&#x60;;
+  }
+
+  computedFlags &#x3D; computed(() &#x3D;&gt; {
+    const flags &#x3D; this.data();
+    const cats &#x3D; this.categories();
+    const hasDS &#x3D; this.hasDataset();
+    const ds &#x3D; this.dataset();
+
+    return flags.map(flag &#x3D;&gt; {
+      // Find category index matching flag.x
+      const flagXStr &#x3D; String(flag.x);
+      const idx &#x3D; cats.findIndex(cat &#x3D;&gt; String(cat) &#x3D;&#x3D;&#x3D; flagXStr);
+      
+      let cx &#x3D; this.innerW() / 2;
+      let cy &#x3D; this.innerH() / 2;
+      let yVal: number | undefined;
+
+      if (idx !&#x3D;&#x3D; -1) {
+        cx &#x3D; this.xPos(idx);
+        if (hasDS &amp;&amp; ds) {
+          yVal &#x3D; flag.y !&#x3D;&#x3D; undefined ? flag.y : ds.data[idx];
+          if (yVal !&#x3D;&#x3D; undefined) {
+            cy &#x3D; this.yPos(yVal);
+          }
+        } else {
+          cy &#x3D; this.innerH() / 2;
+        }
+      }
+
+      // Height of flagpole: e.g. 35px
+      const poleHeight &#x3D; 35;
+      const poleTop &#x3D; cy - poleHeight;
+
+      // Color
+      const color &#x3D; flag.color || this.colors()[0];
+      const shape &#x3D; flag.shape || &#x27;flag&#x27;;
+      
+      // Dynamic width based on title text
+      const width &#x3D; Math.max(18, flag.title.length * 8 + 8);
+
+      return {
+        cx,
+        cy,
+        poleTop,
+        color,
+        shape,
+        width,
+        title: flag.title,
+        text: flag.text,
+        yVal,
+        raw: flag
+      };
+    });
+  });
+
+  shouldShowXLabel(index: number): boolean {
+    const count &#x3D; this.categories().length;
+    if (count &lt;&#x3D; 10) return true;
+    if (count &lt;&#x3D; 25) return index % 2 &#x3D;&#x3D;&#x3D; 0;
+    if (count &lt;&#x3D; 50) return index % 5 &#x3D;&#x3D;&#x3D; 0;
+    return index % 10 &#x3D;&#x3D;&#x3D; 0;
+  }
+
+  onFlagHover(event: MouseEvent, flag: ChartFlag, index: number, cx: number, poleTop: number) {
+    this.hoveredFlagIndex.set(index);
+    const containerEl &#x3D; this.container()?.nativeElement;
+    if (!containerEl) return;
+    const rect &#x3D; containerEl.getBoundingClientRect();
+    
+    // Position tooltip above the flag banner
+    const tooltipX &#x3D; cx + this.PAD_LEFT;
+    const tooltipY &#x3D; poleTop + this.PAD_TOP - 10;
+
+    let yVal: number | undefined;
+    if (this.hasDataset() &amp;&amp; this.dataset()) {
+      const idx &#x3D; this.categories().findIndex(cat &#x3D;&gt; String(cat) &#x3D;&#x3D;&#x3D; String(flag.x));
+      if (idx !&#x3D;&#x3D; -1) {
+        yVal &#x3D; flag.y !&#x3D;&#x3D; undefined ? flag.y : this.dataset()!.data[idx];
+      }
+    }
+
+    this.tooltip.set({
+      x: tooltipX,
+      y: tooltipY,
+      title: flag.title,
+      text: flag.text,
+      date: String(flag.x),
+      color: flag.color || this.colors()[0],
+      yVal
+    });
+  }
+
+  formatDate(d: string | Date | number): string {
+    if (d instanceof Date) {
+      return d.toLocaleDateString(undefined, { month: &#x27;short&#x27;, day: &#x27;numeric&#x27; });
+    }
+    return String(d);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToCsv(): void {
+    const items &#x3D; this.data();
+    if (!items.length) return;
+    let csv &#x3D; &#x27;Coordinate,Title,Text,Color,Shape,YValue\n&#x27;;
+    items.forEach(item &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${this.formatDate(item.x)}&quot;,&quot;${item.title}&quot;,&quot;${item.text || &#x27;&#x27;}&quot;,&quot;${item.color || &#x27;&#x27;}&quot;,&quot;${item.shape || &#x27;flag&#x27;}&quot;,${item.y || &#x27;&#x27;}\n&#x60;;
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;flags-annotation-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToJson(): void {
+    const blob &#x3D; new Blob([JSON.stringify(this.data(), null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;flags-annotation-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;flags-chart.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof document &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) {
+      alert(&#x27;Pop-up blocker prevented printing. Please allow pop-ups for this site.&#x27;);
+      return;
+    }
+
+    const svgHtml &#x3D; svg.outerHTML;
+    const printTemplate &#x3D; &#x60;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Timeline Flags Annotation Export&lt;/title&gt;
+        &lt;style&gt;
+          body { font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; width: 90%; }
+          svg { width: 100%; height: auto; }
+          .axis-label { font-size: 11px; fill: #6c757d; font-weight: 500; }
+          @media print {
+            body { padding: 0; }
+            .chart-container { border: none; padding: 0; width: 100%; }
+          }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+          &lt;div class&#x3D;&quot;title&quot;&gt;Timeline Flags Annotation Analytics&lt;/div&gt;
+          &lt;div class&#x3D;&quot;date&quot;&gt;${new Date().toLocaleString()}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;chart-container&quot;&gt;
+          ${svgHtml}
+        &lt;/div&gt;
+        &lt;script&gt;
+          window.onload &#x3D; function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
+  }
+
+  readonly fmtNum &#x3D; fmtNum;
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    :host {
+      display: block;
+      width: 100%;
+    }
+    .ngx-flags-chart {
+      position: relative;
+      background: var(--ngx-chart-bg, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+    }
+    .chart-svg-container {
+      position: relative;
+      width: 100%;
+    }
+    .chart-svg {
+      display: block;
+      overflow: visible;
+    }
+    .axis-label {
+      font-size: 10px;
+      fill: #64748b;
+      font-weight: 500;
+    }
+
+    .flag-group {
+      transition: transform 0.15s ease-out;
+    }
+    .flag-group.hovered {
+      transform: scale(1.1);
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      z-index: 100;
+      min-width: 160px;
+      max-width: 250px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.08s ease-out, top 0.08s ease-out;
+    }
+    .tooltip-header {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flag-type-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .tooltip-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tooltip-date {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .tooltip-date strong {
+      color: #38bdf8;
+    }
+    .tooltip-desc {
+      font-size: 10.5px;
+      color: rgba(248, 250, 252, 0.95);
+      margin-top: 4px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .tooltip-val {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(248, 250, 252, 0.85);
+    }
+    .tooltip-val strong {
+      color: #f8fafc;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+      z-index: 60;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="ngx-flags-chart" (mouseleave)="hoveredFlagIndex.set(null); tooltip.set(null)">  <!-- Toolbar with Export option -->  <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hoveredFlagIndex.set(null); tooltip.set(null)">    <div class="chart-title-space"></div>    @if (showExport()) {      <div class="chart-export-menu">        <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>        @if (exportMenuOpen()) {          <div class="export-dropdown">            <button (click)="onExport(\'json\')">📊 Export JSON</button>            <button (click)="onExport(\'csv\')">📄 Export CSV</button>            <button (click)="onExport(\'svg\')">🖼️ Export SVG</button>            <button (click)="onExport(\'pdf\')">📕 Export PDF</button>          </div>        }      </div>    }  </div>  <div class="chart-svg-container" #container>    <svg      #svgEl      [attr.width]="\'100%\'"      [attr.height]="height()"      class="chart-svg"    >      <g [attr.transform]="\'translate(\' + PAD_LEFT + \',\' + PAD_TOP + \')\'">        <!-- Grid Lines (Horizontal) -->        @if (showGrid() && hasDataset()) {          @for (tick of yTicks(); track tick) {            <line              [attr.x1]="0"              [attr.x2]="innerW()"              [attr.y1]="yPos(tick)"              [attr.y2]="yPos(tick)"              stroke="var(--ngx-chart-grid, #ebedf0)"              stroke-dasharray="3,3"            />          }        }        <!-- Y-Axis Labels -->        @if (showLabels() && hasDataset()) {          @for (tick of yTicks(); track tick) {            <text              x="-10"              [attr.y]="yPos(tick) + 4"              class="axis-label y"              text-anchor="end"            >{{ fmtNum(tick) }}</text>          }        }        <!-- Background Line Chart (if dataset is provided) -->        @if (hasDataset() && dataset(); as ds) {          <!-- Area Fill -->          <path            [attr.d]="areaPath(ds)"            fill="rgba(79, 70, 229, 0.05)"            stroke="none"          />          <!-- Line Path -->          <path            [attr.d]="linePath(ds)"            [attr.stroke]="ds.color || \'#6366f1\'"            fill="none"            stroke-width="2"            stroke-linejoin="round"            stroke-linecap="round"            opacity="0.8"          />        } @else {          <!-- Timeline Horizontal Base Line -->          <line            [attr.x1]="0"            [attr.x2]="innerW()"            [attr.y1]="innerH() / 2"            [attr.y2]="innerH() / 2"            stroke="#cbd5e1"            stroke-width="2"          />        }        <!-- X-Axis Labels -->        @if (showLabels()) {          @for (cat of categories(); track cat; let i = $index) {            @if (shouldShowXLabel(i)) {              <text                [attr.x]="xPos(i)"                [attr.y]="innerH() + 20"                class="axis-label x"                text-anchor="middle"              >{{ formatDate(cat) }}</text>            }          }        }        <!-- Flags Layer -->        @for (flag of computedFlags(); track $index; let i = $index) {          <!-- Flagpole line -->          <line            [attr.x1]="flag.cx"            [attr.y1]="flag.cy"            [attr.x2]="flag.cx"            [attr.y2]="flag.poleTop"            [attr.stroke]="flag.color"            stroke-width="1.5"            [attr.stroke-dasharray]="flag.shape === \'pin\' ? \'none\' : \'1,1\'"          />          <!-- Flag Shape Banner -->          <g            class="flag-group"            [class.hovered]="hoveredFlagIndex() === i"            (mouseenter)="onFlagHover($event, flag.raw, i, flag.cx, flag.poleTop)"            (mousemove)="onFlagHover($event, flag.raw, i, flag.cx, flag.poleTop)"            style="cursor: pointer;"          >            <!-- Render flag banner by shape -->            @if (flag.shape === \'flag\') {              <!-- Standard flag banner pointing right -->              <path                [attr.d]="\'M \' + flag.cx + \',\' + flag.poleTop +                          \' L \' + (flag.cx + flag.width) + \',\' + flag.poleTop +                          \' L \' + (flag.cx + flag.width - 5) + \',\' + (flag.poleTop + 9) +                          \' L \' + (flag.cx + flag.width) + \',\' + (flag.poleTop + 18) +                          \' L \' + flag.cx + \',\' + (flag.poleTop + 18) + \' Z\'"                [attr.fill]="flag.color"                [attr.stroke]="flag.color"                stroke-width="1"              />              <text                [attr.x]="flag.cx + flag.width / 2 - 2"                [attr.y]="flag.poleTop + 12"                text-anchor="middle"                fill="#ffffff"                font-size="9px"                font-weight="700"              >{{ flag.title }}</text>            } @else if (flag.shape === \'pin\') {              <!-- Pin Circle shape -->              <circle                [attr.cx]="flag.cx"                [attr.cy]="flag.poleTop - 8"                [attr.r]="10"                [attr.fill]="flag.color"                [attr.stroke]="\'#ffffff\'"                stroke-width="1.5"                [attr.filter]="hoveredFlagIndex() === i ? \'drop-shadow(0 2px 4px rgba(0,0,0,0.15))\' : null"              />              <text                [attr.x]="flag.cx"                [attr.y]="flag.poleTop - 5"                text-anchor="middle"                fill="#ffffff"                font-size="9px"                font-weight="700"              >{{ flag.title }}</text>            } @else if (flag.shape === \'circle\') {              <!-- Circle shape flag -->              <circle                [attr.cx]="flag.cx"                [attr.cy]="flag.poleTop"                [attr.r]="9"                [attr.fill]="\'#ffffff\'"                [attr.stroke]="flag.color"                stroke-width="2"              />              <text                [attr.x]="flag.cx"                [attr.y]="flag.poleTop + 3"                text-anchor="middle"                [attr.fill]="flag.color"                font-size="9px"                font-weight="700"              >{{ flag.title }}</text>            } @else {              <!-- Square shape flag (Default) -->              <rect                [attr.x]="flag.cx - flag.width / 2"                [attr.y]="flag.poleTop - 18"                [attr.width]="flag.width"                [attr.height]="18"                rx="3"                ry="3"                [attr.fill]="flag.color"                [attr.stroke]="\'#ffffff\'"                stroke-width="1"              />              <text                [attr.x]="flag.cx"                [attr.y]="flag.poleTop - 6"                text-anchor="middle"                fill="#ffffff"                font-size="9px"                font-weight="700"              >{{ flag.title }}</text>            }          </g>        }        <!-- Base axes borders (Only when dataset is present) -->        @if (hasDataset()) {          <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>          <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>        }      </g>    </svg>    <!-- Tooltip -->    @if (tooltip(); as t) {      <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">        <div class="tooltip-header" [style.border-bottom-color]="t.color">          <span class="flag-type-dot" [style.background]="t.color"></span>          {{ t.title }}        </div>        <div class="tooltip-body">          <div class="tooltip-date">Date: <strong>{{ formatDate(t.date) }}</strong></div>          @if (t.text) {            <div class="tooltip-desc">{{ t.text }}</div>          }          @if (t.yVal !== undefined) {            <div class="tooltip-val" style="margin-top: 4px;">              <span>Value:</span>              <strong>{{ fmtNum(t.yVal) }}</strong>            </div>          }        </div>      </div>    }  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'ngx-accordion'},{'name': 'AccordionItemComponent', 'selector': 'ngx-accordion-item'},{'name': 'AdjacencyMatrixComponent', 'selector': 'ngx-adjacency-matrix'},{'name': 'AgenticCognitiveTopologyComponent', 'selector': 'ngx-agentic-cognitive-topology'},{'name': 'AIAudioWaveComponent', 'selector': 'ngx-ai-audio-wave'},{'name': 'AIChatComponent', 'selector': 'ngx-ai-chat'},{'name': 'AIChatWidgetComponent', 'selector': 'ngx-ai-chat-widget'},{'name': 'AICodeEditorComponent', 'selector': 'ngx-ai-code-editor'},{'name': 'AIFormCopilotComponent', 'selector': 'ngx-ai-form-copilot'},{'name': 'AIModelCompareComponent', 'selector': 'ngx-ai-model-compare'},{'name': 'AIPromptEditorComponent', 'selector': 'ngx-ai-prompt-editor'},{'name': 'AIRagInspectorComponent', 'selector': 'ngx-ai-rag-inspector'},{'name': 'AlertComponent', 'selector': 'ngx-alert'},{'name': 'ArcDiagramComponent', 'selector': 'ngx-arc-diagram'},{'name': 'AreaChartComponent', 'selector': 'ngx-area-chart'},{'name': 'AreaRangeChartComponent', 'selector': 'ngx-area-range-chart'},{'name': 'AreaSplineRangeChartComponent', 'selector': 'ngx-area-spline-range-chart'},{'name': 'AutocompleteComponent', 'selector': 'ngx-autocomplete'},{'name': 'AvatarComponent', 'selector': 'ngx-avatar'},{'name': 'AvatarGroupComponent', 'selector': 'ngx-avatar-group'},{'name': 'BackToTopComponent', 'selector': 'ngx-back-to-top'},{'name': 'BadgeComponent', 'selector': 'ngx-badge'},{'name': 'BarChartComponent', 'selector': 'ngx-bar-chart'},{'name': 'BarcodeComponent', 'selector': 'ngx-barcode'},{'name': 'BellCurveChartComponent', 'selector': 'ngx-bell-curve-chart'},{'name': 'BiplotComponent', 'selector': 'ngx-biplot'},{'name': 'BoxPlotChartComponent', 'selector': 'ngx-box-plot-chart'},{'name': 'BreadcrumbComponent', 'selector': 'ngx-breadcrumb'},{'name': 'BubbleChartComponent', 'selector': 'ngx-bubble-chart'},{'name': 'BulletChartComponent', 'selector': 'ngx-bullet-chart'},{'name': 'ButtonComponent', 'selector': 'ngx-button'},{'name': 'ButtonGroupComponent', 'selector': 'ngx-button-group'},{'name': 'CalendarComponent', 'selector': 'ngx-calendar'},{'name': 'CalendarHeatmapComponent', 'selector': 'ngx-calendar-heatmap'},{'name': 'CandlestickChartComponent', 'selector': 'ngx-candlestick-chart'},{'name': 'CardComponent', 'selector': 'ngx-card'},{'name': 'CarouselComponent', 'selector': 'ngx-carousel'},{'name': 'ChartBrushZoomComponent', 'selector': 'ngx-chart-brush-zoom'},{'name': 'ChartExportMenuComponent', 'selector': 'ngx-chart-export-menu'},{'name': 'ChartSkeletonComponent', 'selector': 'ngx-chart-skeleton'},{'name': 'CheckboxComponent', 'selector': 'ngx-checkbox'},{'name': 'ChipComponent', 'selector': 'ngx-chip'},{'name': 'ChipListComponent', 'selector': 'ngx-chip-list'},{'name': 'ChordDiagramComponent', 'selector': 'ngx-chord-diagram'},{'name': 'ColorPickerComponent', 'selector': 'ngx-color-picker'},{'name': 'ColumnPyramidChartComponent', 'selector': 'ngx-column-pyramid-chart'},{'name': 'ColumnRangeChartComponent', 'selector': 'ngx-column-range-chart'},{'name': 'ComboChartComponent', 'selector': 'ngx-combo-chart'},{'name': 'CommandPaletteComponent', 'selector': 'ngx-command-palette'},{'name': 'ContextMenuComponent', 'selector': 'ngx-context-menu'},{'name': 'CountdownComponent', 'selector': 'ngx-countdown'},{'name': 'DashboardLayoutComponent', 'selector': 'ngx-dashboard-layout'},{'name': 'DataGridComponent', 'selector': 'ngx-data-grid'},{'name': 'DatePickerComponent', 'selector': 'ngx-date-picker'},{'name': 'DateRangePickerComponent', 'selector': 'ngx-date-range-picker'},{'name': 'DependencyWheelComponent', 'selector': 'ngx-dependency-wheel'},{'name': 'DialogContainerComponent', 'selector': 'ngx-dialog-container'},{'name': 'DrawerComponent', 'selector': 'ngx-drawer'},{'name': 'DropDownButtonComponent', 'selector': 'ngx-dropdown-button'},{'name': 'DropdownComponent', 'selector': 'ngx-dropdown'},{'name': 'DumbbellChartComponent', 'selector': 'ngx-dumbbell-chart'},{'name': 'EmbeddingSpaceProjectionComponent', 'selector': 'ngx-embedding-space-projection'},{'name': 'EmptyStateComponent', 'selector': 'ngx-empty-state'},{'name': 'ErrorBarComponent', 'selector': 'ngx-error-bar'},{'name': 'FilePreviewComponent', 'selector': 'ngx-file-preview'},{'name': 'FileUploadComponent', 'selector': 'ngx-file-upload'},{'name': 'FlagsComponent', 'selector': 'ngx-flags'},{'name': 'FlowmapComponent', 'selector': 'ngx-flowmap'},{'name': 'FormBuilderComponent', 'selector': 'ngx-form-builder'},{'name': 'FormDesignerComponent', 'selector': 'ngx-form-designer'},{'name': 'FunnelChartComponent', 'selector': 'ngx-funnel-chart'},{'name': 'GanttChartComponent', 'selector': 'ngx-gantt-chart'},{'name': 'GaugeChartComponent', 'selector': 'ngx-gauge-chart'},{'name': 'GeoHeatmapComponent', 'selector': 'ngx-geo-heatmap'},{'name': 'GridFilterBuilderComponent', 'selector': 'ngx-grid-filter-builder'},{'name': 'GridStatusBarComponent', 'selector': 'ngx-grid-status-bar'},{'name': 'HeatmapChartComponent', 'selector': 'ngx-heatmap-chart'},{'name': 'HeikinAshiChartComponent', 'selector': 'ngx-heikin-ashi-chart'},{'name': 'HistogramComponent', 'selector': 'ngx-histogram'},{'name': 'HLCChartComponent', 'selector': 'ngx-hlc-chart'},{'name': 'HollowCandlestickChartComponent', 'selector': 'ngx-hollow-candlestick-chart'},{'name': 'ImageCompareComponent', 'selector': 'ngx-image-compare'},{'name': 'JsonViewerComponent', 'selector': 'ngx-json-viewer'},{'name': 'KagiChartComponent', 'selector': 'ngx-kagi-chart'},{'name': 'KanbanComponent', 'selector': 'ngx-kanban'},{'name': 'KeyValueListComponent', 'selector': 'ngx-key-value-list'},{'name': 'LineChartComponent', 'selector': 'ngx-line-chart'},{'name': 'ListViewComponent', 'selector': 'ngx-list-view'},{'name': 'LollipopChartComponent', 'selector': 'ngx-lollipop-chart'},{'name': 'MapBubbleComponent', 'selector': 'ngx-map-bubble'},{'name': 'MapChoroplethComponent', 'selector': 'ngx-map-choropleth'},{'name': 'MapLinePointComponent', 'selector': 'ngx-map-line-point'},{'name': 'MarimekkoChartComponent', 'selector': 'ngx-marimekko-chart'},{'name': 'MenuComponent', 'selector': 'ngx-menu'},{'name': 'MultiNeedleGaugeComponent', 'selector': 'ngx-multi-needle-gauge'},{'name': 'MultiSelectComponent', 'selector': 'ngx-multi-select'},{'name': 'NestedDonutChartComponent', 'selector': 'ngx-nested-donut-chart'},{'name': 'NetworkGraphComponent', 'selector': 'ngx-network-graph'},{'name': 'NotificationContainerComponent', 'selector': 'ngx-notification-container'},{'name': 'NotificationStoryWrapperComponent', 'selector': 'ngx-notification-story-wrapper'},{'name': 'NumericTextBoxComponent', 'selector': 'ngx-numeric-textbox'},{'name': 'OHLCChartComponent', 'selector': 'ngx-ohlc-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'OrgChartComponent', 'selector': 'ngx-org-chart'},{'name': 'PackedBubbleChartComponent', 'selector': 'ngx-packed-bubble-chart'},{'name': 'ParallelCoordinatesComponent', 'selector': 'ngx-parallel-coordinates'},{'name': 'ParetoChartComponent', 'selector': 'ngx-pareto-chart'},{'name': 'PictorialChartComponent', 'selector': 'ngx-pictorial-chart'},{'name': 'PieChartComponent', 'selector': 'ngx-pie-chart'},{'name': 'PivotGridComponent', 'selector': 'ngx-pivot-grid'},{'name': 'PointFigureChartComponent', 'selector': 'ngx-point-figure-chart'},{'name': 'PolarAreaChartComponent', 'selector': 'ngx-polar-area-chart'},{'name': 'PopoverComponent', 'selector': 'ngx-popover'},{'name': 'ProgressBarComponent', 'selector': 'ngx-progress-bar'},{'name': 'PyramidChartComponent', 'selector': 'ngx-pyramid-chart'},{'name': 'QrCodeComponent', 'selector': 'ngx-qr-code'},{'name': 'RadarChartComponent', 'selector': 'ngx-radar-chart'},{'name': 'RadialBarChartComponent', 'selector': 'ngx-radial-bar-chart'},{'name': 'RadioGroupComponent', 'selector': 'ngx-radio-group'},{'name': 'RangeBarChartComponent', 'selector': 'ngx-range-bar-chart'},{'name': 'RatingComponent', 'selector': 'ngx-rating'},{'name': 'RenkoChartComponent', 'selector': 'ngx-renko-chart'},{'name': 'RidgelineChartComponent', 'selector': 'ngx-ridgeline-chart'},{'name': 'SankeyChartComponent', 'selector': 'ngx-sankey-chart'},{'name': 'ScatterPlotComponent', 'selector': 'ngx-scatter-plot'},{'name': 'SchedulerComponent', 'selector': 'ngx-scheduler'},{'name': 'SegmentedControlComponent', 'selector': 'ngx-segmented-control'},{'name': 'SignaturePadComponent', 'selector': 'ngx-signature-pad'},{'name': 'SkeletonComponent', 'selector': 'ngx-skeleton'},{'name': 'SliderComponent', 'selector': 'ngx-slider'},{'name': 'SlopeChartComponent', 'selector': 'ngx-slope-chart'},{'name': 'SparklineComponent', 'selector': 'ngx-sparkline'},{'name': 'SpeedDialComponent', 'selector': 'ngx-speed-dial'},{'name': 'SplitButtonComponent', 'selector': 'ngx-split-button'},{'name': 'SplitterComponent', 'selector': 'ngx-splitter'},{'name': 'StatCardComponent', 'selector': 'ngx-stat-card'},{'name': 'StepLineChartComponent', 'selector': 'ngx-step-line-chart'},{'name': 'StepperComponent', 'selector': 'ngx-stepper'},{'name': 'StreamgraphComponent', 'selector': 'ngx-streamgraph'},{'name': 'SunburstChartComponent', 'selector': 'ngx-sunburst-chart'},{'name': 'SwitchComponent', 'selector': 'ngx-switch'},{'name': 'TabComponent', 'selector': 'ngx-tab'},{'name': 'TabStripComponent', 'selector': 'ngx-tab-strip'},{'name': 'TagInputComponent', 'selector': 'ngx-tag-input'},{'name': 'TextareaComponent', 'selector': 'ngx-textarea'},{'name': 'TextBoxComponent', 'selector': 'ngx-textbox'},{'name': 'TiledWebMapComponent', 'selector': 'ngx-tiled-web-map'},{'name': 'TilemapComponent', 'selector': 'ngx-tilemap'},{'name': 'TimelineChartComponent', 'selector': 'ngx-timeline-chart'},{'name': 'TimelineComponent', 'selector': 'ngx-timeline'},{'name': 'TimePickerComponent', 'selector': 'ngx-time-picker'},{'name': 'TokenStreamingChartComponent', 'selector': 'ngx-token-streaming-chart'},{'name': 'TokenStreamSimComponent', 'selector': 'ngx-token-stream-sim'},{'name': 'TransformerAttentionHeatmapComponent', 'selector': 'ngx-transformer-attention-heatmap'},{'name': 'TreeGraphComponent', 'selector': 'ngx-treegraph'},{'name': 'TreemapChartComponent', 'selector': 'ngx-treemap-chart'},{'name': 'TreeViewComponent', 'selector': 'ngx-tree-view'},{'name': 'VariablePieChartComponent', 'selector': 'ngx-variable-pie-chart'},{'name': 'VariwideChartComponent', 'selector': 'ngx-variwide-chart'},{'name': 'VectorPlotComponent', 'selector': 'ngx-vector-plot'},{'name': 'VennDiagramComponent', 'selector': 'ngx-venn-diagram'},{'name': 'ViolinPlotComponent', 'selector': 'ngx-violin-plot'},{'name': 'VirtualListComponent', 'selector': 'ngx-virtual-list'},{'name': 'WaterfallChartComponent', 'selector': 'ngx-waterfall-chart'},{'name': 'WindRoseChartComponent', 'selector': 'ngx-wind-rose'},{'name': 'WordCloudComponent', 'selector': 'ngx-word-cloud'}];
+    var DIRECTIVES = [{'name': 'ChartSyncGroupDirective', 'selector': '[ngxChartSyncGroup]'},{'name': 'NgxGridCellTemplateDirective', 'selector': '[ngxGridCellTemplate]'},{'name': 'NgxGridEditCellTemplateDirective', 'selector': '[ngxGridEditCellTemplate]'},{'name': 'NgxGridFooterTemplateDirective', 'selector': '[ngxGridFooterTemplate]'},{'name': 'NgxGridHeaderTemplateDirective', 'selector': '[ngxGridHeaderTemplate]'},{'name': 'NgxMaskDirective', 'selector': 'input[ngxMask]'},{'name': 'NgxSchedulerEventTemplateDirective', 'selector': '[ngxSchedulerEventTemplate]'},{'name': 'NgxStepContentDirective', 'selector': '[ngxStepContent]'},{'name': 'NgxTimelineCardTemplateDirective', 'selector': '[ngxTimelineCardTemplate]'},{'name': 'NgxTimelineMarkerTemplateDirective', 'selector': '[ngxTimelineMarkerTemplate]'},{'name': 'TooltipDirective', 'selector': '[ngxTooltip]'}];
+    var ACTUAL_COMPONENT = {'name': 'FlagsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FlagsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

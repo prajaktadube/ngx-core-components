@@ -1,0 +1,1217 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  SunburstSlice</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/sunburst-chart/sunburst-chart.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#color" 
+>
+                                            color
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#depth" 
+>
+                                            depth
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#endAngle" 
+>
+                                            endAngle
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#parentPath" 
+>
+                                            parentPath
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#path" 
+>
+                                            path
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#pct" 
+>
+                                            pct
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#startAngle" 
+>
+                                            startAngle
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#value" 
+>
+                                            value
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="color"></a>
+                                        <span class="name "><b>color</b>
+                                            <a href="#color">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>color:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="depth"></a>
+                                        <span class="name "><b>depth</b>
+                                            <a href="#depth">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>depth:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="endAngle"></a>
+                                        <span class="name "><b>endAngle</b>
+                                            <a href="#endAngle">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>endAngle:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="parentPath"></a>
+                                        <span class="name "><b>parentPath</b>
+                                            <a href="#parentPath">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>parentPath:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="path"></a>
+                                        <span class="name "><b>path</b>
+                                            <a href="#path">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>path:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pct"></a>
+                                        <span class="name "><b>pct</b>
+                                            <a href="#pct">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pct:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="startAngle"></a>
+                                        <span class="name "><b>startAngle</b>
+                                            <a href="#startAngle">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>startAngle:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="value"></a>
+                                        <span class="name "><b>value</b>
+                                            <a href="#value">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>value:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, viewChild
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface SunburstNode {
+  label: string;
+  value?: number; // Leaf value. If parent, computed as sum of children if omitted.
+  color?: string;
+  children?: SunburstNode[];
+}
+
+interface SunburstSlice {
+  id: string;
+  label: string;
+  value: number;
+  depth: number;
+  startAngle: number;
+  endAngle: number;
+  path: string;
+  color: string;
+  parentPath: string;
+  pct: number;
+}
+
+@Component({
+  selector: &#x27;ngx-sunburst-chart&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-sunburst-chart&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onSliceLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;chart-body&quot;&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;chart-svg&quot;
+          [attr.viewBox]&#x3D;&quot;&#x27;0 0 &#x27; + height() + &#x27; &#x27; + height()&quot;
+          [attr.width]&#x3D;&quot;height()&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+        &gt;
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + cx() + &#x27;,&#x27; + cy() + &#x27;)&#x27;&quot; class&#x3D;&quot;sunburst-group&quot;&gt;
+            @for (slice of slices(); track slice.id; let idx &#x3D; $index) {
+              &lt;path
+                [attr.d]&#x3D;&quot;slice.path&quot;
+                [attr.fill]&#x3D;&quot;slice.color&quot;
+                [attr.stroke]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27; ? &#x27;#1e2030&#x27; : &#x27;#ffffff&#x27;&quot;
+                stroke-width&#x3D;&quot;1.5&quot;
+                class&#x3D;&quot;sunburst-slice&quot;
+                [class.hovered]&#x3D;&quot;hoveredSliceId() &#x3D;&#x3D;&#x3D; slice.id&quot;
+                [style.animation-delay]&#x3D;&quot;(idx * 0.01) + &#x27;s&#x27;&quot;
+                (mouseenter)&#x3D;&quot;onSliceHover($event, slice)&quot;
+                (mouseleave)&#x3D;&quot;onSliceLeave()&quot;
+              /&gt;
+              &lt;!-- Optional Radial Text Labels for large slices --&gt;
+              @if (showLabels() &amp;&amp; (slice.endAngle - slice.startAngle) &gt; 0.15 &amp;&amp; slice.depth &lt; 2) {
+                &lt;text
+                  [attr.transform]&#x3D;&quot;labelTransform(slice)&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  dominant-baseline&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;slice-label&quot;
+                  pointer-events&#x3D;&quot;none&quot;
+                &gt;
+                  {{ slice.label }}
+                &lt;/text&gt;
+              }
+            }
+          &lt;/g&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Legend showing top-level categories --&gt;
+        @if (showLegend() &amp;&amp; topLevelNodes().length &gt; 0) {
+          &lt;div class&#x3D;&quot;chart-legend&quot;&gt;
+            @for (node of topLevelNodes(); track node.label; let i &#x3D; $index) {
+              &lt;div class&#x3D;&quot;legend-item&quot;&gt;
+                &lt;span class&#x3D;&quot;legend-dot&quot; [style.background]&#x3D;&quot;node.color || colors()[i % colors().length]&quot;&gt;&lt;/span&gt;
+                &lt;span class&#x3D;&quot;legend-label&quot;&gt;{{ node.label }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;legend-val&quot;&gt;{{ fmtNum(getNodeValue(node)) }}&lt;/span&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Premium Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+          &lt;div class&#x3D;&quot;tt-path&quot;&gt;{{ t.parentPath || t.label }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;Value&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ fmtNum(t.value) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-dot&quot; style&#x3D;&quot;background: transparent;&quot;&gt;&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;Contribution&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ t.pct }}%&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-sunburst-chart {
+      position: relative;
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      transition: background-color 0.3s;
+    }
+    .ngx-sunburst-chart.dark {
+      background: rgba(30, 32, 48, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      --ngx-chart-bg: transparent;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 20px;
+      position: relative;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+      animation: sunburstGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transform-origin: center;
+    }
+
+    @keyframes sunburstGrow {
+      from { transform: scale(0.3) rotate(-120deg); opacity: 0; }
+      to { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    .sunburst-slice {
+      cursor: pointer;
+      transition: fill-opacity 0.2s, stroke 0.2s, filter 0.25s;
+    }
+    .sunburst-slice:hover {
+      fill-opacity: 0.9;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+    .slice-label {
+      font-size: 9px;
+      fill: #ffffff;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+      user-select: none;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+      min-width: 160px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background-color 0.15s;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .legend-label {
+      flex: 1;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .dark .legend-label {
+      color: #94a3b8;
+    }
+    .legend-val {
+      font-weight: 700;
+      color: #334155;
+    }
+    .dark .legend-val {
+      color: #cbd5e1;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      z-index: 100;
+      min-width: 160px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-path {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+  &#x60;]
+})
+export class SunburstChartComponent {
+  data &#x3D; input&lt;SunburstNode[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(300);
+  showLegend &#x3D; input&lt;boolean&gt;(true);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  exportMenuOpen &#x3D; signal(false);
+  hoveredSliceId &#x3D; signal&lt;string | null&gt;(null);
+  tooltip &#x3D; signal&lt;{
+    x: number;
+    y: number;
+    label: string;
+    parentPath: string;
+    value: number;
+    pct: number;
+    color: string;
+  } | null&gt;(null);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  cx &#x3D; computed(() &#x3D;&gt; this.height() / 2);
+  cy &#x3D; computed(() &#x3D;&gt; this.height() / 2);
+  radius &#x3D; computed(() &#x3D;&gt; this.height() / 2 - 10);
+
+  topLevelNodes &#x3D; computed(() &#x3D;&gt; this.data());
+
+  maxDepth &#x3D; computed(() &#x3D;&gt; {
+    const getDepth &#x3D; (node: SunburstNode): number &#x3D;&gt; {
+      if (!node.children || node.children.length &#x3D;&#x3D;&#x3D; 0) return 0;
+      return 1 + Math.max(...node.children.map(getDepth));
+    };
+    const rootNodes &#x3D; this.data();
+    if (!rootNodes || rootNodes.length &#x3D;&#x3D;&#x3D; 0) return 0;
+    return Math.max(...rootNodes.map(getDepth));
+  });
+
+  getNodeValue(node: SunburstNode): number {
+    if (node.value !&#x3D;&#x3D; undefined) return node.value;
+    if (node.children &amp;&amp; node.children.length &gt; 0) {
+      return node.children.reduce((sum, c) &#x3D;&gt; sum + this.getNodeValue(c), 0);
+    }
+    return 0;
+  }
+
+  private adjustColorBrightness(hex: string, percent: number): string {
+    if (!hex.startsWith(&#x27;#&#x27;)) return hex;
+    const num &#x3D; parseInt(hex.replace(&#x27;#&#x27;, &#x27;&#x27;), 16);
+    const amt &#x3D; Math.round(2.55 * percent);
+    const R &#x3D; Math.max(0, Math.min(255, (num &gt;&gt; 16) + amt));
+    const G &#x3D; Math.max(0, Math.min(255, ((num &gt;&gt; 8) &amp; 0x00ff) + amt));
+    const B &#x3D; Math.max(0, Math.min(255, (num &amp; 0x0000ff) + amt));
+    return &#x27;#&#x27; + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+  }
+
+  private ringPath(startAngle: number, endAngle: number, outerR: number, innerR: number): string {
+    const ox1 &#x3D; Math.cos(startAngle) * outerR;
+    const oy1 &#x3D; Math.sin(startAngle) * outerR;
+    const ox2 &#x3D; Math.cos(endAngle) * outerR;
+    const oy2 &#x3D; Math.sin(endAngle) * outerR;
+
+    const ix1 &#x3D; Math.cos(startAngle) * innerR;
+    const iy1 &#x3D; Math.sin(startAngle) * innerR;
+    const ix2 &#x3D; Math.cos(endAngle) * innerR;
+    const iy2 &#x3D; Math.sin(endAngle) * innerR;
+
+    const large &#x3D; endAngle - startAngle &gt; Math.PI ? 1 : 0;
+    return &#x60;M ${ix1} ${iy1} L ${ox1} ${oy1} A ${outerR} ${outerR} 0 ${large} 1 ${ox2} ${oy2} L ${ix2} ${iy2} A ${innerR} ${innerR} 0 ${large} 0 ${ix1} ${iy1} Z&#x60;;
+  }
+
+  slices &#x3D; computed(() &#x3D;&gt; {
+    const rootNodes &#x3D; this.data();
+    if (!rootNodes || rootNodes.length &#x3D;&#x3D;&#x3D; 0) return [];
+
+    const totalVal &#x3D; rootNodes.reduce((sum, n) &#x3D;&gt; sum + this.getNodeValue(n), 0) || 1;
+    const list: SunburstSlice[] &#x3D; [];
+    const colorsList &#x3D; this.colors();
+
+    const processNode &#x3D; (
+      node: SunburstNode,
+      depth: number,
+      startAngle: number,
+      endAngle: number,
+      parentPath: string,
+      color: string
+    ) &#x3D;&gt; {
+      const val &#x3D; this.getNodeValue(node);
+      const frac &#x3D; val / totalVal;
+      const angle &#x3D; endAngle - startAngle;
+      
+      const maxRadius &#x3D; this.radius();
+      const numDepths &#x3D; this.maxDepth() + 1;
+      const depthWidth &#x3D; maxRadius / numDepths;
+      const innerR &#x3D; depth * depthWidth;
+      const outerR &#x3D; (depth + 1) * depthWidth;
+
+      const path &#x3D; this.ringPath(startAngle, endAngle, outerR, innerR);
+      const pathName &#x3D; parentPath ? &#x60;${parentPath} › ${node.label}&#x60; : node.label;
+      const pct &#x3D; Math.round(frac * 100);
+
+      list.push({
+        id: &#x60;${depth}-${node.label}-${startAngle.toFixed(4)}&#x60;,
+        label: node.label,
+        value: val,
+        depth,
+        startAngle,
+        endAngle,
+        path,
+        color,
+        parentPath: pathName,
+        pct
+      });
+
+      if (node.children &amp;&amp; node.children.length &gt; 0) {
+        const childrenSum &#x3D; node.children.reduce((sum, c) &#x3D;&gt; sum + this.getNodeValue(c), 0) || 1;
+        let currStart &#x3D; startAngle;
+        node.children.forEach((child, idx) &#x3D;&gt; {
+          const childVal &#x3D; this.getNodeValue(child);
+          const childAngle &#x3D; (childVal / childrenSum) * angle;
+          const childEnd &#x3D; currStart + childAngle;
+          // Sub-color: darken slightly per depth
+          const childColor &#x3D; child.color || this.adjustColorBrightness(color, -10);
+          processNode(child, depth + 1, currStart, childEnd, pathName, childColor);
+          currStart &#x3D; childEnd;
+        });
+      }
+    };
+
+    let currentStart &#x3D; -Math.PI / 2;
+    rootNodes.forEach((node, idx) &#x3D;&gt; {
+      const val &#x3D; this.getNodeValue(node);
+      const angle &#x3D; (val / totalVal) * Math.PI * 2;
+      const end &#x3D; currentStart + angle;
+      const color &#x3D; node.color || colorsList[idx % colorsList.length];
+      processNode(node, 0, currentStart, end, &#x27;&#x27;, color);
+      currentStart &#x3D; end;
+    });
+
+    return list;
+  });
+
+  labelTransform(slice: SunburstSlice): string {
+    const depthWidth &#x3D; this.radius() / (this.maxDepth() + 1);
+    const r &#x3D; (slice.depth + 0.5) * depthWidth;
+    const midAngle &#x3D; slice.startAngle + (slice.endAngle - slice.startAngle) / 2;
+    const x &#x3D; Math.cos(midAngle) * r;
+    const y &#x3D; Math.sin(midAngle) * r;
+    
+    // Rotate text to follow radial lines
+    let rotation &#x3D; (midAngle * 180) / Math.PI;
+    // Flip text if it is in the bottom half of the circle to prevent upside-down labels
+    if (rotation &gt; 90 &amp;&amp; rotation &lt; 270) {
+      rotation -&#x3D; 180;
+    } else if (rotation &lt; -90) {
+      rotation +&#x3D; 180;
+    }
+    return &#x60;translate(${x}, ${y}) rotate(${rotation})&#x60;;
+  }
+
+  onSliceHover(event: MouseEvent, slice: SunburstSlice): void {
+    this.hoveredSliceId.set(slice.id);
+    const el &#x3D; (event.currentTarget as SVGElement).ownerSVGElement!.parentElement!;
+    const rect &#x3D; el.getBoundingClientRect();
+    this.tooltip.set({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      label: slice.label,
+      parentPath: slice.parentPath,
+      value: slice.value,
+      pct: slice.pct,
+      color: slice.color
+    });
+  }
+
+  onSliceLeave(): void {
+    this.hoveredSliceId.set(null);
+    this.tooltip.set(null);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+  }
+
+  exportToCsv(): void {
+    const slices &#x3D; this.slices();
+    if (!slices.length) return;
+    let csv &#x3D; &#x27;Depth,Path,Value,Percentage\n&#x27;;
+    slices.forEach(s &#x3D;&gt; {
+      csv +&#x3D; &#x60;${s.depth},&quot;${s.parentPath}&quot;,${s.value},${s.pct}%\n&#x60;;
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;sunburst-chart-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToJson(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;sunburst-chart-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns\:xlink&#x3D;&quot;http\:\/\/www\.w3\.org\/1999\/xlink&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns:xlink&#x3D;&quot;http://www.w3.org/1999/xlink&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;sunburst-chart.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  readonly fmtNum &#x3D; fmtNum;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'SunburstSlice.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
