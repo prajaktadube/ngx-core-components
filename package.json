@@ -1,6 +1,6 @@
 {
   "name": "ngx-core-components-workspace",
-  "version": "0.3.31",
+  "version": "0.3.32",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

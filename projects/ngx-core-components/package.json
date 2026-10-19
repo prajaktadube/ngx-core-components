@@ -1,6 +1,6 @@
 {
   "name": "ngx-core-components",
-  "version": "0.3.31",
+  "version": "0.3.32",
   "schematics": "./schematics/collection.json",
   "description": "Angular component library with standalone UI components including Data Grid, Gantt Chart, SVG charts, AI Chat, Kanban, Form Builder, and more. Signals-first, zero runtime dependencies.",
   "keywords": [
