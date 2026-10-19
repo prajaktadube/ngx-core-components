@@ -1,0 +1,1025 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  StreamgraphSeries</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/streamgraph/streamgraph.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#color" 
+>
+                                            color
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#data" 
+>
+                                            data
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="color"></a>
+                                        <span class="name "><b>color</b>
+                                            <a href="#color">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>color:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="data"></a>
+                                        <span class="name "><b>data</b>
+                                            <a href="#data">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>data:     <code>number[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>number[]</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, HostListener, viewChild
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, niceTicks, scale, smoothPath, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface StreamgraphSeries {
+  name: string;
+  data: number[];
+  color?: string;
+}
+
+@Component({
+  selector: &#x27;ngx-streamgraph&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-streamgraph&quot; (mousemove)&#x3D;&quot;onMouseMove($event)&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;!-- Toolbar with Export option --&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Legend --&gt;
+      @if (showLegend()) {
+        &lt;div class&#x3D;&quot;chart-legend&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+          @for (s of series(); track s.name; let i &#x3D; $index) {
+            &lt;span class&#x3D;&quot;legend-item&quot;&gt;
+              &lt;span class&#x3D;&quot;legend-dot&quot; [style.background]&#x3D;&quot;seriesColor(i, s)&quot;&gt;&lt;/span&gt;
+              {{ s.name }}
+            &lt;/span&gt;
+          }
+        &lt;/div&gt;
+      }
+      
+      &lt;div class&#x3D;&quot;chart-svg-wrap&quot;&gt;
+        &lt;svg #svgEl [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot; [attr.height]&#x3D;&quot;height()&quot; class&#x3D;&quot;chart-svg&quot;&gt;
+          &lt;defs&gt;
+            @for (s of series(); track s.name; let i &#x3D; $index) {
+              &lt;linearGradient [attr.id]&#x3D;&quot;&#x27;stream-gradient-&#x27; + i&quot; x1&#x3D;&quot;0&quot; y1&#x3D;&quot;0&quot; x2&#x3D;&quot;0&quot; y2&#x3D;&quot;1&quot;&gt;
+                &lt;stop offset&#x3D;&quot;0%&quot; [attr.stop-color]&#x3D;&quot;seriesColor(i, s)&quot; stop-opacity&#x3D;&quot;0.85&quot;/&gt;
+                &lt;stop offset&#x3D;&quot;100%&quot; [attr.stop-color]&#x3D;&quot;seriesColor(i, s)&quot; stop-opacity&#x3D;&quot;0.6&quot;/&gt;
+              &lt;/linearGradient&gt;
+            }
+          &lt;/defs&gt;
+          
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + PAD_LEFT + &#x27;,&#x27; + PAD_TOP + &#x27;)&#x27;&quot;&gt;
+            &lt;!-- Central Baseline (Zero Reference) --&gt;
+            @if (showBaseline()) {
+              &lt;line [attr.x1]&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; [attr.y1]&#x3D;&quot;yPos(0)&quot; [attr.y2]&#x3D;&quot;yPos(0)&quot; 
+                stroke&#x3D;&quot;var(--ngx-chart-axis, #cbd5e1)&quot; stroke-dasharray&#x3D;&quot;4,4&quot; stroke-opacity&#x3D;&quot;0.7&quot;/&gt;
+            }
+
+            &lt;!-- Gridlines --&gt;
+            @for (tick of yTicks(); track tick) {
+              &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(0,&#x27; + yPos(tick) + &#x27;)&#x27;&quot;&gt;
+                @if (showGrid()) {
+                  &lt;line [attr.x1]&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; stroke&#x3D;&quot;var(--ngx-chart-grid, #f1f5f9)&quot; stroke-dasharray&#x3D;&quot;3,3&quot;/&gt;
+                }
+                &lt;text x&#x3D;&quot;-8&quot; dy&#x3D;&quot;4&quot; class&#x3D;&quot;axis-label&quot; text-anchor&#x3D;&quot;end&quot;&gt;{{ fmtNum(Math.abs(tick)) }}&lt;/text&gt;
+              &lt;/g&gt;
+            }
+
+            &lt;!-- X Axis Categories --&gt;
+            @for (cat of inferredCategories(); track cat; let i &#x3D; $index) {
+              &lt;text [attr.x]&#x3D;&quot;xPos(i)&quot; [attr.y]&#x3D;&quot;innerH() + 16&quot; class&#x3D;&quot;axis-label&quot; text-anchor&#x3D;&quot;middle&quot;&gt;{{ cat }}&lt;/text&gt;
+            }
+
+            &lt;!-- Flowing Spline Layers --&gt;
+            @for (layer of computedLayers(); track layer.name; let li &#x3D; $index) {
+              &lt;path
+                [attr.d]&#x3D;&quot;layer.path&quot;
+                [attr.fill]&#x3D;&quot;&#x27;url(#stream-gradient-&#x27; + li + &#x27;)&#x27;&quot;
+                [attr.stroke]&#x3D;&quot;layer.color&quot;
+                stroke-width&#x3D;&quot;0.5&quot;
+                stroke-opacity&#x3D;&quot;0.5&quot;
+                class&#x3D;&quot;stream-path&quot;
+                [class.dimmed]&#x3D;&quot;activeSeriesIndex() !&#x3D;&#x3D; null &amp;&amp; activeSeriesIndex() !&#x3D;&#x3D; li&quot;
+                [class.active]&#x3D;&quot;activeSeriesIndex() &#x3D;&#x3D;&#x3D; li&quot;
+                (mouseenter)&#x3D;&quot;activeSeriesIndex.set(li)&quot;
+                (mouseleave)&#x3D;&quot;activeSeriesIndex.set(null)&quot;
+              /&gt;
+            }
+
+            &lt;!-- Vertical Crosshair --&gt;
+            @if (crosshair(); as ch) {
+              &lt;line [attr.x1]&#x3D;&quot;ch.x&quot; [attr.x2]&#x3D;&quot;ch.x&quot; y1&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;innerH()&quot;
+                stroke&#x3D;&quot;var(--primary-color, #4f46e5)&quot; stroke-opacity&#x3D;&quot;0.4&quot; stroke-width&#x3D;&quot;1.5&quot; stroke-dasharray&#x3D;&quot;4,4&quot;/&gt;
+            }
+
+            &lt;!-- Axis Line at bottom --&gt;
+            &lt;line x1&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;innerW()&quot; [attr.y1]&#x3D;&quot;innerH()&quot; [attr.y2]&#x3D;&quot;innerH()&quot; stroke&#x3D;&quot;var(--ngx-chart-axis, #cbd5e1)&quot;/&gt;
+          &lt;/g&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Hover Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+          &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.cat }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-total-row&quot;&gt;Total Flow: &lt;strong&gt;{{ fmtNum(t.total) }}&lt;/strong&gt;&lt;/div&gt;
+          @for (row of t.rows; track row.name; let ri &#x3D; $index) {
+            &lt;div class&#x3D;&quot;tt-row&quot; [class.highlight]&#x3D;&quot;activeSeriesIndex() &#x3D;&#x3D;&#x3D; ri&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;row.color&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;{{ row.name }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ fmtNum(row.value) }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-percent&quot;&gt;({{ row.percent }})&lt;/span&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+    }
+    .ngx-streamgraph {
+      position: relative;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+      padding: 0 0 12px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary, #64748b);
+      font-weight: 500;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .chart-svg-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .chart-svg {
+      display: block;
+      overflow: visible;
+    }
+    .axis-label {
+      font-size: 10px;
+      font-weight: 600;
+      fill: var(--text-secondary, #94a3b8);
+    }
+    
+    .stream-path {
+      cursor: pointer;
+      transition: fill-opacity 0.2s, opacity 0.2s, stroke-width 0.2s;
+    }
+    .stream-path.dimmed {
+      opacity: 0.35;
+    }
+    .stream-path.active {
+      opacity: 1;
+      stroke-width: 1.5;
+      stroke: #ffffff;
+    }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      min-width: 170px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-cat {
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #38bdf8;
+    }
+    .tt-total-row {
+      font-size: 11px;
+      color: rgba(248, 250, 252, 0.7);
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 11px;
+      color: rgba(248, 250, 252, 0.85);
+      transition: transform 0.1s, color 0.1s;
+    }
+    .tt-row.highlight {
+      color: #ffffff;
+      font-weight: bold;
+      transform: scale(1.05);
+    }
+    .tt-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 600;
+      font-family: monospace;
+    }
+    .tt-percent {
+      font-size: 9.5px;
+      color: rgba(248, 250, 252, 0.5);
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  &#x60;]
+})
+export class StreamgraphComponent {
+  readonly PAD_LEFT &#x3D; 48;
+  readonly PAD_TOP &#x3D; 15;
+  readonly PAD_RIGHT &#x3D; 16;
+  readonly PAD_BOTTOM &#x3D; 32;
+
+  series &#x3D; input&lt;StreamgraphSeries[]&gt;([]);
+  categories &#x3D; input&lt;string[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(300);
+  showGrid &#x3D; input&lt;boolean&gt;(true);
+  showLegend &#x3D; input&lt;boolean&gt;(true);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+  showBaseline &#x3D; input&lt;boolean&gt;(true);
+
+  exportMenuOpen &#x3D; signal(false);
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  crosshair &#x3D; signal&lt;{ x: number } | null&gt;(null);
+  activeSeriesIndex &#x3D; signal&lt;number | null&gt;(null);
+  activeCategoryIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;{ x: number; y: number; cat: string; total: number; rows: { name: string; value: number; percent: string; color: string }[] } | null&gt;(null);
+  containerWidth &#x3D; signal&lt;number&gt;(600);
+
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(10, this.height() - this.PAD_TOP - this.PAD_BOTTOM));
+
+  inferredCategories &#x3D; computed(() &#x3D;&gt; {
+    const cats &#x3D; this.categories();
+    if (cats.length &gt; 0) return cats;
+    const s &#x3D; this.series();
+    if (s.length &#x3D;&#x3D;&#x3D; 0) return [];
+    const maxLen &#x3D; Math.max(...s.map(ser &#x3D;&gt; ser.data.length));
+    return Array.from({ length: maxLen }, (_, i) &#x3D;&gt; &#x60;Point ${i + 1}&#x60;);
+  });
+
+  animateState &#x3D; signal(false);
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width - 40);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+    setTimeout(() &#x3D;&gt; this.animateState.set(true), 50);
+  }
+
+  // Calculate standard stacked stream offsets (Silhouette)
+  private stackLayout &#x3D; computed(() &#x3D;&gt; {
+    const sers &#x3D; this.series();
+    const numCats &#x3D; this.inferredCategories().length;
+    if (sers.length &#x3D;&#x3D;&#x3D; 0 || numCats &#x3D;&#x3D;&#x3D; 0) return { min: 0, max: 100, seriesLayers: [] };
+
+    // Initialize stacks
+    const lowStack: number[][] &#x3D; Array.from({ length: sers.length }, () &#x3D;&gt; Array(numCats).fill(0));
+    const highStack: number[][] &#x3D; Array.from({ length: sers.length }, () &#x3D;&gt; Array(numCats).fill(0));
+    const sumAtIdx &#x3D; Array(numCats).fill(0);
+
+    // Compute sums at each index
+    for (let i &#x3D; 0; i &lt; numCats; i++) {
+      let sum &#x3D; 0;
+      for (let j &#x3D; 0; j &lt; sers.length; j++) {
+        sum +&#x3D; sers[j].data[i] || 0;
+      }
+      sumAtIdx[i] &#x3D; sum;
+    }
+
+    let globalMin &#x3D; 0;
+    let globalMax &#x3D; 1;
+
+    for (let i &#x3D; 0; i &lt; numCats; i++) {
+      const sum &#x3D; sumAtIdx[i];
+      const offset &#x3D; -sum / 2; // Symmetric Center
+      let runningSum &#x3D; 0;
+      for (let j &#x3D; 0; j &lt; sers.length; j++) {
+        const val &#x3D; sers[j].data[i] || 0;
+        lowStack[j][i] &#x3D; offset + runningSum;
+        highStack[j][i] &#x3D; offset + runningSum + val;
+        runningSum +&#x3D; val;
+
+        if (lowStack[j][i] &lt; globalMin) globalMin &#x3D; lowStack[j][i];
+        if (highStack[j][i] &gt; globalMax) globalMax &#x3D; highStack[j][i];
+      }
+    }
+
+    return {
+      min: globalMin,
+      max: globalMax,
+      lowStack,
+      highStack,
+      sumAtIdx
+    };
+  });
+
+  private yDomain &#x3D; computed(() &#x3D;&gt; {
+    const layout &#x3D; this.stackLayout();
+    const min &#x3D; layout.min;
+    const max &#x3D; layout.max;
+    // Keep it symmetric
+    const bounds &#x3D; Math.max(Math.abs(min), Math.abs(max));
+    return {
+      min: -bounds,
+      max: bounds
+    };
+  });
+
+  yTicks &#x3D; computed(() &#x3D;&gt; {
+    const domain &#x3D; this.yDomain();
+    return niceTicks(domain.min, domain.max, 5);
+  });
+
+  yPos(v: number): number {
+    const ticks &#x3D; this.yTicks();
+    return scale(v, ticks[0], ticks[ticks.length - 1], this.innerH(), 0);
+  }
+
+  xPos(i: number): number {
+    const n &#x3D; this.inferredCategories().length;
+    return n &lt;&#x3D; 1 ? this.innerW() / 2 : scale(i, 0, n - 1, 0, this.innerW());
+  }
+
+  seriesColor(i: number, s: StreamgraphSeries): string {
+    return s.color || this.colors()[i % this.colors().length];
+  }
+
+  computedLayers &#x3D; computed(() &#x3D;&gt; {
+    const sers &#x3D; this.series();
+    const layout &#x3D; this.stackLayout();
+    if (sers.length &#x3D;&#x3D;&#x3D; 0 || !layout.lowStack) return [];
+
+    return sers.map((s, si) &#x3D;&gt; {
+      const lowPts: [number, number][] &#x3D; s.data.map((_, i) &#x3D;&gt; [this.xPos(i), this.yPos(layout.lowStack![si][i])]);
+      const highPts: [number, number][] &#x3D; s.data.map((_, i) &#x3D;&gt; [this.xPos(i), this.yPos(layout.highStack![si][i])]);
+
+      const highPath &#x3D; smoothPath(highPts);
+      const lowPtsReversed &#x3D; [...lowPts].reverse();
+      const lowPathReversed &#x3D; smoothPath(lowPtsReversed);
+      
+      let path &#x3D; &#x27;&#x27;;
+      if (highPath &amp;&amp; lowPathReversed) {
+        path &#x3D; &#x60;${highPath} L ${lowPtsReversed[0][0]} ${lowPtsReversed[0][1]} ${lowPathReversed.slice(1)} Z&#x60;;
+      }
+
+      return {
+        name: s.name,
+        color: this.seriesColor(si, s),
+        path
+      };
+    });
+  });
+
+  onMouseMove(event: MouseEvent): void {
+    const el &#x3D; event.currentTarget as HTMLElement;
+    const rect &#x3D; el.getBoundingClientRect();
+    const mx &#x3D; event.clientX - rect.left - this.PAD_LEFT;
+    const cats &#x3D; this.inferredCategories();
+    if (cats.length &#x3D;&#x3D;&#x3D; 0) return;
+    const idx &#x3D; Math.round(scale(mx, 0, this.innerW(), 0, cats.length - 1));
+    const ci &#x3D; Math.max(0, Math.min(cats.length - 1, idx));
+    this.crosshair.set({ x: this.xPos(ci) });
+    this.activeCategoryIndex.set(ci);
+
+    const layout &#x3D; this.stackLayout();
+    const totalFlow &#x3D; layout.sumAtIdx ? layout.sumAtIdx[ci] : 0;
+
+    const rows &#x3D; this.series().map((s, si) &#x3D;&gt; {
+      const value &#x3D; s.data[ci] || 0;
+      const pct &#x3D; totalFlow &gt; 0 ? ((value / totalFlow) * 100).toFixed(1) + &#x27;%&#x27; : &#x27;0%&#x27;;
+      return {
+        name: s.name,
+        value,
+        percent: pct,
+        color: this.seriesColor(si, s)
+      };
+    });
+
+    this.tooltip.set({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      cat: cats[ci],
+      total: totalFlow,
+      rows
+    });
+  }
+
+  onMouseLeave(): void {
+    this.crosshair.set(null);
+    this.activeCategoryIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToJson(): void {
+    const cats &#x3D; this.inferredCategories();
+    const sers &#x3D; this.series();
+    if (!cats.length || !sers.length) return;
+
+    const data &#x3D; cats.map((cat, ci) &#x3D;&gt; {
+      const entry: Record&lt;string, any&gt; &#x3D; { category: cat };
+      sers.forEach(s &#x3D;&gt; {
+        entry[s.name] &#x3D; s.data[ci] || 0;
+      });
+      return entry;
+    });
+
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;streamgraph-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    const cats &#x3D; this.inferredCategories();
+    const sers &#x3D; this.series();
+    if (!cats.length || !sers.length) return;
+
+    let headers &#x3D; [&#x27;Category&#x27;, ...sers.map(s &#x3D;&gt; &#x60;&quot;${s.name}&quot;&#x60;)];
+    let csv &#x3D; headers.join(&#x27;,&#x27;) + &#x27;\n&#x27;;
+
+    cats.forEach((cat, ci) &#x3D;&gt; {
+      const row &#x3D; [&#x60;&quot;${cat}&quot;&#x60;, ...sers.map(s &#x3D;&gt; String(s.data[ci] || 0))];
+      csv +&#x3D; row.join(&#x27;,&#x27;) + &#x27;\n&#x27;;
+    });
+
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;streamgraph-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns\:xlink&#x3D;&quot;http\:\/\/www\.w3\.org\/1999\/xlink&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns:xlink&#x3D;&quot;http://www.w3.org/1999/xlink&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;streamgraph.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof document &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) {
+      alert(&#x27;Pop-up blocker prevented printing. Please allow pop-ups for this site.&#x27;);
+      return;
+    }
+
+    const svgHtml &#x3D; svg.outerHTML;
+    const printTemplate &#x3D; &#x60;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Streamgraph Chart Export&lt;/title&gt;
+        &lt;style&gt;
+          body { font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; width: 90%; }
+          svg { width: 100%; height: auto; }
+          .axis-label { font-size: 11px; fill: #6c757d; font-weight: 500; }
+          @media print {
+            body { padding: 0; }
+            .chart-container { border: none; padding: 0; width: 100%; }
+          }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+          &lt;div class&#x3D;&quot;title&quot;&gt;Streamgraph Visualization Analysis&lt;/div&gt;
+          &lt;div class&#x3D;&quot;date&quot;&gt;${new Date().toLocaleString()}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;chart-container&quot;&gt;
+          ${svgHtml}
+        &lt;/div&gt;
+        &lt;script&gt;
+          window.onload &#x3D; function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
+  }
+
+  readonly fmtNum &#x3D; fmtNum;
+  readonly Math &#x3D; Math;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'StreamgraphSeries.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,563 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  GridSavedView</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/grid/data-grid/services/grid-state.service.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#state" 
+>
+                                            state
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#version" 
+>
+                                            version
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="state"></a>
+                                        <span class="name "><b>state</b>
+                                            <a href="#state">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>state:         <code><a href="../interfaces/GridPersistedState.html" target="_self" >GridPersistedState</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/GridPersistedState.html" target="_self" >GridPersistedState</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="version"></a>
+                                        <span class="name "><b>version</b>
+                                            <a href="#version">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>version:     <code>unknown</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>unknown</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { GridColumnDef, GridSortState, GridFilterState, GridGroupState } from &#x27;../models&#x27;;
+
+export interface GridPersistedState {
+  columnWidths: Record&lt;string, number&gt;;
+  columnOrder: string[];
+  sorts: GridSortState[];
+  filters: GridFilterState[];
+  groups: GridGroupState[];
+  page: number;
+  pageSize: number;
+  hiddenColumns: string[];
+  pinnedColumns: Record&lt;string, &#x27;left&#x27; | &#x27;right&#x27; | null&gt;;
+}
+
+export interface GridSavedView {
+  version: 1;
+  name: string;
+  state: GridPersistedState;
+}
+
+function isRecord(value: unknown): value is Record&lt;string, unknown&gt; {
+  return typeof value &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;&amp; value !&#x3D;&#x3D; null &amp;&amp; !Array.isArray(value);
+}
+
+function isGridPersistedState(value: unknown): value is GridPersistedState {
+  if (!isRecord(value)) return false;
+  const page &#x3D; value[&#x27;page&#x27;];
+  const pageSize &#x3D; value[&#x27;pageSize&#x27;];
+  const pinnedColumns &#x3D; value[&#x27;pinnedColumns&#x27;];
+
+  return (
+    Number.isInteger(page) &amp;&amp;
+    Number(page) &gt;&#x3D; 1 &amp;&amp;
+    Number.isInteger(pageSize) &amp;&amp;
+    Number(pageSize) &gt; 0 &amp;&amp;
+    Array.isArray(value[&#x27;columnOrder&#x27;]) &amp;&amp;
+    value[&#x27;columnOrder&#x27;].every(column &#x3D;&gt; typeof column &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) &amp;&amp;
+    Array.isArray(value[&#x27;sorts&#x27;]) &amp;&amp;
+    value[&#x27;sorts&#x27;].every(
+      sort &#x3D;&gt; isRecord(sort) &amp;&amp; typeof sort[&#x27;field&#x27;] &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; (sort[&#x27;dir&#x27;] &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; || sort[&#x27;dir&#x27;] &#x3D;&#x3D;&#x3D; &#x27;desc&#x27;)
+    ) &amp;&amp;
+    Array.isArray(value[&#x27;filters&#x27;]) &amp;&amp;
+    value[&#x27;filters&#x27;].every(filter &#x3D;&gt; isRecord(filter) &amp;&amp; typeof filter[&#x27;field&#x27;] &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) &amp;&amp;
+    Array.isArray(value[&#x27;groups&#x27;]) &amp;&amp;
+    value[&#x27;groups&#x27;].every(group &#x3D;&gt; isRecord(group) &amp;&amp; typeof group[&#x27;field&#x27;] &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) &amp;&amp;
+    Array.isArray(value[&#x27;hiddenColumns&#x27;]) &amp;&amp;
+    value[&#x27;hiddenColumns&#x27;].every(column &#x3D;&gt; typeof column &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) &amp;&amp;
+    isRecord(value[&#x27;columnWidths&#x27;]) &amp;&amp;
+    Object.values(value[&#x27;columnWidths&#x27;]).every(
+      width &#x3D;&gt; typeof width &#x3D;&#x3D;&#x3D; &#x27;number&#x27; &amp;&amp; Number.isFinite(width) &amp;&amp; width &gt; 0
+    ) &amp;&amp;
+    isRecord(pinnedColumns) &amp;&amp;
+    Object.values(pinnedColumns).every(pin &#x3D;&gt; pin &#x3D;&#x3D;&#x3D; &#x27;left&#x27; || pin &#x3D;&#x3D;&#x3D; &#x27;right&#x27; || pin &#x3D;&#x3D;&#x3D; null)
+  );
+}
+
+@Injectable()
+export class GridStateService {
+  exportSavedView(name: string, state: GridPersistedState): string {
+    const trimmedName &#x3D; name.trim();
+    if (!trimmedName) {
+      throw new TypeError(&#x27;A saved grid view must have a non-empty name.&#x27;);
+    }
+    if (!isGridPersistedState(state)) {
+      throw new TypeError(&#x27;Cannot export an invalid grid state.&#x27;);
+    }
+
+    const savedView: GridSavedView &#x3D; { version: 1, name: trimmedName, state };
+    return JSON.stringify(savedView);
+  }
+
+  importSavedView(serialized: string): GridSavedView {
+    const parsed: unknown &#x3D; JSON.parse(serialized);
+    if (
+      !isRecord(parsed) ||
+      parsed[&#x27;version&#x27;] !&#x3D;&#x3D; 1 ||
+      typeof parsed[&#x27;name&#x27;] !&#x3D;&#x3D; &#x27;string&#x27; ||
+      !parsed[&#x27;name&#x27;].trim() ||
+      !isGridPersistedState(parsed[&#x27;state&#x27;])
+    ) {
+      throw new TypeError(&#x27;Saved grid view is invalid or uses an unsupported version.&#x27;);
+    }
+
+    return {
+      version: 1,
+      name: parsed[&#x27;name&#x27;],
+      state: parsed[&#x27;state&#x27;],
+    };
+  }
+
+  /**
+   * Save grid state to localStorage
+   * @param key Storage key
+   * @param state The state object to persist
+   */
+  saveState(key: string, state: GridPersistedState): void {
+    try {
+      localStorage.setItem(key, JSON.stringify(state));
+    } catch (e) {
+      console.warn(&#x27;GridStateService: Failed to save state to localStorage&#x27;, e);
+    }
+  }
+
+  /**
+   * Load grid state from localStorage
+   * @param key Storage key
+   * @returns The persisted state or null if not found
+   */
+  loadState(key: string): GridPersistedState | null {
+    try {
+      const stateStr &#x3D; localStorage.getItem(key);
+      if (stateStr) {
+        return JSON.parse(stateStr) as GridPersistedState;
+      }
+    } catch (e) {
+      console.warn(&#x27;GridStateService: Failed to load state from localStorage&#x27;, e);
+    }
+    return null;
+  }
+
+  /**
+   * Clear persisted state
+   * @param key Storage key
+   */
+  clearState(key: string): void {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {
+      console.warn(&#x27;GridStateService: Failed to clear state&#x27;, e);
+    }
+  }
+
+  /**
+   * Merge loaded state with current column definitions
+   * @param state The loaded state
+   * @param columns The default column definitions
+   * @returns Array of column definitions updated with the state
+   */
+  applyState(state: GridPersistedState, columns: GridColumnDef[]): GridColumnDef[] {
+    if (!state || !columns || columns.length &#x3D;&#x3D;&#x3D; 0) {
+      return columns;
+    }
+
+    const colMap &#x3D; new Map&lt;string, GridColumnDef&gt;();
+    columns.forEach(col &#x3D;&gt; colMap.set(col.field, { ...col }));
+
+    // Apply widths, hidden state, and pinned state
+    for (const col of colMap.values()) {
+      if (state.columnWidths &amp;&amp; state.columnWidths[col.field] !&#x3D;&#x3D; undefined) {
+        col.width &#x3D; state.columnWidths[col.field];
+      }
+
+      if (state.hiddenColumns) {
+        col.hidden &#x3D; state.hiddenColumns.includes(col.field);
+      }
+
+      if (state.pinnedColumns &amp;&amp; state.pinnedColumns[col.field] !&#x3D;&#x3D; undefined) {
+        col.pinned &#x3D; state.pinnedColumns[col.field];
+      }
+    }
+
+    // Apply column ordering
+    if (state.columnOrder &amp;&amp; state.columnOrder.length &gt; 0) {
+      const orderedCols: GridColumnDef[] &#x3D; [];
+      const orderSet &#x3D; new Set(state.columnOrder);
+
+      // Add columns in the saved order
+      for (const field of state.columnOrder) {
+        if (colMap.has(field)) {
+          orderedCols.push(colMap.get(field)!);
+        }
+      }
+
+      // Add any new columns that weren&#x27;t in the saved order
+      for (const col of columns) {
+        if (!orderSet.has(col.field) &amp;&amp; colMap.has(col.field)) {
+          orderedCols.push(colMap.get(col.field)!);
+        }
+      }
+
+      return orderedCols;
+    }
+
+    return Array.from(colMap.values());
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'GridSavedView.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1252 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ProcessedSlice</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/variable-pie-chart/variable-pie-chart.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#color" 
+>
+                                            color
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#cos" 
+>
+                                            cos
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#index" 
+>
+                                            index
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#innerR" 
+>
+                                            innerR
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#midAngle" 
+>
+                                            midAngle
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#outerR" 
+>
+                                            outerR
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#path" 
+>
+                                            path
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#pct" 
+>
+                                            pct
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#radiusValue" 
+>
+                                            radiusValue
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#sin" 
+>
+                                            sin
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#value" 
+>
+                                            value
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="color"></a>
+                                        <span class="name "><b>color</b>
+                                            <a href="#color">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>color:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="cos"></a>
+                                        <span class="name "><b>cos</b>
+                                            <a href="#cos">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>cos:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="index"></a>
+                                        <span class="name "><b>index</b>
+                                            <a href="#index">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>index:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="innerR"></a>
+                                        <span class="name "><b>innerR</b>
+                                            <a href="#innerR">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>innerR:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="midAngle"></a>
+                                        <span class="name "><b>midAngle</b>
+                                            <a href="#midAngle">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>midAngle:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="outerR"></a>
+                                        <span class="name "><b>outerR</b>
+                                            <a href="#outerR">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>outerR:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="path"></a>
+                                        <span class="name "><b>path</b>
+                                            <a href="#path">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>path:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pct"></a>
+                                        <span class="name "><b>pct</b>
+                                            <a href="#pct">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pct:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="radiusValue"></a>
+                                        <span class="name "><b>radiusValue</b>
+                                            <a href="#radiusValue">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>radiusValue:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sin"></a>
+                                        <span class="name "><b>sin</b>
+                                            <a href="#sin">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sin:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="value"></a>
+                                        <span class="name "><b>value</b>
+                                            <a href="#value">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>value:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, viewChild, HostListener
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface VariablePieDataPoint {
+  label: string;
+  value: number;       // Determines arc angle (percentage of total value)
+  radiusValue: number; // Determines radius length of this specific slice
+  color?: string;
+}
+
+interface ProcessedSlice {
+  index: number;
+  label: string;
+  value: number;
+  radiusValue: number;
+  pct: number;
+  color: string;
+  path: string;
+  midAngle: number;
+  cos: number;
+  sin: number;
+  outerR: number;
+  innerR: number;
+}
+
+@Component({
+  selector: &#x27;ngx-variable-pie-chart&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-variable-pie-chart&quot;&gt;
+      &lt;!-- Toolbar with Export option --&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;tooltip.set(null)&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;chart-body&quot;&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;chart-svg&quot;
+          [attr.viewBox]&#x3D;&quot;&#x27;0 0 &#x27; + height() + &#x27; &#x27; + height()&quot;
+          [attr.width]&#x3D;&quot;height()&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+        &gt;
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + cx() + &#x27;,&#x27; + cy() + &#x27;)&#x27;&quot; class&#x3D;&quot;pie-group&quot;&gt;
+            @for (slice of slices(); track slice.index) {
+              &lt;path
+                [attr.d]&#x3D;&quot;slice.path&quot;
+                [attr.fill]&#x3D;&quot;slice.color&quot;
+                [attr.stroke]&#x3D;&quot;&#x27;#fff&#x27;&quot;
+                stroke-width&#x3D;&quot;2&quot;
+                class&#x3D;&quot;pie-slice&quot;
+                [class.hovered]&#x3D;&quot;hovered() &#x3D;&#x3D;&#x3D; slice.index&quot;
+                [style.transform]&#x3D;&quot;hovered() &#x3D;&#x3D;&#x3D; slice.index ? &#x27;translate(&#x27; + (slice.cos * 8) + &#x27;px,&#x27; + (slice.sin * 8) + &#x27;px)&#x27; : &#x27;translate(0, 0)&#x27;&quot;
+                (mouseenter)&#x3D;&quot;hovered.set(slice.index); onSliceHover($event, slice)&quot;
+                (mouseleave)&#x3D;&quot;hovered.set(-1); tooltip.set(null)&quot;
+              /&gt;
+              @if (showLabels() &amp;&amp; slice.midAngle !&#x3D;&#x3D; null) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;labelX(slice)&quot;
+                  [attr.y]&#x3D;&quot;labelY(slice)&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  dominant-baseline&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;slice-label&quot;
+                &gt;{{ slice.pct }}%&lt;/text&gt;
+              }
+            }
+            &lt;!-- Donut hole/center text --&gt;
+            @if (mode() &#x3D;&#x3D;&#x3D; &#x27;donut&#x27;) {
+              &lt;circle [attr.r]&#x3D;&quot;donutHoleRadius()&quot; fill&#x3D;&quot;#ffffff&quot; /&gt;
+              &lt;text class&#x3D;&quot;donut-center-text&quot; text-anchor&#x3D;&quot;middle&quot; dy&#x3D;&quot;-8&quot;&gt;{{ centerTitle() }}&lt;/text&gt;
+              &lt;text class&#x3D;&quot;donut-center-value&quot; text-anchor&#x3D;&quot;middle&quot; dy&#x3D;&quot;14&quot;&gt;{{ centerValue() }}&lt;/text&gt;
+            }
+          &lt;/g&gt;
+        &lt;/svg&gt;
+
+        @if (showLegend()) {
+          &lt;div class&#x3D;&quot;chart-legend&quot;&gt;
+            @for (slice of slices(); track slice.index) {
+              &lt;div class&#x3D;&quot;legend-item&quot; (mouseenter)&#x3D;&quot;hovered.set(slice.index)&quot; (mouseleave)&#x3D;&quot;hovered.set(-1)&quot;&gt;
+                &lt;span class&#x3D;&quot;legend-dot&quot; [style.background]&#x3D;&quot;slice.color&quot;&gt;&lt;/span&gt;
+                &lt;div class&#x3D;&quot;legend-details&quot;&gt;
+                  &lt;span class&#x3D;&quot;legend-label&quot;&gt;{{ slice.label }}&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;legend-sub&quot;&gt;val: {{ fmtNum(slice.value) }} | rad: {{ fmtNum(slice.radiusValue) }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;span class&#x3D;&quot;legend-pct&quot;&gt;{{ slice.pct }}%&lt;/span&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Premium Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;t.x&quot; [style.top.px]&#x3D;&quot;t.y&quot;&gt;
+          &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;t.color&quot;&gt;&lt;/span&gt;
+          &lt;div class&#x3D;&quot;tt-content&quot;&gt;
+            &lt;strong&gt;{{ t.label }}&lt;/strong&gt;
+            &lt;div&gt;Arc (Value): {{ fmtNum(t.value) }} ({{ t.pct }}%)&lt;/div&gt;
+            &lt;div&gt;Radius: {{ fmtNum(t.radiusValue) }}&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      position: relative;
+    }
+    .ngx-variable-pie-chart {
+      position: relative;
+      background: var(--ngx-chart-bg, #fff);
+      font-family: inherit;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .chart-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .chart-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      min-width: 0;
+      animation: pieGrow 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transform-origin: center;
+    }
+
+    @keyframes pieGrow {
+      from { transform: scale(0.4) rotate(-90deg); opacity: 0; }
+      to { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    .pie-group {
+      transform-origin: center;
+    }
+
+    .pie-slice {
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s;
+      transform-origin: 0px 0px;
+    }
+    .pie-slice.hovered { fill-opacity: 0.95; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.16)); }
+    .slice-label { font-size: 10px; fill: #fff; font-weight: 700; pointer-events: none; user-select: none; }
+    .donut-center-text { font-size: 11px; fill: var(--ngx-chart-axis-text,#6c757d); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .donut-center-value { font-size: 20px; font-weight: 900; fill: var(--ngx-chart-text,#0f172a); }
+    .chart-legend { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; min-width: 160px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: all 0.15s; }
+    .legend-item:hover { background: var(--ngx-chart-grid,#f1f3f5); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .legend-details { display: flex; flex-direction: column; flex: 1; }
+    .legend-label { color: var(--ngx-chart-text,#212529); font-weight: 600; }
+    .legend-sub { font-size: 10px; color: var(--ngx-chart-axis-text,#6c757d); }
+    .legend-pct { font-weight: 600; color: var(--ngx-chart-text,#212529); }
+
+    /* Premium Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
+      border-radius: 10px; font-size: 12px; min-width: 150px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      display: flex; align-items: flex-start; gap: 8px;
+      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+    .tt-content { display: flex; flex-direction: column; gap: 2px; }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #6c757d);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #fff;
+      color: var(--primary-color, #4f46e5);
+      border-color: var(--primary-color, #4f46e5);
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid var(--ngx-chart-grid, #ebedf0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #343a40;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary-color, #4f46e5);
+    }
+  &#x60;]
+})
+export class VariablePieChartComponent {
+  data &#x3D; input&lt;VariablePieDataPoint[]&gt;([]);
+  mode &#x3D; input&lt;&#x27;pie&#x27; | &#x27;donut&#x27;&gt;(&#x27;pie&#x27;);
+  donutHoleSize &#x3D; input&lt;number&gt;(0.35); // Fraction of max radius
+  height &#x3D; input&lt;number&gt;(300);
+  showLegend &#x3D; input&lt;boolean&gt;(true);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  centerTitle &#x3D; input&lt;string&gt;(&#x27;Total&#x27;);
+  centerValueOverride &#x3D; input&lt;string | null&gt;(null, { alias: &#x27;centerValue&#x27; });
+  showExport &#x3D; input&lt;boolean&gt;(false);
+  minRadiusPercent &#x3D; input&lt;number&gt;(0.35); // relative to max radius
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  exportMenuOpen &#x3D; signal(false);
+  hovered &#x3D; signal(-1);
+  tooltip &#x3D; signal&lt;{x:number;y:number;label:string;value:number;radiusValue:number;pct:number;color:string}|null&gt;(null);
+
+  cx &#x3D; computed(() &#x3D;&gt; this.height() / 2);
+  cy &#x3D; computed(() &#x3D;&gt; this.height() / 2);
+  maxRadius &#x3D; computed(() &#x3D;&gt; this.height() / 2 - 20);
+
+  donutHoleRadius &#x3D; computed(() &#x3D;&gt; {
+    if (this.mode() !&#x3D;&#x3D; &#x27;donut&#x27;) return 0;
+    return this.maxRadius() * this.donutHoleSize();
+  });
+
+  centerValue &#x3D; computed(() &#x3D;&gt; {
+    const override &#x3D; this.centerValueOverride();
+    if (override !&#x3D;&#x3D; null) return override;
+    const total &#x3D; this.data().reduce((s, d) &#x3D;&gt; s + d.value, 0);
+    return fmtNum(total);
+  });
+
+  slices &#x3D; computed&lt;ProcessedSlice[]&gt;(() &#x3D;&gt; {
+    const d &#x3D; this.data();
+    if (!d.length) return [];
+    
+    const totalVal &#x3D; d.reduce((s, x) &#x3D;&gt; s + x.value, 0) || 1;
+    
+    // Find min and max radiusValues for scaling radius
+    let minRadVal &#x3D; Infinity;
+    let maxRadVal &#x3D; -Infinity;
+    d.forEach(x &#x3D;&gt; {
+      if (x.radiusValue &lt; minRadVal) minRadVal &#x3D; x.radiusValue;
+      if (x.radiusValue &gt; maxRadVal) maxRadVal &#x3D; x.radiusValue;
+    });
+
+    if (minRadVal &#x3D;&#x3D;&#x3D; Infinity) minRadVal &#x3D; 0;
+    if (maxRadVal &#x3D;&#x3D;&#x3D; -Infinity) maxRadVal &#x3D; 1;
+    if (minRadVal &#x3D;&#x3D;&#x3D; maxRadVal) minRadVal &#x3D; maxRadVal - 1; // avoid divide by zero
+
+    const maxR &#x3D; this.maxRadius();
+    const innerR &#x3D; this.donutHoleRadius();
+    const minR &#x3D; maxR * this.minRadiusPercent();
+
+    let start &#x3D; -Math.PI / 2;
+    return d.map((item, i) &#x3D;&gt; {
+      const frac &#x3D; item.value / totalVal;
+      let angle &#x3D; frac * Math.PI * 2;
+      // Cap angle slightly if it is a full circle to prevent coinciding SVG endpoints
+      if (frac &gt;&#x3D; 0.999) {
+        angle &#x3D; Math.PI * 2 - 0.0001;
+      }
+      const end &#x3D; start + angle;
+      const mid &#x3D; start + angle / 2;
+
+      // Scale radius for this slice:
+      // If donut mode, outerRadius must be scaled in range [innerR + 15, maxR]
+      const rangeStart &#x3D; this.mode() &#x3D;&#x3D;&#x3D; &#x27;donut&#x27; ? Math.max(innerR + 15, minR) : minR;
+      const rangeEnd &#x3D; maxR;
+      
+      let outerR &#x3D; rangeStart + ((item.radiusValue - minRadVal) / (maxRadVal - minRadVal)) * (rangeEnd - rangeStart);
+      if (isNaN(outerR)) outerR &#x3D; maxR;
+
+      const path &#x3D; this.mode() &#x3D;&#x3D;&#x3D; &#x27;donut&#x27;
+        ? this.ringPath(start, end, outerR, innerR)
+        : this.arcPath(start, end, outerR);
+
+      const cos &#x3D; Math.cos(mid);
+      const sin &#x3D; Math.sin(mid);
+      const res &#x3D; {
+        index: i,
+        label: item.label,
+        value: item.value,
+        radiusValue: item.radiusValue,
+        pct: Math.round(frac * 100),
+        color: item.color || this.colors()[i % this.colors().length],
+        path,
+        midAngle: mid,
+        cos,
+        sin,
+        outerR,
+        innerR
+      };
+      start &#x3D; end;
+      return res;
+    });
+  });
+
+  private arcPath(startAngle: number, endAngle: number, r: number): string {
+    const x1 &#x3D; Math.cos(startAngle) * r;
+    const y1 &#x3D; Math.sin(startAngle) * r;
+    const x2 &#x3D; Math.cos(endAngle) * r;
+    const y2 &#x3D; Math.sin(endAngle) * r;
+    const large &#x3D; endAngle - startAngle &gt; Math.PI ? 1 : 0;
+    return &#x60;M 0 0 L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z&#x60;;
+  }
+
+  private ringPath(startAngle: number, endAngle: number, outerR: number, innerR: number): string {
+    const ox1 &#x3D; Math.cos(startAngle) * outerR;
+    const oy1 &#x3D; Math.sin(startAngle) * outerR;
+    const ox2 &#x3D; Math.cos(endAngle) * outerR;
+    const oy2 &#x3D; Math.sin(endAngle) * outerR;
+
+    const ix1 &#x3D; Math.cos(startAngle) * innerR;
+    const iy1 &#x3D; Math.sin(startAngle) * innerR;
+    const ix2 &#x3D; Math.cos(endAngle) * innerR;
+    const iy2 &#x3D; Math.sin(endAngle) * innerR;
+
+    const large &#x3D; endAngle - startAngle &gt; Math.PI ? 1 : 0;
+    return &#x60;M ${ix1} ${iy1} L ${ox1} ${oy1} A ${outerR} ${outerR} 0 ${large} 1 ${ox2} ${oy2} L ${ix2} ${iy2} A ${innerR} ${innerR} 0 ${large} 0 ${ix1} ${iy1} Z&#x60;;
+  }
+
+  labelX(s: ProcessedSlice): number {
+    const r &#x3D; this.mode() &#x3D;&#x3D;&#x3D; &#x27;donut&#x27; ? (s.outerR + s.innerR) / 2 : s.outerR * 0.7;
+    return Math.cos(s.midAngle) * r;
+  }
+
+  labelY(s: ProcessedSlice): number {
+    const r &#x3D; this.mode() &#x3D;&#x3D;&#x3D; &#x27;donut&#x27; ? (s.outerR + s.innerR) / 2 : s.outerR * 0.7;
+    return Math.sin(s.midAngle) * r;
+  }
+
+  onSliceHover(event: MouseEvent, slice: ProcessedSlice): void {
+    const el &#x3D; (event.currentTarget as HTMLElement).closest(&#x27;.ngx-variable-pie-chart&#x27;) as HTMLElement;
+    const rect &#x3D; el.getBoundingClientRect();
+    this.tooltip.set({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      label: slice.label,
+      value: slice.value,
+      radiusValue: slice.radiusValue,
+      pct: slice.pct,
+      color: slice.color,
+    });
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToCsv(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    let csv &#x3D; &#x27;Label,Value,RadiusValue\n&#x27;;
+    data.forEach(d &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${d.label}&quot;,${d.value},${d.radiusValue}\n&#x60;;
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;variable-pie-chart-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToJson(): void {
+    const data &#x3D; this.data();
+    if (!data.length) return;
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;variable-pie-chart-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;variable-pie-chart.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || typeof document &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) {
+      alert(&#x27;Pop-up blocker prevented printing. Please allow pop-ups for this site.&#x27;);
+      return;
+    }
+
+    const svgHtml &#x3D; svg.outerHTML;
+    const printTemplate &#x3D; &#x60;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Variable Radius Pie Chart Export&lt;/title&gt;
+        &lt;style&gt;
+          body { font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #0f172a; text-align: center; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 24px; text-align: left; }
+          .title { font-size: 20px; font-weight: bold; }
+          .date { font-size: 12px; color: #64748b; }
+          .chart-container { display: inline-block; margin-top: 24px; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #ffffff; }
+          svg { max-width: 100%; height: auto; }
+          @media print {
+            body { padding: 0; }
+            .chart-container { border: none; padding: 0; }
+          }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+          &lt;div class&#x3D;&quot;title&quot;&gt;Variable Radius Pie Chart Analytics&lt;/div&gt;
+          &lt;div class&#x3D;&quot;date&quot;&gt;${new Date().toLocaleString()}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;chart-container&quot;&gt;
+          ${svgHtml}
+        &lt;/div&gt;
+        &lt;script&gt;
+          window.onload &#x3D; function() {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          };
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;;
+
+    printWindow.document.write(printTemplate);
+    printWindow.document.close();
+  }
+
+  readonly fmtNum &#x3D; fmtNum;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProcessedSlice.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

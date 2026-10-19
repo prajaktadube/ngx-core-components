@@ -1,0 +1,2552 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >GridExportXlsxService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Enterprise-grade export service for the DataGrid.
+Generates native XLSX binary workbooks and vector PDF documents
+with zero external dependencies.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildContentTypes" >buildContentTypes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildPdfTableHtml" >buildPdfTableHtml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildRootRels" >buildRootRels</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildSheetXml" >buildSheetXml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildStyles" >buildStyles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildWorkbook" >buildWorkbook</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildWorkbookRels" >buildWorkbookRels</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildWorkbookXml" >buildWorkbookXml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#colIndexToLetter" >colIndexToLetter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#computeColumnWidths" >computeColumnWidths</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#computeRelativeColumnWidths" >computeRelativeColumnWidths</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#downloadBlob" >downloadBlob</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#escapeHtml" >escapeHtml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#escapeXml" >escapeXml</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPdf" >exportToPdf</a>
+                            </li>
+                            <li>
+                                <a href="#exportToXlsx" >exportToXlsx</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#rowToStringValues" >rowToStringValues</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#rowToValues" >rowToValues</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#sanitizeSheetName" >sanitizeSheetName</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildContentTypes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildContentTypes</b></span>
+                        <a href="#buildContentTypes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildContentTypes(sheets: <a href="../interfaces/XlsxSheet.html" target="_self">XlsxSheet[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="255"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:255</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sheets</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxSheet.html" target="_self" >XlsxSheet[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildPdfTableHtml"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildPdfTableHtml</b></span>
+                        <a href="#buildPdfTableHtml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildPdfTableHtml(headers: string[], rows: string[][], columns: <a href="../interfaces/GridColumnDef.html" target="_self">GridColumnDef&lt;T&gt;[]</a>, colWidths: number[], opts: <a href="../interfaces/PdfExportOptions.html" target="_self">Required&lt;PdfExportOptions&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="399"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:399</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>headers</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>rows</td>
+                                            <td>
+                                                        <code>string[][]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/GridColumnDef.html" target="_self" >GridColumnDef&lt;T&gt;[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>colWidths</td>
+                                            <td>
+                                                        <code>number[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>opts</td>
+                                            <td>
+                                                            <code><a href="../interfaces/PdfExportOptions.html" target="_self" >Required&lt;PdfExportOptions&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildRootRels"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildRootRels</b></span>
+                        <a href="#buildRootRels"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildRootRels()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="270"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:270</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildSheetXml"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildSheetXml</b></span>
+                        <a href="#buildSheetXml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildSheetXml(sheet: <a href="../interfaces/XlsxSheet.html" target="_self">XlsxSheet</a>, sst: <a href="../classes/SharedStringTable.html" target="_self">SharedStringTable</a>, opts: <a href="../interfaces/XlsxExportOptions.html" target="_self">Required&lt;XlsxExportOptions&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="333"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:333</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sheet</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxSheet.html" target="_self" >XlsxSheet</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>sst</td>
+                                            <td>
+                                                            <code><a href="../classes/SharedStringTable.html" target="_self" >SharedStringTable</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>opts</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxExportOptions.html" target="_self" >Required&lt;XlsxExportOptions&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildStyles"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildStyles</b></span>
+                        <a href="#buildStyles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildStyles()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="300"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:300</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildWorkbook"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildWorkbook</b></span>
+                        <a href="#buildWorkbook"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildWorkbook(sheets: <a href="../interfaces/XlsxSheet.html" target="_self">XlsxSheet[]</a>, opts: <a href="../interfaces/XlsxExportOptions.html" target="_self">Required&lt;XlsxExportOptions&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="221"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:221</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sheets</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxSheet.html" target="_self" >XlsxSheet[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>opts</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxExportOptions.html" target="_self" >Required&lt;XlsxExportOptions&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Blob</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildWorkbookRels"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildWorkbookRels</b></span>
+                        <a href="#buildWorkbookRels"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildWorkbookRels(sheets: <a href="../interfaces/XlsxSheet.html" target="_self">XlsxSheet[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="288"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:288</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sheets</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxSheet.html" target="_self" >XlsxSheet[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildWorkbookXml"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildWorkbookXml</b></span>
+                        <a href="#buildWorkbookXml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildWorkbookXml(sheets: <a href="../interfaces/XlsxSheet.html" target="_self">XlsxSheet[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="277"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:277</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sheets</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxSheet.html" target="_self" >XlsxSheet[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="colIndexToLetter"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>colIndexToLetter</b></span>
+                        <a href="#colIndexToLetter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>colIndexToLetter(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="475"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:475</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computeColumnWidths"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>computeColumnWidths</b></span>
+                        <a href="#computeColumnWidths"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>computeColumnWidths(headers: string[], rows: unknown[][])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="458"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:458</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>headers</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>rows</td>
+                                            <td>
+                                                        <code>unknown[][]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>number[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computeRelativeColumnWidths"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>computeRelativeColumnWidths</b></span>
+                        <a href="#computeRelativeColumnWidths"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>computeRelativeColumnWidths(headers: string[], rows: string[][])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="469"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:469</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>headers</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>rows</td>
+                                            <td>
+                                                        <code>string[][]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>number[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadBlob"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>downloadBlob</b></span>
+                        <a href="#downloadBlob"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadBlob(blob: Blob, filename: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, _mimeType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="497"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:497</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>blob</td>
+                                            <td>
+                                                        <code>Blob</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>filename</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>_mimeType</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="escapeHtml"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>escapeHtml</b></span>
+                        <a href="#escapeHtml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>escapeHtml(str: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="493"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:493</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>str</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="escapeXml"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>escapeXml</b></span>
+                        <a href="#escapeXml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>escapeXml(str: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="489"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:489</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>str</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPdf"></a>
+                    <span class="name">
+                        <span ><b>exportToPdf</b></span>
+                        <a href="#exportToPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPdf(data: T[], columns: <a href="../interfaces/GridColumnDef.html" target="_self">GridColumnDef&lt;T&gt;[]</a>, options?: <a href="../interfaces/PdfExportOptions.html" target="_self">PdfExportOptions</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:84</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Export data as a native vector PDF document.
+Supports: title, page numbers, column alignment, landscape/portrait.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>T[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/GridColumnDef.html" target="_self" >GridColumnDef&lt;T&gt;[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="../interfaces/PdfExportOptions.html" target="_self" >PdfExportOptions</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToXlsx"></a>
+                    <span class="name">
+                        <span ><b>exportToXlsx</b></span>
+                        <a href="#exportToXlsx"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToXlsx(data: T[], columns: <a href="../interfaces/GridColumnDef.html" target="_self">GridColumnDef&lt;T&gt;[]</a>, filename: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, options?: <a href="../interfaces/XlsxExportOptions.html" target="_self">XlsxExportOptions</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="17"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:17</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Export data as a native .xlsx binary workbook.
+Supports: styled headers, auto-column widths, frozen header pane,
+number formatting, and multi-sheet grouped exports.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>T[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/GridColumnDef.html" target="_self" >GridColumnDef&lt;T&gt;[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>filename</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>&#x27;grid-data.xlsx&#x27;</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="../interfaces/XlsxExportOptions.html" target="_self" >XlsxExportOptions</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rowToStringValues"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>rowToStringValues</b></span>
+                        <a href="#rowToStringValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>rowToStringValues(row: Record<string | unknown>, fields: string[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="448"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:448</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                        <code>Record&lt;string | unknown&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fields</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>string[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rowToValues"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>rowToValues</b></span>
+                        <a href="#rowToValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>rowToValues(row: Record<string | unknown>, fields: string[], columns: <a href="../interfaces/GridColumnDef.html" target="_self">GridColumnDef&lt;T&gt;[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="437"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:437</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                        <code>Record&lt;string | unknown&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fields</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/GridColumnDef.html" target="_self" >GridColumnDef&lt;T&gt;[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sanitizeSheetName"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>sanitizeSheetName</b></span>
+                        <a href="#sanitizeSheetName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sanitizeSheetName(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="485"
+                                    class="link-to-prism">projects/ngx-core-components/grid/data-grid/services/grid-export-xlsx.service.ts:485</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { GridColumnDef, GridGroupState } from &#x27;../models&#x27;;
+
+/**
+ * Enterprise-grade export service for the DataGrid.
+ * Generates native XLSX binary workbooks and vector PDF documents
+ * with zero external dependencies.
+ */
+@Injectable()
+export class GridExportXlsxService {
+
+  /**
+   * Export data as a native .xlsx binary workbook.
+   * Supports: styled headers, auto-column widths, frozen header pane,
+   * number formatting, and multi-sheet grouped exports.
+   */
+  exportToXlsx&lt;T extends object&gt;(
+    data: T[],
+    columns: GridColumnDef&lt;T&gt;[],
+    filename &#x3D; &#x27;grid-data.xlsx&#x27;,
+    options?: XlsxExportOptions
+  ): void {
+    if (!data.length || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const opts: Required&lt;XlsxExportOptions&gt; &#x3D; {
+      sheetName: options?.sheetName ?? &#x27;Sheet1&#x27;,
+      freezeHeader: options?.freezeHeader ?? true,
+      autoFilter: options?.autoFilter ?? true,
+      groupBy: options?.groupBy ?? null,
+      includeFooter: options?.includeFooter ?? false,
+      title: options?.title ?? &#x27;&#x27;,
+      dateFormat: options?.dateFormat ?? &#x27;yyyy-mm-dd&#x27;,
+      numberFormat: options?.numberFormat ?? &#x27;#,##0.00&#x27;,
+    };
+
+    const fields &#x3D; columns.map(c &#x3D;&gt; c.field);
+    const headers &#x3D; columns.map(c &#x3D;&gt; c.title);
+
+    if (opts.groupBy) {
+      // Multi-sheet export: one sheet per group
+      const groupField &#x3D; opts.groupBy.field;
+      const groupsMap &#x3D; new Map&lt;string, T[]&gt;();
+      for (const row of data) {
+        const val &#x3D; (row as Record&lt;string, unknown&gt;)[groupField] ?? &#x27;&#x27;;
+        const key &#x3D; String(val &#x3D;&#x3D;&#x3D; &#x27;&#x27; || val &#x3D;&#x3D; null ? &#x27;(Blank)&#x27; : val);
+        const items &#x3D; groupsMap.get(key) || [];
+        items.push(row);
+        groupsMap.set(key, items);
+      }
+
+      const sheets: XlsxSheet[] &#x3D; [];
+      groupsMap.forEach((items, key) &#x3D;&gt; {
+        const rows &#x3D; items.map(row &#x3D;&gt; this.rowToValues(row as Record&lt;string, unknown&gt;, fields, columns));
+        sheets.push({
+          name: this.sanitizeSheetName(key),
+          headers,
+          data: rows,
+          columnWidths: this.computeColumnWidths(headers, rows),
+          columnTypes: columns.map(c &#x3D;&gt; c.columnType ?? &#x27;text&#x27;),
+        });
+      });
+
+      const workbook &#x3D; this.buildWorkbook(sheets, opts);
+      this.downloadBlob(workbook, filename, &#x27;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#x27;);
+    } else {
+      const rows &#x3D; data.map(row &#x3D;&gt; this.rowToValues(row as Record&lt;string, unknown&gt;, fields, columns));
+      const sheet: XlsxSheet &#x3D; {
+        name: opts.sheetName,
+        headers,
+        data: rows,
+        columnWidths: this.computeColumnWidths(headers, rows),
+        columnTypes: columns.map(c &#x3D;&gt; c.columnType ?? &#x27;text&#x27;),
+      };
+
+      const workbook &#x3D; this.buildWorkbook([sheet], opts);
+      this.downloadBlob(workbook, filename, &#x27;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#x27;);
+    }
+  }
+
+  /**
+   * Export data as a native vector PDF document.
+   * Supports: title, page numbers, column alignment, landscape/portrait.
+   */
+  exportToPdf&lt;T extends object&gt;(
+    data: T[],
+    columns: GridColumnDef&lt;T&gt;[],
+    options?: PdfExportOptions
+  ): void {
+    if (!data.length || typeof window &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+
+    const opts: Required&lt;PdfExportOptions&gt; &#x3D; {
+      title: options?.title ?? &#x27;Data Grid Export&#x27;,
+      orientation: options?.orientation ?? &#x27;landscape&#x27;,
+      pageSize: options?.pageSize ?? &#x27;A4&#x27;,
+      fontSize: options?.fontSize ?? 9,
+      headerFontSize: options?.headerFontSize ?? 10,
+      margin: options?.margin ?? 40,
+      groupBy: options?.groupBy ?? null,
+      showPageNumbers: options?.showPageNumbers ?? true,
+      showDate: options?.showDate ?? true,
+    };
+
+    const fields &#x3D; columns.map(c &#x3D;&gt; c.field);
+    const headers &#x3D; columns.map(c &#x3D;&gt; c.title);
+    const rows &#x3D; data.map(row &#x3D;&gt; this.rowToStringValues(row as Record&lt;string, unknown&gt;, fields));
+
+    // Generate PDF using a print window with enhanced styling
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) {
+      console.warn(&#x27;Pop-up blocker prevented PDF export.&#x27;);
+      return;
+    }
+
+    const colWidths &#x3D; this.computeRelativeColumnWidths(headers, rows);
+    const tableHtml &#x3D; this.buildPdfTableHtml(headers, rows, columns, colWidths, opts);
+
+    const html &#x3D; &#x60;&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;${opts.title}&lt;/title&gt;
+  &lt;style&gt;
+    @page {
+      size: ${opts.pageSize} ${opts.orientation};
+      margin: ${opts.margin}px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+      color: #0f172a;
+      font-size: ${opts.fontSize}pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .pdf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid #1e293b;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .pdf-title { font-size: 16pt; font-weight: 800; color: #0f172a; }
+    .pdf-meta { font-size: 8pt; color: #64748b; text-align: right; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    th {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+      font-weight: 700;
+      font-size: ${opts.headerFontSize}pt;
+      padding: 8px 6px;
+      border: 1px solid #334155;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    td {
+      padding: 6px;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    tr:nth-child(even) td { background-color: #f8fafc !important; }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .group-row td {
+      background-color: #f1f5f9 !important;
+      font-weight: 700;
+      color: #1e293b;
+      padding: 8px 6px;
+      border: 1px solid #cbd5e1;
+    }
+    .pdf-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 7pt;
+      color: #94a3b8;
+      padding: 4px 0;
+    }
+    @media screen {
+      body { padding: 24px; }
+      .no-print { display: block; }
+    }
+    @media print {
+      .no-print { display: none !important; }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class&#x3D;&quot;pdf-header&quot;&gt;
+    &lt;div class&#x3D;&quot;pdf-title&quot;&gt;${opts.title}&lt;/div&gt;
+    &lt;div class&#x3D;&quot;pdf-meta&quot;&gt;
+      ${opts.showDate ? &#x60;Generated: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}&#x60; : &#x27;&#x27;}
+      &lt;br&gt;Total Records: ${data.length}
+    &lt;/div&gt;
+  &lt;/div&gt;
+  ${tableHtml}
+  ${opts.showPageNumbers ? &#x27;&lt;div class&#x3D;&quot;pdf-footer&quot;&gt;Page &lt;span class&#x3D;&quot;page-num&quot;&gt;&lt;/span&gt;&lt;/div&gt;&#x27; : &#x27;&#x27;}
+  &lt;script&gt;
+    window.onload &#x3D; function() {
+      window.print();
+      setTimeout(function() { window.close(); }, 800);
+    };
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;&#x60;;
+
+    printWindow.document.write(html);
+    printWindow.document.close();
+  }
+
+  // ─── Private XLSX helpers ──────────────────────────────────────────────
+
+  private buildWorkbook(sheets: XlsxSheet[], opts: Required&lt;XlsxExportOptions&gt;): Blob {
+    // Build XLSX using Open XML SpreadsheetML (ZIP of XML files)
+    // Simplified implementation generating valid xlsx structure
+    const zip &#x3D; new XlsxZipBuilder();
+
+    // [Content_Types].xml
+    zip.addFile(&#x27;[Content_Types].xml&#x27;, this.buildContentTypes(sheets));
+
+    // _rels/.rels
+    zip.addFile(&#x27;_rels/.rels&#x27;, this.buildRootRels());
+
+    // xl/workbook.xml
+    zip.addFile(&#x27;xl/workbook.xml&#x27;, this.buildWorkbookXml(sheets));
+
+    // xl/_rels/workbook.xml.rels
+    zip.addFile(&#x27;xl/_rels/workbook.xml.rels&#x27;, this.buildWorkbookRels(sheets));
+
+    // xl/styles.xml
+    zip.addFile(&#x27;xl/styles.xml&#x27;, this.buildStyles());
+
+    // xl/sharedStrings.xml
+    const sharedStrings &#x3D; new SharedStringTable();
+
+    // Build each sheet
+    sheets.forEach((sheet, i) &#x3D;&gt; {
+      const sheetXml &#x3D; this.buildSheetXml(sheet, sharedStrings, opts);
+      zip.addFile(&#x60;xl/worksheets/sheet${i + 1}.xml&#x60;, sheetXml);
+    });
+
+    zip.addFile(&#x27;xl/sharedStrings.xml&#x27;, sharedStrings.toXml());
+
+    return zip.generate();
+  }
+
+  private buildContentTypes(sheets: XlsxSheet[]): string {
+    let xml &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; standalone&#x3D;&quot;yes&quot;?&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;Types xmlns&#x3D;&quot;http://schemas.openxmlformats.org/package/2006/content-types&quot;&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;Default Extension&#x3D;&quot;rels&quot; ContentType&#x3D;&quot;application/vnd.openxmlformats-package.relationships+xml&quot;/&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;Default Extension&#x3D;&quot;xml&quot; ContentType&#x3D;&quot;application/xml&quot;/&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;Override PartName&#x3D;&quot;/xl/workbook.xml&quot; ContentType&#x3D;&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml&quot;/&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;Override PartName&#x3D;&quot;/xl/styles.xml&quot; ContentType&#x3D;&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml&quot;/&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;Override PartName&#x3D;&quot;/xl/sharedStrings.xml&quot; ContentType&#x3D;&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml&quot;/&gt;&#x27;;
+    sheets.forEach((_, i) &#x3D;&gt; {
+      xml +&#x3D; &#x60;&lt;Override PartName&#x3D;&quot;/xl/worksheets/sheet${i + 1}.xml&quot; ContentType&#x3D;&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml&quot;/&gt;&#x60;;
+    });
+    xml +&#x3D; &#x27;&lt;/Types&gt;&#x27;;
+    return xml;
+  }
+
+  private buildRootRels(): string {
+    return &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; standalone&#x3D;&quot;yes&quot;?&gt;&#x27; +
+      &#x27;&lt;Relationships xmlns&#x3D;&quot;http://schemas.openxmlformats.org/package/2006/relationships&quot;&gt;&#x27; +
+      &#x27;&lt;Relationship Id&#x3D;&quot;rId1&quot; Type&#x3D;&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument&quot; Target&#x3D;&quot;xl/workbook.xml&quot;/&gt;&#x27; +
+      &#x27;&lt;/Relationships&gt;&#x27;;
+  }
+
+  private buildWorkbookXml(sheets: XlsxSheet[]): string {
+    let xml &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; standalone&#x3D;&quot;yes&quot;?&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;workbook xmlns&#x3D;&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; xmlns:r&#x3D;&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;sheets&gt;&#x27;;
+    sheets.forEach((sheet, i) &#x3D;&gt; {
+      xml +&#x3D; &#x60;&lt;sheet name&#x3D;&quot;${this.escapeXml(sheet.name)}&quot; sheetId&#x3D;&quot;${i + 1}&quot; r:id&#x3D;&quot;rId${i + 1}&quot;/&gt;&#x60;;
+    });
+    xml +&#x3D; &#x27;&lt;/sheets&gt;&lt;/workbook&gt;&#x27;;
+    return xml;
+  }
+
+  private buildWorkbookRels(sheets: XlsxSheet[]): string {
+    let xml &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; standalone&#x3D;&quot;yes&quot;?&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;Relationships xmlns&#x3D;&quot;http://schemas.openxmlformats.org/package/2006/relationships&quot;&gt;&#x27;;
+    sheets.forEach((_, i) &#x3D;&gt; {
+      xml +&#x3D; &#x60;&lt;Relationship Id&#x3D;&quot;rId${i + 1}&quot; Type&#x3D;&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet&quot; Target&#x3D;&quot;worksheets/sheet${i + 1}.xml&quot;/&gt;&#x60;;
+    });
+    xml +&#x3D; &#x60;&lt;Relationship Id&#x3D;&quot;rId${sheets.length + 1}&quot; Type&#x3D;&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles&quot; Target&#x3D;&quot;styles.xml&quot;/&gt;&#x60;;
+    xml +&#x3D; &#x60;&lt;Relationship Id&#x3D;&quot;rId${sheets.length + 2}&quot; Type&#x3D;&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings&quot; Target&#x3D;&quot;sharedStrings.xml&quot;/&gt;&#x60;;
+    xml +&#x3D; &#x27;&lt;/Relationships&gt;&#x27;;
+    return xml;
+  }
+
+  private buildStyles(): string {
+    return &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; standalone&#x3D;&quot;yes&quot;?&gt;&#x27; +
+      &#x27;&lt;styleSheet xmlns&#x3D;&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;&#x27; +
+      &#x27;&lt;numFmts count&#x3D;&quot;1&quot;&gt;&lt;numFmt numFmtId&#x3D;&quot;164&quot; formatCode&#x3D;&quot;#,##0.00&quot;/&gt;&lt;/numFmts&gt;&#x27; +
+      &#x27;&lt;fonts count&#x3D;&quot;2&quot;&gt;&#x27; +
+        &#x27;&lt;font&gt;&lt;sz val&#x3D;&quot;11&quot;/&gt;&lt;color theme&#x3D;&quot;1&quot;/&gt;&lt;name val&#x3D;&quot;Calibri&quot;/&gt;&lt;/font&gt;&#x27; +
+        &#x27;&lt;font&gt;&lt;b/&gt;&lt;sz val&#x3D;&quot;11&quot;/&gt;&lt;color rgb&#x3D;&quot;FFFFFFFF&quot;/&gt;&lt;name val&#x3D;&quot;Calibri&quot;/&gt;&lt;/font&gt;&#x27; +
+      &#x27;&lt;/fonts&gt;&#x27; +
+      &#x27;&lt;fills count&#x3D;&quot;3&quot;&gt;&#x27; +
+        &#x27;&lt;fill&gt;&lt;patternFill patternType&#x3D;&quot;none&quot;/&gt;&lt;/fill&gt;&#x27; +
+        &#x27;&lt;fill&gt;&lt;patternFill patternType&#x3D;&quot;gray125&quot;/&gt;&lt;/fill&gt;&#x27; +
+        &#x27;&lt;fill&gt;&lt;patternFill patternType&#x3D;&quot;solid&quot;&gt;&lt;fgColor rgb&#x3D;&quot;FF1E293B&quot;/&gt;&lt;/patternFill&gt;&lt;/fill&gt;&#x27; +
+      &#x27;&lt;/fills&gt;&#x27; +
+      &#x27;&lt;borders count&#x3D;&quot;2&quot;&gt;&#x27; +
+        &#x27;&lt;border&gt;&lt;left/&gt;&lt;right/&gt;&lt;top/&gt;&lt;bottom/&gt;&lt;diagonal/&gt;&lt;/border&gt;&#x27; +
+        &#x27;&lt;border&gt;&#x27; +
+          &#x27;&lt;left style&#x3D;&quot;thin&quot;&gt;&lt;color rgb&#x3D;&quot;FFCBD5E1&quot;/&gt;&lt;/left&gt;&#x27; +
+          &#x27;&lt;right style&#x3D;&quot;thin&quot;&gt;&lt;color rgb&#x3D;&quot;FFCBD5E1&quot;/&gt;&lt;/right&gt;&#x27; +
+          &#x27;&lt;top style&#x3D;&quot;thin&quot;&gt;&lt;color rgb&#x3D;&quot;FFCBD5E1&quot;/&gt;&lt;/top&gt;&#x27; +
+          &#x27;&lt;bottom style&#x3D;&quot;thin&quot;&gt;&lt;color rgb&#x3D;&quot;FFCBD5E1&quot;/&gt;&lt;/bottom&gt;&#x27; +
+          &#x27;&lt;diagonal/&gt;&#x27; +
+        &#x27;&lt;/border&gt;&#x27; +
+      &#x27;&lt;/borders&gt;&#x27; +
+      &#x27;&lt;cellStyleXfs count&#x3D;&quot;1&quot;&gt;&lt;xf numFmtId&#x3D;&quot;0&quot; fontId&#x3D;&quot;0&quot; fillId&#x3D;&quot;0&quot; borderId&#x3D;&quot;0&quot;/&gt;&lt;/cellStyleXfs&gt;&#x27; +
+      &#x27;&lt;cellXfs count&#x3D;&quot;4&quot;&gt;&#x27; +
+        &#x27;&lt;xf numFmtId&#x3D;&quot;0&quot; fontId&#x3D;&quot;0&quot; fillId&#x3D;&quot;0&quot; borderId&#x3D;&quot;0&quot; xfId&#x3D;&quot;0&quot;/&gt;&#x27; +
+        &#x27;&lt;xf numFmtId&#x3D;&quot;0&quot; fontId&#x3D;&quot;1&quot; fillId&#x3D;&quot;2&quot; borderId&#x3D;&quot;1&quot; xfId&#x3D;&quot;0&quot; applyFont&#x3D;&quot;1&quot; applyFill&#x3D;&quot;1&quot; applyBorder&#x3D;&quot;1&quot; applyAlignment&#x3D;&quot;1&quot;&gt;&lt;alignment horizontal&#x3D;&quot;left&quot; vertical&#x3D;&quot;center&quot; wrapText&#x3D;&quot;1&quot;/&gt;&lt;/xf&gt;&#x27; +
+        &#x27;&lt;xf numFmtId&#x3D;&quot;0&quot; fontId&#x3D;&quot;0&quot; fillId&#x3D;&quot;0&quot; borderId&#x3D;&quot;1&quot; xfId&#x3D;&quot;0&quot; applyBorder&#x3D;&quot;1&quot; applyAlignment&#x3D;&quot;1&quot;&gt;&lt;alignment vertical&#x3D;&quot;center&quot;/&gt;&lt;/xf&gt;&#x27; +
+        &#x27;&lt;xf numFmtId&#x3D;&quot;164&quot; fontId&#x3D;&quot;0&quot; fillId&#x3D;&quot;0&quot; borderId&#x3D;&quot;1&quot; xfId&#x3D;&quot;0&quot; applyNumberFormat&#x3D;&quot;1&quot; applyBorder&#x3D;&quot;1&quot; applyAlignment&#x3D;&quot;1&quot;&gt;&lt;alignment horizontal&#x3D;&quot;right&quot; vertical&#x3D;&quot;center&quot;/&gt;&lt;/xf&gt;&#x27; +
+      &#x27;&lt;/cellXfs&gt;&#x27; +
+      &#x27;&lt;/styleSheet&gt;&#x27;;
+  }
+
+  private buildSheetXml(sheet: XlsxSheet, sst: SharedStringTable, opts: Required&lt;XlsxExportOptions&gt;): string {
+    const colCount &#x3D; sheet.headers.length;
+    const lastCol &#x3D; this.colIndexToLetter(colCount - 1);
+    const lastRow &#x3D; sheet.data.length + 1;
+
+    let xml &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; standalone&#x3D;&quot;yes&quot;?&gt;&#x27;;
+    xml +&#x3D; &#x27;&lt;worksheet xmlns&#x3D;&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;&#x27;;
+
+    // Column widths
+    xml +&#x3D; &#x27;&lt;cols&gt;&#x27;;
+    sheet.columnWidths.forEach((w, i) &#x3D;&gt; {
+      xml +&#x3D; &#x60;&lt;col min&#x3D;&quot;${i + 1}&quot; max&#x3D;&quot;${i + 1}&quot; width&#x3D;&quot;${w}&quot; customWidth&#x3D;&quot;1&quot;/&gt;&#x60;;
+    });
+    xml +&#x3D; &#x27;&lt;/cols&gt;&#x27;;
+
+    // Freeze header pane
+    if (opts.freezeHeader) {
+      xml +&#x3D; &#x27;&lt;sheetViews&gt;&lt;sheetView tabSelected&#x3D;&quot;1&quot; workbookViewId&#x3D;&quot;0&quot;&gt;&#x27;;
+      xml +&#x3D; &#x27;&lt;pane ySplit&#x3D;&quot;1&quot; topLeftCell&#x3D;&quot;A2&quot; activePane&#x3D;&quot;bottomLeft&quot; state&#x3D;&quot;frozen&quot;/&gt;&#x27;;
+      xml +&#x3D; &#x27;&lt;/sheetView&gt;&lt;/sheetViews&gt;&#x27;;
+    }
+
+    xml +&#x3D; &#x27;&lt;sheetData&gt;&#x27;;
+
+    // Header row
+    xml +&#x3D; &#x27;&lt;row r&#x3D;&quot;1&quot;&gt;&#x27;;
+    sheet.headers.forEach((header, ci) &#x3D;&gt; {
+      const ref &#x3D; &#x60;${this.colIndexToLetter(ci)}1&#x60;;
+      const si &#x3D; sst.add(header);
+      xml +&#x3D; &#x60;&lt;c r&#x3D;&quot;${ref}&quot; t&#x3D;&quot;s&quot; s&#x3D;&quot;1&quot;&gt;&lt;v&gt;${si}&lt;/v&gt;&lt;/c&gt;&#x60;;
+    });
+    xml +&#x3D; &#x27;&lt;/row&gt;&#x27;;
+
+    // Data rows
+    sheet.data.forEach((rowValues, ri) &#x3D;&gt; {
+      const rowNum &#x3D; ri + 2;
+      xml +&#x3D; &#x60;&lt;row r&#x3D;&quot;${rowNum}&quot;&gt;&#x60;;
+      rowValues.forEach((val, ci) &#x3D;&gt; {
+        const ref &#x3D; &#x60;${this.colIndexToLetter(ci)}${rowNum}&#x60;;
+        const colType &#x3D; sheet.columnTypes[ci] ?? &#x27;text&#x27;;
+
+        if (val &#x3D;&#x3D;&#x3D; null || val &#x3D;&#x3D;&#x3D; undefined || val &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+          xml +&#x3D; &#x60;&lt;c r&#x3D;&quot;${ref}&quot; s&#x3D;&quot;2&quot;/&gt;&#x60;;
+        } else if (colType &#x3D;&#x3D;&#x3D; &#x27;number&#x27; &amp;&amp; typeof val &#x3D;&#x3D;&#x3D; &#x27;number&#x27; &amp;&amp; !isNaN(val)) {
+          xml +&#x3D; &#x60;&lt;c r&#x3D;&quot;${ref}&quot; s&#x3D;&quot;3&quot;&gt;&lt;v&gt;${val}&lt;/v&gt;&lt;/c&gt;&#x60;;
+        } else {
+          const si &#x3D; sst.add(String(val));
+          xml +&#x3D; &#x60;&lt;c r&#x3D;&quot;${ref}&quot; t&#x3D;&quot;s&quot; s&#x3D;&quot;2&quot;&gt;&lt;v&gt;${si}&lt;/v&gt;&lt;/c&gt;&#x60;;
+        }
+      });
+      xml +&#x3D; &#x27;&lt;/row&gt;&#x27;;
+    });
+
+    xml +&#x3D; &#x27;&lt;/sheetData&gt;&#x27;;
+
+    // Auto-filter
+    if (opts.autoFilter) {
+      xml +&#x3D; &#x60;&lt;autoFilter ref&#x3D;&quot;A1:${lastCol}${lastRow}&quot;/&gt;&#x60;;
+    }
+
+    xml +&#x3D; &#x27;&lt;/worksheet&gt;&#x27;;
+    return xml;
+  }
+
+  // ─── Private PDF helpers ──────────────────────────────────────────────
+
+  private buildPdfTableHtml&lt;T&gt;(
+    headers: string[],
+    rows: string[][],
+    columns: GridColumnDef&lt;T&gt;[],
+    colWidths: number[],
+    opts: Required&lt;PdfExportOptions&gt;
+  ): string {
+    let html &#x3D; &#x27;&lt;table&gt;&#x27;;
+
+    // Colgroup for column widths
+    html +&#x3D; &#x27;&lt;colgroup&gt;&#x27;;
+    colWidths.forEach(w &#x3D;&gt; { html +&#x3D; &#x60;&lt;col style&#x3D;&quot;width:${w}%&quot;&gt;&#x60;; });
+    html +&#x3D; &#x27;&lt;/colgroup&gt;&#x27;;
+
+    // Header
+    html +&#x3D; &#x27;&lt;thead&gt;&lt;tr&gt;&#x27;;
+    headers.forEach((h, i) &#x3D;&gt; {
+      const align &#x3D; columns[i]?.align ?? &#x27;left&#x27;;
+      html +&#x3D; &#x60;&lt;th class&#x3D;&quot;text-${align}&quot;&gt;${this.escapeHtml(h)}&lt;/th&gt;&#x60;;
+    });
+    html +&#x3D; &#x27;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;;
+
+    // Data rows
+    rows.forEach(row &#x3D;&gt; {
+      html +&#x3D; &#x27;&lt;tr&gt;&#x27;;
+      row.forEach((val, i) &#x3D;&gt; {
+        const align &#x3D; columns[i]?.align ?? &#x27;left&#x27;;
+        html +&#x3D; &#x60;&lt;td class&#x3D;&quot;text-${align}&quot;&gt;${this.escapeHtml(val)}&lt;/td&gt;&#x60;;
+      });
+      html +&#x3D; &#x27;&lt;/tr&gt;&#x27;;
+    });
+
+    html +&#x3D; &#x27;&lt;/tbody&gt;&lt;/table&gt;&#x27;;
+    return html;
+  }
+
+  // ─── Shared helpers ────────────────────────────────────────────────────
+
+  private rowToValues&lt;T&gt;(row: Record&lt;string, unknown&gt;, fields: string[], columns: GridColumnDef&lt;T&gt;[]): unknown[] {
+    return fields.map((f, i) &#x3D;&gt; {
+      const val &#x3D; row[f];
+      if (val &#x3D;&#x3D;&#x3D; null || val &#x3D;&#x3D;&#x3D; undefined) return &#x27;&#x27;;
+      if (columns[i]?.columnType &#x3D;&#x3D;&#x3D; &#x27;number&#x27; &amp;&amp; typeof val &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) return val;
+      if (val instanceof Date) return val.toISOString().split(&#x27;T&#x27;)[0];
+      if (typeof val &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) return JSON.stringify(val);
+      return val;
+    });
+  }
+
+  private rowToStringValues(row: Record&lt;string, unknown&gt;, fields: string[]): string[] {
+    return fields.map(f &#x3D;&gt; {
+      const val &#x3D; row[f];
+      if (val &#x3D;&#x3D;&#x3D; null || val &#x3D;&#x3D;&#x3D; undefined) return &#x27;&#x27;;
+      if (val instanceof Date) return val.toLocaleDateString();
+      if (typeof val &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) return JSON.stringify(val);
+      return String(val);
+    });
+  }
+
+  private computeColumnWidths(headers: string[], rows: unknown[][]): number[] {
+    return headers.map((h, i) &#x3D;&gt; {
+      let maxLen &#x3D; h.length;
+      for (const row of rows) {
+        const val &#x3D; String(row[i] ?? &#x27;&#x27;);
+        if (val.length &gt; maxLen) maxLen &#x3D; val.length;
+      }
+      return Math.min(Math.max(maxLen + 2, 8), 60);
+    });
+  }
+
+  private computeRelativeColumnWidths(headers: string[], rows: string[][]): number[] {
+    const absolute &#x3D; this.computeColumnWidths(headers, rows);
+    const total &#x3D; absolute.reduce((s, w) &#x3D;&gt; s + w, 0) || 1;
+    return absolute.map(w &#x3D;&gt; Math.round((w / total) * 100));
+  }
+
+  private colIndexToLetter(index: number): string {
+    let result &#x3D; &#x27;&#x27;;
+    let n &#x3D; index;
+    while (n &gt;&#x3D; 0) {
+      result &#x3D; String.fromCharCode(65 + (n % 26)) + result;
+      n &#x3D; Math.floor(n / 26) - 1;
+    }
+    return result;
+  }
+
+  private sanitizeSheetName(name: string): string {
+    return name.replace(/[\\/*?:\[\]]/g, &#x27;_&#x27;).substring(0, 31) || &#x27;Sheet&#x27;;
+  }
+
+  private escapeXml(str: string): string {
+    return str.replace(/&amp;/g, &#x27;&amp;amp;&#x27;).replace(/&lt;/g, &#x27;&amp;lt;&#x27;).replace(/&gt;/g, &#x27;&amp;gt;&#x27;).replace(/&quot;/g, &#x27;&amp;quot;&#x27;);
+  }
+
+  private escapeHtml(str: string): string {
+    return str.replace(/&amp;/g, &#x27;&amp;amp;&#x27;).replace(/&lt;/g, &#x27;&amp;lt;&#x27;).replace(/&gt;/g, &#x27;&amp;gt;&#x27;);
+  }
+
+  private downloadBlob(blob: Blob, filename: string, _mimeType: string): void {
+    if (typeof document &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) return;
+    const url &#x3D; URL.createObjectURL(blob);
+    const a &#x3D; document.createElement(&#x27;a&#x27;);
+    a.href &#x3D; url;
+    a.download &#x3D; filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+}
+
+// ─── XLSX ZIP Builder (minimal ZIP implementation) ─────────────────────────
+
+/**
+ * Minimal ZIP file builder for generating XLSX workbooks.
+ * Implements the ZIP Local File Header + Central Directory format
+ * without compression (STORE method) for simplicity and zero dependencies.
+ */
+class XlsxZipBuilder {
+  private files: { name: string; content: Uint8Array; }[] &#x3D; [];
+
+  addFile(name: string, content: string): void {
+    this.files.push({ name, content: new TextEncoder().encode(content) });
+  }
+
+  generate(): Blob {
+    const parts: Uint8Array[] &#x3D; [];
+    const centralDir: Uint8Array[] &#x3D; [];
+    let offset &#x3D; 0;
+
+    for (const file of this.files) {
+      const nameBytes &#x3D; new TextEncoder().encode(file.name);
+      const crc &#x3D; this.crc32(file.content);
+
+      // Local file header
+      const localHeader &#x3D; new Uint8Array(30 + nameBytes.length);
+      const lhView &#x3D; new DataView(localHeader.buffer);
+      lhView.setUint32(0, 0x04034b50, true); // signature
+      lhView.setUint16(4, 20, true);          // version needed
+      lhView.setUint16(6, 0, true);           // flags
+      lhView.setUint16(8, 0, true);           // compression (STORE)
+      lhView.setUint16(10, 0, true);          // mod time
+      lhView.setUint16(12, 0, true);          // mod date
+      lhView.setUint32(14, crc, true);        // crc32
+      lhView.setUint32(18, file.content.length, true); // compressed size
+      lhView.setUint32(22, file.content.length, true); // uncompressed size
+      lhView.setUint16(26, nameBytes.length, true);    // name length
+      lhView.setUint16(28, 0, true);                   // extra length
+      localHeader.set(nameBytes, 30);
+
+      parts.push(localHeader);
+      parts.push(file.content);
+
+      // Central directory entry
+      const cdEntry &#x3D; new Uint8Array(46 + nameBytes.length);
+      const cdView &#x3D; new DataView(cdEntry.buffer);
+      cdView.setUint32(0, 0x02014b50, true);  // signature
+      cdView.setUint16(4, 20, true);           // version made by
+      cdView.setUint16(6, 20, true);           // version needed
+      cdView.setUint16(8, 0, true);            // flags
+      cdView.setUint16(10, 0, true);           // compression
+      cdView.setUint16(12, 0, true);           // mod time
+      cdView.setUint16(14, 0, true);           // mod date
+      cdView.setUint32(16, crc, true);         // crc32
+      cdView.setUint32(20, file.content.length, true); // compressed size
+      cdView.setUint32(24, file.content.length, true); // uncompressed size
+      cdView.setUint16(28, nameBytes.length, true);    // name length
+      cdView.setUint16(30, 0, true);           // extra length
+      cdView.setUint16(32, 0, true);           // comment length
+      cdView.setUint16(34, 0, true);           // disk number start
+      cdView.setUint16(36, 0, true);           // internal attrs
+      cdView.setUint32(38, 0, true);           // external attrs
+      cdView.setUint32(42, offset, true);      // local header offset
+      cdEntry.set(nameBytes, 46);
+      centralDir.push(cdEntry);
+
+      offset +&#x3D; localHeader.length + file.content.length;
+    }
+
+    // Central directory
+    const cdOffset &#x3D; offset;
+    let cdSize &#x3D; 0;
+    for (const cd of centralDir) {
+      parts.push(cd);
+      cdSize +&#x3D; cd.length;
+    }
+
+    // End of central directory
+    const eocd &#x3D; new Uint8Array(22);
+    const eocdView &#x3D; new DataView(eocd.buffer);
+    eocdView.setUint32(0, 0x06054b50, true); // signature
+    eocdView.setUint16(4, 0, true);          // disk number
+    eocdView.setUint16(6, 0, true);          // disk with CD
+    eocdView.setUint16(8, this.files.length, true);  // entries on disk
+    eocdView.setUint16(10, this.files.length, true); // total entries
+    eocdView.setUint32(12, cdSize, true);    // CD size
+    eocdView.setUint32(16, cdOffset, true);  // CD offset
+    eocdView.setUint16(20, 0, true);         // comment length
+    parts.push(eocd);
+
+    return new Blob(parts, { type: &#x27;application/zip&#x27; });
+  }
+
+  /** CRC-32 computation (IEEE 802.3 polynomial) */
+  private crc32(data: Uint8Array): number {
+    let crc &#x3D; 0xFFFFFFFF;
+    for (let i &#x3D; 0; i &lt; data.length; i++) {
+      crc ^&#x3D; data[i];
+      for (let j &#x3D; 0; j &lt; 8; j++) {
+        crc &#x3D; (crc &gt;&gt;&gt; 1) ^ (crc &amp; 1 ? 0xEDB88320 : 0);
+      }
+    }
+    return (crc ^ 0xFFFFFFFF) &gt;&gt;&gt; 0;
+  }
+}
+
+/**
+ * Shared String Table for XLSX — deduplicates strings across sheets.
+ */
+class SharedStringTable {
+  private strings: string[] &#x3D; [];
+  private indexMap &#x3D; new Map&lt;string, number&gt;();
+
+  add(str: string): number {
+    const existing &#x3D; this.indexMap.get(str);
+    if (existing !&#x3D;&#x3D; undefined) return existing;
+    const index &#x3D; this.strings.length;
+    this.strings.push(str);
+    this.indexMap.set(str, index);
+    return index;
+  }
+
+  toXml(): string {
+    let xml &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; standalone&#x3D;&quot;yes&quot;?&gt;&#x27;;
+    xml +&#x3D; &#x60;&lt;sst xmlns&#x3D;&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; count&#x3D;&quot;${this.strings.length}&quot; uniqueCount&#x3D;&quot;${this.strings.length}&quot;&gt;&#x60;;
+    for (const s of this.strings) {
+      xml +&#x3D; &#x60;&lt;si&gt;&lt;t&gt;${this.escapeXml(s)}&lt;/t&gt;&lt;/si&gt;&#x60;;
+    }
+    xml +&#x3D; &#x27;&lt;/sst&gt;&#x27;;
+    return xml;
+  }
+
+  private escapeXml(str: string): string {
+    return str.replace(/&amp;/g, &#x27;&amp;amp;&#x27;).replace(/&lt;/g, &#x27;&amp;lt;&#x27;).replace(/&gt;/g, &#x27;&amp;gt;&#x27;).replace(/&quot;/g, &#x27;&amp;quot;&#x27;);
+  }
+}
+
+// ─── Export option interfaces ──────────────────────────────────────────────
+
+export interface XlsxExportOptions {
+  sheetName?: string;
+  freezeHeader?: boolean;
+  autoFilter?: boolean;
+  groupBy?: GridGroupState | null;
+  includeFooter?: boolean;
+  title?: string;
+  dateFormat?: string;
+  numberFormat?: string;
+}
+
+export interface PdfExportOptions {
+  title?: string;
+  orientation?: &#x27;portrait&#x27; | &#x27;landscape&#x27;;
+  pageSize?: &#x27;A4&#x27; | &#x27;A3&#x27; | &#x27;Letter&#x27; | &#x27;Legal&#x27;;
+  fontSize?: number;
+  headerFontSize?: number;
+  margin?: number;
+  groupBy?: GridGroupState | null;
+  showPageNumbers?: boolean;
+  showDate?: boolean;
+}
+
+export interface XlsxSheet {
+  name: string;
+  headers: string[];
+  data: unknown[][];
+  columnWidths: number[];
+  columnTypes: string[];
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'GridExportXlsxService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

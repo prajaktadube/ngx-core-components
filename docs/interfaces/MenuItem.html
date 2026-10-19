@@ -1,0 +1,646 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  MenuItem</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/navigation/menu/menu.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#children" 
+>
+                                            children
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#disabled" 
+>
+                                            disabled
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#icon" 
+>
+                                            icon
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#separator" 
+>
+                                            separator
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#url" 
+>
+                                            url
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="children"></a>
+                                        <span class="name "><b>children</b>
+                                            <a href="#children">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>children:         <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="disabled"></a>
+                                        <span class="name "><b>disabled</b>
+                                            <a href="#disabled">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>disabled:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="icon"></a>
+                                        <span class="name "><b>icon</b>
+                                            <a href="#icon">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>icon:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="separator"></a>
+                                        <span class="name "><b>separator</b>
+                                            <a href="#separator">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>separator:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="url"></a>
+                                        <span class="name "><b>url</b>
+                                            <a href="#url">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>url:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, output, signal, HostListener, computed } from &#x27;@angular/core&#x27;;
+
+export interface MenuItem {
+	label?: string;
+	icon?: string;
+	url?: string;
+	disabled?: boolean;
+	separator?: boolean;
+	children?: MenuItem[];
+}
+
+@Component({
+	selector: &#x27;ngx-menu&#x27;,
+	standalone: true,
+	template: &#x60;
+		&lt;nav class&#x3D;&quot;ngx-menu&quot; [class.menu-vertical]&#x3D;&quot;orientation() &#x3D;&#x3D;&#x3D; &#x27;vertical&#x27;&quot; role&#x3D;&quot;menubar&quot;&gt;
+			@for (item of items(); track $index; let i &#x3D; $index) {
+				@if (item.separator) {
+					&lt;hr class&#x3D;&quot;menu-separator&quot; /&gt;
+				} @else {
+					&lt;div
+						class&#x3D;&quot;menu-item&quot;
+						[class.has-children]&#x3D;&quot;item.children &amp;&amp; item.children.length &gt; 0&quot;
+						[class.open]&#x3D;&quot;openIndex() &#x3D;&#x3D;&#x3D; i&quot;
+						[class.disabled]&#x3D;&quot;item.disabled&quot;
+						[class.active]&#x3D;&quot;isActiveItem(item)&quot;
+						role&#x3D;&quot;menuitem&quot;
+						[attr.tabindex]&#x3D;&quot;item.disabled ? -1 : 0&quot;
+						[attr.aria-haspopup]&#x3D;&quot;item.children &amp;&amp; item.children.length ? &#x27;true&#x27; : null&quot;
+						[attr.aria-expanded]&#x3D;&quot;item.children &amp;&amp; item.children.length ? (openIndex() &#x3D;&#x3D;&#x3D; i) : null&quot;
+						(click)&#x3D;&quot;handleClick($event, item, i)&quot;
+						(keydown.enter)&#x3D;&quot;handleClick($event, item, i)&quot;
+					&gt;
+						@if (item.icon) { &lt;span class&#x3D;&quot;menu-icon&quot;&gt;{{ item.icon }}&lt;/span&gt; }
+						&lt;span class&#x3D;&quot;menu-label&quot;&gt;{{ item.label }}&lt;/span&gt;
+						@if (item.children &amp;&amp; item.children.length) {
+							&lt;span class&#x3D;&quot;menu-arrow&quot;&gt;{{ orientation() &#x3D;&#x3D;&#x3D; &#x27;vertical&#x27; ? &#x27;&amp;#8250;&#x27; : &#x27;&amp;#9662;&#x27; }}&lt;/span&gt;
+						}
+						@if (item.children &amp;&amp; item.children.length &amp;&amp; openIndex() &#x3D;&#x3D;&#x3D; i) {
+							&lt;div class&#x3D;&quot;menu-submenu&quot; role&#x3D;&quot;menu&quot;&gt;
+								@for (child of item.children; track $index) {
+									@if (child.separator) {
+										&lt;hr class&#x3D;&quot;menu-separator&quot; /&gt;
+									} @else {
+										&lt;div class&#x3D;&quot;menu-subitem&quot; [class.disabled]&#x3D;&quot;child.disabled&quot; [class.active]&#x3D;&quot;isActiveItem(child)&quot; role&#x3D;&quot;menuitem&quot; [attr.tabindex]&#x3D;&quot;child.disabled ? -1 : 0&quot; (click)&#x3D;&quot;handleSubClick($event, child)&quot;&gt;
+											@if (child.icon) { &lt;span class&#x3D;&quot;menu-icon&quot;&gt;{{ child.icon }}&lt;/span&gt; }
+											&lt;span class&#x3D;&quot;menu-label&quot;&gt;{{ child.label }}&lt;/span&gt;
+										&lt;/div&gt;
+									}
+								}
+							&lt;/div&gt;
+						}
+					&lt;/div&gt;
+				}
+			}
+		&lt;/nav&gt;
+	&#x60;,
+	styles: [&#x60;
+		@keyframes submenuSlideIn {
+			from { opacity: 0; transform: translateY(-6px); }
+			to   { opacity: 1; transform: translateY(0); }
+		}
+		:host { display: block; }
+		.ngx-menu { display: flex; align-items: stretch; background: var(--ngx-menu-bg, #fff); border: 1px solid var(--ngx-menu-border, #dee2e6); border-radius: var(--ngx-menu-radius, 10px); overflow: visible; }
+		.menu-vertical { flex-direction: column; }
+		.menu-item { position: relative; display: flex; align-items: center; gap: 10px; padding: 9px 18px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--ngx-menu-color, #212529); transition: background 0.2s ease, color 0.2s ease; white-space: nowrap; user-select: none; }
+		.menu-item::after { content: &#x27;&#x27;; position: absolute; bottom: 0; left: 18px; right: 18px; height: 2.5px; background: linear-gradient(90deg, var(--ngx-menu-active-color, #1a73e8), #4fc3f7); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; pointer-events: none; }
+		:host:not(.menu-vertical) .menu-item:hover:not(.disabled)::after,
+		:host:not(.menu-vertical) .menu-item.active::after { transform: scaleX(1); }
+		.menu-vertical .menu-item::after { display: none; }
+		.menu-item:hover:not(.disabled), .menu-item.open { background: var(--ngx-menu-hover-bg, rgba(26,115,232,0.06)); color: var(--ngx-menu-active-color, #1a73e8); }
+		.menu-item.disabled { opacity: 0.5; cursor: not-allowed; }
+		.menu-item:focus-visible, .menu-subitem:focus-visible { outline: 2px solid var(--ngx-menu-active-color, #1a73e8); outline-offset: -2px; border-radius: 4px; }
+		.menu-icon { font-size: 16px; flex-shrink: 0; display: inline-flex; align-items: center; }
+		.menu-label { flex: 1; }
+		.menu-arrow { margin-left: auto; padding-left: 10px; font-size: 11px; transition: transform 0.2s ease; }
+		.menu-item.open &gt; .menu-arrow { transform: rotate(180deg); }
+		.menu-vertical .menu-item.open &gt; .menu-arrow { transform: rotate(0deg); }
+		.menu-separator { border: none; border-top: 1px solid var(--ngx-menu-separator, #dee2e6); margin: 4px 0; }
+		.menu-submenu { position: absolute; top: 100%; left: 0; min-width: 210px; background: var(--ngx-menu-submenu-bg, rgba(255,255,255,0.82)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--ngx-menu-border, rgba(222,226,230,0.7)); border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 12px 36px rgba(0,0,0,0.10); z-index: 1000; padding: 4px 0; animation: submenuSlideIn 0.18s ease-out; }
+		.menu-vertical .menu-submenu { top: 0; left: 100%; }
+		.menu-subitem { display: flex; align-items: center; gap: 10px; padding: 8px 18px; font-size: 13px; cursor: pointer; color: var(--ngx-menu-color, #212529); transition: background 0.2s ease, color 0.2s ease; white-space: nowrap; border-radius: 6px; margin: 0 4px; }
+		.menu-subitem:hover:not(.disabled) { background: var(--ngx-menu-hover-bg, rgba(26,115,232,0.06)); color: var(--ngx-menu-active-color, #1a73e8); }
+		.menu-item.active, .menu-subitem.active { background: linear-gradient(135deg, var(--ngx-menu-active-bg, rgba(232,240,254,0.85)), rgba(79,195,247,0.15)); color: var(--ngx-menu-active-color, #1a73e8); font-weight: 600; }
+	&#x60;]
+})
+export class MenuComponent {
+	items &#x3D; input&lt;MenuItem[]&gt;([]);
+	orientation &#x3D; input&lt;&#x27;horizontal&#x27; | &#x27;vertical&#x27;&gt;(&#x27;horizontal&#x27;);
+	/** Label or URL of the currently active item — used to highlight the active menu entry. */
+	activeItem &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+	openIndex &#x3D; signal&lt;number | null&gt;(null);
+	itemClick &#x3D; output&lt;MenuItem&gt;();
+
+	isActiveItem(item: MenuItem): boolean {
+		const active &#x3D; this.activeItem();
+		if (!active) return false;
+		return item.label &#x3D;&#x3D;&#x3D; active || item.url &#x3D;&#x3D;&#x3D; active;
+	}
+
+	handleClick(event: Event, item: MenuItem, i: number): void {
+		if (item.disabled) return;
+		event.stopPropagation();
+		if (item.children &amp;&amp; item.children.length) { this.openIndex.set(this.openIndex() &#x3D;&#x3D;&#x3D; i ? null : i); }
+		else { this.itemClick.emit(item); this.openIndex.set(null); }
+	}
+
+	handleSubClick(event: Event, child: MenuItem): void {
+		if (child.disabled) return;
+		event.stopPropagation();
+		this.itemClick.emit(child);
+		this.openIndex.set(null);
+	}
+
+	@HostListener(&#x27;document:click&#x27;)
+	closeAll(): void { this.openIndex.set(null); }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'MenuItem.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

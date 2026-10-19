@@ -1,0 +1,948 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  CommandItem</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/navigation/command-palette/command-palette.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#category" 
+>
+                                            category
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#desc" 
+>
+                                            desc
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#icon" 
+>
+                                            icon
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#shortcut" 
+>
+                                            shortcut
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="category"></a>
+                                        <span class="name "><b>category</b>
+                                            <a href="#category">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>category:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="desc"></a>
+                                        <span class="name "><b>desc</b>
+                                            <a href="#desc">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>desc:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="icon"></a>
+                                        <span class="name "><b>icon</b>
+                                            <a href="#icon">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>icon:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="shortcut"></a>
+                                        <span class="name "><b>shortcut</b>
+                                            <a href="#shortcut">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>shortcut:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, input, signal, computed, HostListener, output, effect, ElementRef, ViewChild } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+export interface CommandItem {
+  id: string;
+  label: string;
+  desc?: string;
+  shortcut?: string;
+  icon?: string;
+  category?: string;
+}
+
+@Component({
+  selector: &#x27;ngx-command-palette&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    &lt;!-- Global Overlay Backdrop --&gt;
+    @if (isOpen()) {
+      &lt;div class&#x3D;&quot;ngx-palette-overlay&quot; (click)&#x3D;&quot;closePalette()&quot;&gt;
+        &lt;div
+          class&#x3D;&quot;ngx-palette-modal&quot;
+          (click)&#x3D;&quot;$event.stopPropagation()&quot;
+        &gt;
+          &lt;!-- Search Header input console --&gt;
+          &lt;div class&#x3D;&quot;ngx-palette-header&quot;&gt;
+            &lt;span class&#x3D;&quot;search-icon&quot;&gt;🔍&lt;/span&gt;
+            &lt;input
+              #searchInput
+              type&#x3D;&quot;text&quot;
+              class&#x3D;&quot;palette-input&quot;
+              [placeholder]&#x3D;&quot;placeholder()&quot;
+              [value]&#x3D;&quot;filterQuery()&quot;
+              (input)&#x3D;&quot;onSearchInput($event)&quot;
+            /&gt;
+            &lt;span class&#x3D;&quot;esc-badge&quot;&gt;ESC&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Command results feed --&gt;
+          &lt;div class&#x3D;&quot;ngx-palette-results&quot;&gt;
+            @if (groupedResults().length &#x3D;&#x3D;&#x3D; 0) {
+              &lt;div class&#x3D;&quot;empty-state&quot;&gt;No matching commands found.&lt;/div&gt;
+            }
+
+            @for (group of groupedResults(); track group.category) {
+              &lt;div class&#x3D;&quot;category-group&quot;&gt;
+                @if (group.category) {
+                  &lt;div class&#x3D;&quot;category-header&quot;&gt;{{ group.category }}&lt;/div&gt;
+                }
+
+                @for (cmd of group.items; track cmd.id) {
+                  &lt;div
+                    class&#x3D;&quot;command-row&quot;
+                    [class.active]&#x3D;&quot;activeItem()?.id &#x3D;&#x3D;&#x3D; cmd.id&quot;
+                    (mouseenter)&#x3D;&quot;activeItem.set(cmd)&quot;
+                    (click)&#x3D;&quot;executeCommand(cmd)&quot;
+                  &gt;
+                    &lt;div class&#x3D;&quot;command-start&quot;&gt;
+                      @if (cmd.icon) {
+                        &lt;span class&#x3D;&quot;command-icon&quot;&gt;{{ cmd.icon }}&lt;/span&gt;
+                      }
+                      &lt;div class&#x3D;&quot;command-details&quot;&gt;
+                        &lt;span class&#x3D;&quot;command-label&quot;&gt;{{ cmd.label }}&lt;/span&gt;
+                        @if (cmd.desc) {
+                          &lt;span class&#x3D;&quot;command-desc&quot;&gt;{{ cmd.desc }}&lt;/span&gt;
+                        }
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    @if (cmd.shortcut) {
+                      &lt;span class&#x3D;&quot;command-shortcut&quot;&gt;{{ cmd.shortcut }}&lt;/span&gt;
+                    }
+                  &lt;/div&gt;
+                }
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+
+          &lt;!-- Console Footer help actions --&gt;
+          &lt;div class&#x3D;&quot;ngx-palette-footer&quot;&gt;
+            &lt;div class&#x3D;&quot;help-item&quot;&gt;&lt;span&gt;↑↓&lt;/span&gt; Navigate&lt;/div&gt;
+            &lt;div class&#x3D;&quot;help-item&quot;&gt;&lt;span&gt;↵&lt;/span&gt; Select&lt;/div&gt;
+            &lt;div class&#x3D;&quot;help-item&quot;&gt;&lt;span&gt;Ctrl + K&lt;/span&gt; Toggle Console&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &#x60;,
+  styles: [&#x60;
+    .ngx-palette-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(12, 19, 36, 0.45);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+      animation: fade-in 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Palette Modal container box */
+    .ngx-palette-modal {
+      width: 100%;
+      max-width: 600px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: inherit;
+      animation: scale-up 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes scale-up {
+      from { transform: scale(0.95) translateY(-10px); }
+      to { transform: scale(1) translateY(0); }
+    }
+
+    /* Search Header console input */
+    .ngx-palette-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      gap: 12px;
+    }
+    .search-icon {
+      font-size: 16px;
+      color: var(--text-secondary, #64748b);
+    }
+    .palette-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 14px;
+      color: var(--text-primary, #0f172a);
+      font-family: inherit;
+    }
+    .palette-input::placeholder {
+      color: var(--text-secondary, #64748b);
+      opacity: 0.8;
+    }
+    .esc-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-secondary, #64748b);
+      background: var(--border-light, #f1f5f9);
+      padding: 3px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Command Results List block */
+    .ngx-palette-results {
+      max-height: 320px;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+
+    .empty-state {
+      padding: 24px;
+      text-align: center;
+      color: var(--text-secondary, #64748b);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    /* Category Group titles */
+    .category-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .category-header {
+      padding: 8px 18px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-secondary, #64748b);
+      opacity: 0.85;
+    }
+
+    /* Single Command row items */
+    .command-row {
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background-color 0.12s ease;
+      gap: 16px;
+    }
+    .command-row.active {
+      background: var(--primary-glow, rgba(79, 70, 229, 0.08));
+    }
+    
+    .command-start {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .command-icon {
+      font-size: 16px;
+      line-height: 1;
+    }
+    .command-details {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .command-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary, #0f172a);
+    }
+    .command-row.active .command-label {
+      color: var(--primary-color, #4f46e5);
+    }
+    .command-desc {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Shortcut keycaps style */
+    .command-shortcut {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-secondary, #64748b);
+      background: var(--border-light, #f1f5f9);
+      border: 1px solid var(--border-color, #e2e8f0);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    /* Footer help commands guides */
+    .ngx-palette-footer {
+      display: flex;
+      padding: 12px 18px;
+      background: var(--border-light, #f1f5f9);
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      gap: 18px;
+    }
+    .help-item {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary, #64748b);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .help-item span {
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 9px;
+    }
+  &#x60;]
+})
+export class CommandPaletteComponent {
+  // Inputs configs
+  commands &#x3D; input.required&lt;CommandItem[]&gt;();
+  placeholder &#x3D; input&lt;string&gt;(&#x27;Type a command or search...&#x27;);
+
+  // Output emissions
+  commandSelected &#x3D; output&lt;CommandItem&gt;();
+
+  @ViewChild(&#x27;searchInput&#x27;) searchInput!: ElementRef&lt;HTMLInputElement&gt;;
+
+  // Open status logic
+  isOpen &#x3D; signal&lt;boolean&gt;(false);
+  filterQuery &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  // Currently focused item in keyboard selection
+  activeItem &#x3D; signal&lt;CommandItem | null&gt;(null);
+
+  // Reactive effect to focus the search input field upon dialog opens
+  constructor() {
+    effect(() &#x3D;&gt; {
+      if (this.isOpen()) {
+        setTimeout(() &#x3D;&gt; {
+          this.searchInput?.nativeElement?.focus();
+        }, 50);
+      }
+    });
+  }
+
+  // Filter commands by search query
+  filteredCommands &#x3D; computed(() &#x3D;&gt; {
+    const query &#x3D; this.filterQuery().toLowerCase().trim();
+    if (!query) return this.commands();
+
+    return this.commands().filter(c &#x3D;&gt;
+      c.label.toLowerCase().includes(query) ||
+      (c.desc &amp;&amp; c.desc.toLowerCase().includes(query)) ||
+      (c.category &amp;&amp; c.category.toLowerCase().includes(query))
+    );
+  });
+
+  // Group commands by category computed signals
+  groupedResults &#x3D; computed(() &#x3D;&gt; {
+    const list &#x3D; this.filteredCommands();
+    const groups: { category: string; items: CommandItem[] }[] &#x3D; [];
+
+    list.forEach(item &#x3D;&gt; {
+      const cat &#x3D; item.category || &#x27;General&#x27;;
+      let grp &#x3D; groups.find(g &#x3D;&gt; g.category &#x3D;&#x3D;&#x3D; cat);
+      if (!grp) {
+        grp &#x3D; { category: cat, items: [] };
+        groups.push(grp);
+      }
+      grp.items.push(item);
+    });
+
+    return groups;
+  });
+
+  // Flat list of current results for keyboard navigation indices mappings
+  flatResultsList &#x3D; computed(() &#x3D;&gt; {
+    const groups &#x3D; this.groupedResults();
+    const flat: CommandItem[] &#x3D; [];
+    groups.forEach(g &#x3D;&gt; flat.push(...g.items));
+    return flat;
+  });
+
+  // Watch key inputs reactive alignment
+  onSearchInput(event: Event): void {
+    const query &#x3D; (event.target as HTMLInputElement).value;
+    this.filterQuery.set(query);
+    // Reset active item to first result in filtered list
+    const results &#x3D; this.flatResultsList();
+    this.activeItem.set(results.length &gt; 0 ? results[0] : null);
+  }
+
+  openPalette(): void {
+    this.filterQuery.set(&#x27;&#x27;);
+    const results &#x3D; this.commands();
+    this.activeItem.set(results.length &gt; 0 ? results[0] : null);
+    this.isOpen.set(true);
+  }
+
+  closePalette(): void {
+    this.isOpen.set(false);
+  }
+
+  toggleOpen(): void {
+    if (this.isOpen()) {
+      this.closePalette();
+    } else {
+      this.openPalette();
+    }
+  }
+
+  executeCommand(cmd: CommandItem): void {
+    this.commandSelected.emit(cmd);
+    this.closePalette();
+  }
+
+  // Global keypress watchers
+  @HostListener(&#x27;document:keydown&#x27;, [&#x27;$event&#x27;])
+  handleKeyDown(event: KeyboardEvent): void {
+    // Ctrl + K or Cmd + K triggers console toggle
+    if ((event.ctrlKey || event.metaKey) &amp;&amp; event.key.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;k&#x27;) {
+      event.preventDefault();
+      this.toggleOpen();
+      return;
+    }
+
+    if (!this.isOpen()) return;
+
+    const flatList &#x3D; this.flatResultsList();
+    if (flatList.length &#x3D;&#x3D;&#x3D; 0) {
+      if (event.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+        event.preventDefault();
+        this.closePalette();
+      }
+      return;
+    }
+
+    const currentActive &#x3D; this.activeItem();
+    let idx &#x3D; currentActive ? flatList.findIndex(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; currentActive.id) : -1;
+
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowDown&#x27;) {
+      event.preventDefault();
+      idx &#x3D; (idx + 1) % flatList.length;
+      const nextItem &#x3D; flatList[idx];
+      this.activeItem.set(nextItem);
+      this.scrollToActiveItem();
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;ArrowUp&#x27;) {
+      event.preventDefault();
+      idx &#x3D; (idx - 1 + flatList.length) % flatList.length;
+      const prevItem &#x3D; flatList[idx];
+      this.activeItem.set(prevItem);
+      this.scrollToActiveItem();
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;Enter&#x27;) {
+      event.preventDefault();
+      if (currentActive) {
+        this.executeCommand(currentActive);
+      }
+    } else if (event.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+      event.preventDefault();
+      this.closePalette();
+    }
+  }
+
+  private scrollToActiveItem(): void {
+    setTimeout(() &#x3D;&gt; {
+      const activeEl &#x3D; document.querySelector(&#x27;.ngx-palette-modal .command-row.active&#x27;);
+      if (activeEl) {
+        activeEl.scrollIntoView({ block: &#x27;nearest&#x27;, inline: &#x27;nearest&#x27; });
+      }
+    }, 0);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'CommandItem.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

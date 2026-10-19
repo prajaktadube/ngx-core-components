@@ -1,0 +1,1126 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  KeyValueItem</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/views/key-value-list/key-value-list.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#badgeVariant" 
+>
+                                            badgeVariant
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#copyable" 
+>
+                                            copyable
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#group" 
+>
+                                            group
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#key" 
+>
+                                            key
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#value" 
+>
+                                            value
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="badgeVariant"></a>
+                                        <span class="name "><b>badgeVariant</b>
+                                            <a href="#badgeVariant">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>badgeVariant:     <code>&quot;default&quot; | &quot;success&quot; | &quot;danger&quot; | &quot;warning&quot; | &quot;info&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;default&quot; | &quot;success&quot; | &quot;danger&quot; | &quot;warning&quot; | &quot;info&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="copyable"></a>
+                                        <span class="name "><b>copyable</b>
+                                            <a href="#copyable">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>copyable:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="group"></a>
+                                        <span class="name "><b>group</b>
+                                            <a href="#group">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>group:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="key"></a>
+                                        <span class="name "><b>key</b>
+                                            <a href="#key">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>key:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:     <code>&quot;text&quot; | &quot;badge&quot; | &quot;code&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;text&quot; | &quot;badge&quot; | &quot;code&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="value"></a>
+                                        <span class="name "><b>value</b>
+                                            <a href="#value">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>value:         <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  signal,
+  computed,
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+export interface KeyValueItem {
+  key: string;
+  value: any;
+  label: string;
+  group?: string;
+  type?: &#x27;text&#x27; | &#x27;badge&#x27; | &#x27;code&#x27;;
+  badgeVariant?: &#x27;default&#x27; | &#x27;success&#x27; | &#x27;danger&#x27; | &#x27;warning&#x27; | &#x27;info&#x27;;
+  copyable?: boolean;
+}
+
+@Component({
+  selector: &#x27;ngx-key-value-list&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-key-value-list&quot;
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      [class.striped]&#x3D;&quot;striped()&quot;
+      [class.layout-vertical]&#x3D;&quot;layout() &#x3D;&#x3D;&#x3D; &#x27;vertical&#x27;&quot;
+    &gt;
+      &lt;!-- Search Input Header --&gt;
+      @if (searchable()) {
+        &lt;div class&#x3D;&quot;ngx-key-value-list__search-wrap&quot;&gt;
+          &lt;svg class&#x3D;&quot;search-icon&quot; viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+            &lt;circle cx&#x3D;&quot;11&quot; cy&#x3D;&quot;11&quot; r&#x3D;&quot;8&quot;/&gt;
+            &lt;line x1&#x3D;&quot;21&quot; y1&#x3D;&quot;21&quot; x2&#x3D;&quot;16.65&quot; y2&#x3D;&quot;16.65&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            class&#x3D;&quot;ngx-key-value-list__search-input&quot;
+            placeholder&#x3D;&quot;Search properties...&quot;
+            [ngModel]&#x3D;&quot;searchTerm()&quot;
+            (ngModelChange)&#x3D;&quot;searchTerm.set($event)&quot;
+          /&gt;
+          @if (searchTerm()) {
+            &lt;button class&#x3D;&quot;clear-search&quot; (click)&#x3D;&quot;searchTerm.set(&#x27;&#x27;)&quot; aria-label&#x3D;&quot;Clear search&quot;&gt;✕&lt;/button&gt;
+          }
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Groups List --&gt;
+      @if (groupKeys().length &#x3D;&#x3D;&#x3D; 0) {
+        &lt;div class&#x3D;&quot;ngx-key-value-list__empty&quot;&gt;No properties match search filter&lt;/div&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;ngx-key-value-list__groups&quot;&gt;
+          @for (group of groupKeys(); track group) {
+            &lt;div class&#x3D;&quot;ngx-key-value-list__group-card&quot; [class.collapsed]&#x3D;&quot;!isGroupExpanded(group)&quot;&gt;
+              &lt;!-- Group Header (Only show if group is not empty string) --&gt;
+              @if (group) {
+                &lt;div
+                  class&#x3D;&quot;ngx-key-value-list__group-header&quot;
+                  (click)&#x3D;&quot;toggleGroup(group)&quot;
+                  role&#x3D;&quot;button&quot;
+                  tabindex&#x3D;&quot;0&quot;
+                  (keydown.enter)&#x3D;&quot;toggleGroup(group)&quot;
+                &gt;
+                  &lt;span class&#x3D;&quot;group-title&quot;&gt;{{ group }}&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;group-count&quot;&gt;({{ groupedFilteredItems()[group].length }})&lt;/span&gt;
+                  &lt;svg class&#x3D;&quot;chevron-icon&quot; viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                    &lt;polyline points&#x3D;&quot;6 9 12 15 18 9&quot;&gt;&lt;/polyline&gt;
+                  &lt;/svg&gt;
+                &lt;/div&gt;
+              }
+
+              &lt;!-- Group Rows --&gt;
+              @if (isGroupExpanded(group)) {
+                &lt;div class&#x3D;&quot;ngx-key-value-list__rows&quot;&gt;
+                  @for (item of groupedFilteredItems()[group]; track item.key) {
+                    &lt;div
+                      class&#x3D;&quot;ngx-key-value-list__row&quot;
+                      (click)&#x3D;&quot;onRowClick(item)&quot;
+                    &gt;
+                      &lt;!-- Key Label --&gt;
+                      &lt;div class&#x3D;&quot;ngx-key-value-list__label&quot;&gt;{{ item.label }}&lt;/div&gt;
+
+                      &lt;!-- Value Renderer --&gt;
+                      &lt;div class&#x3D;&quot;ngx-key-value-list__value-container&quot;&gt;
+                        &lt;div class&#x3D;&quot;ngx-key-value-list__value-wrapper&quot;&gt;
+                          @switch (item.type) {
+                            @case (&#x27;badge&#x27;) {
+                              &lt;span
+                                class&#x3D;&quot;ngx-key-value-list__badge&quot;
+                                [class]&#x3D;&quot;item.badgeVariant || &#x27;default&#x27;&quot;
+                              &gt;
+                                {{ item.value }}
+                              &lt;/span&gt;
+                            }
+                            @case (&#x27;code&#x27;) {
+                              &lt;code class&#x3D;&quot;ngx-key-value-list__code&quot;&gt;{{ item.value }}&lt;/code&gt;
+                            }
+                            @default {
+                              &lt;span class&#x3D;&quot;ngx-key-value-list__text&quot;&gt;{{ item.value }}&lt;/span&gt;
+                            }
+                          }
+
+                          &lt;!-- Copy Action Button --&gt;
+                          @if (item.copyable) {
+                            &lt;button
+                              class&#x3D;&quot;ngx-key-value-list__copy-btn&quot;
+                              (click)&#x3D;&quot;copyValue(item.value, item.key, $event)&quot;
+                              [class.copied]&#x3D;&quot;copiedKey() &#x3D;&#x3D;&#x3D; item.key&quot;
+                              [attr.aria-label]&#x3D;&quot;&#x27;Copy &#x27; + item.label&quot;
+                            &gt;
+                              @if (copiedKey() &#x3D;&#x3D;&#x3D; item.key) {
+                                &lt;span class&#x3D;&quot;copied-tooltip&quot;&gt;Copied!&lt;/span&gt;
+                                &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;12&quot; height&#x3D;&quot;12&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot;&gt;
+                                  &lt;polyline points&#x3D;&quot;20 6 9 17 4 12&quot;&gt;&lt;/polyline&gt;
+                                &lt;/svg&gt;
+                              } @else {
+                                &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;12&quot; height&#x3D;&quot;12&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                                  &lt;rect x&#x3D;&quot;9&quot; y&#x3D;&quot;9&quot; width&#x3D;&quot;13&quot; height&#x3D;&quot;13&quot; rx&#x3D;&quot;2&quot; ry&#x3D;&quot;2&quot;&gt;&lt;/rect&gt;
+                                  &lt;path d&#x3D;&quot;M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1&quot;&gt;&lt;/path&gt;
+                                &lt;/svg&gt;
+                              }
+                            &lt;/button&gt;
+                          }
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  }
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .ngx-key-value-list {
+      width: 100%;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      color: #334155;
+    }
+
+    .ngx-key-value-list.dark {
+      color: #cbd5e1;
+    }
+
+    /* ── Search Bar ── */
+    .ngx-key-value-list__search-wrap {
+      position: relative;
+      width: 100%;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      color: #94a3b8;
+    }
+
+    .ngx-key-value-list__search-input {
+      width: 100%;
+      padding: 8px 36px 8px 36px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.7);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .ngx-key-value-list__search-input:focus {
+      border-color: var(--primary-color, #3b82f6);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .dark .ngx-key-value-list__search-input {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.4);
+      color: #f1f5f9;
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 12px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px;
+    }
+
+    /* ── Empty results ── */
+    .ngx-key-value-list__empty {
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      background: rgba(0, 0, 0, 0.02);
+      border-radius: 8px;
+    }
+
+    .dark .ngx-key-value-list__empty {
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* ── Collapsible Groups ── */
+    .ngx-key-value-list__groups {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ngx-key-value-list__group-card {
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .dark .ngx-key-value-list__group-card {
+      background: rgba(30, 32, 48, 0.35);
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .ngx-key-value-list__group-header {
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.02);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      user-select: none;
+      outline: none;
+    }
+
+    .dark .ngx-key-value-list__group-header {
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .group-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+    }
+
+    .dark .group-title {
+      color: #94a3b8;
+    }
+
+    .group-count {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .chevron-icon {
+      margin-left: auto;
+      color: #94a3b8;
+      transition: transform 0.2s ease;
+    }
+
+    .collapsed .chevron-icon {
+      transform: rotate(-90deg);
+    }
+
+    .collapsed .ngx-key-value-list__group-header {
+      border-bottom-color: transparent;
+    }
+
+    /* ── Rows layout ── */
+    .ngx-key-value-list__rows {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ngx-key-value-list__row {
+      display: flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      font-size: 13px;
+      min-height: 42px;
+      box-sizing: border-box;
+    }
+
+    .ngx-key-value-list__row:last-child {
+      border-bottom: none;
+    }
+
+    .dark .ngx-key-value-list__row {
+      border-bottom-color: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Column labels */
+    .ngx-key-value-list__label {
+      width: 35%;
+      font-weight: 600;
+      color: #64748b;
+      padding-right: 16px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dark .ngx-key-value-list__label {
+      color: #94a3b8;
+    }
+
+    /* Column values */
+    .ngx-key-value-list__value-container {
+      width: 65%;
+      display: flex;
+      align-items: center;
+    }
+
+    .ngx-key-value-list__value-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 100%;
+    }
+
+    .ngx-key-value-list__text {
+      color: #0f172a;
+      font-weight: 500;
+    }
+
+    .dark .ngx-key-value-list__text {
+      color: #f1f5f9;
+    }
+
+    /* striped row shading */
+    .striped .ngx-key-value-list__row:nth-child(even) {
+      background: rgba(0, 0, 0, 0.015);
+    }
+
+    .dark.striped .ngx-key-value-list__row:nth-child(even) {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    /* ── Render types ── */
+
+    /* Badges */
+    .ngx-key-value-list__badge {
+      display: inline-flex;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: capitalize;
+    }
+
+    .ngx-key-value-list__badge.default {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .ngx-key-value-list__badge.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+    .ngx-key-value-list__badge.danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+    .ngx-key-value-list__badge.warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+    .ngx-key-value-list__badge.info {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+
+    .dark .ngx-key-value-list__badge.default {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+
+    /* Code blocks */
+    .ngx-key-value-list__code {
+      font-family: monospace;
+      font-size: 12px;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #e11d48;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .dark .ngx-key-value-list__code {
+      background: rgba(15, 23, 42, 0.5);
+      border-color: rgba(255, 255, 255, 0.04);
+      color: #f43f5e;
+    }
+
+    /* Copy Button */
+    .ngx-key-value-list__copy-btn {
+      position: relative;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      padding: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .ngx-key-value-list__copy-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: #475569;
+    }
+
+    .ngx-key-value-list__copy-btn.copied {
+      color: #10b981 !important;
+    }
+
+    .dark .ngx-key-value-list__copy-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+    }
+
+    /* Tooltip */
+    .copied-tooltip {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      white-space: nowrap;
+      pointer-events: none;
+      animation: tooltipPop 0.15s ease-out forwards;
+    }
+
+    @keyframes tooltipPop {
+      from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ── Vertical Layout ── */
+    .layout-vertical .ngx-key-value-list__row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      padding: 12px 18px;
+    }
+
+    .layout-vertical .ngx-key-value-list__label {
+      width: 100%;
+      padding-right: 0;
+    }
+
+    .layout-vertical .ngx-key-value-list__value-container {
+      width: 100%;
+    }
+  &#x60;]
+})
+export class KeyValueListComponent {
+  // Inputs
+  items &#x3D; input&lt;KeyValueItem[]&gt;([]);
+  layout &#x3D; input&lt;&#x27;horizontal&#x27; | &#x27;vertical&#x27;&gt;(&#x27;horizontal&#x27;);
+  striped &#x3D; input&lt;boolean&gt;(false);
+  searchable &#x3D; input&lt;boolean&gt;(false);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  id &#x3D; input&lt;string&gt;(&#x27;ngx-kv-list-&#x27; + Math.random().toString(36).substring(2, 9));
+
+  // Outputs
+  valueClick &#x3D; output&lt;{ key: string; value: any }&gt;();
+
+  // Internal signals
+  searchTerm &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  copiedKey &#x3D; signal&lt;string | null&gt;(null);
+  collapsedGroups &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+
+  // Search filtering
+  filteredItems &#x3D; computed(() &#x3D;&gt; {
+    const term &#x3D; this.searchTerm().toLowerCase().trim();
+    const rawItems &#x3D; this.items() || [];
+    if (!term) return rawItems;
+    return rawItems.filter(
+      item &#x3D;&gt;
+        item.label.toLowerCase().includes(term) ||
+        String(item.value).toLowerCase().includes(term)
+    );
+  });
+
+  // Group calculations
+  groupedFilteredItems &#x3D; computed(() &#x3D;&gt; {
+    const list &#x3D; this.filteredItems();
+    const groups: { [key: string]: KeyValueItem[] } &#x3D; {};
+
+    list.forEach(item &#x3D;&gt; {
+      const gName &#x3D; item.group || &#x27;&#x27;;
+      if (!groups[gName]) {
+        groups[gName] &#x3D; [];
+      }
+      groups[gName].push(item);
+    });
+
+    return groups;
+  });
+
+  groupKeys &#x3D; computed(() &#x3D;&gt; {
+    return Object.keys(this.groupedFilteredItems());
+  });
+
+  toggleGroup(group: string) {
+    this.collapsedGroups.update(set &#x3D;&gt; {
+      const next &#x3D; new Set(set);
+      if (next.has(group)) {
+        next.delete(group);
+      } else {
+        next.add(group);
+      }
+      return next;
+    });
+  }
+
+  isGroupExpanded(group: string) {
+    return !this.collapsedGroups().has(group);
+  }
+
+  copyValue(val: any, key: string, event: MouseEvent) {
+    event.stopPropagation(); // Avoid triggering row clicks
+    const textStr &#x3D; String(val);
+
+    navigator.clipboard.writeText(textStr).then(() &#x3D;&gt; {
+      this.copiedKey.set(key);
+      setTimeout(() &#x3D;&gt; {
+        if (this.copiedKey() &#x3D;&#x3D;&#x3D; key) {
+          this.copiedKey.set(null);
+        }
+      }, 2000);
+    });
+  }
+
+  onRowClick(item: KeyValueItem) {
+    this.valueClick.emit({ key: item.key, value: item.value });
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'KeyValueItem.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

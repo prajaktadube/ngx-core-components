@@ -1,0 +1,973 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  OrgNode</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/org-chart/org-chart.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#avatarUrl" 
+>
+                                            avatarUrl
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#children" 
+>
+                                            children
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#department" 
+>
+                                            department
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#expanded" 
+>
+                                            expanded
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#icon" 
+>
+                                            icon
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#title" 
+>
+                                            title
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="avatarUrl"></a>
+                                        <span class="name "><b>avatarUrl</b>
+                                            <a href="#avatarUrl">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>avatarUrl:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="children"></a>
+                                        <span class="name "><b>children</b>
+                                            <a href="#children">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>children:         <code><a href="../interfaces/OrgNode.html" target="_self" >OrgNode[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/OrgNode.html" target="_self" >OrgNode[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="department"></a>
+                                        <span class="name "><b>department</b>
+                                            <a href="#department">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>department:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="expanded"></a>
+                                        <span class="name "><b>expanded</b>
+                                            <a href="#expanded">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>expanded:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="icon"></a>
+                                        <span class="name "><b>icon</b>
+                                            <a href="#icon">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>icon:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="title"></a>
+                                        <span class="name "><b>title</b>
+                                            <a href="#title">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>title:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  inject,
+  DestroyRef,
+  ElementRef,
+  viewChild,
+  effect,
+  output
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, generateUniqueId } from &#x27;../shared/chart-utils&#x27;;
+import { ChartExportService } from &#x27;../shared/chart-export.service&#x27;;
+import { ChartExportMenuComponent, ExportFormat } from &#x27;../shared/chart-export-menu.component&#x27;;
+
+export interface OrgNode {
+  id: string;
+  name: string;
+  title?: string;
+  department?: string;
+  avatarUrl?: string;
+  icon?: string;
+  children?: OrgNode[];
+  expanded?: boolean;
+}
+
+interface RenderNode {
+  data: OrgNode;
+  x: number;
+  y: number;
+  depth: number;
+  hasChildren: boolean;
+  expanded: boolean;
+}
+
+interface RenderLink {
+  source: RenderNode;
+  target: RenderNode;
+  path: string;
+}
+
+@Component({
+  selector: &#x27;ngx-org-chart&#x27;,
+  standalone: true,
+  imports: [CommonModule, ChartExportMenuComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-chart-container&quot; #container&gt;
+      &lt;div class&#x3D;&quot;ngx-chart-header&quot;&gt;
+        &lt;ngx-chart-export-menu *ngIf&#x3D;&quot;showExport()&quot; (exportClicked)&#x3D;&quot;onExport($event)&quot; /&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;scroll-container&quot;&gt;
+        &lt;svg class&#x3D;&quot;ngx-chart-svg&quot; [attr.width]&#x3D;&quot;svgWidth()&quot; [attr.height]&#x3D;&quot;svgHeight()&quot;&gt;
+          &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + translateX() + &#x27;, &#x27; + translateY() + &#x27;)&#x27;&quot;&gt;
+            &lt;!-- Links --&gt;
+            &lt;path *ngFor&#x3D;&quot;let link of links()&quot;
+                  [attr.d]&#x3D;&quot;link.path&quot;
+                  class&#x3D;&quot;org-link&quot; /&gt;
+            
+            &lt;!-- Nodes --&gt;
+            &lt;g *ngFor&#x3D;&quot;let node of nodes()&quot;
+               class&#x3D;&quot;org-node&quot;
+               [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + node.x + &#x27;,&#x27; + node.y + &#x27;)&#x27;&quot;&gt;
+              
+              &lt;!-- Card Background --&gt;
+              &lt;rect [attr.x]&#x3D;&quot;-nodeWidth()/2&quot; 
+                    [attr.y]&#x3D;&quot;-nodeHeight()/2&quot; 
+                    [attr.width]&#x3D;&quot;nodeWidth()&quot; 
+                    [attr.height]&#x3D;&quot;nodeHeight()&quot; 
+                    rx&#x3D;&quot;8&quot;
+                    class&#x3D;&quot;org-card&quot; 
+                    (click)&#x3D;&quot;nodeClick.emit(node.data)&quot; /&gt;
+              
+              &lt;!-- Avatar --&gt;
+              &lt;image *ngIf&#x3D;&quot;node.data.avatarUrl&quot;
+                     [attr.href]&#x3D;&quot;node.data.avatarUrl&quot;
+                     [attr.x]&#x3D;&quot;-nodeWidth()/2 + 10&quot;
+                     [attr.y]&#x3D;&quot;-20&quot;
+                     width&#x3D;&quot;40&quot; height&#x3D;&quot;40&quot;
+                     clip-path&#x3D;&quot;url(#avatar-clip)&quot; /&gt;
+              
+              &lt;clipPath id&#x3D;&quot;avatar-clip&quot;&gt;
+                &lt;circle [attr.cx]&#x3D;&quot;-nodeWidth()/2 + 30&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;20&quot; /&gt;
+              &lt;/clipPath&gt;
+
+              &lt;!-- Circle fallback if no avatar --&gt;
+              &lt;circle *ngIf&#x3D;&quot;!node.data.avatarUrl&quot;
+                      [attr.cx]&#x3D;&quot;-nodeWidth()/2 + 30&quot;
+                      [attr.cy]&#x3D;&quot;0&quot;
+                      r&#x3D;&quot;16&quot;
+                      [attr.fill]&#x3D;&quot;getColor(node.depth)&quot; /&gt;
+              
+              &lt;text *ngIf&#x3D;&quot;!node.data.avatarUrl&quot;
+                    [attr.x]&#x3D;&quot;-nodeWidth()/2 + 30&quot;
+                    [attr.y]&#x3D;&quot;4&quot;
+                    text-anchor&#x3D;&quot;middle&quot;
+                    fill&#x3D;&quot;#fff&quot;
+                    font-size&#x3D;&quot;12&quot;
+                    font-weight&#x3D;&quot;bold&quot;&gt;
+                {{ node.data.name.charAt(0) }}
+              &lt;/text&gt;
+
+              &lt;!-- Text Details --&gt;
+              &lt;text [attr.x]&#x3D;&quot;-nodeWidth()/2 + 60&quot; [attr.y]&#x3D;&quot;-6&quot; class&#x3D;&quot;org-name&quot;&gt;{{ node.data.name }}&lt;/text&gt;
+              &lt;text [attr.x]&#x3D;&quot;-nodeWidth()/2 + 60&quot; [attr.y]&#x3D;&quot;12&quot; class&#x3D;&quot;org-title&quot;&gt;{{ node.data.title || &#x27;&#x27; }}&lt;/text&gt;
+
+              &lt;!-- Expand/Collapse Handle --&gt;
+              &lt;g *ngIf&#x3D;&quot;node.hasChildren&quot;
+                 class&#x3D;&quot;expand-handle&quot;
+                 [attr.transform]&#x3D;&quot;getHandleTransform()&quot;
+                 (click)&#x3D;&quot;toggleNode(node, $event)&quot;&gt;
+                &lt;circle cx&#x3D;&quot;0&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;10&quot; fill&#x3D;&quot;#fff&quot; stroke&#x3D;&quot;#ccc&quot; /&gt;
+                &lt;text x&#x3D;&quot;0&quot; y&#x3D;&quot;4&quot; text-anchor&#x3D;&quot;middle&quot; font-size&#x3D;&quot;14&quot; font-weight&#x3D;&quot;bold&quot; fill&#x3D;&quot;#666&quot;&gt;
+                  {{ node.expanded ? &#x27;-&#x27; : &#x27;+&#x27; }}
+                &lt;/text&gt;
+              &lt;/g&gt;
+            &lt;/g&gt;
+          &lt;/g&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    .ngx-chart-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
+    }
+    .ngx-chart-header {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      z-index: 10;
+    }
+    .scroll-container {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+    .ngx-chart-svg {
+      min-width: 100%;
+      min-height: 100%;
+    }
+    .org-link {
+      fill: none;
+      stroke: var(--ngx-chart-grid, #cbd5e1);
+      stroke-width: 2px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .org-node {
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .org-card {
+      fill: var(--ngx-chart-tooltip-bg, rgba(255, 255, 255, 0.85));
+      stroke: rgba(0,0,0,0.1);
+      stroke-width: 1px;
+      backdrop-filter: blur(8px);
+    }
+    .org-node:hover .org-card {
+      stroke: var(--ngx-chart-axis-text, #94a3b8);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+    .org-name {
+      fill: var(--ngx-chart-axis-text, #1e293b);
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .org-title {
+      fill: var(--ngx-chart-axis-text, #64748b);
+      font-size: 12px;
+    }
+    .expand-handle {
+      cursor: pointer;
+    }
+    .expand-handle:hover circle {
+      fill: #f1f5f9;
+    }
+  &#x60;]
+})
+export class OrgChartComponent {
+  rootNode &#x3D; input.required&lt;OrgNode&gt;();
+  height &#x3D; input&lt;number&gt;(450);
+  nodeWidth &#x3D; input&lt;number&gt;(180);
+  nodeHeight &#x3D; input&lt;number&gt;(60);
+  orientation &#x3D; input&lt;&#x27;vertical&#x27; | &#x27;horizontal&#x27;&gt;(&#x27;vertical&#x27;);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(true);
+
+  private exportSvc &#x3D; inject(ChartExportService);
+  nodeClick &#x3D; output&lt;OrgNode&gt;();
+  nodeToggle &#x3D; output&lt;OrgNode&gt;();
+
+  container &#x3D; viewChild&lt;ElementRef&gt;(&#x27;container&#x27;);
+
+  onExport(type: ExportFormat): void {
+    const el &#x3D; this.container()?.nativeElement;
+    if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportSvc.downloadSvg(el, &#x27;org-chart.svg&#x27;);
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportSvc.downloadPdf(el, &#x27;Org Chart&#x27;, &#x27;org-chart.pdf&#x27;);
+  }
+  containerWidth &#x3D; signal&lt;number&gt;(800);
+  
+  expandedState &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+
+  chartId &#x3D; generateUniqueId(&#x27;org&#x27;);
+
+  get containerEl() {
+    return this.container()?.nativeElement;
+  }
+
+  private destroyRef &#x3D; inject(DestroyRef);
+
+  constructor() {
+    effect((onCleanup) &#x3D;&gt; {
+      const el &#x3D; this.container()?.nativeElement;
+      if (!el) return;
+      const ro &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (entries[0]) {
+          this.containerWidth.set(entries[0].contentRect.width || 800);
+        }
+      });
+      ro.observe(el);
+      onCleanup(() &#x3D;&gt; ro.disconnect());
+    });
+
+    effect(() &#x3D;&gt; {
+      const initExp &#x3D; new Set&lt;string&gt;();
+      const traverse &#x3D; (n: OrgNode) &#x3D;&gt; {
+        if (n.expanded !&#x3D;&#x3D; false) initExp.add(n.id);
+        n.children?.forEach(traverse);
+      };
+      traverse(this.rootNode());
+      this.expandedState.set(initExp);
+    }, { allowSignalWrites: true });
+  }
+
+  getColor(depth: number): string {
+    const c &#x3D; this.colors();
+    return c[depth % c.length];
+  }
+
+  getHandleTransform(): string {
+    if (this.orientation() &#x3D;&#x3D;&#x3D; &#x27;vertical&#x27;) {
+      return &#x60;translate(0, ${this.nodeHeight() / 2})&#x60;;
+    } else {
+      return &#x60;translate(${this.nodeWidth() / 2}, 0)&#x60;;
+    }
+  }
+
+  layout &#x3D; computed(() &#x3D;&gt; {
+    const root &#x3D; this.rootNode();
+    const isVert &#x3D; this.orientation() &#x3D;&#x3D;&#x3D; &#x27;vertical&#x27;;
+    const dx &#x3D; isVert ? this.nodeWidth() + 40 : this.nodeWidth() + 80;
+    const dy &#x3D; isVert ? this.nodeHeight() + 80 : this.nodeHeight() + 40;
+    
+    const nodes: RenderNode[] &#x3D; [];
+    const links: RenderLink[] &#x3D; [];
+    
+    const expanded &#x3D; this.expandedState();
+
+    let maxX &#x3D; 0, maxY &#x3D; 0, minX &#x3D; 0, minY &#x3D; 0;
+
+    const traverse &#x3D; (node: OrgNode, depth: number, offset: number): RenderNode &#x3D;&gt; {
+      const isExpanded &#x3D; expanded.has(node.id);
+      const hasChildren &#x3D; !!(node.children &amp;&amp; node.children.length &gt; 0);
+      
+      const renderNode: RenderNode &#x3D; {
+        data: node, x: 0, y: 0, depth, hasChildren, expanded: isExpanded
+      };
+
+      if (hasChildren &amp;&amp; isExpanded) {
+        const childrenNodes &#x3D; node.children!.map((child, i) &#x3D;&gt; {
+          const childOffset &#x3D; offset + (i - (node.children!.length - 1) / 2) * dx;
+          return traverse(child, depth + 1, childOffset);
+        });
+
+        let sum &#x3D; 0;
+        childrenNodes.forEach(c &#x3D;&gt; sum +&#x3D; isVert ? c.x : c.y);
+        const center &#x3D; sum / childrenNodes.length;
+
+        if (isVert) {
+          renderNode.x &#x3D; center;
+          renderNode.y &#x3D; depth * dy;
+        } else {
+          renderNode.x &#x3D; depth * dx;
+          renderNode.y &#x3D; center;
+        }
+
+        childrenNodes.forEach(child &#x3D;&gt; {
+          links.push({
+            source: renderNode, target: child,
+            path: this.generatePath(renderNode, child, isVert)
+          });
+        });
+      } else {
+        if (isVert) {
+          renderNode.x &#x3D; offset;
+          renderNode.y &#x3D; depth * dy;
+        } else {
+          renderNode.x &#x3D; depth * dx;
+          renderNode.y &#x3D; offset;
+        }
+      }
+
+      nodes.push(renderNode);
+      if (renderNode.x &gt; maxX) maxX &#x3D; renderNode.x;
+      if (renderNode.y &gt; maxY) maxY &#x3D; renderNode.y;
+      if (renderNode.x &lt; minX) minX &#x3D; renderNode.x;
+      if (renderNode.y &lt; minY) minY &#x3D; renderNode.y;
+
+      return renderNode;
+    };
+
+    traverse(root, 0, 0);
+    return { nodes, links, bounds: { minX, maxX, minY, maxY } };
+  });
+
+  nodes &#x3D; computed(() &#x3D;&gt; this.layout().nodes);
+  links &#x3D; computed(() &#x3D;&gt; this.layout().links);
+  
+  svgWidth &#x3D; computed(() &#x3D;&gt; {
+    const w &#x3D; this.layout().bounds.maxX - this.layout().bounds.minX + this.nodeWidth() + 100;
+    return Math.max(w, this.containerWidth());
+  });
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; {
+    const h &#x3D; this.layout().bounds.maxY - this.layout().bounds.minY + this.nodeHeight() + 100;
+    return Math.max(h, this.height());
+  });
+
+  translateX &#x3D; computed(() &#x3D;&gt; -this.layout().bounds.minX + this.nodeWidth() / 2 + 50);
+  translateY &#x3D; computed(() &#x3D;&gt; -this.layout().bounds.minY + this.nodeHeight() / 2 + 50);
+
+  generatePath(source: RenderNode, target: RenderNode, isVertical: boolean): string {
+    if (isVertical) {
+      const sy &#x3D; source.y + this.nodeHeight() / 2;
+      const ty &#x3D; target.y - this.nodeHeight() / 2;
+      const midY &#x3D; (sy + ty) / 2;
+      return &#x60;M ${source.x} ${sy} L ${source.x} ${midY} L ${target.x} ${midY} L ${target.x} ${ty}&#x60;;
+    } else {
+      const sx &#x3D; source.x + this.nodeWidth() / 2;
+      const tx &#x3D; target.x - this.nodeWidth() / 2;
+      const midX &#x3D; (sx + tx) / 2;
+      return &#x60;M ${sx} ${source.y} L ${midX} ${source.y} L ${midX} ${target.y} L ${tx} ${target.y}&#x60;;
+    }
+  }
+
+  toggleNode(node: RenderNode, event: MouseEvent) {
+    event.stopPropagation();
+    const state &#x3D; new Set(this.expandedState());
+    if (state.has(node.data.id)) {
+      state.delete(node.data.id);
+    } else {
+      state.add(node.data.id);
+    }
+    this.expandedState.set(state);
+    this.nodeToggle.emit(node.data);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'OrgNode.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,892 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  TreeNodeEvent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/views/tree-view/tree-view.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#node" 
+>
+                                            node
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="node"></a>
+                                        <span class="name "><b>node</b>
+                                            <a href="#node">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>node:         <code><a href="../interfaces/TreeNode.html" target="_self" >TreeNode</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/TreeNode.html" target="_self" >TreeNode</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, output, signal, computed, OnInit
+} from &#x27;@angular/core&#x27;;
+import { NgTemplateOutlet, CommonModule } from &#x27;@angular/common&#x27;;
+
+export interface TreeNode {
+  id: string;
+  label: string;
+  icon?: string;
+  children?: TreeNode[];
+  hasChildren?: boolean;
+  disabled?: boolean;
+  data?: unknown;
+}
+
+export interface TreeNodeEvent { node: TreeNode; }
+
+@Component({
+  selector: &#x27;ngx-tree-view&#x27;,
+  standalone: true,
+  imports: [CommonModule, NgTemplateOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-tree-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+      &lt;!-- Search Panel --&gt;
+      @if (showSearch()) {
+        &lt;div class&#x3D;&quot;tree-search-bar&quot;&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            class&#x3D;&quot;tree-search-input&quot;
+            [placeholder]&#x3D;&quot;searchPlaceholder()&quot;
+            [value]&#x3D;&quot;searchQuery()&quot;
+            (input)&#x3D;&quot;onSearchInput($event)&quot;
+          /&gt;
+          @if (searchQuery()) {
+            &lt;button class&#x3D;&quot;tree-clear-btn&quot; (click)&#x3D;&quot;clearSearch()&quot;&gt;✕&lt;/button&gt;
+          }
+        &lt;/div&gt;
+      }
+
+      &lt;!-- Tree Nodes Scroll Container --&gt;
+      &lt;div class&#x3D;&quot;ngx-tree-view&quot; role&#x3D;&quot;tree&quot; (keydown)&#x3D;&quot;onKeyDown($event)&quot; tabindex&#x3D;&quot;0&quot;&gt;
+        @for (node of filteredNodes(); track node.id) {
+          &lt;ng-container *ngTemplateOutlet&#x3D;&quot;nodeTemplate; context: { node: node, depth: 0 }&quot;/&gt;
+        }
+
+        &lt;ng-template #nodeTemplate let-node&#x3D;&quot;node&quot; let-depth&#x3D;&quot;depth&quot;&gt;
+          &lt;div
+            class&#x3D;&quot;tree-node&quot;
+            [class.selected]&#x3D;&quot;selectedId() &#x3D;&#x3D;&#x3D; node.id&quot;
+            [class.focused]&#x3D;&quot;focusedId() &#x3D;&#x3D;&#x3D; node.id&quot;
+            [class.disabled]&#x3D;&quot;node.disabled&quot;
+            role&#x3D;&quot;treeitem&quot;
+            [attr.aria-expanded]&#x3D;&quot;isExpanded(node.id)&quot;
+            [attr.aria-selected]&#x3D;&quot;selectedId() &#x3D;&#x3D;&#x3D; node.id&quot;
+            [attr.aria-disabled]&#x3D;&quot;node.disabled || null&quot;
+            (click)&#x3D;&quot;!node.disabled &amp;&amp; onNodeClick(node, $event)&quot;
+          &gt;
+            &lt;!-- Expand/collapse --&gt;
+            @if (hasNodeChildren(node)) {
+              &lt;button
+                class&#x3D;&quot;tree-expand-btn&quot;
+                (click)&#x3D;&quot;toggleExpand(node, $event)&quot;
+                [attr.aria-label]&#x3D;&quot;isExpanded(node.id) ? &#x27;Collapse&#x27; : &#x27;Expand&#x27;&quot;
+              &gt;
+                &lt;span class&#x3D;&quot;expand-icon&quot; [class.expanded]&#x3D;&quot;isExpanded(node.id)&quot;&gt;&amp;#9654;&lt;/span&gt;
+              &lt;/button&gt;
+            } @else {
+              &lt;span class&#x3D;&quot;tree-leaf-spacer&quot;&gt;&lt;/span&gt;
+            }
+
+            &lt;!-- Checkbox --&gt;
+            @if (checkable()) {
+              &lt;input
+                type&#x3D;&quot;checkbox&quot;
+                class&#x3D;&quot;tree-checkbox&quot;
+                [checked]&#x3D;&quot;isChecked(node.id)&quot;
+                [indeterminate]&#x3D;&quot;isIndeterminate(node.id)&quot;
+                (change)&#x3D;&quot;onCheck(node)&quot;
+                (click)&#x3D;&quot;$event.stopPropagation()&quot;
+              /&gt;
+            }
+
+            &lt;!-- Icon --&gt;
+            @if (node.icon) {
+              &lt;span class&#x3D;&quot;tree-icon&quot;&gt;{{ node.icon }}&lt;/span&gt;
+            }
+
+            &lt;!-- Label --&gt;
+            &lt;span class&#x3D;&quot;tree-label&quot;&gt;{{ node.label }}&lt;/span&gt;
+
+            &lt;!-- Inline Hover Actions --&gt;
+            @if (showActions() &amp;&amp; !node.disabled) {
+              &lt;div class&#x3D;&quot;tree-node-actions&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+                &lt;button class&#x3D;&quot;action-btn add&quot; (click)&#x3D;&quot;onAction(node, &#x27;add&#x27;)&quot; title&#x3D;&quot;Add Subnode&quot;&gt;➕&lt;/button&gt;
+                &lt;button class&#x3D;&quot;action-btn edit&quot; (click)&#x3D;&quot;onAction(node, &#x27;edit&#x27;)&quot; title&#x3D;&quot;Edit Node&quot;&gt;✏️&lt;/button&gt;
+                &lt;button class&#x3D;&quot;action-btn delete&quot; (click)&#x3D;&quot;onAction(node, &#x27;delete&#x27;)&quot; title&#x3D;&quot;Delete Node&quot;&gt;🗑️&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+
+          &lt;!-- Nested Children with गाइड Lines --&gt;
+          @if (isExpanded(node.id) &amp;&amp; node.children) {
+            &lt;div class&#x3D;&quot;tree-node-children-group&quot;&gt;
+              @for (child of node.children; track child.id) {
+                &lt;ng-container *ngTemplateOutlet&#x3D;&quot;nodeTemplate; context: { node: child, depth: depth + 1 }&quot;/&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/ng-template&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .ngx-tree-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    /* Search Bar Input */
+    .tree-search-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .tree-search-input {
+      width: 100%;
+      padding: 8px 32px 8px 12px;
+      font-size: 13px;
+      border: 1px solid var(--border-color, #cbd5e1);
+      border-radius: 8px;
+      outline: none;
+      background: var(--bg-secondary, #ffffff);
+      color: var(--text-primary, #0f172a);
+      transition: all 0.2s ease;
+    }
+    .tree-search-input:focus {
+      border-color: var(--primary-color, #4f46e5);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+    .tree-clear-btn {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 11px;
+      padding: 4px;
+    }
+    .tree-clear-btn:hover {
+      color: #64748b;
+    }
+
+    /* Tree View Main Container */
+    .ngx-tree-view {
+      background: var(--bg-primary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      padding: 8px;
+      overflow-y: auto;
+      max-height: 480px;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      outline: none;
+    }
+
+    .dark .ngx-tree-view {
+      background: var(--bg-secondary, #1e293b);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Tree Node Item Row */
+    .tree-node {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 34px;
+      padding: 0 8px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 8px;
+      margin: 1px 0;
+      transition: background 0.15s ease, color 0.15s ease;
+      position: relative;
+    }
+    .tree-node:hover {
+      background: rgba(15, 23, 42, 0.04);
+    }
+    .dark .tree-node:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tree-node.selected {
+      background: rgba(79, 70, 229, 0.08);
+      color: var(--primary-color, #4f46e5);
+    }
+    .dark .tree-node.selected {
+      background: rgba(99, 102, 241, 0.16);
+      color: #818cf8;
+    }
+
+    .tree-node.focused {
+      box-shadow: inset 0 0 0 1.5px var(--primary-color, #4f46e5);
+    }
+    .tree-node.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Expand button */
+    .tree-expand-btn {
+      width: 20px;
+      height: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 4px;
+      color: #94a3b8;
+      transition: background 0.15s;
+    }
+    .tree-expand-btn:hover {
+      background: rgba(15, 23, 42, 0.08);
+      color: #475569;
+    }
+    .dark .tree-expand-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+    .expand-icon {
+      font-size: 8px;
+      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: inline-block;
+    }
+    .expand-icon.expanded {
+      transform: rotate(90deg);
+    }
+
+    .tree-leaf-spacer {
+      width: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Tri-state Checkbox */
+    .tree-checkbox {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      flex-shrink: 0;
+      accent-color: var(--primary-color, #4f46e5);
+      border-radius: 4px;
+    }
+
+    .tree-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .tree-label {
+      font-size: 13px;
+      color: var(--text-primary, #1e293b);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+    .selected .tree-label {
+      font-weight: 600;
+    }
+    .dark .tree-label {
+      color: #cbd5e1;
+    }
+
+    /* Inline action buttons */
+    .tree-node-actions {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+      padding-left: 8px;
+    }
+    .tree-node:hover .tree-node-actions {
+      display: flex;
+    }
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 10px;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.15s;
+      opacity: 0.65;
+    }
+    .action-btn:hover {
+      opacity: 1;
+      background: rgba(15, 23, 42, 0.08);
+    }
+    .dark .action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Nesting Guide Lines */
+    .tree-node-children-group {
+      position: relative;
+      border-left: 1px solid rgba(15, 23, 42, 0.08);
+      margin-left: 17px; /* Aligns with the center of the expand button */
+      padding-left: 10px;
+    }
+
+    .dark .tree-node-children-group {
+      border-left-color: rgba(255, 255, 255, 0.08);
+    }
+  &#x60;]
+})
+export class TreeViewComponent implements OnInit {
+  nodes &#x3D; input&lt;TreeNode[]&gt;([]);
+  selectable &#x3D; input&lt;boolean&gt;(true);
+  checkable &#x3D; input&lt;boolean&gt;(false);
+  selectedId &#x3D; input&lt;string | null&gt;(null);
+  expandedIds &#x3D; input&lt;string[]&gt;([]);
+  showSearch &#x3D; input&lt;boolean&gt;(false);
+  searchPlaceholder &#x3D; input&lt;string&gt;(&#x27;Search nodes...&#x27;);
+  showActions &#x3D; input&lt;boolean&gt;(false);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+
+  // Outputs
+  nodeSelect &#x3D; output&lt;TreeNodeEvent&gt;();
+  nodeExpand &#x3D; output&lt;TreeNodeEvent&gt;();
+  nodeCollapse &#x3D; output&lt;TreeNodeEvent&gt;();
+  checkChange &#x3D; output&lt;{ node: TreeNode; checked: boolean }&gt;();
+  actionClick &#x3D; output&lt;{ node: TreeNode; action: &#x27;add&#x27; | &#x27;edit&#x27; | &#x27;delete&#x27; }&gt;();
+
+  // State Signals
+  private expandedSet &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  private checkedSet &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  private indeterminateSet &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+  focusedId &#x3D; signal&lt;string | null&gt;(null);
+  searchQuery &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  ngOnInit(): void {
+    // Sync initial expanded ids
+    if (this.expandedIds().length &gt; 0) {
+      this.expandedSet.set(new Set(this.expandedIds()));
+    }
+    this.updateAncestorCheckStates();
+  }
+
+  isExpanded(id: string): boolean {
+    return this.expandedSet().has(id) || this.expandedIds().includes(id);
+  }
+
+  isChecked(id: string): boolean {
+    return this.checkedSet().has(id);
+  }
+
+  isIndeterminate(id: string): boolean {
+    return this.indeterminateSet().has(id);
+  }
+
+  hasNodeChildren(node: TreeNode): boolean {
+    return !!(node.children?.length || node.hasChildren);
+  }
+
+  // Computed signal that filters the nodes reactively based on searchQuery
+  filteredNodes &#x3D; computed(() &#x3D;&gt; {
+    const query &#x3D; this.searchQuery().trim().toLowerCase();
+    if (!query) {
+      return this.nodes();
+    }
+
+    const expanded &#x3D; new Set(this.expandedSet());
+
+    const filterList &#x3D; (list: TreeNode[]): { match: TreeNode[]; hasMatch: boolean } &#x3D;&gt; {
+      const match: TreeNode[] &#x3D; [];
+      let hasAnyMatch &#x3D; false;
+
+      for (const node of list) {
+        const matchesSelf &#x3D; node.label.toLowerCase().includes(query);
+        let childrenMatches: TreeNode[] &#x3D; [];
+        let hasChildrenMatch &#x3D; false;
+
+        if (node.children) {
+          const res &#x3D; filterList(node.children);
+          childrenMatches &#x3D; res.match;
+          hasChildrenMatch &#x3D; res.hasMatch;
+        }
+
+        if (matchesSelf || hasChildrenMatch) {
+          hasAnyMatch &#x3D; true;
+          // Auto-expand paths to matching elements
+          if (hasChildrenMatch) {
+            expanded.add(node.id);
+          }
+          match.push({
+            ...node,
+            children: node.children ? childrenMatches : undefined
+          });
+        }
+      }
+
+      return { match, hasMatch: hasAnyMatch };
+    };
+
+    const result &#x3D; filterList(this.nodes()).match;
+
+    // Trigger expansion outside signal computation loop
+    setTimeout(() &#x3D;&gt; {
+      this.expandedSet.set(expanded);
+    }, 0);
+
+    return result;
+  });
+
+  onSearchInput(event: Event): void {
+    const val &#x3D; (event.target as HTMLInputElement).value;
+    this.searchQuery.set(val);
+  }
+
+  clearSearch(): void {
+    this.searchQuery.set(&#x27;&#x27;);
+  }
+
+  onNodeClick(node: TreeNode, e: MouseEvent): void {
+    e.stopPropagation();
+    this.focusedId.set(node.id);
+    if (this.selectable()) {
+      this.nodeSelect.emit({ node });
+    }
+  }
+
+  toggleExpand(node: TreeNode, e: MouseEvent): void {
+    e.stopPropagation();
+    const s &#x3D; new Set(this.expandedSet());
+    if (s.has(node.id)) {
+      s.delete(node.id);
+      this.nodeCollapse.emit({ node });
+    } else {
+      s.add(node.id);
+      this.nodeExpand.emit({ node });
+    }
+    this.expandedSet.set(s);
+  }
+
+  onCheck(node: TreeNode): void {
+    const s &#x3D; new Set(this.checkedSet());
+    const checked &#x3D; !s.has(node.id);
+
+    // Recursively check/uncheck descendants
+    const toggleDescendants &#x3D; (n: TreeNode, checkVal: boolean) &#x3D;&gt; {
+      if (checkVal) {
+        s.add(n.id);
+      } else {
+        s.delete(n.id);
+      }
+      if (n.children) {
+        for (const child of n.children) {
+          toggleDescendants(child, checkVal);
+        }
+      }
+    };
+
+    toggleDescendants(node, checked);
+    this.checkedSet.set(s);
+
+    // Calculate indeterminate and checked states up the chain
+    this.updateAncestorCheckStates();
+
+    this.checkChange.emit({ node, checked });
+  }
+
+  updateAncestorCheckStates() {
+    const checked &#x3D; new Set(this.checkedSet());
+    const indeterminate &#x3D; new Set&lt;string&gt;();
+
+    const evaluate &#x3D; (n: TreeNode): &#x27;checked&#x27; | &#x27;unchecked&#x27; | &#x27;indeterminate&#x27; &#x3D;&gt; {
+      if (!n.children || n.children.length &#x3D;&#x3D;&#x3D; 0) {
+        return checked.has(n.id) ? &#x27;checked&#x27; : &#x27;unchecked&#x27;;
+      }
+
+      let checkedCount &#x3D; 0;
+      let indeterminateCount &#x3D; 0;
+
+      for (const child of n.children) {
+        const state &#x3D; evaluate(child);
+        if (state &#x3D;&#x3D;&#x3D; &#x27;checked&#x27;) checkedCount++;
+        else if (state &#x3D;&#x3D;&#x3D; &#x27;indeterminate&#x27;) indeterminateCount++;
+      }
+
+      if (checkedCount &#x3D;&#x3D;&#x3D; n.children.length) {
+        checked.add(n.id);
+        indeterminate.delete(n.id);
+        return &#x27;checked&#x27;;
+      } else if (checkedCount &gt; 0 || indeterminateCount &gt; 0) {
+        checked.delete(n.id);
+        indeterminate.add(n.id);
+        return &#x27;indeterminate&#x27;;
+      } else {
+        checked.delete(n.id);
+        indeterminate.delete(n.id);
+        return &#x27;unchecked&#x27;;
+      }
+    };
+
+    for (const root of this.nodes()) {
+      evaluate(root);
+    }
+
+    this.checkedSet.set(checked);
+    this.indeterminateSet.set(indeterminate);
+  }
+
+  onAction(node: TreeNode, action: &#x27;add&#x27; | &#x27;edit&#x27; | &#x27;delete&#x27;): void {
+    this.actionClick.emit({ node, action });
+  }
+
+  onKeyDown(e: KeyboardEvent): void {
+    const flat &#x3D; this.flatVisibleIds();
+    const cur &#x3D; this.focusedId();
+    const idx &#x3D; flat.indexOf(cur ?? &#x27;&#x27;);
+    if (e.key &#x3D;&#x3D;&#x3D; &#x27;ArrowDown&#x27;) {
+      e.preventDefault();
+      if (idx &lt; flat.length - 1) this.focusedId.set(flat[idx + 1]);
+    }
+    if (e.key &#x3D;&#x3D;&#x3D; &#x27;ArrowUp&#x27;) {
+      e.preventDefault();
+      if (idx &gt; 0) this.focusedId.set(flat[idx - 1]);
+    }
+    if (e.key &#x3D;&#x3D;&#x3D; &#x27;Enter&#x27; || e.key &#x3D;&#x3D;&#x3D; &#x27; &#x27;) {
+      if (cur) {
+        const node &#x3D; this.findNode(cur, this.nodes());
+        if (node) {
+          this.nodeSelect.emit({ node });
+        }
+      }
+    }
+  }
+
+  private flatVisibleIds(): string[] {
+    const ids: string[] &#x3D; [];
+    const collect &#x3D; (nodes: TreeNode[]) &#x3D;&gt; {
+      for (const n of nodes) {
+        ids.push(n.id);
+        if (this.isExpanded(n.id) &amp;&amp; n.children) collect(n.children);
+      }
+    };
+    collect(this.filteredNodes());
+    return ids;
+  }
+
+  private findNode(id: string, nodes: TreeNode[]): TreeNode | null {
+    for (const n of nodes) {
+      if (n.id &#x3D;&#x3D;&#x3D; id) return n;
+      if (n.children) {
+        const found &#x3D; this.findNode(id, n.children);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
+  /** Expand all nodes that have children. */
+  expandAll(): void {
+    const ids &#x3D; new Set&lt;string&gt;();
+    const collect &#x3D; (nodes: TreeNode[]) &#x3D;&gt; {
+      for (const n of nodes) {
+        if (this.hasNodeChildren(n)) {
+          ids.add(n.id);
+          if (n.children) collect(n.children);
+        }
+      }
+    };
+    collect(this.nodes());
+    this.expandedSet.set(ids);
+  }
+
+  /** Collapse all nodes. */
+  collapseAll(): void {
+    this.expandedSet.set(new Set());
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'TreeNodeEvent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
