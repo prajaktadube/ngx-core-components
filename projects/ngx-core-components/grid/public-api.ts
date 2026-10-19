@@ -2,6 +2,14 @@
  * Public API Surface — secondary entry point: ngx-core-components/grid
  */
 
+export { GridRemoteDataController } from './data-grid/grid-data-source';
+export type {
+  GridDataSource,
+  GridDataSourceRequest,
+  GridDataSourceResult,
+  GridDataSourceState,
+} from './data-grid/grid-data-source';
+
 // ─── Core Component & Directives ──────────────────────────────────────────
 export {
   DataGridComponent,
@@ -49,12 +57,17 @@ export { GridExportService } from './data-grid/grid-export.service';
 export { GridExportXlsxService } from './data-grid/services/grid-export-xlsx.service';
 export type { XlsxExportOptions, PdfExportOptions } from './data-grid/services/grid-export-xlsx.service';
 export { GridStateService } from './data-grid/services/grid-state.service';
+export type { GridPersistedState, GridSavedView } from './data-grid/services/grid-state.service';
 export { GridSelectionService } from './data-grid/services/grid-selection.service';
 export { GridEditService } from './data-grid/services/grid-edit.service';
 export { GridClipboardService } from './data-grid/services/grid-clipboard.service';
 export { GridVirtualizationService } from './data-grid/services/grid-virtualization.service';
 export { GridKeyboardService } from './data-grid/services/grid-keyboard.service';
-export type { GridKeyboardConfig, GridKeyboardAction, GridKeyboardHandlers } from './data-grid/services/grid-keyboard.service';
+export type {
+  GridKeyboardConfig,
+  GridKeyboardAction,
+  GridKeyboardHandlers,
+} from './data-grid/services/grid-keyboard.service';
 
 // ─── Sub-Components ───────────────────────────────────────────────────────
 export { GridStatusBarComponent } from './data-grid/components/grid-status-bar/grid-status-bar.component';
@@ -63,8 +76,19 @@ export { GridFilterBuilderComponent } from './data-grid/components/grid-filter-b
 // ─── Utilities ────────────────────────────────────────────────────────────
 export { naturalCompare, compareValues, sortByField, sortByMultipleFields } from './data-grid/utils/grid-sort.util';
 export type { SortDirection, SortDescriptor } from './data-grid/utils/grid-sort.util';
-export { evaluateCondition, evaluateExpression, applyLegacyFilters, applyFilterExpression, applyGlobalSearch } from './data-grid/utils/grid-filter.util';
-export { computeAggregate, computeStatusBarAggregates, computeGroupAggregates, formatAggregateValue } from './data-grid/utils/grid-aggregate.util';
+export {
+  evaluateCondition,
+  evaluateExpression,
+  applyLegacyFilters,
+  applyFilterExpression,
+  applyGlobalSearch,
+} from './data-grid/utils/grid-filter.util';
+export {
+  computeAggregate,
+  computeStatusBarAggregates,
+  computeGroupAggregates,
+  formatAggregateValue,
+} from './data-grid/utils/grid-aggregate.util';
 export type { AggregateFunction } from './data-grid/utils/grid-aggregate.util';
 
 // ─── Pivot Grid ───────────────────────────────────────────────────────────

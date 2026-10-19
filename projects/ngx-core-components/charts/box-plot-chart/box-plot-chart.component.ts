@@ -1,10 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject, DestroyRef
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  HostListener,
+  inject,
+  DestroyRef,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { CommonModule } from '@angular/common';
 import { niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface BoxPlotItem {
   label: string;
@@ -19,16 +29,22 @@ export interface BoxPlotItem {
 @Component({
   selector: 'ngx-box-plot-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-box-plot-chart" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
       <!-- Toolbar with Export option -->
-      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
+      <div
+        class="chart-header"
+        (mousemove)="$event.stopPropagation()"
+        (mouseleave)="hoveredIndex.set(null); tooltip.set(null)"
+      >
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
+            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">
+              📤 Export
+            </button>
             @if (exportMenuOpen()) {
               <div class="export-dropdown">
                 <button (click)="onExport('json')">📊 Export JSON</button>
@@ -42,12 +58,7 @@ export interface BoxPlotItem {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-          class="chart-svg"
-        >
+        <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg">
           <defs>
             <linearGradient id="boxplot-grad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" [attr.stop-color]="color()" stop-opacity="0.32" />
@@ -72,12 +83,7 @@ export interface BoxPlotItem {
 
             <!-- Y-Axis Labels -->
             @for (tick of yTicks(); track tick) {
-              <text
-                x="-10"
-                [attr.y]="yPos(tick) + 4"
-                class="axis-label y"
-                text-anchor="end"
-              >{{ fmtNum(tick) }}</text>
+              <text x="-10" [attr.y]="yPos(tick) + 4" class="axis-label y" text-anchor="end">{{ fmtNum(tick) }}</text>
             }
 
             <!-- X-Axis Labels -->
@@ -87,7 +93,9 @@ export interface BoxPlotItem {
                 [attr.y]="innerH() + 20"
                 class="axis-label x"
                 text-anchor="middle"
-              >{{ item.label }}</text>
+              >
+                {{ item.label }}
+              </text>
             }
 
             <!-- Box Plot Elements -->
@@ -140,6 +148,9 @@ export interface BoxPlotItem {
                 [style.animation-delay]="i * 0.05 + 's'"
                 (mouseenter)="onBoxHover($event, box.raw, i)"
                 (mousemove)="onBoxHover($event, box.raw, i)"
+                (focus)="onBoxFocus($event, box.raw, i)"
+                (blur)="onMarkBlur()"
+                [ngxChartAccessibleMark]="boxAccessibleLabel(box.raw)"
               />
 
               <!-- Median line -->
@@ -166,13 +177,22 @@ export interface BoxPlotItem {
                   [style.transform-origin]="box.centerX + 'px ' + outlier.y + 'px'"
                   (mouseenter)="onOutlierHover($event, box.raw.label, outlier.value)"
                   (mousemove)="onOutlierHover($event, box.raw.label, outlier.value)"
+                  (focus)="onOutlierFocus($event, box.raw.label, outlier.value)"
+                  (blur)="onMarkBlur()"
+                  [ngxChartAccessibleMark]="outlierAccessibleLabel(box.raw.label, outlier.value)"
                 />
               }
             }
 
             <!-- Base axes borders -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
           </g>
         </svg>
 
@@ -214,173 +234,218 @@ export interface BoxPlotItem {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-box-plot-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-    }
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      fill: #64748b;
-      font-weight: 500;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-box-plot-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+      }
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: #64748b;
+        font-weight: 500;
+      }
 
-    @keyframes boxPlotGrow {
-      from { transform: scaleY(0); opacity: 0; }
-      to { transform: scaleY(1); opacity: 1; }
-    }
+      @keyframes boxPlotGrow {
+        from {
+          transform: scaleY(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+      }
 
-    .boxplot-rect {
-      cursor: pointer;
-      transition: opacity 0.2s, fill 0.2s, stroke-width 0.2s, filter 0.2s;
-      animation: boxPlotGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .boxplot-rect:hover, .boxplot-rect.hovered {
-      filter: brightness(1.05) drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-      stroke-width: 2.5px;
-    }
+      .boxplot-rect {
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          fill 0.2s,
+          stroke-width 0.2s,
+          filter 0.2s;
+        animation: boxPlotGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .boxplot-rect:hover,
+      .boxplot-rect.hovered {
+        filter: brightness(1.05) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+        stroke-width: 2.5px;
+      }
+      .boxplot-rect:focus-visible {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3px;
+      }
 
-    @keyframes whiskerFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .whisker-line, .median-line {
-      animation: whiskerFade 0.6s ease-out 0.2s both;
-    }
+      @keyframes whiskerFade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .whisker-line,
+      .median-line {
+        animation: whiskerFade 0.6s ease-out 0.2s both;
+      }
 
-    @keyframes outlierPop {
-      from { transform: scale(0); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .outlier-dot {
-      cursor: crosshair;
-      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), fill 0.2s;
-      animation: outlierPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-    }
-    .outlier-dot:hover {
-      r: 5.5px;
-      fill: #ef4444;
-    }
+      @keyframes outlierPop {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .outlier-dot {
+        cursor: crosshair;
+        transition:
+          r 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+          fill 0.2s;
+        animation: outlierPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+      }
+      .outlier-dot:hover {
+        r: 5.5px;
+        fill: #ef4444;
+      }
+      .outlier-dot:focus-visible {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      z-index: 100;
-      min-width: 155px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tooltip-header {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tooltip-body {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .tooltip-val {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      color: rgba(248, 250, 252, 0.85);
-    }
-    .tooltip-val strong {
-      color: #f8fafc;
-      font-family: monospace;
-      font-weight: 700;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11px;
+        z-index: 100;
+        min-width: 155px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tooltip-header {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tooltip-body {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .tooltip-val {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: rgba(248, 250, 252, 0.85);
+      }
+      .tooltip-val strong {
+        color: #f8fafc;
+        font-family: monospace;
+        font-weight: 700;
+      }
 
-    /* Export styles */
-    .chart-export-menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #6c757d);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #fff;
-      color: var(--primary-color, #4f46e5);
-      border-color: var(--primary-color, #4f46e5);
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #fff;
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-      z-index: 60;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #343a40;
-      border-radius: 4px;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: var(--primary-color, #4f46e5);
-    }
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      /* Export styles */
+      .chart-export-menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 50;
+      }
+      .export-trigger {
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ngx-chart-axis-text, #6c757d);
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--ngx-chart-grid, #ebedf0);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .export-trigger:hover {
+        background: #fff;
+        color: var(--primary-color, #4f46e5);
+        border-color: var(--primary-color, #4f46e5);
+      }
+      .export-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 4px);
+        background: #fff;
+        border: 1px solid var(--ngx-chart-grid, #ebedf0);
+        border-radius: 8px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 120px;
+        z-index: 60;
+      }
+      .export-dropdown button {
+        background: none;
+        border: none;
+        padding: 6px 10px;
+        font-size: 11px;
+        text-align: left;
+        cursor: pointer;
+        color: #343a40;
+        border-radius: 4px;
+        width: 100%;
+        transition: all 0.12s;
+      }
+      .export-dropdown button:hover {
+        background: rgba(79, 70, 229, 0.06);
+        color: var(--primary-color, #4f46e5);
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class BoxPlotChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   PAD_LEFT = 52;
   PAD_TOP = 20;
   PAD_RIGHT = 24;
@@ -443,10 +508,7 @@ export class BoxPlotChartComponent {
   yMin = computed(() => {
     const items = this.data();
     if (items.length === 0) return 0;
-    const allVals = items.flatMap(item => [
-      item.min,
-      ...(item.outliers || [])
-    ]);
+    const allVals = items.flatMap(item => [item.min, ...(item.outliers || [])]);
     const minVal = Math.min(...allVals);
     return minVal < 0 ? minVal * 1.15 : minVal * 0.85;
   });
@@ -454,10 +516,7 @@ export class BoxPlotChartComponent {
   yMax = computed(() => {
     const items = this.data();
     if (items.length === 0) return 100;
-    const allVals = items.flatMap(item => [
-      item.max,
-      ...(item.outliers || [])
-    ]);
+    const allVals = items.flatMap(item => [item.max, ...(item.outliers || [])]);
     return Math.max(...allVals) * 1.15;
   });
 
@@ -503,7 +562,7 @@ export class BoxPlotChartComponent {
 
       const outlierPoints = (item.outliers || []).map(val => ({
         value: val,
-        y: this.yPos(val)
+        y: this.yPos(val),
       }));
 
       return {
@@ -517,7 +576,7 @@ export class BoxPlotChartComponent {
         yMax,
         boxHeight,
         outlierPoints,
-        raw: item
+        raw: item,
       };
     });
   });
@@ -539,7 +598,7 @@ export class BoxPlotChartComponent {
       median: item.median,
       q3: item.q3,
       max: item.max,
-      isOutlier: false
+      isOutlier: false,
     });
   }
 
@@ -560,8 +619,62 @@ export class BoxPlotChartComponent {
       q3: 0,
       max: 0,
       isOutlier: true,
-      outlierVal
+      outlierVal,
     });
+  }
+
+  boxAccessibleLabel(item: BoxPlotItem): string {
+    const values = `Minimum ${fmtNum(item.min)}, Q1 ${fmtNum(item.q1)}, median ${fmtNum(item.median)}, Q3 ${fmtNum(item.q3)}, maximum ${fmtNum(item.max)}`;
+    return this.i18n.chart.dataMarkDescription(item.label, values);
+  }
+
+  outlierAccessibleLabel(label: string, value: number): string {
+    return this.i18n.chart.dataMarkDescription(`${label} outlier`, fmtNum(value));
+  }
+
+  onBoxFocus(event: FocusEvent, item: BoxPlotItem, index: number): void {
+    this.hoveredIndex.set(index);
+    const containerEl = this.container()?.nativeElement;
+    if (!containerEl) return;
+
+    const markRect = (event.currentTarget as SVGRectElement).getBoundingClientRect();
+    const containerRect = containerEl.getBoundingClientRect();
+    this.tooltip.set({
+      x: markRect.left + markRect.width / 2 - containerRect.left,
+      y: markRect.top - containerRect.top,
+      label: item.label,
+      min: item.min,
+      q1: item.q1,
+      median: item.median,
+      q3: item.q3,
+      max: item.max,
+      isOutlier: false,
+    });
+  }
+
+  onOutlierFocus(event: FocusEvent, label: string, value: number): void {
+    const containerEl = this.container()?.nativeElement;
+    if (!containerEl) return;
+
+    const markRect = (event.currentTarget as SVGCircleElement).getBoundingClientRect();
+    const containerRect = containerEl.getBoundingClientRect();
+    this.tooltip.set({
+      x: markRect.left + markRect.width / 2 - containerRect.left,
+      y: markRect.top - containerRect.top,
+      label: `${label} outlier`,
+      min: 0,
+      q1: 0,
+      median: 0,
+      q3: 0,
+      max: 0,
+      isOutlier: true,
+      outlierVal: value,
+    });
+  }
+
+  onMarkBlur(): void {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
   }
 
   toggleExportMenu(event: MouseEvent): void {

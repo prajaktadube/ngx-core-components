@@ -1,4 +1,17 @@
-import { Component, ChangeDetectionStrategy, input, output, signal, HostListener, viewChildren, ElementRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  signal,
+  HostListener,
+  viewChildren,
+  ElementRef,
+  inject,
+  Injector,
+  afterNextRender,
+} from '@angular/core';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export type ExportFormat = 'json' | 'csv' | 'svg' | 'pdf';
 
@@ -26,107 +39,139 @@ export type ExportFormat = 'json' | 'csv' | 'svg' | 'pdf';
         (click)="toggle($event)"
         [attr.aria-expanded]="isOpen()"
         aria-haspopup="menu"
-        aria-label="Export chart data"
+        [id]="triggerId"
+        [attr.aria-label]="i18n.chart.exportMenu"
+        [attr.aria-controls]="menuId"
         type="button"
       >
-        📤 Export
+        📤 {{ i18n.chart.export }}
       </button>
 
       @if (isOpen()) {
-        <div class="export-dropdown" role="menu">
+        <div class="export-dropdown" [id]="menuId" role="menu" [attr.aria-labelledby]="triggerId">
           @for (fmt of formats(); track fmt; let i = $index) {
-            <button
-              #menuBtn
-              type="button"
-              role="menuitem"
-              (click)="select(fmt)"
-            >
-              {{ formatIcon(fmt) }} Export {{ fmt.toUpperCase() }}
+            <button #menuBtn type="button" role="menuitem" (click)="select(fmt)">
+              {{ formatIcon(fmt) }} {{ i18n.chart.exportFormat(fmt) }}
             </button>
           }
         </div>
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
 
-    .chart-export-menu {
-      position: relative;
-      z-index: 50;
-    }
+      .chart-export-menu {
+        position: relative;
+        z-index: 50;
+      }
 
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #6c757d);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-      font-family: inherit;
-    }
+      .export-trigger {
+        min-height: 44px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ngx-chart-axis-text, #6c757d);
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid var(--ngx-chart-grid, #ebedf0);
+        border-radius: 6px;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s,
+          border-color 0.15s;
+        font-family: inherit;
+      }
 
-    .export-trigger:hover,
-    .export-trigger:focus-visible {
-      background: #fff;
-      color: var(--primary-color, #4f46e5);
-      border-color: var(--primary-color, #4f46e5);
-      outline: none;
-    }
+      .export-trigger:hover,
+      .export-trigger:focus-visible {
+        background: #fff;
+        color: var(--primary-color, #4f46e5);
+        border-color: var(--primary-color, #4f46e5);
+      }
 
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #fff;
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 130px;
-      z-index: 51;
-      animation: dropdownOpen 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+      .export-trigger:focus-visible,
+      .export-dropdown button:focus-visible {
+        outline: 3px solid var(--primary-color, #4f46e5);
+        outline-offset: 2px;
+      }
 
-    @keyframes dropdownOpen {
-      from { opacity: 0; transform: translateY(-4px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
+      .export-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 4px);
+        background: #fff;
+        border: 1px solid var(--ngx-chart-grid, #ebedf0);
+        border-radius: 8px;
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.08),
+          0 4px 6px -4px rgba(0, 0, 0, 0.06);
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 130px;
+        z-index: 51;
+        animation: dropdownOpen 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      }
 
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #343a40;
-      border-radius: 4px;
-      font-family: inherit;
-      width: 100%;
-      transition: background 0.1s, color 0.1s;
-    }
+      @keyframes dropdownOpen {
+        from {
+          opacity: 0;
+          transform: translateY(-4px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
 
-    .export-dropdown button:hover,
-    .export-dropdown button:focus-visible {
-      background: rgba(79, 70, 229, 0.06);
-      color: var(--primary-color, #4f46e5);
-      outline: none;
-    }
-  `],
+      @media (prefers-reduced-motion: reduce) {
+        .export-dropdown {
+          animation: none;
+        }
+      }
+
+      .export-dropdown button {
+        min-height: 44px;
+        background: none;
+        border: none;
+        padding: 6px 10px;
+        font-size: 11px;
+        text-align: left;
+        cursor: pointer;
+        color: #343a40;
+        border-radius: 4px;
+        font-family: inherit;
+        width: 100%;
+        transition:
+          background 0.1s,
+          color 0.1s;
+      }
+
+      .export-dropdown button:hover,
+      .export-dropdown button:focus-visible {
+        background: rgba(79, 70, 229, 0.06);
+        color: var(--primary-color, #4f46e5);
+      }
+    `,
+  ],
 })
 export class ChartExportMenuComponent {
+  private static nextInstanceId = 0;
+  private readonly instanceId = `ngx-chart-export-${ChartExportMenuComponent.nextInstanceId++}`;
+  readonly triggerId = `${this.instanceId}-trigger`;
+  readonly menuId = `${this.instanceId}-menu`;
+  readonly i18n = inject(NGX_CORE_I18N);
+  private readonly injector = inject(Injector);
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+
   formats = input<ExportFormat[]>(['json', 'csv', 'svg', 'pdf']);
   exportClicked = output<ExportFormat>();
 
@@ -139,12 +184,19 @@ export class ChartExportMenuComponent {
     const nextVal = !this.isOpen();
     this.isOpen.set(nextVal);
     this.focusedIndex.set(-1);
+    if (nextVal) {
+      afterNextRender(() => this.menuBtns()[0]?.nativeElement.focus(), { injector: this.injector });
+    }
   }
 
   select(fmt: ExportFormat): void {
     this.isOpen.set(false);
     this.focusedIndex.set(-1);
     this.exportClicked.emit(fmt);
+    const trigger = (this.elementRef.nativeElement as HTMLElement).querySelector(
+      `#${this.triggerId}`
+    ) as HTMLButtonElement | null;
+    trigger?.focus();
   }
 
   formatIcon(fmt: ExportFormat): string {
@@ -189,7 +241,12 @@ export class ChartExportMenuComponent {
 
   @HostListener('document:keydown.escape')
   closeOnEscape(): void {
+    if (!this.isOpen()) return;
     this.isOpen.set(false);
     this.focusedIndex.set(-1);
+    const trigger = (this.elementRef.nativeElement as HTMLElement).querySelector(
+      `#${this.triggerId}`
+    ) as HTMLButtonElement | null;
+    trigger?.focus();
   }
 }

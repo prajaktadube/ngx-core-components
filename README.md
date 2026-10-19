@@ -1,6 +1,6 @@
 # ngx-core-components
 
-> Angular 19+ component library — **110+ production-ready UI components** built with signals, OnPush change detection, and zero runtime dependencies.
+> Angular 19–21 component library — production-ready UI components built with signals, OnPush change detection, and zero runtime dependencies.
 
 [![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
 [![CI](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml/badge.svg)](https://github.com/prajaktadube/ngx-core-components/actions/workflows/ci.yml)
@@ -10,16 +10,16 @@
 
 ## ✨ Highlights
 
-- **110+ components** — 73 chart types, Data Grid, Gantt, Kanban, AI Chat, Scheduler, and more
+- **Broad component catalog** — charts, Data Grid, Gantt, Kanban, AI Chat, Scheduler, and more
 - **Zero runtime dependencies** — Pure SVG charts, no D3 or Chart.js required
 - **Signals-first** — Built entirely with `input()`, `output()`, `signal()`, `computed()`
-- **Tree-shakable** — 12 secondary entry points, import only what you need
+- **Tree-shakable** — 13 secondary entry points, import only what you need
 - **Themeable** — CSS custom properties (design tokens) with light/dark mode
 - **Angular 19–21** — Supports current and next Angular versions
 
 ## 🚀 Interactive Playground & Docs
 
-- **[Live Sandbox Demo](https://prajaktadube.github.io/ngx-core-components/)** — Explore and test all 110+ components interactively.
+- **[Live Sandbox Demo](https://prajaktadube.github.io/ngx-core-components/)** — Explore and test the component catalog interactively.
 - **[Storybook Playground](https://prajaktadube.github.io/ngx-core-components/storybook/)** — Browse stories, inspect component inputs/outputs with controls, and verify accessibility.
 - **[Compodoc API Reference](https://prajaktadube.github.io/ngx-core-components/docs/)** — Detailed class structures, injection tokens, type models, and method signatures.
 
@@ -28,6 +28,10 @@
 ## 📖 Documentation
 
 The complete API reference tables and "How to Use" guides are also available in the **[ngx-core-components Library README](projects/ngx-core-components/README.md)**.
+
+See the [feature roadmap](FEATURE_ROADMAP.md) for planned improvements and delivery priorities.
+See the [release and migration policy](RELEASING.md) for compatibility and release
+verification requirements.
 
 ---
 
@@ -39,23 +43,24 @@ npm install ngx-core-components
 
 ## Components
 
-| Entry point | Components |
-|---|---|
-| `ngx-core-components` | Re-exports everything below |
-| `ngx-core-components/charts` | **73 chart types**: Bar, Line, Pie, Area, Scatter, Gauge, Radar, Heatmap, Treemap, Sankey, Violin, Candlestick, Waterfall, Box Plot, Sunburst, Gantt, Bubble, Funnel, Marimekko, Pareto, Lollipop, Dumbbell, Slope, Ridgeline, Chord, Sankey, Dependency Wheel, Adjacency Matrix, Arc Diagram, Network Graph, Treegraph, Packed Bubble, Polar Area, Radial Bar, Wind Rose, Word Cloud, Venn, Pictorial, Parallel Coordinates, Streamgraph, Histogram, Bell Curve, Error Bar, Sparkline, Bullet, Combo — plus AI/ML charts (Embedding Space, Transformer Attention Heatmap, Token Streaming, Agentic Cognitive Topology) — financial charts (Candlestick, OHLC, HLC, Heikin-Ashi, Hollow Candlestick, Renko, Kagi, Point & Figure) — and geospatial maps (Choropleth, Geo Heatmap, Map Bubble, Map Line-Point, Tiled Web Map, Tilemap, Flowmap, Vector Plot) |
-| `ngx-core-components/inputs` | Textbox, Dropdown, Multi-select, Autocomplete, Checkbox, Radio, Date Picker, Date Range Picker, Time Picker, Slider, Switch, Rating, Numeric Textbox, Color Picker, File Upload, Tag Input, Signature Pad, Form Builder |
-| `ngx-core-components/grid` | Data Grid (sort, filter, group, paginate, inline edit, export) + Pivot Grid |
-| `ngx-core-components/views` | Tree View, List View, Kanban, Timeline, Scheduler, Virtual List, Org Chart, JSON Viewer, Calendar, Image Compare, Key-Value List |
-| `ngx-core-components/layout` | Card, Tab Strip, Accordion, Stepper, Splitter, Dashboard Layout, Carousel, Drawer |
-| `ngx-core-components/buttons` | Button, Button Group, Chip/Chip List, Split Button, Dropdown Button, Speed Dial |
-| `ngx-core-components/feedback` | Badge, Progress Bar, Skeleton, Notification, Alert, Avatar/Avatar Group, Stat Card, Countdown, Empty State |
-| `ngx-core-components/navigation` | Breadcrumb, Menu, Command Palette, Context Menu, Back-to-Top |
-| `ngx-core-components/dialog` | Dialog service + container |
-| `ngx-core-components/ai` | AI Chat, AI Chat Widget, AI Prompt Editor, AI Code Editor, AI Audio Wave, AI Model Compare, AI RAG Inspector |
-| `ngx-core-components/barcodes` | QR Code, Barcode |
+| Entry point                      | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ngx-core-components`            | Re-exports everything below                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `ngx-core-components/charts`     | Chart catalog: Bar, Line, Pie, Area, Scatter, Gauge, Radar, Heatmap, Treemap, Sankey, Violin, Candlestick, Waterfall, Box Plot, Sunburst, Gantt, Bubble, Funnel, Marimekko, Pareto, Lollipop, Dumbbell, Slope, Ridgeline, Chord, Sankey, Dependency Wheel, Adjacency Matrix, Arc Diagram, Network Graph, Treegraph, Packed Bubble, Polar Area, Radial Bar, Wind Rose, Word Cloud, Venn, Pictorial, Parallel Coordinates, Streamgraph, Histogram, Bell Curve, Error Bar, Sparkline, Bullet, Combo — plus AI/ML charts (Embedding Space, Transformer Attention Heatmap, Token Streaming, Agentic Cognitive Topology) — financial charts (Candlestick, OHLC, HLC, Heikin-Ashi, Hollow Candlestick, Renko, Kagi, Point & Figure) — and geospatial maps (Choropleth, Geo Heatmap, Map Bubble, Map Line-Point, Tiled Web Map, Tilemap, Flowmap, Vector Plot) |
+| `ngx-core-components/inputs`     | Textbox, Dropdown, Multi-select, Autocomplete, Checkbox, Radio, Date Picker, Date Range Picker, Time Picker, Slider, Switch, Rating, Numeric Textbox, Color Picker, File Upload, Tag Input, Signature Pad, Form Builder                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `ngx-core-components/grid`       | Data Grid (sort, filter, group, paginate, inline edit, export) + Pivot Grid                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `ngx-core-components/views`      | Tree View, List View, Kanban, Timeline, Scheduler, Virtual List, Org Chart, JSON Viewer, Calendar, Image Compare, Key-Value List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `ngx-core-components/layout`     | Card, Tab Strip, Accordion, Stepper, Splitter, Dashboard Layout, Carousel, Drawer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `ngx-core-components/buttons`    | Button, Button Group, Chip/Chip List, Split Button, Dropdown Button, Speed Dial                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `ngx-core-components/feedback`   | Badge, Progress Bar, Skeleton, Notification, Alert, Avatar/Avatar Group, Stat Card, Countdown, Empty State                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `ngx-core-components/navigation` | Breadcrumb, Menu, Command Palette, Context Menu, Back-to-Top                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `ngx-core-components/dialog`     | Dialog service + container                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `ngx-core-components/ai`         | AI Chat, AI Chat Widget, AI Prompt Editor, AI Code Editor, AI Audio Wave, AI Model Compare, AI RAG Inspector                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `ngx-core-components/barcodes`   | QR Code, Barcode                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `ngx-core-components/i18n`       | Translation provider, locale types, English defaults                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `ngx-core-components/testing`    | Component test harness                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 All components are **standalone** (no NgModules), use **Angular Signals**, and have **OnPush** change detection.
-
 
 ## Quick Start
 
@@ -67,26 +72,42 @@ import { GanttChartComponent, GanttTask } from 'ngx-core-components/charts';
 @Component({
   standalone: true,
   imports: [GanttChartComponent],
-  template: `
-    <ngx-gantt-chart [tasks]="tasks" style="height: 400px" />
-  `,
+  template: ` <ngx-gantt-chart [tasks]="tasks" style="height: 400px" /> `,
 })
 export class MyComponent {
   tasks: GanttTask[] = [
-    { id: '1', name: 'Design', start: new Date('2026-04-01'), end: new Date('2026-04-05'), progress: 100, parentId: null, collapsed: false, isMilestone: false },
-    { id: '2', name: 'Development', start: new Date('2026-04-06'), end: new Date('2026-04-15'), progress: 40,  parentId: null, collapsed: false, isMilestone: false },
+    {
+      id: '1',
+      name: 'Design',
+      start: new Date('2026-04-01'),
+      end: new Date('2026-04-05'),
+      progress: 100,
+      parentId: null,
+      collapsed: false,
+      isMilestone: false,
+    },
+    {
+      id: '2',
+      name: 'Development',
+      start: new Date('2026-04-06'),
+      end: new Date('2026-04-15'),
+      progress: 40,
+      parentId: null,
+      collapsed: false,
+      isMilestone: false,
+    },
   ];
 }
 ```
 
-*Supports advanced features like draggable glassmorphic zoom (Shift + drag), predecessor dependency linking, row virtualization, critical path calculations, and keyboard rescheduling/resizing. Refer to the [library README](projects/ngx-core-components/README.md) for full documentation.*
+_Supports advanced features like draggable glassmorphic zoom (Shift + drag), predecessor dependency linking, row virtualization, critical path calculations, and keyboard rescheduling/resizing. Refer to the [library README](projects/ngx-core-components/README.md) for full documentation._
 
 ### Dialog
 
 ```typescript
 import { DialogService } from 'ngx-core-components/dialog';
 
-@Component({ /* ... */ })
+@Component({/* ... */})
 export class MyComponent {
   constructor(private dialog: DialogService) {}
 
@@ -151,13 +172,7 @@ import { ListViewComponent } from 'ngx-core-components/views';
 @Component({
   standalone: true,
   imports: [ListViewComponent],
-  template: `
-    <ngx-list-view
-      [items]="people"
-      [pageSize]="5"
-      (pageChange)="page.set($event.page)"
-    />
-  `,
+  template: ` <ngx-list-view [items]="people" [pageSize]="5" (pageChange)="page.set($event.page)" /> `,
 })
 export class MyListComponent {
   page = signal(1);
@@ -170,6 +185,7 @@ export class MyListComponent {
 All components expose CSS custom properties for simple Light, Dark, or custom brand integrations. Refer to **[THEMING.md](THEMING.md)** for a full list of customization tokens and theme templates.
 
 Example:
+
 ```css
 ngx-gantt-chart {
   --ngx-gantt-bar-bg: #27ae60;

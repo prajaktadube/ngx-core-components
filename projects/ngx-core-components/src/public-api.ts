@@ -156,7 +156,6 @@ export type { GeoHeatmapPoint } from 'ngx-core-components/charts';
 export { TiledWebMapComponent } from 'ngx-core-components/charts';
 export type { MapMarker } from 'ngx-core-components/charts';
 
-
 export { GanttChartComponent } from 'ngx-core-components/charts';
 
 export type { FlatRow } from 'ngx-core-components/charts';
@@ -225,7 +224,14 @@ export {
   NgxGridHeaderTemplateDirective,
   NgxGridFooterTemplateDirective,
 } from 'ngx-core-components/grid';
+export { GridRemoteDataController, GridStateService } from 'ngx-core-components/grid';
 export type {
+  GridDataSource,
+  GridDataSourceRequest,
+  GridDataSourceResult,
+  GridDataSourceState,
+  GridPersistedState,
+  GridSavedView,
   GridColumnDef,
   GridFilterState,
   GridGroupState,
@@ -263,10 +269,19 @@ export type {
   KanbanCardMoveEvent,
   KanbanMoveRejectedEvent,
 } from 'ngx-core-components/views';
-export { TimelineComponent, NgxTimelineMarkerTemplateDirective, NgxTimelineCardTemplateDirective } from 'ngx-core-components/views';
+export {
+  TimelineComponent,
+  NgxTimelineMarkerTemplateDirective,
+  NgxTimelineCardTemplateDirective,
+} from 'ngx-core-components/views';
 export type { TimelineItem } from 'ngx-core-components/views';
 export { SchedulerComponent } from 'ngx-core-components/views';
-export type { SchedulerEvent, SchedulerRecurrence, SchedulerSlotClickEvent, SchedulerEventChangeEvent } from 'ngx-core-components/views';
+export type {
+  SchedulerEvent,
+  SchedulerRecurrence,
+  SchedulerSlotClickEvent,
+  SchedulerEventChangeEvent,
+} from 'ngx-core-components/views';
 export { VirtualListComponent } from 'ngx-core-components/views';
 export type { VirtualListItem, VirtualListItemClickEvent } from 'ngx-core-components/views';
 export { ImageCompareComponent } from 'ngx-core-components/views';
@@ -274,9 +289,6 @@ export { KeyValueListComponent } from 'ngx-core-components/views';
 export type { KeyValueItem } from 'ngx-core-components/views';
 export { JsonViewerComponent, CalendarComponent } from 'ngx-core-components/views';
 export type { OrgChartNode, CalendarEvent, CalendarCell } from 'ngx-core-components/views';
-
-
-
 
 // ===== Dialog (also available via ngx-core-components/dialog) =====
 export { DialogService } from 'ngx-core-components/dialog';
@@ -360,12 +372,7 @@ export {
   ContextMenuComponent,
   BackToTopComponent,
 } from 'ngx-core-components/navigation';
-export type {
-  BreadcrumbItem,
-  MenuItem,
-  CommandItem,
-  ContextMenuItem,
-} from 'ngx-core-components/navigation';
+export type { BreadcrumbItem, MenuItem, CommandItem, ContextMenuItem } from 'ngx-core-components/navigation';
 
 // ===== Additional Inputs (also available via ngx-core-components/inputs) =====
 export {
@@ -394,17 +401,11 @@ export type {
 } from 'ngx-core-components/inputs';
 
 // ===== Barcodes (also available via ngx-core-components/barcodes) =====
-export { QrCodeComponent, BarcodeComponent } from 'ngx-core-components/barcodes';
+export { QrCodeComponent, BarcodeComponent, encodeCode128B } from 'ngx-core-components/barcodes';
 
 // ===== AI & Agentic Components (also available via ngx-core-components/ai) =====
 export { AIChatComponent } from 'ngx-core-components/ai';
-export type {
-  AIMessage,
-  AgentStep,
-  AICard,
-  AICardAction,
-  QuickReply,
-} from 'ngx-core-components/ai';
+export type { AIMessage, AgentStep, AICard, AICardAction, QuickReply } from 'ngx-core-components/ai';
 export { AIChatWidgetComponent } from 'ngx-core-components/ai';
 export { AIPromptEditorComponent } from 'ngx-core-components/ai';
 export { NgxWebLlmService, AIFormCopilotComponent } from 'ngx-core-components/ai';
@@ -412,4 +413,4 @@ export type { WebLlmMessage } from 'ngx-core-components/ai';
 
 // ===== i18n =====
 export { NGX_CORE_I18N, DEFAULT_EN_I18N, provideNgxI18n } from 'ngx-core-components/i18n';
-export type { NgxCoreI18n } from 'ngx-core-components/i18n';
+export type { DeepPartial, NgxCoreI18n } from 'ngx-core-components/i18n';

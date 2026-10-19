@@ -1,12 +1,22 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject, DestroyRef, TemplateRef, output
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  inject,
+  DestroyRef,
+  TemplateRef,
+  output,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Component({
   selector: 'ngx-bar-chart',
@@ -14,11 +24,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
   imports: [ChartExportMenuComponent, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      class="ngx-bar-chart"
-      (mousemove)="onMouseMove($event)"
-      (mouseleave)="onMouseLeave()"
-    >
+    <div class="ngx-bar-chart" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
       <!-- Toolbar with Export option -->
       <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="onMouseLeave()">
         <div class="chart-title-space"></div>
@@ -42,6 +48,8 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
       <!-- SVG Chart -->
       <svg
         #svgEl
+        role="group"
+        [attr.aria-label]="chartDescription()"
         [attr.width]="'100%'"
         [attr.height]="chartHeight()"
         class="chart-svg"
@@ -49,23 +57,26 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
         <defs>
           @for (s of series(); track s.name; let i = $index) {
             <linearGradient [attr.id]="'bar-grad-' + i" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" [attr.stop-color]="seriesColor(i)" stop-opacity="1"/>
-              <stop offset="100%" [attr.stop-color]="seriesColor(i)" stop-opacity="0.75"/>
+              <stop offset="0%" [attr.stop-color]="seriesColor(i)" stop-opacity="1" />
+              <stop offset="100%" [attr.stop-color]="seriesColor(i)" stop-opacity="0.75" />
             </linearGradient>
           }
         </defs>
         <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
-
           <!-- Y axis grid lines + labels -->
           @for (tick of yTicks(); track tick) {
             <g [attr.transform]="'translate(0,' + yPos(tick) + ')'">
               @if (showGrid()) {
                 <line
-                  [attr.x1]="0" [attr.x2]="innerW()"
-                  stroke="var(--ngx-chart-grid, #ebedf0)" stroke-dasharray="3,3"
+                  [attr.x1]="0"
+                  [attr.x2]="innerW()"
+                  stroke="var(--ngx-chart-grid, #ebedf0)"
+                  stroke-dasharray="3,3"
                 />
               }
-              <text x="-8" dy="4" class="axis-label" text-anchor="end">{{ labelFormatter() ? labelFormatter()!(tick) : fmtNum(tick) }}</text>
+              <text x="-8" dy="4" class="axis-label" text-anchor="end">
+                {{ labelFormatter() ? labelFormatter()!(tick) : fmtNum(tick) }}
+              </text>
             </g>
           }
 
@@ -73,7 +84,8 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
           @for (ref of referenceLines(); track ref.label) {
             <g [attr.transform]="'translate(0,' + yPos(ref.value) + ')'">
               <line
-                [attr.x1]="0" [attr.x2]="innerW()"
+                [attr.x1]="0"
+                [attr.x2]="innerW()"
                 [attr.stroke]="ref.color || '#ef4444'"
                 [attr.stroke-dasharray]="ref.strokeDasharray || '4,4'"
                 stroke-width="1.5"
@@ -103,12 +115,9 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
 
           <!-- X axis category labels -->
           @for (cat of categories(); track cat; let i = $index) {
-            <text
-              [attr.x]="catMidX(i)"
-              [attr.y]="innerH() + 16"
-              class="axis-label"
-              text-anchor="middle"
-            >{{ cat }}</text>
+            <text [attr.x]="catMidX(i)" [attr.y]="innerH() + 16" class="axis-label" text-anchor="middle">
+              {{ cat }}
+            </text>
           }
 
           <!-- Bars -->
@@ -123,7 +132,12 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                   [attr.fill]="s.color ? s.color : 'url(#bar-grad-' + si + ')'"
                   [attr.rx]="4"
                   class="bar-rect"
+                  role="button"
+                  tabindex="0"
+                  [attr.aria-label]="barAccessibleLabel(ci, si, v)"
                   (click)="onBarClick(ci, si, v)"
+                  (keydown.enter)="onBarClick(ci, si, v)"
+                  (keydown.space)="onBarClick(ci, si, v); $event.preventDefault()"
                 />
                 @if (showLabels() && animateState()) {
                   <text
@@ -131,25 +145,62 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                     [attr.y]="barY(v) - 4"
                     class="bar-label"
                     text-anchor="middle"
-                  >{{ labelFormatter() ? labelFormatter()!(v) : fmtNum(v) }}</text>
+                  >
+                    {{ labelFormatter() ? labelFormatter()!(v) : fmtNum(v) }}
+                  </text>
                 }
               }
             }
           }
 
           <!-- Axes -->
-          <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-          <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+          <line
+            x1="0"
+            [attr.x2]="innerW()"
+            [attr.y1]="innerH()"
+            [attr.y2]="innerH()"
+            stroke="var(--ngx-chart-axis, #ced4da)"
+          />
+          <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
         </g>
       </svg>
+
+      @if (categories().length > 0 && series().length > 0) {
+        <details class="chart-data-table">
+          <summary>{{ i18n.chart.viewDataTable }}</summary>
+          <table>
+            <caption>
+              {{
+                chartDescription()
+              }}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">{{ i18n.chart.category }}</th>
+                @for (s of series(); track s.name) {
+                  <th scope="col">{{ s.name }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (category of categories(); track category; let ci = $index) {
+                <tr>
+                  <th scope="row">{{ category }}</th>
+                  @for (s of series(); track s.name) {
+                    <td>{{ s.data[ci] }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </details>
+      }
 
       <!-- Advanced Grouped Tooltip -->
       @if (tooltip(); as t) {
         <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
           @if (tooltipTemplate()) {
-            <ng-container
-              *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"></ng-container>
           } @else {
             <div class="tt-cat">{{ t.cat }}</div>
             @for (row of t.rows; track row.name) {
@@ -164,58 +215,182 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-bar-chart { position: relative; background: var(--ngx-chart-bg, #fff); font-family: inherit; }
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-    .chart-legend { display: flex; gap: 16px; padding: 4px 0 12px; flex-wrap: wrap; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ngx-chart-axis-text, #6c757d); font-weight: 500; }
-    .legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
-    .chart-svg { display: block; overflow: visible; }
-    .axis-label { font-size: 11px; fill: var(--ngx-chart-axis-text, #6c757d); user-select: none; font-weight: 500; }
-    .column-ruler { fill: rgba(99, 102, 241, 0.03); stroke: rgba(99, 102, 241, 0.08); stroke-width: 1; rx: 6; ry: 6; pointer-events: none; transition: x 0.15s cubic-bezier(0.16, 1, 0.3, 1), width 0.15s cubic-bezier(0.16, 1, 0.3, 1); }
-    
-    .reference-line-label { font-size: 10px; font-weight: 700; user-select: none; }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-bar-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #fff);
+        font-family: inherit;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        padding: 4px 0 12px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--ngx-chart-axis-text, #6c757d);
+        font-weight: 500;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        display: inline-block;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .chart-data-table {
+        margin-top: 8px;
+        color: var(--ngx-chart-axis-text, #475569);
+        font-size: 12px;
+      }
+      .chart-data-table summary {
+        cursor: pointer;
+        width: fit-content;
+      }
+      .chart-data-table table {
+        border-collapse: collapse;
+        margin-top: 8px;
+        max-width: 100%;
+        overflow: auto;
+        display: block;
+      }
+      .chart-data-table th,
+      .chart-data-table td {
+        border: 1px solid var(--ngx-chart-grid, #dbe1e8);
+        padding: 5px 8px;
+        text-align: start;
+      }
+      .chart-data-table caption {
+        text-align: start;
+        padding: 4px 0;
+      }
+      .axis-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #6c757d);
+        user-select: none;
+        font-weight: 500;
+      }
+      .column-ruler {
+        fill: rgba(99, 102, 241, 0.03);
+        stroke: rgba(99, 102, 241, 0.08);
+        stroke-width: 1;
+        rx: 6;
+        ry: 6;
+        pointer-events: none;
+        transition:
+          x 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          width 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      }
 
-    .bar-rect {
-      cursor: pointer;
-      transition: y 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s, stroke-width 0.15s;
-      stroke: #fff;
-      stroke-width: 0.5;
-    }
-    .bar-rect:hover {
-      fill-opacity: 0.9;
-      stroke-width: 1.5;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
-    }
-    .bar-label { font-size: 11px; fill: var(--ngx-chart-axis-text, #6c757d); pointer-events: none; font-weight: 600; }
-    
-    /* Premium Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
-      border-radius: 10px; font-size: 12px; min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tt-cat { font-weight: 700; margin-bottom: 8px; font-size: 12.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; color: #38bdf8; }
-    .tt-row { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
-    .tt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .tt-name { color: rgba(248, 250, 252, 0.8); flex: 1; }
-    .tt-val { font-weight: 700; font-family: monospace; }
+      .reference-line-label {
+        font-size: 10px;
+        font-weight: 700;
+        user-select: none;
+      }
 
-    /* Export styles */
-    `]
+      .bar-rect {
+        cursor: pointer;
+        transition:
+          y 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          fill-opacity 0.15s,
+          stroke-width 0.15s;
+        stroke: #fff;
+        stroke-width: 0.5;
+      }
+      .bar-rect:focus-visible {
+        outline: 2px solid var(--ngx-chart-focus, #4f46e5);
+        outline-offset: 2px;
+      }
+      .bar-rect:hover {
+        fill-opacity: 0.9;
+        stroke-width: 1.5;
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+      }
+      .bar-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #6c757d);
+        pointer-events: none;
+        font-weight: 600;
+      }
+
+      /* Premium Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 6px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 5px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+
+      /* Export styles */
+    `,
+  ],
 })
 export class BarChartComponent {
+  readonly i18n = inject(NGX_CORE_I18N);
   private readonly exportSvc = inject(ChartExportService);
   readonly PAD_LEFT = 48;
   readonly PAD_TOP = 12;
@@ -224,6 +399,18 @@ export class BarChartComponent {
 
   series = input<ChartSeries[]>([]);
   categories = input<string[]>([]);
+  ariaLabel = input<string | undefined>(undefined);
+  chartDescription = computed(() => {
+    const suppliedLabel = this.ariaLabel()?.trim();
+    if (suppliedLabel) return suppliedLabel;
+
+    const names = this.series()
+      .map(item => item.name)
+      .filter(Boolean);
+    const categoryCount = this.categories().length;
+    const seriesDescription = names.length ? names.join(', ') : 'no data series';
+    return `${this.i18n.chart.barChart} with ${seriesDescription} across ${categoryCount} categories. ${this.i18n.chart.dataTableAvailable}`;
+  });
   height = input<number>(260);
   showGrid = input<boolean>(true);
   showLabels = input<boolean>(false);
@@ -242,7 +429,12 @@ export class BarChartComponent {
   activeColumnIndex = signal<number | null>(null);
   containerWidth = signal<number>(600);
 
-  tooltip = signal<{ x: number; y: number; cat: string; rows: { name: string; value: number; color: string }[] } | null>(null);
+  tooltip = signal<{
+    x: number;
+    y: number;
+    cat: string;
+    rows: { name: string; value: number; color: string }[];
+  } | null>(null);
 
   chartHeight = computed(() => this.height());
   innerW = computed(() => this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT);
@@ -284,15 +476,17 @@ export class BarChartComponent {
     return Math.abs(this.yPos(0) - this.yPos(v));
   }
 
-  groupW = computed(() => this.categories().length > 0 ? this.innerW() / this.categories().length : 0);
-  
+  groupW = computed(() => (this.categories().length > 0 ? this.innerW() / this.categories().length : 0));
+
   singleBarWidth = computed(() => {
     const n = this.series().length || 1;
     return Math.max(4, (this.groupW() - 8) / n);
   });
 
-  catMidX(i: number): number { return i * this.groupW() + this.groupW() / 2; }
-  
+  catMidX(i: number): number {
+    return i * this.groupW() + this.groupW() / 2;
+  }
+
   barX(ci: number, si: number): number {
     const n = this.series().length;
     const gx = ci * this.groupW() + 4;
@@ -303,8 +497,12 @@ export class BarChartComponent {
     return i * this.groupW();
   }
 
-  seriesColor(i: number): string { return this.colors()[i % this.colors().length]; }
-  barColor(si: number, s: ChartSeries): string { return s.color || this.seriesColor(si); }
+  seriesColor(i: number): string {
+    return this.colors()[i % this.colors().length];
+  }
+  barColor(si: number, s: ChartSeries): string {
+    return s.color || this.seriesColor(si);
+  }
 
   onMouseMove(event: MouseEvent): void {
     const el = event.currentTarget as HTMLElement;
@@ -329,7 +527,7 @@ export class BarChartComponent {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
       cat: cats[ci],
-      rows
+      rows,
     });
   }
 
@@ -339,8 +537,15 @@ export class BarChartComponent {
     this.barClick.emit({
       category: cats[ci] ?? '',
       value: v,
-      seriesName: s?.name ?? ''
+      seriesName: s?.name ?? '',
     });
+  }
+
+  barAccessibleLabel(ci: number, si: number, value: number): string {
+    const seriesName = this.series()[si]?.name ?? 'Series';
+    const category = this.categories()[ci] ?? `${this.i18n.chart.category} ${ci + 1}`;
+    const formattedValue = this.labelFormatter()?.(value) ?? this.fmtNum(value);
+    return `${seriesName}, ${category}: ${formattedValue}`;
   }
 
   onMouseLeave(): void {
@@ -348,7 +553,7 @@ export class BarChartComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -375,7 +580,7 @@ export class BarChartComponent {
     const cats = this.categories();
     const sers = this.series();
     if (!cats.length || !sers.length) return;
-    const headers = ['Category', ...sers.map(s => s.name)];
+    const headers = [this.i18n.chart.category, ...sers.map(s => s.name)];
     const rows: (string | number)[][] = cats.map((cat, ci) => [cat, ...sers.map(s => s.data[ci] ?? '')]);
     this.exportSvc.downloadCsv(headers, rows, 'bar-chart-data.csv');
   }
@@ -387,7 +592,6 @@ export class BarChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }

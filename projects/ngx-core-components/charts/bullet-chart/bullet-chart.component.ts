@@ -1,15 +1,26 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  HostListener,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
+import { fmtNum } from '../shared/chart-utils';
 
 @Component({
   selector: 'ngx-bullet-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-bullet-chart">
@@ -21,12 +32,7 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
         }
       </div>
 
-      <svg
-        #svgEl
-        class="bullet-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="bullet-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
           <!-- Background Ranges -->
           @for (r of rangeRects(); track $index) {
@@ -48,6 +54,7 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
             [attr.height]="valBarHeight()"
             [attr.fill]="valueColor()"
             class="bullet-value-bar"
+            [ngxChartAccessibleMark]="valueAccessibleLabel()"
           />
 
           <!-- Target Line Marker -->
@@ -59,6 +66,7 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
             [attr.stroke]="targetColor()"
             stroke-width="3"
             class="bullet-target-marker"
+            [ngxChartAccessibleMark]="targetAccessibleLabel()"
           />
 
           <!-- Value Labels / Ticks at bottom -->
@@ -66,14 +74,10 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
             <g class="bullet-labels" [attr.transform]="'translate(0,' + (barHeight() + 14) + ')'">
               <!-- Min tick -->
               <text x="0" text-anchor="middle" class="tick-label">0</text>
-              
+
               <!-- Range ticks -->
               @for (val of ranges(); track val) {
-                <text
-                  [attr.x]="xPos(val)"
-                  text-anchor="middle"
-                  class="tick-label"
-                >{{ val }}</text>
+                <text [attr.x]="xPos(val)" text-anchor="middle" class="tick-label">{{ val }}</text>
               }
 
               <!-- Max tick -->
@@ -84,41 +88,62 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
       </svg>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-bullet-chart {
-      width: 100%;
-      background: var(--ngx-chart-bg, #fff);
-      font-family: inherit;
-    }
-    .bullet-svg {
-      display: block;
-      overflow: visible;
-    }
-    .bullet-range {
-      transition: width 0.3s ease, x 0.3s ease;
-    }
-    .bullet-value-bar {
-      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .bullet-target-marker {
-      transition: x1 0.5s cubic-bezier(0.16, 1, 0.3, 1), x2 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tick-label {
-      font-size: 10px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-bullet-chart {
+        width: 100%;
+        background: var(--ngx-chart-bg, #fff);
+        font-family: inherit;
+      }
+      .bullet-svg {
+        display: block;
+        overflow: visible;
+      }
+      .bullet-range {
+        transition:
+          width 0.3s ease,
+          x 0.3s ease;
+      }
+      .bullet-value-bar {
+        transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .bullet-target-marker {
+        transition:
+          x1 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          x2 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .bullet-value-bar:focus-visible {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
+      .bullet-target-marker:focus-visible {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 5;
+      }
+      .tick-label {
+        font-size: 10px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
 
-    /* Export styles */
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      /* Export styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class BulletChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   value = input<number>(0);
   target = input<number>(0);
   max = input<number>(100);
@@ -137,7 +162,7 @@ export class BulletChartComponent {
     top: 5,
     right: 15,
     bottom: this.showLabels() ? 20 : 5,
-    left: 15
+    left: 15,
   }));
 
   svgHeight = computed(() => this.height() + this.margin().top + this.margin().bottom);
@@ -176,6 +201,14 @@ export class BulletChartComponent {
   valBarWidth = computed(() => this.xPos(this.value()));
   targetX = computed(() => this.xPos(this.target()));
 
+  valueAccessibleLabel(): string {
+    return this.i18n.chart.dataMarkDescription('Actual value', fmtNum(this.value()));
+  }
+
+  targetAccessibleLabel(): string {
+    return this.i18n.chart.dataMarkDescription('Target', fmtNum(this.target()));
+  }
+
   rangeRects = computed(() => {
     const limits = this.ranges();
     const colors = this.rangeColors();
@@ -193,7 +226,7 @@ export class BulletChartComponent {
     return rects;
   });
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -205,7 +238,7 @@ export class BulletChartComponent {
       value: this.value(),
       target: this.target(),
       max: this.max(),
-      ranges: this.ranges()
+      ranges: this.ranges(),
     };
     this.exportSvc.downloadJson(data, 'bullet-chart-data.json');
   }
@@ -223,5 +256,4 @@ export class BulletChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 }

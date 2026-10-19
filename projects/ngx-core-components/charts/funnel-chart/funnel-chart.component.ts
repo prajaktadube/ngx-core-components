@@ -1,9 +1,18 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  HostListener,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface FunnelItem {
   name: string;
@@ -14,7 +23,7 @@ export interface FunnelItem {
 @Component({
   selector: 'ngx-funnel-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-funnel-chart">
@@ -22,7 +31,9 @@ export interface FunnelItem {
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
+            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">
+              📤 Export
+            </button>
             @if (exportMenuOpen()) {
               <div class="export-dropdown">
                 <button (click)="onExport('json')">📊 Export JSON</button>
@@ -64,12 +75,15 @@ export interface FunnelItem {
                   [style.animation-delay]="i * 0.06 + 's'"
                   (mouseenter)="hoveredIndex.set(i)"
                   (mousemove)="onMouseMove($event, i)"
+                  (focus)="onStageFocus($event, i)"
+                  (blur)="onStageBlur()"
+                  [ngxChartAccessibleMark]="stageAccessibleLabel(stage)"
                   class="funnel-polygon"
                 />
               }
             </g>
           </svg>
-          
+
           <!-- Hover Tooltip -->
           @if (hoveredIndex() !== null) {
             @if (funnelStages()[hoveredIndex()!]; as stage) {
@@ -84,7 +98,10 @@ export interface FunnelItem {
                   <span class="tt-dot" style="background: transparent;"></span>
                   <span class="tt-name">{{ mode() === 'funnel' ? 'Conversion' : 'Share' }}</span>
                   <span class="tt-val">
-                    {{ (mode() === 'funnel' ? (stage.value / funnelStages()[0].value) : (stage.value / totalValue())) | percent:'1.0-1' }}
+                    {{
+                      (mode() === 'funnel' ? stage.value / funnelStages()[0].value : stage.value / totalValue())
+                        | percent: '1.0-1'
+                    }}
                   </span>
                 </div>
               </div>
@@ -107,7 +124,10 @@ export interface FunnelItem {
                 <div class="legend-metrics">
                   <span class="metric-value">{{ fmtNum(stage.value) }}</span>
                   <span class="metric-pct">
-                    {{ (mode() === 'funnel' ? (stage.value / funnelStages()[0].value) : (stage.value / totalValue())) | percent:'1.0-1' }}
+                    {{
+                      (mode() === 'funnel' ? stage.value / funnelStages()[0].value : stage.value / totalValue())
+                        | percent: '1.0-1'
+                    }}
                   </span>
                 </div>
               </div>
@@ -117,222 +137,245 @@ export interface FunnelItem {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-funnel-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border: 1px solid var(--ngx-chart-grid, #ebedf0);
-      border-radius: 16px;
-      padding: 20px;
-      position: relative;
-    }
-    .funnel-layout {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 24px;
-      align-items: center;
-    }
-    @media (max-width: 600px) {
-      .funnel-layout {
-        grid-template-columns: 1fr;
+  styles: [
+    `
+      :host {
+        display: block;
       }
-    }
-    
-    .funnel-graphic {
-      position: relative;
-      width: 100%;
-    }
-    .funnel-svg {
-      display: block;
-      overflow: visible;
-    }
+      .ngx-funnel-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border: 1px solid var(--ngx-chart-grid, #ebedf0);
+        border-radius: 16px;
+        padding: 20px;
+        position: relative;
+      }
+      .funnel-layout {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 24px;
+        align-items: center;
+      }
+      @media (max-width: 600px) {
+        .funnel-layout {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    @keyframes funnelBuildIn {
-      from { transform: scaleY(0); opacity: 0; }
-      to { transform: scaleY(1); opacity: 1; }
-    }
+      .funnel-graphic {
+        position: relative;
+        width: 100%;
+      }
+      .funnel-svg {
+        display: block;
+        overflow: visible;
+      }
 
-    .funnel-polygon {
-      cursor: pointer;
-      opacity: 0.88;
-      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s;
-      animation: funnelBuildIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .funnel-polygon:hover, .funnel-polygon.active {
-      opacity: 1;
-      transform: scale(1.03);
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.18)) brightness(1.03);
-    }
+      @keyframes funnelBuildIn {
+        from {
+          transform: scaleY(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+      }
 
-    /* Glassmorphic Tooltip styling */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 155px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      .funnel-polygon {
+        cursor: pointer;
+        opacity: 0.88;
+        transition:
+          opacity 0.25s,
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 0.25s;
+        animation: funnelBuildIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .funnel-polygon:focus-visible {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 4;
+      }
+      .funnel-polygon:hover,
+      .funnel-polygon.active {
+        opacity: 1;
+        transform: scale(1.03);
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18)) brightness(1.03);
+      }
 
-    /* Sidebar metrics list */
-    .funnel-legend {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    .legend-item:hover, .legend-item.active {
-      background: var(--ngx-chart-grid, #f8fafc);
-      border-color: var(--ngx-chart-grid, #e2e8f0);
-    }
-    .legend-color-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .legend-content {
-      flex: 1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-    .legend-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ngx-chart-text, #0f172a);
-    }
-    .legend-metrics {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .metric-value {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--ngx-chart-text, #0f172a);
-    }
-    .metric-pct {
-      font-size: 11px;
-      color: var(--ngx-chart-axis-text, #64748b);
-      background: var(--ngx-chart-grid, #f1f5f9);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
+      /* Glassmorphic Tooltip styling */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 155px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Header and Export dropdown styles */
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    .chart-export-menu {
-      position: relative;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #64748b);
-      background: rgba(241, 245, 249, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #ffffff;
-      color: #4f46e5;
-      border-color: #4f46e5;
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #ffffff;
-      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #1e293b;
-      border-radius: 4px;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: #4f46e5;
-    }
-  `]
+      /* Sidebar metrics list */
+      .funnel-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .legend-item:hover,
+      .legend-item.active {
+        background: var(--ngx-chart-grid, #f8fafc);
+        border-color: var(--ngx-chart-grid, #e2e8f0);
+      }
+      .legend-color-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .legend-content {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .legend-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ngx-chart-text, #0f172a);
+      }
+      .legend-metrics {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .metric-value {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--ngx-chart-text, #0f172a);
+      }
+      .metric-pct {
+        font-size: 11px;
+        color: var(--ngx-chart-axis-text, #64748b);
+        background: var(--ngx-chart-grid, #f1f5f9);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      /* Header and Export dropdown styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+      .chart-export-menu {
+        position: relative;
+        z-index: 50;
+      }
+      .export-trigger {
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ngx-chart-axis-text, #64748b);
+        background: rgba(241, 245, 249, 0.8);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .export-trigger:hover {
+        background: #ffffff;
+        color: #4f46e5;
+        border-color: #4f46e5;
+      }
+      .export-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 4px);
+        background: #ffffff;
+        border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+        border-radius: 8px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 120px;
+      }
+      .export-dropdown button {
+        background: none;
+        border: none;
+        padding: 6px 10px;
+        font-size: 11px;
+        text-align: left;
+        cursor: pointer;
+        color: #1e293b;
+        border-radius: 4px;
+        width: 100%;
+        transition: all 0.12s;
+      }
+      .export-dropdown button:hover {
+        background: rgba(79, 70, 229, 0.06);
+        color: #4f46e5;
+      }
+    `,
+  ],
 })
 export class FunnelChartComponent {
+  private readonly i18n = inject(NGX_CORE_I18N);
+
   data = input<FunnelItem[]>([]);
   height = input<number>(300);
   colors = input<string[]>(CHART_COLORS);
@@ -354,7 +397,7 @@ export class FunnelChartComponent {
   funnelStages = computed(() => {
     const items = this.data();
     if (items.length === 0) return [];
-    
+
     const count = items.length;
     const svgW = 400;
     const svgH = 300;
@@ -388,38 +431,38 @@ export class FunnelChartComponent {
           value: item.value,
           points,
           color,
-          yCenter: (yTop + yBot) / 2
+          yCenter: (yTop + yBot) / 2,
         };
       });
     } else {
       // Standard Funnel Mode
       const maxVal = items[0]?.value || 1;
       const stepH = svgH / count;
-      
+
       return items.map((item, idx) => {
         const topPct = item.value / maxVal;
         const botPct = idx < count - 1 ? items[idx + 1].value / maxVal : topPct * 0.4;
-        
+
         const topW = topPct * maxFunnelW;
         const botW = botPct * maxFunnelW;
-        
+
         const yTop = idx * stepH;
         const yBot = (idx + 1) * stepH;
-        
+
         const xTopLeft = (svgW - topW) / 2;
         const xTopRight = (svgW + topW) / 2;
         const xBotLeft = (svgW - botW) / 2;
         const xBotRight = (svgW + botW) / 2;
-        
+
         const points = `${xTopLeft},${yTop} ${xTopRight},${yTop} ${xBotRight},${yBot} ${xBotLeft},${yBot}`;
         const color = item.color || this.colors()[idx % this.colors().length];
-        
+
         return {
           name: item.name,
           value: item.value,
           points,
           color,
-          yCenter: (yTop + yBot) / 2
+          yCenter: (yTop + yBot) / 2,
         };
       });
     }
@@ -500,7 +543,7 @@ export class FunnelChartComponent {
     const svgClone = svg.cloneNode(true) as SVGElement;
     svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     const svgString = new XMLSerializer().serializeToString(svgClone);
-    
+
     printWindow.document.write(`
       <html>
         <head>
@@ -563,6 +606,29 @@ export class FunnelChartComponent {
       this.tooltipX.set(event.clientX - parentRect.left);
       this.tooltipY.set(event.clientY - parentRect.top);
     }
+  }
+
+  stageAccessibleLabel(stage: FunnelItem): string {
+    return this.i18n.chart.dataMarkDescription(stage.name, fmtNum(stage.value));
+  }
+
+  onStageFocus(event: FocusEvent, index: number): void {
+    const stage = this.funnelStages()[index];
+    if (!stage) return;
+
+    this.hoveredIndex.set(index);
+    const polygon = event.currentTarget as SVGPolygonElement;
+    const graphic = polygon.closest('.funnel-graphic');
+    if (!graphic) return;
+
+    const polygonRect = polygon.getBoundingClientRect();
+    const graphicRect = graphic.getBoundingClientRect();
+    this.tooltipX.set(polygonRect.left + polygonRect.width / 2 - graphicRect.left);
+    this.tooltipY.set(polygonRect.top - graphicRect.top);
+  }
+
+  onStageBlur(): void {
+    this.hoveredIndex.set(null);
   }
 
   readonly fmtNum = fmtNum;

@@ -1,4 +1,15 @@
-import { Component, ChangeDetectionStrategy, input, output, signal, computed } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  output,
+  signal,
+  computed,
+} from '@angular/core';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 import { CommonModule } from '@angular/common';
 import { FilterExpression, FilterCondition, GridColumnDef } from '../../models';
 
@@ -11,6 +22,7 @@ import { FilterExpression, FilterCondition, GridColumnDef } from '../../models';
  * @usage
  * ```html
  * <ngx-grid-filter-builder
+ *   [gridInstanceId]="gridInstanceId"
  *   [columns]="filterableColumns()"
  *   [expression]="currentFilterExpression()"
  *   (expressionChange)="onFilterExpressionChange($event)"
@@ -25,13 +37,28 @@ import { FilterExpression, FilterCondition, GridColumnDef } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="filter-builder-overlay" (click)="close.emit()">
-      <div class="filter-builder-panel" (click)="$event.stopPropagation()">
+      <div
+        class="filter-builder-panel"
+        [id]="gridInstanceId() ? gridInstanceId() + '-filter-builder' : null"
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-label]="i18n.grid.advancedFilterBuilder"
+        tabindex="-1"
+        (click)="$event.stopPropagation()"
+      >
         <div class="fb-header">
           <div class="fb-title">
             <span class="fb-icon">🔍</span>
-            <span>Advanced Filter Builder</span>
+            <span>{{ i18n.grid.advancedFilterBuilder }}</span>
           </div>
-          <button type="button" class="fb-close" (click)="close.emit()">✕</button>
+          <button
+            type="button"
+            class="fb-close"
+            [attr.aria-label]="i18n.grid.closeFilterBuilder"
+            (click)="close.emit()"
+          >
+            ✕
+          </button>
         </div>
 
         <div class="fb-body">
@@ -39,10 +66,14 @@ import { FilterExpression, FilterCondition, GridColumnDef } from '../../models';
         </div>
 
         <div class="fb-footer">
-          <button type="button" class="fb-btn fb-btn-clear" (click)="clearAll()">Clear All</button>
+          <button type="button" class="fb-btn fb-btn-clear" (click)="clearAll()">{{ i18n.grid.clearAll }}</button>
           <div class="fb-footer-actions">
-            <button type="button" class="fb-btn fb-btn-cancel" (click)="close.emit()">Cancel</button>
-            <button type="button" class="fb-btn fb-btn-apply" (click)="applyFilter()">Apply Filter</button>
+            <button type="button" class="fb-btn fb-btn-cancel" (click)="close.emit()">
+              {{ i18n.common.cancel }}
+            </button>
+            <button type="button" class="fb-btn fb-btn-apply" (click)="applyFilter()">
+              {{ i18n.grid.applyFilter }}
+            </button>
           </div>
         </div>
       </div>
@@ -52,22 +83,41 @@ import { FilterExpression, FilterCondition, GridColumnDef } from '../../models';
       <div class="fb-group">
         <div class="fb-group-header">
           <div class="fb-operator-toggle">
-            <button type="button"
+            <button
+              type="button"
               class="op-btn"
               [class.active]="group.operator === 'AND'"
+              [attr.aria-pressed]="group.operator === 'AND'"
               (click)="setGroupOperator(path, 'AND')"
-            >AND</button>
-            <button type="button"
+            >
+              {{ i18n.grid.filterGroupAnd }}
+            </button>
+            <button
+              type="button"
               class="op-btn"
               [class.active]="group.operator === 'OR'"
+              [attr.aria-pressed]="group.operator === 'OR'"
               (click)="setGroupOperator(path, 'OR')"
-            >OR</button>
+            >
+              {{ i18n.grid.filterGroupOr }}
+            </button>
           </div>
           <div class="fb-group-actions">
-            <button type="button" class="fb-add-btn" (click)="addCondition(path)">+ Condition</button>
-            <button type="button" class="fb-add-btn fb-add-group" (click)="addGroup(path)">+ Group</button>
+            <button type="button" class="fb-add-btn" (click)="addCondition(path)">
+              + {{ i18n.grid.addCondition }}
+            </button>
+            <button type="button" class="fb-add-btn fb-add-group" (click)="addGroup(path)">
+              + {{ i18n.grid.addGroup }}
+            </button>
             @if (path.length > 0) {
-              <button type="button" class="fb-remove-group" (click)="removeItem(path)">✕</button>
+              <button
+                type="button"
+                class="fb-remove-group"
+                [attr.aria-label]="i18n.grid.removeFilterGroup"
+                (click)="removeItem(path)"
+              >
+                ✕
+              </button>
             }
           </div>
         </div>
@@ -78,305 +128,368 @@ import { FilterExpression, FilterCondition, GridColumnDef } from '../../models';
               <ng-container *ngTemplateOutlet="groupTpl; context: { group: item, path: path.concat($index) }" />
             } @else {
               <div class="fb-condition-row">
-                <select class="fb-select fb-field-select" [value]="asCondition(item).field" (change)="updateConditionField(path.concat($index), $any($event.target).value)">
+                <select
+                  class="fb-select fb-field-select"
+                  [attr.aria-label]="i18n.grid.filterField"
+                  [value]="asCondition(item).field"
+                  (change)="updateConditionField(path.concat($index), $any($event.target).value)"
+                >
                   @for (col of filterableColumnsList(); track col.field) {
-                    <option [value]="col.field" [selected]="col.field === asCondition(item).field">{{ col.title }}</option>
+                    <option [value]="col.field" [selected]="col.field === asCondition(item).field">
+                      {{ col.title }}
+                    </option>
                   }
                 </select>
 
-                <select class="fb-select fb-operator-select" [value]="asCondition(item).type" (change)="updateConditionType(path.concat($index), $any($event.target).value)">
+                <select
+                  class="fb-select fb-operator-select"
+                  [attr.aria-label]="i18n.grid.filterOperator"
+                  [value]="asCondition(item).type"
+                  (change)="updateConditionType(path.concat($index), $any($event.target).value)"
+                >
                   @for (op of getOperatorsForField(asCondition(item).field); track op.value) {
                     <option [value]="op.value" [selected]="op.value === asCondition(item).type">{{ op.label }}</option>
                   }
                 </select>
 
                 @if (!isUnaryOperator(asCondition(item).type)) {
-                  <input class="fb-input" [value]="asCondition(item).value ?? ''" (input)="updateConditionValue(path.concat($index), $any($event.target).value)" placeholder="Value...">
+                  <input
+                    class="fb-input"
+                    [value]="asCondition(item).value ?? ''"
+                    (input)="updateConditionValue(path.concat($index), $any($event.target).value)"
+                    [placeholder]="i18n.grid.filterValuePlaceholder"
+                  />
                   @if (asCondition(item).type === 'between') {
-                    <span class="fb-between-label">and</span>
-                    <input class="fb-input" [value]="asCondition(item).valueTo ?? ''" (input)="updateConditionValueTo(path.concat($index), $any($event.target).value)" placeholder="To...">
+                    <span class="fb-between-label">{{ i18n.grid.filterRangeAnd }}</span>
+                    <input
+                      class="fb-input"
+                      [value]="asCondition(item).valueTo ?? ''"
+                      (input)="updateConditionValueTo(path.concat($index), $any($event.target).value)"
+                      [placeholder]="i18n.grid.filterRangeEndPlaceholder"
+                    />
                   }
                 }
 
-                <button type="button" class="fb-remove-condition" (click)="removeItem(path.concat($index))">✕</button>
+                <button
+                  type="button"
+                  class="fb-remove-condition"
+                  [attr.aria-label]="i18n.grid.removeFilterCondition"
+                  (click)="removeItem(path.concat($index))"
+                >
+                  ✕
+                </button>
               </div>
             }
           }
 
           @if (group.conditions.length === 0) {
-            <div class="fb-empty">No conditions. Click "+ Condition" to add one.</div>
+            <div class="fb-empty">{{ i18n.grid.noFilterConditions }}</div>
           }
         </div>
       </div>
     </ng-template>
   `,
-  styles: [`
-    :host { display: block; }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
 
-    .filter-builder-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.4);
-      backdrop-filter: blur(4px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fbFadeIn 0.2s ease;
-    }
+      .filter-builder-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fbFadeIn 0.2s ease;
+      }
 
-    @keyframes fbFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+      @keyframes fbFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-    .filter-builder-panel {
-      background: var(--ngx-grid-bg, #ffffff);
-      border-radius: 16px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      width: 720px;
-      max-width: 95vw;
-      max-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      animation: fbSlideIn 0.25s ease;
-      font-family: var(--ngx-font-family, inherit);
-    }
+      .filter-builder-panel {
+        background: var(--ngx-grid-bg, #ffffff);
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        width: 720px;
+        max-width: 95vw;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        animation: fbSlideIn 0.25s ease;
+        font-family: var(--ngx-font-family, inherit);
+      }
 
-    @keyframes fbSlideIn {
-      from { transform: scale(0.95) translateY(10px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
-    }
+      @keyframes fbSlideIn {
+        from {
+          transform: scale(0.95) translateY(10px);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
 
-    .fb-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
-      background: var(--ngx-grid-header-bg, #f8fafc);
-    }
+      .fb-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
+        background: var(--ngx-grid-header-bg, #f8fafc);
+      }
 
-    .fb-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--ngx-grid-text, #0f172a);
-    }
+      .fb-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--ngx-grid-text, #0f172a);
+      }
 
-    .fb-icon { font-size: 16px; }
+      .fb-icon {
+        font-size: 16px;
+      }
 
-    .fb-close {
-      background: transparent;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: all 0.15s;
-    }
-    .fb-close:hover { background: #f1f5f9; color: #ef4444; }
+      .fb-close {
+        background: transparent;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: var(--ngx-grid-text-secondary, #64748b);
+        padding: 4px 8px;
+        border-radius: 6px;
+        transition: all 0.15s;
+      }
+      .fb-close:hover {
+        background: #f1f5f9;
+        color: #ef4444;
+      }
 
-    .fb-body {
-      padding: 20px;
-      overflow-y: auto;
-      flex: 1;
-    }
+      .fb-body {
+        padding: 20px;
+        overflow-y: auto;
+        flex: 1;
+      }
 
-    .fb-group {
-      border: 1.5px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: 12px;
-      padding: 12px;
-      background: rgba(248, 250, 252, 0.5);
-    }
+      .fb-group {
+        border: 1.5px solid var(--ngx-grid-border, #e2e8f0);
+        border-radius: 12px;
+        padding: 12px;
+        background: rgba(248, 250, 252, 0.5);
+      }
 
-    .fb-group .fb-group {
-      margin-top: 8px;
-      border-color: #c7d2fe;
-      background: rgba(238, 242, 255, 0.3);
-    }
+      .fb-group .fb-group {
+        margin-top: 8px;
+        border-color: #c7d2fe;
+        background: rgba(238, 242, 255, 0.3);
+      }
 
-    .fb-group-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+      .fb-group-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
 
-    .fb-operator-toggle {
-      display: flex;
-      gap: 0;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
+      .fb-operator-toggle {
+        display: flex;
+        gap: 0;
+        border: 1px solid var(--ngx-grid-border, #cbd5e1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
 
-    .op-btn {
-      padding: 4px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      border: none;
-      background: var(--ngx-grid-bg, #ffffff);
-      cursor: pointer;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      transition: all 0.15s;
-    }
-    .op-btn.active {
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff;
-    }
+      .op-btn {
+        padding: 4px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        border: none;
+        background: var(--ngx-grid-bg, #ffffff);
+        cursor: pointer;
+        color: var(--ngx-grid-text-secondary, #64748b);
+        transition: all 0.15s;
+      }
+      .op-btn.active {
+        background: var(--ngx-btn-primary-bg, #4f46e5);
+        color: #ffffff;
+      }
 
-    .fb-group-actions {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
+      .fb-group-actions {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
 
-    .fb-add-btn {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      background: var(--ngx-grid-bg, #ffffff);
-      border-radius: 6px;
-      cursor: pointer;
-      color: var(--ngx-grid-text, #334155);
-      transition: all 0.15s;
-    }
-    .fb-add-btn:hover {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      color: var(--ngx-input-focus, #4f46e5);
-    }
-    .fb-add-group {
-      border-style: dashed;
-    }
+      .fb-add-btn {
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        border: 1px solid var(--ngx-grid-border, #cbd5e1);
+        background: var(--ngx-grid-bg, #ffffff);
+        border-radius: 6px;
+        cursor: pointer;
+        color: var(--ngx-grid-text, #334155);
+        transition: all 0.15s;
+      }
+      .fb-add-btn:hover {
+        border-color: var(--ngx-input-focus, #4f46e5);
+        color: var(--ngx-input-focus, #4f46e5);
+      }
+      .fb-add-group {
+        border-style: dashed;
+      }
 
-    .fb-remove-group, .fb-remove-condition {
-      background: transparent;
-      border: none;
-      font-size: 12px;
-      cursor: pointer;
-      color: #94a3b8;
-      padding: 2px 6px;
-      border-radius: 4px;
-      transition: all 0.15s;
-    }
-    .fb-remove-group:hover, .fb-remove-condition:hover {
-      color: #ef4444;
-      background: #fef2f2;
-    }
+      .fb-remove-group,
+      .fb-remove-condition {
+        background: transparent;
+        border: none;
+        font-size: 12px;
+        cursor: pointer;
+        color: #94a3b8;
+        padding: 2px 6px;
+        border-radius: 4px;
+        transition: all 0.15s;
+      }
+      .fb-remove-group:hover,
+      .fb-remove-condition:hover {
+        color: #ef4444;
+        background: #fef2f2;
+      }
 
-    .fb-conditions {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+      .fb-conditions {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
 
-    .fb-condition-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 8px;
-      background: var(--ngx-grid-bg, #ffffff);
-      border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: 8px;
-      transition: all 0.15s;
-    }
-    .fb-condition-row:hover {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.06);
-    }
+      .fb-condition-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 8px;
+        background: var(--ngx-grid-bg, #ffffff);
+        border: 1px solid var(--ngx-grid-border, #e2e8f0);
+        border-radius: 8px;
+        transition: all 0.15s;
+      }
+      .fb-condition-row:hover {
+        border-color: var(--ngx-input-focus, #4f46e5);
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.06);
+      }
 
-    .fb-select, .fb-input {
-      padding: 5px 8px;
-      font-size: 12px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 6px;
-      background: var(--ngx-grid-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      font-family: inherit;
-      outline: none;
-      transition: all 0.15s;
-    }
-    .fb-select:focus, .fb-input:focus {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
-    }
+      .fb-select,
+      .fb-input {
+        padding: 5px 8px;
+        font-size: 12px;
+        border: 1px solid var(--ngx-grid-border, #cbd5e1);
+        border-radius: 6px;
+        background: var(--ngx-grid-bg, #ffffff);
+        color: var(--ngx-grid-text, #0f172a);
+        font-family: inherit;
+        outline: none;
+        transition: all 0.15s;
+      }
+      .fb-select:focus,
+      .fb-input:focus {
+        border-color: var(--ngx-input-focus, #4f46e5);
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
+      }
 
-    .fb-field-select { min-width: 140px; flex: 1; }
-    .fb-operator-select { min-width: 120px; }
-    .fb-input { flex: 1; min-width: 80px; }
+      .fb-field-select {
+        min-width: 140px;
+        flex: 1;
+      }
+      .fb-operator-select {
+        min-width: 120px;
+      }
+      .fb-input {
+        flex: 1;
+        min-width: 80px;
+      }
 
-    .fb-between-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-grid-text-secondary, #94a3b8);
-      flex-shrink: 0;
-    }
+      .fb-between-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ngx-grid-text-secondary, #94a3b8);
+        flex-shrink: 0;
+      }
 
-    .fb-empty {
-      padding: 16px;
-      text-align: center;
-      color: var(--ngx-grid-text-secondary, #94a3b8);
-      font-size: 12px;
-      font-style: italic;
-    }
+      .fb-empty {
+        padding: 16px;
+        text-align: center;
+        color: var(--ngx-grid-text-secondary, #94a3b8);
+        font-size: 12px;
+        font-style: italic;
+      }
 
-    .fb-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
-      background: var(--ngx-grid-header-bg, #f8fafc);
-    }
+      .fb-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
+        background: var(--ngx-grid-header-bg, #f8fafc);
+      }
 
-    .fb-footer-actions {
-      display: flex;
-      gap: 8px;
-    }
+      .fb-footer-actions {
+        display: flex;
+        gap: 8px;
+      }
 
-    .fb-btn {
-      padding: 7px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      background: var(--ngx-grid-bg, #ffffff);
-      color: var(--ngx-grid-text, #334155);
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-    .fb-btn:hover {
-      border-color: var(--ngx-input-border-hover, #94a3b8);
-    }
+      .fb-btn {
+        padding: 7px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 1px solid var(--ngx-grid-border, #cbd5e1);
+        background: var(--ngx-grid-bg, #ffffff);
+        color: var(--ngx-grid-text, #334155);
+        font-family: inherit;
+        transition: all 0.2s;
+      }
+      .fb-btn:hover {
+        border-color: var(--ngx-input-border-hover, #94a3b8);
+      }
 
-    .fb-btn-clear {
-      border-color: transparent;
-      background: transparent;
-      color: #ef4444;
-    }
-    .fb-btn-clear:hover {
-      background: #fef2f2;
-    }
+      .fb-btn-clear {
+        border-color: transparent;
+        background: transparent;
+        color: #ef4444;
+      }
+      .fb-btn-clear:hover {
+        background: #fef2f2;
+      }
 
-    .fb-btn-apply {
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff;
-      border-color: var(--ngx-btn-primary-bg, #4f46e5);
-    }
-    .fb-btn-apply:hover {
-      background: var(--ngx-btn-primary-hover, #4338ca);
-      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.25);
-    }
-  `]
+      .fb-btn-apply {
+        background: var(--ngx-btn-primary-bg, #4f46e5);
+        color: #ffffff;
+        border-color: var(--ngx-btn-primary-bg, #4f46e5);
+      }
+      .fb-btn-apply:hover {
+        background: var(--ngx-btn-primary-hover, #4338ca);
+        box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.25);
+      }
+    `,
+  ],
 })
 export class GridFilterBuilderComponent {
+  readonly i18n = inject(NGX_CORE_I18N);
+  private readonly host = inject(ElementRef<HTMLElement>);
+  gridInstanceId = input<string | null>(null);
   /** Available columns for filter field selection */
   columns = input<GridColumnDef[]>([]);
 
@@ -393,9 +506,7 @@ export class GridFilterBuilderComponent {
   editExpression = signal<FilterExpression>(this.createEmptyGroup());
 
   /** Filterable columns for the dropdown */
-  filterableColumnsList = computed(() =>
-    this.columns().filter(c => c.filterable !== false)
-  );
+  filterableColumnsList = computed(() => this.columns().filter(c => c.filterable !== false));
 
   constructor() {
     // Initialize from input expression when available
@@ -426,42 +537,42 @@ export class GridFilterBuilderComponent {
     const colType = col?.columnType ?? 'text';
 
     const common = [
-      { value: 'isEmpty', label: 'Is Empty' },
-      { value: 'isNotEmpty', label: 'Is Not Empty' },
+      { value: 'isEmpty', label: this.i18n.grid.operatorIsEmpty },
+      { value: 'isNotEmpty', label: this.i18n.grid.operatorIsNotEmpty },
     ];
 
     switch (colType) {
       case 'number':
         return [
-          { value: 'eq', label: 'Equals' },
-          { value: 'neq', label: 'Not Equals' },
-          { value: 'gt', label: 'Greater Than' },
-          { value: 'gte', label: 'Greater or Equal' },
-          { value: 'lt', label: 'Less Than' },
-          { value: 'lte', label: 'Less or Equal' },
-          { value: 'between', label: 'Between' },
+          { value: 'eq', label: this.i18n.grid.equals },
+          { value: 'neq', label: this.i18n.grid.operatorNotEquals },
+          { value: 'gt', label: this.i18n.grid.operatorGreaterThan },
+          { value: 'gte', label: this.i18n.grid.operatorGreaterOrEqual },
+          { value: 'lt', label: this.i18n.grid.operatorLessThan },
+          { value: 'lte', label: this.i18n.grid.operatorLessOrEqual },
+          { value: 'between', label: this.i18n.grid.operatorBetween },
           ...common,
         ];
       case 'date':
         return [
-          { value: 'eq', label: 'Equals' },
-          { value: 'before', label: 'Before' },
-          { value: 'after', label: 'After' },
-          { value: 'between', label: 'Between' },
+          { value: 'eq', label: this.i18n.grid.equals },
+          { value: 'before', label: this.i18n.grid.operatorBefore },
+          { value: 'after', label: this.i18n.grid.operatorAfter },
+          { value: 'between', label: this.i18n.grid.operatorBetween },
           ...common,
         ];
       case 'boolean':
         return [
-          { value: 'isTrue', label: 'Is True' },
-          { value: 'isFalse', label: 'Is False' },
+          { value: 'isTrue', label: this.i18n.grid.operatorIsTrue },
+          { value: 'isFalse', label: this.i18n.grid.operatorIsFalse },
         ];
       default:
         return [
-          { value: 'contains', label: 'Contains' },
-          { value: 'eq', label: 'Equals' },
-          { value: 'neq', label: 'Not Equals' },
-          { value: 'startsWith', label: 'Starts With' },
-          { value: 'endsWith', label: 'Ends With' },
+          { value: 'contains', label: this.i18n.grid.contains },
+          { value: 'eq', label: this.i18n.grid.equals },
+          { value: 'neq', label: this.i18n.grid.operatorNotEquals },
+          { value: 'startsWith', label: this.i18n.grid.startsWith },
+          { value: 'endsWith', label: this.i18n.grid.endsWith },
           ...common,
         ];
     }
@@ -556,6 +667,33 @@ export class GridFilterBuilderComponent {
   /** Clear all conditions */
   clearAll(): void {
     this.editExpression.set(this.createEmptyGroup());
+  }
+
+  @HostListener('keydown', ['$event'])
+  onDialogKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close.emit();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+
+    const panel = (this.host.nativeElement as HTMLElement).querySelector<HTMLElement>('.filter-builder-panel');
+    const focusable = panel?.querySelectorAll<HTMLElement>(
+      'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!panel || !focusable?.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = event.target;
+    if (event.shiftKey && (active === first || active === panel)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 
   // ─── Private helpers ──────────────────────────────────────────────

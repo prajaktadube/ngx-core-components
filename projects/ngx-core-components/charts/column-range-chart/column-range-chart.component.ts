@@ -1,11 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  HostListener,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface ColumnRangePoint {
   category: string;
@@ -22,7 +32,7 @@ export interface ColumnRangeSeries {
 @Component({
   selector: 'ngx-column-range-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-column-range-chart" (mouseleave)="onMouseLeave()">
@@ -61,12 +71,7 @@ export interface ColumnRangeSeries {
 
             <!-- X Axis Labels -->
             @for (cat of inferredCategories(); track cat; let i = $index) {
-              <text
-                [attr.x]="bandXCenter(i)"
-                [attr.y]="innerH() + 16"
-                text-anchor="middle"
-                class="axis-label"
-              >
+              <text [attr.x]="bandXCenter(i)" [attr.y]="innerH() + 16" text-anchor="middle" class="axis-label">
                 {{ cat }}
               </text>
             }
@@ -84,10 +89,15 @@ export interface ColumnRangeSeries {
                     rx="4"
                     ry="4"
                     class="column-rect"
-                    [class.dimmed]="hoveredSeriesIndex() !== null && (hoveredSeriesIndex() !== si || hoveredCategoryIndex() !== ci)"
+                    [class.dimmed]="
+                      hoveredSeriesIndex() !== null && (hoveredSeriesIndex() !== si || hoveredCategoryIndex() !== ci)
+                    "
                     [class.highlighted]="hoveredSeriesIndex() === si && hoveredCategoryIndex() === ci"
-                    (mouseenter)="onColumnHover(ci, si, d, $event)"
+                    (mouseenter)="onColumnHover(ci, si, d)"
                     (mousemove)="onColumnMouseMove($event)"
+                    (focus)="onColumnFocus(ci, si, d, $event)"
+                    (blur)="onColumnBlur()"
+                    [ngxChartAccessibleMark]="pointAccessibleLabel(d, s.name)"
                   />
                   <!-- Optional Labels on top/bottom of columns -->
                   @if (showLabels() && hoveredCategoryIndex() === ci && hoveredSeriesIndex() === si) {
@@ -143,157 +153,171 @@ export interface ColumnRangeSeries {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-column-range-chart {
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 12px;
-      padding: 20px;
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg-wrap {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .axis-label {
-      font-size: 10px;
-      font-weight: 600;
-      fill: var(--text-secondary, #94a3b8);
-      user-select: none;
-    }
-    .label-text {
-      font-size: 9px;
-      fill: var(--text-primary, #1e293b);
-      font-weight: bold;
-      pointer-events: none;
-    }
-    .column-rect {
-      cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.2s ease, fill-opacity 0.2s ease;
-    }
-    .column-rect.dimmed {
-      opacity: 0.35;
-    }
-    .column-rect.highlighted {
-      opacity: 1;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
-    }
-    
-    /* Legend */
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .legend-rect {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-    }
-    .legend-label {
-      font-size: 12px;
-      color: var(--text-secondary, #64748b);
-      font-weight: 500;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-column-range-chart {
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 12px;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg-wrap {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .axis-label {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--text-secondary, #94a3b8);
+        user-select: none;
+      }
+      .label-text {
+        font-size: 9px;
+        fill: var(--text-primary, #1e293b);
+        font-weight: bold;
+        pointer-events: none;
+      }
+      .column-rect {
+        cursor: pointer;
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease,
+          fill-opacity 0.2s ease;
+      }
+      .column-rect:focus-visible {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
+      .column-rect.dimmed {
+        opacity: 0.35;
+      }
+      .column-rect.highlighted {
+        opacity: 1;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11.5px;
-      min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.95);
-      font-weight: 600;
-      flex: 1;
-    }
-    .detail-row {
-      padding-left: 16px;
-      font-size: 11px;
-    }
-    .tt-sub-label {
-      color: rgba(248, 250, 252, 0.65);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 600;
-      font-family: monospace;
-    }
-    .tt-val.highlight {
-      color: #38bdf8;
-    }
-    .range-row {
-      border-top: 1px dotted rgba(255, 255, 255, 0.1);
-      margin-top: 2px;
-      padding-top: 2px;
-    }
+      /* Legend */
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .legend-rect {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+      }
+      .legend-label {
+        font-size: 12px;
+        color: var(--text-secondary, #64748b);
+        font-weight: 500;
+      }
 
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11.5px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.95);
+        font-weight: 600;
+        flex: 1;
+      }
+      .detail-row {
+        padding-left: 16px;
+        font-size: 11px;
+      }
+      .tt-sub-label {
+        color: rgba(248, 250, 252, 0.65);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 600;
+        font-family: monospace;
+      }
+      .tt-val.highlight {
+        color: #38bdf8;
+      }
+      .range-row {
+        border-top: 1px dotted rgba(255, 255, 255, 0.1);
+        margin-top: 2px;
+        padding-top: 2px;
+      }
+
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class ColumnRangeChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   readonly PAD_LEFT = 48;
   readonly PAD_TOP = 15;
   readonly PAD_RIGHT = 16;
@@ -345,7 +369,7 @@ export class ColumnRangeChartComponent {
 
   // Find min/max values for scale calculation
   private allValues = computed(() => this.series().flatMap(s => s.data.flatMap(d => [d.low, d.high])));
-  
+
   private yMin = computed(() => {
     const vals = this.allValues();
     if (vals.length === 0) return 0;
@@ -389,7 +413,7 @@ export class ColumnRangeChartComponent {
   barX(i: number, si: number): number {
     const bandCenter = this.bandXCenter(i);
     const offset = -this.groupW() / 2 + si * this.barWidth();
-    return bandCenter + offset + (this.barWidth() * 0.05); // center offset and keep padding
+    return bandCenter + offset + this.barWidth() * 0.05; // center offset and keep padding
   }
 
   barY(d: ColumnRangePoint): number {
@@ -412,7 +436,7 @@ export class ColumnRangeChartComponent {
     return s.color || this.colors()[i % this.colors().length];
   }
 
-  onColumnHover(ci: number, si: number, d: ColumnRangePoint, event: MouseEvent) {
+  onColumnHover(ci: number, si: number, d: ColumnRangePoint) {
     this.hoveredCategoryIndex.set(ci);
     this.hoveredSeriesIndex.set(si);
     const s = this.series()[si];
@@ -421,8 +445,30 @@ export class ColumnRangeChartComponent {
       seriesName: s.name,
       low: d.low,
       high: d.high,
-      color: this.seriesColor(si, s)
+      color: this.seriesColor(si, s),
     });
+  }
+
+  pointAccessibleLabel(point: ColumnRangePoint, seriesName: string): string {
+    const values = `Low: ${fmtNum(point.low)}, High: ${fmtNum(point.high)}`;
+    return this.i18n.chart.dataMarkDescription(`${seriesName}, ${point.category}`, values);
+  }
+
+  onColumnFocus(ci: number, si: number, point: ColumnRangePoint, event: FocusEvent): void {
+    this.onColumnHover(ci, si, point);
+
+    const column = event.currentTarget as SVGRectElement;
+    const container = column.closest('.ngx-column-range-chart');
+    if (!container) return;
+
+    const columnRect = column.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    this.tooltipX.set(columnRect.left + columnRect.width / 2 - containerRect.left);
+    this.tooltipY.set(columnRect.top - containerRect.top);
+  }
+
+  onColumnBlur(): void {
+    this.onMouseLeave();
   }
 
   onColumnMouseMove(event: MouseEvent) {
@@ -441,7 +487,7 @@ export class ColumnRangeChartComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -472,7 +518,6 @@ export class ColumnRangeChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }

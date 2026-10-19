@@ -46,5 +46,13 @@
   {
     "path": "dist/ngx-core-components/fesm2022/ngx-core-components-dialog.mjs",
     "limit": "15 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-i18n.mjs",
+    "limit": "5 KB"
+  },
+  {
+    "path": "dist/ngx-core-components/fesm2022/ngx-core-components-testing.mjs",
+    "limit": "2 KB"
   }
 ]

@@ -6,13 +6,13 @@ describe('ChartExportMenuComponent', () => {
     spyOn(window, 'open').and.returnValue({
       document: {
         write: () => {},
-        close: () => {}
-      }
+        close: () => {},
+      },
     } as any);
     spyOn(window, 'alert').and.stub();
 
     await TestBed.configureTestingModule({
-      imports: [ChartExportMenuComponent]
+      imports: [ChartExportMenuComponent],
     }).compileComponents();
   });
 
@@ -34,6 +34,28 @@ describe('ChartExportMenuComponent', () => {
 
     component.toggle(new MouseEvent('click'));
     expect(component.isOpen()).toBe(false);
+  });
+
+  it('exposes localized, labelled menu relationships and restores trigger focus on Escape', () => {
+    const fixture = TestBed.createComponent(ChartExportMenuComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('button.export-trigger') as HTMLButtonElement;
+    expect(trigger.getAttribute('aria-label')).toBe('Export chart data');
+    expect(trigger.getAttribute('aria-controls')).toBe(component.menuId);
+
+    component.isOpen.set(true);
+    fixture.detectChanges();
+    const menu = fixture.nativeElement.querySelector('[role="menu"]') as HTMLElement;
+    expect(menu.id).toBe(component.menuId);
+    expect(menu.getAttribute('aria-labelledby')).toBe(trigger.id);
+
+    menu.querySelector<HTMLButtonElement>('[role="menuitem"]')?.focus();
+    component.closeOnEscape();
+
+    expect(component.isOpen()).toBeFalse();
+    expect(document.activeElement).toBe(trigger);
   });
 
   it('should select format and close', () => {

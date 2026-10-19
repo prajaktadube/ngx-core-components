@@ -17,6 +17,8 @@ import {
   Directive,
   Input,
   QueryList,
+  Injector,
+  afterNextRender,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
@@ -69,7 +71,7 @@ import type {
 
 @Directive({
   selector: '[ngxGridCellTemplate]',
-  standalone: true
+  standalone: true,
 })
 export class NgxGridCellTemplateDirective {
   @Input('ngxGridCellTemplate') columnField!: string;
@@ -78,7 +80,7 @@ export class NgxGridCellTemplateDirective {
 
 @Directive({
   selector: '[ngxGridEditCellTemplate]',
-  standalone: true
+  standalone: true,
 })
 export class NgxGridEditCellTemplateDirective {
   @Input('ngxGridEditCellTemplate') columnField!: string;
@@ -87,7 +89,7 @@ export class NgxGridEditCellTemplateDirective {
 
 @Directive({
   selector: '[ngxGridHeaderTemplate]',
-  standalone: true
+  standalone: true,
 })
 export class NgxGridHeaderTemplateDirective {
   @Input('ngxGridHeaderTemplate') columnField!: string;
@@ -96,7 +98,7 @@ export class NgxGridHeaderTemplateDirective {
 
 @Directive({
   selector: '[ngxGridFooterTemplate]',
-  standalone: true
+  standalone: true,
 })
 export class NgxGridFooterTemplateDirective {
   @Input('ngxGridFooterTemplate') columnField!: string;
@@ -106,17 +108,19 @@ export class NgxGridFooterTemplateDirective {
 @Component({
   selector: 'ngx-data-grid',
   standalone: true,
-  imports: [
-    NgTemplateOutlet,
-    GridStatusBarComponent,
-    GridFilterBuilderComponent
-  ],
-  providers: [
-    GridExportXlsxService
-  ],
+  imports: [NgTemplateOutlet, GridStatusBarComponent, GridFilterBuilderComponent],
+  providers: [GridExportXlsxService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="ngx-data-grid" [class.loading]="loading()" [class.compact]="compact()">
+    <div
+      class="ngx-data-grid"
+      [class.loading]="loading()"
+      [class.compact]="compact()"
+      role="region"
+      [attr.aria-label]="i18n.grid.dataGrid"
+      [attr.tabindex]="keyboardNavigation() || enableContextMenu() ? 0 : null"
+    >
+      <div class="visually-hidden" aria-live="polite" aria-atomic="true">{{ selectionAnnouncement() }}</div>
 
       @if (showGroupingPanel()) {
         <div
@@ -128,20 +132,20 @@ export class NgxGridFooterTemplateDirective {
         >
           <div class="grouping-panel-label">
             @if (internalGroupBy(); as gb) {
-              <span>Grouped by:</span>
+              <span>{{ i18n.grid.groupedBy }}</span>
               <span class="group-chip">
                 {{ getColumnTitle(gb.field) }}
                 <button class="remove-group-btn" (click)="clearGrouping()">×</button>
               </span>
             } @else {
-              <span>Drag a column header here to group</span>
+              <span>{{ i18n.grid.groupColumnsHint }}</span>
             }
           </div>
         </div>
       }
 
-      <div class="grid-toolbar">
-        <span class="grid-toolbar-title">Data Grid</span>
+      <div class="grid-toolbar" role="toolbar" [attr.aria-label]="i18n.grid.toolbar">
+        <span class="grid-toolbar-title">{{ i18n.grid.dataGrid }}</span>
         <div class="grid-toolbar-actions">
           @if (showGlobalSearch()) {
             <div class="grid-search-wrap">
@@ -153,28 +157,97 @@ export class NgxGridFooterTemplateDirective {
                 (input)="searchText.set($any($event.target).value)"
               />
               @if (searchText()) {
-                <button class="grid-search-clear" (click)="searchText.set('')" title="Clear search">×</button>
+                <button
+                  class="grid-search-clear"
+                  (click)="searchText.set('')"
+                  [attr.title]="i18n.grid.clearSearch"
+                  [attr.aria-label]="i18n.grid.clearSearch"
+                >
+                  ×
+                </button>
               }
             </div>
           }
           @if (activeFilters().length > 0) {
-            <button class="grid-action-btn clear-filters-btn" (click)="clearAllFilters()" title="Clear all active column filters">Clear Filters</button>
+            <button
+              class="grid-action-btn clear-filters-btn"
+              (click)="clearAllFilters()"
+              [attr.title]="i18n.grid.clearFilters"
+              [attr.aria-label]="i18n.grid.clearFilters"
+            >
+              Clear Filters
+            </button>
           }
           @if (showColumnChooser()) {
-            <button class="grid-action-btn" (click)="openColumnChooser($event)" title="Choose columns">Columns</button>
+            <button
+              class="grid-action-btn"
+              (click)="openColumnChooser($event)"
+              [attr.aria-expanded]="activeColumnChooserPopover() !== null"
+              [attr.aria-controls]="instanceId + '-column-chooser'"
+              [attr.aria-label]="i18n.grid.chooseColumns"
+              type="button"
+            >
+              {{ i18n.grid.chooseColumns }}
+            </button>
           }
           @if (showFilterBuilder()) {
-            <button class="grid-action-btn" (click)="isFilterBuilderOpen.set(true)" title="Advanced Filter Builder">🔍 Filter</button>
+            <button
+              class="grid-action-btn"
+              type="button"
+              (click)="openFilterBuilder($event)"
+              [attr.aria-haspopup]="'dialog'"
+              [attr.aria-expanded]="isFilterBuilderOpen()"
+              [attr.aria-controls]="instanceId + '-filter-builder'"
+              [attr.title]="i18n.grid.advancedFilterBuilder"
+              [attr.aria-label]="i18n.grid.advancedFilterBuilder"
+            >
+              🔍 Filter
+            </button>
           }
-          <button class="grid-action-btn" (click)="exportToJson()" title="Export JSON">JSON</button>
-          <button class="grid-action-btn" (click)="exportToCsv()" title="Export CSV">CSV</button>
-          <button class="grid-action-btn" (click)="exportToXlsx()" title="Export native XLSX workbook">XLSX</button>
-          <button class="grid-action-btn" (click)="exportToExcel()" title="Export HTML Excel">Excel</button>
-          <button class="grid-action-btn" (click)="exportToPdf()" title="Export PDF">PDF</button>
+          <button
+            class="grid-action-btn"
+            (click)="exportToJson()"
+            [attr.title]="i18n.grid.exportJson"
+            [attr.aria-label]="i18n.grid.exportJson"
+          >
+            JSON
+          </button>
+          <button
+            class="grid-action-btn"
+            (click)="exportToCsv()"
+            [attr.title]="i18n.grid.exportCsv"
+            [attr.aria-label]="i18n.grid.exportCsv"
+          >
+            CSV
+          </button>
+          <button
+            class="grid-action-btn"
+            (click)="exportToXlsx()"
+            [attr.title]="i18n.grid.exportXlsx"
+            [attr.aria-label]="i18n.grid.exportXlsx"
+          >
+            XLSX
+          </button>
+          <button
+            class="grid-action-btn"
+            (click)="exportToExcel()"
+            [attr.title]="i18n.grid.exportExcel"
+            [attr.aria-label]="i18n.grid.exportExcel"
+          >
+            Excel
+          </button>
+          <button
+            class="grid-action-btn"
+            (click)="exportToPdf()"
+            [attr.title]="i18n.grid.exportPdf"
+            [attr.aria-label]="i18n.grid.exportPdf"
+          >
+            PDF
+          </button>
         </div>
       </div>
 
-      <div class="grid-table-wrap" #viewportEl (scroll)="onViewportScroll($event)">
+      <div class="grid-table-wrap" #viewportEl (scroll)="onViewportScroll($event)" [attr.aria-busy]="loading()">
         <table class="grid-table" [class.striped]="striped()">
           <colgroup>
             @if (rowReorderable()) {
@@ -197,13 +270,18 @@ export class NgxGridFooterTemplateDirective {
             <ng-template #headerCellContent let-col="col">
               <div class="th-content-wrapper">
                 @if (resolveHeaderTemplate(col); as activeHeaderTemplate) {
-                  <ng-container *ngTemplateOutlet="activeHeaderTemplate; context: {
-                    $implicit: col,
-                    column: col,
-                    sort: sortState(),
-                    filters: activeFilters(),
-                    isServerMode: isAnyServerMode()
-                  }" />
+                  <ng-container
+                    *ngTemplateOutlet="
+                      activeHeaderTemplate;
+                      context: {
+                        $implicit: col,
+                        column: col,
+                        sort: sortState(),
+                        filters: activeFilters(),
+                        isServerMode: isAnyServerMode(),
+                      }
+                    "
+                  />
                 } @else {
                   <span class="th-text">{{ col.title }}</span>
                   @if (col.sortable) {
@@ -220,25 +298,70 @@ export class NgxGridFooterTemplateDirective {
                   }
                 }
                 @if (col.filterable) {
-                  <button class="grid-filter-btn" [class.active]="filterStates().has(col.field)" (click)="openFilterPopover($event, col.field); $event.stopPropagation()" title="Filter column">
-                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <button
+                    class="grid-filter-btn"
+                    [class.active]="filterStates().has(col.field)"
+                    (click)="openFilterPopover($event, col.field); $event.stopPropagation()"
+                    [attr.title]="i18n.grid.filterColumn"
+                    [attr.aria-label]="i18n.grid.filterColumn"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="12"
+                      height="12"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
                       <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                     </svg>
                   </button>
                 }
               </div>
-              <div class="grid-resize-handle" (mousedown)="onResizeStart($event, col)" (dblclick)="onResizeDoubleClick($event, col)" (click)="$event.stopPropagation()"></div>
+              <div
+                class="grid-resize-handle"
+                (mousedown)="onResizeStart($event, col)"
+                (dblclick)="onResizeDoubleClick($event, col)"
+                (click)="$event.stopPropagation()"
+              ></div>
             </ng-template>
 
             <tr class="grid-header-row">
               @if (rowReorderable()) {
-                <th class="grid-th grid-th-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" style="width:44px; left:0px"></th>
+                <th
+                  class="grid-th grid-th-reorder pinned-left"
+                  [class.pinned-left-last]="isRowReorderableLastPinned()"
+                  [attr.rowspan]="hasColumnCategories() ? 2 : 1"
+                  style="width:44px; left:0px"
+                ></th>
               }
               @if (showDetailToggle()) {
-                <th class="grid-th grid-th-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></th>
+                <th
+                  class="grid-th grid-th-toggle pinned-left"
+                  [class.pinned-left-last]="isDetailToggleLastPinned()"
+                  [attr.rowspan]="hasColumnCategories() ? 2 : 1"
+                  [style.left.px]="rowReorderable() ? 44 : 0"
+                  style="width:44px"
+                ></th>
               }
               @if (selectable()) {
-                <th class="grid-th grid-th-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [attr.rowspan]="hasColumnCategories() ? 2 : 1" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px"><input type="checkbox" [checked]="allSelected()" [indeterminate]="someSelected() && !allSelected()" (change)="toggleAll()" /></th>
+                <th
+                  class="grid-th grid-th-check pinned-left"
+                  [class.pinned-left-last]="isSelectableLastPinned()"
+                  [attr.rowspan]="hasColumnCategories() ? 2 : 1"
+                  [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"
+                  style="width:44px"
+                >
+                  <input
+                    type="checkbox"
+                    [attr.aria-label]="allSelected() ? i18n.grid.deselectAll : i18n.grid.selectAll"
+                    [checked]="allSelected()"
+                    [indeterminate]="someSelected() && !allSelected()"
+                    (change)="toggleAll()"
+                  />
+                </th>
               }
               @for (cell of headerRows().row1; track cell.field) {
                 @if (cell.isCategory) {
@@ -291,7 +414,9 @@ export class NgxGridFooterTemplateDirective {
                   [style.right.px]="firstPinnedRightColumnField() !== null ? 0 : null"
                   [attr.rowspan]="hasColumnCategories() ? 2 : 1"
                   style="width:120px"
-                >Actions</th>
+                >
+                  Actions
+                </th>
               }
             </tr>
             @if (hasColumnCategories()) {
@@ -342,13 +467,34 @@ export class NgxGridFooterTemplateDirective {
                 <tr class="grid-group-row" (click)="toggleGroup(group.key)">
                   @if (groupAggregations()) {
                     @if (rowReorderable()) {
-                      <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; width:44px"></td>
+                      <td
+                        class="grid-td grid-td-reorder pinned-left"
+                        [class.pinned-left-last]="isRowReorderableLastPinned()"
+                        style="left:0px; width:44px"
+                      ></td>
                     }
                     @if (showDetailToggle()) {
-                      <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></td>
+                      <td
+                        class="grid-td grid-td-toggle pinned-left"
+                        [class.pinned-left-last]="isDetailToggleLastPinned()"
+                        [style.left.px]="rowReorderable() ? 44 : 0"
+                        style="width:44px"
+                      ></td>
                     }
                     @if (selectable()) {
-                      <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px"><input type="checkbox" [checked]="isGroupAllSelected(group)" (change)="toggleGroupSelection(group, $event)" (click)="$event.stopPropagation()" /></td>
+                      <td
+                        class="grid-td grid-td-check pinned-left"
+                        [class.pinned-left-last]="isSelectableLastPinned()"
+                        [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"
+                        style="width:44px"
+                      >
+                        <input
+                          type="checkbox"
+                          [checked]="isGroupAllSelected(group)"
+                          (change)="toggleGroupSelection(group, $event)"
+                          (click)="$event.stopPropagation()"
+                        />
+                      </td>
                     }
                     @for (col of orderedColumns(); track col.field; let first = $first) {
                       <td
@@ -356,7 +502,9 @@ export class NgxGridFooterTemplateDirective {
                         [class.pinned-left]="col.pinned === 'left'"
                         [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
                         [class.pinned-right]="col.pinned === 'right'"
-                        [class.pinned-right-first]="col.pinned === 'right' && firstPinnedRightColumnField() === col.field"
+                        [class.pinned-right-first]="
+                          col.pinned === 'right' && firstPinnedRightColumnField() === col.field
+                        "
                         [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
                         [style.right.px]="col.pinned === 'right' ? columnRightOffsets()[col.field] : null"
                         [style.text-align]="col.align ?? 'left'"
@@ -364,10 +512,16 @@ export class NgxGridFooterTemplateDirective {
                       >
                         @if (first) {
                           <div style="display: flex; align-items: center; gap: 4px;">
-                            <button class="group-toggle" type="button" (click)="toggleGroup(group.key); $event.stopPropagation()" style="background: transparent; border: none; cursor: pointer; padding: 0 4px; font-weight: bold; color: inherit; outline: none;">
+                            <button
+                              class="group-toggle"
+                              type="button"
+                              (click)="toggleGroup(group.key); $event.stopPropagation()"
+                              style="background: transparent; border: none; cursor: pointer; padding: 0 4px; font-weight: bold; color: inherit; outline: none;"
+                            >
                               {{ isGroupCollapsed(group.key) ? '▸' : '▾' }}
                             </button>
-                            <strong>{{ col.category ? '' : group.field + ': ' }}</strong>{{ group.value }} <span class="group-count">({{ group.count }})</span>
+                            <strong>{{ col.category ? '' : group.field + ': ' }}</strong
+                            >{{ group.value }} <span class="group-count">({{ group.count }})</span>
                           </div>
                         } @else if (col.aggregation) {
                           <span class="agg-label">{{ col.aggregation }}: </span>
@@ -384,10 +538,15 @@ export class NgxGridFooterTemplateDirective {
                     }
                   } @else {
                     <td [attr.colspan]="renderColumnCount()">
-                      <button class="group-toggle" type="button" (click)="toggleGroup(group.key); $event.stopPropagation()">
+                      <button
+                        class="group-toggle"
+                        type="button"
+                        (click)="toggleGroup(group.key); $event.stopPropagation()"
+                      >
                         {{ isGroupCollapsed(group.key) ? '▸' : '▾' }}
                       </button>
-                      <strong>{{ group.field }}</strong>: {{ group.value }}
+                      <strong>{{ group.field }}</strong
+                      >: {{ group.value }}
                       <span class="group-count">({{ group.count }})</span>
                     </td>
                   }
@@ -407,9 +566,30 @@ export class NgxGridFooterTemplateDirective {
                       (dblclick)="editable() ? beginEdit(row, i) : null"
                     >
                       @if (rowReorderable()) {
-                        <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
-                          <span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, i)" (dragend)="onRowDragEnd()" title="Drag row to reorder">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                        <td
+                          class="grid-td grid-td-reorder pinned-left"
+                          [class.pinned-left-last]="isRowReorderableLastPinned()"
+                          style="left:0px; text-align:center; width:44px"
+                        >
+                          <span
+                            class="row-drag-handle"
+                            draggable="true"
+                            (dragstart)="onRowDragStart($event, i)"
+                            (dragend)="onRowDragEnd()"
+                            [attr.title]="i18n.grid.dragRowToReorder"
+                            [attr.aria-label]="i18n.grid.dragRowToReorder"
+                          >
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="16"
+                              height="16"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="display: block;"
+                            >
                               <circle cx="9" cy="5" r="1.5"></circle>
                               <circle cx="9" cy="12" r="1.5"></circle>
                               <circle cx="9" cy="19" r="1.5"></circle>
@@ -422,9 +602,30 @@ export class NgxGridFooterTemplateDirective {
                       }
 
                       @if (showDetailToggle()) {
-                        <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
-                          <button class="toggle-btn" [class.expanded]="isExpanded(row)" type="button" (click)="toggleDetail(row); $event.stopPropagation()" title="Toggle Detail">
-                            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                        <td
+                          class="grid-td grid-td-toggle pinned-left"
+                          [class.pinned-left-last]="isDetailToggleLastPinned()"
+                          [style.left.px]="rowReorderable() ? 44 : 0"
+                        >
+                          <button
+                            class="toggle-btn"
+                            [class.expanded]="isExpanded(row)"
+                            type="button"
+                            (click)="toggleDetail(row); $event.stopPropagation()"
+                            [attr.title]="i18n.grid.toggleDetails"
+                            [attr.aria-label]="i18n.grid.toggleDetails"
+                          >
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="12"
+                              height="12"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="3.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="chevron-icon"
+                            >
                               <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                           </button>
@@ -432,18 +633,35 @@ export class NgxGridFooterTemplateDirective {
                       }
 
                       @if (selectable()) {
-                        <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"><input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" /></td>
+                        <td
+                          class="grid-td grid-td-check pinned-left"
+                          [class.pinned-left-last]="isSelectableLastPinned()"
+                          [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"
+                        >
+                          <input
+                            type="checkbox"
+                            [attr.aria-label]="i18n.grid.selectRow(rowSelectionKey(row))"
+                            [checked]="isRowSelected(row)"
+                            (change)="toggleRow(row)"
+                            (click)="$event.stopPropagation()"
+                          />
+                        </td>
                       }
 
                       @if (rowTemplate()) {
                         <td class="grid-td" [attr.colspan]="orderedColumns().length + (editable() ? 1 : 0)">
-                          <ng-container *ngTemplateOutlet="rowTemplate(); context: {
-                            $implicit: row,
-                            row: row,
-                            index: i,
-                            editing: isEditing(row),
-                            expanded: isExpanded(row)
-                          }" />
+                          <ng-container
+                            *ngTemplateOutlet="
+                              rowTemplate();
+                              context: {
+                                $implicit: row,
+                                row: row,
+                                index: i,
+                                editing: isEditing(row),
+                                expanded: isExpanded(row),
+                              }
+                            "
+                          />
                         </td>
                       } @else {
                         @for (col of orderedColumns(); track col.field) {
@@ -454,9 +672,22 @@ export class NgxGridFooterTemplateDirective {
                               [class.pinned-left]="col.pinned === 'left'"
                               [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
                               [class.pinned-right]="col.pinned === 'right'"
-                              [class.pinned-right-first]="col.pinned === 'right' && firstPinnedRightColumnField() === col.field"
+                              [class.pinned-right-first]="
+                                col.pinned === 'right' && firstPinnedRightColumnField() === col.field
+                              "
                               [class.cell-focused]="focusedCell()?.row === row && focusedCell()?.colField === col.field"
-                              [class.cell-focused-editing]="focusedCell()?.row === row && focusedCell()?.colField === col.field && focusedCellEditActive()"
+                              [attr.tabindex]="
+                                keyboardNavigation() || enableContextMenu()
+                                  ? focusedCell()?.row === row && focusedCell()?.colField === col.field
+                                    ? 0
+                                    : -1
+                                  : null
+                              "
+                              [class.cell-focused-editing]="
+                                focusedCell()?.row === row &&
+                                focusedCell()?.colField === col.field &&
+                                focusedCellEditActive()
+                              "
                               [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
                               [style.right.px]="col.pinned === 'right' ? columnRightOffsets()[col.field] : null"
                               [style.text-align]="col.align ?? 'left'"
@@ -465,20 +696,25 @@ export class NgxGridFooterTemplateDirective {
                               (mousedown)="onCellMouseDown($event, row, col.field)"
                               (mouseenter)="onCellMouseEnter(row, col.field)"
                               (contextmenu)="onCellContextMenu($event, row, col.field)"
-                              (click)="onCellClick(row, col.field)"
+                              (click)="onCellClick(row, col.field, $event)"
                             >
                               @if (isEditing(row) && editable() && col.editable) {
                                 @if (resolveEditCellTemplate(col); as activeEditTemplate) {
-                                  <ng-container *ngTemplateOutlet="activeEditTemplate; context: {
-                                    $implicit: getDraftValue(row, col.field),
-                                    value: getCellValue(row, col.field),
-                                    row: row,
-                                    column: col,
-                                    index: i,
-                                    editing: true,
-                                    draftValue: getDraftValue(row, col.field),
-                                    updateDraft: getUpdateDraftCallback(col.field)
-                                  }" />
+                                  <ng-container
+                                    *ngTemplateOutlet="
+                                      activeEditTemplate;
+                                      context: {
+                                        $implicit: getDraftValue(row, col.field),
+                                        value: getCellValue(row, col.field),
+                                        row: row,
+                                        column: col,
+                                        index: i,
+                                        editing: true,
+                                        draftValue: getDraftValue(row, col.field),
+                                        updateDraft: getUpdateDraftCallback(col.field),
+                                      }
+                                    "
+                                  />
                                 } @else {
                                   <input
                                     class="grid-edit-input"
@@ -488,14 +724,19 @@ export class NgxGridFooterTemplateDirective {
                                   />
                                 }
                               } @else if (resolveCellTemplate(col)) {
-                                <ng-container *ngTemplateOutlet="resolveCellTemplate(col)!; context: {
-                                  $implicit: getCellValue(row, col.field),
-                                  value: getCellValue(row, col.field),
-                                  row: row,
-                                  column: col,
-                                  index: i,
-                                  editing: isEditing(row)
-                                }" />
+                                <ng-container
+                                  *ngTemplateOutlet="
+                                    resolveCellTemplate(col)!;
+                                    context: {
+                                      $implicit: getCellValue(row, col.field),
+                                      value: getCellValue(row, col.field),
+                                      row: row,
+                                      column: col,
+                                      index: i,
+                                      editing: isEditing(row),
+                                    }
+                                  "
+                                />
                               } @else {
                                 @if (showGlobalSearch() && searchText()) {
                                   <span [innerHTML]="highlightSearchText(getCellValue(row, col.field))"></span>
@@ -516,10 +757,24 @@ export class NgxGridFooterTemplateDirective {
                             style="width:120px"
                           >
                             @if (!isEditing(row)) {
-                              <button class="action-btn" type="button" (click)="beginEdit(row, i); $event.stopPropagation()">Edit</button>
+                              <button
+                                class="action-btn"
+                                type="button"
+                                (click)="beginEdit(row, i); $event.stopPropagation()"
+                              >
+                                Edit
+                              </button>
                             } @else {
-                              <button class="action-btn save" type="button" (click)="saveEdit(row, i); $event.stopPropagation()">Save</button>
-                              <button class="action-btn" type="button" (click)="cancelEdit(); $event.stopPropagation()">Cancel</button>
+                              <button
+                                class="action-btn save"
+                                type="button"
+                                (click)="saveEdit(row, i); $event.stopPropagation()"
+                              >
+                                Save
+                              </button>
+                              <button class="action-btn" type="button" (click)="cancelEdit(); $event.stopPropagation()">
+                                Cancel
+                              </button>
                             }
                           </td>
                         }
@@ -530,11 +785,16 @@ export class NgxGridFooterTemplateDirective {
                       <tr class="grid-detail-row" [class.expanded]="isExpanded(row)">
                         <td [attr.colspan]="renderColumnCount()" class="grid-detail-cell">
                           <div class="detail-wrapper" [class.expanded]="isExpanded(row)">
-                            <ng-container *ngTemplateOutlet="detailRowTemplate(); context: {
-                              $implicit: row,
-                              row: row,
-                              index: i
-                            }" />
+                            <ng-container
+                              *ngTemplateOutlet="
+                                detailRowTemplate();
+                                context: {
+                                  $implicit: row,
+                                  row: row,
+                                  index: i,
+                                }
+                              "
+                            />
                           </div>
                         </td>
                       </tr>
@@ -548,7 +808,11 @@ export class NgxGridFooterTemplateDirective {
                   <td [attr.colspan]="renderColumnCount()" style="padding:0; border:none; height: inherit;"></td>
                 </tr>
               }
-              @for (row of (virtualScroll() ? visibleRows() : flatRenderedRows()); track getKey(row, $index); let i = $index) {
+              @for (
+                row of virtualScroll() ? visibleRows() : flatRenderedRows();
+                track getKey(row, $index);
+                let i = $index
+              ) {
                 @let actualIndex = virtualScroll() ? startIndex() + i : i;
                 <tr
                   [class]="'grid-row ' + getRowCustomClass(row)"
@@ -563,9 +827,30 @@ export class NgxGridFooterTemplateDirective {
                   (dblclick)="editable() ? beginEdit(row, actualIndex) : null"
                 >
                   @if (rowReorderable()) {
-                    <td class="grid-td grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; text-align:center; width:44px">
-                      <span class="row-drag-handle" draggable="true" (dragstart)="onRowDragStart($event, actualIndex)" (dragend)="onRowDragEnd()" title="Drag row to reorder">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                    <td
+                      class="grid-td grid-td-reorder pinned-left"
+                      [class.pinned-left-last]="isRowReorderableLastPinned()"
+                      style="left:0px; text-align:center; width:44px"
+                    >
+                      <span
+                        class="row-drag-handle"
+                        draggable="true"
+                        (dragstart)="onRowDragStart($event, actualIndex)"
+                        (dragend)="onRowDragEnd()"
+                        [attr.title]="i18n.grid.dragRowToReorder"
+                        [attr.aria-label]="i18n.grid.dragRowToReorder"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="display: block;"
+                        >
                           <circle cx="9" cy="5" r="1.5"></circle>
                           <circle cx="9" cy="12" r="1.5"></circle>
                           <circle cx="9" cy="19" r="1.5"></circle>
@@ -578,9 +863,30 @@ export class NgxGridFooterTemplateDirective {
                   }
 
                   @if (showDetailToggle()) {
-                    <td class="grid-td grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0">
-                      <button class="toggle-btn" [class.expanded]="isExpanded(row)" type="button" (click)="toggleDetail(row); $event.stopPropagation()" title="Toggle Detail">
-                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                    <td
+                      class="grid-td grid-td-toggle pinned-left"
+                      [class.pinned-left-last]="isDetailToggleLastPinned()"
+                      [style.left.px]="rowReorderable() ? 44 : 0"
+                    >
+                      <button
+                        class="toggle-btn"
+                        [class.expanded]="isExpanded(row)"
+                        type="button"
+                        (click)="toggleDetail(row); $event.stopPropagation()"
+                        [attr.title]="i18n.grid.toggleDetails"
+                        [attr.aria-label]="i18n.grid.toggleDetails"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="12"
+                          height="12"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="3.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="chevron-icon"
+                        >
                           <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                       </button>
@@ -588,18 +894,35 @@ export class NgxGridFooterTemplateDirective {
                   }
 
                   @if (selectable()) {
-                    <td class="grid-td grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"><input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRow(row)" (click)="$event.stopPropagation()" /></td>
+                    <td
+                      class="grid-td grid-td-check pinned-left"
+                      [class.pinned-left-last]="isSelectableLastPinned()"
+                      [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"
+                    >
+                      <input
+                        type="checkbox"
+                        [attr.aria-label]="i18n.grid.selectRow(rowSelectionKey(row))"
+                        [checked]="isRowSelected(row)"
+                        (change)="toggleRow(row)"
+                        (click)="$event.stopPropagation()"
+                      />
+                    </td>
                   }
 
                   @if (rowTemplate()) {
                     <td class="grid-td" [attr.colspan]="orderedColumns().length + (editable() ? 1 : 0)">
-                      <ng-container *ngTemplateOutlet="rowTemplate(); context: {
-                        $implicit: row,
-                        row: row,
-                        index: actualIndex,
-                        editing: isEditing(row),
-                        expanded: isExpanded(row)
-                      }" />
+                      <ng-container
+                        *ngTemplateOutlet="
+                          rowTemplate();
+                          context: {
+                            $implicit: row,
+                            row: row,
+                            index: actualIndex,
+                            editing: isEditing(row),
+                            expanded: isExpanded(row),
+                          }
+                        "
+                      />
                     </td>
                   } @else {
                     @for (col of orderedColumns(); track col.field) {
@@ -610,9 +933,22 @@ export class NgxGridFooterTemplateDirective {
                           [class.pinned-left]="col.pinned === 'left'"
                           [class.pinned-left-last]="col.pinned === 'left' && lastPinnedColumnField() === col.field"
                           [class.pinned-right]="col.pinned === 'right'"
-                          [class.pinned-right-first]="col.pinned === 'right' && firstPinnedRightColumnField() === col.field"
+                          [class.pinned-right-first]="
+                            col.pinned === 'right' && firstPinnedRightColumnField() === col.field
+                          "
                           [class.cell-focused]="focusedCell()?.row === row && focusedCell()?.colField === col.field"
-                          [class.cell-focused-editing]="focusedCell()?.row === row && focusedCell()?.colField === col.field && focusedCellEditActive()"
+                          [attr.tabindex]="
+                            keyboardNavigation() || enableContextMenu()
+                              ? focusedCell()?.row === row && focusedCell()?.colField === col.field
+                                ? 0
+                                : -1
+                              : null
+                          "
+                          [class.cell-focused-editing]="
+                            focusedCell()?.row === row &&
+                            focusedCell()?.colField === col.field &&
+                            focusedCellEditActive()
+                          "
                           [style.left.px]="col.pinned === 'left' ? columnOffsets()[col.field] : null"
                           [style.right.px]="col.pinned === 'right' ? columnRightOffsets()[col.field] : null"
                           [style.text-align]="col.align ?? 'left'"
@@ -621,20 +957,25 @@ export class NgxGridFooterTemplateDirective {
                           (mousedown)="onCellMouseDown($event, row, col.field)"
                           (mouseenter)="onCellMouseEnter(row, col.field)"
                           (contextmenu)="onCellContextMenu($event, row, col.field)"
-                          (click)="onCellClick(row, col.field)"
+                          (click)="onCellClick(row, col.field, $event)"
                         >
                           @if (isEditing(row) && editable() && col.editable) {
                             @if (resolveEditCellTemplate(col); as activeEditTemplate) {
-                              <ng-container *ngTemplateOutlet="activeEditTemplate; context: {
-                                $implicit: getDraftValue(row, col.field),
-                                value: getCellValue(row, col.field),
-                                row: row,
-                                column: col,
-                                index: actualIndex,
-                                editing: true,
-                                draftValue: getDraftValue(row, col.field),
-                                updateDraft: getUpdateDraftCallback(col.field)
-                              }" />
+                              <ng-container
+                                *ngTemplateOutlet="
+                                  activeEditTemplate;
+                                  context: {
+                                    $implicit: getDraftValue(row, col.field),
+                                    value: getCellValue(row, col.field),
+                                    row: row,
+                                    column: col,
+                                    index: actualIndex,
+                                    editing: true,
+                                    draftValue: getDraftValue(row, col.field),
+                                    updateDraft: getUpdateDraftCallback(col.field),
+                                  }
+                                "
+                              />
                             } @else {
                               <input
                                 class="grid-edit-input"
@@ -644,14 +985,19 @@ export class NgxGridFooterTemplateDirective {
                               />
                             }
                           } @else if (resolveCellTemplate(col)) {
-                            <ng-container *ngTemplateOutlet="resolveCellTemplate(col)!; context: {
-                              $implicit: getCellValue(row, col.field),
-                              value: getCellValue(row, col.field),
-                              row: row,
-                              column: col,
-                              index: actualIndex,
-                              editing: isEditing(row)
-                            }" />
+                            <ng-container
+                              *ngTemplateOutlet="
+                                resolveCellTemplate(col)!;
+                                context: {
+                                  $implicit: getCellValue(row, col.field),
+                                  value: getCellValue(row, col.field),
+                                  row: row,
+                                  column: col,
+                                  index: actualIndex,
+                                  editing: isEditing(row),
+                                }
+                              "
+                            />
                           } @else {
                             @if (showGlobalSearch() && searchText()) {
                               <span [innerHTML]="highlightSearchText(getCellValue(row, col.field))"></span>
@@ -672,10 +1018,24 @@ export class NgxGridFooterTemplateDirective {
                         style="width:120px"
                       >
                         @if (!isEditing(row)) {
-                          <button class="action-btn" type="button" (click)="beginEdit(row, actualIndex); $event.stopPropagation()">Edit</button>
+                          <button
+                            class="action-btn"
+                            type="button"
+                            (click)="beginEdit(row, actualIndex); $event.stopPropagation()"
+                          >
+                            Edit
+                          </button>
                         } @else {
-                          <button class="action-btn save" type="button" (click)="saveEdit(row, actualIndex); $event.stopPropagation()">Save</button>
-                          <button class="action-btn" type="button" (click)="cancelEdit(); $event.stopPropagation()">Cancel</button>
+                          <button
+                            class="action-btn save"
+                            type="button"
+                            (click)="saveEdit(row, actualIndex); $event.stopPropagation()"
+                          >
+                            Save
+                          </button>
+                          <button class="action-btn" type="button" (click)="cancelEdit(); $event.stopPropagation()">
+                            Cancel
+                          </button>
                         }
                       </td>
                     }
@@ -686,11 +1046,16 @@ export class NgxGridFooterTemplateDirective {
                   <tr class="grid-detail-row" [class.expanded]="isExpanded(row)">
                     <td [attr.colspan]="renderColumnCount()" class="grid-detail-cell">
                       <div class="detail-wrapper" [class.expanded]="isExpanded(row)">
-                        <ng-container *ngTemplateOutlet="detailRowTemplate(); context: {
-                          $implicit: row,
-                          row: row,
-                          index: actualIndex
-                        }" />
+                        <ng-container
+                          *ngTemplateOutlet="
+                            detailRowTemplate();
+                            context: {
+                              $implicit: row,
+                              row: row,
+                              index: actualIndex,
+                            }
+                          "
+                        />
                       </div>
                     </td>
                   </tr>
@@ -707,13 +1072,27 @@ export class NgxGridFooterTemplateDirective {
             <tfoot>
               <tr class="grid-footer-row">
                 @if (rowReorderable()) {
-                  <td class="grid-td-reorder pinned-left" [class.pinned-left-last]="isRowReorderableLastPinned()" style="left:0px; width:44px"></td>
+                  <td
+                    class="grid-td-reorder pinned-left"
+                    [class.pinned-left-last]="isRowReorderableLastPinned()"
+                    style="left:0px; width:44px"
+                  ></td>
                 }
                 @if (showDetailToggle()) {
-                  <td class="grid-td-toggle pinned-left" [class.pinned-left-last]="isDetailToggleLastPinned()" [style.left.px]="rowReorderable() ? 44 : 0" style="width:44px"></td>
+                  <td
+                    class="grid-td-toggle pinned-left"
+                    [class.pinned-left-last]="isDetailToggleLastPinned()"
+                    [style.left.px]="rowReorderable() ? 44 : 0"
+                    style="width:44px"
+                  ></td>
                 }
                 @if (selectable()) {
-                  <td class="grid-td-check pinned-left" [class.pinned-left-last]="isSelectableLastPinned()" [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)" style="width:44px"></td>
+                  <td
+                    class="grid-td-check pinned-left"
+                    [class.pinned-left-last]="isSelectableLastPinned()"
+                    [style.left.px]="(rowReorderable() ? 44 : 0) + (showDetailToggle() ? 44 : 0)"
+                    style="width:44px"
+                  ></td>
                 }
                 @for (col of orderedColumns(); track col.field) {
                   <td
@@ -728,12 +1107,17 @@ export class NgxGridFooterTemplateDirective {
                     [style.width.px]="getColumnWidth(col)"
                   >
                     @if (resolveFooterTemplate(col); as activeFooterTemplate) {
-                      <ng-container *ngTemplateOutlet="activeFooterTemplate; context: {
-                        $implicit: col,
-                        column: col,
-                        aggregationValue: getAggregationValue(col),
-                        data: flatRenderedRows()
-                      }" />
+                      <ng-container
+                        *ngTemplateOutlet="
+                          activeFooterTemplate;
+                          context: {
+                            $implicit: col,
+                            column: col,
+                            aggregationValue: getAggregationValue(col),
+                            data: flatRenderedRows(),
+                          }
+                        "
+                      />
                     } @else if (col.aggregation) {
                       <span class="agg-label">{{ col.aggregation }}: </span>
                       <strong class="agg-value">{{ getAggregationValue(col) }}</strong>
@@ -757,11 +1141,17 @@ export class NgxGridFooterTemplateDirective {
         <div class="grid-pagination">
           <div class="pagination-left">
             <span class="page-info">
-              {{ i18n.pagination.page }} <strong class="page-info-highlight">{{ pagerRangeStart() }}–{{ pagerRangeEnd() }}</strong> {{ i18n.pagination.of }} <strong class="page-info-highlight">{{ totalItems() }}</strong>
+              {{ i18n.pagination.page }}
+              <strong class="page-info-highlight">{{ pagerRangeStart() }}–{{ pagerRangeEnd() }}</strong>
+              {{ i18n.pagination.of }} <strong class="page-info-highlight">{{ totalItems() }}</strong>
             </span>
             <div class="page-size-selector">
               <span class="page-size-label">{{ i18n.pagination.itemsPerPage }}:</span>
-              <select [value]="internalPageSize()" (change)="changePageSize(+$any($event.target).value)" class="page-size-select">
+              <select
+                [value]="internalPageSize()"
+                (change)="changePageSize(+$any($event.target).value)"
+                class="page-size-select"
+              >
                 <option [value]="5">5</option>
                 <option [value]="8">8</option>
                 <option [value]="10">10</option>
@@ -772,31 +1162,89 @@ export class NgxGridFooterTemplateDirective {
             </div>
           </div>
           <div class="page-btns">
-            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(1)" [title]="i18n.pagination.firstPage">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <button
+              class="page-btn ctrl"
+              [disabled]="currentPage() === 1"
+              (click)="goPage(1)"
+              [title]="i18n.pagination.firstPage"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <polyline points="11 17 6 12 11 7"></polyline>
                 <polyline points="18 17 13 12 18 7"></polyline>
               </svg>
             </button>
-            <button class="page-btn ctrl" [disabled]="currentPage() === 1" (click)="goPage(currentPage() - 1)" [title]="i18n.pagination.previousPage">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <button
+              class="page-btn ctrl"
+              [disabled]="currentPage() === 1"
+              (click)="goPage(currentPage() - 1)"
+              [title]="i18n.pagination.previousPage"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
-            
+
             <div class="page-numbers">
               @for (p of pageNumbers(); track p) {
-                <button class="page-btn number" [class.active]="p === currentPage()" (click)="goPage(p)">{{ p }}</button>
+                <button class="page-btn number" [class.active]="p === currentPage()" (click)="goPage(p)">
+                  {{ p }}
+                </button>
               }
             </div>
 
-            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(currentPage() + 1)" [title]="i18n.pagination.nextPage">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <button
+              class="page-btn ctrl"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goPage(currentPage() + 1)"
+              [title]="i18n.pagination.nextPage"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
-            <button class="page-btn ctrl" [disabled]="currentPage() === totalPages()" (click)="goPage(totalPages())" [title]="i18n.pagination.lastPage">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <button
+              class="page-btn ctrl"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goPage(totalPages())"
+              [title]="i18n.pagination.lastPage"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <polyline points="13 17 18 12 13 7"></polyline>
                 <polyline points="6 17 11 12 6 7"></polyline>
               </svg>
@@ -807,31 +1255,72 @@ export class NgxGridFooterTemplateDirective {
 
       <!-- Excel-Style Filter Popover Overlay -->
       @if (activeFilterPopover(); as pop) {
-        <div class="grid-filter-popover" [style.top.px]="pop.top" [style.left.px]="pop.left" (click)="$event.stopPropagation()">
+        <div
+          class="grid-filter-popover"
+          role="dialog"
+          [attr.aria-label]="i18n.grid.filterColumn + ': ' + getColumnTitle(pop.field)"
+          [style.top.px]="pop.top"
+          [style.left.px]="pop.left"
+          (click)="$event.stopPropagation()"
+        >
           <div class="popover-section pinning-section">
-            <label class="popover-label">Pin Column</label>
+            <label class="popover-label">{{ i18n.grid.pinColumn }}</label>
             <div class="pinning-actions">
-              <button class="pin-btn" [class.active]="getColumnPinnedState(pop.field) === 'left'" (click)="pinColumnPopover(pop.field, 'left')" type="button">Left</button>
-              <button class="pin-btn" [class.active]="getColumnPinnedState(pop.field) === 'right'" (click)="pinColumnPopover(pop.field, 'right')" type="button">Right</button>
-              <button class="pin-btn" [class.active]="getColumnPinnedState(pop.field) === null" (click)="pinColumnPopover(pop.field, null)" type="button">No Pin</button>
+              <button
+                class="pin-btn"
+                [class.active]="getColumnPinnedState(pop.field) === 'left'"
+                [attr.aria-pressed]="getColumnPinnedState(pop.field) === 'left'"
+                (click)="pinColumnPopover(pop.field, 'left')"
+                type="button"
+              >
+                {{ i18n.grid.pinLeft }}
+              </button>
+              <button
+                class="pin-btn"
+                [class.active]="getColumnPinnedState(pop.field) === 'right'"
+                [attr.aria-pressed]="getColumnPinnedState(pop.field) === 'right'"
+                (click)="pinColumnPopover(pop.field, 'right')"
+                type="button"
+              >
+                {{ i18n.grid.pinRight }}
+              </button>
+              <button
+                class="pin-btn"
+                [class.active]="getColumnPinnedState(pop.field) === null"
+                [attr.aria-pressed]="getColumnPinnedState(pop.field) === null"
+                (click)="pinColumnPopover(pop.field, null)"
+                type="button"
+              >
+                {{ i18n.grid.noPin }}
+              </button>
             </div>
           </div>
 
           <div class="popover-section text-filter-section">
-            <label class="popover-label">Text Filter</label>
+            <label class="popover-label">{{ i18n.grid.textFilter }}</label>
             <div class="text-filter-row">
-              <select class="popover-select" [value]="tempFilterOperator()" (change)="tempFilterOperator.set($any($event.target).value)">
-                <option value="contains">Contains</option>
-                <option value="eq">Equals</option>
-                <option value="startsWith">Starts With</option>
-                <option value="endsWith">Ends With</option>
+              <select
+                class="popover-select"
+                [value]="tempFilterOperator()"
+                (change)="tempFilterOperator.set($any($event.target).value)"
+              >
+                <option value="contains">{{ i18n.grid.contains }}</option>
+                <option value="eq">{{ i18n.grid.equals }}</option>
+                <option value="startsWith">{{ i18n.grid.startsWith }}</option>
+                <option value="endsWith">{{ i18n.grid.endsWith }}</option>
               </select>
-              <input class="popover-input" type="text" [value]="tempFilterValue()" (input)="tempFilterValue.set($any($event.target).value)" [placeholder]="i18n.grid.filterPlaceholder" />
+              <input
+                class="popover-input"
+                type="text"
+                [value]="tempFilterValue()"
+                (input)="tempFilterValue.set($any($event.target).value)"
+                [placeholder]="i18n.grid.filterPlaceholder"
+              />
             </div>
           </div>
-          
+
           <div class="popover-section checklist-section">
-            <label class="popover-label">Checklist Filter</label>
+            <label class="popover-label">{{ i18n.grid.checklistFilter }}</label>
             <input
               class="checklist-search"
               type="text"
@@ -841,25 +1330,39 @@ export class NgxGridFooterTemplateDirective {
             />
             <div class="checklist-actions">
               <label class="checklist-item select-all">
-                <input type="checkbox" [checked]="tempSelectedValues().size === getFilteredDistinctValues(pop.field).length" [indeterminate]="tempSelectedValues().size > 0 && tempSelectedValues().size < getFilteredDistinctValues(pop.field).length" (change)="toggleSelectAllChecklist()" />
+                <input
+                  type="checkbox"
+                  [checked]="tempSelectedValues().size === getFilteredDistinctValues(pop.field).length"
+                  [indeterminate]="
+                    tempSelectedValues().size > 0 &&
+                    tempSelectedValues().size < getFilteredDistinctValues(pop.field).length
+                  "
+                  (change)="toggleSelectAllChecklist()"
+                />
                 <span>({{ i18n.grid.selectAll }})</span>
               </label>
             </div>
             <div class="checklist-scroll">
               @for (val of getFilteredDistinctValues(pop.field); track val) {
                 <label class="checklist-item">
-                  <input type="checkbox" [checked]="tempSelectedValues().has(val)" (change)="toggleChecklistItem(val)" />
+                  <input
+                    type="checkbox"
+                    [checked]="tempSelectedValues().has(val)"
+                    (change)="toggleChecklistItem(val)"
+                  />
                   <span>{{ val }}</span>
                 </label>
               }
             </div>
           </div>
-          
+
           <div class="popover-footer">
             <button class="popover-btn clear" (click)="clearPopoverFilter()">{{ i18n.datePicker.clear }}</button>
             <div class="footer-actions">
-              <button class="popover-btn cancel" (click)="activeFilterPopover.set(null)">{{ i18n.common.cancel }}</button>
-              <button class="popover-btn apply" (click)="applyPopoverFilter()">Apply</button>
+              <button class="popover-btn cancel" (click)="closeFilterPopover()">
+                {{ i18n.common.cancel }}
+              </button>
+              <button class="popover-btn apply" (click)="applyPopoverFilter()">{{ i18n.grid.apply }}</button>
             </div>
           </div>
         </div>
@@ -867,27 +1370,104 @@ export class NgxGridFooterTemplateDirective {
 
       <!-- Column Chooser Popover Overlay -->
       @if (activeColumnChooserPopover(); as pop) {
-        <div class="grid-column-chooser-popover" [style.top.px]="pop.top" [style.left.px]="pop.left" (click)="$event.stopPropagation()">
+        <div
+          [id]="instanceId + '-column-chooser'"
+          class="grid-column-chooser-popover"
+          role="region"
+          [attr.aria-label]="i18n.grid.chooseColumns"
+          [style.top.px]="pop.top"
+          [style.left.px]="pop.left"
+          (click)="$event.stopPropagation()"
+        >
           <div class="popover-section checklist-section" style="border-top: none; padding-top: 0;">
-            <label class="popover-label">Visible Columns</label>
+            <span class="popover-label">{{ i18n.grid.visibleColumns }}</span>
             <div class="checklist-scroll">
               @for (col of columns(); track col.field) {
-                <label class="checklist-item">
-                  <input type="checkbox" [checked]="!hiddenColumns().has(col.field)" (change)="toggleColumnVisibility(col.field)" />
-                  <span>{{ col.title }}</span>
-                </label>
+                <div class="column-config-item">
+                  <label class="checklist-item">
+                    <input
+                      #firstColumnToggle
+                      type="checkbox"
+                      [checked]="!hiddenColumns().has(col.field)"
+                      [disabled]="!hiddenColumns().has(col.field) && visibleColumnsCount() === 1"
+                      (change)="toggleColumnVisibility(col.field)"
+                    />
+                    <span>{{ col.title }}</span>
+                  </label>
+                  <div class="column-config-actions">
+                    <button
+                      class="column-config-btn"
+                      type="button"
+                      [attr.aria-label]="i18n.grid.pinLeft + ': ' + col.title"
+                      [attr.aria-pressed]="getColumnPinnedState(col.field) === 'left'"
+                      [title]="i18n.grid.pinLeft"
+                      (click)="pinColumnPopover(col.field, 'left')"
+                    >
+                      ⇤
+                    </button>
+                    <button
+                      class="column-config-btn"
+                      type="button"
+                      [attr.aria-label]="i18n.grid.pinRight + ': ' + col.title"
+                      [attr.aria-pressed]="getColumnPinnedState(col.field) === 'right'"
+                      [title]="i18n.grid.pinRight"
+                      (click)="pinColumnPopover(col.field, 'right')"
+                    >
+                      ⇥
+                    </button>
+                    <button
+                      class="column-config-btn"
+                      type="button"
+                      [attr.aria-label]="i18n.grid.noPin + ': ' + col.title"
+                      [attr.aria-pressed]="getColumnPinnedState(col.field) === null"
+                      [title]="i18n.grid.noPin"
+                      (click)="pinColumnPopover(col.field, null)"
+                    >
+                      ×
+                    </button>
+                    <button
+                      class="column-config-btn"
+                      type="button"
+                      [attr.aria-label]="i18n.grid.moveColumnLeft(col.title)"
+                      [title]="i18n.grid.moveColumnLeft(col.title)"
+                      [disabled]="columnIndex(col.field) === 0"
+                      (click)="moveColumn(col.field, -1)"
+                    >
+                      ←
+                    </button>
+                    <button
+                      class="column-config-btn"
+                      type="button"
+                      [attr.aria-label]="i18n.grid.moveColumnRight(col.title)"
+                      [title]="i18n.grid.moveColumnRight(col.title)"
+                      [disabled]="columnIndex(col.field) === columns().length - 1"
+                      (click)="moveColumn(col.field, 1)"
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
               }
             </div>
           </div>
           <div class="popover-footer">
-            <button class="popover-btn apply" (click)="activeColumnChooserPopover.set(null)">Close</button>
+            <button class="popover-btn apply" type="button" (click)="closeColumnChooser()">
+              {{ i18n.grid.closeColumnChooser }}
+            </button>
           </div>
         </div>
       }
 
       <!-- Custom Context Menu Overlay -->
       @if (activeContextMenu(); as menu) {
-        <div class="grid-context-menu" [style.top.px]="menu.y" [style.left.px]="menu.x" (click)="$event.stopPropagation()">
+        <div
+          class="grid-context-menu"
+          role="group"
+          [attr.aria-label]="i18n.grid.contextMenu"
+          [style.top.px]="menu.y"
+          [style.left.px]="menu.x"
+          (click)="$event.stopPropagation()"
+        >
           <button class="menu-item" [disabled]="!selectedCellStart()" (click)="contextMenuCopy()">
             <span class="menu-icon">📋</span> Copy Selection
           </button>
@@ -937,16 +1517,16 @@ export class NgxGridFooterTemplateDirective {
             <span class="menu-icon">🧹</span> Clear All Filters
           </button>
           <div class="menu-divider"></div>
-          <button class="menu-item" (click)="exportToJson(); activeContextMenu.set(null)">
+          <button class="menu-item" (click)="exportToJson(); closeContextMenu()">
             <span class="menu-icon">📄</span> Export to JSON
           </button>
-          <button class="menu-item" (click)="exportToCsv(); activeContextMenu.set(null)">
+          <button class="menu-item" (click)="exportToCsv(); closeContextMenu()">
             <span class="menu-icon">📊</span> Export to CSV
           </button>
-          <button class="menu-item" (click)="exportToExcel(); activeContextMenu.set(null)">
+          <button class="menu-item" (click)="exportToExcel(); closeContextMenu()">
             <span class="menu-icon">📈</span> Export to Excel
           </button>
-          <button class="menu-item" (click)="exportToPdf(); activeContextMenu.set(null)">
+          <button class="menu-item" (click)="exportToPdf(); closeContextMenu()">
             <span class="menu-icon">📕</span> Export to PDF
           </button>
         </div>
@@ -958,1088 +1538,21 @@ export class NgxGridFooterTemplateDirective {
       <!-- Advanced Filter Builder Overlay -->
       @if (isFilterBuilderOpen()) {
         <ngx-grid-filter-builder
+          [gridInstanceId]="instanceId"
           [columns]="$any(columns())"
           [expression]="internalFilterExpression()"
           (expressionChange)="onFilterExpressionChange($event)"
-          (close)="isFilterBuilderOpen.set(false)"
+          (close)="closeFilterBuilder()"
         />
       }
     </div>
   `,
-  styles: [`
-    :host { display: block; }
-    
-    /* Custom Scrollbar Styles for premium feel */
-    .grid-table-wrap::-webkit-scrollbar,
-    .checklist-scroll::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .grid-table-wrap::-webkit-scrollbar-track,
-    .checklist-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .grid-table-wrap::-webkit-scrollbar-thumb,
-    .checklist-scroll::-webkit-scrollbar-thumb {
-      background: rgba(100, 116, 139, 0.2);
-      border-radius: 99px;
-    }
-    .grid-table-wrap::-webkit-scrollbar-thumb:hover,
-    .checklist-scroll::-webkit-scrollbar-thumb:hover {
-      background: rgba(100, 116, 139, 0.4);
-    }
-
-    .ngx-data-grid {
-      position: relative;
-      font-family: inherit;
-      border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: var(--ngx-grid-radius, 12px);
-      overflow: hidden; /* Clamps inner children corners */
-      background: var(--ngx-grid-bg, #ffffff);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 4px 6px -4px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.02);
-      transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-    }
-    .grid-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 18px;
-      background: var(--ngx-grid-header-bg, #f8fafc);
-      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .grid-toolbar-title {
-      font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--ngx-grid-text, #0f172a);
-      letter-spacing: -0.01em;
-    }
-    .grid-toolbar-actions {
-      display: flex;
-      gap: 8px;
-    }
-    .grid-action-btn {
-      padding: 6px 14px;
-      border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: 8px;
-      background: var(--ngx-grid-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      outline: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .grid-action-btn:hover {
-      background: var(--ngx-grid-hover-bg, #f8fafc);
-      border-color: var(--ngx-input-focus, #4f46e5);
-      color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.08);
-      transform: translateY(-0.5px);
-    }
-    .grid-action-btn:active {
-      transform: scale(0.97);
-    }
-    .grid-table-wrap { overflow-x: auto; overflow-y: hidden; }
-    .grid-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-    /* Compact Mode styling */
-    .ngx-data-grid.compact .grid-td {
-      padding: 7px 12px;
-      font-size: 12px;
-    }
-    .ngx-data-grid.compact .grid-th {
-      padding: 9px 12px;
-      font-size: 10px;
-    }
-    .ngx-data-grid.compact .grid-grouping-panel {
-      padding: 8px 14px;
-    }
-    .ngx-data-grid.compact .grid-toolbar {
-      padding: 8px 14px;
-    }
-    
-    /* Clear Filters button styling */
-    .clear-filters-btn {
-      border-color: rgba(239, 68, 68, 0.25) !important;
-      background: rgba(239, 68, 68, 0.05) !important;
-      color: #ef4444 !important;
-      font-weight: 600;
-    }
-    .clear-filters-btn:hover {
-      background: #ef4444 !important;
-      color: #ffffff !important;
-      border-color: transparent !important;
-    }
-
-    .grid-th {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      padding: 14px 18px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 750;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      background: var(--ngx-grid-header-bg, #f8fafc);
-      border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
-      white-space: nowrap;
-      user-select: none;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-family: var(--ngx-heading-font-family, 'Outfit', sans-serif);
-      transition: background-color 0.2s ease;
-    }
-    .grid-category-th {
-      text-align: center;
-      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-right: 1px solid var(--ngx-grid-border, #e2e8f0);
-    }
-    .sub-header-row .grid-th {
-      border-bottom: 2px solid var(--ngx-grid-border, #e2e8f0);
-      border-right: 1px solid var(--ngx-grid-border, #f1f5f9);
-    }
-    .grid-th.sortable { cursor: pointer; }
-    .grid-th.sortable:hover { background: var(--ngx-grid-hover-bg, #f1f5f9); color: var(--ngx-grid-text, #0f172a); }
-    .grid-th.sort-asc, .grid-th.sort-desc { color: var(--ngx-input-focus, #4f46e5); background: rgba(79, 70, 229, 0.02); }
-    .th-text { margin-right: 4px; }
-    .sort-icon { font-size: 10px; color: #cbd5e1; transition: color 0.2s ease; }
-    .sort-asc .sort-icon, .sort-desc .sort-icon { color: var(--ngx-input-focus, #4f46e5); }
-    
-    .th-content-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      width: 100%;
-    }
-    .grid-filter-btn {
-      background: transparent;
-      border: none;
-      color: var(--ngx-grid-text-secondary, #94a3b8);
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .grid-filter-btn:hover {
-      background: var(--ngx-grid-hover-bg, #cbd5e1);
-      color: var(--ngx-grid-text, #0f172a);
-    }
-    .grid-filter-btn.active {
-      color: var(--ngx-input-focus, #4f46e5);
-      background: rgba(79, 70, 229, 0.1);
-    }
-    .grid-resize-handle {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 6px;
-      cursor: col-resize;
-      background: transparent;
-      z-index: 10;
-      transition: background-color 0.2s;
-    }
-    .grid-resize-handle:hover,
-    .grid-resize-handle.resizing {
-      background: var(--ngx-input-focus, #4f46e5);
-    }
-    
-    .grid-filter-popover,
-    .grid-column-chooser-popover,
-    .grid-context-menu {
-      position: absolute;
-      width: 250px;
-      background: var(--ngx-grid-bg-glass, rgba(255, 255, 255, 0.8));
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 14px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
-      z-index: 1000;
-      padding: 12px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      font-family: inherit;
-      animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      transform-origin: top center;
-    }
-    .grid-context-menu {
-      width: 190px;
-      padding: 6px;
-      gap: 2px;
-    }
-    @keyframes popoverFadeIn {
-      from { opacity: 0; transform: scale(0.95) translateY(-5px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .checklist-search {
-      padding: 8px 12px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 8px;
-      font-size: 12px;
-      font-family: inherit;
-      outline: none;
-      background: var(--ngx-input-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      width: 100%;
-      box-sizing: border-box;
-      margin-bottom: 4px;
-      transition: all 0.2s ease;
-    }
-    .checklist-search:focus {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
-    }
-    .pinning-section {
-      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
-      padding-bottom: 10px;
-    }
-    .pinning-actions {
-      display: flex;
-      gap: 6px;
-    }
-    .pin-btn {
-      flex: 1;
-      padding: 6px 4px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 6px;
-      background: var(--ngx-input-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s ease;
-      outline: none;
-    }
-    .pin-btn:hover {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      color: var(--ngx-input-focus, #4f46e5);
-      background: rgba(79, 70, 229, 0.02);
-    }
-    .pin-btn.active {
-      border-color: var(--ngx-btn-primary-bg, #4f46e5);
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff;
-      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
-    }
-
-    .popover-section {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .popover-label {
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .text-filter-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .popover-select {
-      padding: 6px 10px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 8px;
-      font-size: 12px;
-      font-family: inherit;
-      outline: none;
-      background: var(--ngx-input-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      cursor: pointer;
-    }
-    .popover-input {
-      padding: 6px 10px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 8px;
-      font-size: 12px;
-      font-family: inherit;
-      outline: none;
-      background: var(--ngx-input-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      transition: all 0.2s;
-    }
-    .popover-input:focus {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
-    }
-    .checklist-section {
-      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
-      padding-top: 10px;
-    }
-    .checklist-scroll {
-      max-height: 140px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: 8px;
-      padding: 8px;
-      background: rgba(255, 255, 255, 0.45);
-    }
-    .checklist-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--ngx-grid-text, #0f172a);
-      cursor: pointer;
-      user-select: none;
-    }
-    .popover-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
-      padding-top: 10px;
-      margin-top: 4px;
-    }
-    .footer-actions {
-      display: flex;
-      gap: 6px;
-    }
-    .popover-btn {
-      padding: 5px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      background: var(--ngx-grid-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      transition: all 0.2s ease;
-      font-family: inherit;
-    }
-    .popover-btn:hover {
-      background: var(--ngx-grid-hover-bg, #f8fafc);
-      border-color: var(--ngx-input-border, #cbd5e1);
-    }
-    .popover-btn.apply {
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff;
-      border-color: var(--ngx-btn-primary-bg, #4f46e5);
-    }
-    .popover-btn.apply:hover {
-      background: var(--ngx-btn-primary-hover, #4338ca);
-      border-color: var(--ngx-btn-primary-hover, #4338ca);
-      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
-    }
-    .popover-btn.clear {
-      color: #ef4444;
-      border-color: transparent;
-      background: transparent;
-    }
-    .popover-btn.clear:hover {
-      background: #fef2f2;
-    }
-
-    .grid-group-row td {
-      background: var(--ngx-grid-header-bg, #f8fafc);
-      border-bottom: 1.5px solid var(--ngx-grid-border, #e2e8f0);
-      color: var(--ngx-grid-text, #0f172a);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 12px 18px;
-      cursor: pointer;
-    }
-    .group-toggle {
-      border: none;
-      background: transparent;
-      margin-right: 6px;
-      cursor: pointer;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      font-size: 12px;
-      transition: transform 0.2s ease;
-    }
-    .group-count { color: var(--ngx-grid-text-secondary, #64748b); margin-left: 6px; font-weight: 500; }
-    .grid-row {
-      border-bottom: 1px solid var(--ngx-grid-border, #f1f5f9);
-      transition: background-color 0.15s ease;
-    }
-    .grid-row:hover { background: var(--ngx-grid-hover-bg, #f5f3ff) !important; }
-    .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
-    .grid-row.selected:hover { background: var(--ngx-grid-selected-bg-hover, #c7d2fe) !important; }
-    .grid-table.striped .grid-row:nth-child(even) { background: var(--ngx-grid-stripe-bg, #f8fafc); }
-    .grid-table.striped .grid-row:nth-child(even):hover { background: var(--ngx-grid-hover-bg, #f5f3ff) !important; }
-    .grid-table.striped .grid-row.selected { background: var(--ngx-grid-selected-bg, #e0e7ff) !important; }
-    .grid-td {
-      padding: 12px 18px;
-      color: var(--ngx-grid-text, #0f172a);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      vertical-align: middle;
-      box-sizing: border-box;
-    }
-    .grid-th-check, .grid-td-check,
-    .grid-th-toggle, .grid-td-toggle,
-    .grid-td-reorder, .grid-th-reorder {
-      width: 44px !important;
-      text-align: center;
-      padding: 0 !important;
-      text-overflow: clip !important;
-    }
-    .toggle-btn {
-      border: none;
-      background: transparent;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      outline: none;
-    }
-    .toggle-btn:hover {
-      background: var(--ngx-grid-hover-bg, #f1f5f9);
-      color: var(--ngx-input-focus, #4f46e5);
-    }
-    .toggle-btn .chevron-icon {
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .toggle-btn.expanded .chevron-icon {
-      transform: rotate(90deg);
-      color: var(--ngx-input-focus, #4f46e5);
-    }
-    .grid-detail-row {
-      background: var(--ngx-grid-bg, #ffffff);
-    }
-    .grid-detail-cell {
-      padding: 0 !important;
-      border-bottom: 1px solid var(--ngx-grid-border, #e2e8f0);
-      white-space: normal;
-    }
-    .detail-wrapper {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      padding: 0 24px;
-      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                  opacity 0.25s ease-out, 
-                  padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-sizing: border-box;
-    }
-    .detail-wrapper.expanded {
-      max-height: 800px;
-      opacity: 1;
-      padding: 16px 24px 20px 24px;
-    }
-    .grid-edit-input {
-      width: 100%;
-      min-width: 80px;
-      padding: 6px 10px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 8px;
-      font-size: 12px;
-      font-family: inherit;
-      background: var(--ngx-input-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      box-sizing: border-box;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .grid-edit-input:focus {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
-    }
-    .grid-actions { white-space: nowrap; }
-    .action-btn {
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      background: var(--ngx-grid-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-right: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-      outline: none;
-    }
-    .action-btn:hover {
-      background: var(--ngx-grid-hover-bg, #f8fafc);
-      border-color: var(--ngx-input-border, #cbd5e1);
-    }
-    .action-btn.save {
-      border-color: var(--ngx-btn-primary-bg, #4f46e5);
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff;
-    }
-    .action-btn.save:hover {
-      background: var(--ngx-btn-primary-hover, #4338ca);
-      border-color: var(--ngx-btn-primary-hover, #4338ca);
-      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
-    }
-    .action-btn:last-child { margin-right: 0; }
-    .grid-loading-cell, .grid-empty-cell {
-      padding: 48px;
-      text-align: center;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      font-weight: 500;
-    }
-    .grid-spinner {
-      width: 28px;
-      height: 28px;
-      border: 3.5px solid var(--ngx-grid-border, #e2e8f0);
-      border-top-color: var(--ngx-btn-primary-bg, #4f46e5);
-      border-radius: 50%;
-      animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      margin: 0 auto;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .grid-pagination {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      border-top: 1px solid var(--ngx-grid-border, #e2e8f0);
-      background: var(--ngx-grid-header-bg, #f8fafc);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .pagination-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .page-info {
-      font-size: 13px;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      font-weight: 500;
-    }
-    .page-info-highlight {
-      color: var(--ngx-grid-text, #0f172a);
-      font-weight: 600;
-    }
-    .page-size-selector {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .page-size-label {
-      font-size: 12px;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      font-weight: 500;
-    }
-    .page-size-select {
-      padding: 4px 28px 4px 10px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      background: var(--ngx-grid-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      cursor: pointer;
-      outline: none;
-      transition: all 0.2s;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 12px;
-    }
-    .page-size-select:hover {
-      border-color: var(--ngx-input-border-hover, #94a3b8);
-    }
-    .page-size-select:focus {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
-    }
-    .page-btns {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .page-numbers {
-      display: flex;
-      gap: 4px;
-    }
-    .page-btn {
-      min-width: 32px;
-      height: 32px;
-      padding: 0 8px;
-      font-size: 13px;
-      font-weight: 600;
-      border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      background: var(--ngx-grid-bg, #ffffff);
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: inherit;
-      color: var(--ngx-grid-text, #0f172a);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      outline: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .page-btn.ctrl {
-      color: var(--ngx-grid-text-secondary, #64748b);
-      background: var(--ngx-grid-bg, #ffffff);
-    }
-    .page-btn:hover:not(:disabled) {
-      background: var(--ngx-grid-hover-bg, #f1f5f9);
-      border-color: var(--ngx-input-border-hover, #cbd5e1);
-      color: var(--ngx-input-focus, #4f46e5);
-      transform: translateY(-0.5px);
-    }
-    .page-btn.active {
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff !important;
-      border-color: var(--ngx-btn-primary-bg, #4f46e5);
-      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.25);
-    }
-    .page-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-    
-    .grid-footer-row td {
-      background: var(--ngx-grid-header-bg, #f8fafc);
-      border-top: 2px solid var(--ngx-grid-border, #e2e8f0);
-      font-size: 12px;
-      padding: 12px 18px;
-      color: var(--ngx-grid-text, #0f172a);
-    }
-    .agg-label {
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .agg-value {
-      font-weight: 700;
-      color: var(--ngx-input-focus, #4f46e5);
-    }
-    .pinned-left {
-      position: sticky !important;
-      z-index: 5;
-      background: var(--ngx-grid-bg, #ffffff);
-    }
-    th.pinned-left {
-      position: sticky !important;
-      top: 0;
-      z-index: 30 !important;
-      background: var(--ngx-grid-header-bg, #f8fafc) !important;
-    }
-    .sticky-toggle {
-      position: sticky !important;
-      left: 0;
-      z-index: 5;
-      background: var(--ngx-grid-bg, #ffffff);
-    }
-    th.sticky-toggle {
-      position: sticky !important;
-      top: 0;
-      z-index: 30 !important;
-      background: var(--ngx-grid-header-bg, #f8fafc) !important;
-    }
-    .sticky-check {
-      position: sticky !important;
-      z-index: 5;
-      background: var(--ngx-grid-bg, #ffffff);
-    }
-    th.sticky-check {
-      position: sticky !important;
-      top: 0;
-      z-index: 30 !important;
-      background: var(--ngx-grid-header-bg, #f8fafc) !important;
-    }
-    .pinned-left-last,
-    .sticky-toggle-last,
-    .sticky-check-last {
-      border-right: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
-      box-shadow: 4px 0 10px -3px rgba(0, 0, 0, 0.08);
-    }
-    .grid-table.striped .grid-row:nth-child(even) .pinned-left,
-    .grid-table.striped .grid-row:nth-child(even) .sticky-toggle,
-    .grid-table.striped .grid-row:nth-child(even) .sticky-check {
-      background: var(--ngx-grid-stripe-bg, #f8fafc);
-    }
-    .grid-row:hover .pinned-left,
-    .grid-row:hover .sticky-toggle,
-    .grid-row:hover .sticky-check {
-      background: var(--ngx-grid-hover-bg, #f5f3ff) !important;
-    }
-    .grid-row.selected .pinned-left,
-    .grid-row.selected .sticky-toggle,
-    .grid-row.selected .sticky-check {
-      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
-    }
-    .grid-footer-row .pinned-left,
-    .grid-footer-row .sticky-toggle,
-    .grid-footer-row .sticky-check {
-      background: var(--ngx-grid-header-bg, #f8fafc);
-    }
-
-    .pinned-right {
-      position: sticky !important;
-      z-index: 5;
-      background: var(--ngx-grid-bg, #ffffff);
-    }
-    th.pinned-right {
-      position: sticky !important;
-      top: 0;
-      z-index: 30 !important;
-      background: var(--ngx-grid-header-bg, #f8fafc) !important;
-    }
-    .pinned-right-first {
-      border-left: 1px solid var(--ngx-grid-border, #cbd5e1) !important;
-      box-shadow: -4px 0 10px -3px rgba(0, 0, 0, 0.08);
-    }
-    .grid-table.striped .grid-row:nth-child(even) .pinned-right {
-      background: var(--ngx-grid-stripe-bg, #f8fafc);
-    }
-    .grid-row:hover .pinned-right {
-      background: var(--ngx-grid-hover-bg, #f5f3ff) !important;
-    }
-    .grid-row.selected .pinned-right {
-      background: var(--ngx-grid-selected-bg, #e0e7ff) !important;
-    }
-    .grid-footer-row .pinned-right {
-      background: var(--ngx-grid-header-bg, #f8fafc);
-    }
-
-    /* Keyboard Navigation Styles */
-    .grid-td.cell-focused {
-      outline: 2px solid var(--ngx-input-focus, #4f46e5) !important;
-      outline-offset: -2px;
-      z-index: 5;
-    }
-    .grid-td.cell-focused-editing {
-      padding: 0 !important;
-    }
-    .grid-td.cell-focused-editing .grid-edit-input {
-      width: 100%;
-      height: 100%;
-      border: none;
-      outline: none;
-      padding: 12px 18px;
-      box-sizing: border-box;
-      background: var(--ngx-grid-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      font-family: inherit;
-      font-size: inherit;
-      border-radius: 0;
-    }
-    
-    /* Drag & Drop Reordering Styles */
-    .grid-th[draggable="true"] {
-      cursor: grab;
-    }
-    .grid-th[draggable="true"]:active {
-      cursor: grabbing;
-    }
-    .grid-th.dragging {
-      opacity: 0.4;
-      background: var(--ngx-grid-hover-bg, #f1f5f9) !important;
-      border: 1.5px dashed var(--ngx-input-border, #cbd5e1);
-    }
-    .grid-th.drag-over {
-      border-left: 3px solid var(--ngx-input-focus, #4f46e5) !important;
-    }
-    
-    /* Multi-Column Sorting order badge */
-    .sort-icon.active {
-      color: var(--ngx-input-focus, #4f46e5);
-      font-weight: 700;
-    }
-    .sort-order-badge {
-      font-size: 8px;
-      line-height: 1;
-      background: var(--ngx-input-focus, #4f46e5);
-      color: #ffffff;
-      padding: 2px 4px;
-      border-radius: 4px;
-      vertical-align: super;
-      margin-left: 2px;
-      font-weight: 700;
-    }
-    
-    /* Global Search Styles */
-    .grid-search-wrap {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-    }
-    .grid-search-input {
-      padding: 6px 30px 6px 12px;
-      border: 1px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 8px;
-      font-size: 13px;
-      font-family: inherit;
-      background: var(--ngx-input-bg, #ffffff);
-      color: var(--ngx-grid-text, #0f172a);
-      outline: none;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 180px;
-    }
-    .grid-search-input:focus {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 3px var(--primary-glow, rgba(79, 70, 229, 0.15));
-      width: 220px;
-    }
-    .grid-search-clear {
-      position: absolute;
-      right: 8px;
-      background: transparent;
-      border: none;
-      color: var(--ngx-grid-text-secondary, #94a3b8);
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px;
-      line-height: 1;
-    }
-    .grid-search-clear:hover {
-      color: var(--ngx-grid-text, #0f172a);
-    }
-    .search-highlight {
-      background-color: rgba(251, 191, 36, 0.25);
-      color: inherit;
-      font-weight: 600;
-      padding: 1px 2px;
-      border-radius: 4px;
-    }
-    .grid-td.cell-selected {
-      background: var(--ngx-grid-cell-selected-bg, rgba(79, 70, 229, 0.1)) !important;
-      outline: 1.5px solid var(--ngx-grid-cell-selected-border, #4f46e5);
-      outline-offset: -1.5px;
-    }
-
-    /* Row Drag & Drop Styles */
-    .row-drag-handle {
-      cursor: grab;
-      user-select: none;
-      color: var(--ngx-grid-text-secondary, #94a3b8);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      padding: 0;
-      transition: all 0.2s ease;
-    }
-    .row-drag-handle:hover {
-      color: var(--ngx-input-focus, #4f46e5);
-      background: var(--ngx-grid-hover-bg, #f1f5f9);
-      transform: scale(1.1);
-    }
-    .row-drag-handle:active {
-      cursor: grabbing;
-      transform: scale(0.95);
-    }
-    .grid-row {
-      transition: background-color 0.15s ease, opacity 0.2s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .grid-row.dragging-row td {
-      opacity: 0.35;
-      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.04)) !important;
-      color: var(--ngx-grid-text-secondary, #94a3b8);
-      transition: opacity 0.2s ease;
-    }
-    .grid-row.drag-over-row td {
-      border-top: 2.5px solid var(--ngx-btn-primary-bg, #4f46e5) !important;
-      background: rgba(79, 70, 229, 0.03) !important;
-      box-shadow: inset 0 2px 4px rgba(79, 70, 229, 0.05);
-    }
-
-    .grid-context-menu {
-      position: absolute;
-      width: 215px;
-      background: var(--ngx-grid-bg, rgba(255, 255, 255, 0.95));
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-grid-border, #e2e8f0);
-      border-radius: 10px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      z-index: 2000;
-      padding: 6px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      font-family: inherit;
-    }
-    .menu-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border: none;
-      background: transparent;
-      color: var(--ngx-grid-text, #0f172a);
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      text-align: left;
-      border-radius: 6px;
-      transition: all 0.15s ease;
-      font-family: inherit;
-      width: 100%;
-      box-sizing: border-box;
-      outline: none;
-    }
-    .menu-item:hover:not(:disabled) {
-      background: var(--ngx-grid-hover-bg, #f1f5f9);
-      color: var(--ngx-btn-primary-bg, #4f46e5);
-    }
-    .menu-item:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-    .menu-icon {
-      font-size: 14px;
-      width: 16px;
-      text-align: center;
-    }
-    .menu-divider {
-      height: 1px;
-      background: var(--ngx-grid-border, #e2e8f0);
-      margin: 4px 6px;
-    }
-
-    /* Checkbox Custom Styling for Premium Look */
-    .grid-th-check input[type="checkbox"],
-    .grid-td-check input[type="checkbox"],
-    .checklist-item input[type="checkbox"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1.5px solid var(--ngx-grid-border, #cbd5e1);
-      border-radius: 4px;
-      outline: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--ngx-grid-bg, #ffffff);
-      transition: all 0.2s ease;
-      margin: 0;
-      position: relative;
-    }
-    .grid-th-check input[type="checkbox"]:hover,
-    .grid-td-check input[type="checkbox"]:hover,
-    .checklist-item input[type="checkbox"]:hover {
-      border-color: var(--ngx-input-focus, #4f46e5);
-      box-shadow: 0 0 0 2.5px rgba(79, 70, 229, 0.15);
-    }
-    .grid-th-check input[type="checkbox"]:checked,
-    .grid-td-check input[type="checkbox"]:checked,
-    .checklist-item input[type="checkbox"]:checked {
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      border-color: var(--ngx-btn-primary-bg, #4f46e5);
-    }
-    .grid-th-check input[type="checkbox"]:checked::after,
-    .grid-td-check input[type="checkbox"]:checked::after,
-    .checklist-item input[type="checkbox"]:checked::after {
-      content: "";
-      display: block;
-      width: 4px;
-      height: 8px;
-      border: solid #ffffff;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-      margin-bottom: 2px;
-    }
-    .grid-th-check input[type="checkbox"]:indeterminate {
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      border-color: var(--ngx-btn-primary-bg, #4f46e5);
-    }
-    .grid-th-check input[type="checkbox"]:indeterminate::after {
-      content: "";
-      display: block;
-      width: 8px;
-      height: 2px;
-      background: #ffffff;
-    }
-    
-    /* Drag-and-Drop Grouping Panel Styles */
-    .grid-grouping-panel {
-      display: flex;
-      align-items: center;
-      padding: 10px 16px;
-      background: var(--ngx-grid-header-bg, #f8fafc);
-      border: 1.5px dashed var(--ngx-grid-border, #cbd5e1);
-      border-radius: 10px;
-      margin-bottom: 12px;
-      font-size: 12px;
-      color: var(--ngx-grid-text-secondary, #64748b);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      min-height: 44px;
-      box-sizing: border-box;
-    }
-    .grid-grouping-panel.drag-over {
-      background: var(--ngx-grid-hover-bg, rgba(79, 70, 229, 0.05));
-      border-color: var(--ngx-input-focus, #4f46e5);
-      border-style: solid;
-      color: var(--ngx-input-focus, #4f46e5);
-    }
-    .grouping-panel-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .group-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--ngx-btn-primary-bg, #4f46e5);
-      color: #ffffff;
-      padding: 3px 10px;
-      border-radius: 99px;
-      font-size: 11px;
-      font-weight: 700;
-      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
-    }
-    .remove-group-btn {
-      background: transparent;
-      border: none;
-      color: #ffffff;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      line-height: 1;
-      opacity: 0.8;
-      transition: opacity 0.15s;
-    }
-    .remove-group-btn:hover {
-      opacity: 1;
-    }
-  `],
+  styleUrl: './data-grid.component.scss',
 })
 export class DataGridComponent<T extends object = Record<string, unknown>> implements OnInit {
+  private static nextInstanceId = 0;
+  readonly instanceId = `ngx-data-grid-${DataGridComponent.nextInstanceId++}`;
+
   @ContentChildren(NgxGridCellTemplateDirective) cellTemplates!: QueryList<NgxGridCellTemplateDirective>;
   @ContentChildren(NgxGridEditCellTemplateDirective) editCellTemplates!: QueryList<NgxGridEditCellTemplateDirective>;
   @ContentChildren(NgxGridHeaderTemplateDirective) headerTemplates!: QueryList<NgxGridHeaderTemplateDirective>;
@@ -2080,6 +1593,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
   // Filter builder state
   isFilterBuilderOpen = signal<boolean>(false);
+  private filterBuilderTrigger: HTMLElement | null = null;
   internalFilterExpression = signal<FilterExpression | null>(null);
 
   /** Live selection aggregates for status bar */
@@ -2089,7 +1603,8 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       const selRows = this.selectedRows();
       return { count: selRows.size, sum: null, average: null, min: null, max: null };
     }
-    const numbers = selectedText.split(/[\t\n]/)
+    const numbers = selectedText
+      .split(/[\t\n]/)
       .map(str => str.trim())
       .filter(str => str !== '' && !isNaN(Number(str)))
       .map(str => Number(str));
@@ -2109,12 +1624,9 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   }
 
   exportToXlsx(filename = 'grid-data.xlsx'): void {
-    this.xlsxExportService.exportToXlsx(
-      this.clientFilteredData(),
-      this.columns() as GridColumnDef<T>[],
-      filename,
-      { groupBy: this.internalGroupBy() }
-    );
+    this.xlsxExportService.exportToXlsx(this.clientFilteredData(), this.columns() as GridColumnDef<T>[], filename, {
+      groupBy: this.internalGroupBy(),
+    });
   }
 
   /**
@@ -2197,6 +1709,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   sortState = signal<GridSortState | null>(null);
   currentPage = signal(1);
   selectedRows = signal<Set<string>>(new Set());
+  selectionAnnouncement = signal('');
   expandedRows = signal<Set<string>>(new Set());
   collapsedGroups = signal<Set<string>>(new Set());
   editingRowKey = signal<string | null>(null);
@@ -2224,9 +1737,10 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     if (!this.virtualScroll()) return rendered;
     return rendered.slice(this.startIndex(), this.endIndex());
   });
-  
+
   // Enterprise Extensions
   i18n = inject(NGX_CORE_I18N);
+  private injector = inject(Injector);
   private elementRef = inject(ElementRef);
   destroyRef = inject(DestroyRef);
   private gridExportService = inject(GridExportService);
@@ -2234,10 +1748,11 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   filterStates = signal<Map<string, GridFilterState>>(new Map());
   sortStates = signal<GridSortState[]>([]);
   columnOrder = signal<string[]>([]);
-  
+
   // Column Chooser state
   hiddenColumns = signal<Set<string>>(new Set());
   activeColumnChooserPopover = signal<{ top: number; left: number } | null>(null);
+  visibleColumnsCount = computed(() => this.columns().length - this.hiddenColumns().size);
 
   // Cell Selection state
   selectedCellStart = signal<{ row: T; colField: string } | null>(null);
@@ -2257,7 +1772,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   dragOverField = signal<string | null>(null);
   draggingRowIndex = signal<number | null>(null);
   dragOverRowIndex = signal<number | null>(null);
-  
+
   // Resizing state
   private resizeStartWidth = 0;
   private resizeStartX = 0;
@@ -2266,6 +1781,8 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
   // Filter Popover state
   activeFilterPopover = signal<{ field: string; top: number; left: number } | null>(null);
+  private filterPopoverTrigger: HTMLElement | null = null;
+  private contextMenuTrigger: HTMLElement | null = null;
   tempFilterValue = signal<string>('');
   tempFilterOperator = signal<'contains' | 'startsWith' | 'endsWith' | 'eq'>('contains');
   tempSelectedValues = signal<Set<string>>(new Set());
@@ -2325,23 +1842,26 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     });
 
     // Initialize hidden columns from definitions
-    effect(() => {
-      const cols = this.columns();
-      untracked(() => {
-        const currentHidden = this.hiddenColumns();
-        if (currentHidden.size === 0 && !this.stateKey()) {
-          const initialHidden = new Set<string>();
-          cols.forEach(c => {
-            if (c.hidden) {
-              initialHidden.add(c.field);
+    effect(
+      () => {
+        const cols = this.columns();
+        untracked(() => {
+          const currentHidden = this.hiddenColumns();
+          if (currentHidden.size === 0 && !this.stateKey()) {
+            const initialHidden = new Set<string>();
+            cols.forEach(c => {
+              if (c.hidden) {
+                initialHidden.add(c.field);
+              }
+            });
+            if (initialHidden.size > 0) {
+              this.hiddenColumns.set(initialHidden);
             }
-          });
-          if (initialHidden.size > 0) {
-            this.hiddenColumns.set(initialHidden);
           }
-        }
-      });
-    }, { allowSignalWrites: true });
+        });
+      },
+      { allowSignalWrites: true }
+    );
 
     effect(() => {
       const key = this.stateKey();
@@ -2357,7 +1877,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         filters: Array.from(this.filterStates().values()),
         searchText: this.searchText(),
         hiddenColumns: Array.from(this.hiddenColumns()),
-        columnPinnedOverrides: this.columnPinnedOverrides()
+        columnPinnedOverrides: this.columnPinnedOverrides(),
       };
       try {
         localStorage.setItem(`ngx_grid_state_${key}`, JSON.stringify(state));
@@ -2369,9 +1889,9 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     // Window event listeners for closing popovers and copy behavior
     if (typeof window !== 'undefined') {
       const clickListener = () => {
-        this.activeFilterPopover.set(null);
-        this.activeColumnChooserPopover.set(null);
-        this.activeContextMenu.set(null);
+        this.closeFilterPopover(false);
+        this.closeColumnChooser(false);
+        this.closeContextMenu(false);
       };
       const mouseUpListener = () => {
         if (this.isCellDragging()) {
@@ -2380,9 +1900,10 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       };
       const keydownListener = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
-          this.activeFilterPopover.set(null);
-          this.activeColumnChooserPopover.set(null);
-          this.activeContextMenu.set(null);
+          if (this.activeFilterPopover()) this.closeFilterPopover();
+          if (this.activeColumnChooserPopover()) this.closeColumnChooser();
+          if (this.isFilterBuilderOpen()) this.closeFilterBuilder();
+          if (this.activeContextMenu()) this.closeContextMenu();
         }
         if (!this.cellSelection()) return;
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
@@ -2470,7 +1991,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const order = this.columnOrder();
     const hidden = this.hiddenColumns();
     const pinOverrides = this.columnPinnedOverrides();
-    
+
     let mapped = cols
       .filter(c => !hidden.has(c.field))
       .map(c => {
@@ -2491,7 +2012,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         return idxA - idxB;
       });
     }
-    
+
     const pinnedLeft = mapped.filter(c => c.pinned === 'left');
     const pinnedRight = mapped.filter(c => c.pinned === 'right');
     const normal = mapped.filter(c => c.pinned !== 'left' && c.pinned !== 'right');
@@ -2528,12 +2049,12 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   columnRightOffsets = computed(() => {
     const offsets: Record<string, number> = {};
     let currentOffset = 0;
-    
+
     if (this.editable()) {
       offsets['__actions'] = currentOffset;
       currentOffset += 120;
     }
-    
+
     const cols = this.orderedColumns();
     for (let i = cols.length - 1; i >= 0; i--) {
       const col = cols[i];
@@ -2548,7 +2069,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   columnOffsets = computed(() => {
     const offsets: Record<string, number> = {};
     let currentOffset = 0;
-    
+
     if (this.rowReorderable()) {
       currentOffset += 44;
     }
@@ -2558,7 +2079,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     if (this.selectable()) {
       currentOffset += 44;
     }
-    
+
     const cols = this.orderedColumns();
     for (const col of cols) {
       if (col.pinned === 'left') {
@@ -2589,9 +2110,9 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
           leftOffset: c.pinned === 'left' ? this.columnOffsets()[c.field] : null,
           rightOffset: c.pinned === 'right' ? this.columnRightOffsets()[c.field] : null,
           isPinnedLast: c.pinned === 'left' && this.lastPinnedColumnField() === c.field,
-          isPinnedFirst: c.pinned === 'right' && this.firstPinnedRightColumnField() === c.field
+          isPinnedFirst: c.pinned === 'right' && this.firstPinnedRightColumnField() === c.field,
         })),
-        row2: [] as any[]
+        row2: [] as any[],
       };
     }
 
@@ -2613,7 +2134,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
           leftOffset: col.pinned === 'left' ? this.columnOffsets()[col.field] : null,
           rightOffset: col.pinned === 'right' ? this.columnRightOffsets()[col.field] : null,
           isPinnedLast: col.pinned === 'left' && this.lastPinnedColumnField() === col.field,
-          isPinnedFirst: col.pinned === 'right' && this.firstPinnedRightColumnField() === col.field
+          isPinnedFirst: col.pinned === 'right' && this.firstPinnedRightColumnField() === col.field,
         });
         i++;
       } else {
@@ -2632,7 +2153,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
             leftOffset: currentCol.pinned === 'left' ? this.columnOffsets()[currentCol.field] : null,
             rightOffset: currentCol.pinned === 'right' ? this.columnRightOffsets()[currentCol.field] : null,
             isPinnedLast: currentCol.pinned === 'left' && this.lastPinnedColumnField() === currentCol.field,
-            isPinnedFirst: currentCol.pinned === 'right' && this.firstPinnedRightColumnField() === currentCol.field
+            isPinnedFirst: currentCol.pinned === 'right' && this.firstPinnedRightColumnField() === currentCol.field,
           });
           i++;
         }
@@ -2648,7 +2169,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
           rightOffset: col.pinned === 'right' ? this.columnRightOffsets()[lastColInGroup.field] : null,
           isPinnedLast: col.pinned === 'left' && this.lastPinnedColumnField() === lastColInGroup.field,
           isPinnedFirst: col.pinned === 'right' && this.firstPinnedRightColumnField() === col.field,
-          field: `__cat_${cat}_${startIdx}`
+          field: `__cat_${cat}_${startIdx}`,
         });
       }
     }
@@ -2657,17 +2178,16 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   });
 
   hasFilterableColumns = computed(() => this.columns().some(column => column.filterable));
-  isAnyServerMode = computed(() =>
-    this.sortMode() === 'server' ||
-    this.filterMode() === 'server' ||
-    this.groupMode() === 'server' ||
-    this.pagingMode() === 'server'
+  isAnyServerMode = computed(
+    () =>
+      this.sortMode() === 'server' ||
+      this.filterMode() === 'server' ||
+      this.groupMode() === 'server' ||
+      this.pagingMode() === 'server'
   );
   showDetailToggle = computed(() => this.detailRowTemplate() !== null);
 
-  activeFilters = computed<GridFilterState[]>(() =>
-    Array.from(this.filterStates().values())
-  );
+  activeFilters = computed<GridFilterState[]>(() => Array.from(this.filterStates().values()));
 
   private clientFilteredData = computed(() => {
     if (this.filterMode() !== 'client') {
@@ -2784,9 +2304,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       return [];
     }
 
-    const source = this.pagingMode() === 'server'
-      ? this.data()
-      : this.paginateRows(this.baseFlatData());
+    const source = this.pagingMode() === 'server' ? this.data() : this.paginateRows(this.baseFlatData());
 
     const map = new Map<string, GridGroupResult<T>>();
     for (const row of source) {
@@ -2851,12 +2369,13 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     return pages;
   });
 
-  renderColumnCount = computed(() =>
-    this.orderedColumns().length +
-    (this.selectable() ? 1 : 0) +
-    (this.showDetailToggle() ? 1 : 0) +
-    (this.rowReorderable() ? 1 : 0) +
-    (this.editable() ? 1 : 0)
+  renderColumnCount = computed(
+    () =>
+      this.orderedColumns().length +
+      (this.selectable() ? 1 : 0) +
+      (this.showDetailToggle() ? 1 : 0) +
+      (this.rowReorderable() ? 1 : 0) +
+      (this.editable() ? 1 : 0)
   );
 
   showPager = computed(() => this.totalItems() > 0);
@@ -2890,8 +2409,14 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const endColIndex = cols.findIndex(c => c.field === end.colField);
     const colIndex = cols.findIndex(c => c.field === colField);
 
-    if (startRowIndex === -1 || endRowIndex === -1 || rowIndex === -1 ||
-        startColIndex === -1 || endColIndex === -1 || colIndex === -1) {
+    if (
+      startRowIndex === -1 ||
+      endRowIndex === -1 ||
+      rowIndex === -1 ||
+      startColIndex === -1 ||
+      endColIndex === -1 ||
+      colIndex === -1
+    ) {
       return false;
     }
 
@@ -2910,19 +2435,33 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
     const gridEl = this.elementRef.nativeElement.querySelector('.ngx-data-grid') as HTMLElement;
     const gridRect = gridEl.getBoundingClientRect();
-
     const x = event.clientX - gridRect.left;
     const y = event.clientY - gridRect.top;
 
-    this.activeFilterPopover.set(null);
-    this.activeColumnChooserPopover.set(null);
-
+    this.closeFilterPopover(false);
+    this.closeColumnChooser(false);
+    this.focusedCell.set({ row, colField });
+    this.contextMenuTrigger = event.currentTarget as HTMLElement;
     this.activeContextMenu.set({
       x: Math.min(x, gridRect.width - 190),
-      y: y,
+      y,
       row,
-      colField
+      colField,
     });
+    afterNextRender(
+      () =>
+        (this.elementRef.nativeElement as HTMLElement)
+          .querySelector<HTMLElement>('.grid-context-menu .menu-item:not(:disabled)')
+          ?.focus(),
+      { injector: this.injector }
+    );
+  }
+
+  closeContextMenu(restoreFocus = true): void {
+    this.activeContextMenu.set(null);
+    const trigger = this.contextMenuTrigger;
+    this.contextMenuTrigger = null;
+    if (restoreFocus) trigger?.focus();
   }
 
   isColumnPinned(field: string | null): boolean {
@@ -2941,14 +2480,14 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const overrides = { ...this.columnPinnedOverrides() };
     overrides[field] = currentlyPinned ? null : 'left';
     this.columnPinnedOverrides.set(overrides);
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   contextMenuHideColumn(field: string | null): void {
     if (field) {
       this.toggleColumnVisibility(field);
     }
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   contextMenuClearFilters(): void {
@@ -2956,7 +2495,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     this.currentPage.set(1);
     this.filterChange.emit({ filters: [] });
     this.emitDataState();
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   contextMenuCopy(): void {
@@ -2966,7 +2505,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         console.error('Failed to copy to clipboard', err);
       });
     }
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   onCellMouseDown(event: MouseEvent, row: T, colField: string): void {
@@ -2974,19 +2513,25 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     if (event.button !== 0) return;
 
     const target = event.target as HTMLElement;
-    if (target && (target.closest('.grid-edit-input') || target.closest('.action-btn') || target.closest('.toggle-btn') || target.closest('input[type="checkbox"]'))) {
+    if (
+      target &&
+      (target.closest('.grid-edit-input') ||
+        target.closest('.action-btn') ||
+        target.closest('.toggle-btn') ||
+        target.closest('input[type="checkbox"]'))
+    ) {
       return;
     }
 
     event.preventDefault();
-    
+
     this.selectedCellStart.set({ row, colField });
     this.selectedCellEnd.set({ row, colField });
     this.isCellDragging.set(true);
 
     this.cellSelectionChange.emit({
       start: { row, colField },
-      end: { row, colField }
+      end: { row, colField },
     });
   }
 
@@ -2999,7 +2544,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     if (start) {
       this.cellSelectionChange.emit({
         start,
-        end: { row, colField }
+        end: { row, colField },
       });
     }
   }
@@ -3007,11 +2552,11 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   openColumnChooser(event: MouseEvent): void {
     event.stopPropagation();
     if (this.activeColumnChooserPopover()) {
-      this.activeColumnChooserPopover.set(null);
+      this.closeColumnChooser();
       return;
     }
 
-    this.activeFilterPopover.set(null);
+    this.closeFilterPopover(false);
 
     const buttonEl = event.currentTarget as HTMLElement;
     const gridEl = this.elementRef.nativeElement.querySelector('.ngx-data-grid') as HTMLElement;
@@ -3023,8 +2568,68 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
     this.activeColumnChooserPopover.set({
       top,
-      left: Math.min(left, gridRect.width - 260)
+      left: Math.max(8, Math.min(left, gridRect.width - 368)),
     });
+    afterNextRender(
+      () =>
+        (
+          (this.elementRef.nativeElement as HTMLElement).querySelector(
+            `#${this.instanceId}-column-chooser input[type="checkbox"]`
+          ) as HTMLInputElement | null
+        )?.focus(),
+      { injector: this.injector }
+    );
+  }
+
+  closeColumnChooser(restoreFocus = true): void {
+    this.activeColumnChooserPopover.set(null);
+    if (restoreFocus) {
+      const trigger = (this.elementRef.nativeElement as HTMLElement).querySelector(
+        `[aria-controls="${this.instanceId}-column-chooser"]`
+      ) as HTMLButtonElement | null;
+      trigger?.focus();
+    }
+  }
+
+  openFilterBuilder(event: MouseEvent): void {
+    this.filterBuilderTrigger = event.currentTarget as HTMLElement;
+    this.isFilterBuilderOpen.set(true);
+    afterNextRender(
+      () => (this.elementRef.nativeElement as HTMLElement).querySelector<HTMLElement>('.filter-builder-panel')?.focus(),
+      { injector: this.injector }
+    );
+  }
+
+  closeFilterBuilder(): void {
+    this.isFilterBuilderOpen.set(false);
+    const trigger = this.filterBuilderTrigger;
+    this.filterBuilderTrigger = null;
+    trigger?.focus();
+  }
+
+  columnIndex(field: string): number {
+    return this.fullColumnOrder().indexOf(field);
+  }
+
+  moveColumn(field: string, direction: -1 | 1): void {
+    const order = this.fullColumnOrder();
+    const index = order.indexOf(field);
+    const nextIndex = index + direction;
+    if (index < 0 || nextIndex < 0 || nextIndex >= order.length) return;
+
+    [order[index], order[nextIndex]] = [order[nextIndex], order[index]];
+    this.columnOrder.set(order);
+    const columnsByField = new Map(this.columns().map(column => [column.field, column]));
+    const reorderedColumns = order
+      .map(columnField => columnsByField.get(columnField))
+      .filter((column): column is GridColumnDef<T> => column !== undefined);
+    this.columnReorder.emit({ columns: reorderedColumns });
+  }
+
+  private fullColumnOrder(): string[] {
+    const fields = this.columns().map(column => column.field);
+    const currentOrder = this.columnOrder().filter(field => fields.includes(field));
+    return [...currentOrder, ...fields.filter(field => !currentOrder.includes(field))];
   }
 
   toggleColumnVisibility(field: string): void {
@@ -3088,15 +2693,30 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   }
 
   exportToCsv(): void {
-    this.gridExportService.exportToCsv(this.baseFlatData(), this.orderedColumns(), 'grid-data.csv', this.internalGroupBy());
+    this.gridExportService.exportToCsv(
+      this.baseFlatData(),
+      this.orderedColumns(),
+      'grid-data.csv',
+      this.internalGroupBy()
+    );
   }
 
   exportToExcel(): void {
-    this.gridExportService.exportToExcel(this.baseFlatData(), this.orderedColumns(), 'grid-data.xls', this.internalGroupBy());
+    this.gridExportService.exportToExcel(
+      this.baseFlatData(),
+      this.orderedColumns(),
+      'grid-data.xls',
+      this.internalGroupBy()
+    );
   }
 
   exportToPdf(): void {
-    this.gridExportService.exportToPdf(this.baseFlatData(), this.orderedColumns(), 'Data Grid Export', this.internalGroupBy());
+    this.gridExportService.exportToPdf(
+      this.baseFlatData(),
+      this.orderedColumns(),
+      'Data Grid Export',
+      this.internalGroupBy()
+    );
   }
 
   setFilter(field: string, value: string): void {
@@ -3132,7 +2752,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       const newWidth = Math.max(50, this.resizeStartWidth + deltaX);
       this.columnWidths.update(widths => ({
         ...widths,
-        [this.resizingField!]: newWidth
+        [this.resizingField!]: newWidth,
       }));
     };
 
@@ -3174,7 +2794,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
     this.columnWidths.update(widths => ({
       ...widths,
-      [colField]: computedWidth
+      [colField]: computedWidth,
     }));
   }
 
@@ -3200,7 +2820,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   openFilterPopover(event: MouseEvent, field: string): void {
     event.stopPropagation();
     if (this.activeFilterPopover()?.field === field) {
-      this.activeFilterPopover.set(null);
+      this.closeFilterPopover(false);
       return;
     }
 
@@ -3208,9 +2828,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
 
     const current = this.filterStates().get(field);
     this.tempFilterValue.set(current?.value ?? '');
-    this.tempFilterOperator.set(
-      (current?.operator === 'in' ? 'contains' : current?.operator) ?? 'contains'
-    );
+    this.tempFilterOperator.set((current?.operator === 'in' ? 'contains' : current?.operator) ?? 'contains');
 
     const distinct = this.getDistinctValues(field);
     if (current?.selectedValues) {
@@ -3220,6 +2838,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     }
 
     const buttonEl = event.currentTarget as HTMLElement;
+    this.filterPopoverTrigger = buttonEl;
     const gridEl = this.elementRef.nativeElement.querySelector('.ngx-data-grid') as HTMLElement;
     const buttonRect = buttonEl.getBoundingClientRect();
     const gridRect = gridEl.getBoundingClientRect();
@@ -3230,8 +2849,22 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     this.activeFilterPopover.set({
       field,
       top,
-      left: Math.min(left, gridRect.width - 260)
+      left: Math.min(left, gridRect.width - 260),
     });
+    afterNextRender(
+      () =>
+        (this.elementRef.nativeElement as HTMLElement)
+          .querySelector<HTMLSelectElement>('.grid-filter-popover select')
+          ?.focus(),
+      { injector: this.injector }
+    );
+  }
+
+  closeFilterPopover(restoreFocus = true): void {
+    this.activeFilterPopover.set(null);
+    const trigger = this.filterPopoverTrigger;
+    this.filterPopoverTrigger = null;
+    if (restoreFocus) trigger?.focus();
   }
 
   getDistinctValues(field: string): string[] {
@@ -3266,7 +2899,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const distinct = this.getFilteredDistinctValues(pop.field);
     const current = new Set(this.tempSelectedValues());
     const allSelected = distinct.every(val => current.has(val));
-    
+
     if (allSelected) {
       distinct.forEach(val => current.delete(val));
     } else {
@@ -3282,35 +2915,21 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const field = pop.field;
     const distinct = this.getDistinctValues(field);
     const selected = this.tempSelectedValues();
-
     let filterState: GridFilterState | null = null;
 
     if (this.tempFilterValue()) {
-      filterState = {
-        field,
-        value: this.tempFilterValue(),
-        operator: this.tempFilterOperator()
-      };
+      filterState = { field, value: this.tempFilterValue(), operator: this.tempFilterOperator() };
     } else if (selected.size < distinct.length) {
-      filterState = {
-        field,
-        value: '',
-        operator: 'in',
-        selectedValues: Array.from(selected)
-      };
+      filterState = { field, value: '', operator: 'in', selectedValues: Array.from(selected) };
     }
 
     const nextStates = new Map(this.filterStates());
-    if (filterState) {
-      nextStates.set(field, filterState);
-    } else {
-      nextStates.delete(field);
-    }
+    if (filterState) nextStates.set(field, filterState);
+    else nextStates.delete(field);
 
     this.filterStates.set(nextStates);
     this.currentPage.set(1);
-    this.activeFilterPopover.set(null);
-
+    this.closeFilterPopover();
     this.filterChange.emit({ filters: this.activeFilters() });
     this.emitDataState();
   }
@@ -3319,14 +2938,11 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const pop = this.activeFilterPopover();
     if (!pop) return;
 
-    const field = pop.field;
     const nextStates = new Map(this.filterStates());
-    nextStates.delete(field);
-
+    nextStates.delete(pop.field);
     this.filterStates.set(nextStates);
     this.currentPage.set(1);
-    this.activeFilterPopover.set(null);
-
+    this.closeFilterPopover();
     this.filterChange.emit({ filters: this.activeFilters() });
     this.emitDataState();
   }
@@ -3334,7 +2950,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   clearAllFilters(): void {
     this.filterStates.set(new Map());
     this.currentPage.set(1);
-    this.activeFilterPopover.set(null);
+    this.closeFilterPopover(false);
     this.filterChange.emit({ filters: [] });
     this.emitDataState();
   }
@@ -3345,10 +2961,12 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const rows = this.clientFilteredData();
     if (rows.length === 0) return '-';
 
-    const values = rows.map(r => {
-      const val = (r as Record<string, unknown>)[col.field];
-      return typeof val === 'number' ? val : Number(val);
-    }).filter(v => !isNaN(v));
+    const values = rows
+      .map(r => {
+        const val = (r as Record<string, unknown>)[col.field];
+        return typeof val === 'number' ? val : Number(val);
+      })
+      .filter(v => !isNaN(v));
 
     if (col.aggregation === 'count') {
       return String(rows.length);
@@ -3477,10 +3095,8 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const sourceField = this.draggingField();
     const targetField = targetCol.field;
     if (sourceField && sourceField !== targetField) {
-      const currentOrder = this.columnOrder().length > 0 
-        ? [...this.columnOrder()] 
-        : this.columns().map(c => c.field);
-        
+      const currentOrder = this.columnOrder().length > 0 ? [...this.columnOrder()] : this.columns().map(c => c.field);
+
       const sourceIndex = currentOrder.indexOf(sourceField);
       const targetIndex = currentOrder.indexOf(targetField);
       if (sourceIndex !== -1 && targetIndex !== -1) {
@@ -3521,18 +3137,18 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       const rendered = this.flatRenderedRows();
       const sourceItem = rendered[sourceIndex];
       const targetItem = rendered[targetIndex];
-      
+
       const currentData = [...this.data()];
       const actualSourceIdx = currentData.indexOf(sourceItem);
       const actualTargetIdx = currentData.indexOf(targetItem);
-      
+
       if (actualSourceIdx !== -1 && actualTargetIdx !== -1) {
         currentData.splice(actualSourceIdx, 1);
         currentData.splice(actualTargetIdx, 0, sourceItem);
         this.rowReorder.emit({
           previousIndex: actualSourceIdx,
           currentIndex: actualTargetIdx,
-          data: currentData
+          data: currentData,
         });
       }
     }
@@ -3556,18 +3172,18 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
   getRowTranslation(index: number): string {
     const draggingIdx = this.draggingRowIndex();
     const dragOverIdx = this.dragOverRowIndex();
-    
+
     if (draggingIdx === null || dragOverIdx === null || draggingIdx === dragOverIdx) {
       return '';
     }
-    
+
     // Disable sliding transforms in grouped mode as group segments render hierarchically.
     if (this.groupedRows().length > 0) {
       return '';
     }
-    
+
     const rowHeight = 49;
-    
+
     if (draggingIdx < dragOverIdx) {
       if (index > draggingIdx && index <= dragOverIdx) {
         return `translateY(-${rowHeight}px)`;
@@ -3583,7 +3199,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         return `translateY(-${(draggingIdx - dragOverIdx) * rowHeight}px)`;
       }
     }
-    
+
     return '';
   }
 
@@ -3635,48 +3251,47 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     return this.columns().find(c => c.field === field) ?? null;
   }
 
-
   contextMenuGroupBy(field: string | null): void {
     if (!field) return;
     const groupState = { field, dir: 'asc' as const };
     this.internalGroupBy.set(groupState);
     this.groupChange.emit({ group: groupState });
     this.emitDataState(groupState);
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   contextMenuClearGrouping(): void {
     this.internalGroupBy.set(null);
     this.groupChange.emit({ group: null });
     this.emitDataState(null);
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   collapseAllGroups(): void {
     const keys = this.groupedRows().map(g => g.key);
     this.collapsedGroups.set(new Set(keys));
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   expandAllGroups(): void {
     this.collapsedGroups.set(new Set());
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   contextMenuToggleDetail(row: T): void {
     this.toggleDetail(row);
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   expandAllDetails(): void {
     const keys = this.flatRenderedRows().map(r => this.keyOf(r));
     this.expandedRows.set(new Set(keys));
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   collapseAllDetails(): void {
     this.expandedRows.set(new Set());
-    this.activeContextMenu.set(null);
+    this.closeContextMenu();
   }
 
   onRowClick(row: T, index: number): void {
@@ -3696,6 +3311,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       next.add(key);
     }
     this.selectedRows.set(next);
+    this.selectionAnnouncement.set(this.i18n.grid.selectedRows(next.size));
     this.selectionChange.emit(this.resolveSelectedRows(next));
   }
 
@@ -3712,7 +3328,12 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       }
     }
     this.selectedRows.set(next);
+    this.selectionAnnouncement.set(this.i18n.grid.selectedRows(next.size));
     this.selectionChange.emit(this.resolveSelectedRows(next));
+  }
+
+  rowSelectionKey(row: T): string {
+    return this.keyOf(row);
   }
 
   toggleDetail(row: T): void {
@@ -3754,9 +3375,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     }
 
     const draft = this.editingDraft();
-    return Object.prototype.hasOwnProperty.call(draft, field)
-      ? draft[field]
-      : (row as Record<string, unknown>)[field];
+    return Object.prototype.hasOwnProperty.call(draft, field) ? draft[field] : (row as Record<string, unknown>)[field];
   }
 
   saveEdit(row: T, index: number): void {
@@ -3832,7 +3451,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     if (!searchVal || !this.showGlobalSearch()) {
       return this.escapeHtml(rawVal);
     }
-    
+
     const escapedVal = this.escapeHtml(rawVal);
     const escapedSearch = this.escapeRegExp(searchVal);
     try {
@@ -3927,23 +3546,31 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     });
   }
 
-  onCellClick(row: T, colField: string): void {
+  onCellClick(row: T, colField: string, event?: MouseEvent): void {
     if (!this.keyboardNavigation()) return;
-    this.focusedCell.set({ row, colField });
+    this.focusCell(row, colField);
     this.focusedCellEditActive.set(this.isEditing(row));
+    (event?.currentTarget as HTMLElement | null)?.focus();
   }
 
   @HostListener('keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent): void {
     if (!this.keyboardNavigation()) return;
+
+    const target = event.target instanceof HTMLElement ? event.target : this.elementRef.nativeElement;
+    const grid = this.elementRef.nativeElement as HTMLElement;
+    const editInput = target.closest('.grid-edit-input');
+    if (target !== grid && !target.closest('.grid-td') && !editInput) return;
+    if (target.closest('button, input, select, textarea, [contenteditable="true"]') && !editInput) return;
+
     const key = event.key;
     const focused = this.focusedCell();
     if (!focused) {
-      if (key === 'ArrowDown' || key === 'ArrowUp' || key === 'ArrowLeft' || key === 'ArrowRight') {
+      if (target === grid && ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(key)) {
         const rows = this.flatRenderedRows();
         const cols = this.orderedColumns();
         if (rows.length > 0 && cols.length > 0) {
-          this.focusedCell.set({ row: rows[0], colField: cols[0].field });
+          this.focusCell(rows[0], cols[0].field);
           event.preventDefault();
         }
       }
@@ -3956,18 +3583,20 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const colIndex = cols.findIndex(c => c.field === focused.colField);
 
     if (rowIndex === -1 || colIndex === -1) return;
+    const isRtl = this.elementRef.nativeElement.closest('[dir="rtl"]') !== null;
 
     if (this.focusedCellEditActive()) {
       if (key === 'Enter') {
         this.saveEdit(focused.row, rowIndex);
         this.focusedCellEditActive.set(false);
         if (rowIndex < rows.length - 1) {
-          this.focusedCell.set({ row: rows[rowIndex + 1], colField: focused.colField });
+          this.focusCell(rows[rowIndex + 1], focused.colField);
         }
         event.preventDefault();
       } else if (key === 'Escape') {
         this.cancelEdit();
         this.focusedCellEditActive.set(false);
+        this.focusCell(focused.row, focused.colField);
         event.preventDefault();
       }
       return;
@@ -3976,52 +3605,63 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     switch (key) {
       case 'ArrowUp':
         if (rowIndex > 0) {
-          this.focusedCell.set({ row: rows[rowIndex - 1], colField: focused.colField });
+          this.focusCell(rows[rowIndex - 1], focused.colField);
           event.preventDefault();
         }
         break;
       case 'ArrowDown':
         if (rowIndex < rows.length - 1) {
-          this.focusedCell.set({ row: rows[rowIndex + 1], colField: focused.colField });
+          this.focusCell(rows[rowIndex + 1], focused.colField);
           event.preventDefault();
         }
         break;
-      case 'ArrowLeft':
-        if (colIndex > 0) {
-          this.focusedCell.set({ row: focused.row, colField: cols[colIndex - 1].field });
+      case 'ArrowLeft': {
+        const nextColIndex = isRtl ? colIndex + 1 : colIndex - 1;
+        if (nextColIndex >= 0 && nextColIndex < cols.length) {
+          this.focusCell(focused.row, cols[nextColIndex].field);
           event.preventDefault();
         }
         break;
-      case 'ArrowRight':
-        if (colIndex < cols.length - 1) {
-          this.focusedCell.set({ row: focused.row, colField: cols[colIndex + 1].field });
+      }
+      case 'ArrowRight': {
+        const nextColIndex = isRtl ? colIndex - 1 : colIndex + 1;
+        if (nextColIndex >= 0 && nextColIndex < cols.length) {
+          this.focusCell(focused.row, cols[nextColIndex].field);
           event.preventDefault();
         }
         break;
-      case 'Tab':
-        if (event.shiftKey) {
-          if (colIndex > 0) {
-            this.focusedCell.set({ row: focused.row, colField: cols[colIndex - 1].field });
-          } else if (rowIndex > 0) {
-            this.focusedCell.set({ row: rows[rowIndex - 1], colField: cols[cols.length - 1].field });
-          }
+      }
+      case 'Tab': {
+        const nextRowIndex = event.shiftKey
+          ? colIndex === 0
+            ? rowIndex - 1
+            : rowIndex
+          : colIndex === cols.length - 1
+            ? rowIndex + 1
+            : rowIndex;
+        const nextColIndex = event.shiftKey
+          ? colIndex === 0
+            ? cols.length - 1
+            : colIndex - 1
+          : colIndex === cols.length - 1
+            ? 0
+            : colIndex + 1;
+        if (nextRowIndex >= 0 && nextRowIndex < rows.length) {
+          this.focusCell(rows[nextRowIndex], cols[nextColIndex].field);
+          event.preventDefault();
         } else {
-          if (colIndex < cols.length - 1) {
-            this.focusedCell.set({ row: focused.row, colField: cols[colIndex + 1].field });
-          } else if (rowIndex < rows.length - 1) {
-            this.focusedCell.set({ row: rows[rowIndex + 1], colField: cols[0].field });
-          }
+          this.focusedCell.set(null);
         }
-        event.preventDefault();
         break;
+      }
       case 'Enter': {
         const col = cols[colIndex];
         if (this.editable() && col.editable) {
           this.beginEdit(focused.row, rowIndex);
           this.focusedCellEditActive.set(true);
           setTimeout(() => {
-            const inputEl = this.elementRef.nativeElement.querySelector('.grid-edit-input') as HTMLInputElement;
-            if (inputEl) inputEl.focus();
+            const inputEl = grid.querySelector('.grid-edit-input') as HTMLInputElement | null;
+            inputEl?.focus();
           }, 0);
           event.preventDefault();
         }
@@ -4029,6 +3669,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
       }
       case 'Escape':
         this.focusedCell.set(null);
+        grid.focus();
         event.preventDefault();
         break;
       default:
@@ -4039,7 +3680,7 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
             this.focusedCellEditActive.set(true);
             this.updateDraft(focused.colField, key);
             setTimeout(() => {
-              const inputEl = this.elementRef.nativeElement.querySelector('.grid-edit-input') as HTMLInputElement;
+              const inputEl = grid.querySelector('.grid-edit-input') as HTMLInputElement | null;
               if (inputEl) {
                 inputEl.focus();
                 inputEl.value = key;
@@ -4050,6 +3691,14 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
         }
         break;
     }
+  }
+
+  private focusCell(row: T, colField: string): void {
+    this.focusedCell.set({ row, colField });
+    setTimeout(() => {
+      const focusedCell = this.elementRef.nativeElement.querySelector('.grid-td.cell-focused') as HTMLElement | null;
+      focusedCell?.focus();
+    }, 0);
   }
 
   getCellRowSpan(row: T, colField: string, rowIndex: number, groupItems?: T[]): number {
@@ -4106,10 +3755,12 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const rows = group.items;
     if (rows.length === 0) return '-';
 
-    const values = rows.map(r => {
-      const val = (r as Record<string, unknown>)[col.field];
-      return typeof val === 'number' ? val : Number(val);
-    }).filter(v => !isNaN(v));
+    const values = rows
+      .map(r => {
+        const val = (r as Record<string, unknown>)[col.field];
+        return typeof val === 'number' ? val : Number(val);
+      })
+      .filter(v => !isNaN(v));
 
     if (col.aggregation === 'count') {
       return String(rows.length);

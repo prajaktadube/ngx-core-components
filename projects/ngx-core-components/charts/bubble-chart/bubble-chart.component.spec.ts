@@ -8,8 +8,8 @@ describe('BubbleChartComponent', () => {
     spyOn(window, 'open').and.returnValue({
       document: {
         write: () => {},
-        close: () => {}
-      }
+        close: () => {},
+      },
     } as any);
     spyOn(window, 'alert').and.stub();
 
@@ -18,50 +18,121 @@ describe('BubbleChartComponent', () => {
       providers: [
         {
           provide: ChartExportService,
-          useValue: jasmine.createSpyObj('ChartExportService', ['downloadJson', 'downloadCsv', 'downloadSvg', 'downloadPdf'])
-        }
-      ]
+          useValue: jasmine.createSpyObj('ChartExportService', [
+            'downloadJson',
+            'downloadCsv',
+            'downloadSvg',
+            'downloadPdf',
+          ]),
+        },
+      ],
     }).compileComponents();
   });
 
   it('should create and render with mock data', () => {
     const fixture = TestBed.createComponent(BubbleChartComponent);
     const component = fixture.componentInstance;
-    try { fixture.componentRef.setInput('data', [
-          { id: '1', label: 'A', value: 10, group: 'G1', x: 5, y: 10 },
-          { id: '2', label: 'B', value: 20, group: 'G2', x: 15, y: 20 }
-        ]); } catch(e) {}
+    try {
+      fixture.componentRef.setInput('data', [
+        { id: '1', label: 'A', value: 10, group: 'G1', x: 5, y: 10 },
+        { id: '2', label: 'B', value: 20, group: 'G2', x: 15, y: 20 },
+      ]);
+    } catch (e) {}
 
-    try { fixture.detectChanges(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
     expect(component).toBeTruthy();
   });
 
   it('should execute interaction handlers and export functions', () => {
     const fixture = TestBed.createComponent(BubbleChartComponent);
     const component = fixture.componentInstance;
-    try { fixture.componentRef.setInput('data', [
-          { id: '1', label: 'A', value: 10, group: 'G1', x: 5, y: 10 },
-          { id: '2', label: 'B', value: 20, group: 'G2', x: 15, y: 20 }
-        ]); } catch(e) {}
+    try {
+      fixture.componentRef.setInput('data', [
+        { id: '1', label: 'A', value: 10, group: 'G1', x: 5, y: 10 },
+        { id: '2', label: 'B', value: 20, group: 'G2', x: 15, y: 20 },
+      ]);
+    } catch (e) {}
 
-    try { fixture.detectChanges(); } catch(e) {}
-    try { (component as any).exportToJson(); } catch(e) {}
-    try { (component as any).exportToCsv(); } catch(e) {}
-    try { (component as any).exportToSvg(); } catch(e) {}
-    try { (component as any).exportToPdf(); } catch(e) {}
-    try { (component as any).onExport('json'); } catch(e) {}
-    try { (component as any).onExport('csv'); } catch(e) {}
-    try { (component as any).onExport('svg'); } catch(e) {}
-    try { (component as any).onExport('pdf'); } catch(e) {}
-    try { (component as any).onMouseLeave(0, 0, new MouseEvent('mousemove'), {} as any); } catch(e) {}
-    try { (component as any).onMouseLeave(0, new MouseEvent('click'), {} as any); } catch(e) {}
-    try { (component as any).onMouseLeave(new MouseEvent('mousemove')); } catch(e) {}
-    try { (component as any).onMouseLeave(); } catch(e) {}
-    try { (component as any).onPointHover(0, 0, new MouseEvent('mousemove'), {} as any); } catch(e) {}
-    try { (component as any).onPointHover(0, new MouseEvent('click'), {} as any); } catch(e) {}
-    try { (component as any).onPointHover(new MouseEvent('mousemove')); } catch(e) {}
-    try { (component as any).onPointHover(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
+    try {
+      (component as any).exportToJson();
+    } catch (e) {}
+    try {
+      (component as any).exportToCsv();
+    } catch (e) {}
+    try {
+      (component as any).exportToSvg();
+    } catch (e) {}
+    try {
+      (component as any).exportToPdf();
+    } catch (e) {}
+    try {
+      (component as any).onExport('json');
+    } catch (e) {}
+    try {
+      (component as any).onExport('csv');
+    } catch (e) {}
+    try {
+      (component as any).onExport('svg');
+    } catch (e) {}
+    try {
+      (component as any).onExport('pdf');
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave(0, 0, new MouseEvent('mousemove'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave(0, new MouseEvent('click'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave(new MouseEvent('mousemove'));
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave();
+    } catch (e) {}
+    try {
+      (component as any).onPointHover(0, 0, new MouseEvent('mousemove'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onPointHover(0, new MouseEvent('click'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onPointHover(new MouseEvent('mousemove'));
+    } catch (e) {}
+    try {
+      (component as any).onPointHover();
+    } catch (e) {}
 
     expect(component).toBeTruthy();
+  });
+
+  it('exposes labelled bubbles and displays their tooltip on keyboard focus', () => {
+    const fixture = TestBed.createComponent(BubbleChartComponent);
+    const component = fixture.componentInstance;
+    fixture.componentRef.setInput('data', [
+      { label: 'Alpha', group: 'North', x: 10, y: 20, z: 30 },
+      { label: 'Beta', group: 'South', x: 20, y: 40, z: 60 },
+    ]);
+    fixture.detectChanges();
+
+    const point = fixture.nativeElement.querySelector('.bubble-point') as SVGCircleElement;
+    expect(point.getAttribute('role')).toBe('img');
+    expect(point.getAttribute('tabindex')).toBe('0');
+    expect(point.getAttribute('aria-label')).toContain('Alpha');
+    expect(point.getAttribute('aria-label')).toContain('North');
+
+    point.dispatchEvent(new FocusEvent('focus'));
+    fixture.detectChanges();
+    expect(component.hoveredPointIndex()).toBe(0);
+    expect(fixture.nativeElement.querySelector('.chart-tooltip')?.textContent).toContain('Alpha');
+
+    point.dispatchEvent(new FocusEvent('blur'));
+    fixture.detectChanges();
+    expect(component.hoveredPointIndex()).toBeNull();
+    expect(component.tooltip()).toBeNull();
   });
 });

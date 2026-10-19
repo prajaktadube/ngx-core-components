@@ -1,16 +1,26 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject, DestroyRef
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  HostListener,
+  inject,
+  DestroyRef,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
 
 @Component({
   selector: 'ngx-pie-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-pie-chart">
@@ -38,8 +48,15 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
                 [attr.stroke]="'#fff'"
                 stroke-width="2"
                 class="pie-slice"
+                [ngxChartAccessibleMark]="i18n.chart.pieSliceDescription(slice.label, fmtNum(slice.value), slice.pct)"
+                (focus)="onSliceFocus($event, slice)"
+                (blur)="onSliceBlur(slice.index)"
                 [class.hovered]="hovered() === slice.index"
-                [style.transform]="hovered() === slice.index ? 'translate(' + (slice.cos * 8) + 'px,' + (slice.sin * 8) + 'px)' : 'translate(0, 0)'"
+                [style.transform]="
+                  hovered() === slice.index
+                    ? 'translate(' + slice.cos * 8 + 'px,' + slice.sin * 8 + 'px)'
+                    : 'translate(0, 0)'
+                "
                 (mouseenter)="hovered.set(slice.index); onSliceHover($event, slice)"
                 (mouseleave)="hovered.set(-1); tooltip.set(null)"
               />
@@ -50,7 +67,9 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
                   text-anchor="middle"
                   dominant-baseline="middle"
                   class="slice-label"
-                >{{ slice.pct }}%</text>
+                >
+                  {{ slice.pct }}%
+                </text>
               }
             }
             <!-- Donut hole -->
@@ -78,92 +97,176 @@ import { CHART_COLORS, ChartDataPoint, fmtNum } from '../shared/chart-utils';
       @if (tooltip(); as t) {
         <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
           <span class="tt-dot" [style.background]="t.color"></span>
-          <strong>{{ t.label }}</strong>: {{ fmtNum(t.value) }} ({{ t.pct }}%)
+          <strong>{{ t.label }}</strong
+          >: {{ fmtNum(t.value) }} ({{ t.pct }}%)
         </div>
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-pie-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #fff);
-      font-family: inherit;
-      overflow: hidden;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-    }
-    .chart-body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    /* SVG uses explicit width/height attrs for intrinsic size;
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-pie-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #fff);
+        font-family: inherit;
+        overflow: hidden;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+      .chart-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      /* SVG uses explicit width/height attrs for intrinsic size;
        max-width: 100% + min-width: 0 lets it shrink inside flex. */
-    .chart-svg {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      min-width: 0;
-      animation: pieGrow 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-      transform-origin: center;
-    }
+      .chart-svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        animation: pieGrow 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+        transform-origin: center;
+      }
 
-    @keyframes pieGrow {
-      from { transform: scale(0.4) rotate(-90deg); opacity: 0; }
-      to { transform: scale(1) rotate(0); opacity: 1; }
-    }
-    .pie-group {
-      transform-origin: center;
-    }
+      @keyframes pieGrow {
+        from {
+          transform: scale(0.4) rotate(-90deg);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) rotate(0);
+          opacity: 1;
+        }
+      }
+      .pie-group {
+        transform-origin: center;
+      }
 
-    .pie-slice {
-      cursor: pointer;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.15s;
-      transform-origin: 0px 0px;
-    }
-    .pie-slice.hovered { fill-opacity: 0.95; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.16)); }
-    .slice-label { font-size: 11px; fill: #fff; font-weight: 600; pointer-events: none; user-select: none; }
-    .donut-center-text { font-size: 11px; fill: var(--ngx-chart-axis-text,#6c757d); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .donut-center-value { font-size: 24px; font-weight: 900; fill: var(--ngx-chart-text,#0f172a); }
-    .chart-legend { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
-    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: all 0.15s; }
-    .legend-item:hover { background: var(--ngx-chart-grid,#f1f3f5); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
-    .legend-label { flex: 1; color: var(--ngx-chart-axis-text,#6c757d); font-weight: 500; }
-    .legend-pct { font-weight: 600; color: var(--ngx-chart-text,#212529); }
+      .pie-slice {
+        cursor: pointer;
+        transition:
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          fill-opacity 0.15s;
+        transform-origin: 0px 0px;
+      }
+      .pie-slice.hovered {
+        fill-opacity: 0.95;
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.16));
+      }
+      .pie-slice:focus-visible {
+        outline: 3px solid var(--ngx-focus-ring, #2563eb);
+        outline-offset: 3px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .chart-svg,
+        .pie-slice {
+          animation: none;
+          transition: none;
+        }
+      }
+      .slice-label {
+        font-size: 11px;
+        fill: #fff;
+        font-weight: 600;
+        pointer-events: none;
+        user-select: none;
+      }
+      .donut-center-text {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #6c757d);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .donut-center-value {
+        font-size: 24px;
+        font-weight: 900;
+        fill: var(--ngx-chart-text, #0f172a);
+      }
+      .chart-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 8px;
+        transition: all 0.15s;
+      }
+      .legend-item:hover {
+        background: var(--ngx-chart-grid, #f1f3f5);
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      .legend-label {
+        flex: 1;
+        color: var(--ngx-chart-axis-text, #6c757d);
+        font-weight: 500;
+      }
+      .legend-pct {
+        font-weight: 600;
+        color: var(--ngx-chart-text, #212529);
+      }
 
-    /* Premium Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
-      border-radius: 10px; font-size: 12px; min-width: 140px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      display: flex; align-items: center; gap: 6px;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tt-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-
-  `]
+      /* Premium Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 140px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+    `,
+  ],
 })
 export class PieChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  readonly i18n = inject(NGX_CORE_I18N);
   data = input<ChartDataPoint[]>([]);
   mode = input<'pie' | 'donut'>('pie');
   donutHoleSize = input<number>(0.55);
@@ -180,9 +283,8 @@ export class PieChartComponent {
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
-
   hovered = signal(-1);
-  tooltip = signal<{x:number;y:number;label:string;value:number;pct:number;color:string}|null>(null);
+  tooltip = signal<{ x: number; y: number; label: string; value: number; pct: number; color: string } | null>(null);
 
   svgSize = computed(() => this.height());
   cx = computed(() => this.svgSize() / 2);
@@ -213,9 +315,7 @@ export class PieChartComponent {
       const end = start + angle;
       const mid = start + angle / 2;
       const r = this.radius();
-      const path = this.mode() === 'donut'
-        ? this.ringPath(start, end, r, this.holeR())
-        : this.arcPath(start, end, r);
+      const path = this.mode() === 'donut' ? this.ringPath(start, end, r, this.holeR()) : this.arcPath(start, end, r);
       const cos = Math.cos(mid);
       const sin = Math.sin(mid);
       start = end;
@@ -257,16 +357,42 @@ export class PieChartComponent {
     return `M ${ix1} ${iy1} L ${ox1} ${oy1} A ${outerR} ${outerR} 0 ${large} 1 ${ox2} ${oy2} L ${ix2} ${iy2} A ${innerR} ${innerR} 0 ${large} 0 ${ix1} ${iy1} Z`;
   }
 
-  labelX(s: {midAngle:number}): number {
+  labelX(s: { midAngle: number }): number {
     const r = this.mode() === 'donut' ? (this.radius() + this.holeR()) / 2 : this.radius() * 0.7;
     return Math.cos(s.midAngle) * r;
   }
-  labelY(s: {midAngle:number}): number {
+  labelY(s: { midAngle: number }): number {
     const r = this.mode() === 'donut' ? (this.radius() + this.holeR()) / 2 : this.radius() * 0.7;
     return Math.sin(s.midAngle) * r;
   }
 
-  onSliceHover(event: MouseEvent, slice: {label:string;value:number;pct:number;color:string}): void {
+  onSliceFocus(
+    event: FocusEvent,
+    slice: { label: string; value: number; pct: number; color: string; index: number }
+  ): void {
+    this.hovered.set(slice.index);
+    const target = event.currentTarget as SVGPathElement;
+    const chart = target.closest('.ngx-pie-chart') as HTMLElement;
+    const targetRect = target.getBoundingClientRect();
+    const chartRect = chart.getBoundingClientRect();
+    this.tooltip.set({
+      x: targetRect.left + targetRect.width / 2 - chartRect.left,
+      y: targetRect.top - chartRect.top,
+      label: slice.label,
+      value: slice.value,
+      pct: slice.pct,
+      color: slice.color,
+    });
+  }
+
+  onSliceBlur(index: number): void {
+    if (this.hovered() === index) {
+      this.hovered.set(-1);
+      this.tooltip.set(null);
+    }
+  }
+
+  onSliceHover(event: MouseEvent, slice: { label: string; value: number; pct: number; color: string }): void {
     const el = (event.currentTarget as HTMLElement).closest('.ngx-pie-chart') as HTMLElement;
     const rect = el.getBoundingClientRect();
     this.tooltip.set({

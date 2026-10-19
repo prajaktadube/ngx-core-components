@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  HostListener,
+  inject,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum, generateUniqueId } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface RadialBarItem {
   label: string;
@@ -17,7 +26,7 @@ export interface RadialBarItem {
 @Component({
   selector: 'ngx-radial-bar-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-radial-bar-chart" (mouseleave)="onMouseLeave()">
@@ -75,6 +84,9 @@ export interface RadialBarItem {
                   [class.hovered]="hoveredIndex() === i"
                   (mouseenter)="onRingHover(ring.raw, i)"
                   (mousemove)="onRingMouseMove($event)"
+                  (focus)="onRingFocus($event, ring.raw, i)"
+                  (blur)="onRingBlur()"
+                  [ngxChartAccessibleMark]="ringAccessibleLabel(ring.raw)"
                 />
               }
             </g>
@@ -85,12 +97,8 @@ export interface RadialBarItem {
             @if (hoveredIndex() !== null) {
               @if (computedRings()[hoveredIndex()!]; as active) {
                 <span class="center-label">{{ active.label }}</span>
-                <span class="center-value" [style.color]="active.color">
-                  {{ active.pct }}%
-                </span>
-                <span class="center-sublabel">
-                  {{ fmtNum(active.value) }} / {{ fmtNum(active.max) }}
-                </span>
+                <span class="center-value" [style.color]="active.color"> {{ active.pct }}% </span>
+                <span class="center-sublabel"> {{ fmtNum(active.value) }} / {{ fmtNum(active.max) }} </span>
               }
             } @else if (data().length > 0) {
               <span class="center-label">Average</span>
@@ -125,11 +133,7 @@ export interface RadialBarItem {
 
       <!-- Glassmorphic Tooltip -->
       @if (tooltip() && hoveredIndex() !== null) {
-        <div
-          class="chart-tooltip"
-          [style.left.px]="tooltipX()"
-          [style.top.px]="tooltipY()"
-        >
+        <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
           <div class="tt-cat">{{ tooltip().label }}</div>
           <div class="tt-row">
             <span class="tt-dot" [style.background]="tooltip().color"></span>
@@ -145,177 +149,187 @@ export interface RadialBarItem {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-radial-bar-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 12px;
-    }
-    .chart-layout {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .radial-visual {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .radial-svg {
-      display: block;
-    }
-    .progress-ring {
-      cursor: pointer;
-      transition: stroke-width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 0.3s ease,
-                  opacity 0.2s;
-    }
-    .progress-ring.hovered {
-      filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
-    }
-    .center-content {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      text-align: center;
-    }
-    .center-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .center-value {
-      font-size: 24px;
-      font-weight: 800;
-      color: #1e293b;
-      line-height: 1.1;
-      margin: 2px 0;
-    }
-    .center-sublabel {
-      font-size: 10px;
-      color: #94a3b8;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-radial-bar-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 12px;
+      }
+      .chart-layout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .radial-visual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .radial-svg {
+        display: block;
+      }
+      .progress-ring {
+        cursor: pointer;
+        transition:
+          stroke-width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+          stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 0.3s ease,
+          opacity 0.2s;
+      }
+      .progress-ring.hovered {
+        filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
+      }
+      .progress-ring:focus-visible {
+        filter: drop-shadow(0 0 4px var(--ngx-chart-focus, #1d4ed8));
+      }
+      .center-content {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        text-align: center;
+      }
+      .center-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .center-value {
+        font-size: 24px;
+        font-weight: 800;
+        color: #1e293b;
+        line-height: 1.1;
+        margin: 2px 0;
+      }
+      .center-sublabel {
+        font-size: 10px;
+        color: #94a3b8;
+      }
 
-    /* Legend */
-    .radial-legend {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 150px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    .legend-item:hover, .legend-item.active {
-      background: var(--ngx-chart-grid, #f8fafc);
-      border-color: var(--ngx-chart-grid, #e2e8f0);
-    }
-    .legend-color-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .legend-content {
-      flex: 1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-    .legend-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: #475569;
-    }
-    .metric-value {
-      font-size: 12px;
-      font-weight: 700;
-      color: #1e293b;
-    }
+      /* Legend */
+      .radial-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 150px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .legend-item:hover,
+      .legend-item.active {
+        background: var(--ngx-chart-grid, #f8fafc);
+        border-color: var(--ngx-chart-grid, #e2e8f0);
+      }
+      .legend-color-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .legend-content {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .legend-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: #475569;
+      }
+      .metric-value {
+        font-size: 12px;
+        font-weight: 700;
+        color: #1e293b;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class RadialBarChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   readonly instanceId = generateUniqueId('chart');
   data = input<RadialBarItem[]>([]);
   height = input<number>(300);
@@ -326,7 +340,6 @@ export class RadialBarChartComponent {
   ringGap = input<number>(4);
   colors = input<string[]>(CHART_COLORS);
   showExport = input<boolean>(false);
-
 
   hoveredIndex = signal<number | null>(null);
   tooltip = signal<any | null>(null);
@@ -376,7 +389,7 @@ export class RadialBarChartComponent {
         label: item.label,
         value: item.value,
         max: item.max,
-        raw: item
+        raw: item,
       };
     });
   });
@@ -385,7 +398,7 @@ export class RadialBarChartComponent {
   avgPct = computed(() => {
     const raw = this.data();
     if (raw.length === 0) return 0;
-    const sum = raw.reduce((acc, curr) => acc + (curr.value / curr.max), 0);
+    const sum = raw.reduce((acc, curr) => acc + curr.value / curr.max, 0);
     return Math.round((sum / raw.length) * 100);
   });
 
@@ -395,6 +408,28 @@ export class RadialBarChartComponent {
     if (ring) {
       this.tooltip.set(ring);
     }
+  }
+
+  ringAccessibleLabel(item: RadialBarItem): string {
+    const percent = Math.round((item.value / (item.max || 1)) * 1000) / 10;
+    return this.i18n.chart.dataMarkDescription(item.label, `${percent}%, ${fmtNum(item.value)} of ${fmtNum(item.max)}`);
+  }
+
+  onRingFocus(event: FocusEvent, item: RadialBarItem, index: number): void {
+    this.onRingHover(item, index);
+
+    const ring = event.currentTarget as SVGCircleElement;
+    const container = ring.closest('.ngx-radial-bar-chart');
+    if (!container) return;
+
+    const ringRect = ring.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    this.tooltipX.set(ringRect.left + ringRect.width / 2 - containerRect.left);
+    this.tooltipY.set(ringRect.top + ringRect.height / 2 - containerRect.top);
+  }
+
+  onRingBlur(): void {
+    this.onMouseLeave();
   }
 
   onRingMouseMove(event: MouseEvent) {

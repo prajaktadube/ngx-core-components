@@ -8,8 +8,8 @@ describe('BarChartComponent', () => {
     spyOn(window, 'open').and.returnValue({
       document: {
         write: () => {},
-        close: () => {}
-      }
+        close: () => {},
+      },
     } as any);
     spyOn(window, 'alert').and.stub();
 
@@ -18,54 +18,136 @@ describe('BarChartComponent', () => {
       providers: [
         {
           provide: ChartExportService,
-          useValue: jasmine.createSpyObj('ChartExportService', ['downloadJson', 'downloadCsv', 'downloadSvg', 'downloadPdf'])
-        }
-      ]
+          useValue: jasmine.createSpyObj('ChartExportService', [
+            'downloadJson',
+            'downloadCsv',
+            'downloadSvg',
+            'downloadPdf',
+          ]),
+        },
+      ],
     }).compileComponents();
   });
 
   it('should create and render with mock data', () => {
     const fixture = TestBed.createComponent(BarChartComponent);
     const component = fixture.componentInstance;
-    try { fixture.componentRef.setInput('series', [
-      { name: 'Mock Series 1', data: [10, 20, 30] },
-      { name: 'Mock Series 2', data: [15, 25, 35] }
-    ]); } catch(e) {}
+    try {
+      fixture.componentRef.setInput('series', [
+        { name: 'Mock Series 1', data: [10, 20, 30] },
+        { name: 'Mock Series 2', data: [15, 25, 35] },
+      ]);
+    } catch (e) {}
 
-    try { fixture.detectChanges(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
     expect(component).toBeTruthy();
   });
 
   it('should execute interaction handlers and export functions', () => {
     const fixture = TestBed.createComponent(BarChartComponent);
     const component = fixture.componentInstance;
-    try { fixture.componentRef.setInput('series', [
-      { name: 'Mock Series 1', data: [10, 20, 30] },
-      { name: 'Mock Series 2', data: [15, 25, 35] }
-    ]); } catch(e) {}
+    try {
+      fixture.componentRef.setInput('series', [
+        { name: 'Mock Series 1', data: [10, 20, 30] },
+        { name: 'Mock Series 2', data: [15, 25, 35] },
+      ]);
+    } catch (e) {}
 
-    try { fixture.detectChanges(); } catch(e) {}
-    try { (component as any).exportToJson(); } catch(e) {}
-    try { (component as any).exportToCsv(); } catch(e) {}
-    try { (component as any).exportToSvg(); } catch(e) {}
-    try { (component as any).exportToPdf(); } catch(e) {}
-    try { (component as any).onExport('json'); } catch(e) {}
-    try { (component as any).onExport('csv'); } catch(e) {}
-    try { (component as any).onExport('svg'); } catch(e) {}
-    try { (component as any).onExport('pdf'); } catch(e) {}
-    try { (component as any).onMouseMove(0, 0, new MouseEvent('mousemove'), {} as any); } catch(e) {}
-    try { (component as any).onMouseMove(0, new MouseEvent('click'), {} as any); } catch(e) {}
-    try { (component as any).onMouseMove(new MouseEvent('mousemove')); } catch(e) {}
-    try { (component as any).onMouseMove(); } catch(e) {}
-    try { (component as any).onMouseLeave(0, 0, new MouseEvent('mousemove'), {} as any); } catch(e) {}
-    try { (component as any).onMouseLeave(0, new MouseEvent('click'), {} as any); } catch(e) {}
-    try { (component as any).onMouseLeave(new MouseEvent('mousemove')); } catch(e) {}
-    try { (component as any).onMouseLeave(); } catch(e) {}
-    try { (component as any).onBarClick(0, 0, new MouseEvent('mousemove'), {} as any); } catch(e) {}
-    try { (component as any).onBarClick(0, new MouseEvent('click'), {} as any); } catch(e) {}
-    try { (component as any).onBarClick(new MouseEvent('mousemove')); } catch(e) {}
-    try { (component as any).onBarClick(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
+    try {
+      (component as any).exportToJson();
+    } catch (e) {}
+    try {
+      (component as any).exportToCsv();
+    } catch (e) {}
+    try {
+      (component as any).exportToSvg();
+    } catch (e) {}
+    try {
+      (component as any).exportToPdf();
+    } catch (e) {}
+    try {
+      (component as any).onExport('json');
+    } catch (e) {}
+    try {
+      (component as any).onExport('csv');
+    } catch (e) {}
+    try {
+      (component as any).onExport('svg');
+    } catch (e) {}
+    try {
+      (component as any).onExport('pdf');
+    } catch (e) {}
+    try {
+      (component as any).onMouseMove(0, 0, new MouseEvent('mousemove'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onMouseMove(0, new MouseEvent('click'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onMouseMove(new MouseEvent('mousemove'));
+    } catch (e) {}
+    try {
+      (component as any).onMouseMove();
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave(0, 0, new MouseEvent('mousemove'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave(0, new MouseEvent('click'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave(new MouseEvent('mousemove'));
+    } catch (e) {}
+    try {
+      (component as any).onMouseLeave();
+    } catch (e) {}
+    try {
+      (component as any).onBarClick(0, 0, new MouseEvent('mousemove'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onBarClick(0, new MouseEvent('click'), {} as any);
+    } catch (e) {}
+    try {
+      (component as any).onBarClick(new MouseEvent('mousemove'));
+    } catch (e) {}
+    try {
+      (component as any).onBarClick();
+    } catch (e) {}
 
     expect(component).toBeTruthy();
+  });
+
+  it('exposes a screen-reader label and a table alternative', () => {
+    const fixture = TestBed.createComponent(BarChartComponent);
+    fixture.componentRef.setInput('series', [{ name: 'Revenue', data: [12, 18] }]);
+    fixture.componentRef.setInput('categories', ['Q1', 'Q2']);
+    fixture.detectChanges();
+
+    const chart = fixture.nativeElement.querySelector('svg[role="group"]') as SVGElement;
+    const table = fixture.nativeElement.querySelector('table') as HTMLTableElement;
+    expect(chart.getAttribute('aria-label')).toContain('Revenue');
+    expect(table.textContent).toContain('Q1');
+    expect(table.textContent).toContain('18');
+  });
+
+  it('supports keyboard activation for data bars', () => {
+    const fixture = TestBed.createComponent(BarChartComponent);
+    fixture.componentRef.setInput('series', [{ name: 'Revenue', data: [12] }]);
+    fixture.componentRef.setInput('categories', ['Q1']);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    const selection = jasmine.createSpy('barClick');
+    component.barClick.subscribe(selection);
+
+    const bar = fixture.nativeElement.querySelector('.bar-rect[role="button"]') as SVGRectElement;
+    bar.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+
+    expect(bar.getAttribute('aria-label')).toBe('Revenue, Q1: 12');
+    expect(selection).toHaveBeenCalledWith({ category: 'Q1', value: 12, seriesName: 'Revenue' });
   });
 });

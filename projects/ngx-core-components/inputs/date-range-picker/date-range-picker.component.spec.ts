@@ -7,14 +7,13 @@ describe('DateRangePickerComponent', () => {
     spyOn(window, 'open').and.returnValue({
       document: {
         write: () => {},
-        close: () => {}
-      }
+        close: () => {},
+      },
     } as any);
     spyOn(window, 'alert').and.stub();
 
     await TestBed.configureTestingModule({
       imports: [DateRangePickerComponent],
-
     }).compileComponents();
   });
 
@@ -22,7 +21,9 @@ describe('DateRangePickerComponent', () => {
     const fixture = TestBed.createComponent(DateRangePickerComponent);
     const component = fixture.componentInstance;
 
-    try { fixture.detectChanges(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
     expect(component).toBeTruthy();
   });
 
@@ -30,8 +31,31 @@ describe('DateRangePickerComponent', () => {
     const fixture = TestBed.createComponent(DateRangePickerComponent);
     const component = fixture.componentInstance;
 
-    try { fixture.detectChanges(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
 
     expect(component).toBeTruthy();
+  });
+
+  it('reverses horizontal calendar navigation in RTL layouts', () => {
+    const fixture = TestBed.createComponent(DateRangePickerComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+    const host = document.createElement('div');
+    host.setAttribute('dir', 'rtl');
+    const button = document.createElement('button');
+    host.append(button);
+    const event = {
+      key: 'ArrowRight',
+      currentTarget: button,
+      preventDefault: jasmine.createSpy(),
+    } as unknown as KeyboardEvent;
+
+    component.onDayKeydown(event, new Date(2024, 0, 1));
+
+    expect(component.viewMonth()).toBe(11);
+    expect(component.viewYear()).toBe(2023);
+    expect(event.preventDefault).toHaveBeenCalled();
   });
 });

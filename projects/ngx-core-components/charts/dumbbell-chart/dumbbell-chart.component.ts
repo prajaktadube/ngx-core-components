@@ -1,9 +1,19 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  HostListener,
+  viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface DumbbellItem {
   label: string;
@@ -16,7 +26,7 @@ export interface DumbbellItem {
 @Component({
   selector: 'ngx-dumbbell-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-dumbbell-chart" (mouseleave)="onMouseLeave()">
@@ -24,7 +34,9 @@ export interface DumbbellItem {
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <div class="chart-export-menu">
-            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">📤 Export</button>
+            <button class="export-trigger" (click)="toggleExportMenu($event)" aria-label="Export Menu">
+              📤 Export
+            </button>
             @if (exportMenuOpen()) {
               <div class="export-dropdown">
                 <button (click)="onExport('json')">📊 Export JSON</button>
@@ -51,12 +63,7 @@ export interface DumbbellItem {
         </div>
       }
 
-      <svg
-        #svgEl
-        class="dumbbell-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="dumbbell-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
           <!-- Grid Lines -->
           @if (showGrid()) {
@@ -77,8 +84,11 @@ export interface DumbbellItem {
               class="dumbbell-row"
               [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
               [class.highlighted]="hoveredIndex() === i"
-              (mouseenter)="onRowHover(i, $event)"
+              (mouseenter)="onRowHover(i)"
               (mousemove)="onRowMouseMove($event)"
+              (focus)="onRowFocus(i, $event)"
+              (blur)="onRowBlur()"
+              [ngxChartAccessibleMark]="itemAccessibleLabel(item)"
             >
               <!-- Row background trigger -->
               <rect
@@ -141,11 +151,7 @@ export interface DumbbellItem {
             @for (tick of xTicks(); track tick) {
               <g [attr.transform]="'translate(' + xPos(tick) + ',0)'">
                 <line [attr.x1]="0" [attr.x2]="0" [attr.y1]="0" [attr.y2]="4" class="tick-line" />
-                <text
-                  [attr.y]="16"
-                  text-anchor="middle"
-                  class="tick-label"
-                >
+                <text [attr.y]="16" text-anchor="middle" class="tick-label">
                   {{ formatNumber(tick) }}
                 </text>
               </g>
@@ -179,205 +185,221 @@ export interface DumbbellItem {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-dumbbell-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .dumbbell-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 500;
-      user-select: none;
-    }
-    .y-axis-label {
-      font-size: 12px;
-      fill: var(--ngx-chart-axis-text, #334155);
-      font-weight: 600;
-      user-select: none;
-    }
-    .connecting-bar {
-      transition: stroke-width 0.2s ease, opacity 0.2s ease;
-      opacity: 0.85;
-    }
-    .endpoint-dot {
-      transition: r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
-      stroke: var(--ngx-chart-bg, #ffffff);
-      stroke-width: 1.5;
-    }
-    .dumbbell-row {
-      transition: opacity 0.2s ease;
-    }
-    .dumbbell-row.dimmed {
-      opacity: 0.3;
-    }
-    .dumbbell-row.highlighted .connecting-bar {
-      stroke-width: 6;
-      opacity: 1;
-    }
-    
-    /* Legend */
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-      justify-content: flex-end;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .legend-label {
-      font-size: 12px;
-      color: #475569;
-      font-weight: 600;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-dumbbell-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .dumbbell-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 500;
+        user-select: none;
+      }
+      .y-axis-label {
+        font-size: 12px;
+        fill: var(--ngx-chart-axis-text, #334155);
+        font-weight: 600;
+        user-select: none;
+      }
+      .connecting-bar {
+        transition:
+          stroke-width 0.2s ease,
+          opacity 0.2s ease;
+        opacity: 0.85;
+      }
+      .endpoint-dot {
+        transition:
+          r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 0.2s ease;
+        stroke: var(--ngx-chart-bg, #ffffff);
+        stroke-width: 1.5;
+      }
+      .dumbbell-row {
+        transition: opacity 0.2s ease;
+      }
+      .dumbbell-row.dimmed {
+        opacity: 0.3;
+      }
+      .dumbbell-row.highlighted .connecting-bar {
+        stroke-width: 6;
+        opacity: 1;
+      }
+      .dumbbell-row:focus-visible .endpoint-dot {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .delta-row {
-      border-top: 1px dashed rgba(255, 255, 255, 0.15);
-      margin-top: 6px;
-      padding-top: 6px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Legend */
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+        justify-content: flex-end;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .legend-label {
+        font-size: 12px;
+        color: #475569;
+        font-weight: 600;
+      }
 
-    /* Header and Export dropdown styles */
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    .chart-export-menu {
-      position: relative;
-      z-index: 50;
-    }
-    .export-trigger {
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #64748b);
-      background: rgba(241, 245, 249, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .export-trigger:hover {
-      background: #ffffff;
-      color: #4f46e5;
-      border-color: #4f46e5;
-    }
-    .export-dropdown {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 4px);
-      background: #ffffff;
-      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 120px;
-    }
-    .export-dropdown button {
-      background: none;
-      border: none;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
-      cursor: pointer;
-      color: #1e293b;
-      border-radius: 4px;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .export-dropdown button:hover {
-      background: rgba(79, 70, 229, 0.06);
-      color: #4f46e5;
-    }
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .delta-row {
+        border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        margin-top: 6px;
+        padding-top: 6px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+
+      /* Header and Export dropdown styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+      .chart-export-menu {
+        position: relative;
+        z-index: 50;
+      }
+      .export-trigger {
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ngx-chart-axis-text, #64748b);
+        background: rgba(241, 245, 249, 0.8);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .export-trigger:hover {
+        background: #ffffff;
+        color: #4f46e5;
+        border-color: #4f46e5;
+      }
+      .export-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 4px);
+        background: #ffffff;
+        border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+        border-radius: 8px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 120px;
+      }
+      .export-dropdown button {
+        background: none;
+        border: none;
+        padding: 6px 10px;
+        font-size: 11px;
+        text-align: left;
+        cursor: pointer;
+        color: #1e293b;
+        border-radius: 4px;
+        width: 100%;
+        transition: all 0.12s;
+      }
+      .export-dropdown button:hover {
+        background: rgba(79, 70, 229, 0.06);
+        color: #4f46e5;
+      }
+    `,
+  ],
 })
 export class DumbbellChartComponent {
+  private readonly i18n = inject(NGX_CORE_I18N);
+
   data = input<DumbbellItem[]>([]);
   height = input<number>(350);
   showGrid = input<boolean>(true);
@@ -403,7 +425,7 @@ export class DumbbellChartComponent {
     top: 20,
     right: 30,
     bottom: 30,
-    left: this.showLabels() ? 100 : 20
+    left: this.showLabels() ? 100 : 20,
   }));
 
   svgHeight = computed(() => this.height());
@@ -454,7 +476,7 @@ export class DumbbellChartComponent {
     const ticks = this.xTicks();
     return {
       min: ticks[0],
-      max: ticks[ticks.length - 1]
+      max: ticks[ticks.length - 1],
     };
   });
 
@@ -486,20 +508,50 @@ export class DumbbellChartComponent {
         y,
         sColor,
         eColor,
-        barColor
+        barColor,
       };
     });
   });
 
-  onRowHover(idx: number, event: MouseEvent) {
+  onRowHover(idx: number) {
     this.hoveredIndex.set(idx);
     const item = this.data()[idx];
     if (item) {
       this.tooltip.set({
         ...item,
-        delta: item.endValue - item.startValue
+        delta: item.endValue - item.startValue,
       });
     }
+  }
+
+  itemAccessibleLabel(item: DumbbellItem): string {
+    const values = `${this.startLabel()}: ${fmtNum(item.startValue)}, ${this.endLabel()}: ${fmtNum(item.endValue)}`;
+    return this.i18n.chart.dataMarkDescription(item.label, values);
+  }
+
+  onRowFocus(idx: number, event: FocusEvent): void {
+    const item = this.data()[idx];
+    if (!item) return;
+
+    this.hoveredIndex.set(idx);
+    this.tooltip.set({
+      ...item,
+      delta: item.endValue - item.startValue,
+    });
+
+    const row = event.currentTarget as SVGGElement;
+    const container = row.closest('.ngx-dumbbell-chart');
+    if (!container) return;
+
+    const rowRect = row.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    this.tooltipX.set(rowRect.left + rowRect.width / 2 - containerRect.left);
+    this.tooltipY.set(rowRect.top - containerRect.top);
+  }
+
+  onRowBlur(): void {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
   }
 
   onRowMouseMove(event: MouseEvent) {
@@ -592,7 +644,7 @@ export class DumbbellChartComponent {
     const svgClone = svg.cloneNode(true) as SVGElement;
     svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     const svgString = new XMLSerializer().serializeToString(svgClone);
-    
+
     printWindow.document.write(`
       <html>
         <head>

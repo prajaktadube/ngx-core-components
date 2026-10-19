@@ -1,4 +1,16 @@
-import { Component, input, OnChanges, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  input,
+  OnChanges,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+  PLATFORM_ID,
+  inject,
+  signal,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { encodeCode128B } from './barcode-encoding';
 
 // Code128B barcode renderer using SVG bars
 @Component({
@@ -6,18 +18,53 @@ import { Component, input, OnChanges, ElementRef, ViewChild } from '@angular/cor
   standalone: true,
   template: `
     <div class="ngx-barcode">
-      @if (label() || value()) { <div class="barcode-label">{{ label() || value() }}</div> }
-      <svg #svg [attr.width]="svgWidth" [attr.height]="height()" class="barcode-svg"></svg>
+      @if (label() || value()) {
+        <div class="barcode-label">{{ label() || value() }}</div>
+      }
+      <svg
+        #svg
+        role="img"
+        [attr.aria-label]="'Code 128-B barcode for ' + (label() || value())"
+        [attr.width]="svgWidth"
+        [attr.height]="height()"
+        class="barcode-svg"
+      ></svg>
+      @if (encodingError()) {
+        <div class="barcode-error" role="alert">{{ encodingError() }}</div>
+      }
     </div>
   `,
-  styles: [`
-    :host { display: inline-block; }
-    .ngx-barcode { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .barcode-label { font-family: monospace; font-size: 11px; letter-spacing: 3px; color: var(--ngx-barcode-color, #212529); }
-    .barcode-svg { display: block; }
-  `]
+  styles: [
+    `
+      :host {
+        display: inline-block;
+      }
+      .ngx-barcode {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .barcode-label {
+        font-family: monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: var(--ngx-barcode-color, #212529);
+      }
+      .barcode-svg {
+        display: block;
+      }
+      .barcode-error {
+        color: var(--ngx-input-error, #b91c1c);
+        font-size: 12px;
+      }
+    `,
+  ],
 })
-export class BarcodeComponent implements OnChanges {
+export class BarcodeComponent implements OnChanges, AfterViewInit {
+  private readonly platformId = inject(PLATFORM_ID);
+  readonly encodingError = signal('');
+
   @ViewChild('svg', { static: true }) svgRef!: ElementRef<SVGElement>;
 
   value = input('');
@@ -29,16 +76,34 @@ export class BarcodeComponent implements OnChanges {
 
   svgWidth = 200;
 
-  ngOnChanges(): void { this.draw(); }
-  ngAfterViewInit(): void { this.draw(); }
+  ngOnChanges(): void {
+    this.draw();
+  }
+  ngAfterViewInit(): void {
+    this.draw();
+  }
 
   private draw(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     const svg = this.svgRef?.nativeElement;
-    if (!svg || !this.value()) return;
-    svg.innerHTML = '';
+    if (!svg) return;
+    svg.replaceChildren();
+    this.encodingError.set('');
+    if (!this.value()) return;
 
-    const bars = this.encode(this.value());
+    let bars: boolean[];
     const bw = this.barWidth();
+    if (!Number.isFinite(bw) || bw <= 0 || !Number.isFinite(this.height()) || this.height() <= 0) {
+      this.encodingError.set('Barcode height and bar width must be positive finite numbers.');
+      return;
+    }
+    try {
+      bars = encodeCode128B(this.value());
+    } catch (error) {
+      this.encodingError.set(error instanceof Error ? error.message : 'Unable to encode barcode value.');
+      return;
+    }
+
     const totalWidth = bars.length * bw + 20;
     this.svgWidth = totalWidth;
     svg.setAttribute('width', String(totalWidth));
@@ -53,8 +118,8 @@ export class BarcodeComponent implements OnChanges {
 
     // Bars
     let x = 10;
-    for (let i = 0; i < bars.length; i++) {
-      if (bars[i]) {
+    for (const isBar of bars) {
+      if (isBar) {
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('x', String(x));
         rect.setAttribute('y', '0');
@@ -65,36 +130,5 @@ export class BarcodeComponent implements OnChanges {
       }
       x += bw;
     }
-  }
-
-  // Simplified Code128-like encoding: just map each char to a pseudo-pattern
-  private encode(text: string): boolean[] {
-    const bars: boolean[] = [];
-    // Start: 11010000100
-    const start = [1,1,0,1,0,0,0,0,1,0,0];
-    start.forEach(b => bars.push(b === 1));
-
-    // Each character: 11 bits based on char code (simplified pattern)
-    for (let i = 0; i < text.length; i++) {
-      const code = text.charCodeAt(i);
-      const pattern = this.charPattern(code);
-      pattern.forEach(b => bars.push(b === 1));
-    }
-
-    // Stop: 1100011101011
-    const stop = [1,1,0,0,0,1,1,1,0,1,0,1,1];
-    stop.forEach(b => bars.push(b === 1));
-    return bars;
-  }
-
-  private charPattern(code: number): number[] {
-    // Map ASCII code to a deterministic 11-bit Code128-like pattern
-    const CODE128B: number[][] = [
-      [1,1,0,1,1,0,0,1,1,0,0],[1,1,0,0,1,1,0,1,1,0,0],[1,1,0,0,1,1,0,0,1,1,0],
-      [1,0,0,1,0,0,1,1,0,1,1],[1,0,0,1,0,0,1,0,1,1,0],[1,0,0,1,0,0,1,0,1,0,1],
-      [1,0,0,1,0,1,0,0,1,0,1],[1,0,0,1,0,1,0,1,0,0,1],[1,0,0,1,0,1,1,0,0,1,0],
-      [1,1,0,1,0,0,1,0,0,1,0],[1,1,0,1,0,0,0,1,0,0,1],[1,1,0,0,1,0,0,0,1,0,1],
-    ];
-    return CODE128B[code % CODE128B.length];
   }
 }

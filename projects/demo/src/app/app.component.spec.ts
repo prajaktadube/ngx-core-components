@@ -22,4 +22,29 @@ describe('AppComponent', () => {
     app.toggleSidebar();
     expect(app.sidebarOpen()).toBe(!initialValue);
   });
+
+  it('summarizes singular and empty navigation search results', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    app.navGroups = [
+      {
+        title: 'Only group',
+        icon: 'group',
+        items: [
+          {
+            path: '/unique',
+            label: 'Unique item',
+            icon: 'item',
+            desc: 'A single searchable item',
+          },
+        ],
+      },
+    ];
+
+    app.searchQuery.set('unique');
+    expect(app.searchSummary()).toBe('Showing 1 match for “unique”.');
+
+    app.searchQuery.set('absent');
+    expect(app.searchSummary()).toBe('Showing 0 matches for “absent”.');
+  });
 });

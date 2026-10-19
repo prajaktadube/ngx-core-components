@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  HostListener,
+  inject,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface ScatterPoint {
   x: number;
@@ -18,7 +27,7 @@ export interface ScatterPoint {
 @Component({
   selector: 'ngx-scatter-plot',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-scatter-plot" [class.dark]="theme() === 'dark'" (mouseleave)="onMouseLeave()">
@@ -47,6 +56,8 @@ export interface ScatterPoint {
           [attr.width]="'100%'"
           [attr.height]="height()"
           class="chart-svg"
+          role="group"
+          [attr.aria-label]="i18n.chart.scatterChartDescription(xTitle(), yTitle(), data().length)"
           (mouseleave)="onMouseLeave()"
         >
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
@@ -78,34 +89,25 @@ export interface ScatterPoint {
 
             <!-- Y-Axis Labels -->
             @for (tick of yTicks(); track tick) {
-              <text
-                x="-10"
-                [attr.y]="yPos(tick) + 4"
-                class="axis-label y"
-                text-anchor="end"
-              >{{ fmtNum(tick) }}</text>
+              <text x="-10" [attr.y]="yPos(tick) + 4" class="axis-label y" text-anchor="end">{{ fmtNum(tick) }}</text>
             }
             <text
-              [attr.transform]="'rotate(-90) translate(' + (-innerH()/2) + ', -36)'"
+              [attr.transform]="'rotate(-90) translate(' + -innerH() / 2 + ', -36)'"
               class="axis-title y"
               text-anchor="middle"
-            >{{ yTitle() }}</text>
+            >
+              {{ yTitle() }}
+            </text>
 
             <!-- X-Axis Labels -->
             @for (tick of xTicks(); track tick) {
-              <text
-                [attr.x]="xPos(tick)"
-                [attr.y]="innerH() + 20"
-                class="axis-label x"
-                text-anchor="middle"
-              >{{ fmtNum(tick) }}</text>
+              <text [attr.x]="xPos(tick)" [attr.y]="innerH() + 20" class="axis-label x" text-anchor="middle">
+                {{ fmtNum(tick) }}
+              </text>
             }
-            <text
-              [attr.x]="innerW() / 2"
-              [attr.y]="innerH() + 38"
-              class="axis-title x"
-              text-anchor="middle"
-            >{{ xTitle() }}</text>
+            <text [attr.x]="innerW() / 2" [attr.y]="innerH() + 38" class="axis-title x" text-anchor="middle">
+              {{ xTitle() }}
+            </text>
 
             <!-- Active Crosshair -->
             @if (hoveredPointIndex() !== null) {
@@ -143,17 +145,35 @@ export interface ScatterPoint {
                 [attr.stroke]="'#ffffff'"
                 stroke-width="1.5"
                 class="scatter-point"
+                [ngxChartAccessibleMark]="
+                  i18n.chart.scatterPointDescription(
+                    pt.raw.label,
+                    pt.raw.group,
+                    xTitle(),
+                    fmtNum(pt.raw.x),
+                    yTitle(),
+                    fmtNum(pt.raw.y)
+                  )
+                "
                 [class.hovered]="hoveredPointIndex() === i"
                 [style.transform-origin]="pt.cx + 'px ' + pt.cy + 'px'"
-                [style.animation-delay]="(i * 0.015) + 's'"
+                [style.animation-delay]="i * 0.015 + 's'"
+                (focus)="onPointFocus($event, pt.raw, i)"
+                (blur)="onPointBlur(i)"
                 (mouseenter)="onPointHover($event, pt.raw, i)"
                 (mousemove)="onPointHover($event, pt.raw, i)"
               />
             }
 
             <!-- Base axes borders -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
           </g>
         </svg>
 
@@ -185,166 +205,195 @@ export interface ScatterPoint {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-scatter-plot {
-      position: relative;
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      transition: background-color 0.3s;
-    }
-    .ngx-scatter-plot.dark {
-      background: rgba(30, 32, 48, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      --ngx-chart-bg: transparent;
-      --ngx-chart-grid: rgba(255, 255, 255, 0.06);
-      --ngx-chart-axis: rgba(255, 255, 255, 0.12);
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 12px;
-    }
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #64748b;
-    }
-    .dark .legend-item {
-      color: #94a3b8;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      fill: #64748b;
-      font-weight: 500;
-    }
-    .dark .axis-label {
-      fill: #94a3b8;
-    }
-    .axis-title {
-      font-size: 11px;
-      font-weight: 600;
-      fill: #475569;
-      letter-spacing: 0.5px;
-    }
-    .dark .axis-title {
-      fill: #cbd5e1;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-scatter-plot {
+        position: relative;
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        transition: background-color 0.3s;
+      }
+      .ngx-scatter-plot.dark {
+        background: rgba(30, 32, 48, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        --ngx-chart-bg: transparent;
+        --ngx-chart-grid: rgba(255, 255, 255, 0.06);
+        --ngx-chart-axis: rgba(255, 255, 255, 0.12);
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 12px;
+      }
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #64748b;
+      }
+      .dark .legend-item {
+        color: #94a3b8;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: #64748b;
+        font-weight: 500;
+      }
+      .dark .axis-label {
+        fill: #94a3b8;
+      }
+      .axis-title {
+        font-size: 11px;
+        font-weight: 600;
+        fill: #475569;
+        letter-spacing: 0.5px;
+      }
+      .dark .axis-title {
+        fill: #cbd5e1;
+      }
 
-    @keyframes scatterPointPop {
-      from { transform: scale(0); opacity: 0; }
-      to { transform: scale(1); opacity: 0.85; }
-    }
+      @keyframes scatterPointPop {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 0.85;
+        }
+      }
 
-    .scatter-point {
-      cursor: pointer;
-      transition: r 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.25s,
-                  filter 0.25s,
-                  stroke-width 0.2s;
-      animation: scatterPointPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .scatter-point.hovered {
-      opacity: 0.95;
-      filter: drop-shadow(0 0 6px var(--ngx-chart-hover-stroke, #4f46e5));
-      stroke: #ffffff;
-      stroke-width: 2px;
-    }
+      .scatter-point {
+        cursor: pointer;
+        transition:
+          r 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.25s,
+          filter 0.25s,
+          stroke-width 0.2s;
+        animation: scatterPointPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .scatter-point.hovered {
+        opacity: 0.95;
+        filter: drop-shadow(0 0 6px var(--ngx-chart-hover-stroke, #4f46e5));
+        stroke: #ffffff;
+        stroke-width: 2px;
+      }
+      .scatter-point:focus-visible {
+        outline: none;
+        filter: drop-shadow(0 0 5px var(--ngx-chart-focus-stroke, #312e81));
+        stroke: var(--ngx-chart-focus-stroke, #312e81);
+        stroke-width: 3px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .scatter-point,
+        .crosshair-line {
+          animation: none;
+          transition: none;
+        }
+      }
 
-    .crosshair-line {
-      pointer-events: none;
-      animation: fadeIn 0.15s ease-out forwards;
-    }
+      .crosshair-line {
+        pointer-events: none;
+        animation: fadeIn 0.15s ease-out forwards;
+      }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-    /* Glassmorphic Tooltip styling */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      z-index: 100;
-      min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip styling */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11px;
+        z-index: 100;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class ScatterPlotComponent {
   private readonly exportSvc = inject(ChartExportService);
+  readonly i18n = inject(NGX_CORE_I18N);
   PAD_LEFT = 52;
   PAD_TOP = 16;
   PAD_RIGHT = 24;
@@ -401,13 +450,13 @@ export class ScatterPlotComponent {
 
   // Bounds Calculations
   private xValues = computed(() => this.data().map(pt => pt.x));
-  private xMin = computed(() => this.xValues().length > 0 ? Math.min(...this.xValues()) * 0.9 : 0);
-  private xMax = computed(() => this.xValues().length > 0 ? Math.max(...this.xValues()) * 1.1 : 100);
+  private xMin = computed(() => (this.xValues().length > 0 ? Math.min(...this.xValues()) * 0.9 : 0));
+  private xMax = computed(() => (this.xValues().length > 0 ? Math.max(...this.xValues()) * 1.1 : 100));
   xTicks = computed(() => niceTicks(this.xMin(), this.xMax(), 5));
 
   private yValues = computed(() => this.data().map(pt => pt.y));
-  private yMin = computed(() => this.yValues().length > 0 ? Math.min(...this.yValues()) * 0.9 : 0);
-  private yMax = computed(() => this.yValues().length > 0 ? Math.max(...this.yValues()) * 1.1 : 100);
+  private yMin = computed(() => (this.yValues().length > 0 ? Math.min(...this.yValues()) * 0.9 : 0));
+  private yMax = computed(() => (this.yValues().length > 0 ? Math.max(...this.yValues()) * 1.1 : 100));
   yTicks = computed(() => niceTicks(this.yMin(), this.yMax(), 5));
 
   // Map absolute coordinate points to SVG canvas
@@ -429,27 +478,40 @@ export class ScatterPlotComponent {
         cy,
         r,
         color: this.groupColor(pt.group),
-        raw: pt
+        raw: pt,
       };
     });
   });
 
-  onPointHover(event: MouseEvent, pt: ScatterPoint, index: number) {
+  onPointHover(event: MouseEvent, pt: ScatterPoint, index: number): void {
+    this.showPointTooltip(event.clientX, event.clientY, pt, index);
+  }
+
+  onPointFocus(event: FocusEvent, pt: ScatterPoint, index: number): void {
+    const bounds = (event.currentTarget as SVGCircleElement).getBoundingClientRect();
+    this.showPointTooltip(bounds.left + bounds.width / 2, bounds.top, pt, index);
+  }
+
+  onPointBlur(index: number): void {
+    if (this.hoveredPointIndex() === index) {
+      this.onMouseLeave();
+    }
+  }
+
+  private showPointTooltip(clientX: number, clientY: number, pt: ScatterPoint, index: number): void {
     this.hoveredPointIndex.set(index);
     const containerEl = this.container()?.nativeElement;
     if (!containerEl) return;
     const rect = containerEl.getBoundingClientRect();
-    const tooltipX = event.clientX - rect.left;
-    const tooltipY = event.clientY - rect.top;
 
     this.tooltip.set({
-      x: tooltipX,
-      y: tooltipY,
+      x: clientX - rect.left,
+      y: clientY - rect.top,
       label: pt.label,
       group: pt.group,
       xVal: pt.x,
       yVal: pt.y,
-      color: this.groupColor(pt.group)
+      color: this.groupColor(pt.group),
     });
   }
 
@@ -458,8 +520,12 @@ export class ScatterPlotComponent {
     this.tooltip.set(null);
   }
 
-  ptX(t: { xVal: number }): number { return t.xVal; }
-  ptY(t: { yVal: number }): number { return t.yVal; }
+  ptX(t: { xVal: number }): number {
+    return t.xVal;
+  }
+  ptY(t: { yVal: number }): number {
+    return t.yVal;
+  }
 
   onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();

@@ -7,17 +7,12 @@ import {
   computed,
   effect,
   input,
+  inject,
   output,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  KanbanCard,
-  KanbanCardMoveEvent,
-  KanbanColumn,
-  KanbanMoveRejectedEvent,
-  KanbanSwimlane,
-} from './models';
+import { KanbanCard, KanbanCardMoveEvent, KanbanColumn, KanbanMoveRejectedEvent, KanbanSwimlane } from './models';
 
 const DEFAULT_LANE_ID = '__default__';
 
@@ -41,7 +36,9 @@ interface SwimlaneSection {
             <header class="swimlane-header">
               <div>
                 <h3>{{ lane.title }}</h3>
-                @if (lane.description) { <p>{{ lane.description }}</p> }
+                @if (lane.description) {
+                  <p>{{ lane.description }}</p>
+                }
               </div>
             </header>
           }
@@ -59,10 +56,16 @@ interface SwimlaneSection {
               >
                 <div class="column-header" [style.border-top-color]="col.color || 'var(--primary-color)'">
                   <div class="column-title-section">
-                    <span class="column-indicator" [style.background-color]="col.color || 'var(--primary-color)'"></span>
+                    <span
+                      class="column-indicator"
+                      [style.background-color]="col.color || 'var(--primary-color)'"
+                    ></span>
                     <h4 class="column-title">{{ col.title }}</h4>
                     <span class="card-count-badge" [class.limit-reached]="isWipReached(col.id, lane.id)">
-                      {{ getCardsForColumn(col.id, lane.id).length }}@if (col.wipLimit) { /{{ col.wipLimit }} }
+                      {{ getCardsForColumn(col.id, lane.id).length }}
+                      @if (col.wipLimit) {
+                        /{{ col.wipLimit }}
+                      }
                     </span>
                   </div>
 
@@ -86,13 +89,19 @@ interface SwimlaneSection {
                         (keydown.escape)="toggleAddInput(col.id, lane.id)"
                       />
                       <div class="creator-actions">
-                        <button class="creator-btn btn-add" type="button" (click)="addCard(col.id, lane.id)">Add Card</button>
-                        <button class="creator-btn btn-cancel" type="button" (click)="toggleAddInput(col.id, lane.id)">Cancel</button>
+                        <button class="creator-btn btn-add" type="button" (click)="addCard(col.id, lane.id)">
+                          Add Card
+                        </button>
+                        <button class="creator-btn btn-cancel" type="button" (click)="toggleAddInput(col.id, lane.id)">
+                          Cancel
+                        </button>
                       </div>
                     </div>
                   }
 
-                  @if (getCardsForColumn(col.id, lane.id).length === 0 && !columnAddStates()[dropKey(col.id, lane.id)]) {
+                  @if (
+                    getCardsForColumn(col.id, lane.id).length === 0 && !columnAddStates()[dropKey(col.id, lane.id)]
+                  ) {
                     <div class="column-empty-state">No cards here.</div>
                   }
 
@@ -123,7 +132,9 @@ interface SwimlaneSection {
                           (dragstart)="onDragStart($event, card)"
                           (dragend)="onDragEnd()"
                           (keydown)="onCardKeyDown($event, card, col.id, lane.id, cardIndex)"
-                        >::</button>
+                        >
+                          ::
+                        </button>
 
                         @if (card.priority || (card.tags && card.tags.length > 0)) {
                           <div class="card-meta-header">
@@ -163,7 +174,12 @@ interface SwimlaneSection {
                         }
 
                         <div class="card-actions">
-                          <button class="card-delete-action" type="button" (click)="deleteCard($event, card.id)" title="Delete card">
+                          <button
+                            class="card-delete-action"
+                            type="button"
+                            (click)="deleteCard($event, card.id)"
+                            title="Delete card"
+                          >
                             x
                           </button>
                           @if (card.assignee) {
@@ -187,64 +203,383 @@ interface SwimlaneSection {
       }
     </div>
   `,
-  styles: [`
-    :host { display: block; width: 100%; height: 100%; }
-    .ngx-kanban-board { display: flex; flex-direction: column; gap: 16px; overflow: auto; height: 100%; padding: 4px; }
-    .kanban-swimlane { display: flex; flex-direction: column; gap: 10px; min-width: min-content; }
-    .swimlane-header { position: sticky; left: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 4px 2px; color: var(--text-primary, #212529); }
-    .swimlane-header h3 { margin: 0; font-size: 13px; font-weight: 800; }
-    .swimlane-header p { margin: 3px 0 0; font-size: 11px; color: var(--text-secondary, #6c757d); }
-    .kanban-columns { display: flex; align-items: flex-start; gap: 20px; min-width: min-content; }
-    .kanban-column { flex: 0 0 290px; width: 290px; max-height: 100%; display: flex; flex-direction: column; background: var(--bg-secondary, #ffffff); border: 1px solid var(--border-color, #dee2e6); border-radius: 12px; box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05)); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; }
-    .kanban-column.drag-over { border-color: var(--primary-color, #6366f1); box-shadow: 0 0 0 3px var(--primary-glow, rgba(99, 102, 241, 0.15)); background: var(--border-light, #fafafa); }
-    .kanban-column.wip-reached:not(.drag-over) { border-color: var(--ngx-kanban-limit, #f59e0b); }
-    .column-header { padding: 14px 16px 10px; border-top: 3px solid var(--primary-color, #6366f1); display: flex; justify-content: space-between; align-items: center; background: var(--border-light, #fafafa); border-bottom: 1px solid var(--border-color, #dee2e6); }
-    .column-title-section { display: flex; align-items: center; gap: 8px; min-width: 0; }
-    .column-indicator { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .column-title { margin: 0; font-size: 14px; font-weight: 700; color: var(--text-primary, #212529); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .card-count-badge { font-size: 11px; font-weight: 700; color: var(--text-secondary, #6c757d); background: var(--border-color, #e9ecef); padding: 2px 7px; border-radius: 99px; }
-    .card-count-badge.limit-reached { color: #92400e; background: #fef3c7; }
-    .add-card-btn { background: none; border: none; cursor: pointer; color: var(--text-secondary, #6c757d); font-size: 16px; width: 24px; height: 24px; border-radius: 4px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
-    .add-card-btn:hover, .add-card-btn:focus-visible { background: var(--border-color, #e9ecef); color: var(--text-primary, #212529); outline: none; }
-    .column-cards-list { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; min-height: 100px; }
-    .column-empty-state { padding: 24px 16px; text-align: center; font-size: 12px; color: var(--text-secondary, #888); font-style: italic; border: 1px dashed var(--border-color, #e2e8f0); border-radius: 8px; }
-    .kanban-card { background: var(--bg-secondary, #ffffff); border: 1px solid var(--border-color, #dee2e6); border-radius: 10px; padding: 12px; cursor: grab; box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 10px; user-select: none; }
-    .kanban-card:hover { border-color: var(--primary-color, #6366f1); box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.08)); transform: translateY(-1px); }
-    .kanban-card:hover .card-delete-action { opacity: 1; }
-    .kanban-card.dragging { opacity: 0.35; border-style: dashed; border-color: var(--primary-color, #6366f1); background: var(--border-light, #f8f9fa); }
-    .card-topline { display: flex; align-items: flex-start; gap: 8px; }
-    .drag-handle { flex: 0 0 auto; width: 22px; height: 22px; border: 1px solid var(--border-color, #dee2e6); border-radius: 5px; background: var(--border-light, #f8f9fa); color: var(--text-secondary, #6c757d); cursor: grab; font-size: 10px; line-height: 1; }
-    .card-meta-header { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; min-width: 0; }
-    .priority-badge { font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; }
-    .priority-badge.priority-low { background: #e6f4e9; color: #1e7e34; }
-    .priority-badge.priority-medium { background: #fff3cd; color: #856404; }
-    .priority-badge.priority-high { background: #fce8e6; color: #c53929; }
-    .card-tag-pills { display: flex; gap: 4px; flex-wrap: wrap; }
-    .card-tag { font-size: 9px; font-weight: 600; color: var(--text-secondary, #6c757d); background: var(--border-light, #f1f3f5); border: 1px solid var(--border-color, #e9ecef); padding: 1px 6px; border-radius: 4px; }
-    .card-content { display: flex; flex-direction: column; gap: 4px; }
-    .card-title { margin: 0; font-size: 13px; font-weight: 650; color: var(--text-primary, #212529); line-height: 1.4; }
-    .card-desc { margin: 0; font-size: 12px; color: var(--text-secondary, #6c757d); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-light, #f1f3f5); padding-top: 8px; font-size: 11px; }
-    .spacer { flex: 1; }
-    .card-due-date { color: var(--text-secondary, #6c757d); font-weight: 500; }
-    .card-due-date.overdue { color: #dc3545; font-weight: 650; }
-    .card-actions { display: flex; align-items: center; gap: 8px; }
-    .card-delete-action { background: none; border: none; cursor: pointer; color: #adb5bd; width: 22px; height: 22px; border-radius: 4px; opacity: 0; transition: all 0.15s; font-size: 13px; display: flex; align-items: center; justify-content: center; }
-    .card-delete-action:hover, .card-delete-action:focus-visible { opacity: 1; color: #dc3545; background: #fce8e6; outline: none; }
-    .assignee-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--primary-color, #6366f1); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; overflow: hidden; border: 1px solid var(--bg-secondary, #fff); }
-    .assignee-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .card-creator-box { background: var(--bg-secondary, #ffffff); border: 1px solid var(--primary-color, #6366f1); border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15); display: flex; flex-direction: column; gap: 8px; }
-    .creator-input { width: 100%; border: 1px solid var(--border-color, #dee2e6); border-radius: 6px; padding: 6px 10px; font-size: 12px; background: var(--bg-secondary, #fff); color: var(--text-primary, #212529); outline: none; }
-    .creator-input:focus { border-color: var(--primary-color, #6366f1); }
-    .creator-actions { display: flex; justify-content: flex-end; gap: 6px; }
-    .creator-btn { border: none; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: 650; cursor: pointer; font-family: inherit; }
-    .creator-btn.btn-add { background: var(--primary-color, #6366f1); color: #fff; }
-    .creator-btn.btn-add:hover { background: var(--primary-hover, #4f46e5); }
-    .creator-btn.btn-cancel { background: var(--border-light, #f8f9fa); color: var(--text-secondary, #495057); border: 1px solid var(--border-color, #dee2e6); }
-    .creator-btn.btn-cancel:hover { background: var(--border-color, #e9ecef); }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .ngx-kanban-board {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        overflow: auto;
+        height: 100%;
+        padding: 4px;
+      }
+      .kanban-swimlane {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-width: min-content;
+      }
+      .swimlane-header {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 2px;
+        color: var(--text-primary, #212529);
+      }
+      .swimlane-header h3 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .swimlane-header p {
+        margin: 3px 0 0;
+        font-size: 11px;
+        color: var(--text-secondary, #6c757d);
+      }
+      .kanban-columns {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        min-width: min-content;
+      }
+      .kanban-column {
+        flex: 0 0 290px;
+        width: 290px;
+        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #dee2e6);
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05));
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+      }
+      .kanban-column.drag-over {
+        border-color: var(--primary-color, #6366f1);
+        box-shadow: 0 0 0 3px var(--primary-glow, rgba(99, 102, 241, 0.15));
+        background: var(--border-light, #fafafa);
+      }
+      .kanban-column.wip-reached:not(.drag-over) {
+        border-color: var(--ngx-kanban-limit, #f59e0b);
+      }
+      .column-header {
+        padding: 14px 16px 10px;
+        border-top: 3px solid var(--primary-color, #6366f1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--border-light, #fafafa);
+        border-bottom: 1px solid var(--border-color, #dee2e6);
+      }
+      .column-title-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+      .column-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .column-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-primary, #212529);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .card-count-badge {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-secondary, #6c757d);
+        background: var(--border-color, #e9ecef);
+        padding: 2px 7px;
+        border-radius: 99px;
+      }
+      .card-count-badge.limit-reached {
+        color: #92400e;
+        background: #fef3c7;
+      }
+      .add-card-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-secondary, #6c757d);
+        font-size: 16px;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .add-card-btn:hover,
+      .add-card-btn:focus-visible {
+        background: var(--border-color, #e9ecef);
+        color: var(--text-primary, #212529);
+        outline: none;
+      }
+      .column-cards-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 100px;
+      }
+      .column-empty-state {
+        padding: 24px 16px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-secondary, #888);
+        font-style: italic;
+        border: 1px dashed var(--border-color, #e2e8f0);
+        border-radius: 8px;
+      }
+      .kanban-card {
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #dee2e6);
+        border-radius: 10px;
+        padding: 12px;
+        cursor: grab;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        user-select: none;
+      }
+      .kanban-card:hover {
+        border-color: var(--primary-color, #6366f1);
+        box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.08));
+        transform: translateY(-1px);
+      }
+      .kanban-card:hover .card-delete-action {
+        opacity: 1;
+      }
+      .kanban-card.dragging {
+        opacity: 0.35;
+        border-style: dashed;
+        border-color: var(--primary-color, #6366f1);
+        background: var(--border-light, #f8f9fa);
+      }
+      .card-topline {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .drag-handle {
+        flex: 0 0 auto;
+        width: 22px;
+        height: 22px;
+        border: 1px solid var(--border-color, #dee2e6);
+        border-radius: 5px;
+        background: var(--border-light, #f8f9fa);
+        color: var(--text-secondary, #6c757d);
+        cursor: grab;
+        font-size: 10px;
+        line-height: 1;
+      }
+      .card-meta-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        min-width: 0;
+      }
+      .priority-badge {
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 2px 6px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+      }
+      .priority-badge.priority-low {
+        background: #e6f4e9;
+        color: #1e7e34;
+      }
+      .priority-badge.priority-medium {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .priority-badge.priority-high {
+        background: #fce8e6;
+        color: #c53929;
+      }
+      .card-tag-pills {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      .card-tag {
+        font-size: 9px;
+        font-weight: 600;
+        color: var(--text-secondary, #6c757d);
+        background: var(--border-light, #f1f3f5);
+        border: 1px solid var(--border-color, #e9ecef);
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
+      .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .card-title {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 650;
+        color: var(--text-primary, #212529);
+        line-height: 1.4;
+      }
+      .card-desc {
+        margin: 0;
+        font-size: 12px;
+        color: var(--text-secondary, #6c757d);
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid var(--border-light, #f1f3f5);
+        padding-top: 8px;
+        font-size: 11px;
+      }
+      .spacer {
+        flex: 1;
+      }
+      .card-due-date {
+        color: var(--text-secondary, #6c757d);
+        font-weight: 500;
+      }
+      .card-due-date.overdue {
+        color: #dc3545;
+        font-weight: 650;
+      }
+      .card-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .card-delete-action {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #adb5bd;
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        opacity: 0;
+        transition: all 0.15s;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card-delete-action:hover,
+      .card-delete-action:focus-visible {
+        opacity: 1;
+        color: #dc3545;
+        background: #fce8e6;
+        outline: none;
+      }
+      .assignee-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--primary-color, #6366f1);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: 700;
+        overflow: hidden;
+        border: 1px solid var(--bg-secondary, #fff);
+      }
+      .assignee-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card-creator-box {
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--primary-color, #6366f1);
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .creator-input {
+        width: 100%;
+        border: 1px solid var(--border-color, #dee2e6);
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        background: var(--bg-secondary, #fff);
+        color: var(--text-primary, #212529);
+        outline: none;
+      }
+      .creator-input:focus {
+        border-color: var(--primary-color, #6366f1);
+      }
+      .creator-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+      }
+      .creator-btn {
+        border: none;
+        border-radius: 4px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 650;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .creator-btn.btn-add {
+        background: var(--primary-color, #6366f1);
+        color: #fff;
+      }
+      .creator-btn.btn-add:hover {
+        background: var(--primary-hover, #4f46e5);
+      }
+      .creator-btn.btn-cancel {
+        background: var(--border-light, #f8f9fa);
+        color: var(--text-secondary, #495057);
+        border: 1px solid var(--border-color, #dee2e6);
+      }
+      .creator-btn.btn-cancel:hover {
+        background: var(--border-color, #e9ecef);
+      }
+    `,
+  ],
 })
 export class KanbanComponent {
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
   columns = input<KanbanColumn[]>([]);
   cards = input<KanbanCard[]>([]);
   swimlanes = input<KanbanSwimlane[]>([]);
@@ -307,7 +642,13 @@ export class KanbanComponent {
     this.activeDropTarget.set(null);
   }
 
-  onCardKeyDown(event: KeyboardEvent, card: KanbanCard, currentColumnId: string, laneId: string, currentIndex: number): void {
+  onCardKeyDown(
+    event: KeyboardEvent,
+    card: KanbanCard,
+    currentColumnId: string,
+    laneId: string,
+    currentIndex: number
+  ): void {
     const keys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
     if (!keys.includes(event.key)) return;
 
@@ -318,14 +659,12 @@ export class KanbanComponent {
     let targetColumnId = currentColumnId;
     let targetIndex = currentIndex;
 
-    if (event.key === 'ArrowLeft') {
-      if (colIndex > 0) {
-        targetColumnId = this.columns()[colIndex - 1].id;
-        targetIndex = 0;
-      }
-    } else if (event.key === 'ArrowRight') {
-      if (colIndex < this.columns().length - 1) {
-        targetColumnId = this.columns()[colIndex + 1].id;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      const isRtl = this.elementRef.nativeElement.closest('[dir="rtl"]') !== null;
+      const visualDirection = event.key === 'ArrowRight' ? 1 : -1;
+      const nextColumnIndex = colIndex + visualDirection * (isRtl ? -1 : 1);
+      if (nextColumnIndex >= 0 && nextColumnIndex < this.columns().length) {
+        targetColumnId = this.columns()[nextColumnIndex].id;
         targetIndex = 0;
       }
     } else if (event.key === 'ArrowUp') {
@@ -343,7 +682,7 @@ export class KanbanComponent {
       this.moveCard(card.id, targetColumnId, laneId, targetIndex);
       setTimeout(() => {
         const elementId = this.dragHandleOnly() ? `k-handle-${card.id}` : `k-card-${card.id}`;
-        document.getElementById(elementId)?.focus();
+        this.elementRef.nativeElement.ownerDocument.getElementById(elementId)?.focus();
       }, 0);
     }
   }
@@ -487,14 +826,22 @@ export class KanbanComponent {
     this.cardMoved.emit(event);
   }
 
-  private reorderCards(cards: KanbanCard[], sourceCard: KanbanCard, targetColumnId: string, targetLaneId: string, targetIndex: number): KanbanCard[] {
+  private reorderCards(
+    cards: KanbanCard[],
+    sourceCard: KanbanCard,
+    targetColumnId: string,
+    targetLaneId: string,
+    targetIndex: number
+  ): KanbanCard[] {
     const movedCard: KanbanCard = {
       ...sourceCard,
       columnId: targetColumnId,
       swimlaneId: targetLaneId === DEFAULT_LANE_ID ? undefined : targetLaneId,
     };
     const remaining = cards.filter(card => card.id !== sourceCard.id);
-    const targetCards = remaining.filter(card => card.columnId === targetColumnId && this.cardLaneId(card) === targetLaneId);
+    const targetCards = remaining.filter(
+      card => card.columnId === targetColumnId && this.cardLaneId(card) === targetLaneId
+    );
     const clampedIndex = Math.max(0, Math.min(targetIndex, targetCards.length));
     const targetCard = targetCards[clampedIndex];
 
@@ -503,7 +850,10 @@ export class KanbanComponent {
       return [...remaining.slice(0, globalIndex), movedCard, ...remaining.slice(globalIndex)];
     }
 
-    const lastIndex = this.findLastIndex(remaining, card => card.columnId === targetColumnId && this.cardLaneId(card) === targetLaneId);
+    const lastIndex = this.findLastIndex(
+      remaining,
+      card => card.columnId === targetColumnId && this.cardLaneId(card) === targetLaneId
+    );
     const insertIndex = lastIndex === -1 ? remaining.length : lastIndex + 1;
     return [...remaining.slice(0, insertIndex), movedCard, ...remaining.slice(insertIndex)];
   }

@@ -1,11 +1,19 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, inject
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  inject,
 } from '@angular/core';
 import { niceTicks, scale, fmtNum } from '../shared/chart-utils';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface WaterfallItem {
   label: string;
@@ -16,11 +24,15 @@ export interface WaterfallItem {
 @Component({
   selector: 'ngx-waterfall-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-waterfall-chart" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
-      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
+      <div
+        class="chart-header"
+        (mousemove)="$event.stopPropagation()"
+        (mouseleave)="hoveredIndex.set(null); tooltip.set(null)"
+      >
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <ngx-chart-export-menu (exportClicked)="onExport($event)" />
@@ -28,24 +40,19 @@ export interface WaterfallItem {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-          class="chart-svg"
-        >
+        <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg">
           <defs>
             <linearGradient id="waterfall-pos" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" [attr.stop-color]="positiveColor()" stop-opacity="1"/>
-              <stop offset="100%" [attr.stop-color]="positiveColor()" stop-opacity="0.75"/>
+              <stop offset="0%" [attr.stop-color]="positiveColor()" stop-opacity="1" />
+              <stop offset="100%" [attr.stop-color]="positiveColor()" stop-opacity="0.75" />
             </linearGradient>
             <linearGradient id="waterfall-neg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" [attr.stop-color]="negativeColor()" stop-opacity="1"/>
-              <stop offset="100%" [attr.stop-color]="negativeColor()" stop-opacity="0.75"/>
+              <stop offset="0%" [attr.stop-color]="negativeColor()" stop-opacity="1" />
+              <stop offset="100%" [attr.stop-color]="negativeColor()" stop-opacity="0.75" />
             </linearGradient>
             <linearGradient id="waterfall-tot" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" [attr.stop-color]="totalColor()" stop-opacity="1"/>
-              <stop offset="100%" [attr.stop-color]="totalColor()" stop-opacity="0.75"/>
+              <stop offset="0%" [attr.stop-color]="totalColor()" stop-opacity="1" />
+              <stop offset="100%" [attr.stop-color]="totalColor()" stop-opacity="0.75" />
             </linearGradient>
           </defs>
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
@@ -65,22 +72,14 @@ export interface WaterfallItem {
 
             <!-- Y-Axis Labels -->
             @for (tick of yTicks(); track tick) {
-              <text
-                x="-10"
-                [attr.y]="yPos(tick) + 4"
-                class="axis-label y"
-                text-anchor="end"
-              >{{ fmtNum(tick) }}</text>
+              <text x="-10" [attr.y]="yPos(tick) + 4" class="axis-label y" text-anchor="end">{{ fmtNum(tick) }}</text>
             }
 
             <!-- X-Axis Labels -->
             @for (bar of computedBars(); track $index; let i = $index) {
-              <text
-                [attr.x]="bar.x + bar.width / 2"
-                [attr.y]="innerH() + 20"
-                class="axis-label x"
-                text-anchor="middle"
-              >{{ bar.label }}</text>
+              <text [attr.x]="bar.x + bar.width / 2" [attr.y]="innerH() + 20" class="axis-label x" text-anchor="middle">
+                {{ bar.label }}
+              </text>
             }
 
             <!-- Connecting dashed lines between columns -->
@@ -88,7 +87,7 @@ export interface WaterfallItem {
               @if (i < computedBars().length - 1) {
                 <line
                   [attr.x1]="bar.x + bar.width"
-                  [attr.x2]="computedBars()[i+1].x"
+                  [attr.x2]="computedBars()[i + 1].x"
                   [attr.y1]="bar.connectY"
                   [attr.y2]="bar.connectY"
                   stroke="var(--ngx-chart-axis, #ced4da)"
@@ -108,13 +107,16 @@ export interface WaterfallItem {
                 [attr.fill]="bar.fill"
                 [attr.rx]="4"
                 class="waterfall-bar"
+                [ngxChartAccessibleMark]="barAccessibleLabel(bar)"
                 [class.hovered]="hoveredIndex() === i"
                 (mouseenter)="onBarHover($event, bar, i)"
+                (focus)="onBarFocus($event, bar, i)"
+                (blur)="onBarBlur(i)"
               />
               @if (showLabels() && bar.rectH > 14) {
                 <text
                   [attr.x]="bar.x + bar.width / 2"
-                  [attr.y]="bar.y + (bar.rectH / 2) + 4"
+                  [attr.y]="bar.y + bar.rectH / 2 + 4"
                   text-anchor="middle"
                   class="bar-value-label"
                 >
@@ -124,8 +126,14 @@ export interface WaterfallItem {
             }
 
             <!-- Base axes borders -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
           </g>
         </svg>
 
@@ -134,102 +142,122 @@ export interface WaterfallItem {
           <div class="chart-tooltip" [style.left.px]="t.x" [style.top.px]="t.y">
             <div class="tooltip-header">{{ t.label }}</div>
             <div class="tooltip-body">
-              <div class="tooltip-val">Change: <strong [style.color]="t.color">{{ t.value > 0 ? '+' : '' }}{{ fmtNum(t.value) }}</strong></div>
-              <div class="tooltip-val">Running Balance: <strong>{{ fmtNum(t.balance) }}</strong></div>
+              <div class="tooltip-val">
+                Change: <strong [style.color]="t.color">{{ t.value > 0 ? '+' : '' }}{{ fmtNum(t.value) }}</strong>
+              </div>
+              <div class="tooltip-val">
+                Running Balance: <strong>{{ fmtNum(t.balance) }}</strong>
+              </div>
             </div>
           </div>
         }
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-waterfall-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 12px;
-    }
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      fill: #64748b;
-      font-weight: 550;
-    }
-    .waterfall-bar {
-      cursor: pointer;
-      transition: opacity 0.2s, filter 0.2s, stroke-width 0.2s;
-      stroke: #fff;
-      stroke-width: 0.5;
-    }
-    .waterfall-bar.hovered {
-      opacity: 0.95;
-      stroke-width: 1.5;
-      filter: brightness(1.04) drop-shadow(0 4px 8px rgba(0,0,0,0.12));
-    }
-    .bar-value-label {
-      font-size: 9px;
-      fill: #ffffff;
-      font-weight: 600;
-      pointer-events: none;
-    }
-    .chart-tooltip {
-      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
-      border-radius: 10px; font-size: 12px; min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tooltip-header {
-      font-weight: 700;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 6px;
-      margin-bottom: 8px;
-      color: #38bdf8;
-      font-size: 12.5px;
-    }
-    .tooltip-body {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .tooltip-val {
-      color: rgba(248, 250, 252, 0.8);
-    }
-    .tooltip-val strong {
-      color: #f8fafc;
-      font-family: monospace;
-    }
-
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-waterfall-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 12px;
+      }
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: #64748b;
+        font-weight: 550;
+      }
+      .waterfall-bar {
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          filter 0.2s,
+          stroke-width 0.2s;
+        stroke: #fff;
+        stroke-width: 0.5;
+      }
+      .waterfall-bar.hovered,
+      .waterfall-bar:focus-visible {
+        opacity: 0.95;
+        stroke-width: 1.5;
+        filter: brightness(1.04) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+      }
+      .bar-value-label {
+        font-size: 9px;
+        fill: #ffffff;
+        font-weight: 600;
+        pointer-events: none;
+      }
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tooltip-header {
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+        color: #38bdf8;
+        font-size: 12.5px;
+      }
+      .tooltip-body {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .tooltip-val {
+        color: rgba(248, 250, 252, 0.8);
+      }
+      .tooltip-val strong {
+        color: #f8fafc;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class WaterfallChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  readonly i18n = inject(NGX_CORE_I18N);
 
   PAD_LEFT = 52;
   PAD_TOP = 20;
@@ -244,7 +272,7 @@ export class WaterfallChartComponent {
   // Styling properties
   positiveColor = input<string>('#10b981'); // Emerald
   negativeColor = input<string>('#ef4444'); // Rose/Red
-  totalColor = input<string>('#64748b');    // Slate
+  totalColor = input<string>('#64748b'); // Slate
   showExport = input<boolean>(false);
 
   hoveredIndex = signal<number | null>(null);
@@ -284,7 +312,7 @@ export class WaterfallChartComponent {
           start: 0,
           end: val,
           isTotal: true,
-          runningBalance: val
+          runningBalance: val,
         };
       } else {
         balance += item.value;
@@ -294,7 +322,7 @@ export class WaterfallChartComponent {
           start: start,
           end: balance,
           isTotal: false,
-          runningBalance: balance
+          runningBalance: balance,
         };
       }
     });
@@ -362,7 +390,7 @@ export class WaterfallChartComponent {
         label: item.label,
         value: item.value,
         balance: item.runningBalance,
-        isTotal: item.isTotal
+        isTotal: item.isTotal,
       };
     });
   });
@@ -381,8 +409,36 @@ export class WaterfallChartComponent {
       label: bar.label,
       value: bar.value,
       balance: bar.balance,
-      color: bar.color
+      color: bar.color,
     });
+  }
+
+  barAccessibleLabel(bar: { label: string; value: number; balance: number }): string {
+    return this.i18n.chart.waterfallMarkDescription(bar.label, fmtNum(bar.value), fmtNum(bar.balance));
+  }
+
+  onBarFocus(event: FocusEvent, bar: any, index: number): void {
+    const target = event.currentTarget as SVGRectElement;
+    const containerEl = this.container()?.nativeElement;
+    if (!containerEl) return;
+    const targetRect = target.getBoundingClientRect();
+    const containerRect = containerEl.getBoundingClientRect();
+
+    this.hoveredIndex.set(index);
+    this.tooltip.set({
+      x: targetRect.left - containerRect.left + targetRect.width / 2,
+      y: targetRect.top - containerRect.top,
+      label: bar.label,
+      value: bar.value,
+      balance: bar.balance,
+      color: bar.color,
+    });
+  }
+
+  onBarBlur(index: number): void {
+    if (this.hoveredIndex() !== index) return;
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
   }
 
   onExport(type: ExportFormat): void {

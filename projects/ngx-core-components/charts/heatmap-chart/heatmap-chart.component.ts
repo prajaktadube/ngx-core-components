@@ -1,15 +1,24 @@
 import {
-  Component, input, output, signal, computed, ChangeDetectionStrategy,
-  ElementRef, viewChild, inject
+  Component,
+  input,
+  output,
+  signal,
+  computed,
+  ChangeDetectionStrategy,
+  ElementRef,
+  viewChild,
+  inject,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Component({
   selector: 'ngx-heatmap-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-heatmap-wrapper">
@@ -22,12 +31,7 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
 
       <div class="ngx-heatmap-container">
         <!-- SVG Grid rendering -->
-        <svg
-          #svgEl
-          class="ngx-heatmap-svg"
-          [attr.viewBox]="viewBoxString()"
-          preserveAspectRatio="xMidYMid meet"
-        >
+        <svg #svgEl class="ngx-heatmap-svg" [attr.viewBox]="viewBoxString()" preserveAspectRatio="xMidYMid meet">
           <!-- Y-axis labels -->
           @for (yLabel of yAxisLabels(); track $index) {
             <text
@@ -63,8 +67,13 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
                 [attr.height]="cellHeight() - cellSpacing"
                 [attr.fill]="getCellColor(val)"
                 class="heatmap-cell"
-                [style.animation-delay]="(rIdx * 0.03 + cIdx * 0.03) + 's'"
+                [ngxChartAccessibleMark]="cellAccessibleLabel(rIdx, cIdx, val)"
+                [ngxChartAccessibleMarkInteractive]="true"
+                [style.animation-delay]="rIdx * 0.03 + cIdx * 0.03 + 's'"
                 (mouseenter)="onCellEnter(rIdx, cIdx, val, $event)"
+                (focus)="onCellFocus(rIdx, cIdx, val, $event)"
+                (blur)="onCellLeave()"
+                (activated)="onCellClick(rIdx, cIdx, val)"
                 (mouseleave)="onCellLeave()"
                 (click)="onCellClick(rIdx, cIdx, val)"
                 rx="3"
@@ -76,11 +85,7 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
 
         <!-- Dynamic Tooltip -->
         @if (tooltip().show) {
-          <div
-            class="heatmap-tooltip"
-            [style.left.px]="tooltip().x"
-            [style.top.px]="tooltip().y"
-          >
+          <div class="heatmap-tooltip" [style.left.px]="tooltip().x" [style.top.px]="tooltip().y">
             <div class="tt-cat">{{ tooltip().title }}</div>
             <div class="tt-row">
               <span class="tt-dot" [style.background]="getCellColor(tooltip().rawVal)"></span>
@@ -92,118 +97,135 @@ import type { ExportFormat } from '../shared/chart-export-menu.component';
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    .ngx-heatmap-wrapper {
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 12px;
-      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
-      position: relative;
-    }
-    .ngx-heatmap-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    .ngx-heatmap-svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      font-weight: 700;
-      fill: var(--text-secondary, #64748b);
-      font-family: inherit;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .ngx-heatmap-wrapper {
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+        position: relative;
+      }
+      .ngx-heatmap-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .ngx-heatmap-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        font-weight: 700;
+        fill: var(--text-secondary, #64748b);
+        font-family: inherit;
+      }
 
-    @keyframes cellFadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
+      @keyframes cellFadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
-    .heatmap-cell {
-      cursor: pointer;
-      transition: fill 0.2s ease, stroke 0.15s ease, filter 0.15s ease;
-      stroke: transparent;
-      stroke-width: 1px;
-      transform-origin: center;
-      animation: cellFadeIn 0.4s ease-out both;
-    }
-    .heatmap-cell:hover {
-      filter: brightness(1.1) drop-shadow(0 4px 8px rgba(0,0,0,0.18));
-      stroke: var(--ngx-chart-hover-stroke, #0f172a);
-      stroke-width: 1.5px;
-    }
+      .heatmap-cell {
+        cursor: pointer;
+        transition:
+          fill 0.2s ease,
+          stroke 0.15s ease,
+          filter 0.15s ease;
+        stroke: transparent;
+        stroke-width: 1px;
+        transform-origin: center;
+        animation: cellFadeIn 0.4s ease-out both;
+      }
+      .heatmap-cell:hover,
+      .heatmap-cell:focus-visible {
+        filter: brightness(1.1) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18));
+        stroke: var(--ngx-chart-hover-stroke, #0f172a);
+        stroke-width: 1.5px;
+      }
 
-    /* Glassmorphic Tooltip styling */
-    .heatmap-tooltip {
-      position: absolute;
-      z-index: 100;
-      pointer-events: none;
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transform: translate(-50%, -115%);
-      min-width: 140px;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip styling */
+      .heatmap-tooltip {
+        position: absolute;
+        z-index: 100;
+        pointer-events: none;
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translate(-50%, -115%);
+        min-width: 140px;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Header styles */
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-  `]
+      /* Header styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class HeatmapChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  readonly i18n = inject(NGX_CORE_I18N);
 
   data = input.required<number[][]>();
   xAxisLabels = input<string[]>([]);
@@ -224,7 +246,7 @@ export class HeatmapChartComponent {
     value: '',
     x: 0,
     y: 0,
-    rawVal: 0
+    rawVal: 0,
   });
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
@@ -267,7 +289,12 @@ export class HeatmapChartComponent {
   private interpolateColor(color1: string, color2: string, fraction: number): string {
     const hex = (x: string) => {
       const h = x.replace('#', '');
-      return h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+      return h.length === 3
+        ? h
+            .split('')
+            .map(c => c + c)
+            .join('')
+        : h;
     };
     const c1 = hex(color1);
     const c2 = hex(color2);
@@ -288,12 +315,26 @@ export class HeatmapChartComponent {
   }
 
   onCellEnter(rIdx: number, cIdx: number, val: number, event: MouseEvent): void {
+    this.showCellTooltip(rIdx, cIdx, val, event.currentTarget as SVGRectElement);
+  }
+
+  onCellFocus(rIdx: number, cIdx: number, val: number, event: FocusEvent): void {
+    this.showCellTooltip(rIdx, cIdx, val, event.currentTarget as SVGRectElement);
+  }
+
+  cellAccessibleLabel(rIdx: number, cIdx: number, val: number): string {
+    const xLabel = this.xAxisLabels()[cIdx] || `Col ${cIdx + 1}`;
+    const yLabel = this.yAxisLabels()[rIdx] || `Row ${rIdx + 1}`;
+    return this.i18n.chart.dataMarkDescription(`${yLabel}, ${xLabel}`, val.toLocaleString());
+  }
+
+  private showCellTooltip(rIdx: number, cIdx: number, val: number, target: SVGRectElement): void {
     const xLabel = this.xAxisLabels()[cIdx] || `Col ${cIdx + 1}`;
     const yLabel = this.yAxisLabels()[rIdx] || `Row ${rIdx + 1}`;
     const title = `${yLabel} • ${xLabel}`;
-
-    const rect = (event.currentTarget as SVGRectElement).getBoundingClientRect();
-    const parentRect = (event.currentTarget as SVGRectElement).ownerSVGElement!.parentElement!.getBoundingClientRect();
+    const rect = target.getBoundingClientRect();
+    const parentRect = target.ownerSVGElement?.parentElement?.getBoundingClientRect();
+    if (!parentRect) return;
     const x = rect.left - parentRect.left + rect.width / 2;
     const y = rect.top - parentRect.top;
 
@@ -303,7 +344,7 @@ export class HeatmapChartComponent {
       value: val.toLocaleString(),
       x,
       y,
-      rawVal: val
+      rawVal: val,
     });
   }
 

@@ -27,7 +27,7 @@ export class GridKeyboardService {
   /** Grid boundaries */
   private maxRow = 0;
   private maxCol = 0;
-  private editableFields: Set<string> = new Set();
+  private editableFields = new Set<string>();
   private columnFields: string[] = [];
 
   /** Callbacks registered by the grid component */
@@ -269,7 +269,7 @@ export class GridKeyboardService {
       type: 'extend-selection',
       row: this.focusedRow(),
       col: this.focusedCol(),
-      direction
+      direction,
     };
   }
 

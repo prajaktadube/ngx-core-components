@@ -1,6 +1,6 @@
 # ngx-core-components
 
-Angular 19 / 20 / 21 standalone component library with enterprise-ready UI building blocks including a full-featured **SVG Gantt Chart**, inputs, data grid, dialogs, charts, navigation, layout, feedback, and barcode components.
+Angular 19–21 standalone component library with enterprise-ready UI building blocks including a full-featured **SVG Gantt Chart**, inputs, data grid, dialogs, charts, navigation, layout, feedback, and barcode components.
 
 [![npm version](https://img.shields.io/npm/v/ngx-core-components.svg)](https://www.npmjs.com/package/ngx-core-components)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -50,7 +50,189 @@ import { TreeViewComponent, ListViewComponent } from 'ngx-core-components/views'
 import { QrCodeComponent, BarcodeComponent } from 'ngx-core-components/barcodes';
 ```
 
-## Included Components
+## Integration Guides
+
+The inputs that implement `ControlValueAccessor` work with Angular Reactive Forms.
+Import `ReactiveFormsModule` and the control from its secondary entry point:
+
+```typescript
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TextBoxComponent } from 'ngx-core-components/inputs';
+
+@Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, TextBoxComponent],
+  template: `
+    <form [formGroup]="form">
+      <ngx-textbox formControlName="email" label="Email" type="email" />
+    </form>
+  `,
+})
+export class ProfileFormComponent {
+  readonly form = new FormGroup({
+    email: new FormControl('', { nonNullable: true }),
+  });
+}
+```
+
+The library can be rendered in Angular SSR applications. Guard browser-only
+consumer code (for example clipboard, storage, or direct DOM work) with Angular's
+platform check:
+
+```typescript
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
+export class BrowserFeature {
+  private readonly platformId = inject(PLATFORM_ID);
+
+  copyText(text: string): Promise<void> | undefined {
+    if (!isPlatformBrowser(this.platformId)) return undefined;
+    return navigator.clipboard.writeText(text);
+  }
+}
+```
+
+For global tokens, presets, and generated CSS, see the
+[theming guide](../../THEMING.md). The focused imports above demonstrate
+tree-shakable secondary entry points.
+
+## Accessible Charts, Remote Grids, and Form Flows
+
+Bar charts expose an accessible summary and a native data-table alternative. A
+custom label can replace the generated summary:
+
+```html
+<ngx-bar-chart [categories]="quarters" [series]="revenue" ariaLabel="Quarterly revenue by region" />
+```
+
+Line charts expose a named SVG summary and keyboard-operable, labelled data
+points. Pie and donut slices expose keyboard-focusable graphics with accessible
+labels; focusing a slice reveals the same value tooltip as pointer hover. Both
+charts honor reduced-motion preferences. Text can be customized via the
+`chart.lineChartDescription`, `chart.lineChartNoData`,
+`chart.linePointDescription`, and `chart.pieSliceDescription` translations.
+
+Scatter plots expose a localized summary and keyboard-focusable data points.
+Focusing a point reveals its tooltip; its accessible name includes the point
+label, group, and formatted axis values. Scatter-point animations honor reduced
+motion. Customize this text with `chart.scatterChartDescription` and
+`chart.scatterPointDescription`.
+
+Waterfall bars and sunburst slices expose localized accessible names and focus
+tooltips. Treemap cells are keyboard-operable buttons with focus feedback and
+the same tooltip and activation behavior as pointer interaction. Treemap and
+sunburst exports use the shared localized, keyboard-accessible chart export menu.
+Heatmap cells expose row/column/value labels, focus tooltips, and keyboard
+activation through the same cell-selection output as pointer clicks. The
+`chart.dataMarkDescription` and `chart.waterfallMarkDescription` translations
+customize the generated data-mark names. Bubble points expose localized names
+including their label, group, coordinates, and size, with tooltips on focus;
+customize them with `chart.bubblePointDescription`. Lollipop marks are
+keyboard-focusable with localized data names, focus feedback, and tooltips.
+Dumbbell rows expose both endpoint values in their accessible names, with focus
+feedback and the same tooltip as pointer hover. Range bars expose keyboard-
+operable buttons whose activation emits the existing `barClick` output.
+Pyramid segments are named, keyboard-operable buttons with visible focus
+feedback and focus-triggered tooltips. Funnel stages expose localized names,
+keyboard focus, visible focus feedback, and the existing stage tooltip.
+Column-range marks expose series/category names with localized low/high values,
+focus feedback, and the existing tooltip on keyboard focus.
+Box-plot summaries expose all five statistical values to keyboard users; outlier
+marks are independently named and reveal their value tooltip on focus.
+Bullet charts make their actual-value and target marks individually named and
+keyboard-focusable. Radial progress rings expose their percentage and actual
+versus target values in an accessible name, and show the existing tooltip on
+focus. Marimekko segments expose column/category names, values, and a focus-
+triggered tooltip with visible keyboard focus feedback.
+
+Use `GridRemoteDataController` for paged or server-filtered data. It exposes signal
+state for rows, totals, loading, and errors; a newer request cancels and supersedes
+an older request:
+
+```typescript
+const controller = new GridRemoteDataController<Customer>();
+const source: GridDataSource<Customer> = {
+  load: async (request, signal) => {
+    const response = await fetchCustomers(request, signal);
+    return { items: response.items, total: response.total };
+  },
+};
+
+await controller.load(source, {
+  page: 1,
+  pageSize: 25,
+  sort: null,
+  filters: [],
+  group: null,
+});
+```
+
+Grid saved views use versioned JSON and reject malformed or unsupported schemas
+when imported. `FormBuilderField.formStep` groups fields into steps, and an optional
+`asyncValidator` returns `null` when valid or a message to show next to the field:
+
+```typescript
+{
+  key: 'username',
+  label: 'Username',
+  formStep: 0,
+  asyncValidator: async (value) =>
+    (await usernameAvailable(String(value))) ? null : 'Username is unavailable',
+}
+```
+
+Field conditions can show, hide, enable, or disable fields based on typed field
+values. Missing condition references and dependency cycles are announced above the
+form and block validation/submission until the schema is corrected.
+
+With `[showColumnChooser]="true"`, the grid exposes labelled controls to toggle
+column visibility, pin columns to either side, and move columns left or right
+without drag-and-drop. Keyboard users can Tab to each action and use the native
+button controls; Escape closes the chooser and restores focus to its trigger.
+Selectable grids give row checkboxes accessible names and announce the selected
+row count to screen readers. With `dir="rtl"`, grid arrows and Kanban card
+movement follow the visual left/right direction. When `[keyboardNavigation]="true"`, the labelled grid
+region can receive focus and arrow keys move focus between cells. Tab moves
+between cells but exits the grid at either end; toolbar buttons and other
+interactive controls retain their native key behavior. Filter and context
+popovers receive focus when opened and return focus to their trigger or cell on
+Escape. The Advanced Filter Builder is exposed as a labelled modal dialog with
+focus trapping and Escape dismissal, and restores focus to its trigger when
+closed. Grid toolbar, grouping, filter, export, and row-action labels are
+provided by the `grid` translations in `NGX_CORE_I18N`.
+
+The barcode component renders standards-compliant Code 128-B for printable ASCII
+values (space through `~`), including the weighted checksum. Unsupported input
+produces an accessible error instead of a pseudo-barcode. The library test suite
+also decodes generated module patterns with ZXing, a development-only dependency;
+the published component has no added runtime dependency.
+
+`provideNgxI18n` accepts nested partial translations, merges them with the English
+fallback, and is exported alongside `DeepPartial` for locale definitions from
+`ngx-core-components/i18n`.
+
+Consumer tests can import `NgxComponentTestHarness` from
+`ngx-core-components/testing` to set component inputs and query rendered elements
+without depending on private component internals:
+
+```typescript
+import { NgxComponentTestHarness } from 'ngx-core-components/testing';
+
+const fixture = TestBed.createComponent(MyComponent);
+const harness = new NgxComponentTestHarness(fixture);
+harness.setInput('disabled', true);
+harness.detectChanges();
+expect(harness.query('button')?.hasAttribute('disabled')).toBeTrue();
+```
+
+## Component Highlights
+
+This is a representative component index, not an exhaustive catalogue. The root
+[README](../../README.md) is the source of truth for the complete component list
+by public secondary entry point, including i18n and testing.
 
 ### Charts
 
@@ -151,30 +333,46 @@ import { GanttChartComponent, GanttTask, GanttDependency, DependencyType } from 
       (taskClick)="onTaskClick($event)"
     />
   `,
-  styles: [`
-    ngx-gantt-chart { height: 500px; }
-  `]
+  styles: [
+    `
+      ngx-gantt-chart {
+        height: 500px;
+      }
+    `,
+  ],
 })
 export class MyComponent {
   tasks: GanttTask[] = [
     {
-      id: '1', name: 'Design', progress: 100,
-      start: new Date('2026-04-01'), end: new Date('2026-04-05'),
-      parentId: null, collapsed: false, isMilestone: false,
+      id: '1',
+      name: 'Design',
+      progress: 100,
+      start: new Date('2026-04-01'),
+      end: new Date('2026-04-05'),
+      parentId: null,
+      collapsed: false,
+      isMilestone: false,
     },
     {
-      id: '2', name: 'Development', progress: 40,
-      start: new Date('2026-04-06'), end: new Date('2026-04-15'),
-      parentId: null, collapsed: false, isMilestone: false,
+      id: '2',
+      name: 'Development',
+      progress: 40,
+      start: new Date('2026-04-06'),
+      end: new Date('2026-04-15'),
+      parentId: null,
+      collapsed: false,
+      isMilestone: false,
     },
   ];
 
-  dependencies: GanttDependency[] = [
-    { fromId: '1', toId: '2', type: DependencyType.FinishToStart },
-  ];
+  dependencies: GanttDependency[] = [{ fromId: '1', toId: '2', type: DependencyType.FinishToStart }];
 
-  onTaskChange(event: any) { /* handle drag/resize */ }
-  onTaskClick(event: any) { /* handle click */ }
+  onTaskChange(event: any) {
+    /* handle drag/resize */
+  }
+  onTaskClick(event: any) {
+    /* handle click */
+  }
 }
 ```
 
@@ -188,12 +386,7 @@ import { TextBoxComponent, DropdownComponent, type DropdownOption } from 'ngx-co
   standalone: true,
   imports: [TextBoxComponent, DropdownComponent],
   template: `
-    <ngx-textbox
-      [value]="name()"
-      label="Full Name"
-      placeholder="Enter your name"
-      (valueChange)="name.set($event)"
-    />
+    <ngx-textbox [value]="name()" label="Full Name" placeholder="Enter your name" (valueChange)="name.set($event)" />
 
     <ngx-dropdown
       [options]="countries"
@@ -343,9 +536,16 @@ This section provides complete documentation, detailed API reference tables (Inp
 ### Charts
 
 #### How to Use Charts
+
 ```typescript
 import { Component } from '@angular/core';
-import { BarChartComponent, LineChartComponent, PieChartComponent, SparklineComponent, GanttChartComponent } from 'ngx-core-components/charts';
+import {
+  BarChartComponent,
+  LineChartComponent,
+  PieChartComponent,
+  SparklineComponent,
+  GanttChartComponent,
+} from 'ngx-core-components/charts';
 
 @Component({
   standalone: true,
@@ -362,7 +562,7 @@ import { BarChartComponent, LineChartComponent, PieChartComponent, SparklineComp
 
     <!-- Sparkline -->
     <ngx-sparkline [data]="[10, 15, 8, 22, 14, 25]" type="area" color="#2ecc71" />
-  `
+  `,
 })
 export class ChartsExampleComponent {
   categories = ['Q1', 'Q2', 'Q3', 'Q4'];
@@ -371,50 +571,55 @@ export class ChartsExampleComponent {
   pieData = [
     { label: 'Search', value: 55 },
     { label: 'Direct', value: 30 },
-    { label: 'Social', value: 15 }
+    { label: 'Social', value: 15 },
   ];
 }
 ```
 
 #### GanttChartComponent (`ngx-gantt-chart`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `tasks` | `GanttTask[]` | **required** | Array of tasks to display |
-| `dependencies` | `GanttDependency[]` | `[]` | Predecessor/successor dependencies |
-| `config` | `Partial<GanttConfig>` | `{}` | Config settings (zoom level, column/row sizes) |
-| `groups` | `GanttGroup[]` | `[]` | Group tasks by category or assignee |
-| `baselineItems` | `GanttBaselineItem[]` | `[]` | Baseline bars for progress comparisons |
-| `tooltipTemplate` | `TemplateRef<...>` | `null` | Custom tooltip template reference |
-| `enableDragToZoom` | `boolean` | `false` | Enable drag-to-zoom timeline selection |
+
+| Input              | Type                   | Default      | Description                                    |
+| ------------------ | ---------------------- | ------------ | ---------------------------------------------- |
+| `tasks`            | `GanttTask[]`          | **required** | Array of tasks to display                      |
+| `dependencies`     | `GanttDependency[]`    | `[]`         | Predecessor/successor dependencies             |
+| `config`           | `Partial<GanttConfig>` | `{}`         | Config settings (zoom level, column/row sizes) |
+| `groups`           | `GanttGroup[]`         | `[]`         | Group tasks by category or assignee            |
+| `baselineItems`    | `GanttBaselineItem[]`  | `[]`         | Baseline bars for progress comparisons         |
+| `tooltipTemplate`  | `TemplateRef<...>`     | `null`       | Custom tooltip template reference              |
+| `enableDragToZoom` | `boolean`              | `false`      | Enable drag-to-zoom timeline selection         |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `taskChange` | `GanttTaskChangeEvent` | Emitted when task dates or progress are changed via dragging/resizing |
-| `taskClick` | `GanttTaskClickEvent` | Emitted when a task bar is clicked |
-| `taskDblClick` | `GanttTaskClickEvent` | Emitted when a task bar is double clicked |
-| `dependencyClick` | `GanttDependencyClickEvent` | Emitted when a dependency connector line is clicked |
-| `zoomChange` | `ZoomLevel` | Emitted when the active zoom level shifts |
-| `zoomRangeChange` | `{ start: Date; end: Date }` | Emitted when a drag-zoom range is selected |
-| `selectedChange` | `GanttSelectedEvent` | Emitted when selected tasks change |
-| `expandChange` | `GanttExpandChangeEvent` | Emitted when a task or group node collapses/expands |
-| `loadOnScroll` | `GanttLoadOnScrollEvent` | Emitted when horizontal scroll reaches close to ends (lazy loading) |
+
+| Output            | Type                         | Description                                                           |
+| ----------------- | ---------------------------- | --------------------------------------------------------------------- |
+| `taskChange`      | `GanttTaskChangeEvent`       | Emitted when task dates or progress are changed via dragging/resizing |
+| `taskClick`       | `GanttTaskClickEvent`        | Emitted when a task bar is clicked                                    |
+| `taskDblClick`    | `GanttTaskClickEvent`        | Emitted when a task bar is double clicked                             |
+| `dependencyClick` | `GanttDependencyClickEvent`  | Emitted when a dependency connector line is clicked                   |
+| `zoomChange`      | `ZoomLevel`                  | Emitted when the active zoom level shifts                             |
+| `zoomRangeChange` | `{ start: Date; end: Date }` | Emitted when a drag-zoom range is selected                            |
+| `selectedChange`  | `GanttSelectedEvent`         | Emitted when selected tasks change                                    |
+| `expandChange`    | `GanttExpandChangeEvent`     | Emitted when a task or group node collapses/expands                   |
+| `loadOnScroll`    | `GanttLoadOnScrollEvent`     | Emitted when horizontal scroll reaches close to ends (lazy loading)   |
 
 ##### Public Methods
-| Method | Signature | Description |
-|---|---|---|
-| `scrollToToday` | `(): void` | Scroll view to current date |
-| `scrollToDate` | `(date: Date): void` | Scroll view to a specific date |
-| `scrollToTask` | `(taskId: string): void` | Scroll vertically to focus a specific task row |
-| `expandAll` | `(): void` | Expand all collapsed rows |
-| `collapseAll` | `(): void` | Collapse all expandable rows |
-| `toggleCriticalPath` | `(): void` | Toggle visibility of critical path tasks |
-| `toggleAreaZoomMode` | `(): void` | Toggle crosshair area-zoom selector |
-| `resetZoom` | `(): void` | Reset zoom to standard scale |
-| `exportAsImage` | `(filename?: string): Promise<void>` | Export Gantt view to PNG download |
+
+| Method               | Signature                            | Description                                    |
+| -------------------- | ------------------------------------ | ---------------------------------------------- |
+| `scrollToToday`      | `(): void`                           | Scroll view to current date                    |
+| `scrollToDate`       | `(date: Date): void`                 | Scroll view to a specific date                 |
+| `scrollToTask`       | `(taskId: string): void`             | Scroll vertically to focus a specific task row |
+| `expandAll`          | `(): void`                           | Expand all collapsed rows                      |
+| `collapseAll`        | `(): void`                           | Collapse all expandable rows                   |
+| `toggleCriticalPath` | `(): void`                           | Toggle visibility of critical path tasks       |
+| `toggleAreaZoomMode` | `(): void`                           | Toggle crosshair area-zoom selector            |
+| `resetZoom`          | `(): void`                           | Reset zoom to standard scale                   |
+| `exportAsImage`      | `(filename?: string): Promise<void>` | Export Gantt view to PNG download              |
 
 ##### GanttConfig Interface
+
 ```typescript
 interface GanttConfig {
   zoomLevel: 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
@@ -431,6 +636,7 @@ interface GanttConfig {
 ```
 
 ##### GanttTask Interface
+
 ```typescript
 interface GanttTask {
   id: string;
@@ -449,132 +655,153 @@ interface GanttTask {
 ```
 
 #### BarChartComponent (`ngx-bar-chart`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `series` | `ChartSeries[]` | `[]` | Array of series data objects |
-| `categories` | `string[]` | `[]` | X-axis labels |
-| `height` | `number` | `260` | SVG height in pixels |
-| `showGrid` | `boolean` | `true` | Show horizontal grid lines |
-| `showLabels` | `boolean` | `false` | Show value label above bars |
-| `showLegend` | `boolean` | `true` | Show color legend indicators |
-| `colors` | `string[]` | _theme_ | Custom color palette overrides |
+
+| Input        | Type            | Default | Description                    |
+| ------------ | --------------- | ------- | ------------------------------ |
+| `series`     | `ChartSeries[]` | `[]`    | Array of series data objects   |
+| `categories` | `string[]`      | `[]`    | X-axis labels                  |
+| `height`     | `number`        | `260`   | SVG height in pixels           |
+| `showGrid`   | `boolean`       | `true`  | Show horizontal grid lines     |
+| `showLabels` | `boolean`       | `false` | Show value label above bars    |
+| `showLegend` | `boolean`       | `true`  | Show color legend indicators   |
+| `colors`     | `string[]`      | _theme_ | Custom color palette overrides |
 
 #### LineChartComponent (`ngx-line-chart`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `series` | `ChartSeries[]` | `[]` | Array of line series data |
-| `categories` | `string[]` | `[]` | X-axis labels |
-| `height` | `number` | `260` | SVG height |
-| `showGrid` | `boolean` | `true` | Show horizontal grid lines |
-| `showArea` | `boolean` | `false` | Show area fill gradients below lines |
-| `showMarkers` | `boolean` | `true` | Show circles on data points |
-| `showLegend` | `boolean` | `true` | Show color legends |
-| `colors` | `string[]` | _theme_ | Custom color palette |
+
+| Input         | Type            | Default | Description                          |
+| ------------- | --------------- | ------- | ------------------------------------ |
+| `series`      | `ChartSeries[]` | `[]`    | Array of line series data            |
+| `categories`  | `string[]`      | `[]`    | X-axis labels                        |
+| `height`      | `number`        | `260`   | SVG height                           |
+| `showGrid`    | `boolean`       | `true`  | Show horizontal grid lines           |
+| `showArea`    | `boolean`       | `false` | Show area fill gradients below lines |
+| `showMarkers` | `boolean`       | `true`  | Show circles on data points          |
+| `showLegend`  | `boolean`       | `true`  | Show color legends                   |
+| `colors`      | `string[]`      | _theme_ | Custom color palette                 |
 
 #### PieChartComponent (`ngx-pie-chart`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `data` | `ChartDataPoint[]` | `[]` | Array of slice data objects |
-| `mode` | `'pie' \| 'donut'` | `'pie'` | Chart layout variant |
-| `donutHoleSize` | `number` | `0.55` | Inner circle size ratio for donut charts |
-| `height` | `number` | `240` | SVG size (width & height) |
-| `showLegend` | `boolean` | `true` | Show Legend beside chart |
-| `showLabels` | `boolean` | `true` | Show percentage label on slices |
-| `centerTitle` | `string` | `'Total'` | Donut center placeholder text |
-| `colors` | `string[]` | _theme_ | Color palette overrides |
+
+| Input           | Type               | Default   | Description                              |
+| --------------- | ------------------ | --------- | ---------------------------------------- |
+| `data`          | `ChartDataPoint[]` | `[]`      | Array of slice data objects              |
+| `mode`          | `'pie' \| 'donut'` | `'pie'`   | Chart layout variant                     |
+| `donutHoleSize` | `number`           | `0.55`    | Inner circle size ratio for donut charts |
+| `height`        | `number`           | `240`     | SVG size (width & height)                |
+| `showLegend`    | `boolean`          | `true`    | Show Legend beside chart                 |
+| `showLabels`    | `boolean`          | `true`    | Show percentage label on slices          |
+| `centerTitle`   | `string`           | `'Total'` | Donut center placeholder text            |
+| `colors`        | `string[]`         | _theme_   | Color palette overrides                  |
 
 #### SparklineComponent (`ngx-sparkline`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `data` | `number[]` | `[]` | Numeric trend values |
-| `type` | `'line' \| 'bar' \| 'area'` | `'line'` | Display style |
-| `color` | `string` | `'#4a90d9'` | Stroke or fill color |
-| `width` | `number` | `120` | SVG width |
-| `height` | `number` | `36` | SVG height |
+
+| Input    | Type                        | Default     | Description          |
+| -------- | --------------------------- | ----------- | -------------------- |
+| `data`   | `number[]`                  | `[]`        | Numeric trend values |
+| `type`   | `'line' \| 'bar' \| 'area'` | `'line'`    | Display style        |
+| `color`  | `string`                    | `'#4a90d9'` | Stroke or fill color |
+| `width`  | `number`                    | `120`       | SVG width            |
+| `height` | `number`                    | `36`        | SVG height           |
 
 #### AgenticCognitiveTopologyComponent (`ngx-agentic-cognitive-topology`)
+
 A dynamic visual representation of an agentic cognitive workflow (directed acyclic graph) supporting real-time interaction, automatic level sorting layouts, snapping grid alignment, properties modal editing, and drag-and-drop link creation.
 
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `nodes` | `TopologyNode[]` | **required** | List of workflow nodes |
-| `links` | `TopologyLink[]` | **required** | Directed edges between nodes |
-| `width` | `number` | `650` | SVG width |
-| `height` | `number` | `450` | SVG height |
-| `colors` | `string[]` | `CHART_COLORS` | Custom node color palette |
-| `showExport` | `boolean` | `true` | Show export options dropdown |
-| `editable` | `boolean` | `false` | Enable interactive canvas editor |
-| `gridSize` | `number` | `20` | Size of snap-to-grid alignment |
+
+| Input        | Type             | Default        | Description                      |
+| ------------ | ---------------- | -------------- | -------------------------------- |
+| `nodes`      | `TopologyNode[]` | **required**   | List of workflow nodes           |
+| `links`      | `TopologyLink[]` | **required**   | Directed edges between nodes     |
+| `width`      | `number`         | `650`          | SVG width                        |
+| `height`     | `number`         | `450`          | SVG height                       |
+| `colors`     | `string[]`       | `CHART_COLORS` | Custom node color palette        |
+| `showExport` | `boolean`        | `true`         | Show export options dropdown     |
+| `editable`   | `boolean`        | `false`        | Enable interactive canvas editor |
+| `gridSize`   | `number`         | `20`           | Size of snap-to-grid alignment   |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `nodeActionClick` | `{ nodeId: string; action: string }` | Emitted when an action is selected in the node tooltip |
-| `nodePositionChange` | `{ nodeId: string; x: number; y: number }` | Emitted when a node is dragged and repositioned |
-| `nodesChange` | `TopologyNode[]` | Emitted in edit mode when nodes are added, edited, or deleted |
-| `linksChange` | `TopologyLink[]` | Emitted in edit mode when links are added or deleted |
-| `validationError` | `string` | Emitted when editor validations (e.g. cycles) are violated or copy notices occur |
+
+| Output               | Type                                       | Description                                                                      |
+| -------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
+| `nodeActionClick`    | `{ nodeId: string; action: string }`       | Emitted when an action is selected in the node tooltip                           |
+| `nodePositionChange` | `{ nodeId: string; x: number; y: number }` | Emitted when a node is dragged and repositioned                                  |
+| `nodesChange`        | `TopologyNode[]`                           | Emitted in edit mode when nodes are added, edited, or deleted                    |
+| `linksChange`        | `TopologyLink[]`                           | Emitted in edit mode when links are added or deleted                             |
+| `validationError`    | `string`                                   | Emitted when editor validations (e.g. cycles) are violated or copy notices occur |
 
 ##### Public Methods
-| Method | Signature | Description |
-|---|---|---|
-| `autoLayout` | `(): void` | Clear all overrides and automatically arrange nodes using topological layer sorting |
-| `undo` | `(): void` | Undo the last editor action |
-| `redo` | `(): void` | Redo the last undone editor action |
-| `exportWorkflowSchema` | `(): void` | Copies the current workflow layout as a LangGraph-compatible JSON schema |
+
+| Method                 | Signature  | Description                                                                         |
+| ---------------------- | ---------- | ----------------------------------------------------------------------------------- |
+| `autoLayout`           | `(): void` | Clear all overrides and automatically arrange nodes using topological layer sorting |
+| `undo`                 | `(): void` | Undo the last editor action                                                         |
+| `redo`                 | `(): void` | Redo the last undone editor action                                                  |
+| `exportWorkflowSchema` | `(): void` | Copies the current workflow layout as a LangGraph-compatible JSON schema            |
 
 #### TokenStreamingChartComponent (`ngx-token-streaming-chart`)
+
 Real-time streaming chart optimized for rendering active LLM token generation metrics, showing speed (tokens per second), latency, and dynamic target highlights.
 
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `data` | `number[]` | `[]` | Sequential generation speed values |
-| `height` | `number` | `180` | Chart height in pixels |
-| `threshold` | `number \| null` | `null` | Optional threshold alert limit |
-| `showGrid` | `boolean` | `true` | Render horizontal grid lines |
+
+| Input       | Type             | Default | Description                        |
+| ----------- | ---------------- | ------- | ---------------------------------- |
+| `data`      | `number[]`       | `[]`    | Sequential generation speed values |
+| `height`    | `number`         | `180`   | Chart height in pixels             |
+| `threshold` | `number \| null` | `null`  | Optional threshold alert limit     |
+| `showGrid`  | `boolean`        | `true`  | Render horizontal grid lines       |
 
 ##### Public Methods
-| Method | Signature | Description |
-|---|---|---|
-| `setPoints` | `(newPoints: number[]): void` | Reset streaming points |
-| `clearPoints` | `(): void` | Clear all points and reset charts |
+
+| Method        | Signature                     | Description                       |
+| ------------- | ----------------------------- | --------------------------------- |
+| `setPoints`   | `(newPoints: number[]): void` | Reset streaming points            |
+| `clearPoints` | `(): void`                    | Clear all points and reset charts |
 
 #### EmbeddingSpaceProjectionComponent (`ngx-embedding-space-projection`)
+
 Interactive multi-dimensional vector space projection (scatterplot layout) supporting visual cluster selection, lasso path tracing, and target distance query helpers.
 
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
+
+| Input    | Type               | Default      | Description                            |
+| -------- | ------------------ | ------------ | -------------------------------------- |
 | `points` | `EmbeddingPoint[]` | **required** | Coordinates and metadata of embeddings |
-| `height` | `number` | `360` | SVG container height |
+| `height` | `number`           | `360`        | SVG container height                   |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `lassoSelected` | `string[]` | Emitted with list of selected point IDs after drawing a lasso path |
+
+| Output              | Type                                           | Description                                                            |
+| ------------------- | ---------------------------------------------- | ---------------------------------------------------------------------- |
+| `lassoSelected`     | `string[]`                                     | Emitted with list of selected point IDs after drawing a lasso path     |
 | `agentQueryRequest` | `{ selectedIds: string[]; queryType: string }` | Emitted when triggering semantic action queries on selected embeddings |
 
 #### TransformerAttentionHeatmapComponent (`ngx-transformer-attention-heatmap`)
+
 Interactive visualization mapping matrix weights between input and output tokens across selected transformer attention heads, highlighting key focus weights.
 
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `tokensX` | `string[]` | **required** | Horizontal axis token strings |
-| `tokensY` | `string[]` | **required** | Vertical axis token strings |
+
+| Input     | Type         | Default      | Description                                     |
+| --------- | ------------ | ------------ | ----------------------------------------------- |
+| `tokensX` | `string[]`   | **required** | Horizontal axis token strings                   |
+| `tokensY` | `string[]`   | **required** | Vertical axis token strings                     |
 | `weights` | `number[][]` | **required** | M x N matrix representing attention intensities |
-| `height` | `number` | `300` | Grid container height |
+| `height`  | `number`     | `300`        | Grid container height                           |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `cellClick` | `{ row: number; col: number; weight: number }` | Emitted when clicking an individual weight square |
+
+| Output       | Type                                                                | Description                                           |
+| ------------ | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| `cellClick`  | `{ row: number; col: number; weight: number }`                      | Emitted when clicking an individual weight square     |
 | `agentQuery` | `{ query: string; tokenY: string; tokenX: string; weight: number }` | Emitted when triggering AI queries on cell highlights |
 
 ---
@@ -582,10 +809,16 @@ Interactive visualization mapping matrix weights between input and output tokens
 ### Inputs
 
 #### How to Use Inputs (with Reactive Forms)
+
 ```typescript
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TextBoxComponent, DropdownComponent, DatePickerComponent, NumericTextBoxComponent } from 'ngx-core-components/inputs';
+import {
+  TextBoxComponent,
+  DropdownComponent,
+  DatePickerComponent,
+  NumericTextBoxComponent,
+} from 'ngx-core-components/inputs';
 
 @Component({
   standalone: true,
@@ -597,277 +830,326 @@ import { TextBoxComponent, DropdownComponent, DatePickerComponent, NumericTextBo
       <ngx-date-picker formControlName="birthDate" label="Birth Date" />
       <ngx-numeric-textbox formControlName="age" label="Age" [min]="18" [max]="99" />
     </form>
-  `
+  `,
 })
 export class FormComponent {
-  roles = [{ label: 'Admin', value: 'admin' }, { label: 'User', value: 'user' }];
+  roles = [
+    { label: 'Admin', value: 'admin' },
+    { label: 'User', value: 'user' },
+  ];
   form = new FormGroup({
     username: new FormControl(''),
     role: new FormControl('user'),
     birthDate: new FormControl<Date | null>(null),
-    age: new FormControl(18)
+    age: new FormControl(18),
   });
 }
 ```
 
 #### TextBoxComponent (`ngx-textbox`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `value` | `string` | `''` | Current string value |
-| `label` | `string` | `''` | Floating/static label |
-| `placeholder` | `string` | `''` | Placeholder text |
-| `type` | `string` | `'text'` | HTML input type attribute |
-| `disabled` | `boolean` | `false` | Disabled state |
-| `readonly` | `boolean` | `false` | Read-only mode |
-| `error` | `string` | `''` | Error message displayed below input |
-| `hint` | `string` | `''` | Hint text displayed below input |
-| `maxlength` | `number` | `0` | Max characters allowed |
-| `clearable` | `boolean` | `false` | Show clear button |
-| `showCharCount` | `boolean` | `false` | Display character counter |
-| `prefixIcon` | `string` | `''` | Text/icon shown before text |
-| `suffixIcon` | `string` | `''` | Text/icon shown after text |
-| `passwordToggle` | `boolean` | `false` | Show password visibility eye icon |
+
+| Input            | Type      | Default  | Description                         |
+| ---------------- | --------- | -------- | ----------------------------------- |
+| `value`          | `string`  | `''`     | Current string value                |
+| `label`          | `string`  | `''`     | Floating/static label               |
+| `placeholder`    | `string`  | `''`     | Placeholder text                    |
+| `type`           | `string`  | `'text'` | HTML input type attribute           |
+| `disabled`       | `boolean` | `false`  | Disabled state                      |
+| `readonly`       | `boolean` | `false`  | Read-only mode                      |
+| `error`          | `string`  | `''`     | Error message displayed below input |
+| `hint`           | `string`  | `''`     | Hint text displayed below input     |
+| `maxlength`      | `number`  | `0`      | Max characters allowed              |
+| `clearable`      | `boolean` | `false`  | Show clear button                   |
+| `showCharCount`  | `boolean` | `false`  | Display character counter           |
+| `prefixIcon`     | `string`  | `''`     | Text/icon shown before text         |
+| `suffixIcon`     | `string`  | `''`     | Text/icon shown after text          |
+| `passwordToggle` | `boolean` | `false`  | Show password visibility eye icon   |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `valueChange` | `string` | Emitted when value is changed |
+
+| Output        | Type      | Description                                  |
+| ------------- | --------- | -------------------------------------------- |
+| `valueChange` | `string`  | Emitted when value is changed                |
 | `focusChange` | `boolean` | Emitted on focus (`true`) and blur (`false`) |
 
 #### CheckboxComponent (`ngx-checkbox`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | `''` | Label next to checkbox |
-| `checked` | `boolean` | `false` | Checked state |
-| `disabled` | `boolean` | `false` | Disabled state |
+
+| Input           | Type      | Default | Description              |
+| --------------- | --------- | ------- | ------------------------ |
+| `label`         | `string`  | `''`    | Label next to checkbox   |
+| `checked`       | `boolean` | `false` | Checked state            |
+| `disabled`      | `boolean` | `false` | Disabled state           |
 | `indeterminate` | `boolean` | `false` | Indeterminate line state |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output          | Type      | Description           |
+| --------------- | --------- | --------------------- |
 | `checkedChange` | `boolean` | Checked state changed |
 
 #### RadioGroupComponent (`ngx-radio-group`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `options` | `RadioOption[]` | `[]` | Array of radio options |
-| `label` | `string` | `''` | Radio group header label |
-| `value` | `unknown` | `null` | Selected option value |
-| `disabled` | `boolean` | `false` | Disable all controls |
-| `inline` | `boolean` | `false` | Render horizontally |
+
+| Input      | Type            | Default | Description              |
+| ---------- | --------------- | ------- | ------------------------ |
+| `options`  | `RadioOption[]` | `[]`    | Array of radio options   |
+| `label`    | `string`        | `''`    | Radio group header label |
+| `value`    | `unknown`       | `null`  | Selected option value    |
+| `disabled` | `boolean`       | `false` | Disable all controls     |
+| `inline`   | `boolean`       | `false` | Render horizontally      |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type      | Description   |
+| ------------- | --------- | ------------- |
 | `valueChange` | `unknown` | Value changed |
 
 #### DropdownComponent (`ngx-dropdown`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `options` | `DropdownOption[]` | `[]` | Selectable options list |
-| `value` | `unknown` | `null` | Selected item value |
-| `label` | `string` | `''` | Header label |
-| `placeholder` | `string` | `'Select...'` | Empty selection placeholder |
-| `disabled` | `boolean` | `false` | Disabled state |
-| `filterable` | `boolean` | `false` | Add filter search box |
-| `required` | `boolean` | `false` | Show required red asterisk |
-| `error` | `string` | `''` | Error message |
-| `hint` | `string` | `''` | Hint text |
+
+| Input         | Type               | Default       | Description                 |
+| ------------- | ------------------ | ------------- | --------------------------- |
+| `options`     | `DropdownOption[]` | `[]`          | Selectable options list     |
+| `value`       | `unknown`          | `null`        | Selected item value         |
+| `label`       | `string`           | `''`          | Header label                |
+| `placeholder` | `string`           | `'Select...'` | Empty selection placeholder |
+| `disabled`    | `boolean`          | `false`       | Disabled state              |
+| `filterable`  | `boolean`          | `false`       | Add filter search box       |
+| `required`    | `boolean`          | `false`       | Show required red asterisk  |
+| `error`       | `string`           | `''`          | Error message               |
+| `hint`        | `string`           | `''`          | Hint text                   |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type      | Description                    |
+| ------------- | --------- | ------------------------------ |
 | `valueChange` | `unknown` | Emitted when selection changes |
 
 #### MultiSelectComponent (`ngx-multi-select`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `options` | `DropdownOption[]` | `[]` | Selectable options |
-| `values` | `unknown[]` | `[]` | Array of selected values |
-| `label` | `string` | `''` | Header label |
-| `placeholder` | `string` | `'Select...'` | Input placeholder |
-| `disabled` | `boolean` | `false` | Disable component |
-| `filterable` | `boolean` | `false` | Show input filter search |
-| `maxTags` | `number` | `Infinity` | Max tag chips visible before overflow indicator |
+
+| Input         | Type               | Default       | Description                                     |
+| ------------- | ------------------ | ------------- | ----------------------------------------------- |
+| `options`     | `DropdownOption[]` | `[]`          | Selectable options                              |
+| `values`      | `unknown[]`        | `[]`          | Array of selected values                        |
+| `label`       | `string`           | `''`          | Header label                                    |
+| `placeholder` | `string`           | `'Select...'` | Input placeholder                               |
+| `disabled`    | `boolean`          | `false`       | Disable component                               |
+| `filterable`  | `boolean`          | `false`       | Show input filter search                        |
+| `maxTags`     | `number`           | `Infinity`    | Max tag chips visible before overflow indicator |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output         | Type        | Description            |
+| -------------- | ----------- | ---------------------- |
 | `valuesChange` | `unknown[]` | Selected items changed |
 
 #### AutocompleteComponent (`ngx-autocomplete`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `options` | `DropdownOption[]` | `[]` | Search recommendation list |
-| `label` | `string` | `''` | Header label |
-| `placeholder` | `string` | `'Type to search...'` | Input placeholder |
-| `disabled` | `boolean` | `false` | Disable autocomplete |
-| `error` | `string` | `''` | Error text |
-| `minLength` | `number` | `1` | Min characters typed before suggesting options |
+
+| Input         | Type               | Default               | Description                                    |
+| ------------- | ------------------ | --------------------- | ---------------------------------------------- |
+| `options`     | `DropdownOption[]` | `[]`                  | Search recommendation list                     |
+| `label`       | `string`           | `''`                  | Header label                                   |
+| `placeholder` | `string`           | `'Type to search...'` | Input placeholder                              |
+| `disabled`    | `boolean`          | `false`               | Disable autocomplete                           |
+| `error`       | `string`           | `''`                  | Error text                                     |
+| `minLength`   | `number`           | `1`                   | Min characters typed before suggesting options |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type      | Description                    |
+| ------------- | --------- | ------------------------------ |
 | `valueChange` | `unknown` | Suggestion selected or cleared |
 
 #### DatePickerComponent (`ngx-date-picker`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `value` | `Date \| null` | `null` | Selected Date |
-| `label` | `string` | `''` | Input label |
-| `placeholder` | `string` | `'Select date...'` | Input placeholder |
-| `disabled` | `boolean` | `false` | Disable datepicker |
-| `min` | `Date \| null` | `null` | Earliest selection limit |
-| `max` | `Date \| null` | `null` | Latest selection limit |
-| `format` | `string` | `'MM/dd/yyyy'` | Format layout |
+
+| Input         | Type           | Default            | Description              |
+| ------------- | -------------- | ------------------ | ------------------------ |
+| `value`       | `Date \| null` | `null`             | Selected Date            |
+| `label`       | `string`       | `''`               | Input label              |
+| `placeholder` | `string`       | `'Select date...'` | Input placeholder        |
+| `disabled`    | `boolean`      | `false`            | Disable datepicker       |
+| `min`         | `Date \| null` | `null`             | Earliest selection limit |
+| `max`         | `Date \| null` | `null`             | Latest selection limit   |
+| `format`      | `string`       | `'MM/dd/yyyy'`     | Format layout            |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type           | Description            |
+| ------------- | -------------- | ---------------------- |
 | `valueChange` | `Date \| null` | Date selection changed |
 
 #### DateRangePickerComponent (`ngx-date-range-picker`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | `''` | Input label |
-| `start` | `Date \| string \| null` | `null` | Selection start date |
-| `end` | `Date \| string \| null` | `null` | Selection end date |
-| `min` | `Date \| string \| null` | `null` | Min limits |
-| `max` | `Date \| string \| null` | `null` | Max limits |
-| `disabledDates` | `(Date \| string)[]` | `[]` | Disabled date values |
-| `presets` | `DateRangePreset[]` | _defaults_ | Fast presets (Today, Last 7 days, This Month) |
-| `weekStartsOn` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` | `0` | First day of week (0=Sunday) |
-| `disabled` | `boolean` | `false` | Disabled state |
+
+| Input           | Type                              | Default    | Description                                   |
+| --------------- | --------------------------------- | ---------- | --------------------------------------------- |
+| `label`         | `string`                          | `''`       | Input label                                   |
+| `start`         | `Date \| string \| null`          | `null`     | Selection start date                          |
+| `end`           | `Date \| string \| null`          | `null`     | Selection end date                            |
+| `min`           | `Date \| string \| null`          | `null`     | Min limits                                    |
+| `max`           | `Date \| string \| null`          | `null`     | Max limits                                    |
+| `disabledDates` | `(Date \| string)[]`              | `[]`       | Disabled date values                          |
+| `presets`       | `DateRangePreset[]`               | _defaults_ | Fast presets (Today, Last 7 days, This Month) |
+| `weekStartsOn`  | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` | `0`        | First day of week (0=Sunday)                  |
+| `disabled`      | `boolean`                         | `false`    | Disabled state                                |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type                             | Description                                        |
+| ------------- | -------------------------------- | -------------------------------------------------- |
 | `rangeChange` | `{ start: string; end: string }` | Date range selection completed (YYYY-MM-DD format) |
-| `openChange` | `boolean` | Emitted when calendar overlay is opened/closed |
+| `openChange`  | `boolean`                        | Emitted when calendar overlay is opened/closed     |
 
 #### SliderComponent (`ngx-slider`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | `''` | Slider label |
-| `min` | `number` | `0` | Min slider limit |
-| `max` | `number` | `100` | Max slider limit |
-| `step` | `number` | `1` | Drag interval size |
-| `range` | `boolean` | `false` | Enable double-handle range mode |
-| `disabled` | `boolean` | `false` | Disable component |
-| `showValue` | `boolean` | `true` | Display active values |
-| `showTicks` | `boolean` | `false` | Show min/max value indicators |
-| `initialValue` | `number` | `0` | Initial single value |
-| `initialLow` | `number` | `20` | Initial low value in range mode |
-| `initialHigh` | `number` | `80` | Initial high value in range mode |
+
+| Input          | Type      | Default | Description                      |
+| -------------- | --------- | ------- | -------------------------------- |
+| `label`        | `string`  | `''`    | Slider label                     |
+| `min`          | `number`  | `0`     | Min slider limit                 |
+| `max`          | `number`  | `100`   | Max slider limit                 |
+| `step`         | `number`  | `1`     | Drag interval size               |
+| `range`        | `boolean` | `false` | Enable double-handle range mode  |
+| `disabled`     | `boolean` | `false` | Disable component                |
+| `showValue`    | `boolean` | `true`  | Display active values            |
+| `showTicks`    | `boolean` | `false` | Show min/max value indicators    |
+| `initialValue` | `number`  | `0`     | Initial single value             |
+| `initialLow`   | `number`  | `20`    | Initial low value in range mode  |
+| `initialHigh`  | `number`  | `80`    | Initial high value in range mode |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `valueChange` | `number` | Value changed (single handle) |
+
+| Output        | Type               | Description                      |
+| ------------- | ------------------ | -------------------------------- |
+| `valueChange` | `number`           | Value changed (single handle)    |
 | `rangeChange` | `[number, number]` | Emitted when range bounds change |
 
 #### SwitchComponent (`ngx-switch`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `onLabel` | `string` | `'On'` | Label when active |
-| `offLabel` | `string` | `'Off'` | Label when inactive |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Toggle size |
-| `disabled` | `boolean` | `false` | Disabled state |
+
+| Input      | Type                   | Default | Description         |
+| ---------- | ---------------------- | ------- | ------------------- |
+| `onLabel`  | `string`               | `'On'`  | Label when active   |
+| `offLabel` | `string`               | `'Off'` | Label when inactive |
+| `size`     | `'sm' \| 'md' \| 'lg'` | `'md'`  | Toggle size         |
+| `disabled` | `boolean`              | `false` | Disabled state      |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output          | Type      | Description   |
+| --------------- | --------- | ------------- |
 | `checkedChange` | `boolean` | State toggled |
 
 #### RatingComponent (`ngx-rating`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `max` | `number` | `5` | Total stars to display |
-| `label` | `string` | `''` | Header label |
-| `readonly` | `boolean` | `false` | Disabled interactive selection |
-| `showValue` | `boolean` | `false` | Show text scale (e.g. "4/5") |
+
+| Input       | Type      | Default | Description                    |
+| ----------- | --------- | ------- | ------------------------------ |
+| `max`       | `number`  | `5`     | Total stars to display         |
+| `label`     | `string`  | `''`    | Header label                   |
+| `readonly`  | `boolean` | `false` | Disabled interactive selection |
+| `showValue` | `boolean` | `false` | Show text scale (e.g. "4/5")   |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output         | Type     | Description            |
+| -------------- | -------- | ---------------------- |
 | `ratingChange` | `number` | Star selection changed |
 
 #### NumericTextBoxComponent (`ngx-numeric-textbox`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | `''` | Label text |
-| `value` | `number` | `0` | Current value |
-| `min` | `number` | `-Infinity` | Lower bound |
-| `max` | `number` | `Infinity` | Upper bound |
-| `step` | `number` | `1` | Increment value on step up/down |
-| `disabled` | `boolean` | `false` | Disabled state |
-| `placeholder` | `string` | `''` | Input placeholder |
-| `prefix` | `string` | `''` | Prepend character (e.g., "$") |
-| `suffix` | `string` | `''` | Append character (e.g., "kg") |
+
+| Input         | Type      | Default     | Description                     |
+| ------------- | --------- | ----------- | ------------------------------- |
+| `label`       | `string`  | `''`        | Label text                      |
+| `value`       | `number`  | `0`         | Current value                   |
+| `min`         | `number`  | `-Infinity` | Lower bound                     |
+| `max`         | `number`  | `Infinity`  | Upper bound                     |
+| `step`        | `number`  | `1`         | Increment value on step up/down |
+| `disabled`    | `boolean` | `false`     | Disabled state                  |
+| `placeholder` | `string`  | `''`        | Input placeholder               |
+| `prefix`      | `string`  | `''`        | Prepend character (e.g., "$")   |
+| `suffix`      | `string`  | `''`        | Append character (e.g., "kg")   |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type     | Description   |
+| ------------- | -------- | ------------- |
 | `valueChange` | `number` | Value changed |
 
 ##### Public Methods
-| Method | Signature | Description |
-|---|---|---|
-| `spin` | `(dir: 1 \| -1): void` | Step value up or down |
-| `setValue` | `(v: number): void` | Set clamped numeric value |
+
+| Method     | Signature              | Description               |
+| ---------- | ---------------------- | ------------------------- |
+| `spin`     | `(dir: 1 \| -1): void` | Step value up or down     |
+| `setValue` | `(v: number): void`    | Set clamped numeric value |
 
 #### TextareaComponent (`ngx-textarea`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | `''` | Label text |
-| `placeholder` | `string` | `''` | Textarea placeholder |
-| `rows` | `number` | `4` | Rows high |
-| `maxlength` | `number` | `0` | Max character length limits |
-| `disabled` | `boolean` | `false` | Disabled state |
-| `autoResize` | `boolean` | `false` | Automatically adjust size with lines |
-| `hint` | `string` | `''` | Instruction note below input |
-| `error` | `string` | `''` | Error alert below input |
+
+| Input         | Type      | Default | Description                          |
+| ------------- | --------- | ------- | ------------------------------------ |
+| `label`       | `string`  | `''`    | Label text                           |
+| `placeholder` | `string`  | `''`    | Textarea placeholder                 |
+| `rows`        | `number`  | `4`     | Rows high                            |
+| `maxlength`   | `number`  | `0`     | Max character length limits          |
+| `disabled`    | `boolean` | `false` | Disabled state                       |
+| `autoResize`  | `boolean` | `false` | Automatically adjust size with lines |
+| `hint`        | `string`  | `''`    | Instruction note below input         |
+| `error`       | `string`  | `''`    | Error alert below input              |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type     | Description             |
+| ------------- | -------- | ----------------------- |
 | `valueChange` | `string` | Character value changed |
 
 #### ColorPickerComponent (`ngx-color-picker`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | `''` | Input label |
+
+| Input   | Type     | Default | Description |
+| ------- | -------- | ------- | ----------- |
+| `label` | `string` | `''`    | Input label |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output        | Type     | Description                             |
+| ------------- | -------- | --------------------------------------- |
 | `colorChange` | `string` | Emitted with hex color code when picked |
 
 #### TimePickerComponent (`ngx-time-picker`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | `''` | Label text |
-| `use12h` | `boolean` | `false` | Enable 12h clock mode |
-| `value` | `string` | `'09:00'` | Selected time (HH:mm format) |
+
+| Input    | Type      | Default   | Description                  |
+| -------- | --------- | --------- | ---------------------------- |
+| `label`  | `string`  | `''`      | Label text                   |
+| `use12h` | `boolean` | `false`   | Enable 12h clock mode        |
+| `value`  | `string`  | `'09:00'` | Selected time (HH:mm format) |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output       | Type     | Description                              |
+| ------------ | -------- | ---------------------------------------- |
 | `timeChange` | `string` | Emitted when time changes (HH:mm format) |
 
 ---
@@ -875,6 +1157,7 @@ export class FormComponent {
 ### Data Grid & Views
 
 #### How to Use Grid & Views
+
 ```typescript
 import { Component } from '@angular/core';
 import { DataGridComponent, GridColumnDef } from 'ngx-core-components/grid';
@@ -889,17 +1172,17 @@ import { TreeViewComponent, ListViewComponent, TreeNode } from 'ngx-core-compone
 
     <!-- Tree View -->
     <ngx-tree-view [nodes]="treeNodes" [checkable]="true" />
-  `
+  `,
 })
 export class GridViewsExampleComponent {
   columns: GridColumnDef<any>[] = [
     { field: 'id', title: 'ID', width: 80 },
     { field: 'name', title: 'Name', sortable: true },
-    { field: 'role', title: 'Role' }
+    { field: 'role', title: 'Role' },
   ];
   gridData = [
     { id: 1, name: 'Alice Smith', role: 'Developer' },
-    { id: 2, name: 'Bob Jones', role: 'Designer' }
+    { id: 2, name: 'Bob Jones', role: 'Designer' },
   ];
 
   treeNodes: TreeNode[] = [
@@ -908,114 +1191,126 @@ export class GridViewsExampleComponent {
       label: 'My Project',
       children: [
         { id: 'src', label: 'src' },
-        { id: 'tests', label: 'tests' }
-      ]
-    }
+        { id: 'tests', label: 'tests' },
+      ],
+    },
   ];
 }
 ```
 
 #### DataGridComponent (`ngx-data-grid`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `data` | `T[]` | `[]` | Table row data |
-| `columns` | `GridColumnDef<T>[]` | `[]` | Columns configuration |
-| `stateKey` | `string` | `''` | LocalStorage key to save grid column preferences |
-| `reorderable` | `boolean` | `false` | Enable column drag reordering |
-| `rowReorderable`| `boolean` | `false` | Enable row drag reordering |
-| `multiSort` | `boolean` | `false` | Support multi-column sorting (Ctrl+Click) |
-| `showGlobalSearch` | `boolean` | `false` | Show global search input |
-| `pageSize` | `number` | `10` | Rows per page |
-| `page` | `number` | `1` | Active page index |
-| `total` | `number` | `0` | Total records (server paging) |
-| `selectable` | `boolean` | `false` | Render checkbox column for selections |
-| `striped` | `boolean` | `true` | Alternating row backgrounds |
-| `loading` | `boolean` | `false` | Show loading blur spinner |
-| `editable` | `boolean` | `false` | Enable double-click inline editor |
-| `sortMode` | `'client' \| 'server'` | `'client'` | Sorting location |
-| `filterMode` | `'client' \| 'server'` | `'client'` | Filtering location |
-| `groupMode` | `'client' \| 'server'` | `'client'` | Grouping location |
-| `pagingMode` | `'client' \| 'server'` | `'client'` | Pagination calculations |
-| `groupBy` | `GridGroupState \| null` | `null` | Column to group by |
-| `groupedData` | `GridGroupResult<T>[]` | `[]` | Grouped items (server mode) |
-| `showColumnChooser` | `boolean` | `false` | Show column hiding menu |
-| `cellSelection` | `boolean` | `false` | Enable grid cell click selection ranges |
-| `enableContextMenu` | `boolean` | `false` | Right-click context menus |
-| `keyboardNavigation` | `boolean` | `false` | Arrow key cell navigation |
-| `groupAggregations` | `boolean` | `false` | Calculate aggregate footers on groups |
+
+| Input                | Type                     | Default    | Description                                      |
+| -------------------- | ------------------------ | ---------- | ------------------------------------------------ |
+| `data`               | `T[]`                    | `[]`       | Table row data                                   |
+| `columns`            | `GridColumnDef<T>[]`     | `[]`       | Columns configuration                            |
+| `stateKey`           | `string`                 | `''`       | LocalStorage key to save grid column preferences |
+| `reorderable`        | `boolean`                | `false`    | Enable column drag reordering                    |
+| `rowReorderable`     | `boolean`                | `false`    | Enable row drag reordering                       |
+| `multiSort`          | `boolean`                | `false`    | Support multi-column sorting (Ctrl+Click)        |
+| `showGlobalSearch`   | `boolean`                | `false`    | Show global search input                         |
+| `pageSize`           | `number`                 | `10`       | Rows per page                                    |
+| `page`               | `number`                 | `1`        | Active page index                                |
+| `total`              | `number`                 | `0`        | Total records (server paging)                    |
+| `selectable`         | `boolean`                | `false`    | Render checkbox column for selections            |
+| `striped`            | `boolean`                | `true`     | Alternating row backgrounds                      |
+| `loading`            | `boolean`                | `false`    | Show loading blur spinner                        |
+| `editable`           | `boolean`                | `false`    | Enable double-click inline editor                |
+| `sortMode`           | `'client' \| 'server'`   | `'client'` | Sorting location                                 |
+| `filterMode`         | `'client' \| 'server'`   | `'client'` | Filtering location                               |
+| `groupMode`          | `'client' \| 'server'`   | `'client'` | Grouping location                                |
+| `pagingMode`         | `'client' \| 'server'`   | `'client'` | Pagination calculations                          |
+| `groupBy`            | `GridGroupState \| null` | `null`     | Column to group by                               |
+| `groupedData`        | `GridGroupResult<T>[]`   | `[]`       | Grouped items (server mode)                      |
+| `showColumnChooser`  | `boolean`                | `false`    | Show column hiding menu                          |
+| `cellSelection`      | `boolean`                | `false`    | Enable grid cell click selection ranges          |
+| `enableContextMenu`  | `boolean`                | `false`    | Right-click context menus                        |
+| `keyboardNavigation` | `boolean`                | `false`    | Arrow key cell navigation                        |
+| `groupAggregations`  | `boolean`                | `false`    | Calculate aggregate footers on groups            |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `columnReorder` | `{ columns: GridColumnDef<T>[] }` | Emitted when column positions change |
-| `rowReorder` | `{ previousIndex: number; currentIndex: number; data: T[] }` | Emitted when rows are dragged and dropped |
-| `rowClick` | `GridRowClickEvent<T>` | Emitted when a row is clicked |
-| `selectionChange` | `T[]` | Emitted with list of selected row items |
-| `sortChange` | `GridSortChangeEvent` | Emitted on sort changes |
-| `filterChange` | `GridFilterChangeEvent` | Emitted on filter changes |
-| `groupChange` | `GridGroupChangeEvent` | Emitted on grouping changes |
-| `pageChange` | `GridPageChangeEvent` | Emitted on page navigations |
-| `rowUpdate` | `GridRowUpdateEvent<T>` | Emitted when inline row changes are saved |
-| `cellSelectionChange`| `{ start, end }` | Emitted when range selection changes |
+
+| Output                | Type                                                         | Description                               |
+| --------------------- | ------------------------------------------------------------ | ----------------------------------------- |
+| `columnReorder`       | `{ columns: GridColumnDef<T>[] }`                            | Emitted when column positions change      |
+| `rowReorder`          | `{ previousIndex: number; currentIndex: number; data: T[] }` | Emitted when rows are dragged and dropped |
+| `rowClick`            | `GridRowClickEvent<T>`                                       | Emitted when a row is clicked             |
+| `selectionChange`     | `T[]`                                                        | Emitted with list of selected row items   |
+| `sortChange`          | `GridSortChangeEvent`                                        | Emitted on sort changes                   |
+| `filterChange`        | `GridFilterChangeEvent`                                      | Emitted on filter changes                 |
+| `groupChange`         | `GridGroupChangeEvent`                                       | Emitted on grouping changes               |
+| `pageChange`          | `GridPageChangeEvent`                                        | Emitted on page navigations               |
+| `rowUpdate`           | `GridRowUpdateEvent<T>`                                      | Emitted when inline row changes are saved |
+| `cellSelectionChange` | `{ start, end }`                                             | Emitted when range selection changes      |
 
 ##### Public Methods
-| Method | Signature | Description |
-|---|---|---|
-| `goPage` | `(page: number): void` | Navigate to specific page |
-| `exportToJson` | `(): void` | Trigger JSON data export download |
-| `exportToCsv` | `(): void` | Trigger CSV format export download |
-| `beginEdit` | `(row: T, index: number): void` | Open inline row editor |
-| `saveEdit` | `(row: T, index: number): void` | Commit inline row editing changes |
-| `cancelEdit` | `(): void` | Discard inline editing draft changes |
+
+| Method         | Signature                       | Description                          |
+| -------------- | ------------------------------- | ------------------------------------ |
+| `goPage`       | `(page: number): void`          | Navigate to specific page            |
+| `exportToJson` | `(): void`                      | Trigger JSON data export download    |
+| `exportToCsv`  | `(): void`                      | Trigger CSV format export download   |
+| `beginEdit`    | `(row: T, index: number): void` | Open inline row editor               |
+| `saveEdit`     | `(row: T, index: number): void` | Commit inline row editing changes    |
+| `cancelEdit`   | `(): void`                      | Discard inline editing draft changes |
 
 #### TreeViewComponent (`ngx-tree-view`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `nodes` | `TreeNode[]` | `[]` | Hierarchical nodes list |
-| `selectable` | `boolean` | `true` | Click selection active |
-| `checkable` | `boolean` | `false` | Show checkbox selectors next to titles |
-| `selectedId` | `string \| null` | `null` | Highlighted node ID |
-| `expandedIds` | `string[]` | `[]` | Initially expanded node IDs |
+
+| Input         | Type             | Default | Description                            |
+| ------------- | ---------------- | ------- | -------------------------------------- |
+| `nodes`       | `TreeNode[]`     | `[]`    | Hierarchical nodes list                |
+| `selectable`  | `boolean`        | `true`  | Click selection active                 |
+| `checkable`   | `boolean`        | `false` | Show checkbox selectors next to titles |
+| `selectedId`  | `string \| null` | `null`  | Highlighted node ID                    |
+| `expandedIds` | `string[]`       | `[]`    | Initially expanded node IDs            |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `nodeSelect` | `TreeNodeEvent` | Emitted on node click |
-| `nodeExpand` | `TreeNodeEvent` | Emitted on node expansion |
-| `nodeCollapse` | `TreeNodeEvent` | Emitted on node collapse |
-| `checkChange` | `{ node, checked }` | Emitted when check state changes |
+
+| Output         | Type                | Description                      |
+| -------------- | ------------------- | -------------------------------- |
+| `nodeSelect`   | `TreeNodeEvent`     | Emitted on node click            |
+| `nodeExpand`   | `TreeNodeEvent`     | Emitted on node expansion        |
+| `nodeCollapse` | `TreeNodeEvent`     | Emitted on node collapse         |
+| `checkChange`  | `{ node, checked }` | Emitted when check state changes |
 
 ##### Public Methods
-| Method | Signature | Description |
-|---|---|---|
-| `expandAll` | `(): void` | Expand all expandable tree branches |
-| `collapseAll` | `(): void` | Collapse all open tree branches |
+
+| Method        | Signature  | Description                         |
+| ------------- | ---------- | ----------------------------------- |
+| `expandAll`   | `(): void` | Expand all expandable tree branches |
+| `collapseAll` | `(): void` | Collapse all open tree branches     |
 
 #### ListViewComponent (`ngx-list-view`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `items` | `T[]` | `[]` | Items array |
-| `selectable` | `boolean` | `true` | Row selection active |
-| `multiselect` | `boolean` | `false` | Support multi-item selections |
-| `loading` | `boolean` | `false` | Show loading overlay |
-| `labelField` | `string` | `'label'` | Object key property for item labels |
-| `pageSize` | `number` | `0` | Enable pagination when > 0 |
+
+| Input         | Type      | Default   | Description                         |
+| ------------- | --------- | --------- | ----------------------------------- |
+| `items`       | `T[]`     | `[]`      | Items array                         |
+| `selectable`  | `boolean` | `true`    | Row selection active                |
+| `multiselect` | `boolean` | `false`   | Support multi-item selections       |
+| `loading`     | `boolean` | `false`   | Show loading overlay                |
+| `labelField`  | `string`  | `'label'` | Object key property for item labels |
+| `pageSize`    | `number`  | `0`       | Enable pagination when > 0          |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `itemClick` | `ListViewItemClickEvent<T>` | Emitted when item clicked |
+
+| Output            | Type                        | Description                  |
+| ----------------- | --------------------------- | ---------------------------- |
+| `itemClick`       | `ListViewItemClickEvent<T>` | Emitted when item clicked    |
 | `selectionChange` | `ListViewSelectionEvent<T>` | Emitted on selection toggles |
-| `pageChange` | `ListViewPageChangeEvent` | Emitted on page navigations |
+| `pageChange`      | `ListViewPageChangeEvent`   | Emitted on page navigations  |
 
 ---
 
 ### Dialog and Overlay
 
 #### How to Use Dialog and Overlay
+
 ```typescript
 import { Component } from '@angular/core';
 import { DialogService } from 'ngx-core-components/dialog';
@@ -1033,14 +1328,14 @@ import { TooltipDirective, PopoverComponent } from 'ngx-core-components/dialog';
     <ngx-popover [anchor]="btn" title="Information">
       <p>This is a popover overlay.</p>
     </ngx-popover>
-  `
+  `,
 })
 export class OverlayExampleComponent {
   constructor(private dialogService: DialogService) {}
 
   openModal() {
     const ref = this.dialogService.open(MyDialogContent, {
-      data: { name: 'Admin' }
+      data: { name: 'Admin' },
     });
     ref.closed.subscribe(result => console.log('Closed:', result));
   }
@@ -1048,54 +1343,62 @@ export class OverlayExampleComponent {
 
 @Component({
   standalone: true,
-  template: `<h3>Hello {{ dialogData.name }}</h3>`
+  template: `<h3>Hello {{ dialogData.name }}</h3>`,
 })
 export class MyDialogContent {
   // Inject properties inside standalone dialog components using standard inputs
-  dialogData: any; 
+  dialogData: any;
   dialogRef: any;
 }
 ```
 
 #### DialogService (Injectable)
+
 ##### Methods
-| Method | Signature | Description |
-|---|---|---|
+
+| Method | Signature                                                                   | Description                  |
+| ------ | --------------------------------------------------------------------------- | ---------------------------- |
 | `open` | `open<C, D, R>(component: Type<C>, config?: DialogConfig<D>): DialogRef<R>` | Open floating overlay window |
 
 ##### DialogConfig Interface
-| Property | Type | Default | Description |
-|---|---|---|---|
-| `data` | `D` | `undefined` | Custom data inputs passed to dialog component |
-| `closeOnBackdrop` | `boolean` | `true` | Close modal on background mouse click |
-| `panelClass` | `string \| string[]` | `[]` | Dialog container class customizations |
-| `maxWidth` | `string` | `'560px'` | Max CSS size limits |
-| `ariaLabel` | `string` | `'Dialog'` | Screen reader description |
+
+| Property          | Type                 | Default     | Description                                   |
+| ----------------- | -------------------- | ----------- | --------------------------------------------- |
+| `data`            | `D`                  | `undefined` | Custom data inputs passed to dialog component |
+| `closeOnBackdrop` | `boolean`            | `true`      | Close modal on background mouse click         |
+| `panelClass`      | `string \| string[]` | `[]`        | Dialog container class customizations         |
+| `maxWidth`        | `string`             | `'560px'`   | Max CSS size limits                           |
+| `ariaLabel`       | `string`             | `'Dialog'`  | Screen reader description                     |
 
 #### TooltipDirective (`ngxTooltip`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `ngxTooltip` | `string` | `''` | Text contents of the popup tooltip box |
-| `tooltipPosition` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Placement side |
-| `tooltipDelay` | `number` | `300` | Delay in milliseconds before showing tooltip |
-| `tooltipDisabled` | `boolean` | `false` | Disable hover behavior |
+
+| Input             | Type                                     | Default | Description                                  |
+| ----------------- | ---------------------------------------- | ------- | -------------------------------------------- |
+| `ngxTooltip`      | `string`                                 | `''`    | Text contents of the popup tooltip box       |
+| `tooltipPosition` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Placement side                               |
+| `tooltipDelay`    | `number`                                 | `300`   | Delay in milliseconds before showing tooltip |
+| `tooltipDisabled` | `boolean`                                | `false` | Disable hover behavior                       |
 
 #### PopoverComponent (`ngx-popover`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `anchor` | `ElementRef \| HTMLElement` | **required** | Relative positioning anchor element |
-| `title` | `string` | `''` | Popover header header text |
-| `position` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'` | Alignment layout |
-| `width` | `string` | `'250px'` | CSS popup width limits |
-| `closable` | `boolean` | `true` | Show close X button |
-| `showOn` | `'click' \| 'hover'` | `'click'` | Trigger event action |
+
+| Input      | Type                                     | Default      | Description                         |
+| ---------- | ---------------------------------------- | ------------ | ----------------------------------- |
+| `anchor`   | `ElementRef \| HTMLElement`              | **required** | Relative positioning anchor element |
+| `title`    | `string`                                 | `''`         | Popover header header text          |
+| `position` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'`   | Alignment layout                    |
+| `width`    | `string`                                 | `'250px'`    | CSS popup width limits              |
+| `closable` | `boolean`                                | `true`       | Show close X button                 |
+| `showOn`   | `'click' \| 'hover'`                     | `'click'`    | Trigger event action                |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `open` | `void` | Emitted when popup opens |
+
+| Output  | Type   | Description               |
+| ------- | ------ | ------------------------- |
+| `open`  | `void` | Emitted when popup opens  |
 | `close` | `void` | Emitted when popup closes |
 
 ---
@@ -1103,9 +1406,16 @@ export class MyDialogContent {
 ### Buttons and Actions
 
 #### How to Use Buttons & Actions
+
 ```typescript
 import { Component, signal } from '@angular/core';
-import { ButtonComponent, ChipComponent, ChipListComponent, DropDownButtonComponent, SpeedDialComponent } from 'ngx-core-components/buttons';
+import {
+  ButtonComponent,
+  ChipComponent,
+  ChipListComponent,
+  DropDownButtonComponent,
+  SpeedDialComponent,
+} from 'ngx-core-components/buttons';
 
 @Component({
   standalone: true,
@@ -1116,78 +1426,91 @@ import { ButtonComponent, ChipComponent, ChipListComponent, DropDownButtonCompon
 
     <!-- Speed Dial FAB -->
     <ngx-speed-dial [items]="actions" direction="top" (itemClick)="onFabClick($event)" />
-  `
+  `,
 })
 export class ButtonExampleComponent {
   loading = signal(false);
   actions = [
     { id: 'pdf', icon: '📄', label: 'Export PDF' },
-    { id: 'email', icon: '✉️', label: 'Send Email' }
+    { id: 'email', icon: '✉️', label: 'Send Email' },
   ];
-  onFabClick(ev: any) { console.log('FAB Clicked:', ev.id); }
+  onFabClick(ev: any) {
+    console.log('FAB Clicked:', ev.id);
+  }
 }
 ```
 
 #### ButtonComponent (`ngx-button` / Attribute selector)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `variant` | `ButtonVariant` | `'primary'` | Visual style variant (primary, danger, ghost, link, success) |
-| `size` | `ButtonSize` | `'md'` | Button height size (sm, md, lg) |
-| `shape` | `ButtonShape` | `'rectangle'` | Button curves (rectangle, rounded, pill, square) |
-| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type |
-| `disabled` | `boolean` | `false` | Disabled status |
-| `loading` | `boolean` | `false` | Loading status (replaces text/icon with spinner) |
-| `prefixIcon` | `string` | `''` | Icon identifier displayed before label |
-| `suffixIcon` | `string` | `''` | Icon identifier displayed after label |
-| `ariaLabel` | `string` | `''` | Accessibility label description |
+
+| Input        | Type                              | Default       | Description                                                  |
+| ------------ | --------------------------------- | ------------- | ------------------------------------------------------------ |
+| `variant`    | `ButtonVariant`                   | `'primary'`   | Visual style variant (primary, danger, ghost, link, success) |
+| `size`       | `ButtonSize`                      | `'md'`        | Button height size (sm, md, lg)                              |
+| `shape`      | `ButtonShape`                     | `'rectangle'` | Button curves (rectangle, rounded, pill, square)             |
+| `type`       | `'button' \| 'submit' \| 'reset'` | `'button'`    | Button type                                                  |
+| `disabled`   | `boolean`                         | `false`       | Disabled status                                              |
+| `loading`    | `boolean`                         | `false`       | Loading status (replaces text/icon with spinner)             |
+| `prefixIcon` | `string`                          | `''`          | Icon identifier displayed before label                       |
+| `suffixIcon` | `string`                          | `''`          | Icon identifier displayed after label                        |
+| `ariaLabel`  | `string`                          | `''`          | Accessibility label description                              |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output    | Type         | Description                  |
+| --------- | ------------ | ---------------------------- |
 | `clicked` | `MouseEvent` | Native click event emissions |
 
 #### ButtonGroupComponent (`ngx-button-group`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `vertical` | `boolean` | `false` | Stack buttons vertically |
-| `ariaLabel` | `string` | `'Button group'` | Group accessibility labels |
+
+| Input       | Type      | Default          | Description                |
+| ----------- | --------- | ---------------- | -------------------------- |
+| `vertical`  | `boolean` | `false`          | Stack buttons vertically   |
+| `ariaLabel` | `string`  | `'Button group'` | Group accessibility labels |
 
 #### ChipComponent (`ngx-chip`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `variant` | `ChipVariant` | `'default'` | Visual style variant (success, error, warning, outlined) |
-| `icon` | `string` | `''` | Lead icon |
-| `selected` | `boolean` | `false` | Highlighted selection state |
-| `removable` | `boolean` | `false` | Render ✕ icon on right |
-| `disabled` | `boolean` | `false` | Disable interactions |
-| `selectable` | `boolean` | `false` | Enable selection click behaviors |
-| `label` | `string` | `''` | Chip display text |
+
+| Input        | Type          | Default     | Description                                              |
+| ------------ | ------------- | ----------- | -------------------------------------------------------- |
+| `variant`    | `ChipVariant` | `'default'` | Visual style variant (success, error, warning, outlined) |
+| `icon`       | `string`      | `''`        | Lead icon                                                |
+| `selected`   | `boolean`     | `false`     | Highlighted selection state                              |
+| `removable`  | `boolean`     | `false`     | Render ✕ icon on right                                   |
+| `disabled`   | `boolean`     | `false`     | Disable interactions                                     |
+| `selectable` | `boolean`     | `false`     | Enable selection click behaviors                         |
+| `label`      | `string`      | `''`        | Chip display text                                        |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `removed` | `void` | Emitted when ✕ is clicked |
+
+| Output           | Type      | Description                    |
+| ---------------- | --------- | ------------------------------ |
+| `removed`        | `void`    | Emitted when ✕ is clicked      |
 | `selectedChange` | `boolean` | Toggled selection state change |
 
 #### SpeedDialComponent (`ngx-speed-dial`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `items` | `SpeedDialItem[]` | **required** | Float actions list |
-| `icon` | `string` | `'+'` | FAB closed icon |
-| `activeIcon` | `string` | `'✕'` | FAB opened icon |
-| `direction` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Direction of menu flyouts |
-| `theme` | `'primary' \| 'secondary' \| 'accent' \| 'dark'` | `'primary'` | Main FAB color theme |
-| `showLabels` | `boolean` | `true` | Show button labels |
-| `closeOnSelect` | `boolean` | `true` | Auto collapse after clicking a subaction item |
-| `collapseOnLeaveMouse`| `boolean` | `true` | Auto collapse when mouse pointer leaves scope |
+
+| Input                  | Type                                             | Default      | Description                                   |
+| ---------------------- | ------------------------------------------------ | ------------ | --------------------------------------------- |
+| `items`                | `SpeedDialItem[]`                                | **required** | Float actions list                            |
+| `icon`                 | `string`                                         | `'+'`        | FAB closed icon                               |
+| `activeIcon`           | `string`                                         | `'✕'`        | FAB opened icon                               |
+| `direction`            | `'top' \| 'bottom' \| 'left' \| 'right'`         | `'top'`      | Direction of menu flyouts                     |
+| `theme`                | `'primary' \| 'secondary' \| 'accent' \| 'dark'` | `'primary'`  | Main FAB color theme                          |
+| `showLabels`           | `boolean`                                        | `true`       | Show button labels                            |
+| `closeOnSelect`        | `boolean`                                        | `true`       | Auto collapse after clicking a subaction item |
+| `collapseOnLeaveMouse` | `boolean`                                        | `true`       | Auto collapse when mouse pointer leaves scope |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output      | Type            | Description          |
+| ----------- | --------------- | -------------------- |
 | `itemClick` | `SpeedDialItem` | Action item selected |
 
 ---
@@ -1195,9 +1518,16 @@ export class ButtonExampleComponent {
 ### Layout
 
 #### How to Use Layout Components
+
 ```typescript
 import { Component } from '@angular/core';
-import { CardComponent, TabStripComponent, TabComponent, AccordionComponent, SplitterComponent } from 'ngx-core-components/layout';
+import {
+  CardComponent,
+  TabStripComponent,
+  TabComponent,
+  AccordionComponent,
+  SplitterComponent,
+} from 'ngx-core-components/layout';
 
 @Component({
   standalone: true,
@@ -1212,92 +1542,109 @@ import { CardComponent, TabStripComponent, TabComponent, AccordionComponent, Spl
           <ngx-tab-strip>
             <ngx-tab title="Project Info">
               <!-- Card Component -->
-              <ngx-card title="Dashboard Details" variant="outlined">
-                Welcome to layout dashboard.
-              </ngx-card>
+              <ngx-card title="Dashboard Details" variant="outlined"> Welcome to layout dashboard. </ngx-card>
             </ngx-tab>
             <ngx-tab title="Settings">Settings Area</ngx-tab>
           </ngx-tab-strip>
         </div>
       </ngx-splitter>
     </div>
-  `
+  `,
 })
 export class LayoutExampleComponent {}
 ```
 
 #### CardComponent (`ngx-card`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `title` | `string` | `''` | Header title |
-| `subtitle` | `string` | `''` | Header subtitle |
-| `headerIcon` | `string` | `''` | Header title icon |
-| `imageUrl` | `string` | `''` | Large hero image URL |
-| `imageAlt` | `string` | `''` | Alt tag description |
-| `variant` | `CardVariant` | `'default'` | Visual outline style (elevated, outlined, filled) |
-| `hoverable` | `boolean` | `false` | Shadow hover/lift interactive behaviors |
-| `selectable` | `boolean` | `false` | Card selection active click behaviors |
-| `selected` | `boolean` | `false` | Highlighted selection state |
+
+| Input        | Type          | Default     | Description                                       |
+| ------------ | ------------- | ----------- | ------------------------------------------------- |
+| `title`      | `string`      | `''`        | Header title                                      |
+| `subtitle`   | `string`      | `''`        | Header subtitle                                   |
+| `headerIcon` | `string`      | `''`        | Header title icon                                 |
+| `imageUrl`   | `string`      | `''`        | Large hero image URL                              |
+| `imageAlt`   | `string`      | `''`        | Alt tag description                               |
+| `variant`    | `CardVariant` | `'default'` | Visual outline style (elevated, outlined, filled) |
+| `hoverable`  | `boolean`     | `false`     | Shadow hover/lift interactive behaviors           |
+| `selectable` | `boolean`     | `false`     | Card selection active click behaviors             |
+| `selected`   | `boolean`     | `false`     | Highlighted selection state                       |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output      | Type         | Description                                              |
+| ----------- | ------------ | -------------------------------------------------------- |
 | `cardClick` | `MouseEvent` | Click events (only if hoverable or selectable is active) |
 
 #### TabStripComponent (`ngx-tab-strip`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
+
+| Input      | Type                                     | Default | Description                             |
+| ---------- | ---------------------------------------- | ------- | --------------------------------------- |
 | `position` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Side position alignment of strip labels |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output      | Type     | Description              |
+| ----------- | -------- | ------------------------ |
 | `tabChange` | `number` | Active tab index changed |
 
+Horizontal tab lists reverse `ArrowLeft` and `ArrowRight` navigation under
+`dir="rtl"` so keyboard movement follows the visual direction.
+
 #### TabComponent (`ngx-tab`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `title` | `string` | **required** | Tab selection title text |
-| `icon` | `string` | `''` | Title prefix icon |
-| `disabled` | `boolean` | `false` | Disables selecting tab |
-| `badge` | `string \| number` | `''` | Text/counter badge after label |
+
+| Input      | Type               | Default      | Description                    |
+| ---------- | ------------------ | ------------ | ------------------------------ |
+| `title`    | `string`           | **required** | Tab selection title text       |
+| `icon`     | `string`           | `''`         | Title prefix icon              |
+| `disabled` | `boolean`          | `false`      | Disables selecting tab         |
+| `badge`    | `string \| number` | `''`         | Text/counter badge after label |
 
 #### AccordionComponent (`ngx-accordion`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `items` | `AccordionItem[]` | `[]` | Content details |
-| `multi` | `boolean` | `false` | Expand multiple panels simultaneously |
+
+| Input   | Type              | Default | Description                           |
+| ------- | ----------------- | ------- | ------------------------------------- |
+| `items` | `AccordionItem[]` | `[]`    | Content details                       |
+| `multi` | `boolean`         | `false` | Expand multiple panels simultaneously |
 
 #### StepperComponent (`ngx-stepper`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `steps` | `StepperStep[]` | `[]` | Workflow stage labels |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Stepper header alignment layout |
-| `showContent` | `boolean` | `true` | Render inner projected content block |
-| `showActions` | `boolean` | `true` | Show default Back/Next buttons |
+
+| Input         | Type                         | Default        | Description                          |
+| ------------- | ---------------------------- | -------------- | ------------------------------------ |
+| `steps`       | `StepperStep[]`              | `[]`           | Workflow stage labels                |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Stepper header alignment layout      |
+| `showContent` | `boolean`                    | `true`         | Render inner projected content block |
+| `showActions` | `boolean`                    | `true`         | Show default Back/Next buttons       |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output       | Type     | Description                      |
+| ------------ | -------- | -------------------------------- |
 | `stepChange` | `number` | Emitted when active step changes |
 
 #### SplitterComponent (`ngx-splitter`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Resizing splitter direction |
-| `size` | `string \| number \| null` | `null` | Hardcoded programmatic size width/height of pane1 |
-| `initialSize` | `string \| number` | `'50%'` | First load default split percentage |
-| `min` | `number` | `60` | Min bounds constraint in pixels |
+
+| Input         | Type                         | Default        | Description                                       |
+| ------------- | ---------------------------- | -------------- | ------------------------------------------------- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Resizing splitter direction                       |
+| `size`        | `string \| number \| null`   | `null`         | Hardcoded programmatic size width/height of pane1 |
+| `initialSize` | `string \| number`           | `'50%'`        | First load default split percentage               |
+| `min`         | `number`                     | `60`           | Min bounds constraint in pixels                   |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output       | Type     | Description                             |
+| ------------ | -------- | --------------------------------------- |
 | `sizeChange` | `string` | Emitted during partition drag movements |
 
 ---
@@ -1305,9 +1652,16 @@ export class LayoutExampleComponent {}
 ### Feedback
 
 #### How to Use Feedback Components
+
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeComponent, ProgressBarComponent, SkeletonComponent, AlertComponent, StatCardComponent } from 'ngx-core-components/feedback';
+import {
+  BadgeComponent,
+  ProgressBarComponent,
+  SkeletonComponent,
+  AlertComponent,
+  StatCardComponent,
+} from 'ngx-core-components/feedback';
 import { NotificationService } from 'ngx-core-components/feedback';
 
 @Component({
@@ -1322,7 +1676,7 @@ import { NotificationService } from 'ngx-core-components/feedback';
 
     <!-- Alert -->
     <ngx-alert variant="warning" title="Warning Action" message="Process takes longer than expected." />
-  `
+  `,
 })
 export class FeedbackExampleComponent {
   progress = 75;
@@ -1335,62 +1689,77 @@ export class FeedbackExampleComponent {
 ```
 
 #### BadgeComponent (`ngx-badge`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `content` | `string \| number` | `''` | Label contents |
-| `variant` | `BadgeVariant` | `'primary'` | Color state variants (success, danger, info, warning, dark) |
-| `dot` | `boolean` | `false` | Small indicator dot mode (hides content labels) |
-| `positioned` | `boolean` | `false` | Absolute corner positioning relative to parent context |
-| `position` | `BadgePosition` | `'top-right'` | Corner alignments |
+
+| Input        | Type               | Default       | Description                                                 |
+| ------------ | ------------------ | ------------- | ----------------------------------------------------------- |
+| `content`    | `string \| number` | `''`          | Label contents                                              |
+| `variant`    | `BadgeVariant`     | `'primary'`   | Color state variants (success, danger, info, warning, dark) |
+| `dot`        | `boolean`          | `false`       | Small indicator dot mode (hides content labels)             |
+| `positioned` | `boolean`          | `false`       | Absolute corner positioning relative to parent context      |
+| `position`   | `BadgePosition`    | `'top-right'` | Corner alignments                                           |
 
 #### ProgressBarComponent (`ngx-progress-bar`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `value` | `number` | `0` | Current scale |
-| `min` | `number` | `0` | Min bounds |
-| `max` | `number` | `100` | Max bounds |
-| `label` | `string` | `''` | Descriptive header text |
-| `variant` | `ProgressVariant` | `'primary'` | Theme color |
-| `height` | `number` | `8` | Height height in pixels |
-| `showValue` | `boolean` | `false` | Display percentage layout text |
-| `indeterminate` | `boolean` | `false` | Continuous sliding animations mode (ignores values) |
+
+| Input           | Type              | Default     | Description                                         |
+| --------------- | ----------------- | ----------- | --------------------------------------------------- |
+| `value`         | `number`          | `0`         | Current scale                                       |
+| `min`           | `number`          | `0`         | Min bounds                                          |
+| `max`           | `number`          | `100`       | Max bounds                                          |
+| `label`         | `string`          | `''`        | Descriptive header text                             |
+| `variant`       | `ProgressVariant` | `'primary'` | Theme color                                         |
+| `height`        | `number`          | `8`         | Height height in pixels                             |
+| `showValue`     | `boolean`         | `false`     | Display percentage layout text                      |
+| `indeterminate` | `boolean`         | `false`     | Continuous sliding animations mode (ignores values) |
 
 #### AlertComponent (`ngx-alert`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `variant` | `AlertVariant` | `'info'` | Theme variations (info, success, warning, error) |
-| `title` | `string` | `''` | Large bold header text |
-| `message` | `string` | `''` | Paragraph text |
-| `dismissible` | `boolean` | `true` | Render closing ✕ button |
-| `actionLabel` | `string` | `''` | CTA button label |
-| `theme` | `'light' \| 'dark'` | `'light'` | Dark mode options |
+
+| Input         | Type                | Default   | Description                                      |
+| ------------- | ------------------- | --------- | ------------------------------------------------ |
+| `variant`     | `AlertVariant`      | `'info'`  | Theme variations (info, success, warning, error) |
+| `title`       | `string`            | `''`      | Large bold header text                           |
+| `message`     | `string`            | `''`      | Paragraph text                                   |
+| `dismissible` | `boolean`           | `true`    | Render closing ✕ button                          |
+| `actionLabel` | `string`            | `''`      | CTA button label                                 |
+| `theme`       | `'light' \| 'dark'` | `'light'` | Dark mode options                                |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
-| `dismissed` | `void` | Alert closed after transition completed |
-| `actionClick` | `void` | Action button clicked |
+
+| Output        | Type   | Description                             |
+| ------------- | ------ | --------------------------------------- |
+| `dismissed`   | `void` | Alert closed after transition completed |
+| `actionClick` | `void` | Action button clicked                   |
 
 #### NotificationService (Injectable)
+
 ##### Methods
-| Method | Signature | Description |
-|---|---|---|
-| `success` | `(msg: string, title?: string, opts?: options): number` | Success toast |
-| `error` | `(msg: string, title?: string, opts?: options): number` | Error toast |
-| `info` | `(msg: string, title?: string, opts?: options): number` | Informational toast |
-| `warning` | `(msg: string, title?: string, opts?: options): number` | Warning toast |
+
+| Method    | Signature                                               | Description         |
+| --------- | ------------------------------------------------------- | ------------------- |
+| `success` | `(msg: string, title?: string, opts?: options): number` | Success toast       |
+| `error`   | `(msg: string, title?: string, opts?: options): number` | Error toast         |
+| `info`    | `(msg: string, title?: string, opts?: options): number` | Informational toast |
+| `warning` | `(msg: string, title?: string, opts?: options): number` | Warning toast       |
 
 ---
 
 ### Navigation
 
 #### How to Use Navigation Components
+
 ```typescript
 import { Component } from '@angular/core';
-import { BreadcrumbComponent, MenuComponent, CommandPaletteComponent, ContextMenuComponent } from 'ngx-core-components/navigation';
+import {
+  BreadcrumbComponent,
+  MenuComponent,
+  CommandPaletteComponent,
+  ContextMenuComponent,
+} from 'ngx-core-components/navigation';
 
 @Component({
   standalone: true,
@@ -1401,67 +1770,76 @@ import { BreadcrumbComponent, MenuComponent, CommandPaletteComponent, ContextMen
 
     <!-- Menu -->
     <ngx-menu [items]="menuItems" activeItem="Profile" />
-  `
+  `,
 })
 export class NavExampleComponent {
-  breadcrumbItems = [
-    { label: 'Home', url: '/' },
-    { label: 'Admin', url: '/admin' },
-    { label: 'System Settings' }
-  ];
+  breadcrumbItems = [{ label: 'Home', url: '/' }, { label: 'Admin', url: '/admin' }, { label: 'System Settings' }];
 
   menuItems = [
     { label: 'Dashboard', icon: '📊', url: '/dashboard' },
-    { label: 'Settings', icon: '⚙️', children: [
+    {
+      label: 'Settings',
+      icon: '⚙️',
+      children: [
         { label: 'Profile', url: '/profile' },
-        { label: 'Security', url: '/security' }
-      ]
-    }
+        { label: 'Security', url: '/security' },
+      ],
+    },
   ];
 }
 ```
 
 #### BreadcrumbComponent (`ngx-breadcrumb`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `items` | `BreadcrumbItem[]` | `[]` | Navigation steps |
-| `separator` | `string` | `'/'` | Character division indicator |
+
+| Input       | Type               | Default | Description                  |
+| ----------- | ------------------ | ------- | ---------------------------- |
+| `items`     | `BreadcrumbItem[]` | `[]`    | Navigation steps             |
+| `separator` | `string`           | `'/'`   | Character division indicator |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output      | Type             | Description                           |
+| ----------- | ---------------- | ------------------------------------- |
 | `itemClick` | `BreadcrumbItem` | Emitted when link clicks are selected |
 
 #### MenuComponent (`ngx-menu`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `items` | `MenuItem[]` | `[]` | Multilevel navigation links |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Alignment layout |
-| `activeItem` | `string` | `''` | Matching labels to highlight active link |
+
+| Input         | Type                         | Default        | Description                              |
+| ------------- | ---------------------------- | -------------- | ---------------------------------------- |
+| `items`       | `MenuItem[]`                 | `[]`           | Multilevel navigation links              |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Alignment layout                         |
+| `activeItem`  | `string`                     | `''`           | Matching labels to highlight active link |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output      | Type       | Description                            |
+| ----------- | ---------- | -------------------------------------- |
 | `itemClick` | `MenuItem` | Emitted when leaf link item is clicked |
 
 #### CommandPaletteComponent (`ngx-command-palette`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `commands` | `CommandItem[]` | **required** | Selectable actions list |
-| `placeholder` | `string` | `'Type a command or search...'` | Search input placeholder |
+
+| Input         | Type            | Default                         | Description              |
+| ------------- | --------------- | ------------------------------- | ------------------------ |
+| `commands`    | `CommandItem[]` | **required**                    | Selectable actions list  |
+| `placeholder` | `string`        | `'Type a command or search...'` | Search input placeholder |
 
 ##### Outputs
-| Output | Type | Description |
-|---|---|---|
+
+| Output            | Type          | Description                           |
+| ----------------- | ------------- | ------------------------------------- |
 | `commandSelected` | `CommandItem` | Emitted when command action is chosen |
 
 ##### Public Methods
-| Method | Signature | Description |
-|---|---|---|
-| `openPalette` | `(): void` | Trigger modal popup display |
+
+| Method         | Signature  | Description                 |
+| -------------- | ---------- | --------------------------- |
+| `openPalette`  | `(): void` | Trigger modal popup display |
 | `closePalette` | `(): void` | Dismiss modal popup display |
 
 ---
@@ -1469,6 +1847,7 @@ export class NavExampleComponent {
 ### Barcodes
 
 #### How to Use Barcodes
+
 ```typescript
 import { Component } from '@angular/core';
 import { BarcodeComponent, QrCodeComponent } from 'ngx-core-components/barcodes';
@@ -1482,38 +1861,44 @@ import { BarcodeComponent, QrCodeComponent } from 'ngx-core-components/barcodes'
 
     <!-- QR Code -->
     <ngx-qrcode value="https://example.com" [size]="150" label="Scan to Visit Site" />
-  `
+  `,
 })
 export class BarcodesExampleComponent {}
 ```
 
 #### BarcodeComponent (`ngx-barcode`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `value` | `string` | `''` | Numeric/String value encoding |
-| `label` | `string` | `''` | Text displayed above |
-| `height` | `number` | `60` | Height dimensions in pixels |
-| `barWidth` | `number` | `2` | Single bar width in pixels |
-| `foreground` | `string` | `'#000000'` | Stroke fill colors |
-| `background` | `string` | `'#ffffff'` | Canvas background |
+
+| Input        | Type     | Default     | Description                   |
+| ------------ | -------- | ----------- | ----------------------------- |
+| `value`      | `string` | `''`        | Numeric/String value encoding |
+| `label`      | `string` | `''`        | Text displayed above          |
+| `height`     | `number` | `60`        | Height dimensions in pixels   |
+| `barWidth`   | `number` | `2`         | Single bar width in pixels    |
+| `foreground` | `string` | `'#000000'` | Stroke fill colors            |
+| `background` | `string` | `'#ffffff'` | Canvas background             |
 
 #### QrCodeComponent (`ngx-qr-code`)
+
 ##### Inputs
-| Input | Type | Default | Description |
-|---|---|---|---|
-| `value` | `string` | `''` | Text URL/String encoding |
-| `size` | `number` | `160` | Width & height sizes in pixels |
-| `label` | `string` | `''` | Header description text |
-| `foreground` | `string` | `'#000000'` | Code grid point color |
-| `background` | `string` | `'#ffffff'` | Grid canvas background |
+
+| Input        | Type     | Default     | Description                    |
+| ------------ | -------- | ----------- | ------------------------------ |
+| `value`      | `string` | `''`        | Text URL/String encoding       |
+| `size`       | `number` | `160`       | Width & height sizes in pixels |
+| `label`      | `string` | `''`        | Header description text        |
+| `foreground` | `string` | `'#000000'` | Code grid point color          |
+| `background` | `string` | `'#ffffff'` | Grid canvas background         |
 
 ---
 
 ## Advanced Features
 
 ### Draggable Zoom & Area Selection
+
 The Gantt Chart component supports zooming directly into a specific time range by selecting a window on the timeline.
+
 - **Enable Feature**: Add `enableDragToZoom: true` in the `config` object or pass `[enableDragToZoom]="true"`.
 - **Keyboard Shortcut**: Hold **Shift** and click-and-drag across the timeline background to draw a glassmorphic zoom selection window.
 - **Area Zoom Mode**: Click the **Area Zoom Mode** button (or call `toggleAreaZoomMode()` programmatically) to change the cursor to a crosshair and drag-select without holding Shift.
@@ -1523,7 +1908,9 @@ The Gantt Chart component supports zooming directly into a specific time range b
 - **Resetting**: Call the public `resetZoom()` method (or trigger via a button) to reset the timeline back to full scale.
 
 ### Keyboard Rescheduling & Resizing
+
 Tasks can be adjusted using only the keyboard:
+
 - **Rescheduling**: Focus a task bar and use the `ArrowLeft` or `ArrowRight` keys to shift the task start and end dates by 1 unit (1 hour in Hour view, otherwise 1 day).
 - **Resizing**: Focus a task bar and hold `Alt` or `Shift` alongside `ArrowLeft` or `ArrowRight` to extend or shrink the task's duration from the right boundary.
 

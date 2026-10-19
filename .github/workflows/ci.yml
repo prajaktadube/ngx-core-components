@@ -2,45 +2,69 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
-    - name: Install Dependencies
-      run: npm ci --legacy-peer-deps
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
 
-    - name: Lint
-      run: npm run lint
+      - name: Verify public metadata
+        run: npm run metadata:check
 
-    - name: Check Formatting
-      run: npm run format:check || true
+      - name: Lint
+        run: npm run lint
 
+      - name: Check Formatting
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            diff_range="$BASE_SHA...HEAD"
+          elif [ -n "$BASE_SHA" ] && [ "$BASE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            diff_range="$BASE_SHA HEAD"
+          else
+            diff_range="HEAD^ HEAD"
+          fi
+          mapfile -d "" files < <(git diff --diff-filter=ACMR --name-only -z $diff_range -- "projects/**/*.ts" "projects/**/*.html" "projects/**/*.css" "projects/**/*.scss")
+          if ((${#files[@]})); then
+            npx prettier --check "${files[@]}"
+          else
+            echo "No changed project source files to format-check."
+          fi
 
-    - name: Run Production Build
-      run: npm run build
+      - name: Run Production Build
+        run: npm run build
 
-    - name: Run Bundle Size Check
-      run: npm run size
+      - name: Run Bundle Size Check
+        run: npm run size
 
-    - name: Run Headless Unit Tests
-      run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+      - name: Run Demo Unit Tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
-    - name: Build Storybook
-      run: npm run build-storybook
+      - name: Run Library Unit Tests
+        run: npx ng test ngx-core-components --watch=false --browsers=ChromeHeadless --code-coverage
 
-    - name: Verify npm package contents
-      run: cd dist/ngx-core-components && npm pack --dry-run
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Verify npm package contents
+        run: cd dist/ngx-core-components && npm pack --dry-run

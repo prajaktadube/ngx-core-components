@@ -1,11 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  HostListener,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface MarimekkoSegment {
   name: string;
@@ -41,7 +51,7 @@ interface ProcessedCol {
 @Component({
   selector: 'ngx-marimekko-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-marimekko-chart" (mouseleave)="onMouseLeave()">
@@ -52,24 +62,12 @@ interface ProcessedCol {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="marimekko-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="marimekko-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- Grid Lines (Horizontal percentage lines) -->
           @if (showGrid()) {
             @for (pct of gridPercentages; track pct) {
-              <line
-                [attr.x1]="0"
-                [attr.x2]="innerW()"
-                [attr.y1]="yPos(pct)"
-                [attr.y2]="yPos(pct)"
-                class="grid-line"
-              />
+              <line [attr.x1]="0" [attr.x2]="innerW()" [attr.y1]="yPos(pct)" [attr.y2]="yPos(pct)" class="grid-line" />
             }
           }
 
@@ -85,12 +83,17 @@ interface ProcessedCol {
                     [attr.height]="seg.height"
                     [attr.fill]="seg.color"
                     class="marimekko-segment"
-                    [class.dimmed]="hoveredIndices() !== null && (hoveredIndices()!.col !== i || hoveredIndices()!.seg !== j)"
-                    (mouseenter)="onSegmentHover(i, j, $event)"
+                    [class.dimmed]="
+                      hoveredIndices() !== null && (hoveredIndices()!.col !== i || hoveredIndices()!.seg !== j)
+                    "
+                    (mouseenter)="onSegmentHover(i, j)"
                     (mousemove)="onSegmentMouseMove($event)"
+                    (focus)="onSegmentFocus($event, i, j)"
+                    (blur)="onSegmentBlur()"
+                    [ngxChartAccessibleMark]="segmentAccessibleLabel(seg, col)"
                     stroke="#ffffff"
                     stroke-width="1.5"
-                    [style.animation-delay]="(i * 0.15) + 's'"
+                    [style.animation-delay]="i * 0.15 + 's'"
                   />
                   @if (showSegmentLabels() && col.width > 40 && seg.height > 16) {
                     <text
@@ -99,7 +102,7 @@ interface ProcessedCol {
                       text-anchor="middle"
                       dominant-baseline="middle"
                       class="segment-label"
-                      [style.animation-delay]="(0.6 + i * 0.15) + 's'"
+                      [style.animation-delay]="0.6 + i * 0.15 + 's'"
                     >
                       {{ seg.pctOfCol.toFixed(0) }}%
                     </text>
@@ -127,14 +130,7 @@ interface ProcessedCol {
             @for (pct of gridPercentages; track pct) {
               <g [attr.transform]="'translate(0,' + yPos(pct) + ')'">
                 <line [attr.x1]="-4" [attr.x2]="0" [attr.y1]="0" [attr.y2]="0" class="tick-line" />
-                <text
-                  [attr.x]="-8"
-                  text-anchor="end"
-                  dominant-baseline="middle"
-                  class="tick-label"
-                >
-                  {{ pct }}%
-                </text>
+                <text [attr.x]="-8" text-anchor="end" dominant-baseline="middle" class="tick-label">{{ pct }}%</text>
               </g>
             }
           </g>
@@ -169,122 +165,142 @@ interface ProcessedCol {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-marimekko-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .marimekko-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label, .x-axis-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .marimekko-segment {
-      transition: fill-opacity 0.2s ease, opacity 0.2s ease;
-      cursor: pointer;
-      transform-origin: bottom;
-      animation: marimekkoScaleUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-    }
-    @keyframes marimekkoScaleUp {
-      from { transform: scaleY(0); opacity: 0; }
-      to { transform: scaleY(1); opacity: 1; }
-    }
-    .segment-label {
-      font-size: 10px;
-      fill: #ffffff;
-      pointer-events: none;
-      font-weight: 600;
-      animation: fadeIn 0.4s ease-out forwards;
-      opacity: 0;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    .marimekko-segment.dimmed {
-      opacity: 0.35;
-    }
-    .marimekko-segment:hover {
-      fill-opacity: 0.9;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-marimekko-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .marimekko-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label,
+      .x-axis-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .marimekko-segment {
+        transition:
+          fill-opacity 0.2s ease,
+          opacity 0.2s ease;
+        cursor: pointer;
+        transform-origin: bottom;
+        animation: marimekkoScaleUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+      }
+      @keyframes marimekkoScaleUp {
+        from {
+          transform: scaleY(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+      }
+      .segment-label {
+        font-size: 10px;
+        fill: #ffffff;
+        pointer-events: none;
+        font-weight: 600;
+        animation: fadeIn 0.4s ease-out forwards;
+        opacity: 0;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      .marimekko-segment.dimmed {
+        opacity: 0.35;
+      }
+      .marimekko-segment:hover {
+        fill-opacity: 0.9;
+      }
+      .marimekko-segment:focus-visible {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 180px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 180px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class MarimekkoChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   data = input<MarimekkoItem[]>([]);
   height = input<number>(400);
   showGrid = input<boolean>(true);
@@ -305,7 +321,7 @@ export class MarimekkoChartComponent {
     top: 20,
     right: 20,
     bottom: this.showLabels() ? 30 : 10,
-    left: 45
+    left: 45,
   }));
 
   svgHeight = computed(() => this.height());
@@ -337,10 +353,11 @@ export class MarimekkoChartComponent {
     const raw = this.data();
     if (raw.length === 0) return [];
 
-    const grandTotal = raw.reduce((acc, col) => {
-      const colSum = col.segments.reduce((s, seg) => s + seg.value, 0);
-      return acc + colSum;
-    }, 0) || 1;
+    const grandTotal =
+      raw.reduce((acc, col) => {
+        const colSum = col.segments.reduce((s, seg) => s + seg.value, 0);
+        return acc + colSum;
+      }, 0) || 1;
 
     const w = this.innerW();
     const h = this.innerH();
@@ -359,7 +376,7 @@ export class MarimekkoChartComponent {
       let yOffset = h;
 
       const segments = col.segments.map((seg, sIdx) => {
-        const segHeightPct = colTotal > 0 ? (seg.value / colTotal) : 0;
+        const segHeightPct = colTotal > 0 ? seg.value / colTotal : 0;
         const segHeight = segHeightPct * h;
 
         yOffset -= segHeight;
@@ -374,7 +391,7 @@ export class MarimekkoChartComponent {
           pctOfCol: segHeightPct * 100,
           pctOfTotal: (seg.value / grandTotal) * 100,
           colIndex: cIdx,
-          segIndex: sIdx
+          segIndex: sIdx,
         };
       });
 
@@ -384,12 +401,12 @@ export class MarimekkoChartComponent {
         width: colWidth,
         total: colTotal,
         pctOfTotal: colWidthPct * 100,
-        segments
+        segments,
       };
     });
   });
 
-  onSegmentHover(colIndex: number, segIndex: number, event: MouseEvent) {
+  onSegmentHover(colIndex: number, segIndex: number) {
     this.hoveredIndices.set({ col: colIndex, seg: segIndex });
     const col = this.computedCols()[colIndex];
     if (col) {
@@ -401,10 +418,32 @@ export class MarimekkoChartComponent {
           value: seg.value,
           color: seg.color,
           pctOfCol: seg.pctOfCol,
-          pctOfTotal: seg.pctOfTotal
+          pctOfTotal: seg.pctOfTotal,
         });
       }
     }
+  }
+
+  segmentAccessibleLabel(segment: ProcessedSegment, column: ProcessedCol): string {
+    const value = `${fmtNum(segment.value)}, ${segment.pctOfCol.toFixed(1)}% of ${column.label}`;
+    return this.i18n.chart.dataMarkDescription(`${column.label}, ${segment.name}`, value);
+  }
+
+  onSegmentFocus(event: FocusEvent, colIndex: number, segIndex: number): void {
+    this.onSegmentHover(colIndex, segIndex);
+
+    const segment = event.currentTarget as SVGRectElement;
+    const container = segment.closest('.ngx-marimekko-chart');
+    if (!container) return;
+
+    const segmentRect = segment.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    this.tooltipX.set(segmentRect.left + segmentRect.width / 2 - containerRect.left);
+    this.tooltipY.set(segmentRect.top + segmentRect.height / 2 - containerRect.top);
+  }
+
+  onSegmentBlur(): void {
+    this.onMouseLeave();
   }
 
   onSegmentMouseMove(event: MouseEvent) {

@@ -1,16 +1,25 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, ChartDataPoint, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Component({
   selector: 'ngx-lollipop-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-lollipop-chart" (mouseleave)="onMouseLeave()">
@@ -21,12 +30,7 @@ import { CHART_COLORS, ChartDataPoint, fmtNum, niceTicks, scale } from '../share
         }
       </div>
 
-      <svg
-        #svgEl
-        class="lollipop-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="lollipop-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
           <!-- Grid Lines (Horizontal Orientation: vertical lines; Vertical Orientation: horizontal lines) -->
           @if (showGrid()) {
@@ -59,8 +63,11 @@ import { CHART_COLORS, ChartDataPoint, fmtNum, niceTicks, scale } from '../share
               class="lollipop-row"
               [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
               [class.highlighted]="hoveredIndex() === i"
-              (mouseenter)="onItemHover(i, $event)"
+              (mouseenter)="onItemHover(i)"
               (mousemove)="onItemMouseMove($event)"
+              (focus)="onItemFocus(i, $event)"
+              (blur)="onItemBlur()"
+              [ngxChartAccessibleMark]="itemAccessibleLabel(item)"
             >
               <!-- Row backdrop for easier hover -->
               @if (orientation() === 'horizontal') {
@@ -178,12 +185,7 @@ import { CHART_COLORS, ChartDataPoint, fmtNum, niceTicks, scale } from '../share
               <line [attr.x1]="0" [attr.x2]="innerW()" [attr.y1]="0" [attr.y2]="0" class="axis-line" />
               @if (showLabels()) {
                 @for (item of computedItems(); track item.label) {
-                  <text
-                    [attr.x]="item.coord"
-                    [attr.y]="16"
-                    text-anchor="middle"
-                    class="axis-label"
-                  >
+                  <text [attr.x]="item.coord" [attr.y]="16" text-anchor="middle" class="axis-label">
                     {{ item.label }}
                   </text>
                 }
@@ -206,125 +208,141 @@ import { CHART_COLORS, ChartDataPoint, fmtNum, niceTicks, scale } from '../share
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-lollipop-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .lollipop-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label, .axis-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .lollipop-stem {
-      opacity: 0.75;
-      transition: stroke-width 0.2s ease, opacity 0.2s ease;
-    }
-    .lollipop-candy {
-      transition: r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s ease;
-      stroke: var(--ngx-chart-bg, #ffffff);
-      stroke-width: 1.5;
-      cursor: pointer;
-    }
-    .lollipop-row {
-      transition: opacity 0.2s ease;
-    }
-    .lollipop-row.dimmed {
-      opacity: 0.3;
-    }
-    .lollipop-row.highlighted .lollipop-stem {
-      stroke-width: 3.5;
-      opacity: 1;
-    }
-    .lollipop-row.highlighted .lollipop-candy {
-      filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.15));
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-lollipop-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .lollipop-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label,
+      .axis-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .lollipop-stem {
+        opacity: 0.75;
+        transition:
+          stroke-width 0.2s ease,
+          opacity 0.2s ease;
+      }
+      .lollipop-candy {
+        transition:
+          r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          filter 0.2s ease;
+        stroke: var(--ngx-chart-bg, #ffffff);
+        stroke-width: 1.5;
+        cursor: pointer;
+      }
+      .lollipop-row {
+        transition: opacity 0.2s ease;
+      }
+      .lollipop-row.dimmed {
+        opacity: 0.3;
+      }
+      .lollipop-row.highlighted .lollipop-stem {
+        stroke-width: 3.5;
+        opacity: 1;
+      }
+      .lollipop-row.highlighted .lollipop-candy {
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.15));
+      }
+      .lollipop-row:focus-visible .lollipop-candy {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 140px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 140px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Header styles */
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-  `]
+      /* Header styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class LollipopChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   data = input<ChartDataPoint[]>([]);
   height = input<number>(350);
@@ -349,7 +367,7 @@ export class LollipopChartComponent {
       top: 20,
       right: 30,
       bottom: 40,
-      left: this.showLabels() ? (isHoriz ? 80 : 40) : 20
+      left: this.showLabels() ? (isHoriz ? 80 : 40) : 20,
     };
   });
 
@@ -424,17 +442,43 @@ export class LollipopChartComponent {
       return {
         ...item,
         coord,
-        color
+        color,
       };
     });
   });
 
-  onItemHover(idx: number, event: MouseEvent) {
+  onItemHover(idx: number) {
     this.hoveredIndex.set(idx);
     const item = this.computedItems()[idx];
     if (item) {
       this.tooltip.set(item);
     }
+  }
+
+  itemAccessibleLabel(item: ChartDataPoint): string {
+    return this.i18n.chart.dataMarkDescription(item.label || '', fmtNum(item.value));
+  }
+
+  onItemFocus(idx: number, event: FocusEvent): void {
+    const item = this.computedItems()[idx];
+    if (!item) return;
+
+    this.hoveredIndex.set(idx);
+    this.tooltip.set(item);
+
+    const mark = event.currentTarget as SVGGElement;
+    const container = mark.closest('.ngx-lollipop-chart');
+    if (!container) return;
+
+    const markRect = mark.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top - containerRect.top);
+  }
+
+  onItemBlur(): void {
+    this.hoveredIndex.set(null);
+    this.tooltip.set(null);
   }
 
   onItemMouseMove(event: MouseEvent) {

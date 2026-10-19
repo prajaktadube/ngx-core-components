@@ -7,14 +7,13 @@ describe('BarcodeComponent', () => {
     spyOn(window, 'open').and.returnValue({
       document: {
         write: () => {},
-        close: () => {}
-      }
+        close: () => {},
+      },
     } as any);
     spyOn(window, 'alert').and.stub();
 
     await TestBed.configureTestingModule({
       imports: [BarcodeComponent],
-
     }).compileComponents();
   });
 
@@ -22,7 +21,9 @@ describe('BarcodeComponent', () => {
     const fixture = TestBed.createComponent(BarcodeComponent);
     const component = fixture.componentInstance;
 
-    try { fixture.detectChanges(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
     expect(component).toBeTruthy();
   });
 
@@ -30,8 +31,29 @@ describe('BarcodeComponent', () => {
     const fixture = TestBed.createComponent(BarcodeComponent);
     const component = fixture.componentInstance;
 
-    try { fixture.detectChanges(); } catch(e) {}
+    try {
+      fixture.detectChanges();
+    } catch (e) {}
 
     expect(component).toBeTruthy();
+  });
+
+  it('renders a valid barcode with an accessible label', () => {
+    const fixture = TestBed.createComponent(BarcodeComponent);
+    fixture.componentRef.setInput('value', 'A');
+    fixture.detectChanges();
+
+    const svg = fixture.nativeElement.querySelector('svg[role="img"]') as SVGElement;
+    expect(svg.getAttribute('aria-label')).toBe('Code 128-B barcode for A');
+    expect(svg.querySelectorAll('rect').length).toBeGreaterThan(1);
+  });
+
+  it('announces unsupported content instead of rendering an invalid symbol', () => {
+    const fixture = TestBed.createComponent(BarcodeComponent);
+    fixture.componentRef.setInput('value', 'café');
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[role="alert"]')?.textContent).toContain('printable ASCII');
+    expect(fixture.nativeElement.querySelector('svg')?.querySelectorAll('rect').length).toBe(0);
   });
 });

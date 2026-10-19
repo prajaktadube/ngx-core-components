@@ -1,8 +1,19 @@
-import { Component, ChangeDetectionStrategy, input, computed, signal, ElementRef, viewChild, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  inject,
+} from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface BubblePoint {
   x: number;
@@ -15,7 +26,7 @@ export interface BubblePoint {
 @Component({
   selector: 'ngx-bubble-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-bubble-chart" [class.dark]="theme() === 'dark'">
@@ -37,13 +48,7 @@ export interface BubblePoint {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-          class="chart-svg"
-          (mouseleave)="onMouseLeave()"
-        >
+        <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg" (mouseleave)="onMouseLeave()">
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Grid Lines (Horizontal and Vertical) -->
             @if (showGrid()) {
@@ -73,34 +78,25 @@ export interface BubblePoint {
 
             <!-- Y-Axis Labels -->
             @for (tick of yTicks(); track tick) {
-              <text
-                x="-10"
-                [attr.y]="yPos(tick) + 4"
-                class="axis-label y"
-                text-anchor="end"
-              >{{ fmtNum(tick) }}</text>
+              <text x="-10" [attr.y]="yPos(tick) + 4" class="axis-label y" text-anchor="end">{{ fmtNum(tick) }}</text>
             }
             <text
-              [attr.transform]="'rotate(-90) translate(' + (-innerH()/2) + ', -38)'"
+              [attr.transform]="'rotate(-90) translate(' + -innerH() / 2 + ', -38)'"
               class="axis-title y"
               text-anchor="middle"
-            >{{ yTitle() }}</text>
+            >
+              {{ yTitle() }}
+            </text>
 
             <!-- X-Axis Labels -->
             @for (tick of xTicks(); track tick) {
-              <text
-                [attr.x]="xPos(tick)"
-                [attr.y]="innerH() + 20"
-                class="axis-label x"
-                text-anchor="middle"
-              >{{ fmtNum(tick) }}</text>
+              <text [attr.x]="xPos(tick)" [attr.y]="innerH() + 20" class="axis-label x" text-anchor="middle">
+                {{ fmtNum(tick) }}
+              </text>
             }
-            <text
-              [attr.x]="innerW() / 2"
-              [attr.y]="innerH() + 38"
-              class="axis-title x"
-              text-anchor="middle"
-            >{{ xTitle() }}</text>
+            <text [attr.x]="innerW() / 2" [attr.y]="innerH() + 38" class="axis-title x" text-anchor="middle">
+              {{ xTitle() }}
+            </text>
 
             <!-- Active Crosshair -->
             @if (hoveredPointIndex() !== null) {
@@ -140,10 +136,13 @@ export interface BubblePoint {
                 [attr.fill-opacity]="hoveredPointIndex() === i ? 0.85 : 0.65"
                 class="bubble-point"
                 [class.hovered]="hoveredPointIndex() === i"
+                [ngxChartAccessibleMark]="pointAccessibleLabel(pt.raw)"
                 [style.transform-origin]="pt.cx + 'px ' + pt.cy + 'px'"
-                [style.animation-delay]="(i * 0.015) + 's'"
+                [style.animation-delay]="i * 0.015 + 's'"
                 (mouseenter)="onPointHover($event, pt.raw, i)"
                 (mousemove)="onPointHover($event, pt.raw, i)"
+                (focus)="onPointFocus($event, pt.raw, i)"
+                (blur)="onMouseLeave()"
               />
               <!-- Optional bubble inner label for larger sizes -->
               @if (showLabels() && pt.r > 12) {
@@ -154,13 +153,21 @@ export interface BubblePoint {
                   text-anchor="middle"
                   [attr.fill]="'#ffffff'"
                   pointer-events="none"
-                >{{ pt.raw.label || fmtNum(pt.raw.z) }}</text>
+                >
+                  {{ pt.raw.label || fmtNum(pt.raw.z) }}
+                </text>
               }
             }
 
             <!-- Base axes borders -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
           </g>
         </svg>
 
@@ -197,173 +204,191 @@ export interface BubblePoint {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-bubble-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      transition: background-color 0.3s;
-    }
-    .ngx-bubble-chart.dark {
-      background: rgba(30, 32, 48, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      --ngx-chart-bg: transparent;
-      --ngx-chart-grid: rgba(255, 255, 255, 0.06);
-      --ngx-chart-axis: rgba(255, 255, 255, 0.12);
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      position: relative;
-    }
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #64748b;
-    }
-    .dark .legend-item {
-      color: #94a3b8;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      fill: #64748b;
-      font-weight: 500;
-    }
-    .dark .axis-label {
-      fill: #94a3b8;
-    }
-    .axis-title {
-      font-size: 11px;
-      font-weight: 600;
-      fill: #475569;
-      letter-spacing: 0.5px;
-    }
-    .dark .axis-title {
-      fill: #cbd5e1;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-bubble-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        transition: background-color 0.3s;
+      }
+      .ngx-bubble-chart.dark {
+        background: rgba(30, 32, 48, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        --ngx-chart-bg: transparent;
+        --ngx-chart-grid: rgba(255, 255, 255, 0.06);
+        --ngx-chart-axis: rgba(255, 255, 255, 0.12);
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        position: relative;
+      }
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #64748b;
+      }
+      .dark .legend-item {
+        color: #94a3b8;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: #64748b;
+        font-weight: 500;
+      }
+      .dark .axis-label {
+        fill: #94a3b8;
+      }
+      .axis-title {
+        font-size: 11px;
+        font-weight: 600;
+        fill: #475569;
+        letter-spacing: 0.5px;
+      }
+      .dark .axis-title {
+        fill: #cbd5e1;
+      }
 
-    @keyframes bubblePop {
-      from { transform: scale(0); opacity: 0; }
-      to { transform: scale(1); }
-    }
+      @keyframes bubblePop {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+        }
+      }
 
-    .bubble-point {
-      cursor: pointer;
-      transition: r 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  fill-opacity 0.2s,
-                  stroke-width 0.2s;
-      animation: bubblePop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .bubble-point.hovered {
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-      stroke: #ffffff;
-    }
-    .bubble-inner-label {
-      font-size: 8px;
-      font-weight: 700;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-      user-select: none;
-    }
+      .bubble-point {
+        cursor: pointer;
+        transition:
+          r 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          fill-opacity 0.2s,
+          stroke-width 0.2s;
+        animation: bubblePop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .bubble-point.hovered,
+      .bubble-point:focus-visible {
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+        stroke: #ffffff;
+      }
+      .bubble-inner-label {
+        font-size: 8px;
+        font-weight: 700;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        user-select: none;
+      }
 
-    .crosshair-line {
-      pointer-events: none;
-      animation: fadeIn 0.15s ease-out forwards;
-    }
+      .crosshair-line {
+        pointer-events: none;
+        animation: fadeIn 0.15s ease-out forwards;
+      }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-    /* Glassmorphic Tooltip styling */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      z-index: 100;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .bubble-highlight-row {
-      margin-top: 6px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-      padding-top: 4px;
-      color: #fbbf24;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip styling */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11px;
+        z-index: 100;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .bubble-highlight-row {
+        margin-top: 6px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        padding-top: 4px;
+        color: #fbbf24;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Export Trigger */
-    `]
+      /* Export Trigger */
+    `,
+  ],
 })
 export class BubbleChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  readonly i18n = inject(NGX_CORE_I18N);
   PAD_LEFT = 52;
   PAD_TOP = 16;
   PAD_RIGHT = 24;
@@ -421,19 +446,19 @@ export class BubbleChartComponent {
 
   // Bounds Calculations
   private xValues = computed(() => this.data().map(pt => pt.x));
-  private xMin = computed(() => this.xValues().length > 0 ? Math.min(...this.xValues()) * 0.9 : 0);
-  private xMax = computed(() => this.xValues().length > 0 ? Math.max(...this.xValues()) * 1.1 : 100);
+  private xMin = computed(() => (this.xValues().length > 0 ? Math.min(...this.xValues()) * 0.9 : 0));
+  private xMax = computed(() => (this.xValues().length > 0 ? Math.max(...this.xValues()) * 1.1 : 100));
   xTicks = computed(() => niceTicks(this.xMin(), this.xMax(), 5));
 
   private yValues = computed(() => this.data().map(pt => pt.y));
-  private yMin = computed(() => this.yValues().length > 0 ? Math.min(...this.yValues()) * 0.9 : 0);
-  private yMax = computed(() => this.yValues().length > 0 ? Math.max(...this.yValues()) * 1.1 : 100);
+  private yMin = computed(() => (this.yValues().length > 0 ? Math.min(...this.yValues()) * 0.9 : 0));
+  private yMax = computed(() => (this.yValues().length > 0 ? Math.max(...this.yValues()) * 1.1 : 100));
   yTicks = computed(() => niceTicks(this.yMin(), this.yMax(), 5));
 
   // Bubble size sizing scale calculations
   private zValues = computed(() => this.data().map(pt => pt.z));
-  private zMin = computed(() => this.zValues().length > 0 ? Math.min(...this.zValues()) : 0);
-  private zMax = computed(() => this.zValues().length > 0 ? Math.max(...this.zValues()) : 1);
+  private zMin = computed(() => (this.zValues().length > 0 ? Math.min(...this.zValues()) : 0));
+  private zMax = computed(() => (this.zValues().length > 0 ? Math.max(...this.zValues()) : 1));
 
   // Map absolute coordinate points to SVG canvas
   xPos(x: number): number {
@@ -455,18 +480,46 @@ export class BubbleChartComponent {
         cy,
         r,
         color: this.groupColor(pt.group),
-        raw: pt
+        raw: pt,
       };
     });
   });
 
   onPointHover(event: MouseEvent, pt: BubblePoint, index: number) {
+    this.showPointTooltip(pt, index, event.currentTarget as SVGCircleElement, event.clientX, event.clientY);
+  }
+
+  onPointFocus(event: FocusEvent, pt: BubblePoint, index: number): void {
+    this.showPointTooltip(pt, index, event.currentTarget as SVGCircleElement);
+  }
+
+  pointAccessibleLabel(pt: BubblePoint): string {
+    return this.i18n.chart.bubblePointDescription(
+      pt.label,
+      pt.group,
+      this.xTitle(),
+      fmtNum(pt.x),
+      this.yTitle(),
+      fmtNum(pt.y),
+      this.zTitle(),
+      fmtNum(pt.z)
+    );
+  }
+
+  private showPointTooltip(
+    pt: BubblePoint,
+    index: number,
+    target: SVGCircleElement,
+    clientX?: number,
+    clientY?: number
+  ): void {
     this.hoveredPointIndex.set(index);
     const containerEl = this.container()?.nativeElement;
     if (!containerEl) return;
     const rect = containerEl.getBoundingClientRect();
-    const tooltipX = event.clientX - rect.left;
-    const tooltipY = event.clientY - rect.top;
+    const pointRect = target.getBoundingClientRect();
+    const tooltipX = clientX === undefined ? pointRect.left - rect.left + pointRect.width / 2 : clientX - rect.left;
+    const tooltipY = clientY === undefined ? pointRect.top - rect.top : clientY - rect.top;
 
     this.tooltip.set({
       x: tooltipX,
@@ -476,7 +529,7 @@ export class BubbleChartComponent {
       xVal: pt.x,
       yVal: pt.y,
       zVal: pt.z,
-      color: this.groupColor(pt.group)
+      color: this.groupColor(pt.group),
     });
   }
 
@@ -485,7 +538,7 @@ export class BubbleChartComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -511,7 +564,6 @@ export class BubbleChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }
