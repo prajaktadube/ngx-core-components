@@ -1,12 +1,22 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, TemplateRef, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  TemplateRef,
+  viewChild,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
-import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface KagiSegment {
   x: number;
@@ -23,7 +33,7 @@ export interface KagiSegment {
 @Component({
   selector: 'ngx-kagi-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent, NgTemplateOutlet],
+  imports: [ChartExportMenuComponent, NgTemplateOutlet, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-kagi-chart" (mouseleave)="onMouseLeave()">
@@ -39,14 +49,8 @@ export interface KagiSegment {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="kagi-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="kagi-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- Grid Lines -->
           @if (showGrid()) {
             @for (tick of yTicks(); track tick) {
@@ -72,9 +76,12 @@ export interface KagiSegment {
               stroke-linecap="round"
               class="kagi-line"
               [class.dimmed]="hoveredSegmentIndex() !== null && hoveredSegmentIndex() !== idx"
-              (mouseenter)="onSegmentHover(idx, $event)"
+              [ngxChartAccessibleMark]="accessibleSegmentLabel(seg, idx)"
+              (mouseenter)="onSegmentHover(idx)"
               (mousemove)="onMouseMove($event)"
-              [style.animation-delay]="(idx * 0.05) + 's'"
+              (focus)="onSegmentFocus($event, idx)"
+              (blur)="onMouseLeave()"
+              [style.animation-delay]="idx * 0.05 + 's'"
             />
           }
 
@@ -84,12 +91,7 @@ export interface KagiSegment {
             @for (tick of yTicks(); track tick) {
               <g [attr.transform]="'translate(0,' + yPos(tick) + ')'">
                 <line [attr.x1]="-4" [attr.x2]="0" [attr.y1]="0" [attr.y2]="0" class="tick-line" />
-                <text
-                  [attr.x]="-8"
-                  text-anchor="end"
-                  dominant-baseline="middle"
-                  class="tick-label"
-                >
+                <text [attr.x]="-8" text-anchor="end" dominant-baseline="middle" class="tick-label">
                   {{ labelFormatter() ? labelFormatter()!(tick) : formatNumber(tick) }}
                 </text>
               </g>
@@ -107,9 +109,7 @@ export interface KagiSegment {
       @if (tooltip(); as t) {
         <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
           @if (tooltipTemplate()) {
-            <ng-container
-              *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"></ng-container>
           } @else {
             <div class="tt-cat" [style.color]="t.color">
               {{ t.trend === 'bullish' ? 'Yang (Bullish)' : 'Yin (Bearish)' }}
@@ -134,125 +134,139 @@ export interface KagiSegment {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-kagi-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    .header-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .header-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ngx-chart-axis-text, #334155);
-    }
-    .header-reversal {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #64748b);
-      background: var(--ngx-chart-grid, #f1f5f9);
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .kagi-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .kagi-line {
-      cursor: pointer;
-      animation: lineFadeIn 0.5s ease-out forwards;
-      opacity: 0;
-    }
-    @keyframes lineFadeIn {
-      to { opacity: 1; }
-    }
-    .kagi-line.dimmed {
-      opacity: 0.25 !important;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-kagi-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+      .header-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .header-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ngx-chart-axis-text, #334155);
+      }
+      .header-reversal {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ngx-chart-axis-text, #64748b);
+        background: var(--ngx-chart-grid, #f1f5f9);
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+      .kagi-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .kagi-line {
+        cursor: pointer;
+        animation: lineFadeIn 0.5s ease-out forwards;
+        opacity: 0;
+      }
+      @keyframes lineFadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      .kagi-line.dimmed {
+        opacity: 0.25 !important;
+      }
+      .kagi-line:focus-visible {
+        opacity: 1 !important;
+        stroke-width: 4px !important;
+        outline: none;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 140px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 140px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Export dropdown styles removed */
-  `]
+      /* Export dropdown styles removed */
+    `,
+  ],
 })
 export class KagiChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   data = input<number[]>([]);
   reversalAmount = input<number>(15);
@@ -276,7 +290,7 @@ export class KagiChartComponent {
     top: 20,
     right: 20,
     bottom: 20,
-    left: 45
+    left: 45,
   }));
 
   svgHeight = computed(() => this.height());
@@ -317,7 +331,8 @@ export class KagiChartComponent {
     if (prices.length === 0) return [];
 
     // Calculate reversal columns
-    const rawSegments: { start: number; end: number; type: 'vertical' | 'horizontal'; trend: 'bullish' | 'bearish' }[] = [];
+    const rawSegments: { start: number; end: number; type: 'vertical' | 'horizontal'; trend: 'bullish' | 'bearish' }[] =
+      [];
     let startVal = prices[0];
     let currentVal = prices[0];
     let direction = 0; // 0: undecided, 1: up, -1: down
@@ -390,7 +405,7 @@ export class KagiChartComponent {
     let colIdx = 0;
     const segments: KagiSegment[] = [];
 
-    rawSegments.forEach((rs) => {
+    rawSegments.forEach(rs => {
       const y1 = scale(rs.start, yMin, yMax, h, 0);
       const y2 = scale(rs.end, yMin, yMax, h, 0);
       const x = colIdx * colStep + colStep / 2;
@@ -405,7 +420,7 @@ export class KagiChartComponent {
           type: 'vertical',
           trend: rs.trend,
           color: rs.trend === 'bullish' ? this.bullishColor() : this.bearishColor(),
-          thickness: rs.trend === 'bullish' ? 3.5 : 1.2
+          thickness: rs.trend === 'bullish' ? 3.5 : 1.2,
         });
         colIdx++;
       } else {
@@ -418,7 +433,7 @@ export class KagiChartComponent {
           type: 'horizontal',
           trend: rs.trend,
           color: rs.trend === 'bullish' ? this.bullishColor() : this.bearishColor(),
-          thickness: rs.trend === 'bullish' ? 3.5 : 1.2
+          thickness: rs.trend === 'bullish' ? 3.5 : 1.2,
         });
       }
     });
@@ -449,12 +464,35 @@ export class KagiChartComponent {
     return scale(val, this.yDomainMin(), this.yDomainMax(), this.innerH(), 0);
   }
 
-  onSegmentHover(idx: number, event: MouseEvent) {
+  accessibleSegmentLabel(segment: KagiSegment, index: number): string {
+    const start = fmtNum(segment.val1);
+    const end = fmtNum(segment.val2);
+    return (
+      this.i18n.chart.kagiMarkDescription?.(index + 1, segment.type, segment.trend, start, end) ??
+      this.i18n.chart.dataMarkDescription(
+        `Kagi ${segment.type} segment ${index + 1} (${segment.trend})`,
+        `${start} to ${end}`
+      )
+    );
+  }
+
+  onSegmentHover(idx: number): void {
     this.hoveredSegmentIndex.set(idx);
     const seg = this.computedSegments()[idx];
     if (seg) {
       this.tooltip.set(seg);
     }
+  }
+
+  onSegmentFocus(event: FocusEvent, idx: number): void {
+    this.onSegmentHover(idx);
+    const mark = event.currentTarget as SVGLineElement;
+    const container = mark.closest('.ngx-kagi-chart');
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - containerRect.top);
   }
 
   onMouseMove(event: MouseEvent) {
@@ -495,7 +533,7 @@ export class KagiChartComponent {
       type: seg.type,
       from: seg.val1,
       to: seg.val2,
-      trend: seg.trend
+      trend: seg.trend,
     }));
     this.exportSvc.downloadJson(data, 'kagi-chart-data.json');
   }

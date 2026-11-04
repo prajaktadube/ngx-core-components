@@ -75,6 +75,73 @@ separately scoped cleanup rather than making all pull requests fail immediately.
       actual/target values, plus keyboard focus and focus tooltips.
 - [x] Add accessible names and keyboard-focused tooltips to Marimekko segments,
       including their column/category and percentage context.
+- [x] Add localized names and focus-triggered tooltips to radar points and
+      column-pyramid marks and Pareto values, plus keyboard activation for
+      polar-area slices; include both value and width share in variwide names.
+- [x] Give combo-chart bars and line markers localized category/series/value
+      names, visible focus feedback, and focus-triggered combined tooltips.
+- [x] Give area-chart markers localized category/series/value names, visible
+      focus feedback, and focus-triggered category tooltips.
+- [x] Give step-line markers localized names, focus tooltips, visible focus
+      feedback, and Enter/Space activation through the existing output.
+- [x] Give slope-chart series accessible start/end/change descriptions and
+      focus-triggered tooltips with visible focus feedback.
+- [x] Label variable-pie slices with value/share/radius and nested-donut slices
+      with ring/value; provide focus tooltips and nested-donut keyboard activation.
+- [x] Give gauges a focusable accessible metric/value/range summary and a
+      focus-triggered tooltip.
+- [x] Expose date and OHLC values on candlestick bodies and OHLC intervals with
+      keyboard focus, visible focus feedback, and focus tooltips.
+- [x] Add date/OHLC focus descriptions to hollow candles and calculated
+      Heikin-Ashi descriptions with focus tooltips.
+- [x] Allow locale-specific OHLC and Heikin-Ashi accessible descriptions.
+- [x] Make HLC tick marks keyboard-focusable with localized accessible values,
+      visible focus feedback, and focus-triggered tooltips.
+- [x] Make Renko bricks keyboard-focusable with localized accessible names,
+      visible focus feedback, and focus-triggered tooltips.
+- [x] Make Point & Figure cells keyboard-focusable with localized values,
+      visible focus feedback, and focus-triggered tooltips.
+- [x] Make Kagi segments keyboard-focusable with localized names, visible focus
+      feedback, and focus-triggered tooltips.
+- [x] Expose area-range and spline-range high/low points as localized,
+      keyboard-focusable marks with category tooltips and visible focus feedback.
+- [x] Make ridgeline rows keyboard-focusable with sample count, median, range,
+      visible focus feedback, and a focus-triggered statistics tooltip.
+- [x] Expose Sankey nodes and links with localized accessible names, keyboard
+      focus, visible focus feedback, and focus-triggered tooltips.
+- [x] Make timeline events keyboard-focusable and activatable with Enter/Space,
+      with localized accessible descriptions and focus-triggered details.
+- [x] Expose histogram ranges, frequencies, and percentages as localized
+      keyboard-focusable marks with focus-triggered tooltips.
+- [x] Expose wind-rose direction, speed-bin, frequency, and cumulative values
+      with localized keyboard-focusable sectors and focus-triggered tooltips.
+- [x] Make calendar heatmap cells keyboard-operable with localized date/value
+      names and focus tooltips; expose word-cloud term values to keyboard users.
+- [x] Expose pictorial progress thresholds and packed-bubble label/group/value
+      details to keyboard users with visible focus and matching tooltips.
+- [x] Name adjacency-matrix connections and make organization-chart cards and
+      expand/collapse controls keyboard-accessible with localized state names.
+- [x] Expose map bubble values/coordinates and map point/route endpoints through
+      localized keyboard-focusable marks with focus-triggered tooltips.
+- [x] Name choropleth regions and geographic heatmap density cells for keyboard
+      and screen-reader users, with focus-triggered details and localized labels.
+- [x] Expose network graph nodes and links with localized accessible names,
+      keyboard focus, visible focus feedback, and focus-triggered tooltips.
+- [x] Make parallel-coordinate records individually named and keyboard-focusable,
+      with localized dimension values, visible focus, and value tooltips.
+- [x] Give multi-needle gauge marks localized names, focus feedback, and
+      value tooltips; make legend selection keyboard-operable.
+- [x] Expose arc-diagram nodes and links with accessible labels, visible focus,
+      and focus-triggered connection details.
+- [x] Make chord nodes and ribbons keyboard-focusable with localized flow names,
+      visible focus, and focus-triggered flow details.
+- [x] Expose dependency-wheel nodes and ribbons with accessible names, focus
+      feedback, and keyboard-revealed dependency details.
+- [x] Label agent-topology nodes and links for assistive technology and allow
+      keyboard users to open node actions, with visible node focus.
+- [x] Add accessible names, focus tooltips, and keyboard activation to polar-area
+      slices; name radar points and column-pyramid marks and reveal their values
+      on focus.
 - [x] Replace treemap and sunburst export dropdowns with the shared localized,
       keyboard-accessible chart export menu.
 - [x] Add focused regression tests for bar-chart interactions, form validation,
@@ -100,6 +167,9 @@ decoder check.
 - [x] Move the grid's component styles into a dedicated stylesheet.
 - [x] Keep grid arrow/Tab navigation within its cells, preserve native toolbar
       keys, and restore focus when filter/context popovers close.
+- [x] Support Home/End row boundaries and Ctrl+Home/Ctrl+End grid boundaries.
+- [x] Give the grid context menu menu/menuitem semantics, Escape focus return,
+      and ArrowUp/ArrowDown and Home/End navigation.
 - [x] Localize grid toolbar, grouping, filter, export, and row-action labels.
 - [ ] Split the large grid component into focused implementation units without
       breaking its public API.
@@ -132,6 +202,9 @@ actionable errors.
       under `dir="rtl"`.
 - [x] Make horizontal tab-strip arrow navigation follow visual left/right
       direction under `dir="rtl"`.
+- [x] Localize the tab-strip close action's accessible name and tooltip.
+- [x] Separate closable-tab controls from tab buttons, provide a keyboard-visible
+      focus indicator, and enforce a customizable 24px minimum target.
 - [ ] Extend RTL layout and direction-aware keyboard behavior across applicable
       components.
 - [ ] Audit touch targets, overflow, and responsive layouts on narrow screens.

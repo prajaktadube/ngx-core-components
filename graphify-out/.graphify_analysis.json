@@ -1,0 +1,212 @@
+{
+  "communities": {
+    "0": [
+      "chart_export_menu_component_spec_ts",
+      "chart_export_menu_component_ts",
+      "shared_chart_export_menu_component_chartexportmenucomponent",
+      "shared_chart_export_menu_component_chartexportmenucomponent_closeonescape",
+      "shared_chart_export_menu_component_chartexportmenucomponent_closeonoutsideclick",
+      "shared_chart_export_menu_component_chartexportmenucomponent_formaticon",
+      "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
+      "shared_chart_export_menu_component_chartexportmenucomponent_onarrowdown",
+      "shared_chart_export_menu_component_chartexportmenucomponent_onarrowup",
+      "shared_chart_export_menu_component_chartexportmenucomponent_select",
+      "shared_chart_export_menu_component_chartexportmenucomponent_toggle",
+      "shared_chart_export_menu_component_exportformat",
+      "shared_chart_export_menu_component_spec_arrowdown",
+      "shared_chart_export_menu_component_spec_arrowup",
+      "shared_chart_export_menu_component_spec_fixture",
+      "shared_chart_export_menu_component_spec_menu",
+      "shared_chart_export_menu_component_spec_trigger"
+    ],
+    "1": [
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_constructor",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_emitchange",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_handledrag",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ngafterviewinit",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ondragend",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandlemousedown",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandletouchstart",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onmousemove",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontouchmove",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontrackclick",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowmousedown",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowtouchstart",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_reset",
+      "shared_chart_brush_zoom_component_chartbrushzoomcomponent_startdrag"
+    ],
+    "2": [
+      "chart_theme_service_ts",
+      "chart_utils_ts",
+      "shared_chart_theme_service_charttheme",
+      "shared_chart_theme_service_chartthemename",
+      "shared_chart_theme_service_colorblindmode",
+      "shared_chart_utils_chart_colors",
+      "shared_chart_utils_chartdatapoint",
+      "shared_chart_utils_chartseries",
+      "shared_chart_utils_fmtnum",
+      "shared_chart_utils_generateuniqueid",
+      "shared_chart_utils_nicestep",
+      "shared_chart_utils_niceticks",
+      "shared_chart_utils_scale",
+      "shared_chart_utils_smoothpath"
+    ],
+    "3": [
+      "chart_export_service_spec_ts",
+      "chart_export_service_ts",
+      "shared_chart_export_service_chartexportservice",
+      "shared_chart_export_service_chartexportservice_downloadcsv",
+      "shared_chart_export_service_chartexportservice_downloadjson",
+      "shared_chart_export_service_chartexportservice_downloadpdf",
+      "shared_chart_export_service_chartexportservice_downloadsvg",
+      "shared_chart_export_service_chartexportservice_isbrowser",
+      "shared_chart_export_service_chartexportservice_triggerdownload"
+    ],
+    "4": [
+      "chart_tooltip_service_ts",
+      "shared_chart_tooltip_service_charttooltipservice",
+      "shared_chart_tooltip_service_charttooltipservice_getadjustedposition",
+      "shared_chart_tooltip_service_charttooltipservice_hide",
+      "shared_chart_tooltip_service_charttooltipservice_show",
+      "shared_chart_tooltip_service_charttooltipservice_togglepin",
+      "shared_chart_tooltip_service_tooltiprow",
+      "shared_chart_tooltip_service_tooltipstate"
+    ],
+    "5": [
+      "chart_brush_zoom_component_ts",
+      "shared_chart_brush_zoom_component_d",
+      "shared_chart_brush_zoom_component_h",
+      "shared_chart_brush_zoom_component_len",
+      "shared_chart_brush_zoom_component_maxval",
+      "shared_chart_brush_zoom_component_minval",
+      "shared_chart_brush_zoom_component_w"
+    ],
+    "6": [
+      "chart_sync_group_directive_ts",
+      "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "shared_chart_sync_group_directive_chartsyncgroupdirective_constructor",
+      "shared_chart_sync_group_directive_chartsyncgroupdirective_ngondestroy",
+      "shared_chart_sync_group_directive_chartsyncgroupdirective_ngoninit",
+      "shared_chart_sync_group_directive_chartsyncgroupdirective_onmouseleave",
+      "shared_chart_sync_group_directive_chartsyncgroupdirective_onmousemove"
+    ],
+    "7": [
+      "map_data_ts",
+      "shared_map_data_getsvgpath",
+      "shared_map_data_mapregion",
+      "shared_map_data_project",
+      "shared_map_data_world_map_data"
+    ],
+    "8": [
+      "shared_chart_theme_service_chartthemeservice",
+      "shared_chart_theme_service_chartthemeservice_applytheme",
+      "shared_chart_theme_service_chartthemeservice_getcolorblindpalette",
+      "shared_chart_theme_service_chartthemeservice_gettheme"
+    ],
+    "9": [
+      "chart_annotations_ts",
+      "shared_chart_annotations_annotationtype",
+      "shared_chart_annotations_chartannotation",
+      "shared_chart_annotations_renderannotationsvg"
+    ],
+    "10": [
+      "chart_accessible_mark_directive_ts",
+      "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective",
+      "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective_onkeydown"
+    ],
+    "11": [
+      "chart_skeleton_component_ts",
+      "shared_chart_skeleton_component_chartskeletoncomponent"
+    ]
+  },
+  "cohesion": {
+    "0": 0.13970588235294118,
+    "1": 0.22857142857142856,
+    "2": 0.16483516483516483,
+    "3": 0.3333333333333333,
+    "4": 0.25,
+    "5": 0.2857142857142857,
+    "6": 0.2857142857142857,
+    "7": 0.5,
+    "8": 0.6666666666666666,
+    "9": 0.5,
+    "10": 0.6666666666666666,
+    "11": 1.0
+  },
+  "gods": [
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "label": "ChartBrushZoomComponent",
+      "degree": 15
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "label": "ChartExportMenuComponent",
+      "degree": 10
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice",
+      "label": "ChartExportService",
+      "degree": 8
+    },
+    {
+      "id": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "label": "ChartSyncGroupDirective",
+      "degree": 6
+    },
+    {
+      "id": "shared_chart_tooltip_service_charttooltipservice",
+      "label": "ChartTooltipService",
+      "degree": 5
+    },
+    {
+      "id": "shared_chart_theme_service_chartthemeservice",
+      "label": "ChartThemeService",
+      "degree": 4
+    },
+    {
+      "id": "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective",
+      "label": "ChartAccessibleMarkDirective",
+      "degree": 2
+    },
+    {
+      "id": "shared_chart_utils_chart_colors",
+      "label": "CHART_COLORS",
+      "degree": 2
+    },
+    {
+      "id": "shared_chart_utils_niceticks",
+      "label": "niceTicks()",
+      "degree": 2
+    },
+    {
+      "id": "shared_chart_utils_nicestep",
+      "label": "niceStep()",
+      "degree": 2
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `ChartBrushZoomComponent` connect `Community 1` to `Community 5`?",
+      "why": "High betweenness centrality (0.039) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `ChartThemeService` connect `Community 8` to `Community 2`?",
+      "why": "High betweenness centrality (0.010) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `AnnotationType`, `ChartAnnotation`, `d` to the rest of the system?",
+      "why": "24 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

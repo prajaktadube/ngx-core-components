@@ -147,6 +147,53 @@ keyboard-focusable. Radial progress rings expose their percentage and actual
 versus target values in an accessible name, and show the existing tooltip on
 focus. Marimekko segments expose column/category names, values, and a focus-
 triggered tooltip with visible keyboard focus feedback.
+Polar-area slices expose localized names, focus tooltips, and keyboard activation
+through the existing `sliceClick` output. Radar points expose localized series,
+category, and value names with focus-triggered tooltips. Column-pyramid marks
+expose their series, category, and value with keyboard focus feedback and tooltips.
+Pareto bars and cumulative-percentage points expose their values in localized
+accessible names and show the existing tooltip on focus.
+Variwide columns expose localized height, width, and width-share descriptions
+with visible keyboard focus feedback and focus tooltips.
+Combo-chart bars and line markers expose localized category, series, and
+axis-value names and reveal the combined category tooltip when focused.
+Area-chart markers expose localized category and series names with their values
+and reveal the category tooltip on keyboard focus.
+Step-line markers offer the same localized description and focus tooltip, and
+support Enter/Space activation through the existing point-click output.
+Slope-chart series expose their start, end, and change values in localized,
+keyboard-focusable descriptions and show their detailed tooltip on focus.
+Variable-pie slices expose localized names with value, share, and radius; nested
+donut slices expose ring and value descriptions and support keyboard activation.
+Gauge charts expose a keyboard-focusable accessible summary of the metric, value,
+and range and reveal their tooltip when focused.
+Candlestick bodies and OHLC intervals expose accessible date and OHLC values,
+visible focus feedback, and keyboard-focus tooltips.
+Hollow candlesticks provide the same data access, while Heikin-Ashi candles
+announce their calculated values and expose original/candle values on focus.
+Ridgeline distributions expose sample count, median, and range as accessible
+focus targets and reveal their statistics tooltip on focus.
+Sankey nodes and links expose localized keyboard-accessible names and focus
+tooltips. Timeline events can be focused and activated with Enter or Space;
+their accessible names include category, status, and start/end dates.
+Histogram bins expose their numeric ranges, frequencies, and percentages to
+keyboard users and reveal the bin tooltip on focus.
+Wind-rose sectors expose direction, speed-bin, frequency, and cumulative
+frequency values with visible keyboard focus and the matching tooltip.
+Pictorial progress icons expose their threshold and fill percentage with
+keyboard focus and a focus-triggered tooltip. Packed bubbles announce each
+label, group, and value and show the matching tooltip on focus.
+Adjacency-matrix cells announce their source, target, and connection weight and
+show the matching tooltip on focus. Organization-chart cards are keyboard-
+activatable, and each expand/collapse handle exposes its expanded state and
+supports Enter/Space.
+Map bubbles and map points expose labels, coordinates, values, and groups;
+geographical route segments expose their endpoints. Each can be focused to
+show its matching tooltip.
+Calendar heatmap days are individually named, keyboard-focusable buttons that
+show their date/value tooltip on focus and emit the existing cell selection on
+Enter or Space. Word-cloud terms expose their text and weight and show their
+tooltip on keyboard focus.
 
 Use `GridRemoteDataController` for paged or server-filtered data. It exposes signal
 state for rows, totals, loading, and errors; a newer request cancels and supersedes
@@ -197,9 +244,13 @@ row count to screen readers. With `dir="rtl"`, grid arrows and Kanban card
 movement follow the visual left/right direction. When `[keyboardNavigation]="true"`, the labelled grid
 region can receive focus and arrow keys move focus between cells. Tab moves
 between cells but exits the grid at either end; toolbar buttons and other
-interactive controls retain their native key behavior. Filter and context
+interactive controls retain their native key behavior. Home and End move to the
+first and last cell in the current row; Ctrl+Home and Ctrl+End move to the first
+and last cells in the grid. Filter and context
 popovers receive focus when opened and return focus to their trigger or cell on
-Escape. The Advanced Filter Builder is exposed as a labelled modal dialog with
+Escape. The context menu uses menu/menuitem semantics, supports
+ArrowUp/ArrowDown and Home/End navigation, and returns focus to its source cell
+on Escape. The Advanced Filter Builder is exposed as a labelled modal dialog with
 focus trapping and Escape dismissal, and restores focus to its trigger when
 closed. Grid toolbar, grouping, filter, export, and row-action labels are
 provided by the `grid` translations in `NGX_CORE_I18N`.
@@ -209,6 +260,34 @@ values (space through `~`), including the weighted checksum. Unsupported input
 produces an accessible error instead of a pseudo-barcode. The library test suite
 also decodes generated module patterns with ZXing, a development-only dependency;
 the published component has no added runtime dependency.
+
+Financial chart descriptions are locale-overridable through
+`chart.ohlcMarkDescription`, `chart.hlcMarkDescription`, and
+`chart.heikinAshiMarkDescription` in `provideNgxI18n`; Renko brick names use the
+`chart.renkoMarkDescription` callback, Point & Figure marks use
+`chart.pointFigureMarkDescription`, and Kagi segments use
+`chart.kagiMarkDescription`; area-range boundaries use
+`chart.areaRangeMarkDescription`. HLC marks expose keyboard-focusable tick
+areas; Renko bricks, Point & Figure cells, Kagi segments, and area-range
+boundaries are individually focusable with visible focus feedback and
+focus-triggered tooltips.
+Sankey nodes and links use `chart.sankeyNodeDescription` and
+`chart.sankeyLinkDescription`; timeline event names use
+`chart.timelineEventDescription`. Sankey marks expose node/link flow values and
+focus tooltips. Timeline events expose category, status, and date details and
+activate the existing event output with Enter or Space. Histogram bin names can
+be localized with `chart.histogramBinDescription`.
+Wind-rose descriptions can be localized with `chart.windRoseBinDescription`.
+Calendar-cell and word-cloud descriptions can be localized with
+`chart.calendarHeatmapCellDescription` and `chart.wordCloudMarkDescription`.
+Pictorial-icon and packed-bubble descriptions can be localized with
+`chart.pictorialIconDescription` and `chart.packedBubbleMarkDescription`.
+Adjacency-matrix cells use `chart.adjacencyMatrixCellDescription`;
+organization-chart employee names and expand/collapse labels use
+`chart.orgChartNodeDescription` and `chart.orgChartToggleDescription`.
+Geographic bubble, point, and route descriptions use
+`chart.mapBubbleDescription`, `chart.mapPointDescription`, and
+`chart.mapLineDescription`.
 
 `provideNgxI18n` accepts nested partial translations, merges them with the English
 fallback, and is exported alongside `DeepPartial` for locale definitions from
@@ -1589,9 +1668,14 @@ export class LayoutExampleComponent {}
 | Output      | Type     | Description              |
 | ----------- | -------- | ------------------------ |
 | `tabChange` | `number` | Active tab index changed |
+| `tabClose`  | `number` | Index of the tab closed  |
 
 Horizontal tab lists reverse `ArrowLeft` and `ArrowRight` navigation under
 `dir="rtl"` so keyboard movement follows the visual direction.
+Closable tabs render the close action as a separate, naturally tabbable button.
+Its target is at least 24 by 24 pixels and can be enlarged with
+`--ngx-tab-close-target-size`. Its accessible name and tooltip use the
+`layout.closeTab` translation.
 
 #### TabComponent (`ngx-tab`)
 
@@ -1603,6 +1687,13 @@ Horizontal tab lists reverse `ArrowLeft` and `ArrowRight` navigation under
 | `icon`     | `string`           | `''`         | Title prefix icon              |
 | `disabled` | `boolean`          | `false`      | Disables selecting tab         |
 | `badge`    | `string \| number` | `''`         | Text/counter badge after label |
+| `closable` | `boolean`          | `false`      | Show a separate close button   |
+
+##### Outputs
+
+| Output     | Type   | Description                |
+| ---------- | ------ | -------------------------- |
+| `tabClose` | `void` | Tab's close button clicked |
 
 #### AccordionComponent (`ngx-accordion`)
 

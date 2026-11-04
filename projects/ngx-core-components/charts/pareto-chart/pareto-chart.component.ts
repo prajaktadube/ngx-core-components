@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
-import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface ParetoItem {
   label: string;
@@ -15,7 +24,7 @@ export interface ParetoItem {
 @Component({
   selector: 'ngx-pareto-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-pareto-chart" (mouseleave)="onMouseLeave()">
@@ -26,14 +35,8 @@ export interface ParetoItem {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="pareto-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="pareto-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- Grid Lines (Horizontal reference grid scaled to left Y Axis) -->
           @if (showGrid()) {
             @for (tick of leftYTicks(); track tick) {
@@ -50,14 +53,17 @@ export interface ParetoItem {
           <!-- Bars (Raw Values) -->
           @for (item of computedItems(); track item.label; let i = $index) {
             <rect
+              [ngxChartAccessibleMark]="itemAccessibleLabel(item.label, formatNumber(item.value))"
               [attr.x]="item.barX"
               [attr.y]="yLeftPos(item.value)"
               [attr.width]="barWidth()"
               [attr.height]="Math.max(2, innerH() - yLeftPos(item.value))"
               [attr.fill]="barColor()"
               [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
-              (mouseenter)="onItemHover(i, $event)"
+              (mouseenter)="onItemHover(i)"
               (mousemove)="onItemMouseMove($event)"
+              (focus)="onItemFocus(i, $event)"
+              (blur)="onMouseLeave()"
               class="pareto-bar"
               rx="4"
             />
@@ -77,6 +83,12 @@ export interface ParetoItem {
             <!-- Line Node Circles -->
             @for (item of computedItems(); track item.label; let i = $index) {
               <circle
+                [ngxChartAccessibleMark]="
+                  itemAccessibleLabel(
+                    item.label,
+                    formatNumber(item.value) + ', cumulative ' + item.cumPct.toFixed(1) + '%'
+                  )
+                "
                 [attr.cx]="item.centerX"
                 [attr.cy]="yRightPos(item.cumPct)"
                 [attr.r]="hoveredIndex() === i ? 6 : 4"
@@ -84,8 +96,10 @@ export interface ParetoItem {
                 [attr.stroke]="'#ffffff'"
                 stroke-width="1.5"
                 [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
-                (mouseenter)="onItemHover(i, $event)"
+                (mouseenter)="onItemHover(i)"
                 (mousemove)="onItemMouseMove($event)"
+                (focus)="onItemFocus(i, $event)"
+                (blur)="onMouseLeave()"
                 class="pareto-dot"
               />
               @if (showCumPercentLabels()) {
@@ -108,12 +122,7 @@ export interface ParetoItem {
             @for (tick of leftYTicks(); track tick) {
               <g [attr.transform]="'translate(0,' + yLeftPos(tick) + ')'">
                 <line [attr.x1]="-4" [attr.x2]="0" [attr.y1]="0" [attr.y2]="0" class="tick-line" />
-                <text
-                  [attr.x]="-8"
-                  text-anchor="end"
-                  dominant-baseline="middle"
-                  class="tick-label"
-                >
+                <text [attr.x]="-8" text-anchor="end" dominant-baseline="middle" class="tick-label">
                   {{ formatNumber(tick) }}
                 </text>
               </g>
@@ -126,14 +135,7 @@ export interface ParetoItem {
             @for (tick of rightYTicks; track tick) {
               <g [attr.transform]="'translate(0,' + yRightPos(tick) + ')'">
                 <line [attr.x1]="0" [attr.x2]="4" [attr.y1]="0" [attr.y2]="0" class="tick-line" />
-                <text
-                  [attr.x]="8"
-                  text-anchor="start"
-                  dominant-baseline="middle"
-                  class="tick-label"
-                >
-                  {{ tick }}%
-                </text>
+                <text [attr.x]="8" text-anchor="start" dominant-baseline="middle" class="tick-label">{{ tick }}%</text>
               </g>
             }
           </g>
@@ -143,12 +145,7 @@ export interface ParetoItem {
             <line [attr.x1]="0" [attr.x2]="innerW()" [attr.y1]="0" [attr.y2]="0" class="axis-line" />
             @if (showLabels()) {
               @for (item of computedItems(); track item.label) {
-                <text
-                  [attr.x]="item.centerX"
-                  [attr.y]="18"
-                  text-anchor="middle"
-                  class="x-axis-label"
-                >
+                <text [attr.x]="item.centerX" [attr.y]="18" text-anchor="middle" class="x-axis-label">
                   {{ item.label }}
                 </text>
               }
@@ -180,139 +177,172 @@ export interface ParetoItem {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-pareto-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .pareto-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label, .x-axis-label, .cum-pct-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .cum-pct-label {
-      font-size: 10px;
-      font-weight: 600;
-    }
-    .pareto-bar {
-      transition: fill-opacity 0.2s ease, opacity 0.2s ease;
-      cursor: pointer;
-      transform-origin: bottom;
-      animation: paretoBarGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes paretoBarGrow {
-      from { transform: scaleY(0); }
-      to { transform: scaleY(1); }
-    }
-    .pareto-bar.dimmed, .pareto-dot.dimmed {
-      opacity: 0.3;
-    }
-    .pareto-bar:hover {
-      fill-opacity: 0.85;
-    }
-    .pareto-line {
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-      animation: drawLine 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      pointer-events: none;
-    }
-    .pareto-dot, .cum-pct-label {
-      cursor: pointer;
-      transition: r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
-      animation: fadeIn 0.4s ease-out 0.8s forwards;
-      opacity: 0;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    @keyframes drawLine {
-      to {
-        stroke-dashoffset: 0;
+  styles: [
+    `
+      :host {
+        display: block;
       }
-    }
+      .ngx-pareto-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .pareto-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label,
+      .x-axis-label,
+      .cum-pct-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .cum-pct-label {
+        font-size: 10px;
+        font-weight: 600;
+      }
+      .pareto-bar {
+        transition:
+          fill-opacity 0.2s ease,
+          opacity 0.2s ease;
+        cursor: pointer;
+        transform-origin: bottom;
+        animation: paretoBarGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes paretoBarGrow {
+        from {
+          transform: scaleY(0);
+        }
+        to {
+          transform: scaleY(1);
+        }
+      }
+      .pareto-bar.dimmed,
+      .pareto-dot.dimmed {
+        opacity: 0.3;
+      }
+      .pareto-bar:hover {
+        fill-opacity: 0.85;
+      }
+      .pareto-bar:focus-visible {
+        outline: none;
+        stroke: var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
+        stroke-width: 3px;
+        filter: drop-shadow(0 0 3px rgba(26, 115, 232, 0.65));
+      }
+      .pareto-line {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: drawLine 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        pointer-events: none;
+      }
+      .pareto-dot,
+      .cum-pct-label {
+        cursor: pointer;
+        transition:
+          r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 0.2s ease;
+        animation: fadeIn 0.4s ease-out 0.8s forwards;
+        opacity: 0;
+      }
+      .pareto-dot:focus-visible {
+        outline: none;
+        stroke: var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
+        stroke-width: 3px;
+        filter: drop-shadow(0 0 3px rgba(26, 115, 232, 0.65));
+        animation: none;
+        opacity: 1;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes drawLine {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 180px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .delta-row {
-      border-top: 1px dashed rgba(255, 255, 255, 0.15);
-      margin-top: 6px;
-      padding-top: 6px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 180px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .delta-row {
+        border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        margin-top: 6px;
+        padding-top: 6px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class ParetoChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   data = input<ParetoItem[]>([]);
   height = input<number>(350);
   showGrid = input<boolean>(true);
@@ -328,7 +358,6 @@ export class ParetoChartComponent {
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
 
-
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
   readonly Math = Math;
@@ -337,7 +366,7 @@ export class ParetoChartComponent {
     top: 30,
     right: 50,
     bottom: this.showLabels() ? 30 : 10,
-    left: 50
+    left: 50,
   }));
 
   svgHeight = computed(() => this.height());
@@ -387,7 +416,7 @@ export class ParetoChartComponent {
         pct,
         cumPct,
         centerX,
-        barX
+        barX,
       };
     });
   });
@@ -428,20 +457,36 @@ export class ParetoChartComponent {
   linePath = computed(() => {
     const items = this.computedItems();
     if (items.length === 0) return '';
-    
-    return items.map((item, idx) => {
-      const x = item.centerX;
-      const y = this.yRightPos(item.cumPct);
-      return `${idx === 0 ? 'M' : 'L'} ${x} ${y}`;
-    }).join(' ');
+
+    return items
+      .map((item, idx) => {
+        const x = item.centerX;
+        const y = this.yRightPos(item.cumPct);
+        return `${idx === 0 ? 'M' : 'L'} ${x} ${y}`;
+      })
+      .join(' ');
   });
 
-  onItemHover(idx: number, event: MouseEvent) {
+  itemAccessibleLabel(label: string, value: string): string {
+    return this.i18n.chart.dataMarkDescription(label, value);
+  }
+
+  onItemHover(idx: number) {
     this.hoveredIndex.set(idx);
     const item = this.computedItems()[idx];
     if (item) {
       this.tooltip.set(item);
     }
+  }
+
+  onItemFocus(idx: number, event: FocusEvent): void {
+    this.onItemHover(idx);
+    const mark = event.currentTarget as SVGElement;
+    const container = mark.closest('.ngx-pareto-chart') as HTMLElement;
+    const containerRect = container.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - containerRect.top);
   }
 
   onItemMouseMove(event: MouseEvent) {

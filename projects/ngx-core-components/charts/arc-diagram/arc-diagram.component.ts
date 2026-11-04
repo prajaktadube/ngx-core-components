@@ -1,8 +1,19 @@
-import { Component, ChangeDetectionStrategy, input, computed, signal, ElementRef, viewChild, HostListener, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  inject,
+} from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface ArcNode {
   id: string;
@@ -40,7 +51,7 @@ interface ProcessedLink {
 @Component({
   selector: 'ngx-arc-diagram',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-arc-diagram">
@@ -80,8 +91,11 @@ interface ProcessedLink {
               [attr.stroke-width]="linkHovered(link) ? link.weight + 2.5 : link.weight"
               [attr.stroke-opacity]="linkHovered(link) ? 0.9 : 0.45"
               class="link-arc"
+              [ngxChartAccessibleMark]="accessibleLinkLabel(link)"
               (mouseenter)="hoveredLink.set(link); onLinkHover($event, link)"
               (mouseleave)="hoveredLink.set(null); tooltip.set(null)"
+              (focus)="onLinkFocus($event, link)"
+              (blur)="onMouseLeave()"
             />
           }
 
@@ -90,9 +104,14 @@ interface ProcessedLink {
             <g
               class="node-group"
               [class.hovered]="hoveredNodeId() === node.id || neighborNodeIds().includes(node.id)"
-              [class.dimmed]="hoveredNodeId() !== null && hoveredNodeId() !== node.id && !neighborNodeIds().includes(node.id)"
+              [class.dimmed]="
+                hoveredNodeId() !== null && hoveredNodeId() !== node.id && !neighborNodeIds().includes(node.id)
+              "
+              [ngxChartAccessibleMark]="accessibleNodeLabel(node)"
               (mouseenter)="hoveredNodeId.set(node.id); onNodeHover($event, node)"
               (mouseleave)="hoveredNodeId.set(null); tooltip.set(null)"
+              (focus)="onNodeFocus($event, node)"
+              (blur)="onMouseLeave()"
             >
               <!-- Arc Node Circle -->
               <circle
@@ -144,89 +163,137 @@ interface ProcessedLink {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-arc-diagram {
-      position: relative;
-      background: var(--ngx-chart-bg, #fff);
-      font-family: inherit;
-      overflow: hidden;
-      padding: 16px;
-      border-radius: 16px;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 8px;
-    }
-    .chart-body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .chart-svg {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      min-width: 0;
-      overflow: visible; /* To ensure rotated labels aren't clipped */
-    }
-    .link-arc {
-      cursor: pointer;
-      transition: stroke 0.2s, stroke-width 0.2s, stroke-opacity 0.2s;
-    }
-    .node-group {
-      cursor: pointer;
-      transition: opacity 0.2s ease;
-    }
-    .node-circle {
-      transition: r 0.15s, stroke 0.15s, stroke-width 0.15s;
-    }
-    .node-group:hover .node-circle {
-      r: 8.5;
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
-    }
-    .node-group.dimmed {
-      opacity: 0.35;
-    }
-    .node-label {
-      fill: var(--ngx-chart-text, #475569);
-      font-size: 10px;
-      font-weight: 600;
-      pointer-events: none;
-      user-select: none;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-arc-diagram {
+        position: relative;
+        background: var(--ngx-chart-bg, #fff);
+        font-family: inherit;
+        overflow: hidden;
+        padding: 16px;
+        border-radius: 16px;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 8px;
+      }
+      .chart-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chart-svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        overflow: visible; /* To ensure rotated labels aren't clipped */
+      }
+      .link-arc {
+        cursor: pointer;
+        transition:
+          stroke 0.2s,
+          stroke-width 0.2s,
+          stroke-opacity 0.2s;
+      }
+      .node-group {
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+      }
+      .node-group:focus-visible {
+        outline: none;
+      }
+      .node-group:focus-visible .node-circle {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+      }
+      .link-arc:focus-visible {
+        outline: none;
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 4px;
+        opacity: 1;
+      }
+      .node-circle {
+        transition:
+          r 0.15s,
+          stroke 0.15s,
+          stroke-width 0.15s;
+      }
+      .node-group:hover .node-circle {
+        r: 8.5;
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+      }
+      .node-group.dimmed {
+        opacity: 0.35;
+      }
+      .node-label {
+        fill: var(--ngx-chart-text, #475569);
+        font-size: 10px;
+        font-weight: 600;
+        pointer-events: none;
+        user-select: none;
+      }
 
-    /* Premium Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
-      border-radius: 10px; font-size: 12px; min-width: 145px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      display: flex; align-items: flex-start; gap: 8px;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
-    .tt-content { display: flex; flex-direction: column; gap: 2px; }
-    .tt-sub { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
-    .tt-val { font-weight: 700; }
+      /* Premium Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 145px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 4px;
+      }
+      .tt-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .tt-sub {
+        font-size: 10px;
+        color: rgba(248, 250, 252, 0.7);
+      }
+      .tt-val {
+        font-weight: 700;
+      }
 
-    /* Export styles */
-    `]
+      /* Export styles */
+    `,
+  ],
 })
 export class ArcDiagramComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   nodes = input<ArcNode[]>([]);
   links = input<ArcLink[]>([]);
   height = input<number>(300);
@@ -244,7 +311,7 @@ export class ArcDiagramComponent {
     top: 30,
     right: 60,
     bottom: 60, // extra space for rotated node labels
-    left: 40
+    left: 40,
   }));
 
   axisY = computed(() => this.height() - this.margin().bottom);
@@ -288,7 +355,7 @@ export class ArcDiagramComponent {
         y: yCoord,
         r,
         color,
-        index: i
+        index: i,
       };
     });
   });
@@ -311,7 +378,7 @@ export class ArcDiagramComponent {
       const r = Math.abs(targetNode.x - sourceNode.x) / 2;
       const startNode = sourceNode.x < targetNode.x ? sourceNode : targetNode;
       const endNode = sourceNode.x < targetNode.x ? targetNode : sourceNode;
-      
+
       const path = `M ${startNode.x} ${startNode.y} A ${r} ${r} 0 0 1 ${endNode.x} ${endNode.y}`;
 
       links.push({
@@ -320,7 +387,7 @@ export class ArcDiagramComponent {
         sourceNode,
         targetNode,
         path,
-        weight
+        weight,
       });
     });
 
@@ -339,33 +406,80 @@ export class ArcDiagramComponent {
     return false;
   }
 
+  accessibleNodeLabel(node: ProcessedNode): string {
+    const connections = this.links().filter(link => link.source === node.id || link.target === node.id).length;
+    return (
+      this.i18n.chart.networkNodeDescription?.(node.label, fmtNum(node.value), '', String(connections)) ??
+      `${node.label}; value ${fmtNum(node.value)}; ${connections} connections`
+    );
+  }
+
+  accessibleLinkLabel(link: ProcessedLink): string {
+    const weight = fmtNum(link.weight);
+    return (
+      this.i18n.chart.networkLinkDescription?.(link.sourceNode.label, link.targetNode.label, weight) ??
+      `Connection from ${link.sourceNode.label} to ${link.targetNode.label}; weight ${weight}`
+    );
+  }
+
   onNodeHover(event: MouseEvent, node: ProcessedNode): void {
     const el = (event.currentTarget as HTMLElement).closest('.ngx-arc-diagram') as HTMLElement;
     const rect = el.getBoundingClientRect();
-    const connCount = this.links().filter(l => l.source === node.id || l.target === node.id).length;
+    this.showNodeTooltip(node, event.clientX - rect.left, event.clientY - rect.top);
+  }
 
+  onNodeFocus(event: FocusEvent, node: ProcessedNode): void {
+    this.hoveredNodeId.set(node.id);
+    const markRect = (event.currentTarget as SVGElement).getBoundingClientRect();
+    const hostRect = (
+      (event.currentTarget as SVGElement).closest('.ngx-arc-diagram') as HTMLElement
+    ).getBoundingClientRect();
+    this.showNodeTooltip(
+      node,
+      markRect.left + markRect.width / 2 - hostRect.left,
+      markRect.top + markRect.height / 2 - hostRect.top
+    );
+  }
+
+  private showNodeTooltip(node: ProcessedNode, x: number, y: number): void {
+    const connCount = this.links().filter(l => l.source === node.id || l.target === node.id).length;
     this.tooltip.set({
       type: 'node',
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
+      x,
+      y,
       label: node.label,
       connections: connCount,
       value: node.value,
-      color: node.color
+      color: node.color,
     });
   }
 
   onLinkHover(event: MouseEvent, link: ProcessedLink): void {
     const el = (event.currentTarget as HTMLElement).closest('.ngx-arc-diagram') as HTMLElement;
     const rect = el.getBoundingClientRect();
+    this.showLinkTooltip(link, event.clientX - rect.left, event.clientY - rect.top);
+  }
 
+  onLinkFocus(event: FocusEvent, link: ProcessedLink): void {
+    this.hoveredLink.set(link);
+    const mark = event.currentTarget as SVGPathElement;
+    const markRect = mark.getBoundingClientRect();
+    const hostRect = (mark.closest('.ngx-arc-diagram') as HTMLElement).getBoundingClientRect();
+    this.showLinkTooltip(
+      link,
+      markRect.left + markRect.width / 2 - hostRect.left,
+      markRect.top + markRect.height / 2 - hostRect.top
+    );
+  }
+
+  private showLinkTooltip(link: ProcessedLink, x: number, y: number): void {
     this.tooltip.set({
       type: 'link',
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
+      x,
+      y,
       sourceLabel: link.sourceNode.label,
       targetLabel: link.targetNode.label,
-      value: link.weight
+      value: link.weight,
     });
   }
 
@@ -375,7 +489,7 @@ export class ArcDiagramComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -402,7 +516,6 @@ export class ArcDiagramComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }

@@ -1,11 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, inject, DestroyRef, TemplateRef, output
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  inject,
+  TemplateRef,
+  output,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent, type ExportFormat } from '../shared/chart-export-menu.component';
 import { generateUniqueId, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface CalendarHeatmapData {
   date: string;
@@ -15,7 +25,7 @@ export interface CalendarHeatmapData {
 @Component({
   selector: 'ngx-calendar-heatmap',
   standalone: true,
-  imports: [ChartExportMenuComponent, NgTemplateOutlet],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-calendar-heatmap" (mouseleave)="onMouseLeave()">
@@ -45,7 +55,7 @@ export interface CalendarHeatmapData {
 
             <!-- Cells -->
             @for (week of weeks(); track $index; let wIdx = $index) {
-              <g [attr.transform]="'translate(' + (wIdx * (cellSize() + cellGap())) + ', 0)'">
+              <g [attr.transform]="'translate(' + wIdx * (cellSize() + cellGap()) + ', 0)'">
                 @for (day of week; track day.date) {
                   @if (day.inRange) {
                     <rect
@@ -56,8 +66,13 @@ export interface CalendarHeatmapData {
                       [attr.rx]="2"
                       [attr.ry]="2"
                       class="heatmap-cell"
+                      [ngxChartAccessibleMark]="accessibleCellLabel(day)"
+                      [ngxChartAccessibleMarkInteractive]="true"
                       (mouseenter)="onMouseEnter($event, day)"
+                      (focus)="onCellFocus($event, day)"
+                      (blur)="onMouseLeave()"
                       (click)="onCellClick(day)"
+                      (activated)="onCellClick(day)"
                     />
                   }
                 }
@@ -88,34 +103,103 @@ export interface CalendarHeatmapData {
       }
     </div>
   `,
-  styles: [`
-    :host { display: block; position: relative; }
-    .ngx-calendar-heatmap { position: relative; background: var(--ngx-chart-bg, #fff); padding-bottom: 16px; }
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; margin-bottom: 8px; }
-    .heatmap-scroll-container { overflow-x: auto; overflow-y: hidden; padding-bottom: 8px; }
-    .chart-svg { display: block; min-width: max-content; }
-    .axis-label { font-size: 10px; fill: var(--ngx-chart-axis-text, #6c757d); user-select: none; }
-    .heatmap-cell { transition: fill 0.2s; cursor: pointer; stroke: rgba(0,0,0,0.05); stroke-width: 1px; }
-    .heatmap-cell:hover { stroke: #000; stroke-width: 2px; }
-    .heatmap-legend { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 11px; color: var(--ngx-chart-axis-text, #6c757d); margin-top: 8px; padding-right: 16px; }
-    .legend-text { margin: 0 4px; }
-    .legend-color-box { width: 12px; height: 12px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.1); }
-    .chart-tooltip {
-      position: fixed; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 8px 12px;
-      border-radius: 6px; font-size: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      z-index: 1000; text-align: center;
-    }
-    .tt-val { font-weight: 600; margin-bottom: 4px; color: #fff; }
-    .tt-date { color: rgba(255,255,255,0.7); font-size: 11px; }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-calendar-heatmap {
+        position: relative;
+        background: var(--ngx-chart-bg, #fff);
+        padding-bottom: 16px;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        margin-bottom: 8px;
+      }
+      .heatmap-scroll-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 8px;
+      }
+      .chart-svg {
+        display: block;
+        min-width: max-content;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: var(--ngx-chart-axis-text, #6c757d);
+        user-select: none;
+      }
+      .heatmap-cell {
+        transition: fill 0.2s;
+        cursor: pointer;
+        stroke: rgba(0, 0, 0, 0.05);
+        stroke-width: 1px;
+      }
+      .heatmap-cell:hover {
+        stroke: #000;
+        stroke-width: 2px;
+      }
+      .heatmap-cell:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
+      .heatmap-legend {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        font-size: 11px;
+        color: var(--ngx-chart-axis-text, #6c757d);
+        margin-top: 8px;
+        padding-right: 16px;
+      }
+      .legend-text {
+        margin: 0 4px;
+      }
+      .legend-color-box {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .chart-tooltip {
+        position: fixed;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        text-align: center;
+      }
+      .tt-val {
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #fff;
+      }
+      .tt-date {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 11px;
+      }
+    `,
+  ],
 })
 export class CalendarHeatmapComponent {
   readonly instanceId = generateUniqueId('heatmap');
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   data = input<CalendarHeatmapData[]>([]);
   colorRange = input<string[]>(['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']);
@@ -139,20 +223,20 @@ export class CalendarHeatmapComponent {
     const rawData = this.data();
     const dataMap = new Map<string, number>();
     rawData.forEach(d => dataMap.set(d.date.split('T')[0], d.value));
-    
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const startDate = new Date(today);
     startDate.setDate(today.getDate() - 365);
-    
+
     // Adjust start date to previous Sunday
     while (startDate.getDay() !== 0) {
       startDate.setDate(startDate.getDate() - 1);
     }
-    
+
     const weeksList: any[][] = [];
     let currentWeek: any[] = [];
-    
+
     const iterDate = new Date(startDate);
     while (iterDate <= today) {
       const dStr = iterDate.toISOString().split('T')[0];
@@ -160,20 +244,20 @@ export class CalendarHeatmapComponent {
         date: dStr,
         value: dataMap.get(dStr) || 0,
         dayOfWeek: iterDate.getDay(),
-        inRange: true
+        inRange: true,
       });
-      
+
       if (iterDate.getDay() === 6) {
         weeksList.push(currentWeek);
         currentWeek = [];
       }
       iterDate.setDate(iterDate.getDate() + 1);
     }
-    
+
     if (currentWeek.length > 0) {
       weeksList.push(currentWeek);
     }
-    
+
     return weeksList;
   });
 
@@ -189,7 +273,7 @@ export class CalendarHeatmapComponent {
           currentMonth = date.getMonth();
           labels.push({
             label: date.toLocaleString('default', { month: 'short' }),
-            x: wIdx * (this.cellSize() + this.cellGap())
+            x: wIdx * (this.cellSize() + this.cellGap()),
           });
         }
       }
@@ -222,7 +306,22 @@ export class CalendarHeatmapComponent {
       x: rect.left + rect.width / 2,
       y: rect.top,
       date: day.date,
-      value: day.value
+      value: day.value,
+    });
+  }
+
+  accessibleCellLabel(day: CalendarHeatmapData): string {
+    const value = fmtNum(day.value);
+    return this.i18n.chart.calendarHeatmapCellDescription?.(day.date, value) ?? `${day.date}: ${value} contributions`;
+  }
+
+  onCellFocus(event: FocusEvent, day: CalendarHeatmapData): void {
+    const rect = (event.currentTarget as SVGElement).getBoundingClientRect();
+    this.tooltip.set({
+      x: rect.left + rect.width / 2,
+      y: rect.top,
+      date: day.date,
+      value: day.value,
     });
   }
 
@@ -236,7 +335,8 @@ export class CalendarHeatmapComponent {
 
   onExport(type: ExportFormat): void {
     if (type === 'svg') this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, 'calendar-heatmap.svg');
-    else if (type === 'pdf') this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Calendar Heatmap', 'calendar-heatmap.pdf');
+    else if (type === 'pdf')
+      this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Calendar Heatmap', 'calendar-heatmap.pdf');
     else {
       const rows = this.data().map(d => [d.date, d.value]);
       if (type === 'csv') this.exportSvc.downloadCsv(['Date', 'Value'], rows, 'calendar-data.csv');

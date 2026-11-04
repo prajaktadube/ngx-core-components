@@ -1,11 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, viewChild, HostListener
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
+  HostListener,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum, niceTicks, scale, generateUniqueId } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface RidgelineItem {
   label: string;
@@ -16,7 +26,7 @@ export interface RidgelineItem {
 @Component({
   selector: 'ngx-ridgeline-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-ridgeline-chart" (mouseleave)="onMouseLeave()">
@@ -27,12 +37,7 @@ export interface RidgelineItem {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="ridgeline-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="ridgeline-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <defs>
           @if (useGradient()) {
             @for (item of computedItems(); track item.label; let i = $index) {
@@ -46,7 +51,6 @@ export interface RidgelineItem {
         </defs>
 
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- X Grid Lines (Vertical reference grid) -->
           @if (showGrid()) {
             @for (tick of xTicks(); track tick) {
@@ -66,8 +70,11 @@ export interface RidgelineItem {
               class="ridgeline-row"
               [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
               [class.highlighted]="hoveredIndex() === i"
-              (mouseenter)="onRowHover(i, $event)"
+              (mouseenter)="onRowHover(i)"
               (mousemove)="onRowMouseMove($event)"
+              [ngxChartAccessibleMark]="accessibleRowLabel(item)"
+              (focus)="onRowFocus($event, i)"
+              (blur)="onMouseLeave()"
             >
               <!-- Baseline for each row -->
               <line
@@ -97,12 +104,7 @@ export interface RidgelineItem {
 
               <!-- Row label on Y Axis (Left side) -->
               @if (showLabels()) {
-                <text
-                  [attr.x]="-12"
-                  [attr.y]="item.baselineY - 4"
-                  text-anchor="end"
-                  class="y-axis-label"
-                >
+                <text [attr.x]="-12" [attr.y]="item.baselineY - 4" text-anchor="end" class="y-axis-label">
                   {{ item.label }}
                 </text>
               }
@@ -115,11 +117,7 @@ export interface RidgelineItem {
             @for (tick of xTicks(); track tick) {
               <g [attr.transform]="'translate(' + xPos(tick) + ',0)'">
                 <line [attr.x1]="0" [attr.x2]="0" [attr.y1]="0" [attr.y2]="4" class="tick-line" />
-                <text
-                  [attr.y]="16"
-                  text-anchor="middle"
-                  class="tick-label"
-                >
+                <text [attr.y]="16" text-anchor="middle" class="tick-label">
                   {{ formatNumber(tick) }}
                 </text>
               </g>
@@ -150,139 +148,155 @@ export interface RidgelineItem {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-ridgeline-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 12px;
-    }
-    .ridgeline-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .y-axis-label {
-      font-size: 12px;
-      fill: var(--ngx-chart-axis-text, #334155);
-      font-weight: 600;
-      user-select: none;
-    }
-    .row-baseline {
-      stroke: var(--ngx-chart-grid, #e2e8f0);
-      stroke-width: 1;
-      stroke-dasharray: 2,2;
-    }
-    .density-area, .density-line {
-      animation: ridgelineWipeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      clip-path: inset(0 100% 0 0);
-    }
-    @keyframes ridgelineWipeIn {
-      to { clip-path: inset(0 0 0 0); }
-    }
-    .density-area {
-      transition: fill-opacity 0.2s ease;
-      cursor: pointer;
-    }
-    .density-line {
-      transition: stroke-width 0.2s ease;
-      cursor: pointer;
-    }
-    .ridgeline-row {
-      transition: opacity 0.2s ease;
-    }
-    .ridgeline-row.dimmed {
-      opacity: 0.2;
-    }
-    .ridgeline-row.highlighted .density-area {
-      fill-opacity: 0.65;
-    }
-    .ridgeline-row.highlighted .density-line {
-      stroke-width: 3.5;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-ridgeline-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 12px;
+      }
+      .ridgeline-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .y-axis-label {
+        font-size: 12px;
+        fill: var(--ngx-chart-axis-text, #334155);
+        font-weight: 600;
+        user-select: none;
+      }
+      .row-baseline {
+        stroke: var(--ngx-chart-grid, #e2e8f0);
+        stroke-width: 1;
+        stroke-dasharray: 2, 2;
+      }
+      .density-area,
+      .density-line {
+        animation: ridgelineWipeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        clip-path: inset(0 100% 0 0);
+      }
+      @keyframes ridgelineWipeIn {
+        to {
+          clip-path: inset(0 0 0 0);
+        }
+      }
+      .density-area {
+        transition: fill-opacity 0.2s ease;
+        cursor: pointer;
+      }
+      .density-line {
+        transition: stroke-width 0.2s ease;
+        cursor: pointer;
+      }
+      .ridgeline-row {
+        transition: opacity 0.2s ease;
+      }
+      .ridgeline-row.dimmed {
+        opacity: 0.2;
+      }
+      .ridgeline-row.highlighted .density-area {
+        fill-opacity: 0.65;
+      }
+      .ridgeline-row.highlighted .density-line {
+        stroke-width: 3.5;
+      }
+      .ridgeline-row:focus-visible {
+        outline: none;
+      }
+      .ridgeline-row:focus-visible .density-line {
+        stroke-width: 3.5;
+        filter: drop-shadow(0 0 2px var(--ngx-chart-focus, #1d4ed8));
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class RidgelineChartComponent {
+  private readonly i18n = inject(NGX_CORE_I18N);
+  private readonly host = inject(ElementRef<HTMLElement>);
   private readonly exportSvc = inject(ChartExportService);
   readonly instanceId = generateUniqueId('chart');
   data = input<RidgelineItem[]>([]);
@@ -300,14 +314,13 @@ export class RidgelineChartComponent {
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
 
-
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
   margin = computed(() => ({
     top: 40,
     right: 20,
     bottom: 30,
-    left: this.showLabels() ? 90 : 20
+    left: this.showLabels() ? 90 : 20,
   }));
 
   svgHeight = computed(() => this.height());
@@ -340,7 +353,7 @@ export class RidgelineChartComponent {
     const span = max - min || 10;
     return {
       min: Math.max(0, min - span * 0.05),
-      max: max + span * 0.05
+      max: max + span * 0.05,
     };
   });
 
@@ -353,7 +366,7 @@ export class RidgelineChartComponent {
     const ticks = this.xTicks();
     return {
       min: ticks[0] ?? 0,
-      max: ticks[ticks.length - 1] ?? 100
+      max: ticks[ticks.length - 1] ?? 100,
     };
   });
 
@@ -378,7 +391,7 @@ export class RidgelineChartComponent {
 
     return raw.map((item, idx) => {
       const color = item.color || palette[idx % palette.length];
-      
+
       // baselineY calculation: stack bottom-to-top
       const baselineY = baseH - idx * rowStep;
 
@@ -429,7 +442,7 @@ export class RidgelineChartComponent {
         color,
         baselineY,
         areaPath,
-        linePath
+        linePath,
       };
     });
   });
@@ -454,12 +467,29 @@ export class RidgelineChartComponent {
     return Math.sqrt(sum / (n - 1));
   }
 
-  onRowHover(idx: number, event: MouseEvent) {
+  onRowHover(idx: number) {
     this.hoveredIndex.set(idx);
     const item = this.computedItems()[idx];
     if (item) {
       this.tooltip.set(item);
     }
+  }
+
+  accessibleRowLabel(item: { label: string; count: number; median: number; min: number; max: number }): string {
+    return this.i18n.chart.dataMarkDescription(
+      item.label,
+      `${item.count} samples, median ${fmtNum(item.median)}, range ${fmtNum(item.min)} to ${fmtNum(item.max)}`
+    );
+  }
+
+  onRowFocus(event: FocusEvent, idx: number): void {
+    const target = event.target;
+    if (!(target instanceof SVGGElement)) return;
+    this.onRowHover(idx);
+    const rect = target.getBoundingClientRect();
+    const hostRect = this.host.nativeElement.getBoundingClientRect();
+    this.tooltipX.set(rect.left + rect.width / 2 - hostRect.left);
+    this.tooltipY.set(rect.top - hostRect.top);
   }
 
   onRowMouseMove(event: MouseEvent) {

@@ -1,16 +1,26 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject, DestroyRef
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  HostListener,
+  inject,
+  DestroyRef,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Component({
   selector: 'ngx-combo-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-combo-chart" [class.dark]="theme() === 'dark'">
@@ -42,18 +52,12 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
       }
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-          class="chart-svg"
-          (mouseleave)="onMouseLeave()"
-        >
+        <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg" (mouseleave)="onMouseLeave()">
           <defs>
             @for (s of barSeries(); track s.name; let si = $index) {
               <linearGradient [id]="'combo-bar-grad-' + si" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" [attr.stop-color]="s.color || barSeriesColor(si)" stop-opacity="1"/>
-                <stop offset="100%" [attr.stop-color]="s.color || barSeriesColor(si)" stop-opacity="0.75"/>
+                <stop offset="0%" [attr.stop-color]="s.color || barSeriesColor(si)" stop-opacity="1" />
+                <stop offset="100%" [attr.stop-color]="s.color || barSeriesColor(si)" stop-opacity="0.75" />
               </linearGradient>
             }
           </defs>
@@ -75,18 +79,17 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
 
             <!-- Y-Axis (Left) - Bars -->
             @for (tick of leftYTicks(); track tick) {
-              <text
-                x="-10"
-                [attr.y]="leftYPos(tick) + 4"
-                class="axis-label left"
-                text-anchor="end"
-              >{{ fmtNum(tick) }}</text>
+              <text x="-10" [attr.y]="leftYPos(tick) + 4" class="axis-label left" text-anchor="end">
+                {{ fmtNum(tick) }}
+              </text>
             }
             <text
-              [attr.transform]="'rotate(-90) translate(' + (-innerH()/2) + ', -36)'"
+              [attr.transform]="'rotate(-90) translate(' + -innerH() / 2 + ', -36)'"
               class="axis-title left"
               text-anchor="middle"
-            >{{ barYTitle() }}</text>
+            >
+              {{ barYTitle() }}
+            </text>
 
             <!-- Y-Axis (Right) - Lines -->
             @for (tick of rightYTicks(); track tick) {
@@ -95,22 +98,23 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                 [attr.y]="rightYPos(tick) + 4"
                 class="axis-label right"
                 text-anchor="start"
-              >{{ fmtNum(tick) }}</text>
+              >
+                {{ fmtNum(tick) }}
+              </text>
             }
             <text
-              [attr.transform]="'rotate(90) translate(' + (innerH()/2) + ', ' + (-innerW() - 36) + ')'"
+              [attr.transform]="'rotate(90) translate(' + innerH() / 2 + ', ' + (-innerW() - 36) + ')'"
               class="axis-title right"
               text-anchor="middle"
-            >{{ lineYTitle() }}</text>
+            >
+              {{ lineYTitle() }}
+            </text>
 
             <!-- X-Axis Labels -->
             @for (cat of categories(); track cat; let i = $index) {
-              <text
-                [attr.x]="catMidX(i)"
-                [attr.y]="innerH() + 20"
-                class="axis-label x"
-                text-anchor="middle"
-              >{{ cat }}</text>
+              <text [attr.x]="catMidX(i)" [attr.y]="innerH() + 20" class="axis-label x" text-anchor="middle">
+                {{ cat }}
+              </text>
             }
 
             <!-- Active Category Column Highlight -->
@@ -136,6 +140,9 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                     [attr.fill]="s.color ? s.color : 'url(#combo-bar-grad-' + si + ')'"
                     [attr.rx]="4"
                     class="bar-rect"
+                    [ngxChartAccessibleMark]="accessibleMarkLabel(s.name, categories()[ci] || '', v, barYTitle())"
+                    (focus)="onMarkFocus($event, ci)"
+                    (blur)="onMouseLeave()"
                   />
                 }
               }
@@ -164,6 +171,9 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
                     [attr.stroke-width]="activeCategoryIndex() === ci ? 3 : 2.5"
                     class="line-marker"
                     [style.transform-origin]="catMidX(ci) + 'px ' + rightYPos(v) + 'px'"
+                    [ngxChartAccessibleMark]="accessibleMarkLabel(s.name, categories()[ci] || '', v, lineYTitle())"
+                    (focus)="onMarkFocus($event, ci)"
+                    (blur)="onMouseLeave()"
                   />
                 }
               }
@@ -183,9 +193,21 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
             }
 
             <!-- Base axes borders -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line [attr.x1]="innerW()" [attr.x2]="innerW()" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
+            <line
+              [attr.x1]="innerW()"
+              [attr.x2]="innerW()"
+              y1="0"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
           </g>
         </svg>
 
@@ -207,209 +229,246 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, fmtNum } from '../shared/c
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-combo-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      transition: background-color 0.3s;
-    }
-    .ngx-combo-chart.dark {
-      background: rgba(30, 32, 48, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      --ngx-chart-bg: transparent;
-      --ngx-chart-grid: rgba(255, 255, 255, 0.06);
-      --ngx-chart-axis: rgba(255, 255, 255, 0.12);
-    }
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #64748b;
-    }
-    .dark .legend-item {
-      color: #94a3b8;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .legend-dot.bar {
-      border-radius: 2px;
-    }
-    .legend-line {
-      width: 14px;
-      border-bottom: 2px solid;
-      display: inline-block;
-    }
-    .legend-dot.marker {
-      margin-left: -12px;
-      width: 6px;
-      height: 6px;
-      border: 1.5px solid #ffffff;
-    }
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      fill: #64748b;
-      font-weight: 500;
-    }
-    .dark .axis-label {
-      fill: #94a3b8;
-    }
-    .axis-title {
-      font-size: 11px;
-      font-weight: 600;
-      fill: #475569;
-      letter-spacing: 0.5px;
-    }
-    .dark .axis-title {
-      fill: #cbd5e1;
-    }
-    .column-highlight {
-      fill: rgba(59, 130, 246, 0.04);
-      pointer-events: none;
-      rx: 6;
-      ry: 6;
-      animation: fadeIn 0.12s ease-out;
-    }
-    .dark .column-highlight {
-      fill: rgba(255, 255, 255, 0.03);
-    }
-    .bar-rect {
-      transition: y 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  fill-opacity 0.15s,
-                  stroke-width 0.15s;
-      stroke: #ffffff;
-      stroke-width: 0.5;
-      cursor: pointer;
-    }
-    .bar-rect:hover {
-      fill-opacity: 0.9;
-      stroke-width: 1.5;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-combo-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        transition: background-color 0.3s;
+      }
+      .ngx-combo-chart.dark {
+        background: rgba(30, 32, 48, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        --ngx-chart-bg: transparent;
+        --ngx-chart-grid: rgba(255, 255, 255, 0.06);
+        --ngx-chart-axis: rgba(255, 255, 255, 0.12);
+      }
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #64748b;
+      }
+      .dark .legend-item {
+        color: #94a3b8;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .legend-dot.bar {
+        border-radius: 2px;
+      }
+      .legend-line {
+        width: 14px;
+        border-bottom: 2px solid;
+        display: inline-block;
+      }
+      .legend-dot.marker {
+        margin-left: -12px;
+        width: 6px;
+        height: 6px;
+        border: 1.5px solid #ffffff;
+      }
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: #64748b;
+        font-weight: 500;
+      }
+      .dark .axis-label {
+        fill: #94a3b8;
+      }
+      .axis-title {
+        font-size: 11px;
+        font-weight: 600;
+        fill: #475569;
+        letter-spacing: 0.5px;
+      }
+      .dark .axis-title {
+        fill: #cbd5e1;
+      }
+      .column-highlight {
+        fill: rgba(59, 130, 246, 0.04);
+        pointer-events: none;
+        rx: 6;
+        ry: 6;
+        animation: fadeIn 0.12s ease-out;
+      }
+      .dark .column-highlight {
+        fill: rgba(255, 255, 255, 0.03);
+      }
+      .bar-rect {
+        transition:
+          y 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          fill-opacity 0.15s,
+          stroke-width 0.15s;
+        stroke: #ffffff;
+        stroke-width: 0.5;
+        cursor: pointer;
+      }
+      .bar-rect:hover {
+        fill-opacity: 0.9;
+        stroke-width: 1.5;
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+      }
+      .bar-rect:focus-visible,
+      .line-marker:focus-visible {
+        outline: none;
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+        filter: drop-shadow(0 0 2px var(--ngx-chart-focus, #1d4ed8));
+      }
 
-    @keyframes drawLine {
-      from { stroke-dashoffset: 1200; }
-      to { stroke-dashoffset: 0; }
-    }
+      @keyframes drawLine {
+        from {
+          stroke-dashoffset: 1200;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
 
-    .line-path {
-      stroke-dasharray: 1200;
-      stroke-dashoffset: 1200;
-      animation: drawLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      transition: stroke 0.2s;
-    }
+      .line-path {
+        stroke-dasharray: 1200;
+        stroke-dashoffset: 1200;
+        animation: drawLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        transition: stroke 0.2s;
+      }
 
-    @keyframes markerFade {
-      from { opacity: 0; transform: scale(0); }
-      to { opacity: 1; transform: scale(1); }
-    }
+      @keyframes markerFade {
+        from {
+          opacity: 0;
+          transform: scale(0);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
-    .line-marker {
-      cursor: pointer;
-      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.2s;
-      animation: markerFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-    }
-    .hitbox {
-      cursor: crosshair;
-    }
+      .line-marker {
+        cursor: pointer;
+        transition:
+          r 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+          stroke-width 0.2s;
+        animation: markerFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+      }
+      .hitbox {
+        cursor: crosshair;
+      }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-body {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-dot.line-dot {
-      border: 1.5px solid #ffffff;
-      box-sizing: border-box;
-      width: 9px;
-      height: 9px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-body {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-dot.line-dot {
+        border: 1.5px solid #ffffff;
+        box-sizing: border-box;
+        width: 9px;
+        height: 9px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Export styles */
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      /* Export styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class ComboChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   PAD_LEFT = 52;
   PAD_TOP = 16;
   PAD_RIGHT = 52;
@@ -474,12 +533,12 @@ export class ComboChartComponent {
   leftYPos(v: number): number {
     return scale(v, this.leftMin(), this.leftMax(), this.innerH(), 0);
   }
-  
+
   barY(v: number): number {
     if (!this.animateState()) return this.leftYPos(0);
     return Math.min(this.leftYPos(0), this.leftYPos(v));
   }
-  
+
   barH(v: number): number {
     if (!this.animateState()) return 0;
     return Math.abs(this.leftYPos(0) - this.leftYPos(v));
@@ -496,7 +555,7 @@ export class ComboChartComponent {
   }
 
   // Layout positioning
-  groupW = computed(() => this.categories().length > 0 ? this.innerW() / this.categories().length : 0);
+  groupW = computed(() => (this.categories().length > 0 ? this.innerW() / this.categories().length : 0));
   singleBarWidth = computed(() => {
     const numSeries = this.barSeries().length || 1;
     return Math.max(4, (this.groupW() - 12) / numSeries);
@@ -524,10 +583,12 @@ export class ComboChartComponent {
 
   // Line paths generator
   linePath(series: ChartSeries): string {
-    const pts = series.data.map((v, ci) => {
-      if (v === null || v === undefined) return null;
-      return [this.catMidX(ci), this.rightYPos(v)] as [number, number];
-    }).filter((p): p is [number, number] => p !== null);
+    const pts = series.data
+      .map((v, ci) => {
+        if (v === null || v === undefined) return null;
+        return [this.catMidX(ci), this.rightYPos(v)] as [number, number];
+      })
+      .filter((p): p is [number, number] => p !== null);
 
     if (pts.length < 2) return '';
     let d = `M ${pts[0][0]} ${pts[0][1]}`;
@@ -538,12 +599,27 @@ export class ComboChartComponent {
   }
 
   onMouseMove(event: MouseEvent, index: number) {
+    this.showCategoryTooltip(index, event.clientX, event.clientY);
+  }
+
+  onMarkFocus(event: FocusEvent, index: number): void {
+    const target = event.target;
+    if (!(target instanceof SVGGraphicsElement)) return;
+    const rect = target.getBoundingClientRect();
+    this.showCategoryTooltip(index, rect.left + rect.width / 2, rect.top);
+  }
+
+  accessibleMarkLabel(series: string, category: string, value: number, axisTitle: string): string {
+    return this.i18n.chart.dataMarkDescription(`${category}, ${series}`, `${fmtNum(value)} ${axisTitle}`);
+  }
+
+  private showCategoryTooltip(index: number, clientX: number, clientY: number): void {
     this.activeCategoryIndex.set(index);
     const containerEl = this.container()?.nativeElement;
     if (!containerEl) return;
     const rect = containerEl.getBoundingClientRect();
-    const tooltipX = event.clientX - rect.left;
-    const tooltipY = event.clientY - rect.top;
+    const tooltipX = clientX - rect.left;
+    const tooltipY = clientY - rect.top;
 
     const catName = this.categories()[index] || `Category ${index + 1}`;
     const items: any[] = [];
@@ -556,7 +632,7 @@ export class ComboChartComponent {
           name: s.name,
           value: val,
           color: s.color || this.barSeriesColor(si),
-          type: 'bar'
+          type: 'bar',
         });
       }
     });
@@ -570,7 +646,7 @@ export class ComboChartComponent {
           value: val,
           color: s.color || this.lineSeriesColor(si),
           type: 'line',
-          suffix: '%'
+          suffix: '%',
         });
       }
     });
@@ -579,7 +655,7 @@ export class ComboChartComponent {
       x: tooltipX,
       y: tooltipY,
       category: catName,
-      items
+      items,
     });
   }
 
@@ -588,7 +664,7 @@ export class ComboChartComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -602,8 +678,12 @@ export class ComboChartComponent {
     if (!cats.length) return;
     const data = cats.map((cat, ci) => {
       const entry: Record<string, any> = { category: cat };
-      bars.forEach(s => { if (s.data[ci] !== undefined && s.data[ci] !== null) entry[s.name + '_bar'] = s.data[ci]; });
-      lines.forEach(s => { if (s.data[ci] !== undefined && s.data[ci] !== null) entry[s.name + '_line'] = s.data[ci]; });
+      bars.forEach(s => {
+        if (s.data[ci] !== undefined && s.data[ci] !== null) entry[s.name + '_bar'] = s.data[ci];
+      });
+      lines.forEach(s => {
+        if (s.data[ci] !== undefined && s.data[ci] !== null) entry[s.name + '_line'] = s.data[ci];
+      });
       return entry;
     });
     this.exportSvc.downloadJson(data, 'combo-chart-data.json');
@@ -616,11 +696,7 @@ export class ComboChartComponent {
     if (!cats.length) return;
     const headers = ['Category', ...bars.map(s => s.name + ' (Bar)'), ...lines.map(s => s.name + ' (Line)')];
     const rows: (string | number)[][] = cats.map((cat, ci) => {
-      return [
-        cat,
-        ...bars.map(s => s.data[ci] ?? ''),
-        ...lines.map(s => s.data[ci] ?? '')
-      ];
+      return [cat, ...bars.map(s => s.data[ci] ?? ''), ...lines.map(s => s.data[ci] ?? '')];
     });
     this.exportSvc.downloadCsv(headers, rows, 'combo-chart-data.csv');
   }
@@ -632,7 +708,6 @@ export class ComboChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }

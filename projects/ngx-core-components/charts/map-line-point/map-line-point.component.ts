@@ -1,11 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { fmtNum } from '../shared/chart-utils';
 import { WORLD_MAP_DATA, getSvgPath, project } from '../shared/map-data';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface MapPoint {
   lat: number;
@@ -27,7 +37,7 @@ export interface MapLine {
 @Component({
   selector: 'ngx-map-line-point',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-map-line-point" [class.dark]="theme() === 'dark'" (mouseleave)="onMouseLeave()">
@@ -41,12 +51,7 @@ export interface MapLine {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          class="map-svg"
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-        >
+        <svg #svgEl class="map-svg" [attr.width]="'100%'" [attr.height]="height()">
           <!-- Base Map Outlines -->
           <g class="map-base">
             @for (pathStr of baseMapPaths(); track $index) {
@@ -68,13 +73,16 @@ export interface MapLine {
                 [attr.x2]="line.x2"
                 [attr.y2]="line.y2"
                 [attr.stroke]="line.color"
-                [attr.stroke-width]="hoveredLineIndex() === i ? (line.strokeWidth || 2) * 1.8 : (line.strokeWidth || 2)"
+                [attr.stroke-width]="hoveredLineIndex() === i ? (line.strokeWidth || 2) * 1.8 : line.strokeWidth || 2"
                 [attr.stroke-dasharray]="line.dashed ? '4,4' : 'none'"
                 stroke-linecap="round"
                 class="network-line"
                 [class.hovered]="hoveredLineIndex() === i"
-                (mouseenter)="onLineHover(line.raw, i, $event)"
+                [ngxChartAccessibleMark]="accessibleLineLabel(line.raw)"
+                (mouseenter)="onLineHover(line.raw, i)"
                 (mousemove)="onLineMouseMove($event)"
+                (focus)="onLineFocus(line.raw, i, $event)"
+                (blur)="onMouseLeave()"
               />
             }
           </g>
@@ -91,8 +99,11 @@ export interface MapLine {
                 [attr.stroke-width]="hoveredPointIndex() === i ? 2.5 : 1.5"
                 class="network-point"
                 [class.hovered]="hoveredPointIndex() === i"
-                (mouseenter)="onPointHover(pt.raw, i, $event)"
+                [ngxChartAccessibleMark]="accessiblePointLabel(pt.raw)"
+                (mouseenter)="onPointHover(pt.raw, i)"
                 (mousemove)="onPointMouseMove($event)"
+                (focus)="onPointFocus(pt.raw, i, $event)"
+                (blur)="onMouseLeave()"
               />
             }
           </g>
@@ -127,115 +138,136 @@ export interface MapLine {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-map-line-point {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-      transition: background-color 0.3s;
-    }
-    .ngx-map-line-point.dark {
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      --ngx-chart-bg: #0f172a;
-      --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
-      --ngx-chart-tooltip-color: #f8fafc;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      position: relative;
-    }
-    .chart-title h4 {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ngx-chart-title-color, #1e293b);
-    }
-    .dark .chart-title h4 {
-      color: #f8fafc;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-map-line-point {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      .ngx-map-line-point.dark {
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        --ngx-chart-bg: #0f172a;
+        --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
+        --ngx-chart-tooltip-color: #f8fafc;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        position: relative;
+      }
+      .chart-title h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ngx-chart-title-color, #1e293b);
+      }
+      .dark .chart-title h4 {
+        color: #f8fafc;
+      }
 
-    .map-svg {
-      display: block;
-      overflow: visible;
-    }
-    .network-line {
-      cursor: pointer;
-      opacity: 0.8;
-      transition: stroke-width 0.2s, stroke 0.2s, opacity 0.2s;
-    }
-    .network-line.hovered {
-      opacity: 1;
-    }
-    .network-point {
-      cursor: pointer;
-      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.15s;
-    }
-    .network-point.hovered {
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
-    }
+      .map-svg {
+        display: block;
+        overflow: visible;
+      }
+      .network-line {
+        cursor: pointer;
+        opacity: 0.8;
+        transition:
+          stroke-width 0.2s,
+          stroke 0.2s,
+          opacity 0.2s;
+      }
+      .network-line.hovered {
+        opacity: 1;
+      }
+      .network-line:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 4px;
+        outline: none;
+      }
+      .network-point {
+        cursor: pointer;
+        transition:
+          r 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+          stroke-width 0.15s;
+      }
+      .network-point.hovered {
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+      }
+      .network-point:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-  `]
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+    `,
+  ],
 })
 export class MapLinePointComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   title = input<string>('Geographical Networks');
   points = input<MapPoint[]>([]);
   lines = input<MapLine[]>([]);
@@ -287,7 +319,7 @@ export class MapLinePointComponent {
         y: coord.y,
         size: pt.size || 6,
         color: pt.color || '#4f46e5',
-        raw: pt
+        raw: pt,
       };
     });
   });
@@ -304,24 +336,42 @@ export class MapLinePointComponent {
       const color = line.color || 'rgba(99, 102, 241, 0.45)';
 
       return {
-        x1, y1, x2, y2,
+        x1,
+        y1,
+        x2,
+        y2,
         color,
         dashed: line.dashed || false,
         strokeWidth: line.strokeWidth || 2,
-        raw: line
+        raw: line,
       };
     });
   });
 
-  onPointHover(pt: MapPoint, idx: number, event: MouseEvent) {
+  onPointHover(pt: MapPoint, idx: number) {
     this.hoveredPointIndex.set(idx);
     this.hoveredLineIndex.set(null);
     this.tooltip.set({
       type: 'point',
       label: pt.label,
       lat: pt.lat,
-      lng: pt.lng
+      lng: pt.lng,
     });
+  }
+
+  accessiblePointLabel(point: MapPoint): string {
+    const label = point.label || 'Map point';
+    const latitude = fmtNum(point.lat);
+    const longitude = fmtNum(point.lng);
+    return (
+      this.i18n.chart.mapPointDescription?.(label, latitude, longitude) ??
+      `${label}; latitude ${latitude}, longitude ${longitude}`
+    );
+  }
+
+  onPointFocus(point: MapPoint, index: number, event: FocusEvent): void {
+    this.onPointHover(point, index);
+    this.positionTooltip(event.currentTarget as SVGElement);
   }
 
   onPointMouseMove(event: MouseEvent) {
@@ -333,7 +383,7 @@ export class MapLinePointComponent {
     }
   }
 
-  onLineHover(line: MapLine, idx: number, event: MouseEvent) {
+  onLineHover(line: MapLine, idx: number) {
     this.hoveredLineIndex.set(idx);
     this.hoveredPointIndex.set(null);
     const fromPt = this.points()[line.fromIndex];
@@ -344,8 +394,30 @@ export class MapLinePointComponent {
       fromIndex: line.fromIndex,
       toIndex: line.toIndex,
       fromLabel: fromPt ? fromPt.label : '',
-      toLabel: toPt ? toPt.label : ''
+      toLabel: toPt ? toPt.label : '',
     });
+  }
+
+  accessibleLineLabel(line: MapLine): string {
+    const points = this.points();
+    const source = points[line.fromIndex]?.label || `Point ${line.fromIndex + 1}`;
+    const target = points[line.toIndex]?.label || `Point ${line.toIndex + 1}`;
+    const label = line.label || 'Route';
+    return this.i18n.chart.mapLineDescription?.(label, source, target) ?? `${label}: from ${source} to ${target}`;
+  }
+
+  onLineFocus(line: MapLine, index: number, event: FocusEvent): void {
+    this.onLineHover(line, index);
+    this.positionTooltip(event.currentTarget as SVGElement);
+  }
+
+  private positionTooltip(mark: SVGElement): void {
+    const containerEl = this.container()?.nativeElement as HTMLElement | undefined;
+    if (!containerEl) return;
+    const containerRect = containerEl.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - containerRect.top);
   }
 
   onLineMouseMove(event: MouseEvent) {

@@ -1,11 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, viewChild, HostListener
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
+  HostListener,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum, scale } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface SlopeDataPoint {
   label: string;
@@ -17,7 +27,7 @@ export interface SlopeDataPoint {
 @Component({
   selector: 'ngx-slope-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-slope-chart" (mouseleave)="onMouseLeave()">
@@ -28,21 +38,10 @@ export interface SlopeDataPoint {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="slope-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="slope-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
           <!-- Left Axis Line -->
-          <line
-            [attr.x1]="leftAxisX()"
-            [attr.x2]="leftAxisX()"
-            [attr.y1]="0"
-            [attr.y2]="innerH()"
-            class="axis-line"
-          />
+          <line [attr.x1]="leftAxisX()" [attr.x2]="leftAxisX()" [attr.y1]="0" [attr.y2]="innerH()" class="axis-line" />
 
           <!-- Right Axis Line -->
           <line
@@ -54,20 +53,10 @@ export interface SlopeDataPoint {
           />
 
           <!-- Axis Labels at Top -->
-          <text
-            [attr.x]="leftAxisX()"
-            [attr.y]="-10"
-            text-anchor="middle"
-            class="axis-title"
-          >
+          <text [attr.x]="leftAxisX()" [attr.y]="-10" text-anchor="middle" class="axis-title">
             {{ startLabel() }}
           </text>
-          <text
-            [attr.x]="rightAxisX()"
-            [attr.y]="-10"
-            text-anchor="middle"
-            class="axis-title"
-          >
+          <text [attr.x]="rightAxisX()" [attr.y]="-10" text-anchor="middle" class="axis-title">
             {{ endLabel() }}
           </text>
 
@@ -77,8 +66,11 @@ export interface SlopeDataPoint {
               class="slope-group"
               [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
               [class.highlighted]="hoveredIndex() === i"
-              (mouseenter)="onSlopeHover(i, $event)"
+              (mouseenter)="onSlopeHover(i)"
               (mousemove)="onSlopeMouseMove($event)"
+              [ngxChartAccessibleMark]="accessibleItemLabel(item.label, item.startValue, item.endValue)"
+              (focus)="onSlopeFocus($event, i)"
+              (blur)="onMouseLeave()"
             >
               <!-- Connecting Slope Line -->
               <line
@@ -170,141 +162,164 @@ export interface SlopeDataPoint {
             <span class="tt-dot" style="background: transparent;"></span>
             <span class="tt-name">Change</span>
             <span class="tt-val" [style.color]="t.delta >= 0 ? '#10b981' : '#ef4444'">
-              {{ t.delta >= 0 ? '+' : '' }}{{ formatNumber(t.delta) }} ({{ t.deltaPct >= 0 ? '+' : '' }}{{ t.deltaPct.toFixed(1) }}%)
+              {{ t.delta >= 0 ? '+' : '' }}{{ formatNumber(t.delta) }} ({{ t.deltaPct >= 0 ? '+' : ''
+              }}{{ t.deltaPct.toFixed(1) }}%)
             </span>
           </div>
         </div>
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-slope-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 12px;
-    }
-    .slope-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 2;
-    }
-    .axis-title {
-      font-size: 13px;
-      font-weight: 700;
-      fill: var(--ngx-chart-axis-text, #334155);
-      letter-spacing: 0.5px;
-      user-select: none;
-    }
-    .slope-line {
-      transition: stroke-width 0.2s ease, stroke-dashoffset 0.8s ease, opacity 0.2s ease;
-      cursor: pointer;
-    }
-    .endpoint-dot {
-      transition: r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
-      stroke: var(--ngx-chart-bg, #ffffff);
-      stroke-width: 1.5;
-    }
-    .slope-label {
-      font-size: 12px;
-      fill: var(--ngx-chart-axis-text, #1e293b);
-      font-weight: 600;
-      user-select: none;
-      transition: font-size 0.2s ease;
-    }
-    .slope-value {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .slope-group {
-      transition: opacity 0.2s ease;
-    }
-    .slope-group.dimmed {
-      opacity: 0.2;
-    }
-    .slope-group.highlighted .slope-line {
-      stroke-width: 4.5;
-    }
-    .slope-group.highlighted .slope-label {
-      font-size: 13px;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-slope-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 12px;
+      }
+      .slope-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 2;
+      }
+      .axis-title {
+        font-size: 13px;
+        font-weight: 700;
+        fill: var(--ngx-chart-axis-text, #334155);
+        letter-spacing: 0.5px;
+        user-select: none;
+      }
+      .slope-line {
+        transition:
+          stroke-width 0.2s ease,
+          stroke-dashoffset 0.8s ease,
+          opacity 0.2s ease;
+        cursor: pointer;
+      }
+      .endpoint-dot {
+        transition:
+          r 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 0.2s ease;
+        stroke: var(--ngx-chart-bg, #ffffff);
+        stroke-width: 1.5;
+      }
+      .slope-label {
+        font-size: 12px;
+        fill: var(--ngx-chart-axis-text, #1e293b);
+        font-weight: 600;
+        user-select: none;
+        transition: font-size 0.2s ease;
+      }
+      .slope-value {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .slope-group {
+        transition: opacity 0.2s ease;
+      }
+      .slope-group.dimmed {
+        opacity: 0.2;
+      }
+      .slope-group.highlighted .slope-line {
+        stroke-width: 4.5;
+      }
+      .slope-group.highlighted .slope-label {
+        font-size: 13px;
+      }
+      .slope-group:focus-visible {
+        outline: none;
+      }
+      .slope-group:focus-visible .slope-line {
+        stroke-width: 4.5;
+        filter: drop-shadow(0 0 2px var(--ngx-chart-focus, #1d4ed8));
+      }
+      .slope-group:focus-visible .endpoint-dot {
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 170px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .delta-row {
-      border-top: 1px dashed rgba(255, 255, 255, 0.15);
-      margin-top: 6px;
-      padding-top: 6px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 170px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .delta-row {
+        border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        margin-top: 6px;
+        padding-top: 6px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class SlopeChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
+  private readonly host = inject(ElementRef<HTMLElement>);
   data = input<SlopeDataPoint[]>([]);
   startLabel = input<string>('Before');
   endLabel = input<string>('After');
@@ -320,14 +335,13 @@ export class SlopeChartComponent {
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
 
-
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
   margin = computed(() => ({
     top: 40,
     right: this.showLabels() ? 120 : 40,
     bottom: 20,
-    left: this.showLabels() ? 120 : 40
+    left: this.showLabels() ? 120 : 40,
   }));
 
   svgHeight = computed(() => this.height());
@@ -362,7 +376,7 @@ export class SlopeChartComponent {
     const pad = (max - min) * 0.05 || 10;
     return {
       min: Math.max(0, min - pad),
-      max: max + pad
+      max: max + pad,
     };
   });
 
@@ -393,12 +407,12 @@ export class SlopeChartComponent {
         ...item,
         leftY,
         rightY,
-        lineColor
+        lineColor,
       };
     });
   });
 
-  onSlopeHover(idx: number, event: MouseEvent) {
+  onSlopeHover(idx: number) {
     this.hoveredIndex.set(idx);
     const item = this.computedItems()[idx];
     if (item) {
@@ -408,9 +422,27 @@ export class SlopeChartComponent {
       this.tooltip.set({
         ...item,
         delta,
-        deltaPct
+        deltaPct,
       });
     }
+  }
+
+  accessibleItemLabel(label: string, startValue: number, endValue: number): string {
+    const delta = endValue - startValue;
+    return this.i18n.chart.dataMarkDescription(
+      label,
+      `${this.startLabel()} ${fmtNum(startValue)}, ${this.endLabel()} ${fmtNum(endValue)}, change ${delta >= 0 ? '+' : ''}${fmtNum(delta)}`
+    );
+  }
+
+  onSlopeFocus(event: FocusEvent, idx: number): void {
+    const target = event.target;
+    if (!(target instanceof SVGGElement)) return;
+    this.onSlopeHover(idx);
+    const rect = target.getBoundingClientRect();
+    const hostRect = this.host.nativeElement.getBoundingClientRect();
+    this.tooltipX.set(rect.left + rect.width / 2 - hostRect.left);
+    this.tooltipY.set(rect.top - hostRect.top);
   }
 
   onSlopeMouseMove(event: MouseEvent) {

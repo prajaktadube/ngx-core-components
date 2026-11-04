@@ -8,8 +8,9 @@ import {
   ElementRef,
   viewChild,
   effect,
-  HostListener,
+  inject,
 } from '@angular/core';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Component({
   selector: 'ngx-tab',
@@ -87,8 +88,8 @@ export class TabComponent {
               <button
                 class="tab-close-btn"
                 (click)="closeTab($event, i)"
-                title="Close Tab"
-                aria-label="Close tab"
+                [attr.title]="closeTabLabel"
+                [attr.aria-label]="closeTabLabel"
                 type="button"
               >
                 <span aria-hidden="true">×</span>
@@ -260,8 +261,11 @@ export class TabComponent {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 16px;
-        height: 16px;
+        width: var(--ngx-tab-close-target-size, 24px);
+        min-width: 24px;
+        height: var(--ngx-tab-close-target-size, 24px);
+        min-height: 24px;
+        flex: 0 0 auto;
         border-radius: 50%;
         margin-left: 4px;
         padding: 0;
@@ -270,6 +274,12 @@ export class TabComponent {
       .tab-close-btn:hover {
         background: rgba(0, 0, 0, 0.08);
         color: var(--error-color, #ef4444);
+      }
+      .tab-close-btn:focus-visible {
+        outline: 2px solid var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+        z-index: 3;
       }
 
       .tab-indicator {
@@ -301,6 +311,12 @@ export class TabComponent {
   ],
 })
 export class TabStripComponent implements AfterContentInit {
+  readonly i18n = inject(NGX_CORE_I18N);
+
+  get closeTabLabel(): string {
+    return this.i18n.layout?.closeTab ?? 'Close tab';
+  }
+
   position = input<'top' | 'bottom' | 'left' | 'right'>('top');
   activeIndex = signal(0);
 
@@ -319,7 +335,7 @@ export class TabStripComponent implements AfterContentInit {
     effect(() => {
       const idx = this.activeIndex();
       // Track tabs list changes
-      const currentTabs = this.tabs();
+      this.tabs();
       this.updateIndicator(idx);
     });
   }
@@ -349,13 +365,13 @@ export class TabStripComponent implements AfterContentInit {
     setTimeout(() => {
       const list = this.tabListEl()?.nativeElement as HTMLElement;
       if (!list) return;
-      const btns = list.querySelectorAll('.tab-btn');
-      const activeBtn = btns[index] as HTMLElement;
-      if (activeBtn) {
-        this.indicatorLeft.set(activeBtn.offsetLeft);
-        this.indicatorTop.set(activeBtn.offsetTop);
-        this.indicatorWidth.set(activeBtn.offsetWidth);
-        this.indicatorHeight.set(activeBtn.offsetHeight);
+      const tabItems = list.querySelectorAll('.tab-item');
+      const activeTabItem = tabItems[index] as HTMLElement;
+      if (activeTabItem) {
+        this.indicatorLeft.set(activeTabItem.offsetLeft);
+        this.indicatorTop.set(activeTabItem.offsetTop);
+        this.indicatorWidth.set(activeTabItem.offsetWidth);
+        this.indicatorHeight.set(activeTabItem.offsetHeight);
       } else {
         this.indicatorWidth.set(0);
         this.indicatorHeight.set(0);

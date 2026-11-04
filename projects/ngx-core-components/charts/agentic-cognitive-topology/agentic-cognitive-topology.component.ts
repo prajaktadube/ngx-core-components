@@ -1,6 +1,15 @@
 import {
-  Component, input, output, signal, computed, ChangeDetectionStrategy,
-  ElementRef, viewChild, HostListener, effect, inject
+  Component,
+  input,
+  output,
+  signal,
+  computed,
+  ChangeDetectionStrategy,
+  ElementRef,
+  viewChild,
+  HostListener,
+  effect,
+  inject,
 } from '@angular/core';
 import { CommonModule, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,12 +17,14 @@ import { CHART_COLORS } from '../shared/chart-utils';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface TopologyNode {
   id: string;
   label: string;
   status: 'idle' | 'thinking' | 'success' | 'error';
-  type?: string;     // e.g. 'orchestrator' | 'agent' | 'tool' | 'critic'
+  type?: string; // e.g. 'orchestrator' | 'agent' | 'tool' | 'critic'
   prompt?: string;
   response?: string;
   x?: number;
@@ -36,7 +47,7 @@ interface ProcessedNode extends TopologyNode {
 @Component({
   selector: 'ngx-agentic-cognitive-topology',
   standalone: true,
-  imports: [CommonModule, UpperCasePipe, FormsModule, ChartExportMenuComponent],
+  imports: [CommonModule, UpperCasePipe, FormsModule, ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-topology-wrapper">
@@ -58,26 +69,39 @@ interface ProcessedNode extends TopologyNode {
           <div class="toolbar-section">
             <button class="tb-btn primary" (click)="addNode()" title="Add Node">➕ Add Agent</button>
             <span class="tb-divider"></span>
-            <button class="tb-btn" [disabled]="undoStack().length === 0" (click)="undo()" title="Undo (Ctrl+Z)">↩️ Undo ({{ undoStack().length }})</button>
-            <button class="tb-btn" [disabled]="redoStack().length === 0" (click)="redo()" title="Redo (Ctrl+Y)">↪️ Redo ({{ redoStack().length }})</button>
+            <button class="tb-btn" [disabled]="undoStack().length === 0" (click)="undo()" title="Undo (Ctrl+Z)">
+              ↩️ Undo ({{ undoStack().length }})
+            </button>
+            <button class="tb-btn" [disabled]="redoStack().length === 0" (click)="redo()" title="Redo (Ctrl+Y)">
+              ↪️ Redo ({{ redoStack().length }})
+            </button>
             <span class="tb-divider"></span>
-            <button class="tb-btn" [class.active]="snapToGridActive()" (click)="snapToGridActive.set(!snapToGridActive())" title="Toggle Snap to Grid">
+            <button
+              class="tb-btn"
+              [class.active]="snapToGridActive()"
+              (click)="snapToGridActive.set(!snapToGridActive())"
+              title="Toggle Snap to Grid"
+            >
               🧲 Snap ({{ gridSize() }}px)
             </button>
-            <button class="tb-btn" (click)="autoLayout()" title="Rearrange Nodes Automatically">
-              🔀 Rearrange
-            </button>
+            <button class="tb-btn" (click)="autoLayout()" title="Rearrange Nodes Automatically">🔀 Rearrange</button>
           </div>
           <div class="toolbar-section">
-            <button class="tb-btn" (click)="exportWorkflowSchema()" title="Copy Workflow JSON Schema">📋 Copy JSON Flow</button>
-            
+            <button class="tb-btn" (click)="exportWorkflowSchema()" title="Copy Workflow JSON Schema">
+              📋 Copy JSON Flow
+            </button>
+
             <div class="validation-badge" [class.valid]="validationReport().isValid">
               @if (validationReport().isValid) {
                 ✅ DAG Solid
               } @else {
-                ⚠️ Warning: 
-                @if (validationReport().hasCycles) { Cycle detected! }
-                @if (validationReport().orphans.length > 0) { Isolated nodes present! }
+                ⚠️ Warning:
+                @if (validationReport().hasCycles) {
+                  Cycle detected!
+                }
+                @if (validationReport().orphans.length > 0) {
+                  Isolated nodes present!
+                }
               }
             </div>
           </div>
@@ -96,7 +120,9 @@ interface ProcessedNode extends TopologyNode {
           (mousemove)="onMouseMove($event)"
           (mouseup)="onMouseUp()"
           (mouseleave)="onMouseLeave()"
-          [style.cursor]="draggingNodeId() ? 'grabbing' : isPanning() ? 'grabbing' : activePortDrag() ? 'crosshair' : 'grab'"
+          [style.cursor]="
+            draggingNodeId() ? 'grabbing' : isPanning() ? 'grabbing' : activePortDrag() ? 'crosshair' : 'grab'
+          "
         >
           <!-- Grid background dots -->
           <defs>
@@ -111,7 +137,15 @@ interface ProcessedNode extends TopologyNode {
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--ngx-chart-grid, #94a3b8)" />
             </marker>
-            <marker id="arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <marker
+              id="arrow-active"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto"
+            >
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5" />
             </marker>
           </defs>
@@ -122,15 +156,9 @@ interface ProcessedNode extends TopologyNode {
             @for (link of computedLinks(); track link.source + '-' + link.target) {
               <!-- Background link shadow / glow -->
               @if (link.active) {
-                <path
-                  [attr.d]="link.path"
-                  fill="none"
-                  stroke="#6366f1"
-                  stroke-width="5"
-                  stroke-opacity="0.15"
-                />
+                <path [attr.d]="link.path" fill="none" stroke="#6366f1" stroke-width="5" stroke-opacity="0.15" />
               }
-              
+
               <!-- Link line -->
               <path
                 [attr.d]="link.path"
@@ -140,13 +168,27 @@ interface ProcessedNode extends TopologyNode {
                 [attr.marker-end]="link.active ? 'url(#arrow-active)' : 'url(#arrow)'"
                 [class.link-active-flow]="link.active"
                 class="topology-link-path"
+                [ngxChartAccessibleMark]="accessibleLinkLabel(link)"
               />
 
               <!-- Link Delete Button (Renders in Edit Mode) -->
               @if (editable()) {
-                <g class="link-delete-btn" [attr.transform]="'translate(' + getMidpointX(link) + ',' + getMidpointY(link) + ')'" (click)="deleteLink(link.source, link.target, $event)">
+                <g
+                  class="link-delete-btn"
+                  [attr.transform]="'translate(' + getMidpointX(link) + ',' + getMidpointY(link) + ')'"
+                  (click)="deleteLink(link.source, link.target, $event)"
+                >
                   <circle r="7" fill="#ef4444" stroke="#ffffff" stroke-width="1.2" />
-                  <text text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="8" font-weight="900" y="-0.5">×</text>
+                  <text
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    fill="#ffffff"
+                    font-size="8"
+                    font-weight="900"
+                    y="-0.5"
+                  >
+                    ×
+                  </text>
                 </g>
               } @else if (link.label) {
                 <!-- Optional edge label -->
@@ -156,7 +198,9 @@ interface ProcessedNode extends TopologyNode {
                   [attr.y]="getMidpointY(link)"
                   text-anchor="middle"
                   dominant-baseline="middle"
-                >{{ link.label }}</text>
+                >
+                  {{ link.label }}
+                </text>
               }
             }
 
@@ -175,8 +219,13 @@ interface ProcessedNode extends TopologyNode {
                 [class.node-status-success]="node.status === 'success'"
                 [class.node-status-error]="node.status === 'error'"
                 [style.transform]="'translate(' + (node.x - nodeWidth / 2) + 'px,' + (node.y - nodeHeight / 2) + 'px)'"
-                [style.--node-translate]="'translate(' + (node.x - nodeWidth / 2) + 'px,' + (node.y - nodeHeight / 2) + 'px)'"
+                [style.--node-translate]="
+                  'translate(' + (node.x - nodeWidth / 2) + 'px,' + (node.y - nodeHeight / 2) + 'px)'
+                "
                 class="node-group"
+                [ngxChartAccessibleMark]="accessibleNodeLabel(node)"
+                [ngxChartAccessibleMarkInteractive]="true"
+                (activated)="activateNode(node)"
                 (click)="onNodeClick(node, $event)"
                 (dblclick)="onNodeDblClick(node, $event)"
                 (mousedown)="onNodeMouseDown(node, $event)"
@@ -193,14 +242,10 @@ interface ProcessedNode extends TopologyNode {
                 />
 
                 <!-- Embedded Rich HTML Content -->
-                <foreignObject
-                  [attr.width]="nodeWidth"
-                  [attr.height]="nodeHeight"
-                  class="node-html-container"
-                >
+                <foreignObject [attr.width]="nodeWidth" [attr.height]="nodeHeight" class="node-html-container">
                   <div class="node-card" [class]="node.status">
                     <div class="node-card-header">
-                      <span class="node-type">{{ (node.type || 'Agent') | uppercase }}</span>
+                      <span class="node-type">{{ node.type || 'Agent' | uppercase }}</span>
                       <span class="status-indicator"></span>
                     </div>
                     <div class="node-card-body">
@@ -214,15 +259,52 @@ interface ProcessedNode extends TopologyNode {
 
                 <!-- Connection Ports Handles (Renders in Edit Mode) -->
                 @if (editable()) {
-                  <circle cx="67.5" cy="0" r="4" class="connection-port top" (mousedown)="onPortMouseDown(node, [0, -1], $event)" title="Drag connection" />
-                  <circle cx="67.5" cy="55" r="4" class="connection-port bottom" (mousedown)="onPortMouseDown(node, [0, 1], $event)" title="Drag connection" />
-                  <circle cx="0" cy="27.5" r="4" class="connection-port left" (mousedown)="onPortMouseDown(node, [-1, 0], $event)" title="Drag connection" />
-                  <circle cx="135" cy="27.5" r="4" class="connection-port right" (mousedown)="onPortMouseDown(node, [1, 0], $event)" title="Drag connection" />
+                  <circle
+                    cx="67.5"
+                    cy="0"
+                    r="4"
+                    class="connection-port top"
+                    (mousedown)="onPortMouseDown(node, [0, -1], $event)"
+                    title="Drag connection"
+                  />
+                  <circle
+                    cx="67.5"
+                    cy="55"
+                    r="4"
+                    class="connection-port bottom"
+                    (mousedown)="onPortMouseDown(node, [0, 1], $event)"
+                    title="Drag connection"
+                  />
+                  <circle
+                    cx="0"
+                    cy="27.5"
+                    r="4"
+                    class="connection-port left"
+                    (mousedown)="onPortMouseDown(node, [-1, 0], $event)"
+                    title="Drag connection"
+                  />
+                  <circle
+                    cx="135"
+                    cy="27.5"
+                    r="4"
+                    class="connection-port right"
+                    (mousedown)="onPortMouseDown(node, [1, 0], $event)"
+                    title="Drag connection"
+                  />
 
                   <!-- Node Delete Badge -->
                   <g class="node-delete-btn" transform="translate(132, 3)" (click)="deleteNode(node.id, $event)">
                     <circle r="6" fill="#ef4444" stroke="#ffffff" stroke-width="1" />
-                    <text text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="8" font-weight="900" y="-0.5">×</text>
+                    <text
+                      text-anchor="middle"
+                      dominant-baseline="middle"
+                      fill="#ffffff"
+                      font-size="8"
+                      font-weight="900"
+                      y="-0.5"
+                    >
+                      ×
+                    </text>
                   </g>
                 }
 
@@ -279,9 +361,7 @@ interface ProcessedNode extends TopologyNode {
               <button class="action-btn explain" (click)="triggerAction('explain', td.node.id)">
                 Ask Agent to Explain
               </button>
-              <button class="action-btn rerun" (click)="triggerAction('rerun', td.node.id)">
-                🔄 Rerun Agent
-              </button>
+              <button class="action-btn rerun" (click)="triggerAction('rerun', td.node.id)">🔄 Rerun Agent</button>
             </div>
           </div>
         }
@@ -338,626 +418,695 @@ interface ProcessedNode extends TopologyNode {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    .ngx-topology-wrapper {
-      width: 100%;
-      height: 100%;
-      padding: 16px 20px;
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 12px;
-      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
-      position: relative;
-    }
-    .ngx-topology-container {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-    }
-    .ngx-topology-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      overflow: visible;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .ngx-topology-wrapper {
+        width: 100%;
+        height: 100%;
+        padding: 16px 20px;
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+        position: relative;
+      }
+      .ngx-topology-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+      .ngx-topology-svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        overflow: visible;
+      }
 
-    /* Links Flow animations */
-    .topology-link-path {
-      transition: stroke 0.25s, stroke-width 0.25s;
-    }
-    .link-active-flow {
-      stroke-dasharray: 6,4;
-      animation: linkFlow 0.8s linear infinite;
-    }
-    @keyframes linkFlow {
-      from { stroke-dashoffset: 20; }
-      to { stroke-dashoffset: 0; }
-    }
+      /* Links Flow animations */
+      .topology-link-path {
+        transition:
+          stroke 0.25s,
+          stroke-width 0.25s;
+      }
+      .link-active-flow {
+        stroke-dasharray: 6, 4;
+        animation: linkFlow 0.8s linear infinite;
+      }
+      @keyframes linkFlow {
+        from {
+          stroke-dashoffset: 20;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
 
-    /* Edge labels */
-    .edge-label {
-      font-size: 9px;
-      fill: var(--text-secondary, #64748b);
-      font-family: system-ui, sans-serif;
-      pointer-events: none;
-    }
+      /* Edge labels */
+      .edge-label {
+        font-size: 9px;
+        fill: var(--text-secondary, #64748b);
+        font-family: system-ui, sans-serif;
+        pointer-events: none;
+      }
 
-    /* Link Delete circles in Edit Mode */
-    .link-delete-btn {
-      cursor: pointer;
-      opacity: 0.8;
-      transition: opacity 0.15s;
-    }
-    .link-delete-btn:hover {
-      opacity: 1;
-    }
-    .link-delete-btn circle {
-      transition: r 0.15s ease, fill 0.15s ease;
-    }
-    .link-delete-btn:hover circle {
-      r: 9;
-      fill: #dc2626;
-    }
+      /* Link Delete circles in Edit Mode */
+      .link-delete-btn {
+        cursor: pointer;
+        opacity: 0.8;
+        transition: opacity 0.15s;
+      }
+      .link-delete-btn:hover {
+        opacity: 1;
+      }
+      .link-delete-btn circle {
+        transition:
+          r 0.15s ease,
+          fill 0.15s ease;
+      }
+      .link-delete-btn:hover circle {
+        r: 9;
+        fill: #dc2626;
+      }
 
-    /* SVG temporary connecting drag link */
-    .temporary-drag-link {
-      stroke: #f97316;
-      stroke-width: 2;
-      stroke-dasharray: 4,4;
-      pointer-events: none;
-    }
+      /* SVG temporary connecting drag link */
+      .temporary-drag-link {
+        stroke: #f97316;
+        stroke-width: 2;
+        stroke-dasharray: 4, 4;
+        pointer-events: none;
+      }
 
-    /* Connection ports inside SVG node group */
-    .connection-port {
-      fill: #ffffff;
-      stroke: #4f46e5;
-      stroke-width: 1.5;
-      cursor: crosshair;
-      transition: r 0.15s, fill 0.15s;
-    }
-    .connection-port:hover {
-      r: 6.5;
-      fill: #4f46e5;
-    }
+      /* Connection ports inside SVG node group */
+      .connection-port {
+        fill: #ffffff;
+        stroke: #4f46e5;
+        stroke-width: 1.5;
+        cursor: crosshair;
+        transition:
+          r 0.15s,
+          fill 0.15s;
+      }
+      .connection-port:hover {
+        r: 6.5;
+        fill: #4f46e5;
+      }
 
-    /* Node delete badges */
-    .node-delete-btn {
-      cursor: pointer;
-      opacity: 0.8;
-      transition: opacity 0.15s;
-    }
-    .node-delete-btn:hover {
-      opacity: 1;
-    }
-    .node-delete-btn circle {
-      transition: r 0.15s ease, fill 0.15s ease;
-    }
-    .node-delete-btn:hover circle {
-      r: 8.5;
-      fill: #dc2626;
-    }
+      /* Node delete badges */
+      .node-delete-btn {
+        cursor: pointer;
+        opacity: 0.8;
+        transition: opacity 0.15s;
+      }
+      .node-delete-btn:hover {
+        opacity: 1;
+      }
+      .node-delete-btn circle {
+        transition:
+          r 0.15s ease,
+          fill 0.15s ease;
+      }
+      .node-delete-btn:hover circle {
+        r: 8.5;
+        fill: #dc2626;
+      }
 
-    /* Nodes layout inside SVG foreignObject */
-    .node-group {
-      cursor: pointer;
-      transition: transform 0.2s ease-out;
-    }
-    .node-backdrop {
-      fill: #ffffff;
-      stroke: #cbd5e1;
-      stroke-width: 1.5px;
-      transition: all 0.2s;
-    }
-    .node-group:hover .node-backdrop {
-      stroke-width: 2px;
-      filter: drop-shadow(0 8px 12px rgba(99,102,241,0.18));
-    }
-    .node-html-container {
-      overflow: hidden;
-      border-radius: 10px;
-      pointer-events: none; /* Let clicks pass to the SVG parent <g> group */
-    }
+      /* Nodes layout inside SVG foreignObject */
+      .node-group {
+        cursor: pointer;
+        transition: transform 0.2s ease-out;
+      }
+      .node-backdrop {
+        fill: #ffffff;
+        stroke: #cbd5e1;
+        stroke-width: 1.5px;
+        transition: all 0.2s;
+      }
+      .node-group:hover .node-backdrop {
+        stroke-width: 2px;
+        filter: drop-shadow(0 8px 12px rgba(99, 102, 241, 0.18));
+      }
+      .node-html-container {
+        overflow: hidden;
+        border-radius: 10px;
+        pointer-events: none; /* Let clicks pass to the SVG parent <g> group */
+      }
 
-    /* Hover preview pill */
-    .hover-preview-container {
-      overflow: visible;
-      pointer-events: none;
-    }
-    .hover-preview {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 8px;
-      background: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(6px);
-      border-radius: 10px;
-      font-family: system-ui, sans-serif;
-      pointer-events: none;
-      white-space: nowrap;
-      max-width: 100%;
-    }
-    .hover-preview-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #f8fafc;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .hover-preview-badge {
-      font-size: 8px;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 1px 5px;
-      border-radius: 6px;
-      letter-spacing: 0.04em;
-    }
-    .badge-idle {
-      background: #334155;
-      color: #94a3b8;
-    }
-    .badge-thinking {
-      background: rgba(99, 102, 241, 0.25);
-      color: #a5b4fc;
-    }
-    .badge-success {
-      background: rgba(34, 197, 94, 0.25);
-      color: #86efac;
-    }
-    .badge-error {
-      background: rgba(239, 68, 68, 0.25);
-      color: #fca5a5;
-    }
+      /* Hover preview pill */
+      .hover-preview-container {
+        overflow: visible;
+        pointer-events: none;
+      }
+      .hover-preview {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 8px;
+        background: rgba(15, 23, 42, 0.88);
+        backdrop-filter: blur(6px);
+        border-radius: 10px;
+        font-family: system-ui, sans-serif;
+        pointer-events: none;
+        white-space: nowrap;
+        max-width: 100%;
+      }
+      .hover-preview-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #f8fafc;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .hover-preview-badge {
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 1px 5px;
+        border-radius: 6px;
+        letter-spacing: 0.04em;
+      }
+      .badge-idle {
+        background: #334155;
+        color: #94a3b8;
+      }
+      .badge-thinking {
+        background: rgba(99, 102, 241, 0.25);
+        color: #a5b4fc;
+      }
+      .badge-success {
+        background: rgba(34, 197, 94, 0.25);
+        color: #86efac;
+      }
+      .badge-error {
+        background: rgba(239, 68, 68, 0.25);
+        color: #fca5a5;
+      }
 
-    /* Node card HTML states */
-    .node-card {
-      width: 100%;
-      height: 100%;
-      padding: 8px 10px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      font-family: system-ui, sans-serif;
-    }
-    .node-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .node-type {
-      font-size: 8px;
-      font-weight: 700;
-      color: #64748b;
-      letter-spacing: 0.05em;
-    }
-    .status-indicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #94a3b8;
-    }
-    .node-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #0f172a;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .node-prompt-preview {
-      font-size: 8px;
-      color: #64748b;
-      margin-top: 3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+      /* Node card HTML states */
+      .node-card {
+        width: 100%;
+        height: 100%;
+        padding: 8px 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        font-family: system-ui, sans-serif;
+      }
+      .node-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+      .node-type {
+        font-size: 8px;
+        font-weight: 700;
+        color: #64748b;
+        letter-spacing: 0.05em;
+      }
+      .status-indicator {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #94a3b8;
+      }
+      .node-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #0f172a;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .node-prompt-preview {
+        font-size: 8px;
+        color: #64748b;
+        margin-top: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-    /* Color variations based on Status */
-    .node-card.thinking .status-indicator {
-      background: #6366f1;
-      box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
-      animation: statusIndicatorPulse 1.2s infinite;
-    }
-    @keyframes statusIndicatorPulse {
-      0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.5); }
-      70% { box-shadow: 0 0 0 4px rgba(99, 102, 241, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
-    }
-    .node-group.node-thinking .node-backdrop {
-      stroke-width: 2px;
-      filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.15));
-    }
+      /* Color variations based on Status */
+      .node-card.thinking .status-indicator {
+        background: #6366f1;
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+        animation: statusIndicatorPulse 1.2s infinite;
+      }
+      @keyframes statusIndicatorPulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.5);
+        }
+        70% {
+          box-shadow: 0 0 0 4px rgba(99, 102, 241, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+        }
+      }
+      .node-group.node-thinking .node-backdrop {
+        stroke-width: 2px;
+        filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.15));
+      }
 
-    .node-card.success .status-indicator {
-      background: #22c55e;
-    }
+      .node-card.success .status-indicator {
+        background: #22c55e;
+      }
 
-    .node-card.error .status-indicator {
-      background: #ef4444;
-    }
+      .node-card.error .status-indicator {
+        background: #ef4444;
+      }
 
-    /* Node status transition animations */
-    .node-status-thinking {
-      animation: thinkingPulse 2s ease-in-out infinite;
-    }
-    @keyframes thinkingPulse {
-      0%   { transform: var(--node-translate) scale(1); filter: drop-shadow(0 0 0 rgba(99,102,241,0)); }
-      50%  { transform: var(--node-translate) scale(1.03); filter: drop-shadow(0 0 8px rgba(99,102,241,0.35)); }
-      100% { transform: var(--node-translate) scale(1); filter: drop-shadow(0 0 0 rgba(99,102,241,0)); }
-    }
-    .node-status-success {
-      animation: successFlash 0.6s ease-out 1;
-    }
-    @keyframes successFlash {
-      0%   { filter: drop-shadow(0 0 0 rgba(34,197,94,0)); }
-      30%  { filter: drop-shadow(0 0 10px rgba(34,197,94,0.5)); }
-      100% { filter: drop-shadow(0 0 0 rgba(34,197,94,0)); }
-    }
-    .node-status-error {
-      animation: errorShake 0.4s ease-in-out 1;
-    }
-    @keyframes errorShake {
-      0%   { transform: var(--node-translate) translateX(0); }
-      20%  { transform: var(--node-translate) translateX(-3px); }
-      40%  { transform: var(--node-translate) translateX(3px); }
-      60%  { transform: var(--node-translate) translateX(-2px); }
-      80%  { transform: var(--node-translate) translateX(2px); }
-      100% { transform: var(--node-translate) translateX(0); }
-    }
+      /* Node status transition animations */
+      .node-status-thinking {
+        animation: thinkingPulse 2s ease-in-out infinite;
+      }
+      @keyframes thinkingPulse {
+        0% {
+          transform: var(--node-translate) scale(1);
+          filter: drop-shadow(0 0 0 rgba(99, 102, 241, 0));
+        }
+        50% {
+          transform: var(--node-translate) scale(1.03);
+          filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.35));
+        }
+        100% {
+          transform: var(--node-translate) scale(1);
+          filter: drop-shadow(0 0 0 rgba(99, 102, 241, 0));
+        }
+      }
+      .node-status-success {
+        animation: successFlash 0.6s ease-out 1;
+      }
+      @keyframes successFlash {
+        0% {
+          filter: drop-shadow(0 0 0 rgba(34, 197, 94, 0));
+        }
+        30% {
+          filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.5));
+        }
+        100% {
+          filter: drop-shadow(0 0 0 rgba(34, 197, 94, 0));
+        }
+      }
+      .node-status-error {
+        animation: errorShake 0.4s ease-in-out 1;
+      }
+      @keyframes errorShake {
+        0% {
+          transform: var(--node-translate) translateX(0);
+        }
+        20% {
+          transform: var(--node-translate) translateX(-3px);
+        }
+        40% {
+          transform: var(--node-translate) translateX(3px);
+        }
+        60% {
+          transform: var(--node-translate) translateX(-2px);
+        }
+        80% {
+          transform: var(--node-translate) translateX(2px);
+        }
+        100% {
+          transform: var(--node-translate) translateX(0);
+        }
+      }
 
-    /* Header & Titles */
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .topology-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-primary, #1e293b);
-    }
-    .topology-subtitle {
-      font-size: 11px;
-      color: var(--text-secondary, #64748b);
-      margin-top: 2px;
-    }
-    .highlight-val {
-      font-weight: 700;
-      color: #6366f1;
-      font-family: monospace;
-    }
+      /* Header & Titles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .topology-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-primary, #1e293b);
+      }
+      .topology-subtitle {
+        font-size: 11px;
+        color: var(--text-secondary, #64748b);
+        margin-top: 2px;
+      }
+      .highlight-val {
+        font-weight: 700;
+        color: #6366f1;
+        font-family: monospace;
+      }
 
-    /* Interactive editor toolbar styles */
-    .editor-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(241, 245, 249, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 10px;
-      padding: 8px 14px;
-      margin-bottom: 14px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .toolbar-section {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .tb-btn {
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      color: #334155;
-      cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .tb-btn:hover:not(:disabled) {
-      background: #f8fafc;
-      border-color: #94a3b8;
-    }
-    .tb-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .tb-btn.primary {
-      background: #4f46e5;
-      color: #ffffff;
-      border-color: #4f46e5;
-    }
-    .tb-btn.primary:hover:not(:disabled) {
-      background: #4338ca;
-    }
-    .tb-btn.active {
-      background: #e0e7ff;
-      border-color: #6366f1;
-      color: #4f46e5;
-    }
-    .tb-divider {
-      height: 16px;
-      width: 1px;
-      background: #cbd5e1;
-    }
-    .validation-badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: #fee2e2;
-      color: #ef4444;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .validation-badge.valid {
-      background: #dcfce7;
-      color: #15803d;
-    }
+      /* Interactive editor toolbar styles */
+      .editor-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(241, 245, 249, 0.7);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 10px;
+        padding: 8px 14px;
+        margin-bottom: 14px;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .toolbar-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tb-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        font-weight: 600;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        color: #334155;
+        cursor: pointer;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .tb-btn:hover:not(:disabled) {
+        background: #f8fafc;
+        border-color: #94a3b8;
+      }
+      .tb-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .tb-btn.primary {
+        background: #4f46e5;
+        color: #ffffff;
+        border-color: #4f46e5;
+      }
+      .tb-btn.primary:hover:not(:disabled) {
+        background: #4338ca;
+      }
+      .tb-btn.active {
+        background: #e0e7ff;
+        border-color: #6366f1;
+        color: #4f46e5;
+      }
+      .tb-divider {
+        height: 16px;
+        width: 1px;
+        background: #cbd5e1;
+      }
+      .validation-badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 6px;
+        background: #fee2e2;
+        color: #ef4444;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .validation-badge.valid {
+        background: #dcfce7;
+        color: #15803d;
+      }
 
-    /* Actionable Tooltip Action Menu */
-    .topology-tooltip {
-      position: absolute;
-      z-index: 100;
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.94));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-size: 11px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transform: translate(-50%, -105%);
-      width: 210px;
-      pointer-events: auto;
-      font-family: system-ui, sans-serif;
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12px;
-      color: #38bdf8;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-    }
-    .tt-section {
-      margin-top: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .section-title {
-      font-weight: 700;
-      color: #38bdf8;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .section-content {
-      margin: 0;
-      color: rgba(248, 250, 252, 0.85);
-      font-style: italic;
-      font-family: monospace;
-      font-size: 10px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .action-buttons-row {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      padding-top: 8px;
-    }
-    .action-btn {
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 8px;
-      font-size: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.12s;
-      width: 100%;
-      text-align: left;
-    }
-    .action-btn.explain {
-      background: #4f46e5;
-    }
-    .action-btn.explain:hover {
-      background: #6366f1;
-    }
-    .action-btn.rerun {
-      background: #334155;
-    }
-    .action-btn.rerun:hover {
-      background: #475569;
-    }
+      /* Actionable Tooltip Action Menu */
+      .topology-tooltip {
+        position: absolute;
+        z-index: 100;
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.94));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-size: 11px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translate(-50%, -105%);
+        width: 210px;
+        pointer-events: auto;
+        font-family: system-ui, sans-serif;
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12px;
+        color: #38bdf8;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+      }
+      .tt-section {
+        margin-top: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .section-title {
+        font-weight: 700;
+        color: #38bdf8;
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .section-content {
+        margin: 0;
+        color: rgba(248, 250, 252, 0.85);
+        font-style: italic;
+        font-family: monospace;
+        font-size: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .action-buttons-row {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding-top: 8px;
+      }
+      .action-btn {
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 8px;
+        font-size: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.12s;
+        width: 100%;
+        text-align: left;
+      }
+      .action-btn.explain {
+        background: #4f46e5;
+      }
+      .action-btn.explain:hover {
+        background: #6366f1;
+      }
+      .action-btn.rerun {
+        background: #334155;
+      }
+      .action-btn.rerun:hover {
+        background: #475569;
+      }
 
-    /* Frosted glass Modal editor styling */
-    .modal-backdrop {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(15, 23, 42, 0.45);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-card {
-      background: var(--ngx-chart-bg, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 16px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      width: 90%;
-      max-width: 440px;
-      padding: 24px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      animation: modalAppear 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes modalAppear {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 12px;
-    }
-    .modal-header h3 {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 22px;
-      color: #64748b;
-      cursor: pointer;
-    }
-    .modal-body {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .form-group label {
-      font-size: 10px;
-      font-weight: 700;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .form-group input, .form-group select, .form-group textarea {
-      padding: 8px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 12px;
-      font-family: inherit;
-      color: #0f172a;
-      outline: none;
-      background: #ffffff;
-      transition: border-color 0.15s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: #6366f1;
-    }
-    .form-row {
-      display: flex;
-      gap: 12px;
-    }
-    .form-group.half {
-      flex: 1;
-    }
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 14px;
-    }
-    .btn {
-      padding: 8px 16px;
-      font-size: 11px;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: all 0.15s;
-    }
-    .btn-secondary {
-      background: #ffffff;
-      border-color: #cbd5e1;
-      color: #334155;
-    }
-    .btn-secondary:hover {
-      background: #f1f5f9;
-    }
-    .btn-primary {
-      background: #4f46e5;
-      color: #ffffff;
-    }
-    .btn-primary:hover {
-      background: #4338ca;
-    }
-    
-    /* Zoom controls floating style */
-    .zoom-controls {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 4px 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      z-index: 10;
-    }
-    .zoom-controls button {
-      background: rgba(255, 255, 255, 0.15);
-      border: none;
-      color: #ffffff;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      transition: background 0.15s;
-    }
-    .zoom-controls button:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-    .zoom-level {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 10px;
-      font-weight: 600;
-      font-family: monospace;
-      padding-left: 4px;
-      min-width: 32px;
-      text-align: right;
-    }
-  `]
+      /* Frosted glass Modal editor styling */
+      .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-card {
+        background: var(--ngx-chart-bg, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 16px;
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        width: 90%;
+        max-width: 440px;
+        padding: 24px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        animation: modalAppear 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes modalAppear {
+        from {
+          transform: scale(0.95);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 12px;
+      }
+      .modal-header h3 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 22px;
+        color: #64748b;
+        cursor: pointer;
+      }
+      .node-group:focus-visible {
+        outline: none;
+        filter: drop-shadow(0 0 5px var(--primary-color, #4f46e5));
+      }
+      .modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .form-group label {
+        font-size: 10px;
+        font-weight: 700;
+        color: #475569;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 8px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-size: 12px;
+        font-family: inherit;
+        color: #0f172a;
+        outline: none;
+        background: #ffffff;
+        transition: border-color 0.15s;
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: #6366f1;
+      }
+      .form-row {
+        display: flex;
+        gap: 12px;
+      }
+      .form-group.half {
+        flex: 1;
+      }
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 14px;
+      }
+      .btn {
+        padding: 8px 16px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.15s;
+      }
+      .btn-secondary {
+        background: #ffffff;
+        border-color: #cbd5e1;
+        color: #334155;
+      }
+      .btn-secondary:hover {
+        background: #f1f5f9;
+      }
+      .btn-primary {
+        background: #4f46e5;
+        color: #ffffff;
+      }
+      .btn-primary:hover {
+        background: #4338ca;
+      }
+
+      /* Zoom controls floating style */
+      .zoom-controls {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 4px 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+      .zoom-controls button {
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #ffffff;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        transition: background 0.15s;
+      }
+      .zoom-controls button:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      .zoom-level {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 10px;
+        font-weight: 600;
+        font-family: monospace;
+        padding-left: 4px;
+        min-width: 32px;
+        text-align: right;
+      }
+    `,
+  ],
 })
 export class AgenticCognitiveTopologyComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   nodes = input.required<TopologyNode[]>();
   links = input.required<TopologyLink[]>();
   width = input<number>(650);
@@ -971,7 +1120,7 @@ export class AgenticCognitiveTopologyComponent {
 
   nodeActionClick = output<{ nodeId: string; action: string }>();
   nodePositionChange = output<{ nodeId: string; x: number; y: number }>();
-  
+
   // Interactive Editor Outputs
   nodesChange = output<TopologyNode[]>();
   linksChange = output<TopologyLink[]>();
@@ -995,7 +1144,7 @@ export class AgenticCognitiveTopologyComponent {
   translateX = signal<number>(0);
   translateY = signal<number>(0);
   isPanning = signal<boolean>(false);
-  
+
   zoomPercent = computed(() => Math.round(this.scale() * 100));
   transformString = computed(() => `translate(${this.translateX()}, ${this.translateY()}) scale(${this.scale()})`);
 
@@ -1013,23 +1162,27 @@ export class AgenticCognitiveTopologyComponent {
   activePortDrag = signal<{ nodeId: string; portX: number; portY: number; dir: [number, number] } | null>(null);
   portDragCurrentMouse = signal<{ x: number; y: number } | null>(null);
   snapToGridActive = signal<boolean>(true);
-  
-  undoStack = signal<{
-    addedNodes: TopologyNode[];
-    deletedNodeIds: Set<string>;
-    editedNodesMap: Map<string, TopologyNode>;
-    addedLinks: TopologyLink[];
-    deletedLinks: Set<string>;
-    nodePositionOverrides: Map<string, { x: number; y: number }>;
-  }[]>([]);
-  redoStack = signal<{
-    addedNodes: TopologyNode[];
-    deletedNodeIds: Set<string>;
-    editedNodesMap: Map<string, TopologyNode>;
-    addedLinks: TopologyLink[];
-    deletedLinks: Set<string>;
-    nodePositionOverrides: Map<string, { x: number; y: number }>;
-  }[]>([]);
+
+  undoStack = signal<
+    {
+      addedNodes: TopologyNode[];
+      deletedNodeIds: Set<string>;
+      editedNodesMap: Map<string, TopologyNode>;
+      addedLinks: TopologyLink[];
+      deletedLinks: Set<string>;
+      nodePositionOverrides: Map<string, { x: number; y: number }>;
+    }[]
+  >([]);
+  redoStack = signal<
+    {
+      addedNodes: TopologyNode[];
+      deletedNodeIds: Set<string>;
+      editedNodesMap: Map<string, TopologyNode>;
+      addedLinks: TopologyLink[];
+      deletedLinks: Set<string>;
+      nodePositionOverrides: Map<string, { x: number; y: number }>;
+    }[]
+  >([]);
 
   // Functional Overrides to avoid syncing state anomalies
   addedNodes = signal<TopologyNode[]>([]);
@@ -1047,7 +1200,7 @@ export class AgenticCognitiveTopologyComponent {
 
     let combined = [...base, ...added];
     combined = combined.filter(n => !deleted.has(n.id));
-    combined = combined.map(n => edited.has(n.id) ? edited.get(n.id)! : n);
+    combined = combined.map(n => (edited.has(n.id) ? edited.get(n.id)! : n));
     return combined;
   });
 
@@ -1083,7 +1236,7 @@ export class AgenticCognitiveTopologyComponent {
   private statusColorMap: Record<string, string> = {
     thinking: '#6366f1',
     success: '#22c55e',
-    error: '#ef4444'
+    error: '#ef4444',
   };
 
   viewBoxString = computed(() => `0 0 ${this.width()} ${this.height()}`);
@@ -1121,7 +1274,7 @@ export class AgenticCognitiveTopologyComponent {
     // Find links map
     const incomingCount: Record<string, number> = {};
     const outgoingMap: Record<string, string[]> = {};
-    
+
     rawNodes.forEach(n => {
       incomingCount[n.id] = 0;
       outgoingMap[n.id] = [];
@@ -1161,14 +1314,16 @@ export class AgenticCognitiveTopologyComponent {
         continue;
       }
       visited.add(current);
-      
+
       const outgoing = outgoingMap[current] || [];
       outgoing.forEach(target => {
         const nextDepth = curDepth + 1;
         if (depthMap[target] === undefined || nextDepth > depthMap[target]) {
           // Check for back-edge cycle: target already visited at a shallower depth
           if (visited.has(target)) {
-            console.warn(`[ngx-agentic-cognitive-topology] Cycle detected: ${current} → ${target}. Skipping re-traversal.`);
+            console.warn(
+              `[ngx-agentic-cognitive-topology] Cycle detected: ${current} → ${target}. Skipping re-traversal.`
+            );
             return;
           }
           depthMap[target] = nextDepth;
@@ -1211,7 +1366,7 @@ export class AgenticCognitiveTopologyComponent {
           ...n,
           x: override.x,
           y: override.y,
-          depth: depthMap[n.id] ?? 0
+          depth: depthMap[n.id] ?? 0,
         });
         return;
       }
@@ -1222,7 +1377,7 @@ export class AgenticCognitiveTopologyComponent {
           ...n,
           x: n.x,
           y: n.y,
-          depth: depthMap[n.id] ?? 0
+          depth: depthMap[n.id] ?? 0,
         });
         return;
       }
@@ -1238,15 +1393,13 @@ export class AgenticCognitiveTopologyComponent {
       // Horizontal layout X
       const availableW = w - 80;
       const xSpacing = totalInGroup > 1 ? availableW / (totalInGroup - 1) : availableW;
-      const x = totalInGroup > 1 
-        ? 40 + indexInGroup * xSpacing 
-        : w / 2;
+      const x = totalInGroup > 1 ? 40 + indexInGroup * xSpacing : w / 2;
 
       computedNodesList.push({
         ...n,
         x,
         y,
-        depth: d
+        depth: d,
       });
     });
 
@@ -1262,7 +1415,7 @@ export class AgenticCognitiveTopologyComponent {
     return rawLinks.map(link => {
       const src = nodeMap.get(link.source);
       const dest = nodeMap.get(link.target);
-      
+
       if (!src || !dest) {
         return {
           source: link.source,
@@ -1277,7 +1430,7 @@ export class AgenticCognitiveTopologyComponent {
           cp1X: 0,
           cp1Y: 0,
           cp2X: 0,
-          cp2Y: 0
+          cp2Y: 0,
         };
       }
 
@@ -1287,20 +1440,20 @@ export class AgenticCognitiveTopologyComponent {
 
       const srcPorts = [
         { x: src.x, y: src.y - h / 2, dir: [0, -1] }, // Top
-        { x: src.x, y: src.y + h / 2, dir: [0, 1] },  // Bottom
+        { x: src.x, y: src.y + h / 2, dir: [0, 1] }, // Bottom
         { x: src.x - w / 2, y: src.y, dir: [-1, 0] }, // Left
-        { x: src.x + w / 2, y: src.y, dir: [1, 0] }   // Right
+        { x: src.x + w / 2, y: src.y, dir: [1, 0] }, // Right
       ];
 
       const destPorts = [
         { x: dest.x, y: dest.y - h / 2, dir: [0, -1] }, // Top
-        { x: dest.x, y: dest.y + h / 2, dir: [0, 1] },  // Bottom
+        { x: dest.x, y: dest.y + h / 2, dir: [0, 1] }, // Bottom
         { x: dest.x - w / 2, y: dest.y, dir: [-1, 0] }, // Left
-        { x: dest.x + w / 2, y: dest.y, dir: [1, 0] }   // Right
+        { x: dest.x + w / 2, y: dest.y, dir: [1, 0] }, // Right
       ];
 
       let minDistance = Infinity;
-      let bestSrc = srcPorts[1];  // Default bottom
+      let bestSrc = srcPorts[1]; // Default bottom
       let bestDest = destPorts[0]; // Default top
 
       srcPorts.forEach(sp => {
@@ -1348,7 +1501,7 @@ export class AgenticCognitiveTopologyComponent {
         cp1X: cp1x,
         cp1Y: cp1y,
         cp2X: cp2x,
-        cp2Y: cp2y
+        cp2Y: cp2y,
       };
     });
   });
@@ -1371,14 +1524,14 @@ export class AgenticCognitiveTopologyComponent {
   validationReport = computed(() => {
     const nodes = this.effectiveNodes();
     const links = this.effectiveLinks();
-    
+
     const incoming: Record<string, number> = {};
     const outgoing: Record<string, number> = {};
     nodes.forEach(n => {
       incoming[n.id] = 0;
       outgoing[n.id] = 0;
     });
-    
+
     links.forEach(l => {
       if (incoming[l.target] !== undefined) incoming[l.target]++;
       if (outgoing[l.source] !== undefined) outgoing[l.source]++;
@@ -1390,14 +1543,42 @@ export class AgenticCognitiveTopologyComponent {
     return {
       orphans,
       hasCycles,
-      isValid: orphans.length === 0 && !hasCycles
+      isValid: orphans.length === 0 && !hasCycles,
     };
   });
+
+  accessibleNodeLabel(node: TopologyNode): string {
+    const type = node.type || 'Agent';
+    return (
+      this.i18n.chart.topologyNodeDescription?.(node.label, type, node.status) ??
+      `${node.label}; ${type}; ${node.status}`
+    );
+  }
+
+  accessibleLinkLabel(link: TopologyLink): string {
+    const source = this.nodes().find(node => node.id === link.source)?.label ?? link.source;
+    const target = this.nodes().find(node => node.id === link.target)?.label ?? link.target;
+    return (
+      this.i18n.chart.topologyLinkDescription?.(source, target, link.active === true, link.label ?? '') ??
+      `${source} to ${target}${link.label ? `; ${link.label}` : ''}; ${link.active ? 'active' : 'inactive'}`
+    );
+  }
+
+  activateNode(node: TopologyNode): void {
+    if (this.editable()) {
+      this.activeEditingNode.set({ ...node });
+      return;
+    }
+    this.showNodeTooltip(node);
+  }
 
   onNodeClick(node: TopologyNode, event: MouseEvent): void {
     if (this.editable()) return; // Don't trigger action tooltip menu in edit mode
     event.stopPropagation();
-    
+    this.showNodeTooltip(node);
+  }
+
+  private showNodeTooltip(node: TopologyNode): void {
     const svg = this.svgEl()?.nativeElement;
     if (!svg) return;
     const currentScale = this.scale();
@@ -1407,7 +1588,7 @@ export class AgenticCognitiveTopologyComponent {
     this.tooltipData.set({
       node,
       screenX,
-      screenY
+      screenY,
     });
   }
 
@@ -1473,7 +1654,12 @@ export class AgenticCognitiveTopologyComponent {
     const x1 = link.cp1X;
     const x2 = link.cp2X;
     const x3 = link.destX;
-    return Math.pow(1-t,3)*x0 + 3*Math.pow(1-t,2)*t*x1 + 3*(1-t)*Math.pow(t,2)*x2 + Math.pow(t,3)*x3;
+    return (
+      Math.pow(1 - t, 3) * x0 +
+      3 * Math.pow(1 - t, 2) * t * x1 +
+      3 * (1 - t) * Math.pow(t, 2) * x2 +
+      Math.pow(t, 3) * x3
+    );
   }
 
   getMidpointY(link: { srcY: number; destY: number; cp1Y: number; cp2Y: number }): number {
@@ -1482,7 +1668,12 @@ export class AgenticCognitiveTopologyComponent {
     const y1 = link.cp1Y;
     const y2 = link.cp2Y;
     const y3 = link.destY;
-    return Math.pow(1-t,3)*y0 + 3*Math.pow(1-t,2)*t*y1 + 3*(1-t)*Math.pow(t,2)*y2 + Math.pow(t,3)*y3;
+    return (
+      Math.pow(1 - t, 3) * y0 +
+      3 * Math.pow(1 - t, 2) * t * y1 +
+      3 * (1 - t) * Math.pow(t, 2) * y2 +
+      Math.pow(t, 3) * y3
+    );
   }
 
   // ── Undo/Redo & State History Snapshots ──
@@ -1494,7 +1685,7 @@ export class AgenticCognitiveTopologyComponent {
       editedNodesMap: new Map(this.editedNodesMap()),
       addedLinks: [...this.addedLinks()],
       deletedLinks: new Set(this.deletedLinks()),
-      nodePositionOverrides: new Map(this.nodePositionOverrides())
+      nodePositionOverrides: new Map(this.nodePositionOverrides()),
     };
     this.undoStack.update(stack => [...stack, snapshot]);
     this.redoStack.set([]); // Clear redo stack on new action
@@ -1516,7 +1707,7 @@ export class AgenticCognitiveTopologyComponent {
   undo(): void {
     const stack = this.undoStack();
     if (stack.length === 0) return;
-    
+
     // Save current state to redo stack
     const current = {
       addedNodes: [...this.addedNodes()],
@@ -1524,7 +1715,7 @@ export class AgenticCognitiveTopologyComponent {
       editedNodesMap: new Map(this.editedNodesMap()),
       addedLinks: [...this.addedLinks()],
       deletedLinks: new Set(this.deletedLinks()),
-      nodePositionOverrides: new Map(this.nodePositionOverrides())
+      nodePositionOverrides: new Map(this.nodePositionOverrides()),
     };
     this.redoStack.update(rStack => [...rStack, current]);
 
@@ -1544,7 +1735,7 @@ export class AgenticCognitiveTopologyComponent {
       editedNodesMap: new Map(this.editedNodesMap()),
       addedLinks: [...this.addedLinks()],
       deletedLinks: new Set(this.deletedLinks()),
-      nodePositionOverrides: new Map(this.nodePositionOverrides())
+      nodePositionOverrides: new Map(this.nodePositionOverrides()),
     };
     this.undoStack.update(stack => [...stack, current]);
 
@@ -1557,7 +1748,7 @@ export class AgenticCognitiveTopologyComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent): void {
     if (!this.editable()) return;
-    
+
     const target = event.target as HTMLElement;
     if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
       return;
@@ -1577,12 +1768,14 @@ export class AgenticCognitiveTopologyComponent {
   autoLayout(): void {
     this.saveHistory();
     this.nodePositionOverrides.set(new Map());
-    
+
     // Clear manual x,y on any added nodes so they layout topological
-    this.addedNodes.update(nodes => nodes.map(n => {
-      const { x, y, ...rest } = n;
-      return rest;
-    }));
+    this.addedNodes.update(nodes =>
+      nodes.map(n => {
+        const { x, y, ...rest } = n;
+        return rest;
+      })
+    );
 
     this.nodesChange.emit(this.effectiveNodes());
   }
@@ -1598,9 +1791,9 @@ export class AgenticCognitiveTopologyComponent {
       prompt: '',
       response: '',
       x: this.width() / 2 - this.translateX(),
-      y: this.height() / 2 - this.translateY()
+      y: this.height() / 2 - this.translateY(),
     };
-    
+
     // Snapped default positioning
     const overrides = new Map(this.nodePositionOverrides());
     let x = newNode.x!;
@@ -1620,7 +1813,7 @@ export class AgenticCognitiveTopologyComponent {
   deleteNode(nodeId: string, event: MouseEvent): void {
     event.stopPropagation();
     this.saveHistory();
-    
+
     const overrides = new Map(this.nodePositionOverrides());
     overrides.delete(nodeId);
     this.nodePositionOverrides.set(overrides);
@@ -1679,21 +1872,26 @@ export class AgenticCognitiveTopologyComponent {
     if (!this.editable()) return;
     event.stopPropagation();
     event.preventDefault();
-    
+
     const w = this.nodeWidth;
     const h = this.nodeHeight;
     let portX = node.x;
     let portY = node.y;
-    if (dir[0] === 0 && dir[1] === -1) { portY -= h/2; }
-    else if (dir[0] === 0 && dir[1] === 1) { portY += h/2; }
-    else if (dir[0] === -1 && dir[1] === 0) { portX -= w/2; }
-    else if (dir[0] === 1 && dir[1] === 0) { portX += w/2; }
+    if (dir[0] === 0 && dir[1] === -1) {
+      portY -= h / 2;
+    } else if (dir[0] === 0 && dir[1] === 1) {
+      portY += h / 2;
+    } else if (dir[0] === -1 && dir[1] === 0) {
+      portX -= w / 2;
+    } else if (dir[0] === 1 && dir[1] === 0) {
+      portX += w / 2;
+    }
 
     this.activePortDrag.set({
       nodeId: node.id,
       portX,
       portY,
-      dir
+      dir,
     });
     this.portDragCurrentMouse.set({ x: portX, y: portY });
   }
@@ -1709,14 +1907,14 @@ export class AgenticCognitiveTopologyComponent {
     if (!svg) return;
     const rect = svg.getBoundingClientRect();
     const currentScale = this.scale();
-    
+
     const svgX = (event.clientX - rect.left - this.translateX()) / currentScale;
     const svgY = (event.clientY - rect.top - this.translateY()) / currentScale;
 
     this.dragOffsetX = svgX - node.x;
     this.dragOffsetY = svgY - node.y;
     this.draggingNodeId.set(node.id);
-    
+
     // Save history point before dragging start
     if (this.editable()) {
       this.saveHistory();
@@ -1727,9 +1925,16 @@ export class AgenticCognitiveTopologyComponent {
   onMouseDown(event: MouseEvent): void {
     if (event.button !== 0) return;
     if (this.draggingNodeId() || this.activePortDrag()) return;
-    
+
     const target = event.target as HTMLElement;
-    if (target.closest('.node-group') || target.closest('.topology-tooltip') || target.closest('.zoom-controls') || target.closest('.chart-export-menu') || target.closest('.editor-toolbar') || target.closest('.modal-card')) {
+    if (
+      target.closest('.node-group') ||
+      target.closest('.topology-tooltip') ||
+      target.closest('.zoom-controls') ||
+      target.closest('.chart-export-menu') ||
+      target.closest('.editor-toolbar') ||
+      target.closest('.modal-card')
+    ) {
       return;
     }
 
@@ -1801,7 +2006,7 @@ export class AgenticCognitiveTopologyComponent {
     if (portDrag) {
       const targetId = this.hoveredNodeId();
       const sourceId = portDrag.nodeId;
-      
+
       if (targetId && targetId !== sourceId) {
         const introducesCycle = this.checkCycle(targetId, sourceId); // Cycles check
         const alreadyConnected = this.effectiveLinks().some(l => l.source === sourceId && l.target === targetId);
@@ -1815,7 +2020,7 @@ export class AgenticCognitiveTopologyComponent {
           const newLink: TopologyLink = {
             source: sourceId,
             target: targetId,
-            active: false
+            active: false,
           };
           this.addedLinks.update(links => [...links, newLink]);
           this.linksChange.emit(this.effectiveLinks());
@@ -1853,20 +2058,20 @@ export class AgenticCognitiveTopologyComponent {
     } else {
       newScale /= zoomFactor;
     }
-    
+
     // Boundary constraints: min 0.3x, max 3.0x zoom
     newScale = Math.max(0.3, Math.min(3, newScale));
-    
+
     const svg = this.svgEl()?.nativeElement;
     if (svg) {
       const rect = svg.getBoundingClientRect();
       const mouseX = event.clientX - rect.left;
       const mouseY = event.clientY - rect.top;
-      
+
       const currentScale = this.scale();
       const svgX = (mouseX - this.translateX()) / currentScale;
       const svgY = (mouseY - this.translateY()) / currentScale;
-      
+
       this.scale.set(newScale);
       this.translateX.set(mouseX - svgX * newScale);
       this.translateY.set(mouseY - svgY * newScale);
@@ -1896,11 +2101,11 @@ export class AgenticCognitiveTopologyComponent {
   checkCycle(start: string, target: string): boolean {
     const links = this.effectiveLinks();
     const adj: Record<string, string[]> = {};
-    this.effectiveNodes().forEach(n => adj[n.id] = []);
+    this.effectiveNodes().forEach(n => (adj[n.id] = []));
     links.forEach(l => {
       if (adj[l.source]) adj[l.source].push(l.target);
     });
-    
+
     const queue = [start];
     const visited = new Set<string>();
     while (queue.length > 0) {
@@ -1922,7 +2127,7 @@ export class AgenticCognitiveTopologyComponent {
     const nodes = this.effectiveNodes();
     const links = this.effectiveLinks();
     const adj: Record<string, string[]> = {};
-    nodes.forEach(n => adj[n.id] = []);
+    nodes.forEach(n => (adj[n.id] = []));
     links.forEach(l => {
       if (adj[l.source]) adj[l.source].push(l.target);
     });
@@ -1956,8 +2161,8 @@ export class AgenticCognitiveTopologyComponent {
 
   exportWorkflowSchema(): void {
     const payload = {
-      schemaVersion: "1.0.0",
-      description: "Cognitive workflow schema exported from ngx-agentic-cognitive-topology",
+      schemaVersion: '1.0.0',
+      description: 'Cognitive workflow schema exported from ngx-agentic-cognitive-topology',
       graph: {
         nodes: this.effectiveNodes().map(n => ({
           id: n.id,
@@ -1965,21 +2170,22 @@ export class AgenticCognitiveTopologyComponent {
           type: n.type || 'agent',
           metadata: {
             prompt: n.prompt || '',
-            response: n.response || ''
-          }
+            response: n.response || '',
+          },
         })),
         edges: this.effectiveLinks().map(l => ({
           source: l.source,
           target: l.target,
-          label: l.label || ''
-        }))
-      }
+          label: l.label || '',
+        })),
+      },
     };
 
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(JSON.stringify(payload, null, 2))
-        .then(() => this.validationError.emit("Workflow schema copied to clipboard!"))
-        .catch(() => console.error("Clipboard copy failed"));
+      navigator.clipboard
+        .writeText(JSON.stringify(payload, null, 2))
+        .then(() => this.validationError.emit('Workflow schema copied to clipboard!'))
+        .catch(() => console.error('Clipboard copy failed'));
     }
   }
 }

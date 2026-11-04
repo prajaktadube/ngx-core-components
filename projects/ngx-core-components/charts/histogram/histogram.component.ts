@@ -1,12 +1,22 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, TemplateRef, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  TemplateRef,
+  viewChild,
 } from '@angular/core';
 import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
 import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface HistogramBin {
   index: number;
@@ -23,7 +33,7 @@ export interface HistogramBin {
 @Component({
   selector: 'ngx-histogram',
   standalone: true,
-  imports: [ChartExportMenuComponent, DecimalPipe, NgTemplateOutlet],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective, DecimalPipe, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-histogram" (mouseleave)="onMouseLeave()">
@@ -32,20 +42,14 @@ export interface HistogramBin {
           <span class="header-title">Histogram Distribution</span>
           <span class="header-subtitle">Bins: {{ binsCount() }}</span>
         </div>
-        
+
         @if (showExport()) {
           <ngx-chart-export-menu (exportClicked)="onExport($event)" />
         }
       </div>
 
-      <svg
-        #svgEl
-        class="histogram-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="histogram-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- Grid Lines -->
           @if (showGrid()) {
             @for (tick of yTicks(); track tick) {
@@ -72,20 +76,18 @@ export interface HistogramBin {
               [class.highlighted]="hoveredIndex() === i"
               (mouseenter)="onBarHover(i)"
               (mousemove)="onMouseMove($event)"
+              (focus)="onBarFocus($event, i)"
+              (blur)="onMouseLeave()"
+              [ngxChartAccessibleMark]="accessibleBinLabel(bin)"
               stroke="#ffffff"
               stroke-width="1"
               rx="4"
               ry="4"
-              [style.animation-delay]="(i * 0.03) + 's'"
+              [style.animation-delay]="i * 0.03 + 's'"
             />
-            
+
             @if (showLabels() && bin.count > 0) {
-              <text
-                [attr.x]="bin.x + bin.w / 2"
-                [attr.y]="bin.y - 6"
-                text-anchor="middle"
-                class="bar-label"
-              >
+              <text [attr.x]="bin.x + bin.w / 2" [attr.y]="bin.y - 6" text-anchor="middle" class="bar-label">
                 {{ bin.count }}
               </text>
             }
@@ -97,12 +99,7 @@ export interface HistogramBin {
             @for (tick of yTicks(); track tick) {
               <g [attr.transform]="'translate(0,' + yPos(tick) + ')'">
                 <line [attr.x1]="-4" [attr.x2]="0" [attr.y1]="0" [attr.y2]="0" class="tick-line" />
-                <text
-                  [attr.x]="-8"
-                  text-anchor="end"
-                  dominant-baseline="middle"
-                  class="tick-label"
-                >
+                <text [attr.x]="-8" text-anchor="end" dominant-baseline="middle" class="tick-label">
                   {{ labelFormatter() ? labelFormatter()!(tick) : formatNumber(tick) }}
                 </text>
               </g>
@@ -115,12 +112,8 @@ export interface HistogramBin {
             @for (bin of computedBins(); track bin.index) {
               <g [attr.transform]="'translate(' + (bin.x + bin.w / 2) + ',0)'">
                 <line [attr.y1]="0" [attr.y2]="4" class="tick-line" />
-                <text
-                  [attr.y]="16"
-                  text-anchor="middle"
-                  class="tick-label x-tick-label"
-                >
-                  {{ bin.min | number:'1.0-1' }}
+                <text [attr.y]="16" text-anchor="middle" class="tick-label x-tick-label">
+                  {{ bin.min | number: '1.0-1' }}
                 </text>
               </g>
             }
@@ -129,12 +122,8 @@ export interface HistogramBin {
               @let lastBin = computedBins()[computedBins().length - 1];
               <g [attr.transform]="'translate(' + (lastBin.x + lastBin.w) + ',0)'">
                 <line [attr.y1]="0" [attr.y2]="4" class="tick-line" />
-                <text
-                  [attr.y]="16"
-                  text-anchor="middle"
-                  class="tick-label x-tick-label"
-                >
-                  {{ lastBin.max | number:'1.0-1' }}
+                <text [attr.y]="16" text-anchor="middle" class="tick-label x-tick-label">
+                  {{ lastBin.max | number: '1.0-1' }}
                 </text>
               </g>
             }
@@ -146,9 +135,7 @@ export interface HistogramBin {
       @if (tooltip(); as t) {
         <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
           @if (tooltipTemplate()) {
-            <ng-container
-              *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"></ng-container>
           } @else {
             <div class="tt-cat">Range: {{ t.label }}</div>
             <div class="tt-row">
@@ -157,148 +144,166 @@ export interface HistogramBin {
             </div>
             <div class="tt-row">
               <span class="tt-name">Percentage</span>
-              <span class="tt-val">{{ t.percentage | number:'1.0-1' }}%</span>
+              <span class="tt-val">{{ t.percentage | number: '1.0-1' }}%</span>
             </div>
           }
         </div>
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-histogram {
-      background: var(--ngx-chart-bg, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    .header-info {
-      display: flex;
-      flex-direction: column;
-    }
-    .header-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ngx-chart-axis-text, #334155);
-    }
-    .header-subtitle {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--ngx-chart-axis-text, #64748b);
-    }
-    .histogram-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-      stroke-dasharray: 3,3;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label {
-      font-size: 10px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .x-tick-label {
-      font-size: 9px;
-    }
-    .histogram-bar {
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      transform-origin: bottom;
-      animation: barGrow 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-    }
-    @keyframes barGrow {
-      from { transform: scaleY(0); opacity: 0; }
-      to { transform: scaleY(1); opacity: 1; }
-    }
-    .histogram-bar.dimmed {
-      opacity: 0.3 !important;
-    }
-    .histogram-bar.highlighted {
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-      stroke: #334155 !important;
-      stroke-width: 1.5px !important;
-    }
-    .bar-label {
-      font-size: 10px;
-      font-weight: 600;
-      fill: var(--ngx-chart-axis-text, #475569);
-      user-select: none;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-histogram {
+        background: var(--ngx-chart-bg, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+      .header-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .header-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ngx-chart-axis-text, #334155);
+      }
+      .header-subtitle {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--ngx-chart-axis-text, #64748b);
+      }
+      .histogram-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+        stroke-dasharray: 3, 3;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label {
+        font-size: 10px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .x-tick-label {
+        font-size: 9px;
+      }
+      .histogram-bar {
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        transform-origin: bottom;
+        animation: barGrow 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+      }
+      @keyframes barGrow {
+        from {
+          transform: scaleY(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+      }
+      .histogram-bar.dimmed {
+        opacity: 0.3 !important;
+      }
+      .histogram-bar.highlighted {
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+        stroke: #334155 !important;
+        stroke-width: 1.5px !important;
+      }
+      .histogram-bar:focus-visible {
+        stroke: var(--primary-color, #4f46e5) !important;
+        stroke-width: 3px !important;
+        outline: none;
+      }
+      .bar-label {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--ngx-chart-axis-text, #475569);
+        user-select: none;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Export dropdown styles removed */
-  `]
+      /* Export dropdown styles removed */
+    `,
+  ],
 })
 export class HistogramComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   data = input<number[]>([]);
   binsCount = input<number>(10);
@@ -322,7 +327,7 @@ export class HistogramComponent {
     top: 30,
     right: 25,
     bottom: 30,
-    left: 45
+    left: 45,
   }));
 
   svgHeight = computed(() => this.height());
@@ -368,7 +373,7 @@ export class HistogramComponent {
         min: bMin,
         max: bMax,
         count: 0,
-        label: `${bMin.toFixed(1)} – ${bMax.toFixed(1)}`
+        label: `${bMin.toFixed(1)} – ${bMax.toFixed(1)}`,
       };
     });
 
@@ -392,7 +397,7 @@ export class HistogramComponent {
         x: i * barW,
         y: h - barH,
         w: barW * 0.95, // 5% spacing between bars
-        h: Math.max(2, barH)
+        h: Math.max(2, barH),
       } as HistogramBin;
     });
   });
@@ -425,9 +430,31 @@ export class HistogramComponent {
       const total = this.data().length || 1;
       this.tooltip.set({
         ...bin,
-        percentage: (bin.count / total) * 100
+        percentage: (bin.count / total) * 100,
       });
     }
+  }
+
+  accessibleBinLabel(bin: HistogramBin): string {
+    const total = this.data().length || 1;
+    const percentage = fmtNum((bin.count / total) * 100);
+    const low = fmtNum(bin.min);
+    const high = fmtNum(bin.max);
+    return (
+      this.i18n.chart.histogramBinDescription?.(low, high, fmtNum(bin.count), percentage) ??
+      `${low} to ${high}: ${fmtNum(bin.count)} observations, ${percentage}% of data`
+    );
+  }
+
+  onBarFocus(event: FocusEvent, idx: number): void {
+    this.onBarHover(idx);
+    const mark = event.currentTarget as SVGElement;
+    const container = mark.closest('.ngx-histogram');
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - containerRect.top);
   }
 
   onMouseMove(event: MouseEvent) {
@@ -467,7 +494,7 @@ export class HistogramComponent {
       index: b.index,
       min: b.min,
       max: b.max,
-      frequency: b.count
+      frequency: b.count,
     }));
     this.exportSvc.downloadJson(data, 'histogram-data.json');
   }

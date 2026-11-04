@@ -1,11 +1,19 @@
 import {
-  Component, input, signal, computed, ChangeDetectionStrategy,
-  ElementRef, viewChild, HostListener, inject
+  Component,
+  input,
+  signal,
+  computed,
+  ChangeDetectionStrategy,
+  ElementRef,
+  viewChild,
+  inject,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { generateUniqueId } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface RadarSeries {
   label: string;
@@ -15,7 +23,7 @@ export interface RadarSeries {
 @Component({
   selector: 'ngx-radar-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-radar-wrapper">
@@ -28,11 +36,7 @@ export interface RadarSeries {
 
       <!-- Radar Chart Visual Panel -->
       <div class="ngx-radar-container">
-        <svg
-          #svgEl
-          class="ngx-radar-svg"
-          viewBox="0 0 220 220"
-        >
+        <svg #svgEl class="ngx-radar-svg" viewBox="0 0 220 220">
           <defs>
             @for (series of seriesData(); track series.label; let sIdx = $index) {
               <linearGradient [attr.id]="instanceId + '-radar-grad-' + sIdx" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -65,12 +69,7 @@ export interface RadarSeries {
               stroke-dasharray="3,3"
             />
             <!-- Category Label text positions -->
-            <text
-              [attr.x]="axis.labelX"
-              [attr.y]="axis.labelY"
-              [attr.text-anchor]="axis.align"
-              class="axis-label"
-            >
+            <text [attr.x]="axis.labelX" [attr.y]="axis.labelY" [attr.text-anchor]="axis.align" class="axis-label">
               {{ categories()[$index] }}
             </text>
           }
@@ -91,6 +90,7 @@ export interface RadarSeries {
             <!-- Plot data dots on points -->
             @for (pt of getSeriesPointList(series); track $index) {
               <circle
+                [ngxChartAccessibleMark]="pointAccessibleLabel(series, $index, pt.value)"
                 [attr.cx]="pt.x"
                 [attr.cy]="pt.y"
                 [attr.r]="hoveredPoint()?.seriesLabel === series.label && hoveredPoint()?.index === $index ? 5.5 : 3.5"
@@ -101,6 +101,8 @@ export interface RadarSeries {
                 [class.hovered]="hoveredPoint()?.seriesLabel === series.label && hoveredPoint()?.index === $index"
                 (mouseenter)="onPointEnter(series, $index, pt, $event)"
                 (mouseleave)="onPointLeave()"
+                (focus)="onPointEnter(series, $index, pt, $event)"
+                (blur)="onPointLeave()"
               />
             }
           }
@@ -108,11 +110,7 @@ export interface RadarSeries {
 
         <!-- Hover Tooltip Overlay -->
         @if (tooltip().show) {
-          <div
-            class="radar-tooltip"
-            [style.left.px]="tooltip().x"
-            [style.top.px]="tooltip().y"
-          >
+          <div class="radar-tooltip" [style.left.px]="tooltip().x" [style.top.px]="tooltip().y">
             <div class="tt-cat">{{ tooltip().series }}</div>
             <div class="tt-row">
               <span class="tt-dot" [style.background]="tooltip().color"></span>
@@ -139,170 +137,193 @@ export interface RadarSeries {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
 
-    .ngx-radar-wrapper {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      padding: 24px;
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 12px;
-      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
-      position: relative;
-    }
+      .ngx-radar-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 24px;
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+        position: relative;
+      }
 
-    .ngx-radar-container {
-      position: relative;
-      width: 100%;
-      max-width: 280px;
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .ngx-radar-container {
+        position: relative;
+        width: 100%;
+        max-width: 280px;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .ngx-radar-svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
+      .ngx-radar-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
 
-    @keyframes radarScaleIn {
-      from { transform: scale(0.1); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
+      @keyframes radarScaleIn {
+        from {
+          transform: scale(0.1);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
 
-    /* Radar Polygons styling */
-    .radar-polygon {
-      transition: stroke-width 0.25s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.25s;
-      cursor: pointer;
-      transform-origin: 110px 110px;
-      animation: radarScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .radar-polygon:hover, .radar-polygon.active {
-      stroke-width: 3.5px;
-    }
+      /* Radar Polygons styling */
+      .radar-polygon {
+        transition:
+          stroke-width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          fill-opacity 0.25s;
+        cursor: pointer;
+        transform-origin: 110px 110px;
+        animation: radarScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .radar-polygon:hover,
+      .radar-polygon.active {
+        stroke-width: 3.5px;
+      }
 
-    .radar-dot {
-      cursor: pointer;
-      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.2s;
-      transform-origin: 110px 110px;
-      animation: radarScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .radar-dot.hovered {
-      filter: drop-shadow(0 0 4px rgba(0,0,0,0.25));
-      stroke-width: 2px;
-    }
+      .radar-dot {
+        cursor: pointer;
+        transition:
+          r 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+          stroke-width 0.2s;
+        transform-origin: 110px 110px;
+        animation: radarScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .radar-dot.hovered {
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
+        stroke-width: 2px;
+      }
+      .radar-dot:focus-visible {
+        outline: none;
+        stroke: var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
+        stroke-width: 3px;
+        filter: drop-shadow(0 0 3px rgba(26, 115, 232, 0.65));
+      }
 
-    /* Labels styling */
-    .axis-label {
-      font-size: 8px;
-      font-weight: 700;
-      fill: var(--text-secondary, #64748b);
-      letter-spacing: -0.1px;
-    }
+      /* Labels styling */
+      .axis-label {
+        font-size: 8px;
+        font-weight: 700;
+        fill: var(--text-secondary, #64748b);
+        letter-spacing: -0.1px;
+      }
 
-    /* Glassmorphic Tooltip styling */
-    .radar-tooltip {
-      position: absolute;
-      z-index: 100;
-      pointer-events: none;
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transform: translate(-50%, -115%);
-      min-width: 140px;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip styling */
+      .radar-tooltip {
+        position: absolute;
+        z-index: 100;
+        pointer-events: none;
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translate(-50%, -115%);
+        min-width: 140px;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Legend Layout */
-    .radar-legend {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-    .legend-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .legend-item.dimmed {
-      opacity: 0.35;
-    }
-    .legend-indicator {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-    }
-    .legend-text {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-primary, #0f172a);
-    }
+      /* Legend Layout */
+      .radar-legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .legend-item.dimmed {
+        opacity: 0.35;
+      }
+      .legend-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+      }
+      .legend-text {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-primary, #0f172a);
+      }
 
-    /* Header and Export dropdown styles */
-    .chart-header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-
-  `]
+      /* Header and Export dropdown styles */
+      .chart-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class RadarChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   readonly instanceId = generateUniqueId('chart');
   // Input binds
   seriesData = input.required<RadarSeries[]>();
@@ -314,16 +335,23 @@ export class RadarChartComponent {
   // Hover status signals
   hoveredSeries = signal<string | null>(null);
   hoveredPoint = signal<{ seriesLabel: string; index: number } | null>(null);
-  tooltip = signal<{ show: boolean; series: string; category: string; value: string; x: number; y: number; color: string }>({
+  tooltip = signal<{
+    show: boolean;
+    series: string;
+    category: string;
+    value: string;
+    x: number;
+    y: number;
+    color: string;
+  }>({
     show: false,
     series: '',
     category: '',
     value: '',
     x: 0,
     y: 0,
-    color: ''
+    color: '',
   });
-
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
@@ -382,7 +410,7 @@ export class RadarChartComponent {
       const value = series.values[i] ?? 0;
       const fraction = Math.min(1, value / this.max());
       const r = this.maxRadius * fraction;
-      
+
       const angle = (i * 2 * Math.PI) / N - Math.PI / 2;
       const x = this.centerX + r * Math.cos(angle);
       const y = this.centerY + r * Math.sin(angle);
@@ -393,15 +421,15 @@ export class RadarChartComponent {
   }
 
   // Get point list representing coordinate items to draw dots
-  getSeriesPointList(series: RadarSeries): Array<{ x: number; y: number; value: number }> {
+  getSeriesPointList(series: RadarSeries): { x: number; y: number; value: number }[] {
     const N = this.categories().length;
-    const list: Array<{ x: number; y: number; value: number }> = [];
+    const list: { x: number; y: number; value: number }[] = [];
 
     for (let i = 0; i < N; i++) {
       const value = series.values[i] ?? 0;
       const fraction = Math.min(1, value / this.max());
       const r = this.maxRadius * fraction;
-      
+
       const angle = (i * 2 * Math.PI) / N - Math.PI / 2;
       const x = this.centerX + r * Math.cos(angle);
       const y = this.centerY + r * Math.sin(angle);
@@ -417,7 +445,7 @@ export class RadarChartComponent {
     const color = colorList[index % colorList.length];
 
     if (opacity === 1) return color;
-    
+
     // Convert hex to rgba
     const h = color.replace('#', '');
     const r = parseInt(h.substring(0, 2), 16);
@@ -427,7 +455,17 @@ export class RadarChartComponent {
   }
 
   // Hover point interactions
-  onPointEnter(series: RadarSeries, index: number, pt: { x: number; y: number; value: number }, event: MouseEvent): void {
+  pointAccessibleLabel(series: RadarSeries, index: number, value: number): string {
+    const label = `${series.label}, ${this.categories()[index] ?? ''}`;
+    return this.i18n.chart.dataMarkDescription(label, value.toLocaleString());
+  }
+
+  onPointEnter(
+    series: RadarSeries,
+    index: number,
+    pt: { x: number; y: number; value: number },
+    event: MouseEvent | FocusEvent
+  ): void {
     this.hoveredSeries.set(series.label);
     this.hoveredPoint.set({ seriesLabel: series.label, index });
 
@@ -449,7 +487,7 @@ export class RadarChartComponent {
       value: pt.value.toLocaleString(),
       x,
       y,
-      color
+      color,
     });
   }
 

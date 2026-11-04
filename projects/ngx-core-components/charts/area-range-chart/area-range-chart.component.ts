@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface AreaRangeDataPoint {
   category: string;
@@ -22,7 +31,7 @@ export interface AreaRangeSeries {
 @Component({
   selector: 'ngx-area-range-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-area-range-chart" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
@@ -45,24 +54,29 @@ export interface AreaRangeSeries {
           }
         </div>
       }
-      
+
       <div class="chart-svg-wrap">
         <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg">
           <defs>
             @for (s of series(); track s.name; let i = $index) {
               <linearGradient [attr.id]="'range-gradient-' + i" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.4"/>
-                <stop offset="100%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.05"/>
+                <stop offset="0%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.4" />
+                <stop offset="100%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.05" />
               </linearGradient>
             }
           </defs>
-          
+
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Gridlines -->
             @for (tick of yTicks(); track tick) {
               <g [attr.transform]="'translate(0,' + yPos(tick) + ')'">
                 @if (showGrid()) {
-                  <line [attr.x1]="0" [attr.x2]="innerW()" stroke="var(--ngx-chart-grid, #e2e8f0)" stroke-dasharray="3,3"/>
+                  <line
+                    [attr.x1]="0"
+                    [attr.x2]="innerW()"
+                    stroke="var(--ngx-chart-grid, #e2e8f0)"
+                    stroke-dasharray="3,3"
+                  />
                 }
                 <text x="-8" dy="4" class="axis-label" text-anchor="end">{{ fmtNum(tick) }}</text>
               </g>
@@ -82,7 +96,7 @@ export interface AreaRangeSeries {
                 stroke="none"
                 class="area-path"
               />
-              
+
               <!-- High Boundary Line -->
               <path
                 [attr.d]="highLinePath(s)"
@@ -105,9 +119,9 @@ export interface AreaRangeSeries {
                 stroke-linecap="round"
                 class="line-path low-boundary"
               />
-              
+
               <!-- Hover Markers (dots on high and low bounds) -->
-              @if (showMarkers() && animateState()) {
+              @if (animateState()) {
                 @for (d of s.data; track $index; let ci = $index) {
                   <!-- High Dot -->
                   <circle
@@ -117,7 +131,11 @@ export interface AreaRangeSeries {
                     [attr.fill]="seriesColor(si, s)"
                     [attr.stroke]="'#fff'"
                     [attr.stroke-width]="activeCategoryIndex() === ci ? 2 : 1.5"
-                    class="marker-dot"
+                    [class.markers-hidden]="!showMarkers()"
+                    class="marker-dot range-mark-high"
+                    [ngxChartAccessibleMark]="accessibleRangeMarkLabel(s.name, d, 'high')"
+                    (focus)="onMarkFocus($event, ci)"
+                    (blur)="onMouseLeave()"
                   />
                   <!-- Low Dot -->
                   <circle
@@ -127,12 +145,20 @@ export interface AreaRangeSeries {
                     [attr.fill]="seriesColor(si, s)"
                     [attr.stroke]="'#fff'"
                     [attr.stroke-width]="activeCategoryIndex() === ci ? 2 : 1.5"
-                    class="marker-dot"
+                    [class.markers-hidden]="!showMarkers()"
+                    class="marker-dot range-mark-low"
+                    [ngxChartAccessibleMark]="accessibleRangeMarkLabel(s.name, d, 'low')"
+                    (focus)="onMarkFocus($event, ci)"
+                    (blur)="onMouseLeave()"
                   />
                   <!-- Optional Labels -->
                   @if (showLabels() && activeCategoryIndex() === ci) {
-                    <text [attr.x]="xPos(ci)" [attr.y]="yPos(d.high) - 8" class="label-text" text-anchor="middle">{{ fmtNum(d.high) }}</text>
-                    <text [attr.x]="xPos(ci)" [attr.y]="yPos(d.low) + 14" class="label-text" text-anchor="middle">{{ fmtNum(d.low) }}</text>
+                    <text [attr.x]="xPos(ci)" [attr.y]="yPos(d.high) - 8" class="label-text" text-anchor="middle">
+                      {{ fmtNum(d.high) }}
+                    </text>
+                    <text [attr.x]="xPos(ci)" [attr.y]="yPos(d.low) + 14" class="label-text" text-anchor="middle">
+                      {{ fmtNum(d.low) }}
+                    </text>
                   }
                 }
               }
@@ -140,13 +166,27 @@ export interface AreaRangeSeries {
 
             <!-- Vertical Crosshair -->
             @if (crosshair(); as ch) {
-              <line [attr.x1]="ch.x" [attr.x2]="ch.x" y1="0" [attr.y2]="innerH()"
-                stroke="var(--primary-color, #4f46e5)" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="4,4"/>
+              <line
+                [attr.x1]="ch.x"
+                [attr.x2]="ch.x"
+                y1="0"
+                [attr.y2]="innerH()"
+                stroke="var(--primary-color, #4f46e5)"
+                stroke-opacity="0.3"
+                stroke-width="1.5"
+                stroke-dasharray="4,4"
+              />
             }
 
             <!-- Axis Lines -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #cbd5e1)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #cbd5e1)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #cbd5e1)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #cbd5e1)" />
           </g>
         </svg>
       </div>
@@ -177,162 +217,194 @@ export interface AreaRangeSeries {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-area-range-chart {
-      position: relative;
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      padding: 0 0 12px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text-secondary, #64748b);
-      font-weight: 500;
-    }
-    .legend-dot {
-      width: 12px;
-      height: 6px;
-      border-radius: 2px;
-      display: inline-block;
-      opacity: 0.7;
-    }
-    .chart-svg-wrap {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-      cursor: crosshair;
-    }
-    .axis-label {
-      font-size: 10px;
-      font-weight: 600;
-      fill: var(--text-secondary, #94a3b8);
-    }
-    .label-text {
-      font-size: 9px;
-      fill: var(--text-primary, #1e293b);
-      font-weight: bold;
-      pointer-events: none;
-    }
-    
-    @keyframes lineDraw {
-      from { stroke-dashoffset: 1200; }
-      to { stroke-dashoffset: 0; }
-    }
-    .line-path {
-      stroke-dasharray: 1200;
-      stroke-dashoffset: 1200;
-      animation: lineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    
-    @keyframes areaFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .area-path {
-      animation: areaFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-area-range-chart {
+        position: relative;
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        padding: 0 0 12px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-secondary, #64748b);
+        font-weight: 500;
+      }
+      .legend-dot {
+        width: 12px;
+        height: 6px;
+        border-radius: 2px;
+        display: inline-block;
+        opacity: 0.7;
+      }
+      .chart-svg-wrap {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+        cursor: crosshair;
+      }
+      .axis-label {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--text-secondary, #94a3b8);
+      }
+      .label-text {
+        font-size: 9px;
+        fill: var(--text-primary, #1e293b);
+        font-weight: bold;
+        pointer-events: none;
+      }
 
-    .marker-dot {
-      animation: areaFadeIn 0.5s ease 0.8s both;
-      transition: r 0.15s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.15s;
-    }
-    
-    /* Premium Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11.5px;
-      min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 8px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 6px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .header-row {
-      margin-top: 8px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-      padding-top: 6px;
-    }
-    .header-row:first-of-type {
-      margin-top: 0;
-      border-top: none;
-      padding-top: 0;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.95);
-      flex: 1;
-    }
-    .detail-row {
-      padding-left: 16px;
-      font-size: 11px;
-    }
-    .tt-sub-label {
-      color: rgba(248, 250, 252, 0.65);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 600;
-      font-family: monospace;
-    }
-    .tt-val.highlight {
-      color: #38bdf8;
-    }
-    .range-row {
-      border-top: 1px dotted rgba(255, 255, 255, 0.1);
-      margin-top: 2px;
-      padding-top: 2px;
-    }
+      @keyframes lineDraw {
+        from {
+          stroke-dashoffset: 1200;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      .line-path {
+        stroke-dasharray: 1200;
+        stroke-dashoffset: 1200;
+        animation: lineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
 
-    /* Export styles */
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      @keyframes areaFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .area-path {
+        animation: areaFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      }
+
+      .marker-dot {
+        animation: areaFadeIn 0.5s ease 0.8s both;
+        transition:
+          r 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          stroke-width 0.15s;
+      }
+      .marker-dot.markers-hidden {
+        opacity: 0;
+      }
+      .marker-dot:focus-visible {
+        opacity: 1 !important;
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
+
+      /* Premium Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11.5px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 6px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .header-row {
+        margin-top: 8px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        padding-top: 6px;
+      }
+      .header-row:first-of-type {
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.95);
+        flex: 1;
+      }
+      .detail-row {
+        padding-left: 16px;
+        font-size: 11px;
+      }
+      .tt-sub-label {
+        color: rgba(248, 250, 252, 0.65);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 600;
+        font-family: monospace;
+      }
+      .tt-val.highlight {
+        color: #38bdf8;
+      }
+      .range-row {
+        border-top: 1px dotted rgba(255, 255, 255, 0.1);
+        margin-top: 2px;
+        padding-top: 2px;
+      }
+
+      /* Export styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class AreaRangeChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  readonly i18n = inject(NGX_CORE_I18N);
   readonly PAD_LEFT = 48;
   readonly PAD_TOP = 15;
   readonly PAD_RIGHT = 16;
@@ -351,7 +423,12 @@ export class AreaRangeChartComponent {
 
   crosshair = signal<{ x: number } | null>(null);
   activeCategoryIndex = signal<number | null>(null);
-  tooltip = signal<{ x: number; y: number; cat: string; rows: { name: string; low: number; high: number; color: string }[] } | null>(null);
+  tooltip = signal<{
+    x: number;
+    y: number;
+    cat: string;
+    rows: { name: string; low: number; high: number; color: string }[];
+  } | null>(null);
   containerWidth = signal<number>(600);
 
   innerW = computed(() => Math.max(10, this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT));
@@ -439,24 +516,53 @@ export class AreaRangeChartComponent {
     if (cats.length === 0) return;
     const idx = Math.round(scale(mx, 0, this.innerW(), 0, cats.length - 1));
     const ci = Math.max(0, Math.min(cats.length - 1, idx));
-    this.crosshair.set({ x: this.xPos(ci) });
-    this.activeCategoryIndex.set(ci);
+    this.showCategoryTooltip(ci, event.clientX - rect.left, event.clientY - rect.top);
+  }
+
+  onMarkFocus(event: FocusEvent, index: number): void {
+    const mark = event.currentTarget as SVGCircleElement;
+    const container = mark.closest('.ngx-area-range-chart');
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.showCategoryTooltip(
+      index,
+      markRect.left + markRect.width / 2 - containerRect.left,
+      markRect.top - containerRect.top
+    );
+  }
+
+  accessibleRangeMarkLabel(series: string, point: AreaRangeDataPoint, boundary: 'high' | 'low'): string {
+    const value = fmtNum(point[boundary]);
+    const low = fmtNum(point.low);
+    const high = fmtNum(point.high);
+    return (
+      this.i18n.chart.areaRangeMarkDescription?.(series, point.category, boundary, value, low, high) ??
+      this.i18n.chart.dataMarkDescription(`${series} ${boundary} boundary at ${point.category}`, value)
+    );
+  }
+
+  private showCategoryTooltip(index: number, x: number, y: number): void {
+    const cats = this.inferredCategories();
+    if (index < 0 || index >= cats.length) return;
+    this.crosshair.set({ x: this.xPos(index) });
+    this.activeCategoryIndex.set(index);
 
     const rows = this.series().map((s, si) => {
-      const point = s.data[ci];
+      const point = s.data[index];
       return {
         name: s.name,
         low: point ? point.low : 0,
         high: point ? point.high : 0,
-        color: this.seriesColor(si, s)
+        color: this.seriesColor(si, s),
       };
     });
 
     this.tooltip.set({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-      cat: cats[ci],
-      rows
+      x,
+      y,
+      cat: cats[index],
+      rows,
     });
   }
 
@@ -466,7 +572,7 @@ export class AreaRangeChartComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -497,7 +603,6 @@ export class AreaRangeChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }

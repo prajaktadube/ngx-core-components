@@ -1,16 +1,26 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  HostListener,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 @Component({
   selector: 'ngx-area-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-area-chart" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
@@ -32,24 +42,29 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
           }
         </div>
       }
-      
+
       <div class="chart-svg-wrap">
         <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg">
           <defs>
             @for (s of series(); track s.name; let i = $index) {
               <linearGradient [attr.id]="'area-gradient-' + i" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.45"/>
-                <stop offset="100%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.02"/>
+                <stop offset="0%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.45" />
+                <stop offset="100%" [attr.stop-color]="seriesColor(i, s)" stop-opacity="0.02" />
               </linearGradient>
             }
           </defs>
-          
+
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Gridlines -->
             @for (tick of yTicks(); track tick) {
               <g [attr.transform]="'translate(0,' + yPos(tick) + ')'">
                 @if (showGrid()) {
-                  <line [attr.x1]="0" [attr.x2]="innerW()" stroke="var(--ngx-chart-grid, #e2e8f0)" stroke-dasharray="3,3"/>
+                  <line
+                    [attr.x1]="0"
+                    [attr.x2]="innerW()"
+                    stroke="var(--ngx-chart-grid, #e2e8f0)"
+                    stroke-dasharray="3,3"
+                  />
                 }
                 <text x="-8" dy="4" class="axis-label" text-anchor="end">{{ fmtNum(tick) }}</text>
               </g>
@@ -69,7 +84,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
                 stroke="none"
                 class="area-path"
               />
-              
+
               <!-- Border Line -->
               <path
                 [attr.d]="linePath(s)"
@@ -80,7 +95,7 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
                 stroke-linecap="round"
                 class="line-path"
               />
-              
+
               <!-- Hover Markers -->
               @if (showMarkers() && animateState()) {
                 @for (v of s.data; track $index; let ci = $index) {
@@ -93,6 +108,9 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
                     [attr.stroke-width]="activeCategoryIndex() === ci ? 2.5 : 2"
                     [attr.filter]="activeCategoryIndex() === ci ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))' : null"
                     class="marker-dot"
+                    [ngxChartAccessibleMark]="accessibleMarkLabel(s.name, categories()[ci] || '', v)"
+                    (focus)="onMarkerFocus($event, ci)"
+                    (blur)="onMouseLeave()"
                   />
                 }
               }
@@ -100,13 +118,27 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
 
             <!-- Vertical Crosshair -->
             @if (crosshair(); as ch) {
-              <line [attr.x1]="ch.x" [attr.x2]="ch.x" y1="0" [attr.y2]="innerH()"
-                stroke="var(--primary-color, #4f46e5)" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="4,4"/>
+              <line
+                [attr.x1]="ch.x"
+                [attr.x2]="ch.x"
+                y1="0"
+                [attr.y2]="innerH()"
+                stroke="var(--primary-color, #4f46e5)"
+                stroke-opacity="0.3"
+                stroke-width="1.5"
+                stroke-dasharray="4,4"
+              />
             }
 
             <!-- Axis Lines -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #cbd5e1)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #cbd5e1)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #cbd5e1)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #cbd5e1)" />
           </g>
         </svg>
       </div>
@@ -126,100 +158,159 @@ import { CHART_COLORS, ChartSeries, niceTicks, scale, smoothPath, fmtNum } from 
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-area-chart {
-      position: relative;
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      padding: 0 0 12px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text-secondary, #64748b);
-      font-weight: 500;
-    }
-    .legend-dot {
-      width: 12px;
-      height: 4px;
-      border-radius: 2px;
-      display: inline-block;
-    }
-    .chart-svg-wrap {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-      cursor: crosshair;
-    }
-    .axis-label {
-      font-size: 10px;
-      font-weight: 600;
-      fill: var(--text-secondary, #94a3b8);
-    }
-    
-    @keyframes lineDraw {
-      from { stroke-dashoffset: 1200; }
-      to { stroke-dashoffset: 0; }
-    }
-    .line-path {
-      stroke-dasharray: 1200;
-      stroke-dashoffset: 1200;
-      animation: lineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    
-    @keyframes areaFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .area-path {
-      animation: areaFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-area-chart {
+        position: relative;
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        padding: 0 0 12px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-secondary, #64748b);
+        font-weight: 500;
+      }
+      .legend-dot {
+        width: 12px;
+        height: 4px;
+        border-radius: 2px;
+        display: inline-block;
+      }
+      .chart-svg-wrap {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+        cursor: crosshair;
+      }
+      .axis-label {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--text-secondary, #94a3b8);
+      }
 
-    .marker-dot {
-      animation: areaFadeIn 0.5s ease 0.8s both;
-      transition: r 0.15s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.15s;
-    }
-    
-    /* Premium Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
-      border-radius: 10px; font-size: 12px; min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tt-cat { font-weight: 700; margin-bottom: 8px; font-size: 12.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; color: #38bdf8; }
-    .tt-row { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
-    .tt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .tt-name { color: rgba(248, 250, 252, 0.8); flex: 1; }
-    .tt-val { font-weight: 700; font-family: monospace; }
+      @keyframes lineDraw {
+        from {
+          stroke-dashoffset: 1200;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      .line-path {
+        stroke-dasharray: 1200;
+        stroke-dashoffset: 1200;
+        animation: lineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
 
-    /* Export styles */
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      @keyframes areaFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .area-path {
+        animation: areaFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      }
+
+      .marker-dot {
+        animation: areaFadeIn 0.5s ease 0.8s both;
+        transition:
+          r 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          stroke-width 0.15s;
+      }
+      .marker-dot:focus-visible {
+        outline: none;
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+        filter: drop-shadow(0 0 2px var(--ngx-chart-focus, #1d4ed8));
+      }
+
+      /* Premium Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 6px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 5px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+
+      /* Export styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class AreaChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
+  private readonly host = inject(ElementRef<HTMLElement>);
   readonly PAD_LEFT = 48;
   readonly PAD_TOP = 12;
   readonly PAD_RIGHT = 16;
@@ -237,7 +328,12 @@ export class AreaChartComponent {
 
   crosshair = signal<{ x: number } | null>(null);
   activeCategoryIndex = signal<number | null>(null);
-  tooltip = signal<{ x: number; y: number; cat: string; rows: { name: string; value: number; color: string }[] } | null>(null);
+  tooltip = signal<{
+    x: number;
+    y: number;
+    cat: string;
+    rows: { name: string; value: number; color: string }[];
+  } | null>(null);
   containerWidth = signal<number>(600);
 
   innerW = computed(() => this.containerWidth() - this.PAD_LEFT - this.PAD_RIGHT);
@@ -267,7 +363,9 @@ export class AreaChartComponent {
   private yMax = computed(() => Math.max(1, ...this.allValues()));
   yTicks = computed(() => niceTicks(this.yMin(), this.yMax(), 5));
 
-  yPos(v: number): number { return scale(v, this.yMin(), this.yMax(), this.innerH(), 0); }
+  yPos(v: number): number {
+    return scale(v, this.yMin(), this.yMax(), this.innerH(), 0);
+  }
   xPos(i: number): number {
     const n = this.categories().length;
     return n <= 1 ? this.innerW() / 2 : scale(i, 0, n - 1, 0, this.innerW());
@@ -298,6 +396,22 @@ export class AreaChartComponent {
     if (cats.length === 0) return;
     const idx = Math.round(scale(mx, 0, this.innerW(), 0, cats.length - 1));
     const ci = Math.max(0, Math.min(cats.length - 1, idx));
+    this.showCategoryTooltip(ci, event.clientX - rect.left, event.clientY - rect.top);
+  }
+
+  onMarkerFocus(event: FocusEvent, index: number): void {
+    const target = event.target;
+    if (!(target instanceof SVGGraphicsElement)) return;
+    const mark = target.getBoundingClientRect();
+    const hostRect = this.host.nativeElement.getBoundingClientRect();
+    this.showCategoryTooltip(index, mark.left + mark.width / 2 - hostRect.left, mark.top - hostRect.top);
+  }
+
+  accessibleMarkLabel(series: string, category: string, value: number): string {
+    return this.i18n.chart.dataMarkDescription(`${category}, ${series}`, fmtNum(value));
+  }
+
+  private showCategoryTooltip(ci: number, x: number, y: number): void {
     this.crosshair.set({ x: this.xPos(ci) });
     this.activeCategoryIndex.set(ci);
     const rows = this.series().map((s, si) => ({
@@ -306,9 +420,9 @@ export class AreaChartComponent {
       color: this.seriesColor(si, s),
     }));
     this.tooltip.set({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-      cat: cats[ci],
+      x,
+      y,
+      cat: this.categories()[ci],
       rows,
     });
   }
@@ -319,7 +433,7 @@ export class AreaChartComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -358,7 +472,6 @@ export class AreaChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }

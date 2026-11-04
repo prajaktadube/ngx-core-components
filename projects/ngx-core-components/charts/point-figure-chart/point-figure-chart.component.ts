@@ -1,12 +1,22 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  TemplateRef,
+  viewChild,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
-import { CHART_COLORS, fmtNum, niceTicks, scale } from '../shared/chart-utils';
+import { fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface PFCell {
   colIdx: number;
@@ -28,7 +38,7 @@ interface PFColumn {
 @Component({
   selector: 'ngx-point-figure-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent, NgTemplateOutlet],
+  imports: [ChartExportMenuComponent, NgTemplateOutlet, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-point-figure-chart" (mouseleave)="onMouseLeave()">
@@ -44,24 +54,12 @@ interface PFColumn {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="pf-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="pf-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- Y Grid Lines -->
           @if (showGrid()) {
             @for (row of yTicks(); track row) {
-              <line
-                [attr.x1]="0"
-                [attr.x2]="innerW()"
-                [attr.y1]="yPos(row)"
-                [attr.y2]="yPos(row)"
-                class="grid-line"
-              />
+              <line [attr.x1]="0" [attr.x2]="innerW()" [attr.y1]="yPos(row)" [attr.y2]="yPos(row)" class="grid-line" />
             }
           }
 
@@ -70,9 +68,12 @@ interface PFColumn {
             <g
               class="pf-cell-group"
               [class.dimmed]="hoveredCellIndex() !== null && hoveredCellIndex() !== idx"
-              (mouseenter)="onCellHover(idx, $event)"
+              [ngxChartAccessibleMark]="accessibleCellLabel(cell)"
+              (mouseenter)="onCellHover(idx)"
               (mousemove)="onMouseMove($event)"
-              [style.animation-delay]="(cell.colIdx * 0.05) + 's'"
+              (focus)="onCellFocus($event, idx)"
+              (blur)="onMouseLeave()"
+              [style.animation-delay]="cell.colIdx * 0.05 + 's'"
             >
               @if (cell.type === 'X') {
                 <line
@@ -115,12 +116,7 @@ interface PFColumn {
             @for (tick of yTicks(); track tick) {
               <g [attr.transform]="'translate(0,' + yPos(tick) + ')'">
                 <line [attr.x1]="-4" [attr.x2]="0" [attr.y1]="0" [attr.y2]="0" class="tick-line" />
-                <text
-                  [attr.x]="-8"
-                  text-anchor="end"
-                  dominant-baseline="middle"
-                  class="tick-label"
-                >
+                <text [attr.x]="-8" text-anchor="end" dominant-baseline="middle" class="tick-label">
                   {{ labelFormatter() ? labelFormatter()!(tick) : formatNumber(tick) }}
                 </text>
               </g>
@@ -138,9 +134,7 @@ interface PFColumn {
       @if (tooltip(); as t) {
         <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
           @if (tooltipTemplate()) {
-            <ng-container
-              *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"></ng-container>
           } @else {
             <div class="tt-cat" [style.color]="t.color">
               {{ t.type === 'X' ? 'Price Rise (X)' : 'Price Fall (O)' }}
@@ -158,131 +152,142 @@ interface PFColumn {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-point-figure-chart {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    .header-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .header-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ngx-chart-axis-text, #334155);
-    }
-    .header-settings {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ngx-chart-axis-text, #64748b);
-      background: var(--ngx-chart-grid, #f1f5f9);
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .pf-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .tick-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 550;
-      user-select: none;
-    }
-    .pf-cell-group {
-      cursor: pointer;
-      opacity: 0;
-      animation: cellFadeIn 0.4s ease-out forwards;
-    }
-    @keyframes cellFadeIn {
-      to { opacity: 1; }
-    }
-    .pf-cell-group.dimmed {
-      opacity: 0.25 !important;
-    }
-    .pf-shape {
-      transition: stroke-width 0.15s ease;
-    }
-    .pf-cell-group:hover .pf-shape {
-      stroke-width: 3.5px !important;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-point-figure-chart {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+      .header-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .header-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ngx-chart-axis-text, #334155);
+      }
+      .header-settings {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ngx-chart-axis-text, #64748b);
+        background: var(--ngx-chart-grid, #f1f5f9);
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+      .pf-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .tick-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 550;
+        user-select: none;
+      }
+      .pf-cell-group {
+        cursor: pointer;
+        opacity: 0;
+        animation: cellFadeIn 0.4s ease-out forwards;
+      }
+      @keyframes cellFadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      .pf-cell-group.dimmed {
+        opacity: 0.25 !important;
+      }
+      .pf-shape {
+        transition: stroke-width 0.15s ease;
+      }
+      .pf-cell-group:hover .pf-shape {
+        stroke-width: 3.5px !important;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 130px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+      }
+      .pf-cell-group:focus-visible .pf-shape {
+        stroke-width: 4px !important;
+        filter: drop-shadow(0 0 2px var(--primary-color, #4f46e5));
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 130px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class PointFigureChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   data = input<number[]>([]);
   boxSize = input<number>(4);
   reversal = input<number>(3);
@@ -300,14 +305,13 @@ export class PointFigureChartComponent {
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
 
-
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
   margin = computed(() => ({
     top: 20,
     right: 20,
     bottom: 20,
-    left: 45
+    left: 45,
   }));
 
   svgHeight = computed(() => this.height());
@@ -396,7 +400,7 @@ export class PointFigureChartComponent {
           color,
           x: xOffset,
           y: yOffset,
-          size: cellSize
+          size: cellSize,
         });
       }
     });
@@ -429,12 +433,31 @@ export class PointFigureChartComponent {
     return this.innerH() - (boxIdx - minBoxIdx + 0.5) * cellS;
   }
 
-  onCellHover(idx: number, event: MouseEvent) {
+  accessibleCellLabel(cell: PFCell): string {
+    const value = fmtNum(cell.value);
+    return (
+      this.i18n.chart.pointFigureMarkDescription?.(cell.type, value, cell.colIdx + 1) ??
+      this.i18n.chart.dataMarkDescription(`${cell.type} in column ${cell.colIdx + 1}`, value)
+    );
+  }
+
+  onCellHover(idx: number): void {
     this.hoveredCellIndex.set(idx);
     const cell = this.computedCells()[idx];
     if (cell) {
       this.tooltip.set(cell);
     }
+  }
+
+  onCellFocus(event: FocusEvent, idx: number): void {
+    this.onCellHover(idx);
+    const mark = event.currentTarget as SVGGElement;
+    const container = mark.closest('.ngx-point-figure-chart');
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top - containerRect.top);
   }
 
   onMouseMove(event: MouseEvent) {
@@ -467,7 +490,7 @@ export class PointFigureChartComponent {
       column: c.colIdx,
       row: c.rowIdx,
       type: c.type,
-      value: c.value
+      value: c.value,
     }));
     this.exportSvc.downloadJson(data, 'point-figure-chart-data.json');
   }

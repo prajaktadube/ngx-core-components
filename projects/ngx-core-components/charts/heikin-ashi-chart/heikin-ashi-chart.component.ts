@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
-import { niceTicks, scale, fmtNum, CHART_COLORS , generateUniqueId } from '../shared/chart-utils';
+import { niceTicks, scale, fmtNum, CHART_COLORS, generateUniqueId } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface CandlestickItem {
   date: string | Date;
@@ -27,12 +36,16 @@ interface HeikinAshiCalculatedItem {
 @Component({
   selector: 'ngx-heikin-ashi-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-heikin-ashi-chart" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
       <!-- Toolbar with Export option -->
-      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
+      <div
+        class="chart-header"
+        (mousemove)="$event.stopPropagation()"
+        (mouseleave)="hoveredIndex.set(null); tooltip.set(null)"
+      >
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <ngx-chart-export-menu (exportClicked)="onExport($event)" />
@@ -40,12 +53,7 @@ interface HeikinAshiCalculatedItem {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-          class="chart-svg"
-        >
+        <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg">
           <defs>
             <linearGradient [id]="instanceId + '-ha-bullish-grad'" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" [attr.stop-color]="bullishColor()" />
@@ -75,12 +83,7 @@ interface HeikinAshiCalculatedItem {
             <!-- Y-Axis Labels -->
             @if (showLabels()) {
               @for (tick of yTicks(); track tick) {
-                <text
-                  x="-10"
-                  [attr.y]="yPos(tick) + 4"
-                  class="axis-label y"
-                  text-anchor="end"
-                >{{ fmtNum(tick) }}</text>
+                <text x="-10" [attr.y]="yPos(tick) + 4" class="axis-label y" text-anchor="end">{{ fmtNum(tick) }}</text>
               }
             }
 
@@ -93,7 +96,9 @@ interface HeikinAshiCalculatedItem {
                     [attr.y]="innerH() + 20"
                     class="axis-label x"
                     text-anchor="middle"
-                  >{{ formatDate(item.date) }}</text>
+                  >
+                    {{ formatDate(item.date) }}
+                  </text>
                 }
               }
             }
@@ -143,21 +148,34 @@ interface HeikinAshiCalculatedItem {
                 [attr.y]="candle.y"
                 [attr.width]="candle.width"
                 [attr.height]="candle.rectH"
-                [attr.fill]="candle.isBullish ? 'url(#' + instanceId + '-ha-bullish-grad)' : 'url(#' + instanceId + '-ha-bearish-grad)'"
+                [attr.fill]="
+                  candle.isBullish
+                    ? 'url(#' + instanceId + '-ha-bullish-grad)'
+                    : 'url(#' + instanceId + '-ha-bearish-grad)'
+                "
                 [attr.stroke]="candle.color"
                 stroke-width="1"
                 class="candle-rect"
                 [class.hovered]="hoveredIndex() === i"
                 [style.transform-origin]="candle.centerX + 'px ' + candle.yOpen + 'px'"
                 [style.animation-delay]="i * 0.02 + 's'"
+                [ngxChartAccessibleMark]="accessibleCandleLabel(candle.raw)"
                 (mouseenter)="onCandleHover($event, candle.raw, i)"
                 (mousemove)="onCandleHover($event, candle.raw, i)"
+                (focus)="onCandleFocus($event, candle.raw, i)"
+                (blur)="hoveredIndex.set(null); tooltip.set(null)"
               />
             }
 
             <!-- Base axes borders -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
           </g>
         </svg>
 
@@ -173,17 +191,33 @@ interface HeikinAshiCalculatedItem {
               <div class="tooltip-columns">
                 <div class="tooltip-col">
                   <div class="col-title">Original</div>
-                  <div class="tooltip-val"><span>O:</span> <strong>{{ fmtNum(t.orig.open) }}</strong></div>
-                  <div class="tooltip-val"><span>H:</span> <strong>{{ fmtNum(t.orig.high) }}</strong></div>
-                  <div class="tooltip-val"><span>L:</span> <strong>{{ fmtNum(t.orig.low) }}</strong></div>
-                  <div class="tooltip-val"><span>C:</span> <strong>{{ fmtNum(t.orig.close) }}</strong></div>
+                  <div class="tooltip-val">
+                    <span>O:</span> <strong>{{ fmtNum(t.orig.open) }}</strong>
+                  </div>
+                  <div class="tooltip-val">
+                    <span>H:</span> <strong>{{ fmtNum(t.orig.high) }}</strong>
+                  </div>
+                  <div class="tooltip-val">
+                    <span>L:</span> <strong>{{ fmtNum(t.orig.low) }}</strong>
+                  </div>
+                  <div class="tooltip-val">
+                    <span>C:</span> <strong>{{ fmtNum(t.orig.close) }}</strong>
+                  </div>
                 </div>
                 <div class="tooltip-col bordered">
                   <div class="col-title" style="color: #38bdf8;">Heikin-Ashi</div>
-                  <div class="tooltip-val"><span>O:</span> <strong>{{ fmtNum(t.ha.open) }}</strong></div>
-                  <div class="tooltip-val"><span>H:</span> <strong>{{ fmtNum(t.ha.high) }}</strong></div>
-                  <div class="tooltip-val"><span>L:</span> <strong>{{ fmtNum(t.ha.low) }}</strong></div>
-                  <div class="tooltip-val"><span>C:</span> <strong>{{ fmtNum(t.ha.close) }}</strong></div>
+                  <div class="tooltip-val">
+                    <span>O:</span> <strong>{{ fmtNum(t.ha.open) }}</strong>
+                  </div>
+                  <div class="tooltip-val">
+                    <span>H:</span> <strong>{{ fmtNum(t.ha.high) }}</strong>
+                  </div>
+                  <div class="tooltip-val">
+                    <span>L:</span> <strong>{{ fmtNum(t.ha.low) }}</strong>
+                  </div>
+                  <div class="tooltip-val">
+                    <span>C:</span> <strong>{{ fmtNum(t.ha.close) }}</strong>
+                  </div>
                 </div>
               </div>
             </div>
@@ -192,128 +226,156 @@ interface HeikinAshiCalculatedItem {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-heikin-ashi-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-    }
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      fill: #64748b;
-      font-weight: 500;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-heikin-ashi-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+      }
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: #64748b;
+        font-weight: 500;
+      }
 
-    @keyframes candleGrow {
-      from { transform: scaleY(0); opacity: 0; }
-      to { transform: scaleY(1); opacity: 1; }
-    }
+      @keyframes candleGrow {
+        from {
+          transform: scaleY(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+      }
 
-    .candle-rect {
-      cursor: pointer;
-      transition: fill 0.15s, opacity 0.15s, stroke-width 0.15s, filter 0.15s;
-      animation: candleGrow 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .candle-rect.hovered {
-      filter: brightness(1.05) drop-shadow(0 4px 10px rgba(0,0,0,0.18));
-      stroke-width: 1.5px;
-    }
-    .crosshair-line {
-      pointer-events: none;
-    }
+      .candle-rect {
+        cursor: pointer;
+        transition:
+          fill 0.15s,
+          opacity 0.15s,
+          stroke-width 0.15s,
+          filter 0.15s;
+        animation: candleGrow 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .candle-rect:focus-visible {
+        outline: none;
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 3;
+      }
+      .candle-rect.hovered {
+        filter: brightness(1.05) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.18));
+        stroke-width: 1.5px;
+      }
+      .crosshair-line {
+        pointer-events: none;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.94));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      z-index: 100;
-      min-width: 210px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: left 0.08s ease-out, top 0.08s ease-out;
-    }
-    .tooltip-header {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tooltip-direction {
-      font-size: 10px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-    .tooltip-columns {
-      display: flex;
-      gap: 12px;
-    }
-    .tooltip-col {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
-    }
-    .tooltip-col.bordered {
-      border-left: 1px solid rgba(255, 255, 255, 0.15);
-      padding-left: 12px;
-    }
-    .col-title {
-      font-weight: 600;
-      font-size: 9.5px;
-      color: rgba(255, 255, 255, 0.5);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    .tooltip-val {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      color: rgba(248, 250, 252, 0.85);
-    }
-    .tooltip-val span {
-      color: rgba(255, 255, 255, 0.55);
-    }
-    .tooltip-val strong {
-      color: #f8fafc;
-      font-family: monospace;
-      font-weight: 700;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.94));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11px;
+        z-index: 100;
+        min-width: 210px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition:
+          left 0.08s ease-out,
+          top 0.08s ease-out;
+      }
+      .tooltip-header {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tooltip-direction {
+        font-size: 10px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .tooltip-columns {
+        display: flex;
+        gap: 12px;
+      }
+      .tooltip-col {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+      }
+      .tooltip-col.bordered {
+        border-left: 1px solid rgba(255, 255, 255, 0.15);
+        padding-left: 12px;
+      }
+      .col-title {
+        font-weight: 600;
+        font-size: 9.5px;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .tooltip-val {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        color: rgba(248, 250, 252, 0.85);
+      }
+      .tooltip-val span {
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .tooltip-val strong {
+        color: #f8fafc;
+        font-family: monospace;
+        font-weight: 700;
+      }
 
-    /* Export styles removed */
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      /* Export styles removed */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class HeikinAshiChartComponent {
   readonly instanceId = generateUniqueId('chart');
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   readonly PAD_LEFT = 52;
   readonly PAD_TOP = 20;
@@ -381,7 +443,7 @@ export class HeikinAshiChartComponent {
       high: haHigh0,
       low: haLow0,
       close: haClose0,
-      original: item0
+      original: item0,
     });
 
     // Subsequent items
@@ -400,7 +462,7 @@ export class HeikinAshiChartComponent {
         high: haHigh,
         low: haLow,
         close: haClose,
-        original: item
+        original: item,
       });
     }
 
@@ -473,7 +535,7 @@ export class HeikinAshiChartComponent {
         rectH,
         color,
         isBullish,
-        raw: item
+        raw: item,
       };
     });
   });
@@ -487,20 +549,42 @@ export class HeikinAshiChartComponent {
   }
 
   onCandleHover(event: MouseEvent, item: HeikinAshiCalculatedItem, index: number) {
-    this.hoveredIndex.set(index);
     const containerEl = this.container()?.nativeElement;
     if (!containerEl) return;
     const rect = containerEl.getBoundingClientRect();
-    const tooltipX = event.clientX - rect.left;
-    const tooltipY = event.clientY - rect.top;
+    this.showCandleTooltip(item, index, event.clientX - rect.left, event.clientY - rect.top);
+  }
 
+  accessibleCandleLabel(item: HeikinAshiCalculatedItem): string {
+    const date = this.formatDate(item.date);
+    const open = fmtNum(item.open);
+    const high = fmtNum(item.high);
+    const low = fmtNum(item.low);
+    const close = fmtNum(item.close);
+    return (
+      this.i18n.chart.heikinAshiMarkDescription?.(date, open, high, low, close) ??
+      this.i18n.chart.dataMarkDescription(date, `Heikin-Ashi open ${open}, high ${high}, low ${low}, close ${close}`)
+    );
+  }
+
+  onCandleFocus(event: FocusEvent, item: HeikinAshiCalculatedItem, index: number): void {
+    const target = event.target;
+    if (!(target instanceof SVGRectElement)) return;
+    const rect = target.getBoundingClientRect();
+    const containerRect = this.container()?.nativeElement.getBoundingClientRect();
+    if (!containerRect) return;
+    this.showCandleTooltip(item, index, rect.left + rect.width / 2 - containerRect.left, rect.top - containerRect.top);
+  }
+
+  private showCandleTooltip(item: HeikinAshiCalculatedItem, index: number, tooltipX: number, tooltipY: number): void {
+    this.hoveredIndex.set(index);
     this.tooltip.set({
       x: tooltipX,
       y: tooltipY,
       date: item.date,
       isBullish: item.close >= item.open,
       orig: item.original,
-      ha: { open: item.open, high: item.high, low: item.low, close: item.close }
+      ha: { open: item.open, high: item.high, low: item.low, close: item.close },
     });
   }
 
@@ -521,11 +605,27 @@ export class HeikinAshiChartComponent {
   exportToCsv(): void {
     const items = this.heikinAshiData();
     if (!items.length) return;
-    const headers = ['Date', 'Orig_Open', 'Orig_High', 'Orig_Low', 'Orig_Close', 'HA_Open', 'HA_High', 'HA_Low', 'HA_Close'];
+    const headers = [
+      'Date',
+      'Orig_Open',
+      'Orig_High',
+      'Orig_Low',
+      'Orig_Close',
+      'HA_Open',
+      'HA_High',
+      'HA_Low',
+      'HA_Close',
+    ];
     const rows = items.map(item => [
       this.formatDate(item.date),
-      item.original.open, item.original.high, item.original.low, item.original.close,
-      item.open, item.high, item.low, item.close
+      item.original.open,
+      item.original.high,
+      item.original.low,
+      item.original.close,
+      item.open,
+      item.high,
+      item.low,
+      item.close,
     ]);
     this.exportSvc.downloadCsv(headers, rows, 'heikin-ashi-data.csv');
   }

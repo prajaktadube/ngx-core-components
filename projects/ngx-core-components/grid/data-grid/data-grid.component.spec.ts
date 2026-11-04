@@ -111,6 +111,22 @@ describe('DataGridComponent', () => {
     expect(component.focusedCell()).toBeNull();
   });
 
+  it('uses Home and End to move to row and grid boundaries', () => {
+    fixture.componentRef.setInput('keyboardNavigation', true);
+    component.focusedCell.set({ row: mockData[1], colField: 'age' });
+    fixture.detectChanges();
+
+    const focusedCell = fixture.nativeElement.querySelector('.grid-td.cell-focused') as HTMLElement;
+    focusedCell.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', bubbles: true, cancelable: true }));
+    expect(component.focusedCell()).toEqual({ row: mockData[1], colField: 'id' });
+
+    const currentCell = fixture.nativeElement.querySelector('.grid-td.cell-focused') as HTMLElement;
+    currentCell.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'End', ctrlKey: true, bubbles: true, cancelable: true })
+    );
+    expect(component.focusedCell()).toEqual({ row: mockData[2], colField: 'role' });
+  });
+
   it('does not consume toolbar arrow keys as grid navigation', () => {
     fixture.componentRef.setInput('keyboardNavigation', true);
     component.focusedCell.set({ row: mockData[0], colField: 'age' });
@@ -187,12 +203,35 @@ describe('DataGridComponent', () => {
     expect(document.activeElement).toBe(cell);
   });
 
+  it('supports arrow and boundary navigation inside the context menu', async () => {
+    fixture.componentRef.setInput('enableContextMenu', true);
+    fixture.detectChanges();
+    const cell = fixture.nativeElement.querySelector('.grid-td:not(.grid-td-check)') as HTMLElement;
+    cell.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 20, clientY: 20 }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const menu = fixture.nativeElement.querySelector('.grid-context-menu') as HTMLElement;
+    expect(menu.getAttribute('role')).toBe('menu');
+    const items = Array.from(menu.querySelectorAll<HTMLButtonElement>('.menu-item:not(:disabled)'));
+    expect(items.length).toBeGreaterThan(1);
+    expect(items[0].getAttribute('role')).toBe('menuitem');
+    expect(document.activeElement).toBe(items[0]);
+
+    items[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+    expect(document.activeElement).toBe(items[1]);
+    items[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true, cancelable: true }));
+    expect(document.activeElement).toBe(items[items.length - 1]);
+    items[items.length - 1].dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Home', bubbles: true, cancelable: true })
+    );
+    expect(document.activeElement).toBe(items[0]);
+  });
+
   it('focuses the column chooser on open and restores focus when Escape closes it', async () => {
     fixture.componentRef.setInput('showColumnChooser', true);
     fixture.detectChanges();
-    const trigger = fixture.nativeElement.querySelector(
-      '[aria-label="Choose columns"]'
-    ) as HTMLButtonElement;
+    const trigger = fixture.nativeElement.querySelector('[aria-label="Choose columns"]') as HTMLButtonElement;
 
     trigger.click();
     fixture.detectChanges();

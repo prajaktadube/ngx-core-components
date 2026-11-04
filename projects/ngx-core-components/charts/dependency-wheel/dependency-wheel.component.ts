@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface DependencyItem {
   labels: string[];
@@ -40,7 +49,7 @@ interface ProcessedDependency {
 @Component({
   selector: 'ngx-dependency-wheel',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-dependency-wheel" (mouseleave)="onMouseLeave()">
@@ -52,14 +61,8 @@ interface ProcessedDependency {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="wheel-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
-        <g [attr.transform]="'translate(' + (containerWidth() / 2) + ',' + (svgHeight() / 2) + ')'">
-          
+      <svg #svgEl class="wheel-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
+        <g [attr.transform]="'translate(' + containerWidth() / 2 + ',' + svgHeight() / 2 + ')'">
           <!-- Tapered Dependency Ribbons -->
           @for (dep of computedDependencies(); track dep.path; let i = $index) {
             <path
@@ -70,10 +73,21 @@ interface ProcessedDependency {
               stroke-opacity="0.4"
               stroke-width="0.5"
               class="dependency-ribbon"
-              [class.dimmed]="hoveredNodeIndex() !== null && hoveredNodeIndex() !== dep.sourceIndex && hoveredNodeIndex() !== dep.targetIndex"
-              [class.highlighted]="hoveredDependencyIndex() === i || (hoveredNodeIndex() !== null && (hoveredNodeIndex() === dep.sourceIndex || hoveredNodeIndex() === dep.targetIndex))"
-              (mouseenter)="onDependencyHover(i, $event)"
+              [ngxChartAccessibleMark]="accessibleDependencyLabel(dep)"
+              [class.dimmed]="
+                hoveredNodeIndex() !== null &&
+                hoveredNodeIndex() !== dep.sourceIndex &&
+                hoveredNodeIndex() !== dep.targetIndex
+              "
+              [class.highlighted]="
+                hoveredDependencyIndex() === i ||
+                (hoveredNodeIndex() !== null &&
+                  (hoveredNodeIndex() === dep.sourceIndex || hoveredNodeIndex() === dep.targetIndex))
+              "
+              (mouseenter)="onDependencyHover(i)"
               (mousemove)="onMouseMove($event)"
+              (focus)="onDependencyFocus(i, $event)"
+              (blur)="onMouseLeave()"
             />
           }
 
@@ -83,8 +97,11 @@ interface ProcessedDependency {
               class="wheel-node-group"
               [class.dimmed]="hoveredNodeIndex() !== null && hoveredNodeIndex() !== i"
               [class.highlighted]="hoveredNodeIndex() === i"
+              [ngxChartAccessibleMark]="accessibleNodeLabel(node)"
               (mouseenter)="onNodeHover(i)"
               (mousemove)="onMouseMove($event)"
+              (focus)="onNodeFocus(i, $event)"
+              (blur)="onMouseLeave()"
             >
               <!-- Arc Segment -->
               <path
@@ -135,105 +152,143 @@ interface ProcessedDependency {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-dependency-wheel {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .wheel-svg {
-      display: block;
-      overflow: visible;
-    }
-    .node-arc {
-      cursor: pointer;
-      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease;
-      transform-origin: center;
-      animation: wheelScaleIn 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
-    }
-    .node-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #334155);
-      font-weight: 600;
-      user-select: none;
-      pointer-events: none;
-    }
-    .dependency-ribbon {
-      cursor: pointer;
-      transition: fill-opacity 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease;
-      transform-origin: center;
-      animation: wheelScaleIn 1s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
-    }
-    @keyframes wheelScaleIn {
-      from { transform: scale(0); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .dependency-ribbon.dimmed, .wheel-node-group.dimmed {
-      opacity: 0.15;
-    }
-    .dependency-ribbon.highlighted {
-      fill-opacity: 0.7;
-      stroke-width: 1.5;
-      stroke-opacity: 0.9;
-    }
-    .wheel-node-group.highlighted .node-arc {
-      stroke-width: 2.5;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-dependency-wheel {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .wheel-svg {
+        display: block;
+        overflow: visible;
+      }
+      .node-arc {
+        cursor: pointer;
+        transition:
+          fill-opacity 0.2s ease,
+          stroke-width 0.2s ease;
+        transform-origin: center;
+        animation: wheelScaleIn 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+      }
+      .node-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #334155);
+        font-weight: 600;
+        user-select: none;
+        pointer-events: none;
+      }
+      .dependency-ribbon {
+        cursor: pointer;
+        transition:
+          fill-opacity 0.2s ease,
+          stroke-width 0.2s ease,
+          opacity 0.2s ease;
+        transform-origin: center;
+        animation: wheelScaleIn 1s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+      }
+      .dependency-ribbon:focus-visible {
+        outline: none;
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 2px;
+        fill-opacity: 0.8;
+      }
+      .wheel-node-group:focus-visible {
+        outline: none;
+      }
+      .wheel-node-group:focus-visible .node-arc {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+      }
+      @keyframes wheelScaleIn {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .dependency-ribbon.dimmed,
+      .wheel-node-group.dimmed {
+        opacity: 0.15;
+      }
+      .dependency-ribbon.highlighted {
+        fill-opacity: 0.7;
+        stroke-width: 1.5;
+        stroke-opacity: 0.9;
+      }
+      .wheel-node-group.highlighted .node-arc {
+        stroke-width: 2.5;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Export styles */
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      /* Export styles */
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class DependencyWheelComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   matrix = input<number[][]>([]);
   labels = input<string[]>([]);
   height = input<number>(400);
@@ -284,7 +339,7 @@ export class DependencyWheelComponent {
 
     // Sum of directed inputs & outputs representing node total dependency scale
     const nodeTotals = m.map((row, i) => {
-      let outbound = row.reduce((sum, v) => sum + v, 0);
+      const outbound = row.reduce((sum, v) => sum + v, 0);
       let inbound = 0;
       for (let j = 0; j < count; j++) {
         inbound += m[j][i];
@@ -343,7 +398,7 @@ export class DependencyWheelComponent {
         textX,
         textY,
         textAngle,
-        textAnchor
+        textAnchor,
       };
     });
   });
@@ -400,13 +455,37 @@ export class DependencyWheelComponent {
           targetLabel: l[j] || `Node ${j + 1}`,
           value: val,
           color: nodes[i].color,
-          path
+          path,
         });
       }
     }
 
     return dependencies;
   });
+
+  accessibleNodeLabel(node: ProcessedNode): string {
+    const matrix = this.matrix();
+    const connections = matrix.reduce((count, row, rowIndex) => {
+      if (rowIndex === node.index) {
+        return (
+          count + row.reduce((sum, value, targetIndex) => sum + (targetIndex !== node.index && value > 0 ? 1 : 0), 0)
+        );
+      }
+      return count + (row[node.index] > 0 ? 1 : 0);
+    }, 0);
+    return (
+      this.i18n.chart.networkNodeDescription?.(node.label, fmtNum(node.value), '', String(connections)) ??
+      `${node.label}; total weight ${fmtNum(node.value)}; ${connections} connections`
+    );
+  }
+
+  accessibleDependencyLabel(dependency: ProcessedDependency): string {
+    const value = fmtNum(dependency.value);
+    return (
+      this.i18n.chart.networkLinkDescription?.(dependency.sourceLabel, dependency.targetLabel, value) ??
+      `${dependency.sourceLabel} depends on ${dependency.targetLabel}; weight ${value}`
+    );
+  }
 
   onNodeHover(idx: number) {
     this.hoveredNodeIndex.set(idx);
@@ -415,12 +494,17 @@ export class DependencyWheelComponent {
       this.tooltip.set({
         type: 'node',
         label: node.label,
-        value: node.value
+        value: node.value,
       });
     }
   }
 
-  onDependencyHover(idx: number, event: MouseEvent) {
+  onNodeFocus(idx: number, event: FocusEvent): void {
+    this.onNodeHover(idx);
+    this.positionTooltipAtMark(event);
+  }
+
+  onDependencyHover(idx: number) {
     this.hoveredDependencyIndex.set(idx);
     const dep = this.computedDependencies()[idx];
     if (dep) {
@@ -428,9 +512,24 @@ export class DependencyWheelComponent {
         type: 'dependency',
         sourceLabel: dep.sourceLabel,
         targetLabel: dep.targetLabel,
-        value: dep.value
+        value: dep.value,
       });
     }
+  }
+
+  onDependencyFocus(idx: number, event: FocusEvent): void {
+    this.onDependencyHover(idx);
+    this.positionTooltipAtMark(event);
+  }
+
+  private positionTooltipAtMark(event: FocusEvent): void {
+    const mark = event.currentTarget as SVGElement;
+    const container = mark.closest('.ngx-dependency-wheel');
+    if (!container) return;
+    const markRect = mark.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - containerRect.top);
   }
 
   onMouseMove(event: MouseEvent) {
@@ -449,7 +548,7 @@ export class DependencyWheelComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -494,7 +593,6 @@ export class DependencyWheelComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   formatNumber(v: number): string {
     return fmtNum(v);

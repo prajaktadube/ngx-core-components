@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface MatrixItem {
   labels: string[];
@@ -27,7 +36,7 @@ interface ProcessedCell {
 @Component({
   selector: 'ngx-adjacency-matrix',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-adjacency-matrix" (mouseleave)="onMouseLeave()">
@@ -39,23 +48,13 @@ interface ProcessedCell {
         }
       </div>
 
-      <svg
-        #svgEl
-        class="matrix-svg"
-        [attr.width]="'100%'"
-        [attr.height]="svgHeight()"
-      >
+      <svg #svgEl class="matrix-svg" [attr.width]="'100%'" [attr.height]="svgHeight()">
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- Column Labels (Top - rotated for readability) -->
           @if (showLabels()) {
             @for (label of labels(); track label; let i = $index) {
               <g [attr.transform]="'translate(' + (i * cellSize() + cellSize() / 2) + ', -8)'">
-                <text
-                  transform="rotate(-45)"
-                  text-anchor="start"
-                  class="col-label"
-                >
+                <text transform="rotate(-45)" text-anchor="start" class="col-label">
                   {{ label }}
                 </text>
               </g>
@@ -90,11 +89,21 @@ interface ProcessedCell {
                 [attr.stroke]="gridColor()"
                 stroke-width="1"
                 class="matrix-cell"
-                [class.dimmed]="hoveredCoords() !== null && hoveredCoords()!.row !== cell.rowIdx && hoveredCoords()!.col !== cell.colIdx"
-                [class.highlighted]="hoveredCoords() !== null && (hoveredCoords()!.row === cell.rowIdx || hoveredCoords()!.col === cell.colIdx)"
-                (mouseenter)="onCellHover(cell.rowIdx, cell.colIdx, $event)"
+                [ngxChartAccessibleMark]="accessibleCellLabel(cell)"
+                [class.dimmed]="
+                  hoveredCoords() !== null &&
+                  hoveredCoords()!.row !== cell.rowIdx &&
+                  hoveredCoords()!.col !== cell.colIdx
+                "
+                [class.highlighted]="
+                  hoveredCoords() !== null &&
+                  (hoveredCoords()!.row === cell.rowIdx || hoveredCoords()!.col === cell.colIdx)
+                "
+                (mouseenter)="onCellHover(cell.rowIdx, cell.colIdx)"
                 (mousemove)="onMouseMove($event)"
-                [style.animation-delay]="(cell.rowIdx * 0.04 + cell.colIdx * 0.04) + 's'"
+                (focus)="onCellFocus($event, cell)"
+                (blur)="onMouseLeave()"
+                [style.animation-delay]="cell.rowIdx * 0.04 + cell.colIdx * 0.04 + 's'"
               />
             </g>
           }
@@ -113,93 +122,116 @@ interface ProcessedCell {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-adjacency-matrix {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .matrix-svg {
-      display: block;
-      overflow: visible;
-    }
-    .matrix-cell {
-      transition: fill-opacity 0.15s ease, opacity 0.15s ease;
-      cursor: pointer;
-      animation: cellFadeIn 0.4s ease-out forwards;
-      opacity: 0;
-      transform-origin: center;
-    }
-    @keyframes cellFadeIn {
-      to { opacity: 1; }
-    }
-    .matrix-cell.dimmed {
-      opacity: 0.4;
-    }
-    .matrix-cell.highlighted {
-      stroke: var(--ngx-chart-axis, #94a3b8);
-      stroke-width: 1.5;
-    }
-    .row-label, .col-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #475569);
-      font-weight: 600;
-      user-select: none;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-adjacency-matrix {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .matrix-svg {
+        display: block;
+        overflow: visible;
+      }
+      .matrix-cell {
+        transition:
+          fill-opacity 0.15s ease,
+          opacity 0.15s ease;
+        cursor: pointer;
+        animation: cellFadeIn 0.4s ease-out forwards;
+        opacity: 0;
+        transform-origin: center;
+      }
+      @keyframes cellFadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      .matrix-cell.dimmed {
+        opacity: 0.4;
+      }
+      .matrix-cell.highlighted {
+        stroke: var(--ngx-chart-axis, #94a3b8);
+        stroke-width: 1.5;
+      }
+      .matrix-cell:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
+      .row-label,
+      .col-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #475569);
+        font-weight: 600;
+        user-select: none;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class AdjacencyMatrixComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   matrix = input<number[][]>([]);
   labels = input<string[]>([]);
   height = input<number>(400);
@@ -222,7 +254,7 @@ export class AdjacencyMatrixComponent {
     top: this.showLabels() ? 80 : 10,
     right: 20,
     bottom: 20,
-    left: this.showLabels() ? 80 : 10
+    left: this.showLabels() ? 80 : 10,
   }));
 
   innerW = computed(() => Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
@@ -284,7 +316,7 @@ export class AdjacencyMatrixComponent {
           y: r * cellS,
           size: cellS,
           opacity,
-          color: value > 0 ? c : '#e2e8f0'
+          color: value > 0 ? c : '#e2e8f0',
         });
       }
     }
@@ -292,15 +324,38 @@ export class AdjacencyMatrixComponent {
     return cells;
   });
 
-  onCellHover(row: number, col: number, event: MouseEvent) {
+  onCellHover(row: number, col: number) {
     this.hoveredCoords.set({ row, col });
     const m = this.matrix();
     const l = this.labels();
     this.tooltip.set({
       source: l[row] || `Node ${row + 1}`,
       target: l[col] || `Node ${col + 1}`,
-      value: m[row][col]
+      value: m[row][col],
     });
+  }
+
+  accessibleCellLabel(cell: ProcessedCell): string {
+    const labels = this.labels();
+    const source = labels[cell.rowIdx] || `Node ${cell.rowIdx + 1}`;
+    const target = labels[cell.colIdx] || `Node ${cell.colIdx + 1}`;
+    const value = fmtNum(cell.value);
+    return (
+      this.i18n.chart.adjacencyMatrixCellDescription?.(source, target, value) ??
+      `${source} to ${target}: connection weight ${value}`
+    );
+  }
+
+  onCellFocus(event: FocusEvent, cell: ProcessedCell): void {
+    const labels = this.labels();
+    const source = labels[cell.rowIdx] || `Node ${cell.rowIdx + 1}`;
+    const target = labels[cell.colIdx] || `Node ${cell.colIdx + 1}`;
+    this.hoveredCoords.set({ row: cell.rowIdx, col: cell.colIdx });
+    this.tooltip.set({ source, target, value: cell.value });
+
+    const rect = (event.currentTarget as SVGElement).getBoundingClientRect();
+    this.tooltipX.set(rect.left + rect.width / 2);
+    this.tooltipY.set(rect.top);
   }
 
   onMouseMove(event: MouseEvent) {
@@ -318,7 +373,7 @@ export class AdjacencyMatrixComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -363,7 +418,6 @@ export class AdjacencyMatrixComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   formatNumber(v: number): string {
     return fmtNum(v);

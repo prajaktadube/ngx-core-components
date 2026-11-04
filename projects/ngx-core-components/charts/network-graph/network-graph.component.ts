@@ -1,11 +1,19 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  inject,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface NetworkNode {
   id: string;
@@ -45,7 +53,7 @@ interface SimulatedLink {
 @Component({
   selector: 'ngx-network-graph',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-network-graph">
@@ -76,8 +84,11 @@ interface SimulatedLink {
               [attr.stroke-width]="linkHovered(link) ? link.weight + 3 : link.weight"
               [attr.stroke-opacity]="linkHovered(link) ? 0.9 : 0.65"
               class="link-line"
+              [ngxChartAccessibleMark]="accessibleLinkLabel(link)"
               (mouseenter)="hoveredLink.set(link); onLinkHover($event, link)"
               (mouseleave)="hoveredLink.set(null); tooltip.set(null)"
+              (focus)="onLinkFocus($event, link)"
+              (blur)="onMouseLeave()"
             />
           }
 
@@ -86,9 +97,14 @@ interface SimulatedLink {
             <g
               class="node-group"
               [class.hovered]="hoveredNodeId() === node.id || neighborNodeIds().includes(node.id)"
-              [class.dimmed]="hoveredNodeId() !== null && hoveredNodeId() !== node.id && !neighborNodeIds().includes(node.id)"
+              [class.dimmed]="
+                hoveredNodeId() !== null && hoveredNodeId() !== node.id && !neighborNodeIds().includes(node.id)
+              "
+              [ngxChartAccessibleMark]="accessibleNodeLabel(node)"
               (mouseenter)="onNodeMouseEnter($event, node)"
               (mouseleave)="onNodeMouseLeave()"
+              (focus)="onNodeFocus($event, node)"
+              (blur)="onNodeMouseLeave()"
             >
               <circle
                 [attr.cx]="node.x"
@@ -100,12 +116,7 @@ interface SimulatedLink {
                 class="node-circle"
               />
               @if (showLabels()) {
-                <text
-                  [attr.x]="node.x"
-                  [attr.y]="node.y + node.r + 14"
-                  text-anchor="middle"
-                  class="node-label"
-                >
+                <text [attr.x]="node.x" [attr.y]="node.y + node.r + 14" text-anchor="middle" class="node-label">
                   {{ node.label }}
                 </text>
               }
@@ -149,112 +160,157 @@ interface SimulatedLink {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-network-graph {
-      position: relative;
-      background: var(--ngx-chart-bg, #fff);
-      font-family: inherit;
-      overflow: hidden;
-      padding: 16px;
-      border-radius: 16px;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 8px;
-    }
-    .chart-body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .chart-svg {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      min-width: 0;
-    }
-    .link-line {
-      cursor: pointer;
-      transition: stroke 0.2s, stroke-width 0.2s, stroke-opacity 0.2s;
-    }
-    .node-group {
-      cursor: pointer;
-      transition: opacity 0.25s ease;
-    }
-    .node-circle {
-      transition: r 0.2s, stroke 0.2s, stroke-width 0.2s;
-    }
-    .node-group:hover .node-circle {
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-    }
-    .node-group.dimmed {
-      opacity: 0.3;
-    }
-    .node-label {
-      fill: var(--ngx-chart-text, #1e293b);
-      font-size: 11px;
-      font-weight: 600;
-      pointer-events: none;
-      user-select: none;
-    }
-    .chart-legend {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex-shrink: 0;
-      min-width: 130px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-    .legend-label {
-      color: var(--ngx-chart-text, #1e293b);
-      font-weight: 600;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-network-graph {
+        position: relative;
+        background: var(--ngx-chart-bg, #fff);
+        font-family: inherit;
+        overflow: hidden;
+        padding: 16px;
+        border-radius: 16px;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 8px;
+      }
+      .chart-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .chart-svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+      }
+      .link-line {
+        cursor: pointer;
+        transition:
+          stroke 0.2s,
+          stroke-width 0.2s,
+          stroke-opacity 0.2s;
+      }
+      .node-group {
+        cursor: pointer;
+        transition: opacity 0.25s ease;
+      }
+      .node-group:focus-visible {
+        outline: none;
+      }
+      .node-group:focus-visible .node-circle {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+      }
+      .link-line:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
+      .node-circle {
+        transition:
+          r 0.2s,
+          stroke 0.2s,
+          stroke-width 0.2s;
+      }
+      .node-group:hover .node-circle {
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+      }
+      .node-group.dimmed {
+        opacity: 0.3;
+      }
+      .node-label {
+        fill: var(--ngx-chart-text, #1e293b);
+        font-size: 11px;
+        font-weight: 600;
+        pointer-events: none;
+        user-select: none;
+      }
+      .chart-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex-shrink: 0;
+        min-width: 130px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      .legend-label {
+        color: var(--ngx-chart-text, #1e293b);
+        font-weight: 600;
+      }
 
-    /* Premium Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
-      border-radius: 10px; font-size: 12px; min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      display: flex; align-items: flex-start; gap: 8px;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
-    .tt-content { display: flex; flex-direction: column; gap: 2px; }
-    .tt-group { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
-    .tt-val { font-weight: 700; }
-
-
-  `]
+      /* Premium Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 4px;
+      }
+      .tt-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .tt-group {
+        font-size: 10px;
+        color: rgba(248, 250, 252, 0.7);
+      }
+      .tt-val {
+        font-weight: 700;
+      }
+    `,
+  ],
 })
 export class NetworkGraphComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   nodes = input<NetworkNode[]>([]);
   links = input<NetworkLink[]>([]);
   height = input<number>(300);
@@ -266,7 +322,6 @@ export class NetworkGraphComponent {
   linkLength = input<number>(65);
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
-
 
   hoveredNodeId = signal<string | null>(null);
   hoveredLink = signal<SimulatedLink | null>(null);
@@ -327,7 +382,7 @@ export class NetworkGraphComponent {
         x: centerx + Math.cos(angle) * startRadius,
         y: centery + Math.sin(angle) * startRadius,
         vx: 0,
-        vy: 0
+        vy: 0,
       };
     });
 
@@ -395,10 +450,22 @@ export class NetworkGraphComponent {
 
         // Keep inside bounds
         const borderPadding = node.r + 8;
-        if (node.x < borderPadding) { node.x = borderPadding; node.vx = 0; }
-        if (node.x > this.width() - borderPadding) { node.x = this.width() - borderPadding; node.vx = 0; }
-        if (node.y < borderPadding) { node.y = borderPadding; node.vy = 0; }
-        if (node.y > this.height() - borderPadding) { node.y = this.height() - borderPadding; node.vy = 0; }
+        if (node.x < borderPadding) {
+          node.x = borderPadding;
+          node.vx = 0;
+        }
+        if (node.x > this.width() - borderPadding) {
+          node.x = this.width() - borderPadding;
+          node.vx = 0;
+        }
+        if (node.y < borderPadding) {
+          node.y = borderPadding;
+          node.vy = 0;
+        }
+        if (node.y > this.height() - borderPadding) {
+          node.y = this.height() - borderPadding;
+          node.vy = 0;
+        }
       });
     }
 
@@ -420,7 +487,7 @@ export class NetworkGraphComponent {
         targetId: link.target,
         sourceNode: sourceNode || nodes[0],
         targetNode: targetNode || nodes[0],
-        weight
+        weight,
       };
     });
   });
@@ -441,22 +508,49 @@ export class NetworkGraphComponent {
     return false;
   }
 
+  accessibleNodeLabel(node: SimulatedNode): string {
+    const connections = this.links().filter(link => link.source === node.id || link.target === node.id).length;
+    const group = node.group === 'default' ? '' : node.group;
+    const value = fmtNum(node.value);
+    return (
+      this.i18n.chart.networkNodeDescription?.(node.label, value, group, String(connections)) ??
+      `${node.label}; value ${value}${group ? `; group ${group}` : ''}; ${connections} connections`
+    );
+  }
+
+  accessibleLinkLabel(link: SimulatedLink): string {
+    const weight = fmtNum(link.weight);
+    return (
+      this.i18n.chart.networkLinkDescription?.(link.sourceNode.label, link.targetNode.label, weight) ??
+      `Connection from ${link.sourceNode.label} to ${link.targetNode.label}; weight ${weight}`
+    );
+  }
+
   onNodeMouseEnter(event: MouseEvent, node: SimulatedNode): void {
     this.hoveredNodeId.set(node.id);
     const el = (event.currentTarget as HTMLElement).closest('.ngx-network-graph') as HTMLElement;
     const rect = el.getBoundingClientRect();
+    this.showNodeTooltip(node, event.clientX - rect.left, event.clientY - rect.top);
+  }
 
-    // count connections
+  onNodeFocus(event: FocusEvent, node: SimulatedNode): void {
+    this.hoveredNodeId.set(node.id);
+    const rect = (event.currentTarget as SVGElement).getBoundingClientRect();
+    const host = (event.currentTarget as SVGElement).closest('.ngx-network-graph') as HTMLElement;
+    const hostRect = host.getBoundingClientRect();
+    this.showNodeTooltip(node, rect.left + rect.width / 2 - hostRect.left, rect.top + rect.height / 2 - hostRect.top);
+  }
+
+  private showNodeTooltip(node: SimulatedNode, x: number, y: number): void {
     const connCount = this.links().filter(l => l.source === node.id || l.target === node.id).length;
-
     this.tooltip.set({
       type: 'node',
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
+      x,
+      y,
       label: node.label,
       group: node.group !== 'default' ? node.group : undefined,
       connections: connCount,
-      color: node.color
+      color: node.color,
     });
   }
 
@@ -468,14 +562,30 @@ export class NetworkGraphComponent {
   onLinkHover(event: MouseEvent, link: SimulatedLink): void {
     const el = (event.currentTarget as HTMLElement).closest('.ngx-network-graph') as HTMLElement;
     const rect = el.getBoundingClientRect();
+    this.showLinkTooltip(link, event.clientX - rect.left, event.clientY - rect.top);
+  }
 
+  onLinkFocus(event: FocusEvent, link: SimulatedLink): void {
+    this.hoveredLink.set(link);
+    const markRect = (event.currentTarget as SVGElement).getBoundingClientRect();
+    const hostRect = (
+      (event.currentTarget as SVGElement).closest('.ngx-network-graph') as HTMLElement
+    ).getBoundingClientRect();
+    this.showLinkTooltip(
+      link,
+      markRect.left + markRect.width / 2 - hostRect.left,
+      markRect.top + markRect.height / 2 - hostRect.top
+    );
+  }
+
+  private showLinkTooltip(link: SimulatedLink, x: number, y: number): void {
     this.tooltip.set({
       type: 'link',
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
+      x,
+      y,
       sourceLabel: link.sourceNode.label,
       targetLabel: link.targetNode.label,
-      value: link.weight
+      value: link.weight,
     });
   }
 

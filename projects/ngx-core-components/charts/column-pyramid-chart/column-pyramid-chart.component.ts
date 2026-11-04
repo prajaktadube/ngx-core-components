@@ -1,11 +1,20 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, niceTicks, scale, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface ColumnPyramidSeries {
   name: string;
@@ -16,7 +25,7 @@ export interface ColumnPyramidSeries {
 @Component({
   selector: 'ngx-column-pyramid-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-column-pyramid-chart" (mouseleave)="onMouseLeave()">
@@ -55,12 +64,7 @@ export interface ColumnPyramidSeries {
 
             <!-- X Axis Labels -->
             @for (cat of inferredCategories(); track cat; let i = $index) {
-              <text
-                [attr.x]="bandXCenter(i)"
-                [attr.y]="innerH() + 16"
-                text-anchor="middle"
-                class="axis-label"
-              >
+              <text [attr.x]="bandXCenter(i)" [attr.y]="innerH() + 16" text-anchor="middle" class="axis-label">
                 {{ cat }}
               </text>
             }
@@ -69,24 +73,24 @@ export interface ColumnPyramidSeries {
             @for (s of series(); track s.name; let si = $index) {
               @for (v of s.data; track $index; let ci = $index) {
                 <polygon
+                  [ngxChartAccessibleMark]="pyramidAccessibleLabel(ci, si, v)"
                   [attr.points]="pyramidPoints(ci, si, v)"
                   [attr.fill]="seriesColor(si, s)"
                   [attr.stroke]="seriesColor(si, s)"
                   stroke-width="1"
                   class="pyramid-poly"
-                  [class.dimmed]="hoveredSeriesIndex() !== null && (hoveredSeriesIndex() !== si || hoveredCategoryIndex() !== ci)"
+                  [class.dimmed]="
+                    hoveredSeriesIndex() !== null && (hoveredSeriesIndex() !== si || hoveredCategoryIndex() !== ci)
+                  "
                   [class.highlighted]="hoveredSeriesIndex() === si && hoveredCategoryIndex() === ci"
-                  (mouseenter)="onPyramidHover(ci, si, v, $event)"
+                  (mouseenter)="onPyramidHover(ci, si, v)"
                   (mousemove)="onPyramidMouseMove($event)"
+                  (focus)="onPyramidFocus(ci, si, v, $event)"
+                  (blur)="onMouseLeave()"
                 />
                 <!-- Optional Value Labels -->
                 @if (showLabels() && hoveredCategoryIndex() === ci && hoveredSeriesIndex() === si) {
-                  <text
-                    [attr.x]="barXCenter(ci, si)"
-                    [attr.y]="labelY(v)"
-                    text-anchor="middle"
-                    class="label-text"
-                  >
+                  <text [attr.x]="barXCenter(ci, si)" [attr.y]="labelY(v)" text-anchor="middle" class="label-text">
                     {{ fmtNum(v) }}
                   </text>
                 }
@@ -113,147 +117,163 @@ export interface ColumnPyramidSeries {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .ngx-column-pyramid-chart {
-      background: var(--bg-secondary, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 12px;
-      padding: 20px;
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg-wrap {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .grid-line {
-      stroke: var(--ngx-chart-grid, #f1f5f9);
-      stroke-width: 1;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.5;
-    }
-    .axis-label {
-      font-size: 10px;
-      font-weight: 600;
-      fill: var(--text-secondary, #94a3b8);
-      user-select: none;
-    }
-    .label-text {
-      font-size: 9.5px;
-      fill: var(--text-primary, #1e293b);
-      font-weight: bold;
-      pointer-events: none;
-    }
-    .pyramid-poly {
-      cursor: pointer;
-      transition: opacity 0.2s ease, fill-opacity 0.2s ease, stroke-width 0.2s ease;
-    }
-    .pyramid-poly.dimmed {
-      opacity: 0.35;
-    }
-    .pyramid-poly.highlighted {
-      opacity: 1;
-      stroke: #ffffff;
-      stroke-width: 1.5;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
-    }
-    
-    /* Legend */
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .legend-rect {
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      display: inline-block;
-    }
-    .legend-label {
-      font-size: 12px;
-      color: var(--text-secondary, #64748b);
-      font-weight: 500;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .ngx-column-pyramid-chart {
+        background: var(--bg-secondary, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 12px;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg-wrap {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .grid-line {
+        stroke: var(--ngx-chart-grid, #f1f5f9);
+        stroke-width: 1;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.5;
+      }
+      .axis-label {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--text-secondary, #94a3b8);
+        user-select: none;
+      }
+      .label-text {
+        font-size: 9.5px;
+        fill: var(--text-primary, #1e293b);
+        font-weight: bold;
+        pointer-events: none;
+      }
+      .pyramid-poly {
+        cursor: pointer;
+        transition:
+          opacity 0.2s ease,
+          fill-opacity 0.2s ease,
+          stroke-width 0.2s ease;
+      }
+      .pyramid-poly.dimmed {
+        opacity: 0.35;
+      }
+      .pyramid-poly.highlighted {
+        opacity: 1;
+        stroke: #ffffff;
+        stroke-width: 1.5;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+      }
+      .pyramid-poly:focus-visible {
+        outline: none;
+        stroke: var(--ngx-tab-active-color, var(--primary-color, #1a73e8));
+        stroke-width: 3px;
+        filter: drop-shadow(0 0 3px rgba(26, 115, 232, 0.65));
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11.5px;
-      min-width: 140px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.85);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-    .tt-val.highlight {
-      color: #38bdf8;
-    }
+      /* Legend */
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .legend-rect {
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        display: inline-block;
+      }
+      .legend-label {
+        font-size: 12px;
+        color: var(--text-secondary, #64748b);
+        font-weight: 500;
+      }
 
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11.5px;
+        min-width: 140px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.85);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+      .tt-val.highlight {
+        color: #38bdf8;
+      }
+
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class ColumnPyramidChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   readonly PAD_LEFT = 48;
   readonly PAD_TOP = 15;
   readonly PAD_RIGHT = 16;
@@ -305,7 +325,7 @@ export class ColumnPyramidChartComponent {
   }
 
   private allValues = computed(() => this.series().flatMap(s => s.data));
-  
+
   private yMin = computed(() => {
     const vals = this.allValues();
     if (vals.length === 0) return 0;
@@ -357,7 +377,7 @@ export class ColumnPyramidChartComponent {
     const w = this.barWidth() * 0.9;
     const xL = xCenter - w / 2;
     const xR = xCenter + w / 2;
-    
+
     const yBaseline = this.yPos(0);
     const yVal = this.yPos(v);
 
@@ -372,7 +392,6 @@ export class ColumnPyramidChartComponent {
 
   labelY(v: number): number {
     const yVal = this.yPos(v);
-    const yBaseline = this.yPos(0);
     if (this.inverted()) {
       // Inverted pyramid: value is at the top, apex is at baseline
       return yVal - 6;
@@ -386,7 +405,13 @@ export class ColumnPyramidChartComponent {
     return s.color || this.colors()[i % this.colors().length];
   }
 
-  onPyramidHover(ci: number, si: number, v: number, event: MouseEvent) {
+  pyramidAccessibleLabel(categoryIndex: number, seriesIndex: number, value: number): string {
+    const series = this.series()[seriesIndex];
+    const category = this.inferredCategories()[categoryIndex] || `Point ${categoryIndex + 1}`;
+    return this.i18n.chart.dataMarkDescription(`${series.name}, ${category}`, fmtNum(value));
+  }
+
+  onPyramidHover(ci: number, si: number, v: number) {
     this.hoveredCategoryIndex.set(ci);
     this.hoveredSeriesIndex.set(si);
     const s = this.series()[si];
@@ -395,8 +420,28 @@ export class ColumnPyramidChartComponent {
       category: cats[ci] || `Point ${ci + 1}`,
       seriesName: s.name,
       value: v,
-      color: this.seriesColor(si, s)
+      color: this.seriesColor(si, s),
     });
+  }
+
+  onPyramidFocus(ci: number, si: number, value: number, event: FocusEvent): void {
+    this.hoveredCategoryIndex.set(ci);
+    this.hoveredSeriesIndex.set(si);
+    const series = this.series()[si];
+    const category = this.inferredCategories()[ci] || `Point ${ci + 1}`;
+    this.tooltip.set({
+      category,
+      seriesName: series.name,
+      value,
+      color: this.seriesColor(si, series),
+    });
+
+    const mark = event.currentTarget as SVGPolygonElement;
+    const chart = mark.closest('.ngx-column-pyramid-chart') as HTMLElement;
+    const chartRect = chart.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - chartRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - chartRect.top);
   }
 
   onPyramidMouseMove(event: MouseEvent) {
@@ -415,7 +460,7 @@ export class ColumnPyramidChartComponent {
     this.tooltip.set(null);
   }
 
-    onExport(type: ExportFormat): void {
+  onExport(type: ExportFormat): void {
     if (type === 'json') this.exportToJson();
     else if (type === 'csv') this.exportToCsv();
     else if (type === 'svg') this.exportToSvg();
@@ -454,7 +499,6 @@ export class ColumnPyramidChartComponent {
   exportToPdf(): void {
     this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, 'Chart Export', 'chart.pdf');
   }
-
 
   readonly fmtNum = fmtNum;
 }

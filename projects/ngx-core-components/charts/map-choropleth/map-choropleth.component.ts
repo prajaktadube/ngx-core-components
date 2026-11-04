@@ -1,12 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { fmtNum } from '../shared/chart-utils';
 import { WORLD_MAP_DATA, getSvgPath } from '../shared/map-data';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface ChoroplethDataPoint {
   regionId: string; // e.g. 'US', 'CA', 'CN', etc.
@@ -17,7 +26,7 @@ export interface ChoroplethDataPoint {
 @Component({
   selector: 'ngx-map-choropleth',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-map-choropleth" [class.dark]="theme() === 'dark'" (mouseleave)="onMouseLeave()">
@@ -40,12 +49,7 @@ export interface ChoroplethDataPoint {
       }
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          class="map-svg"
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-        >
+        <svg #svgEl class="map-svg" [attr.width]="'100%'" [attr.height]="height()">
           <g>
             <!-- Map Geometries -->
             @for (region of computedRegions(); track region.id) {
@@ -56,8 +60,11 @@ export interface ChoroplethDataPoint {
                 [attr.stroke-width]="hoveredRegionId() === region.id ? 2.5 : 1"
                 class="map-region"
                 [class.highlighted]="hoveredRegionId() === region.id"
-                (mouseenter)="onRegionHover(region, $event)"
+                [ngxChartAccessibleMark]="accessibleRegionLabel(region)"
+                (mouseenter)="onRegionHover(region)"
                 (mousemove)="onRegionMouseMove($event)"
+                (focus)="onRegionFocus(region, $event)"
+                (blur)="onMouseLeave()"
               />
             }
           </g>
@@ -82,142 +89,157 @@ export interface ChoroplethDataPoint {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-map-choropleth {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-      transition: background-color 0.3s;
-    }
-    .ngx-map-choropleth.dark {
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      --ngx-chart-bg: #0f172a;
-      --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
-      --ngx-chart-tooltip-color: #f8fafc;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      position: relative;
-    }
-    .chart-title h4 {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ngx-chart-title-color, #1e293b);
-    }
-    .dark .chart-title h4 {
-      color: #f8fafc;
-    }
-    .map-svg {
-      display: block;
-      overflow: visible;
-    }
-    .map-region {
-      cursor: pointer;
-      transition: fill 0.2s, stroke-width 0.15s, filter 0.15s;
-    }
-    .map-region.highlighted {
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
-    }
-    
-    /* Legend Gradient */
-    .chart-legend {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 16px;
-      justify-content: flex-end;
-    }
-    .legend-label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: 600;
-    }
-    .dark .legend-label {
-      color: #94a3b8;
-    }
-    .legend-bar {
-      width: 120px;
-      height: 10px;
-      border-radius: 4px;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-map-choropleth {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      .ngx-map-choropleth.dark {
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        --ngx-chart-bg: #0f172a;
+        --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
+        --ngx-chart-tooltip-color: #f8fafc;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        position: relative;
+      }
+      .chart-title h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ngx-chart-title-color, #1e293b);
+      }
+      .dark .chart-title h4 {
+        color: #f8fafc;
+      }
+      .map-svg {
+        display: block;
+        overflow: visible;
+      }
+      .map-region {
+        cursor: pointer;
+        transition:
+          fill 0.2s,
+          stroke-width 0.15s,
+          filter 0.15s;
+      }
+      .map-region.highlighted {
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+      }
+      .map-region:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 140px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .label-row {
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 11px;
-      margin-top: 6px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-      padding-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Legend Gradient */
+      .chart-legend {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        justify-content: flex-end;
+      }
+      .legend-label {
+        font-size: 11px;
+        color: #64748b;
+        font-weight: 600;
+      }
+      .dark .legend-label {
+        color: #94a3b8;
+      }
+      .legend-bar {
+        width: 120px;
+        height: 10px;
+        border-radius: 4px;
+      }
 
-    /* Export styles removed */
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 140px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .label-row {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 11px;
+        margin-top: 6px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        padding-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+
+      /* Export styles removed */
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+    `,
+  ],
 })
 export class MapChoroplethComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   title = input<string>('Region Distribution');
   data = input<ChoroplethDataPoint[]>([]);
@@ -286,7 +308,7 @@ export class MapChoroplethComponent {
     return WORLD_MAP_DATA.map(region => {
       const path = getSvgPath(region.polygons, w, h, padding);
       const dataPoint = rawData.find(d => d.regionId.toUpperCase() === region.id.toUpperCase());
-      
+
       let fillColor = emptyColor;
       let value = 0;
       let hasData = false;
@@ -308,28 +330,47 @@ export class MapChoroplethComponent {
         value,
         hasData,
         label,
-        fillColor
+        fillColor,
       };
     });
   });
 
-  onRegionHover(region: any, event: MouseEvent) {
+  accessibleRegionLabel(region: { name: string; value: number; hasData: boolean; label: string }): string {
+    const value = region.hasData ? fmtNum(region.value) : 'no data';
+    return (
+      this.i18n.chart.choroplethRegionDescription?.(region.name, value, region.label) ??
+      `${region.name}: ${value}${region.label ? `; ${region.label}` : ''}`
+    );
+  }
+
+  onRegionHover(region: any) {
     this.hoveredRegionId.set(region.id);
     if (region.hasData) {
       this.tooltip.set({
         name: region.name,
         value: region.value,
         label: region.label,
-        color: region.fillColor
+        color: region.fillColor,
       });
     } else {
       this.tooltip.set({
         name: region.name,
         value: 0,
         label: 'No Data',
-        color: region.fillColor
+        color: region.fillColor,
       });
     }
+  }
+
+  onRegionFocus(region: any, event: FocusEvent): void {
+    this.onRegionHover(region);
+    const mark = event.currentTarget as SVGElement;
+    const containerEl = this.container()?.nativeElement as HTMLElement | undefined;
+    if (!containerEl) return;
+    const containerRect = containerEl.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - containerRect.top);
   }
 
   onRegionMouseMove(event: MouseEvent) {
@@ -387,13 +428,16 @@ export class MapChoroplethComponent {
   private parseHex(hex: string) {
     let clean = hex.replace('#', '');
     if (clean.length === 3) {
-      clean = clean.split('').map(c => c + c).join('');
+      clean = clean
+        .split('')
+        .map(c => c + c)
+        .join('');
     }
     const num = parseInt(clean, 16);
     return {
       r: (num >> 16) & 255,
       g: (num >> 8) & 255,
-      b: num & 255
+      b: num & 255,
     };
   }
 

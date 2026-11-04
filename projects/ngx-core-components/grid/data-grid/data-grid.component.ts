@@ -1462,24 +1462,26 @@ export class NgxGridFooterTemplateDirective {
       @if (activeContextMenu(); as menu) {
         <div
           class="grid-context-menu"
-          role="group"
+          role="menu"
+          aria-orientation="vertical"
           [attr.aria-label]="i18n.grid.contextMenu"
           [style.top.px]="menu.y"
           [style.left.px]="menu.x"
           (click)="$event.stopPropagation()"
+          (keydown)="onContextMenuKeydown($event)"
         >
-          <button class="menu-item" [disabled]="!selectedCellStart()" (click)="contextMenuCopy()">
+          <button class="menu-item" role="menuitem" [disabled]="!selectedCellStart()" (click)="contextMenuCopy()">
             <span class="menu-icon">📋</span> Copy Selection
           </button>
           <div class="menu-divider"></div>
           @if (showDetailToggle() && detailRowTemplate() && menu.row) {
-            <button class="menu-item" (click)="contextMenuToggleDetail(menu.row)">
+            <button class="menu-item" role="menuitem" (click)="contextMenuToggleDetail(menu.row)">
               <span class="menu-icon">🔍</span> {{ isExpanded(menu.row) ? 'Collapse Details' : 'Expand Details' }}
             </button>
-            <button class="menu-item" (click)="expandAllDetails()">
+            <button class="menu-item" role="menuitem" (click)="expandAllDetails()">
               <span class="menu-icon">📂</span> Expand All Details
             </button>
-            <button class="menu-item" (click)="collapseAllDetails()">
+            <button class="menu-item" role="menuitem" (click)="collapseAllDetails()">
               <span class="menu-icon">📁</span> Collapse All Details
             </button>
             <div class="menu-divider"></div>
@@ -1487,46 +1489,51 @@ export class NgxGridFooterTemplateDirective {
           @if (getColumnDef(menu.colField); as columnDef) {
             @if (columnDef.groupable) {
               @if (internalGroupBy()?.field === menu.colField) {
-                <button class="menu-item" (click)="contextMenuClearGrouping()">
+                <button class="menu-item" role="menuitem" (click)="contextMenuClearGrouping()">
                   <span class="menu-icon">📁</span> Clear Grouping
                 </button>
               } @else {
-                <button class="menu-item" (click)="contextMenuGroupBy(menu.colField)">
+                <button class="menu-item" role="menuitem" (click)="contextMenuGroupBy(menu.colField)">
                   <span class="menu-icon">🗂️</span> Group by {{ columnDef.title }}
                 </button>
               }
             }
           }
           @if (hasGrouping()) {
-            <button class="menu-item" (click)="expandAllGroups()">
+            <button class="menu-item" role="menuitem" (click)="expandAllGroups()">
               <span class="menu-icon">↕️</span> Expand All Groups
             </button>
-            <button class="menu-item" (click)="collapseAllGroups()">
+            <button class="menu-item" role="menuitem" (click)="collapseAllGroups()">
               <span class="menu-icon">⋯</span> Collapse All Groups
             </button>
           }
           <div class="menu-divider"></div>
-          <button class="menu-item" (click)="contextMenuTogglePin(menu.colField)">
+          <button class="menu-item" role="menuitem" (click)="contextMenuTogglePin(menu.colField)">
             <span class="menu-icon">📌</span> {{ isColumnPinned(menu.colField) ? 'Unpin Column' : 'Pin Column Left' }}
           </button>
-          <button class="menu-item" (click)="contextMenuHideColumn(menu.colField)">
+          <button class="menu-item" role="menuitem" (click)="contextMenuHideColumn(menu.colField)">
             <span class="menu-icon">👁️</span> Hide Column
           </button>
           <div class="menu-divider"></div>
-          <button class="menu-item" [disabled]="filterStates().size === 0" (click)="contextMenuClearFilters()">
+          <button
+            class="menu-item"
+            role="menuitem"
+            [disabled]="filterStates().size === 0"
+            (click)="contextMenuClearFilters()"
+          >
             <span class="menu-icon">🧹</span> Clear All Filters
           </button>
           <div class="menu-divider"></div>
-          <button class="menu-item" (click)="exportToJson(); closeContextMenu()">
+          <button class="menu-item" role="menuitem" (click)="exportToJson(); closeContextMenu()">
             <span class="menu-icon">📄</span> Export to JSON
           </button>
-          <button class="menu-item" (click)="exportToCsv(); closeContextMenu()">
+          <button class="menu-item" role="menuitem" (click)="exportToCsv(); closeContextMenu()">
             <span class="menu-icon">📊</span> Export to CSV
           </button>
-          <button class="menu-item" (click)="exportToExcel(); closeContextMenu()">
+          <button class="menu-item" role="menuitem" (click)="exportToExcel(); closeContextMenu()">
             <span class="menu-icon">📈</span> Export to Excel
           </button>
-          <button class="menu-item" (click)="exportToPdf(); closeContextMenu()">
+          <button class="menu-item" role="menuitem" (click)="exportToPdf(); closeContextMenu()">
             <span class="menu-icon">📕</span> Export to PDF
           </button>
         </div>
@@ -2462,6 +2469,32 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
     const trigger = this.contextMenuTrigger;
     this.contextMenuTrigger = null;
     if (restoreFocus) trigger?.focus();
+  }
+
+  onContextMenuKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.closeContextMenu();
+      return;
+    }
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+    const menu = event.currentTarget as HTMLElement;
+    const items = Array.from(menu.querySelectorAll<HTMLButtonElement>('.menu-item:not(:disabled)'));
+    if (items.length === 0) return;
+
+    const currentIndex = items.indexOf(menu.ownerDocument.activeElement as HTMLButtonElement);
+    const nextIndex =
+      event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? items.length - 1
+          : event.key === 'ArrowDown'
+            ? (currentIndex + 1) % items.length
+            : currentIndex <= 0
+              ? items.length - 1
+              : currentIndex - 1;
+    event.preventDefault();
+    items[nextIndex].focus();
   }
 
   isColumnPinned(field: string | null): boolean {
@@ -3629,6 +3662,15 @@ export class DataGridComponent<T extends object = Record<string, unknown>> imple
           this.focusCell(focused.row, cols[nextColIndex].field);
           event.preventDefault();
         }
+        break;
+      }
+      case 'Home':
+      case 'End': {
+        const toEnd = key === 'End';
+        const nextRowIndex = event.ctrlKey || event.metaKey ? (toEnd ? rows.length - 1 : 0) : rowIndex;
+        const nextColIndex = toEnd ? cols.length - 1 : 0;
+        this.focusCell(rows[nextRowIndex], cols[nextColIndex].field);
+        event.preventDefault();
         break;
       }
       case 'Tab': {

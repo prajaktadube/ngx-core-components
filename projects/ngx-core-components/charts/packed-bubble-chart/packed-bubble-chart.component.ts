@@ -1,17 +1,25 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, viewChild, HostListener, inject
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  viewChild,
+  inject,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface BubbleNode {
   id: string;
   label: string;
-  value: number;       // Determines size
-  group?: string;      // Optional grouping for clustered packing
+  value: number; // Determines size
+  group?: string; // Optional grouping for clustered packing
   color?: string;
 }
 
@@ -31,7 +39,7 @@ interface SimulatedNode {
 @Component({
   selector: 'ngx-packed-bubble-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-packed-bubble-chart">
@@ -52,18 +60,29 @@ interface SimulatedNode {
           [attr.height]="height()"
         >
           <!-- Grid/Background helper rings -->
-          <circle [attr.cx]="cx()" [attr.cy]="cy()" [attr.r]="cx() * 0.8" fill="none" stroke="var(--ngx-chart-grid, #f1f5f9)" stroke-width="1" stroke-dasharray="4" />
-          <circle [attr.cx]="cx()" [attr.cy]="cy()" [attr.r]="cx() * 0.5" fill="none" stroke="var(--ngx-chart-grid, #f1f5f9)" stroke-width="1" stroke-dasharray="4" />
+          <circle
+            [attr.cx]="cx()"
+            [attr.cy]="cy()"
+            [attr.r]="cx() * 0.8"
+            fill="none"
+            stroke="var(--ngx-chart-grid, #f1f5f9)"
+            stroke-width="1"
+            stroke-dasharray="4"
+          />
+          <circle
+            [attr.cx]="cx()"
+            [attr.cy]="cy()"
+            [attr.r]="cx() * 0.5"
+            fill="none"
+            stroke="var(--ngx-chart-grid, #f1f5f9)"
+            stroke-width="1"
+            stroke-dasharray="4"
+          />
 
           <!-- Group Labels (centered around cluster areas if grouped) -->
           @if (showGroupLabels() && groupCenters().length > 1) {
             @for (gc of groupCenters(); track gc.group) {
-              <text
-                [attr.x]="gc.x"
-                [attr.y]="gc.y - 20"
-                text-anchor="middle"
-                class="cluster-label"
-              >
+              <text [attr.x]="gc.x" [attr.y]="gc.y - 20" text-anchor="middle" class="cluster-label">
                 {{ gc.group }}
               </text>
             }
@@ -80,8 +99,11 @@ interface SimulatedNode {
                 [attr.stroke]="'#ffffff'"
                 [attr.stroke-width]="hoveredId() === node.id ? 3 : 1.5"
                 class="bubble"
+                [ngxChartAccessibleMark]="accessibleBubbleLabel(node)"
                 (mouseenter)="hoveredId.set(node.id); onBubbleHover($event, node)"
                 (mouseleave)="hoveredId.set(null); tooltip.set(null)"
+                (focus)="onBubbleFocus($event, node)"
+                (blur)="hoveredId.set(null); tooltip.set(null)"
               />
               @if (showLabels() && node.r > 20) {
                 <text
@@ -127,114 +149,149 @@ interface SimulatedNode {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-packed-bubble-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #fff);
-      font-family: inherit;
-      overflow: hidden;
-      padding: 16px;
-      border-radius: 16px;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 24px;
-      position: relative;
-      margin-bottom: 8px;
-    }
-    .chart-body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .chart-svg {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      min-width: 0;
-    }
-    .bubble-group {
-      cursor: pointer;
-    }
-    .bubble {
-      transition: stroke-width 0.2s, stroke 0.2s, fill-opacity 0.15s;
-    }
-    .bubble-group:hover .bubble {
-      fill-opacity: 0.9;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
-    }
-    .bubble-label {
-      fill: #ffffff;
-      font-weight: 700;
-      pointer-events: none;
-      user-select: none;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-    }
-    .cluster-label {
-      font-size: 11px;
-      fill: var(--ngx-chart-axis-text, #94a3b8);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      pointer-events: none;
-      user-select: none;
-    }
-    .chart-legend {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex-shrink: 0;
-      min-width: 130px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-    .legend-label {
-      color: var(--ngx-chart-text, #1e293b);
-      font-weight: 600;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-packed-bubble-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #fff);
+        font-family: inherit;
+        overflow: hidden;
+        padding: 16px;
+        border-radius: 16px;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+        margin-bottom: 8px;
+      }
+      .chart-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .chart-svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+      }
+      .bubble-group {
+        cursor: pointer;
+      }
+      .bubble {
+        transition:
+          stroke-width 0.2s,
+          stroke 0.2s,
+          fill-opacity 0.15s;
+      }
+      .bubble:focus-visible {
+        stroke: var(--primary-color, #4f46e5) !important;
+        stroke-width: 3px !important;
+        outline: none;
+      }
+      .bubble-group:hover .bubble {
+        fill-opacity: 0.9;
+        filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+      }
+      .bubble-label {
+        fill: #ffffff;
+        font-weight: 700;
+        pointer-events: none;
+        user-select: none;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      }
+      .cluster-label {
+        font-size: 11px;
+        fill: var(--ngx-chart-axis-text, #94a3b8);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        pointer-events: none;
+        user-select: none;
+      }
+      .chart-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex-shrink: 0;
+        min-width: 130px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      .legend-label {
+        color: var(--ngx-chart-text, #1e293b);
+        font-weight: 600;
+      }
 
-    /* Premium Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute; pointer-events: none; transform: translate(-50%, -100%) translateY(-8px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc); padding: 10px 14px;
-      border-radius: 10px; font-size: 12px; min-width: 140px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      display: flex; align-items: flex-start; gap: 8px;
-      transition: left 0.12s cubic-bezier(0.16, 1, 0.3, 1), top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      font-family: inherit;
-    }
-    .tt-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
-    .tt-content { display: flex; flex-direction: column; gap: 2px; }
-    .tt-group { font-size: 10px; color: rgba(248, 250, 252, 0.7); }
-    .tt-val { font-weight: 700; }
-
-
-  `]
+      /* Premium Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-8px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 140px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        transition:
+          left 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 4px;
+      }
+      .tt-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .tt-group {
+        font-size: 10px;
+        color: rgba(248, 250, 252, 0.7);
+      }
+      .tt-val {
+        font-weight: 700;
+      }
+    `,
+  ],
 })
 export class PackedBubbleChartComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   data = input<BubbleNode[]>([]);
   height = input<number>(300);
   width = input<number>(450);
@@ -248,9 +305,8 @@ export class PackedBubbleChartComponent {
 
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
-
   hoveredId = signal<string | null>(null);
-  tooltip = signal<{x:number;y:number;label:string;value:number;group?:string;color:string}|null>(null);
+  tooltip = signal<{ x: number; y: number; label: string; value: number; group?: string; color: string } | null>(null);
 
   cx = computed(() => this.width() / 2);
   cy = computed(() => this.height() / 2);
@@ -278,7 +334,7 @@ export class PackedBubbleChartComponent {
       return {
         group: grp,
         x: centerx + Math.cos(angle) * radius,
-        y: centery + Math.sin(angle) * radius
+        y: centery + Math.sin(angle) * radius,
       };
     });
   });
@@ -331,7 +387,7 @@ export class PackedBubbleChartComponent {
         y: targetCenter.y + Math.sin(angle) * dist,
         vx: 0,
         vy: 0,
-        color
+        color,
       };
     });
 
@@ -384,10 +440,22 @@ export class PackedBubbleChartComponent {
 
         // Keep inside bounds
         const borderPadding = node.r + 5;
-        if (node.x < borderPadding) { node.x = borderPadding; node.vx = 0; }
-        if (node.x > this.width() - borderPadding) { node.x = this.width() - borderPadding; node.vx = 0; }
-        if (node.y < borderPadding) { node.y = borderPadding; node.vy = 0; }
-        if (node.y > this.height() - borderPadding) { node.y = this.height() - borderPadding; node.vy = 0; }
+        if (node.x < borderPadding) {
+          node.x = borderPadding;
+          node.vx = 0;
+        }
+        if (node.x > this.width() - borderPadding) {
+          node.x = this.width() - borderPadding;
+          node.vx = 0;
+        }
+        if (node.y < borderPadding) {
+          node.y = borderPadding;
+          node.vy = 0;
+        }
+        if (node.y > this.height() - borderPadding) {
+          node.y = this.height() - borderPadding;
+          node.vy = 0;
+        }
       });
     }
 
@@ -413,7 +481,32 @@ export class PackedBubbleChartComponent {
       label: node.label,
       value: node.value,
       group: node.group !== 'default' ? node.group : undefined,
-      color: node.color
+      color: node.color,
+    });
+  }
+
+  accessibleBubbleLabel(node: SimulatedNode): string {
+    const group = node.group === 'default' ? 'default group' : node.group;
+    return (
+      this.i18n.chart.packedBubbleMarkDescription?.(node.label, group, fmtNum(node.value)) ??
+      `${node.label}; ${group}; value ${fmtNum(node.value)}`
+    );
+  }
+
+  onBubbleFocus(event: FocusEvent, node: SimulatedNode): void {
+    this.hoveredId.set(node.id);
+    const mark = event.currentTarget as SVGElement;
+    const container = mark.closest('.ngx-packed-bubble-chart');
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+    const markRect = mark.getBoundingClientRect();
+    this.tooltip.set({
+      x: markRect.left + markRect.width / 2 - containerRect.left,
+      y: markRect.top + markRect.height / 2 - containerRect.top,
+      label: node.label,
+      value: node.value,
+      group: node.group !== 'default' ? node.group : undefined,
+      color: node.color,
     });
   }
 

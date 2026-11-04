@@ -1,0 +1,1884 @@
+{
+  "nodes": [
+    {
+      "id": "chart_accessible_mark_directive_ts",
+      "label": "chart-accessible-mark.directive.ts",
+      "file_type": "code",
+      "source_file": "chart-accessible-mark.directive.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective",
+      "label": "ChartAccessibleMarkDirective",
+      "file_type": "code",
+      "source_file": "chart-accessible-mark.directive.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective_onkeydown",
+      "label": ".onKeydown()",
+      "file_type": "code",
+      "source_file": "chart-accessible-mark.directive.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "chart_annotations_ts",
+      "label": "chart-annotations.ts",
+      "file_type": "code",
+      "source_file": "chart-annotations.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_annotations_annotationtype",
+      "label": "AnnotationType",
+      "file_type": "code",
+      "source_file": "chart-annotations.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_annotations_chartannotation",
+      "label": "ChartAnnotation",
+      "file_type": "code",
+      "source_file": "chart-annotations.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "shared_chart_annotations_renderannotationsvg",
+      "label": "renderAnnotationSvg()",
+      "file_type": "code",
+      "source_file": "chart-annotations.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "chart_brush_zoom_component_ts",
+      "label": "chart-brush-zoom.component.ts",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "label": "ChartBrushZoomComponent",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L98"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L128"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ngafterviewinit",
+      "label": ".ngAfterViewInit()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L147"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_d",
+      "label": "d",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L165"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_w",
+      "label": "w",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L177"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_h",
+      "label": "h",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L178"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_maxval",
+      "label": "maxVal",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L182"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_minval",
+      "label": "minVal",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L183"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_len",
+      "label": "len",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L197"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_reset",
+      "label": ".reset()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L210"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontrackclick",
+      "label": ".onTrackClick()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L217"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowmousedown",
+      "label": ".onWindowMouseDown()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L240"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowtouchstart",
+      "label": ".onWindowTouchStart()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L244"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandlemousedown",
+      "label": ".onHandleMouseDown()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L249"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandletouchstart",
+      "label": ".onHandleTouchStart()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L253"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_startdrag",
+      "label": ".startDrag()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L258"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onmousemove",
+      "label": ".onMouseMove()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L267"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontouchmove",
+      "label": ".onTouchMove()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L272"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ondragend",
+      "label": ".onDragEnd()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L278"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_handledrag",
+      "label": ".handleDrag()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L286"
+    },
+    {
+      "id": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_emitchange",
+      "label": ".emitChange()",
+      "file_type": "code",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L317"
+    },
+    {
+      "id": "chart_export_menu_component_spec_ts",
+      "label": "chart-export-menu.component.spec.ts",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_export_menu_component_spec_fixture",
+      "label": "fixture",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "shared_chart_export_menu_component_spec_trigger",
+      "label": "trigger",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "shared_chart_export_menu_component_spec_menu",
+      "label": "menu",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "shared_chart_export_menu_component_spec_arrowdown",
+      "label": "arrowDown",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "shared_chart_export_menu_component_spec_arrowup",
+      "label": "arrowUp",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L83"
+    },
+    {
+      "id": "chart_export_menu_component_ts",
+      "label": "chart-export-menu.component.ts",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_export_menu_component_exportformat",
+      "label": "ExportFormat",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "label": "ChartExportMenuComponent",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L166"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_toggle",
+      "label": ".toggle()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L182"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_select",
+      "label": ".select()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L192"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_formaticon",
+      "label": ".formatIcon()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L202"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowdown",
+      "label": ".onArrowDown()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L212"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowup",
+      "label": ".onArrowUp()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L218"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
+      "label": ".navigate()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L224"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_closeonoutsideclick",
+      "label": ".closeOnOutsideClick()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L237"
+    },
+    {
+      "id": "shared_chart_export_menu_component_chartexportmenucomponent_closeonescape",
+      "label": ".closeOnEscape()",
+      "file_type": "code",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L243"
+    },
+    {
+      "id": "chart_export_service_spec_ts",
+      "label": "chart-export.service.spec.ts",
+      "file_type": "code",
+      "source_file": "chart-export.service.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "chart_export_service_ts",
+      "label": "chart-export.service.ts",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice",
+      "label": "ChartExportService",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice_isbrowser",
+      "label": ".isBrowser()",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice_triggerdownload",
+      "label": ".triggerDownload()",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice_downloadcsv",
+      "label": ".downloadCsv()",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice_downloadjson",
+      "label": ".downloadJson()",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice_downloadsvg",
+      "label": ".downloadSvg()",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "shared_chart_export_service_chartexportservice_downloadpdf",
+      "label": ".downloadPdf()",
+      "file_type": "code",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "chart_skeleton_component_ts",
+      "label": "chart-skeleton.component.ts",
+      "file_type": "code",
+      "source_file": "chart-skeleton.component.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_skeleton_component_chartskeletoncomponent",
+      "label": "ChartSkeletonComponent",
+      "file_type": "code",
+      "source_file": "chart-skeleton.component.ts",
+      "source_location": "L93"
+    },
+    {
+      "id": "chart_sync_group_directive_ts",
+      "label": "chart-sync-group.directive.ts",
+      "file_type": "code",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "label": "ChartSyncGroupDirective",
+      "file_type": "code",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "shared_chart_sync_group_directive_chartsyncgroupdirective_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "shared_chart_sync_group_directive_chartsyncgroupdirective_ngoninit",
+      "label": ".ngOnInit()",
+      "file_type": "code",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "shared_chart_sync_group_directive_chartsyncgroupdirective_ngondestroy",
+      "label": ".ngOnDestroy()",
+      "file_type": "code",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "shared_chart_sync_group_directive_chartsyncgroupdirective_onmousemove",
+      "label": ".onMouseMove()",
+      "file_type": "code",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "shared_chart_sync_group_directive_chartsyncgroupdirective_onmouseleave",
+      "label": ".onMouseLeave()",
+      "file_type": "code",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "chart_theme_service_ts",
+      "label": "chart-theme.service.ts",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_theme_service_chartthemename",
+      "label": "ChartThemeName",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "shared_chart_theme_service_colorblindmode",
+      "label": "ColorblindMode",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "shared_chart_theme_service_charttheme",
+      "label": "ChartTheme",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "shared_chart_theme_service_chartthemeservice",
+      "label": "ChartThemeService",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "shared_chart_theme_service_chartthemeservice_gettheme",
+      "label": ".getTheme()",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L84"
+    },
+    {
+      "id": "shared_chart_theme_service_chartthemeservice_applytheme",
+      "label": ".applyTheme()",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "shared_chart_theme_service_chartthemeservice_getcolorblindpalette",
+      "label": ".getColorblindPalette()",
+      "file_type": "code",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L98"
+    },
+    {
+      "id": "chart_tooltip_service_ts",
+      "label": "chart-tooltip.service.ts",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_tooltip_service_tooltiprow",
+      "label": "TooltipRow",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "shared_chart_tooltip_service_tooltipstate",
+      "label": "TooltipState",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "shared_chart_tooltip_service_charttooltipservice",
+      "label": "ChartTooltipService",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "shared_chart_tooltip_service_charttooltipservice_show",
+      "label": ".show()",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "shared_chart_tooltip_service_charttooltipservice_hide",
+      "label": ".hide()",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "shared_chart_tooltip_service_charttooltipservice_togglepin",
+      "label": ".togglePin()",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "shared_chart_tooltip_service_charttooltipservice_getadjustedposition",
+      "label": ".getAdjustedPosition()",
+      "file_type": "code",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "chart_utils_ts",
+      "label": "chart-utils.ts",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_chart_utils_chart_colors",
+      "label": "CHART_COLORS",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "shared_chart_utils_chartseries",
+      "label": "ChartSeries",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "shared_chart_utils_chartdatapoint",
+      "label": "ChartDataPoint",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "shared_chart_utils_scale",
+      "label": "scale()",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "shared_chart_utils_niceticks",
+      "label": "niceTicks()",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "shared_chart_utils_nicestep",
+      "label": "niceStep()",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "shared_chart_utils_smoothpath",
+      "label": "smoothPath()",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "shared_chart_utils_fmtnum",
+      "label": "fmtNum()",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "shared_chart_utils_generateuniqueid",
+      "label": "generateUniqueId()",
+      "file_type": "code",
+      "source_file": "chart-utils.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "map_data_ts",
+      "label": "map-data.ts",
+      "file_type": "code",
+      "source_file": "map-data.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shared_map_data_mapregion",
+      "label": "MapRegion",
+      "file_type": "code",
+      "source_file": "map-data.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "shared_map_data_world_map_data",
+      "label": "WORLD_MAP_DATA",
+      "file_type": "code",
+      "source_file": "map-data.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "shared_map_data_project",
+      "label": "project()",
+      "file_type": "code",
+      "source_file": "map-data.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "shared_map_data_getsvgpath",
+      "label": "getSvgPath()",
+      "file_type": "code",
+      "source_file": "map-data.ts",
+      "source_location": "L100"
+    }
+  ],
+  "edges": [
+    {
+      "source": "chart_accessible_mark_directive_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-accessible-mark.directive.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_accessible_mark_directive_ts",
+      "target": "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-accessible-mark.directive.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective",
+      "target": "shared_chart_accessible_mark_directive_chartaccessiblemarkdirective_onkeydown",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-accessible-mark.directive.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_annotations_ts",
+      "target": "shared_chart_annotations_annotationtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-annotations.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_annotations_ts",
+      "target": "shared_chart_annotations_chartannotation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-annotations.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_annotations_ts",
+      "target": "shared_chart_annotations_renderannotationsvg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-annotations.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "common",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ngafterviewinit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_w",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_h",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_maxval",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_minval",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L183",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_len",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L197",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_brush_zoom_component_ts",
+      "target": "shared_chart_brush_zoom_component_len",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L203",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_reset",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L210",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontrackclick",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowmousedown",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowtouchstart",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandlemousedown",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L249",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandletouchstart",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L253",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_startdrag",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L258",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onmousemove",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontouchmove",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ondragend",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L278",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_handledrag",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L286",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_emitchange",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L317",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_reset",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_emitchange",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L214",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontrackclick",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_emitchange",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L237",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowmousedown",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_startdrag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onwindowtouchstart",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_startdrag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L246",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandlemousedown",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_startdrag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L251",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onhandletouchstart",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_startdrag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L255",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_onmousemove",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_handledrag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L268",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ontouchmove",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_handledrag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L273",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_ondragend",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_emitchange",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L282",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_handledrag",
+      "target": "shared_chart_brush_zoom_component_chartbrushzoomcomponent_emitchange",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-brush-zoom.component.ts",
+      "source_location": "L314",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "testing",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "chart_export_menu_component_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_trigger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_menu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_arrowdown",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_arrowup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_spec_ts",
+      "target": "shared_chart_export_menu_component_spec_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.spec.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_ts",
+      "target": "c_work_ngx_core_components_projects_ngx_core_components_src_public_api_ts_i18n",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_ts",
+      "target": "public_api_ts_i18n_ngx_core_i18n",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_ts",
+      "target": "shared_chart_export_menu_component_exportformat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_menu_component_ts",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_toggle",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_select",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_formaticon",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowdown",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L212",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowup",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L224",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_closeonoutsideclick",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L237",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_closeonescape",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowdown",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_menu_component_chartexportmenucomponent_onarrowup",
+      "target": "shared_chart_export_menu_component_chartexportmenucomponent_navigate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export-menu.component.ts",
+      "source_location": "L221",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_spec_ts",
+      "target": "testing",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.spec.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_spec_ts",
+      "target": "chart_export_service_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_spec_ts",
+      "target": "shared_chart_export_service_chartexportservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_ts",
+      "target": "common",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_ts",
+      "target": "common",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_export_service_ts",
+      "target": "shared_chart_export_service_chartexportservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice",
+      "target": "shared_chart_export_service_chartexportservice_isbrowser",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice",
+      "target": "shared_chart_export_service_chartexportservice_triggerdownload",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice",
+      "target": "shared_chart_export_service_chartexportservice_downloadcsv",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice",
+      "target": "shared_chart_export_service_chartexportservice_downloadjson",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice",
+      "target": "shared_chart_export_service_chartexportservice_downloadsvg",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice",
+      "target": "shared_chart_export_service_chartexportservice_downloadpdf",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice_downloadcsv",
+      "target": "shared_chart_export_service_chartexportservice_triggerdownload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice_downloadjson",
+      "target": "shared_chart_export_service_chartexportservice_triggerdownload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_export_service_chartexportservice_downloadsvg",
+      "target": "shared_chart_export_service_chartexportservice_triggerdownload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-export.service.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_skeleton_component_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-skeleton.component.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_skeleton_component_ts",
+      "target": "shared_chart_skeleton_component_chartskeletoncomponent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-skeleton.component.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_sync_group_directive_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_sync_group_directive_ts",
+      "target": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "target": "shared_chart_sync_group_directive_chartsyncgroupdirective_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "target": "shared_chart_sync_group_directive_chartsyncgroupdirective_ngoninit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "target": "shared_chart_sync_group_directive_chartsyncgroupdirective_ngondestroy",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "target": "shared_chart_sync_group_directive_chartsyncgroupdirective_onmousemove",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_sync_group_directive_chartsyncgroupdirective",
+      "target": "shared_chart_sync_group_directive_chartsyncgroupdirective_onmouseleave",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-sync-group.directive.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_theme_service_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_theme_service_ts",
+      "target": "chart_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_theme_service_ts",
+      "target": "shared_chart_utils_chart_colors",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_theme_service_ts",
+      "target": "shared_chart_theme_service_chartthemename",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_theme_service_ts",
+      "target": "shared_chart_theme_service_colorblindmode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_theme_service_ts",
+      "target": "shared_chart_theme_service_charttheme",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_theme_service_ts",
+      "target": "shared_chart_theme_service_chartthemeservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_theme_service_chartthemeservice",
+      "target": "shared_chart_theme_service_chartthemeservice_gettheme",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_theme_service_chartthemeservice",
+      "target": "shared_chart_theme_service_chartthemeservice_applytheme",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_theme_service_chartthemeservice",
+      "target": "shared_chart_theme_service_chartthemeservice_getcolorblindpalette",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_theme_service_chartthemeservice_applytheme",
+      "target": "shared_chart_theme_service_chartthemeservice_gettheme",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-theme.service.ts",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_tooltip_service_ts",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_tooltip_service_ts",
+      "target": "shared_chart_tooltip_service_tooltiprow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_tooltip_service_ts",
+      "target": "shared_chart_tooltip_service_tooltipstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_tooltip_service_ts",
+      "target": "shared_chart_tooltip_service_charttooltipservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_tooltip_service_charttooltipservice",
+      "target": "shared_chart_tooltip_service_charttooltipservice_show",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_tooltip_service_charttooltipservice",
+      "target": "shared_chart_tooltip_service_charttooltipservice_hide",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_tooltip_service_charttooltipservice",
+      "target": "shared_chart_tooltip_service_charttooltipservice_togglepin",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_tooltip_service_charttooltipservice",
+      "target": "shared_chart_tooltip_service_charttooltipservice_getadjustedposition",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-tooltip.service.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_chart_colors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_chartseries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_chartdatapoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_scale",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_niceticks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_nicestep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_smoothpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_fmtnum",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "chart_utils_ts",
+      "target": "shared_chart_utils_generateuniqueid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_chart_utils_niceticks",
+      "target": "shared_chart_utils_nicestep",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "chart-utils.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "map_data_ts",
+      "target": "shared_map_data_mapregion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "map-data.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "map_data_ts",
+      "target": "shared_map_data_world_map_data",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "map-data.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "map_data_ts",
+      "target": "shared_map_data_project",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "map-data.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "map_data_ts",
+      "target": "shared_map_data_getsvgpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "map-data.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "shared_map_data_getsvgpath",
+      "target": "shared_map_data_project",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "map-data.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

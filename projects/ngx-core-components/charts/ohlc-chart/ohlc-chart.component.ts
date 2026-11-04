@@ -1,11 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, HostListener, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  HostListener,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { niceTicks, scale, fmtNum, CHART_COLORS } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface OHLCItem {
   date: string | Date;
@@ -18,12 +28,16 @@ export interface OHLCItem {
 @Component({
   selector: 'ngx-ohlc-chart',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-ohlc-chart" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
       <!-- Toolbar with Export option -->
-      <div class="chart-header" (mousemove)="$event.stopPropagation()" (mouseleave)="hoveredIndex.set(null); tooltip.set(null)">
+      <div
+        class="chart-header"
+        (mousemove)="$event.stopPropagation()"
+        (mouseleave)="hoveredIndex.set(null); tooltip.set(null)"
+      >
         <div class="chart-title-space"></div>
         @if (showExport()) {
           <ngx-chart-export-menu (exportClicked)="onExport($event)" />
@@ -31,12 +45,7 @@ export interface OHLCItem {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-          class="chart-svg"
-        >
+        <svg #svgEl [attr.width]="'100%'" [attr.height]="height()" class="chart-svg">
           <g [attr.transform]="'translate(' + PAD_LEFT + ',' + PAD_TOP + ')'">
             <!-- Grid Lines (Horizontal) -->
             @if (showGrid()) {
@@ -55,12 +64,7 @@ export interface OHLCItem {
             <!-- Y-Axis Labels -->
             @if (showLabels()) {
               @for (tick of yTicks(); track tick) {
-                <text
-                  x="-10"
-                  [attr.y]="yPos(tick) + 4"
-                  class="axis-label y"
-                  text-anchor="end"
-                >{{ fmtNum(tick) }}</text>
+                <text x="-10" [attr.y]="yPos(tick) + 4" class="axis-label y" text-anchor="end">{{ fmtNum(tick) }}</text>
               }
             }
 
@@ -73,7 +77,9 @@ export interface OHLCItem {
                     [attr.y]="innerH() + 20"
                     class="axis-label x"
                     text-anchor="middle"
-                  >{{ formatDate(item.date) }}</text>
+                  >
+                    {{ formatDate(item.date) }}
+                  </text>
                 }
               }
             }
@@ -147,14 +153,24 @@ export interface OHLCItem {
                 [attr.height]="innerH()"
                 fill="transparent"
                 style="cursor: pointer;"
+                class="ohlc-hitbox"
+                [ngxChartAccessibleMark]="accessibleTickLabel(tick.raw)"
                 (mouseenter)="onTickHover($event, tick.raw, i)"
                 (mousemove)="onTickHover($event, tick.raw, i)"
+                (focus)="onTickFocus($event, tick.raw, i)"
+                (blur)="hoveredIndex.set(null); tooltip.set(null)"
               />
             }
 
             <!-- Base axes borders -->
-            <line x1="0" [attr.x2]="innerW()" [attr.y1]="innerH()" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
-            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)"/>
+            <line
+              x1="0"
+              [attr.x2]="innerW()"
+              [attr.y1]="innerH()"
+              [attr.y2]="innerH()"
+              stroke="var(--ngx-chart-axis, #ced4da)"
+            />
+            <line x1="0" x2="0" y1="0" [attr.y2]="innerH()" stroke="var(--ngx-chart-axis, #ced4da)" />
           </g>
         </svg>
 
@@ -188,95 +204,115 @@ export interface OHLCItem {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-ohlc-chart {
-      position: relative;
-      background: var(--ngx-chart-bg, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-    }
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .chart-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-label {
-      font-size: 10px;
-      fill: #64748b;
-      font-weight: 500;
-    }
-    .ohlc-line {
-      transition: stroke-width 0.15s, stroke 0.15s;
-    }
-    .crosshair-line {
-      pointer-events: none;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-ohlc-chart {
+        position: relative;
+        background: var(--ngx-chart-bg, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+      }
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+      .chart-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-label {
+        font-size: 10px;
+        fill: #64748b;
+        font-weight: 500;
+      }
+      .ohlc-line {
+        transition:
+          stroke-width 0.15s,
+          stroke 0.15s;
+      }
+      .ohlc-hitbox:focus-visible {
+        outline: none;
+        stroke: var(--ngx-chart-focus, #1d4ed8);
+        stroke-width: 2;
+        fill: color-mix(in srgb, var(--ngx-chart-focus, #1d4ed8) 12%, transparent);
+      }
+      .crosshair-line {
+        pointer-events: none;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      z-index: 100;
-      min-width: 155px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: left 0.08s ease-out, top 0.08s ease-out;
-    }
-    .tooltip-header {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tooltip-direction {
-      font-size: 10px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-    .tooltip-body {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .tooltip-val {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      color: rgba(248, 250, 252, 0.85);
-    }
-    .tooltip-val strong {
-      color: #f8fafc;
-      font-family: monospace;
-      font-weight: 700;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 11px;
+        z-index: 100;
+        min-width: 155px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition:
+          left 0.08s ease-out,
+          top 0.08s ease-out;
+      }
+      .tooltip-header {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tooltip-direction {
+        font-size: 10px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .tooltip-body {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .tooltip-val {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: rgba(248, 250, 252, 0.85);
+      }
+      .tooltip-val strong {
+        color: #f8fafc;
+        font-family: monospace;
+        font-weight: 700;
+      }
 
-
-    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
-  `]
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 24px;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class OHLCChartComponent {
+  private readonly i18n = inject(NGX_CORE_I18N);
   private readonly exportSvc = inject(ChartExportService);
   readonly PAD_LEFT = 52;
   readonly PAD_TOP = 20;
@@ -291,7 +327,6 @@ export class OHLCChartComponent {
   colors = input<string[]>(CHART_COLORS);
   bullishColor = input<string>('#10b981');
   bearishColor = input<string>('#ef4444');
-
 
   hoveredIndex = signal<number | null>(null);
   tooltip = signal<{
@@ -392,7 +427,7 @@ export class OHLCChartComponent {
         yClose,
         color,
         isBullish,
-        raw: item
+        raw: item,
       };
     });
   });
@@ -406,13 +441,35 @@ export class OHLCChartComponent {
   }
 
   onTickHover(event: MouseEvent, item: OHLCItem, index: number) {
-    this.hoveredIndex.set(index);
     const containerEl = this.container()?.nativeElement;
     if (!containerEl) return;
     const rect = containerEl.getBoundingClientRect();
-    const tooltipX = event.clientX - rect.left;
-    const tooltipY = event.clientY - rect.top;
+    this.showTickTooltip(item, index, event.clientX - rect.left, event.clientY - rect.top);
+  }
 
+  accessibleTickLabel(item: OHLCItem): string {
+    const date = this.formatDate(item.date);
+    const open = fmtNum(item.open);
+    const high = fmtNum(item.high);
+    const low = fmtNum(item.low);
+    const close = fmtNum(item.close);
+    return (
+      this.i18n.chart.ohlcMarkDescription?.(date, open, high, low, close) ??
+      this.i18n.chart.dataMarkDescription(date, `Open ${open}, high ${high}, low ${low}, close ${close}`)
+    );
+  }
+
+  onTickFocus(event: FocusEvent, item: OHLCItem, index: number): void {
+    const target = event.target;
+    if (!(target instanceof SVGRectElement)) return;
+    const rect = target.getBoundingClientRect();
+    const containerRect = this.container()?.nativeElement.getBoundingClientRect();
+    if (!containerRect) return;
+    this.showTickTooltip(item, index, rect.left + rect.width / 2 - containerRect.left, rect.top - containerRect.top);
+  }
+
+  private showTickTooltip(item: OHLCItem, index: number, tooltipX: number, tooltipY: number): void {
+    this.hoveredIndex.set(index);
     const isBullish = item.close >= item.open;
     const change = item.close - item.open;
     const changePct = ((change / item.open) * 100).toFixed(2) + '%';
@@ -426,7 +483,7 @@ export class OHLCChartComponent {
       low: item.low,
       close: item.close,
       direction: isBullish ? 'Bullish' : 'Bearish',
-      changePct
+      changePct,
     });
   }
 

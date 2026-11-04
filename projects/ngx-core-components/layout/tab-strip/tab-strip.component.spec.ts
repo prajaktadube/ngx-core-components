@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { TabComponent, TabStripComponent } from './tab-strip.component';
 
 @Component({
@@ -8,7 +9,7 @@ import { TabComponent, TabStripComponent } from './tab-strip.component';
   template: `
     <ngx-tab-strip>
       <ngx-tab title="First"></ngx-tab>
-      <ngx-tab title="Second"></ngx-tab>
+      <ngx-tab title="Second" [closable]="true"></ngx-tab>
       <ngx-tab title="Third"></ngx-tab>
     </ngx-tab-strip>
   `,
@@ -80,5 +81,39 @@ describe('TabComponent', () => {
     fixture.detectChanges();
 
     expect(buttons[1].getAttribute('aria-selected')).toBe('true');
+  });
+
+  it('renders the close control as a keyboard-reachable sibling with a 24px minimum target', () => {
+    const fixture = TestBed.createComponent(TabStripTestHostComponent);
+    fixture.detectChanges();
+
+    const tabButton = fixture.nativeElement.querySelectorAll('.tab-btn')[1] as HTMLButtonElement;
+    const closeButton = fixture.nativeElement.querySelector('.tab-close-btn') as HTMLButtonElement;
+    const closeStyle = getComputedStyle(closeButton);
+
+    expect(closeButton.parentElement).toBe(tabButton.parentElement);
+    expect(closeButton.previousElementSibling).toBe(tabButton);
+    expect(closeButton.hasAttribute('tabindex')).toBe(false);
+    expect(closeButton.tabIndex).toBe(0);
+    expect(closeButton.getAttribute('aria-label')).toBe('Close tab');
+    expect(closeButton.title).toBe('Close tab');
+    expect(closeStyle.minWidth).toBe('24px');
+    expect(closeStyle.minHeight).toBe('24px');
+  });
+
+  it('closes a tab without selecting it', () => {
+    const fixture = TestBed.createComponent(TabStripTestHostComponent);
+    fixture.detectChanges();
+    const closeButton = fixture.nativeElement.querySelector('.tab-close-btn') as HTMLButtonElement;
+    const tabChange = jasmine.createSpy('tabChange');
+    const tabClose = jasmine.createSpy('tabClose');
+    const strip = fixture.debugElement.query(By.directive(TabStripComponent)).componentInstance;
+    strip.tabChange.subscribe(tabChange);
+    strip.tabClose.subscribe(tabClose);
+
+    closeButton.click();
+
+    expect(tabChange).not.toHaveBeenCalled();
+    expect(tabClose).toHaveBeenCalledOnceWith(1);
   });
 });

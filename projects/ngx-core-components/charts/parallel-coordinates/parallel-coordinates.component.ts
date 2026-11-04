@@ -1,12 +1,22 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, TemplateRef, viewChild, HostListener
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  TemplateRef,
+  viewChild,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { CHART_COLORS, fmtNum, scale } from '../shared/chart-utils';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface AxisDimension {
   key: string;
@@ -27,7 +37,7 @@ export interface ParallelLine {
 @Component({
   selector: 'ngx-parallel-coordinates',
   standalone: true,
-  imports: [ChartExportMenuComponent, NgTemplateOutlet],
+  imports: [ChartExportMenuComponent, NgTemplateOutlet, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-parallel-coordinates" (mouseleave)="onMouseLeave()">
@@ -36,7 +46,7 @@ export interface ParallelLine {
           <span class="header-title">Parallel Coordinates Visualization</span>
           <span class="header-subtitle">Dimensions: {{ dimensions().join(' | ') }}</span>
         </div>
-        
+
         @if (showExport()) {
           <ngx-chart-export-menu (exportClicked)="onExport($event)" />
         }
@@ -50,24 +60,12 @@ export interface ParallelLine {
         (mousemove)="onSvgMouseMove($event)"
       >
         <g [attr.transform]="'translate(' + margin().left + ',' + margin().top + ')'">
-          
           <!-- Dimensions Axes Grid Lines -->
           @for (axis of axes(); track axis.key) {
-            <line
-              [attr.x1]="axis.x"
-              [attr.x2]="axis.x"
-              [attr.y1]="0"
-              [attr.y2]="innerH()"
-              class="axis-line"
-            />
-            
+            <line [attr.x1]="axis.x" [attr.x2]="axis.x" [attr.y1]="0" [attr.y2]="innerH()" class="axis-line" />
+
             <!-- Axis Title -->
-            <text
-              [attr.x]="axis.x"
-              [attr.y]="-10"
-              text-anchor="middle"
-              class="axis-title"
-            >
+            <text [attr.x]="axis.x" [attr.y]="-10" text-anchor="middle" class="axis-title">
               {{ axis.key }}
             </text>
 
@@ -75,12 +73,7 @@ export interface ParallelLine {
             @for (tick of axis.ticks; track tick) {
               <g [attr.transform]="'translate(' + axis.x + ',' + yPosForAxis(tick, axis) + ')'">
                 <line [attr.x1]="-4" [attr.x2]="4" [attr.y1]="0" [attr.y2]="0" class="tick-line" />
-                <text
-                  [attr.x]="-8"
-                  text-anchor="end"
-                  dominant-baseline="middle"
-                  class="tick-label"
-                >
+                <text [attr.x]="-8" text-anchor="end" dominant-baseline="middle" class="tick-label">
                   {{ formatAxisVal(axis.key, tick) }}
                 </text>
               </g>
@@ -97,6 +90,9 @@ export interface ParallelLine {
               class="data-line"
               [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
               [class.highlighted]="hoveredIndex() === i"
+              [ngxChartAccessibleMark]="accessibleLineLabel(line)"
+              (focus)="onLineFocus($event, line)"
+              (blur)="onMouseLeave()"
             />
           }
         </g>
@@ -106,9 +102,7 @@ export interface ParallelLine {
       @if (tooltip(); as t) {
         <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
           @if (tooltipTemplate()) {
-            <ng-container
-              *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="tooltipTemplate()!; context: { $implicit: t }"></ng-container>
           } @else {
             <div class="tt-cat">Record #{{ t.index + 1 }}</div>
             @for (dim of dimensions(); track dim) {
@@ -122,125 +116,138 @@ export interface ParallelLine {
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-    }
-    .ngx-parallel-coordinates {
-      background: var(--ngx-chart-bg, #ffffff);
-      border: 1px solid var(--border-color, #e2e8f0);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      min-height: 24px;
-      position: relative;
-    }
-    .header-info {
-      display: flex;
-      flex-direction: column;
-    }
-    .header-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ngx-chart-axis-text, #334155);
-    }
-    .header-subtitle {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--ngx-chart-axis-text, #64748b);
-    }
-    .parallel-svg {
-      display: block;
-      overflow: visible;
-    }
-    .axis-line {
-      stroke: var(--ngx-chart-axis, #cbd5e1);
-      stroke-width: 1.8;
-    }
-    .tick-line {
-      stroke: var(--ngx-chart-axis, #94a3b8);
-      stroke-width: 1.2;
-    }
-    .tick-label {
-      font-size: 9px;
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-weight: 600;
-      user-select: none;
-    }
-    .axis-title {
-      font-size: 11px;
-      font-weight: 700;
-      fill: var(--ngx-chart-axis-text, #334155);
-      user-select: none;
-    }
-    .data-line {
-      transition: stroke-width 0.15s ease, opacity 0.15s ease;
-      opacity: 0.65;
-    }
-    .data-line.dimmed {
-      opacity: 0.12 !important;
-    }
-    .data-line.highlighted {
-      opacity: 1 !important;
-      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.15));
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+      .ngx-parallel-coordinates {
+        background: var(--ngx-chart-bg, #ffffff);
+        border: 1px solid var(--border-color, #e2e8f0);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+        position: relative;
+      }
+      .header-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .header-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ngx-chart-axis-text, #334155);
+      }
+      .header-subtitle {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--ngx-chart-axis-text, #64748b);
+      }
+      .parallel-svg {
+        display: block;
+        overflow: visible;
+      }
+      .axis-line {
+        stroke: var(--ngx-chart-axis, #cbd5e1);
+        stroke-width: 1.8;
+      }
+      .tick-line {
+        stroke: var(--ngx-chart-axis, #94a3b8);
+        stroke-width: 1.2;
+      }
+      .tick-label {
+        font-size: 9px;
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-weight: 600;
+        user-select: none;
+      }
+      .axis-title {
+        font-size: 11px;
+        font-weight: 700;
+        fill: var(--ngx-chart-axis-text, #334155);
+        user-select: none;
+      }
+      .data-line {
+        transition:
+          stroke-width 0.15s ease,
+          opacity 0.15s ease;
+        opacity: 0.65;
+      }
+      .data-line.dimmed {
+        opacity: 0.12 !important;
+      }
+      .data-line.highlighted {
+        opacity: 1 !important;
+        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.15));
+      }
+      .data-line:focus-visible {
+        outline: none;
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 4px;
+        opacity: 1;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
-
-
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class ParallelCoordinatesComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   data = input<Record<string, any>[]>([]);
   dimensions = input<string[]>([]);
   colorKey = input<string | undefined>(undefined);
@@ -256,14 +263,13 @@ export class ParallelCoordinatesComponent {
   tooltipX = signal<number>(0);
   tooltipY = signal<number>(0);
 
-
   svgEl = viewChild<ElementRef<SVGElement>>('svgEl');
 
   margin = computed(() => ({
     top: 35,
     right: 40,
     bottom: 25,
-    left: 45
+    left: 45,
   }));
 
   svgHeight = computed(() => this.height());
@@ -292,7 +298,7 @@ export class ParallelCoordinatesComponent {
         min,
         max,
         ticks: [min, mid, max],
-        x
+        x,
       };
     });
   });
@@ -331,7 +337,7 @@ export class ParallelCoordinatesComponent {
         index: lineIdx,
         points,
         pathStr,
-        color
+        color,
       };
     });
   });
@@ -361,6 +367,28 @@ export class ParallelCoordinatesComponent {
     return fmtNum(val);
   }
 
+  accessibleLineLabel(line: ParallelLine): string {
+    const values = this.dimensions()
+      .map(dimension => `${dimension}: ${this.formatAxisVal(dimension, Number(line.rawData[dimension]) || 0)}`)
+      .join(', ');
+    return (
+      this.i18n.chart.parallelCoordinatesLineDescription?.(String(line.index + 1), values) ??
+      `Record ${line.index + 1}${values ? `; ${values}` : ''}`
+    );
+  }
+
+  onLineFocus(event: FocusEvent, line: ParallelLine): void {
+    this.hoveredIndex.set(line.index);
+    this.tooltip.set(line);
+    const svg = this.svgEl()?.nativeElement;
+    const parent = svg?.parentElement;
+    if (!svg || !parent) return;
+    const lineRect = (event.currentTarget as SVGPathElement).getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+    this.tooltipX.set(lineRect.left + lineRect.width / 2 - parentRect.left);
+    this.tooltipY.set(lineRect.top + lineRect.height / 2 - parentRect.top);
+  }
+
   onSvgMouseMove(event: MouseEvent) {
     const svg = this.svgEl()?.nativeElement;
     if (!svg) return;
@@ -377,7 +405,7 @@ export class ParallelCoordinatesComponent {
     // Find the horizontal segment that the mouse is currently in
     let segmentIdx = 0;
     for (let i = 0; i < axesList.length - 1; i++) {
-      if (mx >= axesList[i].x && mx <= axesList[i+1].x) {
+      if (mx >= axesList[i].x && mx <= axesList[i + 1].x) {
         segmentIdx = i;
         break;
       }
@@ -444,7 +472,7 @@ export class ParallelCoordinatesComponent {
     const dimensions = this.dimensions();
     if (!data.length || !dimensions.length) return;
     const headers = ['Label', ...dimensions];
-    const rows = data.map(d => [d['label'] || '', ...dimensions.map(dim => d[dim] !== undefined ? d[dim] : '')]);
+    const rows = data.map(d => [d['label'] || '', ...dimensions.map(dim => (d[dim] !== undefined ? d[dim] : ''))]);
     this.exportSvc.downloadCsv(headers, rows, 'parallel-coordinates.csv');
   }
 

@@ -1,12 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { fmtNum, scale } from '../shared/chart-utils';
 import { WORLD_MAP_DATA, getSvgPath, project } from '../shared/map-data';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface MapBubblePoint {
   lat: number;
@@ -20,7 +29,7 @@ export interface MapBubblePoint {
 @Component({
   selector: 'ngx-map-bubble',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-map-bubble" [class.dark]="theme() === 'dark'" (mouseleave)="onMouseLeave()">
@@ -28,7 +37,7 @@ export interface MapBubblePoint {
         <div class="chart-title">
           <h4>{{ title() }}</h4>
         </div>
-        
+
         <!-- Legend -->
         @if (showLegend() && uniqueGroups().length > 0) {
           <div class="chart-legend">
@@ -47,12 +56,7 @@ export interface MapBubblePoint {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          class="map-svg"
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-        >
+        <svg #svgEl class="map-svg" [attr.width]="'100%'" [attr.height]="height()">
           <!-- Base Map Outlines -->
           <g class="map-base">
             @for (pathStr of baseMapPaths(); track $index) {
@@ -78,8 +82,11 @@ export interface MapBubblePoint {
                 [attr.fill-opacity]="hoveredBubbleIndex() === i ? 0.9 : 0.7"
                 class="bubble-node"
                 [class.hovered]="hoveredBubbleIndex() === i"
-                (mouseenter)="onBubbleHover(bubble, i, $event)"
+                [ngxChartAccessibleMark]="accessibleBubbleLabel(bubble.raw)"
+                (mouseenter)="onBubbleHover(bubble, i)"
                 (mousemove)="onBubbleMouseMove($event)"
+                (focus)="onBubbleFocus(bubble, i, $event)"
+                (blur)="onMouseLeave()"
               />
             }
           </g>
@@ -108,143 +115,158 @@ export interface MapBubblePoint {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-map-bubble {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-      transition: background-color 0.3s;
-    }
-    .ngx-map-bubble.dark {
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      --ngx-chart-bg: #0f172a;
-      --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
-      --ngx-chart-tooltip-color: #f8fafc;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      position: relative;
-    }
-    .chart-title h4 {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ngx-chart-title-color, #1e293b);
-    }
-    .dark .chart-title h4 {
-      color: #f8fafc;
-    }
-    
-    /* Legend styling */
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-right: 80px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #64748b;
-    }
-    .dark .legend-item {
-      color: #94a3b8;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-map-bubble {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      .ngx-map-bubble.dark {
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        --ngx-chart-bg: #0f172a;
+        --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
+        --ngx-chart-tooltip-color: #f8fafc;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        position: relative;
+      }
+      .chart-title h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ngx-chart-title-color, #1e293b);
+      }
+      .dark .chart-title h4 {
+        color: #f8fafc;
+      }
 
-    .map-svg {
-      display: block;
-      overflow: visible;
-    }
-    .bubble-node {
-      cursor: pointer;
-      transition: r 0.2s cubic-bezier(0.16, 1, 0.3, 1), fill-opacity 0.2s, stroke-width 0.2s;
-    }
-    .bubble-node.hovered {
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
-    }
+      /* Legend styling */
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-right: 80px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #64748b;
+      }
+      .dark .legend-item {
+        color: #94a3b8;
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .label-row {
-      margin-top: 6px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-      padding-top: 4px;
-    }
-    .tt-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      .map-svg {
+        display: block;
+        overflow: visible;
+      }
+      .bubble-node {
+        cursor: pointer;
+        transition:
+          r 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+          fill-opacity 0.2s,
+          stroke-width 0.2s;
+      }
+      .bubble-node.hovered {
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+      }
+      .bubble-node:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
 
-    /* Export styles removed */
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-  `]
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 160px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .label-row {
+        margin-top: 6px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        padding-top: 4px;
+      }
+      .tt-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
+
+      /* Export styles removed */
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+    `,
+  ],
 })
 export class MapBubbleComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   title = input<string>('Geographical Bubble Matrix');
   data = input<MapBubblePoint[]>([]);
@@ -302,8 +324,8 @@ export class MapBubbleComponent {
   });
 
   private values = computed(() => this.data().map(d => d.value));
-  private minVal = computed(() => this.values().length > 0 ? Math.min(...this.values()) : 0);
-  private maxVal = computed(() => this.values().length > 0 ? Math.max(...this.values()) : 100);
+  private minVal = computed(() => (this.values().length > 0 ? Math.min(...this.values()) : 0));
+  private maxVal = computed(() => (this.values().length > 0 ? Math.max(...this.values()) : 100));
 
   scaledBubbles = computed(() => {
     const w = this.containerWidth();
@@ -312,7 +334,7 @@ export class MapBubbleComponent {
     const max = this.maxVal();
     const minSize = this.minBubbleSize();
     const maxSize = this.maxBubbleSize();
-    
+
     const padding = { top: 10, right: 10, bottom: 10, left: 10 };
 
     return this.data().map(pt => {
@@ -325,12 +347,12 @@ export class MapBubbleComponent {
         y: coord.y,
         r,
         color,
-        raw: pt
+        raw: pt,
       };
     });
   });
 
-  onBubbleHover(bubble: any, index: number, event: MouseEvent) {
+  onBubbleHover(bubble: any, index: number) {
     this.hoveredBubbleIndex.set(index);
     this.tooltip.set({
       label: bubble.raw.label,
@@ -338,8 +360,30 @@ export class MapBubbleComponent {
       lat: bubble.raw.lat,
       lng: bubble.raw.lng,
       group: bubble.raw.group,
-      color: bubble.color
+      color: bubble.color,
     });
+  }
+
+  accessibleBubbleLabel(point: MapBubblePoint): string {
+    const label = point.label || 'Location marker';
+    const value = fmtNum(point.value);
+    const latitude = fmtNum(point.lat);
+    const longitude = fmtNum(point.lng);
+    const group = point.group || '';
+    return (
+      this.i18n.chart.mapBubbleDescription?.(label, value, latitude, longitude, group) ??
+      `${label}; value ${value}; latitude ${latitude}, longitude ${longitude}${group ? `; group ${group}` : ''}`
+    );
+  }
+
+  onBubbleFocus(bubble: any, index: number, event: FocusEvent): void {
+    this.onBubbleHover(bubble, index);
+    const rect = (event.currentTarget as SVGElement).getBoundingClientRect();
+    const container = this.container()?.nativeElement as HTMLElement | undefined;
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+    this.tooltipX.set(rect.left + rect.width / 2 - containerRect.left);
+    this.tooltipY.set(rect.top + rect.height / 2 - containerRect.top);
   }
 
   onBubbleMouseMove(event: MouseEvent) {

@@ -1,12 +1,21 @@
 import {
-  Component, ChangeDetectionStrategy, input, computed, signal,
-  ElementRef, inject, DestroyRef, viewChild
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+  signal,
+  ElementRef,
+  inject,
+  DestroyRef,
+  viewChild,
 } from '@angular/core';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent } from '../shared/chart-export-menu.component';
 import type { ExportFormat } from '../shared/chart-export-menu.component';
 import { fmtNum, scale } from '../shared/chart-utils';
 import { WORLD_MAP_DATA, getSvgPath, project } from '../shared/map-data';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface GeoHeatmapPoint {
   lat: number;
@@ -27,7 +36,7 @@ interface HeatmapCell {
 @Component({
   selector: 'ngx-geo-heatmap',
   standalone: true,
-  imports: [ChartExportMenuComponent],
+  imports: [ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-geo-heatmap" [class.dark]="theme() === 'dark'" (mouseleave)="onMouseLeave()">
@@ -35,7 +44,7 @@ interface HeatmapCell {
         <div class="chart-title">
           <h4>{{ title() }}</h4>
         </div>
-        
+
         <!-- Legend -->
         @if (showLegend() && computedCells().length > 0) {
           <div class="chart-legend" (mousemove)="$event.stopPropagation()">
@@ -51,12 +60,7 @@ interface HeatmapCell {
       </div>
 
       <div class="chart-svg-container" #container>
-        <svg
-          #svgEl
-          class="map-svg"
-          [attr.width]="'100%'"
-          [attr.height]="height()"
-        >
+        <svg #svgEl class="map-svg" [attr.width]="'100%'" [attr.height]="height()">
           <defs>
             <filter id="heatmap-blur-filter" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="12" />
@@ -99,8 +103,11 @@ interface HeatmapCell {
                 [attr.r]="cell.radius * 0.8"
                 fill="transparent"
                 style="cursor: pointer;"
-                (mouseenter)="onCellHover(cell, i, $event)"
+                [ngxChartAccessibleMark]="accessibleCellLabel(cell)"
+                (mouseenter)="onCellHover(cell, i)"
                 (mousemove)="onCellMouseMove($event)"
+                (focus)="onCellFocus(cell, i, $event)"
+                (blur)="onMouseLeave()"
               />
             }
           </g>
@@ -123,129 +130,141 @@ interface HeatmapCell {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .ngx-geo-heatmap {
-      background: var(--ngx-chart-bg, #ffffff);
-      border-radius: 16px;
-      padding: 16px;
-      box-sizing: border-box;
-      font-family: var(--ngx-font-family, system-ui, sans-serif);
-      position: relative;
-      width: 100%;
-      transition: background-color 0.3s;
-    }
-    .ngx-geo-heatmap.dark {
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      --ngx-chart-bg: #0f172a;
-      --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
-      --ngx-chart-tooltip-color: #f8fafc;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      position: relative;
-    }
-    .chart-title h4 {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ngx-chart-title-color, #1e293b);
-    }
-    .dark .chart-title h4 {
-      color: #f8fafc;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .ngx-geo-heatmap {
+        background: var(--ngx-chart-bg, #ffffff);
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        font-family: var(--ngx-font-family, system-ui, sans-serif);
+        position: relative;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      .ngx-geo-heatmap.dark {
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        --ngx-chart-bg: #0f172a;
+        --ngx-chart-tooltip-bg: rgba(15, 23, 42, 0.95);
+        --ngx-chart-tooltip-color: #f8fafc;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        position: relative;
+      }
+      .chart-title h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ngx-chart-title-color, #1e293b);
+      }
+      .dark .chart-title h4 {
+        color: #f8fafc;
+      }
 
-    /* Legend */
-    .chart-legend {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 16px;
-      justify-content: flex-end;
-    }
-    .legend-label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: 600;
-    }
-    .dark .legend-label {
-      color: #94a3b8;
-    }
-    .legend-bar {
-      width: 100px;
-      height: 10px;
-      border-radius: 4px;
-    }
+      /* Legend */
+      .chart-legend {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        justify-content: flex-end;
+      }
+      .map-triggers circle:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
+      .legend-label {
+        font-size: 11px;
+        color: #64748b;
+        font-weight: 600;
+      }
+      .dark .legend-label {
+        color: #94a3b8;
+      }
+      .legend-bar {
+        width: 100px;
+        height: 10px;
+        border-radius: 4px;
+      }
 
-    .map-svg {
-      display: block;
-      overflow: visible;
-    }
-    .heatmap-blob {
-      mix-blend-mode: multiply;
-      pointer-events: none;
-    }
-    .dark .heatmap-blob {
-      mix-blend-mode: screen;
-    }
+      .map-svg {
+        display: block;
+        overflow: visible;
+      }
+      .heatmap-blob {
+        mix-blend-mode: multiply;
+        pointer-events: none;
+      }
+      .dark .heatmap-blob {
+        mix-blend-mode: screen;
+      }
 
-    /* Glassmorphic Tooltip */
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      transform: translate(-50%, -100%) translateY(-10px);
-      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--ngx-chart-tooltip-color, #f8fafc);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      min-width: 150px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 100;
-      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tt-cat {
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 12.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 4px;
-      color: #38bdf8;
-    }
-    .tt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .tt-name {
-      color: rgba(248, 250, 252, 0.8);
-      flex: 1;
-    }
-    .tt-val {
-      font-weight: 700;
-      font-family: monospace;
-    }
+      /* Glassmorphic Tooltip */
+      .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%) translateY(-10px);
+        background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--ngx-chart-tooltip-color, #f8fafc);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        min-width: 150px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.3),
+          0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+        transition:
+          left 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+          top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tt-cat {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 12.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 4px;
+        color: #38bdf8;
+      }
+      .tt-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .tt-name {
+        color: rgba(248, 250, 252, 0.8);
+        flex: 1;
+      }
+      .tt-val {
+        font-weight: 700;
+        font-family: monospace;
+      }
 
-    /* Export styles removed */
-    .chart-svg-container {
-      position: relative;
-      width: 100%;
-    }
-  `]
+      /* Export styles removed */
+      .chart-svg-container {
+        position: relative;
+        width: 100%;
+      }
+    `,
+  ],
 })
 export class GeoHeatmapComponent {
   private readonly exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
 
   title = input<string>('Geographical Heatmap');
   data = input<GeoHeatmapPoint[]>([]);
@@ -296,16 +315,16 @@ export class GeoHeatmapComponent {
   computedCells = computed(() => {
     const rawData = this.data();
     const size = Math.max(1, this.gridSize());
-    
+
     // Group/bin points into a grid
     const grid = new Map<string, { weight: number; lat: number; lng: number }>();
-    
+
     rawData.forEach(pt => {
       // Find grid cell center
       const latBin = Math.floor(pt.lat / size) * size + size / 2;
       const lngBin = Math.floor(pt.lng / size) * size + size / 2;
       const key = `${latBin},${lngBin}`;
-      
+
       const existing = grid.get(key) || { weight: 0, lat: latBin, lng: lngBin };
       existing.weight += pt.weight;
       grid.set(key, existing);
@@ -324,7 +343,7 @@ export class GeoHeatmapComponent {
 
     return cells.map(cell => {
       const coord = project(cell.lng, cell.lat, w, h, padding);
-      
+
       // Interpolate colors based on weight (low, medium, high support)
       const range = maxWeight - minWeight || 1;
       const factor = Math.max(0, Math.min(1, (cell.weight - minWeight) / range));
@@ -342,18 +361,38 @@ export class GeoHeatmapComponent {
         lng: cell.lng,
         weight: cell.weight,
         color,
-        radius
+        radius,
       };
     });
   });
 
-  onCellHover(cell: HeatmapCell, index: number, event: MouseEvent) {
+  accessibleCellLabel(cell: HeatmapCell): string {
+    const latitude = fmtNum(cell.lat);
+    const longitude = fmtNum(cell.lng);
+    const weight = fmtNum(cell.weight);
+    return (
+      this.i18n.chart.geoHeatmapCellDescription?.(latitude, longitude, weight) ??
+      `Density zone at latitude ${latitude}, longitude ${longitude}: weight ${weight}`
+    );
+  }
+
+  onCellHover(cell: HeatmapCell, index: number) {
     this.hoveredCellIndex.set(index);
     this.tooltip.set({
       lat: cell.lat,
       lng: cell.lng,
-      weight: cell.weight
+      weight: cell.weight,
     });
+  }
+
+  onCellFocus(cell: HeatmapCell, index: number, event: FocusEvent): void {
+    this.onCellHover(cell, index);
+    const markRect = (event.currentTarget as SVGElement).getBoundingClientRect();
+    const containerEl = this.container()?.nativeElement as HTMLElement | undefined;
+    if (!containerEl) return;
+    const containerRect = containerEl.getBoundingClientRect();
+    this.tooltipX.set(markRect.left + markRect.width / 2 - containerRect.left);
+    this.tooltipY.set(markRect.top + markRect.height / 2 - containerRect.top);
   }
 
   onCellMouseMove(event: MouseEvent) {
@@ -402,16 +441,16 @@ export class GeoHeatmapComponent {
   private getHeatmapColor(factor: number): string {
     const cols = this.colors();
     if (cols.length < 2) return cols[0] || '#ef4444';
-    
+
     // Scale factor to segments
     const segments = cols.length - 1;
     const scaledFactor = factor * segments;
     const index = Math.floor(scaledFactor);
     const segmentFactor = scaledFactor - index;
-    
+
     const c1 = cols[Math.min(index, cols.length - 1)];
     const c2 = cols[Math.min(index + 1, cols.length - 1)];
-    
+
     return this.interpolateColor(c1, c2, Math.max(0, Math.min(1, segmentFactor)));
   }
 
@@ -427,13 +466,16 @@ export class GeoHeatmapComponent {
   private parseHex(hex: string) {
     let clean = hex.replace('#', '');
     if (clean.length === 3) {
-      clean = clean.split('').map(c => c + c).join('');
+      clean = clean
+        .split('')
+        .map(c => c + c)
+        .join('');
     }
     const num = parseInt(clean, 16);
     return {
       r: (num >> 16) & 255,
       g: (num >> 8) & 255,
-      b: num & 255
+      b: num & 255,
     };
   }
 

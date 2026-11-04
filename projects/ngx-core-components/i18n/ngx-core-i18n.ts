@@ -180,6 +180,50 @@ export interface NgxCoreI18n {
     ) => string;
     waterfallMarkDescription: (label: string, value: string, balance: string) => string;
     dataMarkDescription: (label: string, value: string) => string;
+    ohlcMarkDescription?: (date: string, open: string, high: string, low: string, close: string) => string;
+    hlcMarkDescription?: (date: string, high: string, low: string, close: string) => string;
+    renkoMarkDescription?: (index: number, type: 'bullish' | 'bearish', open: string, close: string) => string;
+    pointFigureMarkDescription?: (type: 'X' | 'O', value: string, column: number) => string;
+    kagiMarkDescription?: (
+      index: number,
+      type: 'vertical' | 'horizontal',
+      trend: 'bullish' | 'bearish',
+      start: string,
+      end: string
+    ) => string;
+    areaRangeMarkDescription?: (
+      series: string,
+      category: string,
+      boundary: 'high' | 'low',
+      value: string,
+      low: string,
+      high: string
+    ) => string;
+    histogramBinDescription?: (low: string, high: string, count: string, percentage: string) => string;
+    calendarHeatmapCellDescription?: (date: string, value: string) => string;
+    adjacencyMatrixCellDescription?: (source: string, target: string, value: string) => string;
+    orgChartNodeDescription?: (name: string, title: string, department: string, hasChildren: boolean) => string;
+    orgChartToggleDescription?: (name: string, expanded: boolean) => string;
+    mapBubbleDescription?: (label: string, value: string, latitude: string, longitude: string, group: string) => string;
+    mapPointDescription?: (label: string, latitude: string, longitude: string) => string;
+    mapLineDescription?: (label: string, source: string, target: string) => string;
+    choroplethRegionDescription?: (region: string, value: string, label: string) => string;
+    geoHeatmapCellDescription?: (latitude: string, longitude: string, weight: string) => string;
+    networkNodeDescription?: (label: string, value: string, group: string, connections: string) => string;
+    networkLinkDescription?: (source: string, target: string, weight: string) => string;
+    parallelCoordinatesLineDescription?: (record: string, values: string) => string;
+    multiNeedleDescription?: (label: string, value: string, units: string, type: string) => string;
+    topologyNodeDescription?: (label: string, type: string, status: string) => string;
+    topologyLinkDescription?: (source: string, target: string, active: boolean, label: string) => string;
+    pictorialIconDescription?: (index: number, threshold: string, fillPercentage: string) => string;
+    packedBubbleMarkDescription?: (label: string, group: string, value: string) => string;
+    wordCloudMarkDescription?: (word: string, value: string) => string;
+    windRoseBinDescription?: (direction: string, bin: string, frequency: string, cumulative: string) => string;
+    sankeyNodeDescription?: (label: string, value: string, incoming: string, outgoing: string) => string;
+    sankeyLinkDescription?: (source: string, target: string, value: string) => string;
+    timelineEventDescription?: (title: string, category: string, status: string, start: string, end: string) => string;
+    heikinAshiMarkDescription?: (date: string, open: string, high: string, low: string, close: string) => string;
+    variwidePointDescription?: (label: string, height: string, width: string, widthShare: string) => string;
     bubblePointDescription: (
       label: string | undefined,
       group: string | undefined,
@@ -202,6 +246,9 @@ export interface NgxCoreI18n {
     missingConditionField: (field: string, dependency: string) => string;
     duplicateFieldKey: (field: string) => string;
     conditionCycle: (fields: string) => string;
+  };
+  layout?: {
+    closeTab: string;
   };
 }
 
@@ -394,6 +441,52 @@ export const DEFAULT_EN_I18N: NgxCoreI18n = {
       `${label ? `${label}. ` : ''}${group ? `Group ${group}. ` : ''}${xTitle}: ${xValue}, ${yTitle}: ${yValue}`,
     waterfallMarkDescription: (label, value, balance) => `${label}: change ${value}, running balance ${balance}`,
     dataMarkDescription: (label, value) => `${label}: ${value}`,
+    ohlcMarkDescription: (date, open, high, low, close) =>
+      `${date}: Open ${open}, high ${high}, low ${low}, close ${close}`,
+    hlcMarkDescription: (date, high, low, close) => `${date}: High ${high}, low ${low}, close ${close}`,
+    renkoMarkDescription: (index, type, open, close) => `Renko brick ${index}: ${type} from ${open} to ${close}`,
+    pointFigureMarkDescription: (type, value, column) => `Point & Figure ${type} in column ${column}: ${value}`,
+    kagiMarkDescription: (index, type, trend, start, end) =>
+      `Kagi ${type} segment ${index}: ${trend}, ${start} to ${end}`,
+    areaRangeMarkDescription: (series, category, boundary, value, low, high) =>
+      `${series} at ${category}: ${boundary} boundary ${value}, range ${low} to ${high}`,
+    histogramBinDescription: (low, high, count, percentage) =>
+      `${low} to ${high}: ${count} observations, ${percentage}% of data`,
+    calendarHeatmapCellDescription: (date, value) => `${date}: ${value} contributions`,
+    adjacencyMatrixCellDescription: (source, target, value) => `${source} to ${target}: connection weight ${value}`,
+    orgChartNodeDescription: (name, title, department, hasChildren) =>
+      [name, title, department, hasChildren ? 'has reports' : 'no reports'].filter(Boolean).join('; '),
+    orgChartToggleDescription: (name, expanded) => `${expanded ? 'Collapse' : 'Expand'} ${name}`,
+    mapBubbleDescription: (label, value, latitude, longitude, group) =>
+      `${label}; value ${value}; latitude ${latitude}, longitude ${longitude}${group ? `; group ${group}` : ''}`,
+    mapPointDescription: (label, latitude, longitude) => `${label}; latitude ${latitude}, longitude ${longitude}`,
+    mapLineDescription: (label, source, target) => `${label}: from ${source} to ${target}`,
+    choroplethRegionDescription: (region, value, label) => `${region}: ${value}${label ? `; ${label}` : ''}`,
+    geoHeatmapCellDescription: (latitude, longitude, weight) =>
+      `Density zone at latitude ${latitude}, longitude ${longitude}: weight ${weight}`,
+    networkNodeDescription: (label, value, group, connections) =>
+      `${label}; value ${value}${group ? `; group ${group}` : ''}; ${connections} connections`,
+    networkLinkDescription: (source, target, weight) => `Connection from ${source} to ${target}; weight ${weight}`,
+    parallelCoordinatesLineDescription: (record, values) => `Record ${record}${values ? `; ${values}` : ''}`,
+    multiNeedleDescription: (label, value, units, type) => `${label}: ${value}${units}; ${type}`,
+    topologyNodeDescription: (label, type, status) => `${label}; ${type}; ${status}`,
+    topologyLinkDescription: (source, target, active, label) =>
+      `${source} to ${target}${label ? `; ${label}` : ''}; ${active ? 'active' : 'inactive'}`,
+    pictorialIconDescription: (index, threshold, fillPercentage) =>
+      `Icon ${index}: value threshold ${threshold}, fill ${fillPercentage}%`,
+    packedBubbleMarkDescription: (label, group, value) => `${label}; ${group}; value ${value}`,
+    wordCloudMarkDescription: (word, value) => `${word}: ${value}`,
+    windRoseBinDescription: (direction, bin, frequency, cumulative) =>
+      `Direction ${direction}, wind speed ${bin}: ${frequency}, cumulative ${cumulative}`,
+    sankeyNodeDescription: (label, value, incoming, outgoing) =>
+      `${label}: total flow ${value}, incoming ${incoming}, outgoing ${outgoing}`,
+    sankeyLinkDescription: (source, target, value) => `Flow from ${source} to ${target}: ${value}`,
+    timelineEventDescription: (title, category, status, start, end) =>
+      `${title}; ${category}; ${status}; starts ${start}${end ? `; ends ${end}` : ''}`,
+    heikinAshiMarkDescription: (date, open, high, low, close) =>
+      `${date}: Heikin-Ashi open ${open}, high ${high}, low ${low}, close ${close}`,
+    variwidePointDescription: (label, height, width, widthShare) =>
+      `${label}: height ${height}, width ${width} (${widthShare} of total width)`,
     bubblePointDescription: (label, group, xTitle, xValue, yTitle, yValue, zTitle, zValue) =>
       `${label ? `${label}. ` : ''}${group ? `Group ${group}. ` : ''}${xTitle}: ${xValue}, ${yTitle}: ${yValue}, ${zTitle}: ${zValue}`,
   },
@@ -408,6 +501,9 @@ export const DEFAULT_EN_I18N: NgxCoreI18n = {
     missingConditionField: (field, dependency) => `Field "${field}" refers to missing condition field "${dependency}".`,
     duplicateFieldKey: field => `Duplicate form field key "${field}".`,
     conditionCycle: fields => `Form condition dependency cycle detected: ${fields}.`,
+  },
+  layout: {
+    closeTab: 'Close tab',
   },
 };
 

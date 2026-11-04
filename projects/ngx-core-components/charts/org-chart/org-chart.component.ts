@@ -9,12 +9,14 @@ import {
   ElementRef,
   viewChild,
   effect,
-  output
+  output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CHART_COLORS, generateUniqueId } from '../shared/chart-utils';
 import { ChartExportService } from '../shared/chart-export.service';
 import { ChartExportMenuComponent, ExportFormat } from '../shared/chart-export-menu.component';
+import { ChartAccessibleMarkDirective } from '../shared/chart-accessible-mark.directive';
+import { NGX_CORE_I18N } from 'ngx-core-components/i18n';
 
 export interface OrgNode {
   id: string;
@@ -45,7 +47,7 @@ interface RenderLink {
 @Component({
   selector: 'ngx-org-chart',
   standalone: true,
-  imports: [CommonModule, ChartExportMenuComponent],
+  imports: [CommonModule, ChartExportMenuComponent, ChartAccessibleMarkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ngx-chart-container" #container>
@@ -57,62 +59,79 @@ interface RenderLink {
         <svg class="ngx-chart-svg" [attr.width]="svgWidth()" [attr.height]="svgHeight()">
           <g [attr.transform]="'translate(' + translateX() + ', ' + translateY() + ')'">
             <!-- Links -->
-            <path *ngFor="let link of links()"
-                  [attr.d]="link.path"
-                  class="org-link" />
-            
+            <path *ngFor="let link of links()" [attr.d]="link.path" class="org-link" />
+
             <!-- Nodes -->
-            <g *ngFor="let node of nodes()"
-               class="org-node"
-               [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
-              
+            <g
+              *ngFor="let node of nodes()"
+              class="org-node"
+              [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
+            >
               <!-- Card Background -->
-              <rect [attr.x]="-nodeWidth()/2" 
-                    [attr.y]="-nodeHeight()/2" 
-                    [attr.width]="nodeWidth()" 
-                    [attr.height]="nodeHeight()" 
-                    rx="8"
-                    class="org-card" 
-                    (click)="nodeClick.emit(node.data)" />
-              
+              <rect
+                [attr.x]="-nodeWidth() / 2"
+                [attr.y]="-nodeHeight() / 2"
+                [attr.width]="nodeWidth()"
+                [attr.height]="nodeHeight()"
+                rx="8"
+                class="org-card"
+                [ngxChartAccessibleMark]="accessibleNodeLabel(node)"
+                [ngxChartAccessibleMarkInteractive]="true"
+                (activated)="nodeClick.emit(node.data)"
+                (click)="nodeClick.emit(node.data)"
+              />
+
               <!-- Avatar -->
-              <image *ngIf="node.data.avatarUrl"
-                     [attr.href]="node.data.avatarUrl"
-                     [attr.x]="-nodeWidth()/2 + 10"
-                     [attr.y]="-20"
-                     width="40" height="40"
-                     clip-path="url(#avatar-clip)" />
-              
+              <image
+                *ngIf="node.data.avatarUrl"
+                [attr.href]="node.data.avatarUrl"
+                [attr.x]="-nodeWidth() / 2 + 10"
+                [attr.y]="-20"
+                width="40"
+                height="40"
+                clip-path="url(#avatar-clip)"
+              />
+
               <clipPath id="avatar-clip">
-                <circle [attr.cx]="-nodeWidth()/2 + 30" cy="0" r="20" />
+                <circle [attr.cx]="-nodeWidth() / 2 + 30" cy="0" r="20" />
               </clipPath>
 
               <!-- Circle fallback if no avatar -->
-              <circle *ngIf="!node.data.avatarUrl"
-                      [attr.cx]="-nodeWidth()/2 + 30"
-                      [attr.cy]="0"
-                      r="16"
-                      [attr.fill]="getColor(node.depth)" />
-              
-              <text *ngIf="!node.data.avatarUrl"
-                    [attr.x]="-nodeWidth()/2 + 30"
-                    [attr.y]="4"
-                    text-anchor="middle"
-                    fill="#fff"
-                    font-size="12"
-                    font-weight="bold">
+              <circle
+                *ngIf="!node.data.avatarUrl"
+                [attr.cx]="-nodeWidth() / 2 + 30"
+                [attr.cy]="0"
+                r="16"
+                [attr.fill]="getColor(node.depth)"
+              />
+
+              <text
+                *ngIf="!node.data.avatarUrl"
+                [attr.x]="-nodeWidth() / 2 + 30"
+                [attr.y]="4"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="12"
+                font-weight="bold"
+              >
                 {{ node.data.name.charAt(0) }}
               </text>
 
               <!-- Text Details -->
-              <text [attr.x]="-nodeWidth()/2 + 60" [attr.y]="-6" class="org-name">{{ node.data.name }}</text>
-              <text [attr.x]="-nodeWidth()/2 + 60" [attr.y]="12" class="org-title">{{ node.data.title || '' }}</text>
+              <text [attr.x]="-nodeWidth() / 2 + 60" [attr.y]="-6" class="org-name">{{ node.data.name }}</text>
+              <text [attr.x]="-nodeWidth() / 2 + 60" [attr.y]="12" class="org-title">{{ node.data.title || '' }}</text>
 
               <!-- Expand/Collapse Handle -->
-              <g *ngIf="node.hasChildren"
-                 class="expand-handle"
-                 [attr.transform]="getHandleTransform()"
-                 (click)="toggleNode(node, $event)">
+              <g
+                *ngIf="node.hasChildren"
+                class="expand-handle"
+                [attr.transform]="getHandleTransform()"
+                [attr.aria-expanded]="node.expanded"
+                [ngxChartAccessibleMark]="toggleNodeLabel(node)"
+                [ngxChartAccessibleMarkInteractive]="true"
+                (activated)="toggleNodeFromKeyboard(node)"
+                (click)="toggleNode(node, $event)"
+              >
                 <circle cx="0" cy="0" r="10" fill="#fff" stroke="#ccc" />
                 <text x="0" y="4" text-anchor="middle" font-size="14" font-weight="bold" fill="#666">
                   {{ node.expanded ? '-' : '+' }}
@@ -124,66 +143,77 @@ interface RenderLink {
       </div>
     </div>
   `,
-  styles: [`
-    .ngx-chart-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      font-family: sans-serif;
-    }
-    .ngx-chart-header {
-      position: absolute;
-      top: 8px;
-      right: 16px;
-      z-index: 10;
-    }
-    .scroll-container {
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-    }
-    .ngx-chart-svg {
-      min-width: 100%;
-      min-height: 100%;
-    }
-    .org-link {
-      fill: none;
-      stroke: var(--ngx-chart-grid, #cbd5e1);
-      stroke-width: 2px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .org-node {
-      cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .org-card {
-      fill: var(--ngx-chart-tooltip-bg, rgba(255, 255, 255, 0.85));
-      stroke: rgba(0,0,0,0.1);
-      stroke-width: 1px;
-      backdrop-filter: blur(8px);
-    }
-    .org-node:hover .org-card {
-      stroke: var(--ngx-chart-axis-text, #94a3b8);
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-    }
-    .org-name {
-      fill: var(--ngx-chart-axis-text, #1e293b);
-      font-size: 14px;
-      font-weight: bold;
-    }
-    .org-title {
-      fill: var(--ngx-chart-axis-text, #64748b);
-      font-size: 12px;
-    }
-    .expand-handle {
-      cursor: pointer;
-    }
-    .expand-handle:hover circle {
-      fill: #f1f5f9;
-    }
-  `]
+  styles: [
+    `
+      .ngx-chart-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        font-family: sans-serif;
+      }
+      .ngx-chart-header {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        z-index: 10;
+      }
+      .scroll-container {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+      }
+      .ngx-chart-svg {
+        min-width: 100%;
+        min-height: 100%;
+      }
+      .org-link {
+        fill: none;
+        stroke: var(--ngx-chart-grid, #cbd5e1);
+        stroke-width: 2px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .org-node {
+        cursor: pointer;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .org-card {
+        fill: var(--ngx-chart-tooltip-bg, rgba(255, 255, 255, 0.85));
+        stroke: rgba(0, 0, 0, 0.1);
+        stroke-width: 1px;
+        backdrop-filter: blur(8px);
+      }
+      .org-node:hover .org-card {
+        stroke: var(--ngx-chart-axis-text, #94a3b8);
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      }
+      .org-card:focus-visible {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+        outline: none;
+      }
+      .org-name {
+        fill: var(--ngx-chart-axis-text, #1e293b);
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .org-title {
+        fill: var(--ngx-chart-axis-text, #64748b);
+        font-size: 12px;
+      }
+      .expand-handle {
+        cursor: pointer;
+      }
+      .expand-handle:hover circle {
+        fill: #f1f5f9;
+      }
+      .expand-handle:focus-visible circle {
+        stroke: var(--primary-color, #4f46e5);
+        stroke-width: 3px;
+      }
+    `,
+  ],
 })
 export class OrgChartComponent {
   rootNode = input.required<OrgNode>();
@@ -195,6 +225,7 @@ export class OrgChartComponent {
   showExport = input<boolean>(true);
 
   private exportSvc = inject(ChartExportService);
+  private readonly i18n = inject(NGX_CORE_I18N);
   nodeClick = output<OrgNode>();
   nodeToggle = output<OrgNode>();
 
@@ -206,7 +237,7 @@ export class OrgChartComponent {
     else if (type === 'pdf') this.exportSvc.downloadPdf(el, 'Org Chart', 'org-chart.pdf');
   }
   containerWidth = signal<number>(800);
-  
+
   expandedState = signal<Set<string>>(new Set());
 
   chartId = generateUniqueId('org');
@@ -218,7 +249,7 @@ export class OrgChartComponent {
   private destroyRef = inject(DestroyRef);
 
   constructor() {
-    effect((onCleanup) => {
+    effect(onCleanup => {
       const el = this.container()?.nativeElement;
       if (!el) return;
       const ro = new ResizeObserver(entries => {
@@ -230,20 +261,48 @@ export class OrgChartComponent {
       onCleanup(() => ro.disconnect());
     });
 
-    effect(() => {
-      const initExp = new Set<string>();
-      const traverse = (n: OrgNode) => {
-        if (n.expanded !== false) initExp.add(n.id);
-        n.children?.forEach(traverse);
-      };
-      traverse(this.rootNode());
-      this.expandedState.set(initExp);
-    }, { allowSignalWrites: true });
+    effect(
+      () => {
+        const initExp = new Set<string>();
+        const traverse = (n: OrgNode) => {
+          if (n.expanded !== false) initExp.add(n.id);
+          n.children?.forEach(traverse);
+        };
+        traverse(this.rootNode());
+        this.expandedState.set(initExp);
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   getColor(depth: number): string {
     const c = this.colors();
     return c[depth % c.length];
+  }
+
+  accessibleNodeLabel(node: RenderNode): string {
+    return (
+      this.i18n.chart.orgChartNodeDescription?.(
+        node.data.name,
+        node.data.title || '',
+        node.data.department || '',
+        node.hasChildren
+      ) ??
+      [node.data.name, node.data.title, node.data.department, node.hasChildren ? 'has reports' : 'no reports']
+        .filter(Boolean)
+        .join('; ')
+    );
+  }
+
+  toggleNodeLabel(node: RenderNode): string {
+    return (
+      this.i18n.chart.orgChartToggleDescription?.(node.data.name, node.expanded) ??
+      `${node.expanded ? 'Collapse' : 'Expand'} ${node.data.name}`
+    );
+  }
+
+  toggleNodeFromKeyboard(node: RenderNode): void {
+    this.updateExpandedState(node);
   }
 
   getHandleTransform(): string {
@@ -259,20 +318,28 @@ export class OrgChartComponent {
     const isVert = this.orientation() === 'vertical';
     const dx = isVert ? this.nodeWidth() + 40 : this.nodeWidth() + 80;
     const dy = isVert ? this.nodeHeight() + 80 : this.nodeHeight() + 40;
-    
+
     const nodes: RenderNode[] = [];
     const links: RenderLink[] = [];
-    
+
     const expanded = this.expandedState();
 
-    let maxX = 0, maxY = 0, minX = 0, minY = 0;
+    let maxX = 0,
+      maxY = 0,
+      minX = 0,
+      minY = 0;
 
     const traverse = (node: OrgNode, depth: number, offset: number): RenderNode => {
       const isExpanded = expanded.has(node.id);
       const hasChildren = !!(node.children && node.children.length > 0);
-      
+
       const renderNode: RenderNode = {
-        data: node, x: 0, y: 0, depth, hasChildren, expanded: isExpanded
+        data: node,
+        x: 0,
+        y: 0,
+        depth,
+        hasChildren,
+        expanded: isExpanded,
       };
 
       if (hasChildren && isExpanded) {
@@ -282,7 +349,7 @@ export class OrgChartComponent {
         });
 
         let sum = 0;
-        childrenNodes.forEach(c => sum += isVert ? c.x : c.y);
+        childrenNodes.forEach(c => (sum += isVert ? c.x : c.y));
         const center = sum / childrenNodes.length;
 
         if (isVert) {
@@ -295,8 +362,9 @@ export class OrgChartComponent {
 
         childrenNodes.forEach(child => {
           links.push({
-            source: renderNode, target: child,
-            path: this.generatePath(renderNode, child, isVert)
+            source: renderNode,
+            target: child,
+            path: this.generatePath(renderNode, child, isVert),
           });
         });
       } else {
@@ -324,7 +392,7 @@ export class OrgChartComponent {
 
   nodes = computed(() => this.layout().nodes);
   links = computed(() => this.layout().links);
-  
+
   svgWidth = computed(() => {
     const w = this.layout().bounds.maxX - this.layout().bounds.minX + this.nodeWidth() + 100;
     return Math.max(w, this.containerWidth());
@@ -354,6 +422,10 @@ export class OrgChartComponent {
 
   toggleNode(node: RenderNode, event: MouseEvent) {
     event.stopPropagation();
+    this.updateExpandedState(node);
+  }
+
+  private updateExpandedState(node: RenderNode): void {
     const state = new Set(this.expandedState());
     if (state.has(node.data.id)) {
       state.delete(node.data.id);
