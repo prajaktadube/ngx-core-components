@@ -1,0 +1,981 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  BiplotVector</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/biplot/biplot.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#x" 
+>
+                                            x
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#y" 
+>
+                                            y
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="x"></a>
+                                        <span class="name "><b>x</b>
+                                            <a href="#x">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>x:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="y"></a>
+                                        <span class="name "><b>y</b>
+                                            <a href="#y">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>y:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, computed, signal,
+  ElementRef, inject, DestroyRef, HostListener, viewChild
+} from &#x27;@angular/core&#x27;;
+import { ChartExportService } from &#x27;../shared/chart-export.service&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS, fmtNum } from &#x27;../shared/chart-utils&#x27;;
+
+export interface BiplotPoint {
+  x: number;
+  y: number;
+  label: string;
+  group?: string;
+}
+
+export interface BiplotVector {
+  x: number;
+  y: number;
+  label: string;
+}
+
+interface ProcessedPoint {
+  label: string;
+  xVal: number;
+  yVal: number;
+  cx: number;
+  cy: number;
+  group?: string;
+  color: string;
+}
+
+interface ProcessedVector {
+  label: string;
+  xVal: number;
+  yVal: number;
+  x2: number;
+  y2: number;
+}
+
+@Component({
+  selector: &#x27;ngx-biplot&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-biplot&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+      &lt;!-- Toolbar with Export option --&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot; (mouseleave)&#x3D;&quot;onMouseLeave()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;&lt;/div&gt;
+        @if (showExport()) {
+          &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+            &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+            @if (exportMenuOpen()) {
+              &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;svg
+        #svgEl
+        class&#x3D;&quot;biplot-svg&quot;
+        [attr.width]&#x3D;&quot;&#x27;100%&#x27;&quot;
+        [attr.height]&#x3D;&quot;svgHeight()&quot;
+      &gt;
+        &lt;!-- Arrowhead Marker Definition --&gt;
+        &lt;defs&gt;
+          &lt;marker
+            id&#x3D;&quot;vector-arrow&quot;
+            viewBox&#x3D;&quot;0 0 10 10&quot;
+            refX&#x3D;&quot;6&quot;
+            refY&#x3D;&quot;5&quot;
+            markerWidth&#x3D;&quot;6&quot;
+            markerHeight&#x3D;&quot;6&quot;
+            orient&#x3D;&quot;auto-start-reverse&quot;
+          &gt;
+            &lt;path d&#x3D;&quot;M 0 1.5 L 10 5 L 0 8.5 z&quot; fill&#x3D;&quot;#ef4444&quot; /&gt;
+          &lt;/marker&gt;
+        &lt;/defs&gt;
+
+        &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + margin().left + &#x27;,&#x27; + margin().top + &#x27;)&#x27;&quot;&gt;
+          
+          &lt;!-- Axis Lines (Passing through Origin 0,0) --&gt;
+          &lt;line
+            [attr.x1]&#x3D;&quot;0&quot;
+            [attr.x2]&#x3D;&quot;innerW()&quot;
+            [attr.y1]&#x3D;&quot;originY()&quot;
+            [attr.y2]&#x3D;&quot;originY()&quot;
+            class&#x3D;&quot;axis-line origin-axis&quot;
+          /&gt;
+          &lt;line
+            [attr.x1]&#x3D;&quot;originX()&quot;
+            [attr.x2]&#x3D;&quot;originX()&quot;
+            [attr.y1]&#x3D;&quot;0&quot;
+            [attr.y2]&#x3D;&quot;innerH()&quot;
+            class&#x3D;&quot;axis-line origin-axis&quot;
+          /&gt;
+
+          &lt;!-- Tick Marks on X Axis --&gt;
+          @for (tick of xTicks(); track tick) {
+            &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(&#x27; + xPos(tick) + &#x27;, 0)&#x27;&quot;&gt;
+              &lt;line
+                [attr.y1]&#x3D;&quot;originY() - 3&quot;
+                [attr.y2]&#x3D;&quot;originY() + 3&quot;
+                class&#x3D;&quot;tick-line&quot;
+              /&gt;
+              @if (tick !&#x3D;&#x3D; 0) {
+                &lt;text
+                  [attr.y]&#x3D;&quot;originY() + 14&quot;
+                  text-anchor&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tick-label&quot;
+                &gt;
+                  {{ formatNumber(tick) }}
+                &lt;/text&gt;
+              }
+            &lt;/g&gt;
+          }
+
+          &lt;!-- Tick Marks on Y Axis --&gt;
+          @for (tick of yTicks(); track tick) {
+            &lt;g [attr.transform]&#x3D;&quot;&#x27;translate(0, &#x27; + yPos(tick) + &#x27;)&#x27;&quot;&gt;
+              &lt;line
+                [attr.x1]&#x3D;&quot;originX() - 3&quot;
+                [attr.x2]&#x3D;&quot;originX() + 3&quot;
+                class&#x3D;&quot;tick-line&quot;
+              /&gt;
+              @if (tick !&#x3D;&#x3D; 0) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;originX() - 8&quot;
+                  text-anchor&#x3D;&quot;end&quot;
+                  dominant-baseline&#x3D;&quot;middle&quot;
+                  class&#x3D;&quot;tick-label&quot;
+                &gt;
+                  {{ formatNumber(tick) }}
+                &lt;/text&gt;
+              }
+            &lt;/g&gt;
+          }
+
+          &lt;!-- Zero Label at Origin --&gt;
+          &lt;text
+            [attr.x]&#x3D;&quot;originX() - 8&quot;
+            [attr.y]&#x3D;&quot;originY() + 12&quot;
+            text-anchor&#x3D;&quot;end&quot;
+            class&#x3D;&quot;tick-label origin-label&quot;
+          &gt;
+            0
+          &lt;/text&gt;
+
+          &lt;!-- Vector Loadings (Variables) --&gt;
+          @for (vec of computedVectors(); track vec.label) {
+            &lt;g class&#x3D;&quot;vector-group&quot;&gt;
+              &lt;line
+                [attr.x1]&#x3D;&quot;originX()&quot;
+                [attr.y1]&#x3D;&quot;originY()&quot;
+                [attr.x2]&#x3D;&quot;vec.x2&quot;
+                [attr.y2]&#x3D;&quot;vec.y2&quot;
+                class&#x3D;&quot;vector-line&quot;
+                marker-end&#x3D;&quot;url(#vector-arrow)&quot;
+              /&gt;
+              &lt;text
+                [attr.x]&#x3D;&quot;vec.x2 + (vec.x2 &gt; originX() ? 6 : -6)&quot;
+                [attr.y]&#x3D;&quot;vec.y2 + (vec.y2 &gt; originY() ? 6 : -6)&quot;
+                [attr.text-anchor]&#x3D;&quot;vec.x2 &gt; originX() ? &#x27;start&#x27; : &#x27;end&#x27;&quot;
+                dominant-baseline&#x3D;&quot;middle&quot;
+                class&#x3D;&quot;vector-label&quot;
+              &gt;
+                {{ vec.label }}
+              &lt;/text&gt;
+            &lt;/g&gt;
+          }
+
+          &lt;!-- Scatter Points (Observations) --&gt;
+          @for (pt of computedPoints(); track pt.label; let i &#x3D; $index) {
+            &lt;g
+              class&#x3D;&quot;point-group&quot;
+              [class.dimmed]&#x3D;&quot;hoveredPointIndex() !&#x3D;&#x3D; null &amp;&amp; hoveredPointIndex() !&#x3D;&#x3D; i&quot;
+              (mouseenter)&#x3D;&quot;onPointHover(i, $event)&quot;
+              (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+            &gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;pt.cx&quot;
+                [attr.cy]&#x3D;&quot;pt.cy&quot;
+                [attr.r]&#x3D;&quot;hoveredPointIndex() &#x3D;&#x3D;&#x3D; i ? 7 : 5&quot;
+                [attr.fill]&#x3D;&quot;pt.color&quot;
+                [attr.stroke]&#x3D;&quot;&#x27;#ffffff&#x27;&quot;
+                [attr.stroke-width]&#x3D;&quot;hoveredPointIndex() &#x3D;&#x3D;&#x3D; i ? 2 : 1&quot;
+                class&#x3D;&quot;biplot-point&quot;
+              /&gt;
+              @if (showLabels() || hoveredPointIndex() &#x3D;&#x3D;&#x3D; i) {
+                &lt;text
+                  [attr.x]&#x3D;&quot;pt.cx + 8&quot;
+                  [attr.y]&#x3D;&quot;pt.cy - 6&quot;
+                  class&#x3D;&quot;point-label&quot;
+                &gt;
+                  {{ pt.label }}
+                &lt;/text&gt;
+              }
+            &lt;/g&gt;
+          }
+        &lt;/g&gt;
+      &lt;/svg&gt;
+
+      &lt;!-- Glassmorphic Tooltip --&gt;
+      @if (tooltip(); as t) {
+        &lt;div class&#x3D;&quot;chart-tooltip&quot; [style.left.px]&#x3D;&quot;tooltipX()&quot; [style.top.px]&#x3D;&quot;tooltipY()&quot;&gt;
+          &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ t.label }}&lt;/div&gt;
+          @if (t.group) {
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Group&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ t.group }}&lt;/span&gt;
+            &lt;/div&gt;
+          }
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;PC1 (X)&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.x) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+            &lt;span class&#x3D;&quot;tt-name&quot;&gt;PC2 (Y)&lt;/span&gt;
+            &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ formatNumber(t.y) }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+    }
+    .ngx-biplot {
+      background: var(--ngx-chart-bg, #ffffff);
+      border-radius: 16px;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+      position: relative;
+      width: 100%;
+    }
+    .biplot-svg {
+      display: block;
+      overflow: visible;
+    }
+    .axis-line {
+      stroke: var(--ngx-chart-axis, #cbd5e1);
+      stroke-width: 1;
+    }
+    .origin-axis {
+      stroke: var(--ngx-chart-axis-strong, #94a3b8);
+      stroke-width: 1.5;
+      stroke-dasharray: 3,3;
+    }
+    .tick-line {
+      stroke: var(--ngx-chart-axis, #cbd5e1);
+      stroke-width: 1.5;
+    }
+    .tick-label, .point-label {
+      font-size: 11px;
+      fill: var(--ngx-chart-axis-text, #64748b);
+      font-weight: 550;
+      user-select: none;
+    }
+    .origin-label {
+      fill: var(--ngx-chart-axis-text, #475569);
+      font-weight: 700;
+    }
+    .biplot-point {
+      cursor: pointer;
+      transition: r 0.2s ease, stroke-width 0.2s ease;
+      transform-origin: center;
+      animation: pointScaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      opacity: 0;
+    }
+    @keyframes pointScaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .point-group {
+      transition: opacity 0.2s ease;
+    }
+    .point-group.dimmed {
+      opacity: 0.35;
+    }
+    .vector-group {
+      animation: vectorFadeIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes vectorFadeIn {
+      to { opacity: 1; }
+    }
+    .vector-line {
+      stroke: #ef4444;
+      stroke-width: 2;
+      stroke-linecap: round;
+      pointer-events: none;
+    }
+    .vector-label {
+      font-size: 11px;
+      fill: #ef4444;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    /* Glassmorphic Tooltip */
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%) translateY(-10px);
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      min-width: 140px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+      transition: left 0.1s cubic-bezier(0.16, 1, 0.3, 1), top 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    /* Export styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+      margin-bottom: 12px;
+    }
+    .export-trigger {
+      float: right;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+      z-index: 60;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+    .chart-header { display: flex; justify-content: space-between; align-items: center; min-height: 24px; position: relative; }
+  &#x60;]
+})
+export class BiplotComponent {
+  private readonly exportSvc &#x3D; inject(ChartExportService);
+  points &#x3D; input&lt;BiplotPoint[]&gt;([]);
+  vectors &#x3D; input&lt;BiplotVector[]&gt;([]);
+  height &#x3D; input&lt;number&gt;(400);
+  showLabels &#x3D; input&lt;boolean&gt;(true);
+  vectorScale &#x3D; input&lt;number&gt;(1.0);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(false);
+
+  containerWidth &#x3D; signal&lt;number&gt;(500);
+  hoveredPointIndex &#x3D; signal&lt;number | null&gt;(null);
+  tooltip &#x3D; signal&lt;any | null&gt;(null);
+  tooltipX &#x3D; signal&lt;number&gt;(0);
+  tooltipY &#x3D; signal&lt;number&gt;(0);
+  exportMenuOpen &#x3D; signal(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  svgHeight &#x3D; computed(() &#x3D;&gt; this.height());
+
+  margin &#x3D; computed(() &#x3D;&gt; ({
+    top: 40,
+    right: 40,
+    bottom: 40,
+    left: 40
+  }));
+
+  innerW &#x3D; computed(() &#x3D;&gt; Math.max(10, this.containerWidth() - this.margin().left - this.margin().right));
+  innerH &#x3D; computed(() &#x3D;&gt; Math.max(10, this.svgHeight() - this.margin().top - this.margin().bottom));
+
+  // Determine global domain range Symmetrical around zero
+  maxExtent &#x3D; computed(() &#x3D;&gt; {
+    const pts &#x3D; this.points();
+    const vecs &#x3D; this.vectors();
+    const scaleFactor &#x3D; this.vectorScale();
+    const allCoords &#x3D; [
+      ...pts.map(p &#x3D;&gt; Math.abs(p.x)),
+      ...pts.map(p &#x3D;&gt; Math.abs(p.y)),
+      ...vecs.map(v &#x3D;&gt; Math.abs(v.x * scaleFactor)),
+      ...vecs.map(v &#x3D;&gt; Math.abs(v.y * scaleFactor))
+    ];
+    if (allCoords.length &#x3D;&#x3D;&#x3D; 0) return 1.0;
+    const maxVal &#x3D; Math.max(...allCoords);
+    return maxVal * 1.15 || 1.0;
+  });
+
+  xTicks &#x3D; computed(() &#x3D;&gt; {
+    const limit &#x3D; this.maxExtent();
+    return [-limit, -limit / 2, 0, limit / 2, limit];
+  });
+
+  yTicks &#x3D; computed(() &#x3D;&gt; {
+    const limit &#x3D; this.maxExtent();
+    return [-limit, -limit / 2, 0, limit / 2, limit];
+  });
+
+  xPos(val: number): number {
+    const limit &#x3D; this.maxExtent();
+    // Maps -limit..+limit to 0..innerW
+    return ((val + limit) / (2 * limit)) * this.innerW();
+  }
+
+  yPos(val: number): number {
+    const limit &#x3D; this.maxExtent();
+    // Maps -limit..+limit to innerH..0 (inverted SVG coords)
+    return this.innerH() - ((val + limit) / (2 * limit)) * this.innerH();
+  }
+
+  originX &#x3D; computed(() &#x3D;&gt; this.xPos(0));
+  originY &#x3D; computed(() &#x3D;&gt; this.yPos(0));
+
+  constructor() {
+    const hostEl &#x3D; inject(ElementRef).nativeElement;
+    if (typeof ResizeObserver !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      const resizeObserver &#x3D; new ResizeObserver(entries &#x3D;&gt; {
+        if (!entries || entries.length &#x3D;&#x3D;&#x3D; 0) return;
+        const width &#x3D; entries[0].contentRect.width;
+        if (width &gt; 0) {
+          this.containerWidth.set(width);
+        }
+      });
+      resizeObserver.observe(hostEl);
+      inject(DestroyRef).onDestroy(() &#x3D;&gt; resizeObserver.disconnect());
+    }
+  }
+
+  computedPoints &#x3D; computed&lt;ProcessedPoint[]&gt;(() &#x3D;&gt; {
+    const pts &#x3D; this.points();
+    const palette &#x3D; this.colors();
+
+    // Map group labels to color mapping dictionary
+    const groups &#x3D; Array.from(new Set(pts.map(p &#x3D;&gt; p.group).filter(Boolean)));
+    const groupColors: Record&lt;string, string&gt; &#x3D; {};
+    groups.forEach((g, idx) &#x3D;&gt; {
+      groupColors[g!] &#x3D; palette[idx % palette.length];
+    });
+
+    return pts.map(p &#x3D;&gt; {
+      const color &#x3D; p.group ? groupColors[p.group] : palette[0];
+      return {
+        label: p.label,
+        xVal: p.x,
+        yVal: p.y,
+        cx: this.xPos(p.x),
+        cy: this.yPos(p.y),
+        group: p.group,
+        color
+      };
+    });
+  });
+
+  computedVectors &#x3D; computed&lt;ProcessedVector[]&gt;(() &#x3D;&gt; {
+    const vecs &#x3D; this.vectors();
+    const scaleFactor &#x3D; this.vectorScale();
+    return vecs.map(v &#x3D;&gt; ({
+      label: v.label,
+      xVal: v.x * scaleFactor,
+      yVal: v.y * scaleFactor,
+      x2: this.xPos(v.x * scaleFactor),
+      y2: this.yPos(v.y * scaleFactor)
+    }));
+  });
+
+  onPointHover(idx: number, event: MouseEvent) {
+    this.hoveredPointIndex.set(idx);
+    const pt &#x3D; this.computedPoints()[idx];
+    if (pt) {
+      this.tooltip.set({
+        label: pt.label,
+        group: pt.group,
+        x: pt.xVal,
+        y: pt.yVal
+      });
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const el &#x3D; event.currentTarget as SVGElement;
+    const container &#x3D; el.closest(&#x27;.ngx-biplot&#x27;);
+    if (container) {
+      const rect &#x3D; container.getBoundingClientRect();
+      this.tooltipX.set(event.clientX - rect.left);
+      this.tooltipY.set(event.clientY - rect.top);
+    }
+  }
+
+  onMouseLeave() {
+    this.hoveredPointIndex.set(null);
+    this.tooltip.set(null);
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  exportToCsv(): void {
+    const points &#x3D; this.points();
+    const vectors &#x3D; this.vectors();
+    if (!points.length &amp;&amp; !vectors.length) return;
+    const headers &#x3D; [&#x27;Type&#x27;, &#x27;Label&#x27;, &#x27;Group&#x27;, &#x27;X&#x27;, &#x27;Y&#x27;];
+    const rows &#x3D; points.map(d &#x3D;&gt; [&#x27;Point&#x27;, d.label || &#x27;&#x27;, d.group || &#x27;&#x27;, d.x, d.y]);
+    vectors.forEach(v &#x3D;&gt; {
+      rows.push([&#x27;Vector&#x27;, v.label, &#x27;&#x27;, v.x, v.y]);
+    });
+    this.exportSvc.downloadCsv(headers, rows, &#x27;biplot-data.csv&#x27;);
+  }
+
+  exportToJson(): void {
+    const data &#x3D; { points: this.points(), vectors: this.vectors() };
+    this.exportSvc.downloadJson(data, &#x27;biplot-data.json&#x27;);
+  }
+
+  exportToSvg(): void {
+    this.exportSvc.downloadSvg(this.svgEl()?.nativeElement, &#x27;biplot.svg&#x27;);
+  }
+
+  exportToPdf(): void {
+    this.exportSvc.downloadPdf(this.svgEl()?.nativeElement, &#x27;Biplot Export&#x27;, &#x27;biplot.pdf&#x27;);
+  }
+
+  formatNumber(v: number): string {
+    return fmtNum(v);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'BiplotVector.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

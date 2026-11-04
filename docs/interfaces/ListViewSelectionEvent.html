@@ -1,0 +1,518 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ListViewSelectionEvent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/views/list-view/list-view.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#selectedItems" 
+>
+                                            selectedItems
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="selectedItems"></a>
+                                        <span class="name "><b>selectedItems</b>
+                                            <a href="#selectedItems">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>selectedItems:     <code>T[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>T[]</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, ChangeDetectionStrategy, input, output, signal, computed, effect,
+  ContentChild, TemplateRef, inject
+} from &#x27;@angular/core&#x27;;
+import { NgTemplateOutlet } from &#x27;@angular/common&#x27;;
+import { NGX_CORE_I18N } from &#x27;ngx-core-components/i18n&#x27;;
+
+export interface ListViewItemClickEvent&lt;T &#x3D; unknown&gt; { item: T; index: number; }
+export interface ListViewSelectionEvent&lt;T &#x3D; unknown&gt; { selectedItems: T[]; }
+export interface ListViewPageChangeEvent {
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  totalPages: number;
+}
+
+@Component({
+  selector: &#x27;ngx-list-view&#x27;,
+  standalone: true,
+  imports: [NgTemplateOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-list-view&quot;&gt;
+      &lt;!-- Header slot --&gt;
+      &lt;ng-content select&#x3D;&quot;[listHeader]&quot;/&gt;
+
+      &lt;!-- Loading --&gt;
+      @if (loading()) {
+        &lt;div class&#x3D;&quot;lv-loading&quot;&gt;
+          &lt;div class&#x3D;&quot;lv-spinner&quot;&gt;&lt;/div&gt;
+          &lt;span&gt;{{ i18n.common.loading }}&lt;/span&gt;
+        &lt;/div&gt;
+      } @else if (totalItems() &#x3D;&#x3D;&#x3D; 0) {
+        &lt;div class&#x3D;&quot;lv-empty&quot;&gt;{{ i18n.common.noData }}&lt;/div&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;lv-list&quot; role&#x3D;&quot;listbox&quot; [attr.aria-multiselectable]&#x3D;&quot;multiselect()&quot;&gt;
+          @for (item of visibleItems(); track trackFn(item, pageStartIndex() + $index); let i &#x3D; $index) {
+            &lt;div
+              class&#x3D;&quot;lv-item&quot;
+              [class.lv-alt]&#x3D;&quot;(pageStartIndex() + i) % 2 &#x3D;&#x3D;&#x3D; 1&quot;
+              [class.lv-selected]&#x3D;&quot;isSelected(item)&quot;
+              role&#x3D;&quot;option&quot;
+              [attr.aria-selected]&#x3D;&quot;isSelected(item)&quot;
+              (click)&#x3D;&quot;onItemClick(item, pageStartIndex() + i)&quot;
+            &gt;
+              @if (itemTemplate) {
+                &lt;ng-container *ngTemplateOutlet&#x3D;&quot;itemTemplate; context: { $implicit: item, index: pageStartIndex() + i }&quot;/&gt;
+              } @else {
+                &lt;span class&#x3D;&quot;lv-default-text&quot;&gt;{{ getLabel(item) }}&lt;/span&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        @if (pageSize() &gt; 0 &amp;&amp; totalPages() &gt; 1) {
+          &lt;div class&#x3D;&quot;lv-pager&quot;&gt;
+            &lt;button class&#x3D;&quot;lv-pager-btn&quot; type&#x3D;&quot;button&quot; [disabled]&#x3D;&quot;currentPage() &#x3D;&#x3D;&#x3D; 1&quot; (click)&#x3D;&quot;goToPreviousPage()&quot;&gt;{{ i18n.pagination.previousPage }}&lt;/button&gt;
+            &lt;div class&#x3D;&quot;lv-pager-meta&quot;&gt;{{ i18n.pagination.page }} {{ currentPage() }} {{ i18n.pagination.of }} {{ totalPages() }} &lt;span class&#x3D;&quot;lv-pager-count&quot;&gt;{{ totalItems() }} items&lt;/span&gt;&lt;/div&gt;
+            &lt;button class&#x3D;&quot;lv-pager-btn&quot; type&#x3D;&quot;button&quot; [disabled]&#x3D;&quot;currentPage() &#x3D;&#x3D;&#x3D; totalPages()&quot; (click)&#x3D;&quot;goToNextPage()&quot;&gt;{{ i18n.pagination.nextPage }}&lt;/button&gt;
+          &lt;/div&gt;
+        }
+      }
+
+      &lt;!-- Footer slot --&gt;
+      &lt;ng-content select&#x3D;&quot;[listFooter]&quot;/&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+    }
+    .ngx-list-view {
+      border: 1px solid var(--ngx-list-border, #dee2e6); border-radius: var(--ngx-list-radius, 4px);
+      background: var(--ngx-list-bg, #fff); overflow: hidden; font-family: inherit;
+    }
+    .lv-list { overflow-y: auto; }
+    .lv-item {
+      padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--ngx-list-border, #dee2e6);
+      transition: background 0.1s; color: var(--ngx-list-text, #212529); font-size: 13px;
+    }
+    .lv-item:last-child { border-bottom: none; }
+    .lv-item:hover { background: var(--ngx-list-hover-bg, #f1f3f5); }
+    .lv-item.lv-alt { background: var(--ngx-list-alt-bg, #f8f9fa); }
+    .lv-item.lv-alt:hover { background: var(--ngx-list-hover-bg, #f1f3f5); }
+    .lv-item.lv-selected { background: var(--ngx-list-selected-bg, #e8f0fe); color: var(--ngx-list-selected-color, #1a73e8); font-weight: 500; }
+    .lv-item.lv-selected:hover { background: var(--ngx-list-selected-bg, #e8f0fe); }
+    .lv-default-text { display: block; }
+    .lv-loading, .lv-empty {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 32px; color: #adb5bd; font-size: 13px;
+    }
+    .lv-spinner {
+      width: 20px; height: 20px; border: 2px solid #dee2e6; border-top-color: #4a90d9;
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    .lv-pager {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 10px 14px; border-top: 1px solid var(--ngx-list-border, #dee2e6); background: #fafbfc;
+    }
+    .lv-pager-btn {
+      border: 1px solid #ced4da; background: #fff; color: #495057; border-radius: 4px;
+      padding: 6px 10px; font-size: 12px; cursor: pointer; font-family: inherit;
+    }
+    .lv-pager-btn:hover:not(:disabled) { background: #f1f3f5; }
+    .lv-pager-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .lv-pager-meta { font-size: 12px; color: #495057; }
+    .lv-pager-count { color: #6c757d; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  &#x60;]
+})
+export class ListViewComponent&lt;T &#x3D; unknown&gt; {
+  i18n &#x3D; inject(NGX_CORE_I18N);
+
+  items &#x3D; input&lt;T[]&gt;([]);
+  selectable &#x3D; input&lt;boolean&gt;(true);
+  multiselect &#x3D; input&lt;boolean&gt;(false);
+  loading &#x3D; input&lt;boolean&gt;(false);
+  labelField &#x3D; input&lt;string&gt;(&#x27;label&#x27;);
+  pageSize &#x3D; input&lt;number&gt;(0);
+
+  itemClick &#x3D; output&lt;ListViewItemClickEvent&lt;T&gt;&gt;();
+  selectionChange &#x3D; output&lt;ListViewSelectionEvent&lt;T&gt;&gt;();
+  pageChange &#x3D; output&lt;ListViewPageChangeEvent&gt;();
+
+  @ContentChild(&#x27;itemTemplate&#x27;) itemTemplate?: TemplateRef&lt;{ $implicit: T; index: number }&gt;;
+
+  selectedItems &#x3D; signal&lt;Set&lt;T&gt;&gt;(new Set());
+  currentPage &#x3D; signal(1);
+  totalItems &#x3D; computed(() &#x3D;&gt; this.items().length);
+  totalPages &#x3D; computed(() &#x3D;&gt; {
+    const size &#x3D; this.pageSize();
+    if (size &lt;&#x3D; 0) {
+      return this.totalItems() &gt; 0 ? 1 : 0;
+    }
+    return Math.max(1, Math.ceil(this.totalItems() / size));
+  });
+  pageStartIndex &#x3D; computed(() &#x3D;&gt; this.pageSize() &gt; 0 ? (this.currentPage() - 1) * this.pageSize() : 0);
+  visibleItems &#x3D; computed(() &#x3D;&gt; {
+    const size &#x3D; this.pageSize();
+    if (size &lt;&#x3D; 0) {
+      return this.items();
+    }
+
+    return this.items().slice(this.pageStartIndex(), this.pageStartIndex() + size);
+  });
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      if (this.pageSize() &lt;&#x3D; 0) {
+        if (this.currentPage() !&#x3D;&#x3D; 1) {
+          this.currentPage.set(1);
+        }
+        return;
+      }
+
+      const maxPage &#x3D; this.totalPages();
+      if (maxPage &gt; 0 &amp;&amp; this.currentPage() &gt; maxPage) {
+        this.currentPage.set(maxPage);
+        this.emitPageChange();
+      }
+    });
+  }
+
+  isSelected(item: T): boolean { return this.selectedItems().has(item); }
+
+  onItemClick(item: T, index: number): void {
+    this.itemClick.emit({ item, index });
+    if (!this.selectable()) return;
+    const s &#x3D; new Set(this.selectedItems());
+    if (this.multiselect()) {
+      s.has(item) ? s.delete(item) : s.add(item);
+    } else {
+      if (s.has(item) &amp;&amp; s.size &#x3D;&#x3D;&#x3D; 1) s.clear();
+      else { s.clear(); s.add(item); }
+    }
+    this.selectedItems.set(s);
+    this.selectionChange.emit({ selectedItems: [...s] });
+  }
+
+  goToPreviousPage(): void {
+    this.setPage(this.currentPage() - 1);
+  }
+
+  goToNextPage(): void {
+    this.setPage(this.currentPage() + 1);
+  }
+
+  private setPage(page: number): void {
+    const nextPage &#x3D; Math.max(1, Math.min(this.totalPages(), page));
+    if (nextPage &#x3D;&#x3D;&#x3D; this.currentPage()) {
+      return;
+    }
+
+    this.currentPage.set(nextPage);
+    this.emitPageChange();
+  }
+
+  private emitPageChange(): void {
+    this.pageChange.emit({
+      page: this.currentPage(),
+      pageSize: this.pageSize(),
+      totalItems: this.totalItems(),
+      totalPages: this.totalPages(),
+    });
+  }
+
+  getLabel(item: T): string {
+    if (typeof item &#x3D;&#x3D;&#x3D; &#x27;string&#x27; || typeof item &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) return String(item);
+    const r &#x3D; item as Record&lt;string, unknown&gt;;
+    return String(r[this.labelField()] ?? r[&#x27;label&#x27;] ?? r[&#x27;name&#x27;] ?? r[&#x27;title&#x27;] ?? JSON.stringify(item));
+  }
+
+  trackFn(item: T, index: number): string {
+    if (typeof item &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;&amp; item !&#x3D;&#x3D; null) {
+      const r &#x3D; item as Record&lt;string, unknown&gt;;
+      return String(r[&#x27;id&#x27;] ?? r[&#x27;key&#x27;] ?? index);
+    }
+    return String(index);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ListViewSelectionEvent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

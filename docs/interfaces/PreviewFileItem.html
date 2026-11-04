@@ -1,0 +1,1321 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  PreviewFileItem</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/inputs/file-preview/file-preview.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#errorMessage" 
+>
+                                            errorMessage
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#fileObject" 
+>
+                                            fileObject
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#formattedSize" 
+>
+                                            formattedSize
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#progress" 
+>
+                                            progress
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#size" 
+>
+                                            size
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#status" 
+>
+                                            status
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#thumbnailUrl" 
+>
+                                            thumbnailUrl
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="errorMessage"></a>
+                                        <span class="name "><b>errorMessage</b>
+                                            <a href="#errorMessage">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>errorMessage:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="fileObject"></a>
+                                        <span class="name "><b>fileObject</b>
+                                            <a href="#fileObject">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>fileObject:     <code>File</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>File</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="formattedSize"></a>
+                                        <span class="name "><b>formattedSize</b>
+                                            <a href="#formattedSize">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>formattedSize:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="progress"></a>
+                                        <span class="name "><b>progress</b>
+                                            <a href="#progress">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>progress:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="size"></a>
+                                        <span class="name "><b>size</b>
+                                            <a href="#size">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>size:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="status"></a>
+                                        <span class="name "><b>status</b>
+                                            <a href="#status">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>status:     <code>&quot;pending&quot; | &quot;uploading&quot; | &quot;success&quot; | &quot;error&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;pending&quot; | &quot;uploading&quot; | &quot;success&quot; | &quot;error&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="thumbnailUrl"></a>
+                                        <span class="name "><b>thumbnailUrl</b>
+                                            <a href="#thumbnailUrl">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>thumbnailUrl:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  signal,
+  computed,
+  OnDestroy,
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { UploadFileItem } from &#x27;../file-upload/file-upload.component&#x27;;
+
+export interface PreviewFileItem {
+  id: string;
+  name: string;
+  size: number;
+  type: string;
+  status: &#x27;pending&#x27; | &#x27;uploading&#x27; | &#x27;success&#x27; | &#x27;error&#x27;;
+  progress: number;
+  errorMessage?: string;
+  formattedSize: string;
+  thumbnailUrl?: string;
+  fileObject?: File;
+}
+
+@Component({
+  selector: &#x27;ngx-file-preview&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div
+      class&#x3D;&quot;ngx-file-preview&quot;
+      [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+      [class]&#x3D;&quot;layout()&quot;
+    &gt;
+      @if (previewFiles().length &#x3D;&#x3D;&#x3D; 0) {
+        &lt;div class&#x3D;&quot;ngx-file-preview__empty&quot;&gt;
+          &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;32&quot; height&#x3D;&quot;32&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;1.5&quot;&gt;
+            &lt;path d&#x3D;&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+            &lt;polyline points&#x3D;&quot;17 8 12 3 7 8&quot;/&gt;
+            &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;3&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;15&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;span class&#x3D;&quot;ngx-file-preview__empty-text&quot;&gt;No files selected&lt;/span&gt;
+        &lt;/div&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;ngx-file-preview__grid-container&quot;&gt;
+          @for (item of previewFiles(); track item.id) {
+            &lt;div
+              class&#x3D;&quot;ngx-file-preview__card&quot;
+              [class]&#x3D;&quot;item.status&quot;
+            &gt;
+              &lt;!-- Image Thumbnail or Icon --&gt;
+              &lt;div class&#x3D;&quot;ngx-file-preview__media-wrapper&quot;&gt;
+                @if (item.thumbnailUrl) {
+                  &lt;div
+                    class&#x3D;&quot;ngx-file-preview__thumbnail&quot;
+                    [style.backgroundImage]&#x3D;&quot;&#x27;url(&#x27; + item.thumbnailUrl + &#x27;)&#x27;&quot;
+                  &gt;&lt;/div&gt;
+                } @else {
+                  &lt;div
+                    class&#x3D;&quot;ngx-file-preview__icon-fallback&quot;
+                    [style.background-color]&#x3D;&quot;getFileDetails(item).color + &#x27;15&#x27;&quot;
+                    [style.color]&#x3D;&quot;getFileDetails(item).color&quot;
+                  &gt;
+                    &lt;span class&#x3D;&quot;file-icon-symbol&quot;&gt;{{ getFileDetails(item).icon }}&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;file-icon-badge&quot;&gt;{{ getFileDetails(item).label }}&lt;/span&gt;
+                  &lt;/div&gt;
+                }
+
+                &lt;!-- Delete &amp; Download Hover Actions Overlay --&gt;
+                &lt;div class&#x3D;&quot;ngx-file-preview__overlay-actions&quot;&gt;
+                  @if (allowDownload() &amp;&amp; item.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+                    &lt;button
+                      class&#x3D;&quot;ngx-file-preview__action-btn btn-download&quot;
+                      (click)&#x3D;&quot;onDownload(item)&quot;
+                      aria-label&#x3D;&quot;Download file&quot;
+                    &gt;
+                      &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                        &lt;path d&#x3D;&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+                        &lt;polyline points&#x3D;&quot;7 10 12 15 17 10&quot;/&gt;
+                        &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;15&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;3&quot;/&gt;
+                      &lt;/svg&gt;
+                    &lt;/button&gt;
+                  }
+                  @if (allowDelete()) {
+                    &lt;button
+                      class&#x3D;&quot;ngx-file-preview__action-btn btn-delete&quot;
+                      (click)&#x3D;&quot;onDelete(item)&quot;
+                      aria-label&#x3D;&quot;Delete file&quot;
+                    &gt;
+                      &lt;svg viewBox&#x3D;&quot;0 0 24 24&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                        &lt;polyline points&#x3D;&quot;3 6 5 6 21 6&quot; /&gt;
+                        &lt;path d&#x3D;&quot;M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot; /&gt;
+                      &lt;/svg&gt;
+                    &lt;/button&gt;
+                  }
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Content details --&gt;
+              &lt;div class&#x3D;&quot;ngx-file-preview__details&quot;&gt;
+                &lt;div class&#x3D;&quot;ngx-file-preview__meta&quot;&gt;
+                  &lt;span class&#x3D;&quot;ngx-file-preview__name&quot; [title]&#x3D;&quot;item.name&quot;&gt;{{ item.name }}&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;ngx-file-preview__size&quot;&gt;{{ item.formattedSize }}&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Status details / upload meter --&gt;
+                @if (item.status &#x3D;&#x3D;&#x3D; &#x27;uploading&#x27;) {
+                  &lt;div class&#x3D;&quot;ngx-file-preview__progress-wrap&quot;&gt;
+                    &lt;div class&#x3D;&quot;ngx-file-preview__progress-bar&quot;&gt;
+                      &lt;div class&#x3D;&quot;ngx-file-preview__progress-fill&quot; [style.width.%]&#x3D;&quot;item.progress&quot;&gt;&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;span class&#x3D;&quot;ngx-file-preview__progress-text&quot;&gt;{{ item.progress }}%&lt;/span&gt;
+                  &lt;/div&gt;
+                } @else if (item.status &#x3D;&#x3D;&#x3D; &#x27;error&#x27;) {
+                  &lt;span class&#x3D;&quot;ngx-file-preview__error-msg&quot;&gt;
+                    ⚠️ {{ item.errorMessage || &#x27;Upload failed&#x27; }}
+                  &lt;/span&gt;
+                } @else {
+                  &lt;div class&#x3D;&quot;ngx-file-preview__status-row&quot;&gt;
+                    &lt;span class&#x3D;&quot;status-indicator&quot; [class]&#x3D;&quot;item.status&quot;&gt;&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;status-label&quot;&gt;{{ item.status }}&lt;/span&gt;
+                  &lt;/div&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .ngx-file-preview {
+      width: 100%;
+      font-family: var(--ngx-font-family, system-ui, sans-serif);
+    }
+
+    /* ── Empty State ── */
+    .ngx-file-preview__empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      border: 2px dashed rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      color: #64748b;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .ngx-file-preview__empty {
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      background: rgba(15, 23, 42, 0.15);
+    }
+
+    .ngx-file-preview__empty svg {
+      margin-bottom: 8px;
+      stroke: #94a3b8;
+    }
+
+    .ngx-file-preview__empty-text {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* ── Grid Container ── */
+    .ngx-file-preview__grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Card Styling ── */
+    .ngx-file-preview__card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.03),
+        0 2px 4px -1px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .ngx-file-preview__card:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.05),
+        0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    .dark .ngx-file-preview__card {
+      background: rgba(30, 32, 48, 0.85);
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .dark .ngx-file-preview__card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    /* ── Media wrapper &amp; Thumbnail ── */
+    .ngx-file-preview__media-wrapper {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      background: #f8fafc;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dark .ngx-file-preview__media-wrapper {
+      background: #1e293b;
+    }
+
+    .ngx-file-preview__thumbnail {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .ngx-file-preview__icon-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-weight: 700;
+    }
+
+    .file-icon-symbol {
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .file-icon-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.05);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dark .file-icon-badge {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ── Overlays actions ── */
+    .ngx-file-preview__overlay-actions {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 5;
+    }
+
+    .ngx-file-preview__media-wrapper:hover .ngx-file-preview__overlay-actions {
+      opacity: 1;
+    }
+
+    .ngx-file-preview__action-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .ngx-file-preview__action-btn:hover {
+      transform: scale(1.1);
+      background: #ffffff;
+    }
+
+    .ngx-file-preview__action-btn.btn-delete:hover {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .ngx-file-preview__action-btn.btn-download:hover {
+      background: var(--primary-color, #3b82f6);
+      color: #ffffff;
+    }
+
+    /* ── Details content ── */
+    .ngx-file-preview__details {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-grow: 1;
+    }
+
+    .ngx-file-preview__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .ngx-file-preview__name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+    }
+
+    .dark .ngx-file-preview__name {
+      color: #f8fafc;
+    }
+
+    .ngx-file-preview__size {
+      font-size: 11px;
+      font-weight: 500;
+      color: #64748b;
+      white-space: nowrap;
+    }
+
+    .dark .ngx-file-preview__size {
+      color: #94a3b8;
+    }
+
+    /* ── Progress display ── */
+    .ngx-file-preview__progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .ngx-file-preview__progress-bar {
+      flex-grow: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .dark .ngx-file-preview__progress-bar {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .ngx-file-preview__progress-fill {
+      height: 100%;
+      background: var(--primary-color, #3b82f6);
+      transition: width 0.2s ease;
+    }
+
+    .ngx-file-preview__progress-text {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748b;
+      width: 28px;
+      text-align: right;
+    }
+
+    .ngx-file-preview__error-msg {
+      font-size: 11px;
+      color: #ef4444;
+      font-weight: 500;
+    }
+
+    .ngx-file-preview__status-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: capitalize;
+      color: #64748b;
+    }
+
+    .dark .ngx-file-preview__status-row {
+      color: #94a3b8;
+    }
+
+    .status-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #64748b;
+    }
+
+    .status-indicator.success {
+      background: #10b981;
+    }
+
+    .status-indicator.pending {
+      background: #f59e0b;
+    }
+
+    /* ── List Layout ── */
+    .ngx-file-preview.list .ngx-file-preview__grid-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__card {
+      flex-direction: row;
+      align-items: center;
+      padding: 8px 12px;
+      gap: 12px;
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__card:hover {
+      transform: translateX(2px) translateY(0);
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__media-wrapper {
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .ngx-file-preview.list .file-icon-symbol {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .ngx-file-preview.list .file-icon-badge {
+      display: none;
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__details {
+      padding: 0;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px;
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__meta {
+      flex-grow: 1;
+      width: 30%;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__progress-wrap {
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    /* List Hover action menu */
+    .ngx-file-preview.list .ngx-file-preview__overlay-actions {
+      position: static;
+      opacity: 1;
+      background: transparent;
+      box-shadow: none;
+      width: auto;
+      height: auto;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__action-btn {
+      width: 30px;
+      height: 30px;
+      box-shadow: none;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .dark .ngx-file-preview.list .ngx-file-preview__action-btn {
+      border-color: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+      color: #cbd5e1;
+    }
+
+    .ngx-file-preview.list .ngx-file-preview__action-btn:hover {
+      transform: scale(1.05);
+    }
+  &#x60;]
+})
+export class FilePreviewComponent implements OnDestroy {
+  // Inputs
+  files &#x3D; input&lt;UploadFileItem[] | File[] | null&gt;(null);
+  layout &#x3D; input&lt;&#x27;grid&#x27; | &#x27;list&#x27;&gt;(&#x27;grid&#x27;);
+  allowDelete &#x3D; input&lt;boolean&gt;(true);
+  allowDownload &#x3D; input&lt;boolean&gt;(true);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+
+  // Outputs
+  delete &#x3D; output&lt;any&gt;();
+  download &#x3D; output&lt;any&gt;();
+
+  // Object URL cache to prevent leaks and repeat generations
+  private objectUrlCache &#x3D; new Map&lt;File, string&gt;();
+
+  // Map inputs to local standardized objects
+  previewFiles &#x3D; computed(() &#x3D;&gt; {
+    const rawFiles &#x3D; this.files() || [];
+    return rawFiles.map((file, idx) &#x3D;&gt; {
+      if (file instanceof File) {
+        return {
+          id: &#x60;${file.name}-${idx}-${file.size}&#x60;,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          progress: 100,
+          status: &#x27;success&#x27; as const,
+          formattedSize: this.formatBytes(file.size),
+          fileObject: file,
+          thumbnailUrl: file.type.startsWith(&#x27;image/&#x27;) ? this.getObjectUrl(file) : undefined,
+        };
+      } else {
+        // UploadFileItem
+        let thumbUrl: string | undefined &#x3D; undefined;
+        if (file.fileObject &amp;&amp; file.type.startsWith(&#x27;image/&#x27;)) {
+          thumbUrl &#x3D; this.getObjectUrl(file.fileObject);
+        }
+        return {
+          id: file.id || &#x60;${file.name}-${idx}&#x60;,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          progress: file.progress !&#x3D;&#x3D; undefined ? file.progress : 100,
+          status: file.status || &#x27;success&#x27;,
+          errorMessage: file.errorMessage,
+          formattedSize: file.formattedSize || this.formatBytes(file.size),
+          fileObject: file.fileObject,
+          thumbnailUrl: thumbUrl,
+        };
+      }
+    });
+  });
+
+  ngOnDestroy() {
+    this.objectUrlCache.forEach((url) &#x3D;&gt; URL.revokeObjectURL(url));
+    this.objectUrlCache.clear();
+  }
+
+  onDelete(item: PreviewFileItem) {
+    // Emit original item if possible or the constructed item
+    const orig &#x3D; this.findOriginal(item);
+    this.delete.emit(orig);
+  }
+
+  onDownload(item: PreviewFileItem) {
+    const orig &#x3D; this.findOriginal(item);
+    this.download.emit(orig);
+  }
+
+  getFileDetails(item: PreviewFileItem) {
+    const type &#x3D; item.type || &#x27;&#x27;;
+    const name &#x3D; item.name || &#x27;&#x27;;
+    const ext &#x3D; name.split(&#x27;.&#x27;).pop()?.toLowerCase() || &#x27;&#x27;;
+
+    if (type.startsWith(&#x27;image/&#x27;)) {
+      return { label: &#x27;IMG&#x27;, color: &#x27;#3b82f6&#x27;, icon: &#x27;🖼️&#x27; };
+    }
+    if (type &#x3D;&#x3D;&#x3D; &#x27;application/pdf&#x27; || ext &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) {
+      return { label: &#x27;PDF&#x27;, color: &#x27;#ef4444&#x27;, icon: &#x27;📄&#x27; };
+    }
+    if (type.includes(&#x27;word&#x27;) || type.includes(&#x27;document&#x27;) || [&#x27;doc&#x27;, &#x27;docx&#x27;, &#x27;txt&#x27;, &#x27;rtf&#x27;].includes(ext)) {
+      return { label: &#x27;DOC&#x27;, color: &#x27;#2563eb&#x27;, icon: &#x27;📝&#x27; };
+    }
+    if (type.includes(&#x27;sheet&#x27;) || type.includes(&#x27;excel&#x27;) || [&#x27;xls&#x27;, &#x27;xlsx&#x27;, &#x27;csv&#x27;].includes(ext)) {
+      return { label: &#x27;XLS&#x27;, color: &#x27;#16a34a&#x27;, icon: &#x27;📊&#x27; };
+    }
+    if (type.includes(&#x27;presentation&#x27;) || type.includes(&#x27;powerpoint&#x27;) || [&#x27;ppt&#x27;, &#x27;pptx&#x27;].includes(ext)) {
+      return { label: &#x27;PPT&#x27;, color: &#x27;#ea580c&#x27;, icon: &#x27;🎭&#x27; };
+    }
+    if (type.includes(&#x27;zip&#x27;) || type.includes(&#x27;compressed&#x27;) || type.includes(&#x27;tar&#x27;) || [&#x27;zip&#x27;, &#x27;rar&#x27;, &#x27;7z&#x27;, &#x27;tar&#x27;, &#x27;gz&#x27;].includes(ext)) {
+      return { label: &#x27;ZIP&#x27;, color: &#x27;#7c3aed&#x27;, icon: &#x27;📦&#x27; };
+    }
+    if (
+      type.includes(&#x27;javascript&#x27;) ||
+      type.includes(&#x27;typescript&#x27;) ||
+      type.includes(&#x27;json&#x27;) ||
+      [&#x27;js&#x27;, &#x27;ts&#x27;, &#x27;html&#x27;, &#x27;css&#x27;, &#x27;json&#x27;, &#x27;py&#x27;, &#x27;go&#x27;, &#x27;rs&#x27;, &#x27;cpp&#x27;].includes(ext)
+    ) {
+      return { label: &#x27;CODE&#x27;, color: &#x27;#0f172a&#x27;, icon: &#x27;💻&#x27; };
+    }
+    if (type.startsWith(&#x27;audio/&#x27;) || [&#x27;mp3&#x27;, &#x27;wav&#x27;, &#x27;ogg&#x27;, &#x27;m4a&#x27;].includes(ext)) {
+      return { label: &#x27;AUDIO&#x27;, color: &#x27;#06b6d4&#x27;, icon: &#x27;🎵&#x27; };
+    }
+    if (type.startsWith(&#x27;video/&#x27;) || [&#x27;mp4&#x27;, &#x27;mkv&#x27;, &#x27;avi&#x27;, &#x27;mov&#x27;].includes(ext)) {
+      return { label: &#x27;VIDEO&#x27;, color: &#x27;#6366f1&#x27;, icon: &#x27;🎥&#x27; };
+    }
+    return { label: &#x27;FILE&#x27;, color: &#x27;#64748b&#x27;, icon: &#x27;📁&#x27; };
+  }
+
+  private getObjectUrl(file: File): string {
+    if (this.objectUrlCache.has(file)) {
+      return this.objectUrlCache.get(file)!;
+    }
+    const url &#x3D; URL.createObjectURL(file);
+    this.objectUrlCache.set(file, url);
+    return url;
+  }
+
+  private findOriginal(item: PreviewFileItem): any {
+    const list &#x3D; this.files() || [];
+    // Search original items in the list
+    for (const f of list) {
+      if (f instanceof File) {
+        if (f &#x3D;&#x3D;&#x3D; item.fileObject) return f;
+      } else {
+        if (f.id &#x3D;&#x3D;&#x3D; item.id || (f.name &#x3D;&#x3D;&#x3D; item.name &amp;&amp; f.size &#x3D;&#x3D;&#x3D; item.size)) {
+          return f;
+        }
+      }
+    }
+    return item;
+  }
+
+  private formatBytes(bytes: number, decimals: number &#x3D; 2): string {
+    if (bytes &#x3D;&#x3D;&#x3D; 0) return &#x27;0 Bytes&#x27;;
+    const k &#x3D; 1024;
+    const dm &#x3D; decimals &lt; 0 ? 0 : decimals;
+    const sizes &#x3D; [&#x27;Bytes&#x27;, &#x27;KB&#x27;, &#x27;MB&#x27;, &#x27;GB&#x27;, &#x27;TB&#x27;];
+    const i &#x3D; Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + &#x27; &#x27; + sizes[i];
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'PreviewFileItem.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

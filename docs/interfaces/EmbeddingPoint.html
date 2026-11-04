@@ -1,0 +1,1532 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  EmbeddingPoint</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/charts/embedding-space-projection/embedding-space-projection.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#group" 
+>
+                                            group
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#label" 
+>
+                                            label
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#x" 
+>
+                                            x
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#y" 
+>
+                                            y
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="group"></a>
+                                        <span class="name "><b>group</b>
+                                            <a href="#group">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>group:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="x"></a>
+                                        <span class="name "><b>x</b>
+                                            <a href="#x">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>x:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="y"></a>
+                                        <span class="name "><b>y</b>
+                                            <a href="#y">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>y:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component, input, output, signal, computed, ChangeDetectionStrategy,
+  ElementRef, viewChild, HostListener, effect
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CHART_COLORS } from &#x27;../shared/chart-utils&#x27;;
+
+export interface EmbeddingPoint {
+  id: string;
+  x: number;
+  y: number;
+  group?: string;
+  label?: string;
+}
+
+@Component({
+  selector: &#x27;ngx-embedding-space-projection&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-embedding-wrapper&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot; (mousemove)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+        &lt;div class&#x3D;&quot;chart-title-space&quot;&gt;
+          &lt;div class&#x3D;&quot;projection-title&quot;&gt;Embedding Space Projection&lt;/div&gt;
+          &lt;div class&#x3D;&quot;projection-subtitle&quot;&gt;
+            Total Vectors: &lt;span class&#x3D;&quot;highlight-val&quot;&gt;{{ data().length }}&lt;/span&gt; |
+            Lasso Selected: &lt;span class&#x3D;&quot;highlight-val&quot;&gt;{{ selectedIds().length }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;action-buttons&quot;&gt;
+          &lt;button class&#x3D;&quot;clear-lasso-btn&quot; [disabled]&#x3D;&quot;selectedIds().length &#x3D;&#x3D;&#x3D; 0&quot; (click)&#x3D;&quot;clearSelection()&quot;&gt;
+            🧹 Clear Lasso
+          &lt;/button&gt;
+          @if (showExport()) {
+            &lt;div class&#x3D;&quot;chart-export-menu&quot;&gt;
+              &lt;button class&#x3D;&quot;export-trigger&quot; (click)&#x3D;&quot;toggleExportMenu($event)&quot; aria-label&#x3D;&quot;Export Menu&quot;&gt;📤 Export&lt;/button&gt;
+              @if (exportMenuOpen()) {
+                &lt;div class&#x3D;&quot;export-dropdown&quot;&gt;
+                  &lt;button (click)&#x3D;&quot;onExport(&#x27;json&#x27;)&quot;&gt;📊 Export JSON&lt;/button&gt;
+                  &lt;button (click)&#x3D;&quot;onExport(&#x27;csv&#x27;)&quot;&gt;📄 Export CSV&lt;/button&gt;
+                  &lt;button (click)&#x3D;&quot;onExport(&#x27;svg&#x27;)&quot;&gt;🖼️ Export SVG&lt;/button&gt;
+                  &lt;button (click)&#x3D;&quot;onExport(&#x27;pdf&#x27;)&quot;&gt;📕 Export PDF&lt;/button&gt;
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;ngx-embedding-container&quot; [style.height.px]&#x3D;&quot;height()&quot;&gt;
+        &lt;!-- SVG Canvas with Lasso drag handles --&gt;
+        &lt;svg
+          #svgEl
+          class&#x3D;&quot;ngx-embedding-svg&quot;
+          [attr.viewBox]&#x3D;&quot;viewBoxString()&quot;
+          [attr.height]&#x3D;&quot;height()&quot;
+          (mousedown)&#x3D;&quot;onMouseDown($event)&quot;
+          (mousemove)&#x3D;&quot;onMouseMove($event)&quot;
+          (mouseup)&#x3D;&quot;onMouseUp($event)&quot;
+          (mouseleave)&#x3D;&quot;onMouseLeave()&quot;
+        &gt;
+          &lt;g [attr.transform]&#x3D;&quot;zoomTransform()&quot;&gt;
+            &lt;!-- Grid Background lines --&gt;
+            &lt;line [attr.x1]&#x3D;&quot;0&quot; [attr.x2]&#x3D;&quot;width()&quot; [attr.y1]&#x3D;&quot;height() / 2&quot; [attr.y2]&#x3D;&quot;height() / 2&quot; class&#x3D;&quot;axis-line&quot; /&gt;
+            &lt;line [attr.x1]&#x3D;&quot;width() / 2&quot; [attr.x2]&#x3D;&quot;width() / 2&quot; [attr.y1]&#x3D;&quot;0&quot; [attr.y2]&#x3D;&quot;height()&quot; class&#x3D;&quot;axis-line&quot; /&gt;
+
+            &lt;!-- X-axis tick labels --&gt;
+            @for (tick of xTicks(); track tick.value) {
+              &lt;line [attr.x1]&#x3D;&quot;tick.pos&quot; [attr.x2]&#x3D;&quot;tick.pos&quot; [attr.y1]&#x3D;&quot;height() - padding + 2&quot; [attr.y2]&#x3D;&quot;height() - padding + 6&quot; class&#x3D;&quot;axis-tick&quot; /&gt;
+              &lt;text [attr.x]&#x3D;&quot;tick.pos&quot; [attr.y]&#x3D;&quot;height() - padding + 16&quot; class&#x3D;&quot;axis-label&quot; text-anchor&#x3D;&quot;middle&quot;&gt;{{ tick.label }}&lt;/text&gt;
+            }
+
+            &lt;!-- Y-axis tick labels --&gt;
+            @for (tick of yTicks(); track tick.value) {
+              &lt;line [attr.x1]&#x3D;&quot;padding - 6&quot; [attr.x2]&#x3D;&quot;padding - 2&quot; [attr.y1]&#x3D;&quot;tick.pos&quot; [attr.y2]&#x3D;&quot;tick.pos&quot; class&#x3D;&quot;axis-tick&quot; /&gt;
+              &lt;text [attr.x]&#x3D;&quot;padding - 9&quot; [attr.y]&#x3D;&quot;tick.pos&quot; class&#x3D;&quot;axis-label&quot; text-anchor&#x3D;&quot;end&quot; dominant-baseline&#x3D;&quot;middle&quot;&gt;{{ tick.label }}&lt;/text&gt;
+            }
+
+            &lt;!-- Batched SVG Paths grouped by color group --&gt;
+            @for (grpPath of batchedGroupPaths(); track grpPath.group) {
+              &lt;path
+                [attr.d]&#x3D;&quot;grpPath.path&quot;
+                [attr.fill]&#x3D;&quot;grpPath.color&quot;
+                class&#x3D;&quot;batched-dots-path&quot;
+              /&gt;
+            }
+
+            &lt;!-- Individually rendered circles only for lasso selected/highlighted points (to allow individual styles) --&gt;
+            @for (pt of selectedPoints(); track pt.id) {
+              &lt;circle
+                [attr.cx]&#x3D;&quot;pt.screenX&quot;
+                [attr.cy]&#x3D;&quot;pt.screenY&quot;
+                [attr.r]&#x3D;&quot;dotRadius() + 1.5&quot;
+                [attr.fill]&#x3D;&quot;pt.color&quot;
+                class&#x3D;&quot;selected-dot-ring&quot;
+              /&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;pt.screenX&quot;
+                [attr.cy]&#x3D;&quot;pt.screenY&quot;
+                [attr.r]&#x3D;&quot;dotRadius()&quot;
+                [attr.fill]&#x3D;&quot;pt.color&quot;
+                stroke&#x3D;&quot;#ffffff&quot;
+                stroke-width&#x3D;&quot;1.2&quot;
+              /&gt;
+            }
+
+            &lt;!-- Clicked point persistent highlight ring --&gt;
+            @if (clickedPointData(); as cp) {
+              &lt;circle
+                [attr.cx]&#x3D;&quot;cp.screenX&quot;
+                [attr.cy]&#x3D;&quot;cp.screenY&quot;
+                r&#x3D;&quot;10&quot;
+                fill&#x3D;&quot;none&quot;
+                stroke&#x3D;&quot;#f59e0b&quot;
+                stroke-width&#x3D;&quot;2&quot;
+                stroke-dasharray&#x3D;&quot;3,2&quot;
+                class&#x3D;&quot;clicked-dot-ring&quot;
+              /&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;cp.screenX&quot;
+                [attr.cy]&#x3D;&quot;cp.screenY&quot;
+                [attr.r]&#x3D;&quot;dotRadius() + 1&quot;
+                [attr.fill]&#x3D;&quot;cp.color&quot;
+                stroke&#x3D;&quot;#f59e0b&quot;
+                stroke-width&#x3D;&quot;1.5&quot;
+              /&gt;
+            }
+
+            &lt;!-- Single hovered dot highlight ring --&gt;
+            @if (hoveredPoint(); as hp) {
+              &lt;circle
+                [attr.cx]&#x3D;&quot;hp.screenX&quot;
+                [attr.cy]&#x3D;&quot;hp.screenY&quot;
+                r&#x3D;&quot;7&quot;
+                [attr.fill]&#x3D;&quot;hp.color&quot;
+                fill-opacity&#x3D;&quot;0.3&quot;
+                class&#x3D;&quot;hovered-dot-pulse&quot;
+              /&gt;
+              &lt;circle
+                [attr.cx]&#x3D;&quot;hp.screenX&quot;
+                [attr.cy]&#x3D;&quot;hp.screenY&quot;
+                [attr.r]&#x3D;&quot;dotRadius() + 1&quot;
+                [attr.fill]&#x3D;&quot;hp.color&quot;
+                stroke&#x3D;&quot;#ffffff&quot;
+                stroke-width&#x3D;&quot;1.5&quot;
+              /&gt;
+            }
+
+            &lt;!-- Lasso Polygon overlay --&gt;
+            @if (lassoPath().length &gt; 1) {
+              &lt;polygon
+                [attr.points]&#x3D;&quot;lassoPolygonPoints()&quot;
+                class&#x3D;&quot;lasso-overlay&quot;
+              /&gt;
+              &lt;path
+                [attr.d]&#x3D;&quot;lassoLinePath()&quot;
+                class&#x3D;&quot;lasso-outline&quot;
+              /&gt;
+            }
+          &lt;/g&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Cluster Legend --&gt;
+        @if (showLegend() &amp;&amp; groups().length &gt; 0) {
+          &lt;div class&#x3D;&quot;embedding-legend&quot;&gt;
+            @for (group of groups(); track group; let i &#x3D; $index) {
+              &lt;div class&#x3D;&quot;legend-item&quot;&gt;
+                &lt;span class&#x3D;&quot;legend-dot&quot; [style.background]&#x3D;&quot;colors()[i % colors().length]&quot;&gt;&lt;/span&gt;
+                &lt;span class&#x3D;&quot;legend-label&quot;&gt;{{ group }}&lt;/span&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+
+        &lt;!-- Floating Zoom Controls --&gt;
+        &lt;div class&#x3D;&quot;zoom-controls&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+          &lt;button (click)&#x3D;&quot;zoomIn()&quot; title&#x3D;&quot;Zoom In&quot;&gt;➕&lt;/button&gt;
+          &lt;button (click)&#x3D;&quot;zoomOut()&quot; title&#x3D;&quot;Zoom Out&quot;&gt;➖&lt;/button&gt;
+          &lt;button (click)&#x3D;&quot;resetZoom()&quot; title&#x3D;&quot;Reset&quot;&gt;🔄&lt;/button&gt;
+          &lt;span class&#x3D;&quot;zoom-level&quot;&gt;{{ zoomPercent() }}%&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Tooltip overlay --&gt;
+        @if (hoveredPoint(); as hp) {
+          &lt;div
+            class&#x3D;&quot;projection-tooltip&quot;
+            [style.left.px]&#x3D;&quot;hp.screenX * scale() + translateX()&quot;
+            [style.top.px]&#x3D;&quot;hp.screenY * scale() + translateY()&quot;
+          &gt;
+            &lt;div class&#x3D;&quot;tt-cat&quot;&gt;{{ hp.label || &#x27;Vector ID: &#x27; + hp.id }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-dot&quot; [style.background]&#x3D;&quot;hp.color&quot;&gt;&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Cluster&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;{{ hp.group || &#x27;None&#x27; }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row&quot;&gt;
+              &lt;span class&#x3D;&quot;tt-name&quot;&gt;Coords&lt;/span&gt;
+              &lt;span class&#x3D;&quot;tt-val&quot;&gt;({{ hp.x.toFixed(2) }}, {{ hp.y.toFixed(2) }})&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;tt-row action-row&quot;&gt;
+              &lt;button class&#x3D;&quot;tt-action-btn&quot; (click)&#x3D;&quot;onExplainCluster(hp)&quot;&gt;
+                Ask Agent to Explain Cluster
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-embedding-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 16px 20px;
+      background: var(--bg-secondary, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+      position: relative;
+    }
+    .ngx-embedding-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .ngx-embedding-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .axis-line {
+      stroke: var(--ngx-chart-grid, #f1f5f9);
+      stroke-width: 1px;
+    }
+    .axis-tick {
+      stroke: var(--ngx-chart-grid, #94a3b8);
+      stroke-width: 1px;
+    }
+    .axis-label {
+      font-size: 9px;
+      font-family: monospace;
+      fill: var(--ngx-chart-axis-text, #64748b);
+    }
+    .batched-dots-path {
+      opacity: 0.65;
+      transition: opacity 0.25s;
+    }
+    .batched-dots-path:hover {
+      opacity: 0.8;
+    }
+    .selected-dot-ring {
+      stroke: rgba(99, 102, 241, 0.6);
+      stroke-width: 1.5px;
+      fill: none;
+    }
+    .clicked-dot-ring {
+      animation: clickedRingSpin 3s linear infinite;
+    }
+    @keyframes clickedRingSpin {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 20; }
+    }
+    .hovered-dot-pulse {
+      pointer-events: none;
+      animation: pulseHover 1.2s infinite alternate;
+    }
+    @keyframes pulseHover {
+      from { r: 5px; fill-opacity: 0.2; }
+      to { r: 9px; fill-opacity: 0.5; }
+    }
+
+    /* Lasso style */
+    .lasso-overlay {
+      fill: rgba(99, 102, 241, 0.08);
+      pointer-events: none;
+    }
+    .lasso-outline {
+      stroke: #4f46e5;
+      stroke-width: 1.5px;
+      stroke-dasharray: 4,3;
+      fill: none;
+      pointer-events: none;
+    }
+
+    /* Header &amp; Action bar */
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .projection-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary, #1e293b);
+    }
+    .projection-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary, #64748b);
+      margin-top: 2px;
+    }
+    .highlight-val {
+      font-weight: 700;
+      color: #6366f1;
+      font-family: monospace;
+    }
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .clear-lasso-btn {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .clear-lasso-btn:not([disabled]):hover {
+      background: #cbd5e1;
+      color: #0f172a;
+    }
+    .clear-lasso-btn[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Glassmorphic Tooltip styling */
+    .projection-tooltip {
+      position: absolute;
+      z-index: 100;
+      background: var(--ngx-chart-tooltip-bg, rgba(15, 23, 42, 0.92));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ngx-chart-tooltip-color, #f8fafc);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -115%);
+      min-width: 170px;
+      pointer-events: auto;
+    }
+    .tt-cat {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+      color: #38bdf8;
+    }
+    .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tt-name {
+      color: rgba(248, 250, 252, 0.8);
+      flex: 1;
+    }
+    .tt-val {
+      font-weight: 700;
+      font-family: monospace;
+    }
+    .action-row {
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 6px;
+      justify-content: center;
+    }
+    .tt-action-btn {
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s;
+      width: 100%;
+    }
+    .tt-action-btn:hover {
+      background: #6366f1;
+    }
+
+    /* Export dropdown styles */
+    .chart-export-menu {
+      position: relative;
+      z-index: 50;
+    }
+    .export-trigger {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ngx-chart-axis-text, #64748b);
+      background: rgba(241, 245, 249, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .export-trigger:hover {
+      background: #ffffff;
+      color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #ffffff;
+      border: 1px solid var(--ngx-chart-grid, #e2e8f0);
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 120px;
+    }
+    .export-dropdown button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      color: #1e293b;
+      border-radius: 4px;
+      width: 100%;
+      transition: all 0.12s;
+    }
+    .export-dropdown button:hover {
+      background: rgba(79, 70, 229, 0.06);
+      color: #4f46e5;
+    }
+
+    /* Cluster Legend */
+    .embedding-legend {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 10;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(248, 250, 252, 0.9);
+      white-space: nowrap;
+      font-family: system-ui, sans-serif;
+    }
+
+    /* Zoom controls floating style */
+    .zoom-controls {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 4px 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .zoom-controls button {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #ffffff;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      transition: background 0.15s;
+    }
+    .zoom-controls button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .zoom-level {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 10px;
+      font-weight: 600;
+      font-family: monospace;
+      padding-left: 4px;
+      min-width: 32px;
+      text-align: right;
+    }
+  &#x60;]
+})
+export class EmbeddingSpaceProjectionComponent {
+  data &#x3D; input.required&lt;EmbeddingPoint[]&gt;();
+  width &#x3D; input&lt;number&gt;(600);
+  height &#x3D; input&lt;number&gt;(400);
+  colors &#x3D; input&lt;string[]&gt;(CHART_COLORS);
+  showExport &#x3D; input&lt;boolean&gt;(true);
+  showLegend &#x3D; input&lt;boolean&gt;(true);
+  dotRadius &#x3D; input&lt;number&gt;(3.5);
+
+  lassoSelected &#x3D; output&lt;string[]&gt;();
+  agentQueryRequest &#x3D; output&lt;{ selectedIds: string[]; queryType: string }&gt;();
+  pointClick &#x3D; output&lt;EmbeddingPoint&gt;();
+
+  // Signals
+  selectedIds &#x3D; signal&lt;string[]&gt;([]);
+  lassoPath &#x3D; signal&lt;[number, number][]&gt;([]);
+  hoveredIndex &#x3D; signal&lt;number | null&gt;(null);
+  exportMenuOpen &#x3D; signal(false);
+  isDragging &#x3D; signal&lt;boolean&gt;(false);
+  clickedPointIndex &#x3D; signal&lt;number | null&gt;(null);
+
+  // Zoom &amp; Pan state
+  scale &#x3D; signal&lt;number&gt;(1);
+  translateX &#x3D; signal&lt;number&gt;(0);
+  translateY &#x3D; signal&lt;number&gt;(0);
+  isPanning &#x3D; signal&lt;boolean&gt;(false);
+
+  svgEl &#x3D; viewChild&lt;ElementRef&lt;SVGElement&gt;&gt;(&#x27;svgEl&#x27;);
+
+  private panStartX &#x3D; 0;
+  private panStartY &#x3D; 0;
+  private dragStartX &#x3D; 0;
+  private dragStartY &#x3D; 0;
+  padding &#x3D; 20;
+
+  viewBoxString &#x3D; computed(() &#x3D;&gt; &#x60;0 0 ${this.width()} ${this.height()}&#x60;);
+  zoomPercent &#x3D; computed(() &#x3D;&gt; Math.round(this.scale() * 100));
+  zoomTransform &#x3D; computed(() &#x3D;&gt; &#x60;translate(${this.translateX()}, ${this.translateY()}) scale(${this.scale()})&#x60;);
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      const svg &#x3D; this.svgEl()?.nativeElement;
+      if (!svg) return;
+
+      const handler &#x3D; (e: WheelEvent) &#x3D;&gt; this.onWheel(e);
+      svg.addEventListener(&#x27;wheel&#x27;, handler, { passive: false });
+
+      return () &#x3D;&gt; svg.removeEventListener(&#x27;wheel&#x27;, handler);
+    });
+  }
+
+  // Calculate global coordinate bounds
+  private bounds &#x3D; computed(() &#x3D;&gt; {
+    const pts &#x3D; this.data();
+    if (!pts.length) return { minX: -1, maxX: 1, minY: -1, maxY: 1 };
+    const xs &#x3D; pts.map(p &#x3D;&gt; p.x);
+    const ys &#x3D; pts.map(p &#x3D;&gt; p.y);
+    return {
+      minX: Math.min(...xs),
+      maxX: Math.max(...xs),
+      minY: Math.min(...ys),
+      maxY: Math.max(...ys)
+    };
+  });
+
+  // Unique groups for mapping colors
+  groups &#x3D; computed(() &#x3D;&gt; {
+    const pts &#x3D; this.data();
+    const grps &#x3D; Array.from(new Set(pts.map(p &#x3D;&gt; p.group).filter(Boolean)));
+    return grps as string[];
+  });
+
+  // X-axis tick values
+  xTicks &#x3D; computed(() &#x3D;&gt; {
+    const b &#x3D; this.bounds();
+    const w &#x3D; this.width();
+    const pad &#x3D; this.padding;
+    const tickCount &#x3D; 5;
+    const ticks: { value: number; pos: number; label: string }[] &#x3D; [];
+    const rangeX &#x3D; b.maxX - b.minX || 1;
+    for (let i &#x3D; 0; i &lt; tickCount; i++) {
+      const frac &#x3D; i / (tickCount - 1);
+      const value &#x3D; b.minX + frac * rangeX;
+      const pos &#x3D; pad + frac * (w - pad * 2);
+      ticks.push({ value, pos, label: value.toFixed(1) });
+    }
+    return ticks;
+  });
+
+  // Y-axis tick values
+  yTicks &#x3D; computed(() &#x3D;&gt; {
+    const b &#x3D; this.bounds();
+    const h &#x3D; this.height();
+    const pad &#x3D; this.padding;
+    const tickCount &#x3D; 5;
+    const ticks: { value: number; pos: number; label: string }[] &#x3D; [];
+    const rangeY &#x3D; b.maxY - b.minY || 1;
+    for (let i &#x3D; 0; i &lt; tickCount; i++) {
+      const frac &#x3D; i / (tickCount - 1);
+      const value &#x3D; b.minY + frac * rangeY;
+      // Invert Y: low data value at bottom (high screen Y), high data value at top (low screen Y)
+      const pos &#x3D; h - (pad + frac * (h - pad * 2));
+      ticks.push({ value, pos, label: value.toFixed(1) });
+    }
+    return ticks;
+  });
+
+  // Calculate screen relative positions
+  transformedPoints &#x3D; computed(() &#x3D;&gt; {
+    const pts &#x3D; this.data();
+    const b &#x3D; this.bounds();
+    const w &#x3D; this.width();
+    const h &#x3D; this.height();
+    const pad &#x3D; this.padding;
+    const grps &#x3D; this.groups();
+    const colors &#x3D; this.colors();
+
+    const rangeX &#x3D; b.maxX - b.minX || 1;
+    const rangeY &#x3D; b.maxY - b.minY || 1;
+
+    return pts.map((p, idx) &#x3D;&gt; {
+      const screenX &#x3D; pad + ((p.x - b.minX) / rangeX) * (w - pad * 2);
+      const screenY &#x3D; h - (pad + ((p.y - b.minY) / rangeY) * (h - pad * 2)); // invert Y axis
+
+      let colorIndex &#x3D; 0;
+      if (p.group) {
+        colorIndex &#x3D; grps.indexOf(p.group) % colors.length;
+      }
+      const color &#x3D; colors[colorIndex] || colors[0];
+
+      return {
+        ...p,
+        screenX,
+        screenY,
+        color,
+        index: idx
+      };
+    });
+  });
+
+  // SVG Path Batching logic - compiles thousands of dots into a single path per group
+  batchedGroupPaths &#x3D; computed(() &#x3D;&gt; {
+    const pts &#x3D; this.transformedPoints();
+    const grps &#x3D; this.groups();
+    const colors &#x3D; this.colors();
+    const r &#x3D; this.dotRadius();
+
+    // Setup map
+    const pathsMap: Record&lt;string, string[]&gt; &#x3D; { &#x27;default&#x27;: [] };
+    grps.forEach(g &#x3D;&gt; pathsMap[g] &#x3D; []);
+
+    pts.forEach(p &#x3D;&gt; {
+      // SVG command to draw a circle of radius r around (cx, cy):
+      // Move to cx + r, cy, then draw two semicircles
+      const cx &#x3D; p.screenX;
+      const cy &#x3D; p.screenY;
+      const cmd &#x3D; &#x60;M ${cx} ${cy} m -${r} 0 a ${r} ${r} 0 1 0 ${r * 2} 0 a ${r} ${r} 0 1 0 -${r * 2} 0&#x60;;
+
+      const key &#x3D; p.group || &#x27;default&#x27;;
+      pathsMap[key].push(cmd);
+    });
+
+    const result &#x3D; Object.keys(pathsMap).map(key &#x3D;&gt; {
+      const grpIndex &#x3D; grps.indexOf(key);
+      const color &#x3D; key &#x3D;&#x3D;&#x3D; &#x27;default&#x27; ? colors[0] : (colors[grpIndex % colors.length] || colors[0]);
+      return {
+        group: key,
+        color,
+        path: pathsMap[key].join(&#x27; &#x27;)
+      };
+    });
+
+    return result.filter(r &#x3D;&gt; r.path.trim().length &gt; 0);
+  });
+
+  selectedPoints &#x3D; computed(() &#x3D;&gt; {
+    const sIds &#x3D; new Set(this.selectedIds());
+    return this.transformedPoints().filter(p &#x3D;&gt; sIds.has(p.id));
+  });
+
+  hoveredPoint &#x3D; computed(() &#x3D;&gt; {
+    const idx &#x3D; this.hoveredIndex();
+    if (idx &#x3D;&#x3D;&#x3D; null) return null;
+    const pts &#x3D; this.transformedPoints();
+    return idx &gt;&#x3D; 0 &amp;&amp; idx &lt; pts.length ? pts[idx] : null;
+  });
+
+  clickedPointData &#x3D; computed(() &#x3D;&gt; {
+    const idx &#x3D; this.clickedPointIndex();
+    if (idx &#x3D;&#x3D;&#x3D; null) return null;
+    const pts &#x3D; this.transformedPoints();
+    return idx &gt;&#x3D; 0 &amp;&amp; idx &lt; pts.length ? pts[idx] : null;
+  });
+
+  lassoPolygonPoints &#x3D; computed(() &#x3D;&gt; {
+    return this.lassoPath().map(p &#x3D;&gt; &#x60;${p[0]},${p[1]}&#x60;).join(&#x27; &#x27;);
+  });
+
+  lassoLinePath &#x3D; computed(() &#x3D;&gt; {
+    const path &#x3D; this.lassoPath();
+    if (path.length &lt; 2) return &#x27;&#x27;;
+    return path.map((p, i) &#x3D;&gt; &#x60;${i &#x3D;&#x3D;&#x3D; 0 ? &#x27;M&#x27; : &#x27;L&#x27;} ${p[0]} ${p[1]}&#x60;).join(&#x27; &#x27;) + &#x27; Z&#x27;;
+  });
+
+  clearSelection(): void {
+    this.selectedIds.set([]);
+    this.lassoPath.set([]);
+    this.lassoSelected.emit([]);
+  }
+
+  onMouseDown(event: MouseEvent): void {
+    // Only handle left click
+    if (event.button !&#x3D;&#x3D; 0) return;
+
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const rect &#x3D; svg.getBoundingClientRect();
+    const x &#x3D; event.clientX - rect.left;
+    const y &#x3D; event.clientY - rect.top;
+
+    // Record drag start position for click-vs-drag detection
+    this.dragStartX &#x3D; event.clientX;
+    this.dragStartY &#x3D; event.clientY;
+
+    // Alt+click &#x3D; pan mode
+    if (event.altKey) {
+      event.preventDefault();
+      this.isPanning.set(true);
+      this.panStartX &#x3D; event.clientX - this.translateX();
+      this.panStartY &#x3D; event.clientY - this.translateY();
+      return;
+    }
+
+    // Normal left click &#x3D; lasso mode
+    this.isDragging.set(true);
+    this.lassoPath.set([[x, y]]);
+  }
+
+  onMouseMove(event: MouseEvent): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const rect &#x3D; svg.getBoundingClientRect();
+    const x &#x3D; event.clientX - rect.left;
+    const y &#x3D; event.clientY - rect.top;
+
+    // Pan mode
+    if (this.isPanning()) {
+      this.translateX.set(event.clientX - this.panStartX);
+      this.translateY.set(event.clientY - this.panStartY);
+      return;
+    }
+
+    if (this.isDragging()) {
+      const current &#x3D; this.lassoPath();
+      this.lassoPath.set([...current, [x, y]]);
+    } else {
+      // Compute hovered point (account for zoom transform)
+      const pts &#x3D; this.transformedPoints();
+      const currentScale &#x3D; this.scale();
+      const tx &#x3D; this.translateX();
+      const ty &#x3D; this.translateY();
+      let minDistance &#x3D; 15; // Hover range
+      let nearestIdx: number | null &#x3D; null;
+      pts.forEach((p, idx) &#x3D;&gt; {
+        const screenPtX &#x3D; p.screenX * currentScale + tx;
+        const screenPtY &#x3D; p.screenY * currentScale + ty;
+        const dx &#x3D; screenPtX - x;
+        const dy &#x3D; screenPtY - y;
+        const dist &#x3D; Math.sqrt(dx * dx + dy * dy);
+        if (dist &lt; minDistance) {
+          minDistance &#x3D; dist;
+          nearestIdx &#x3D; idx;
+        }
+      });
+      this.hoveredIndex.set(nearestIdx);
+    }
+  }
+
+  onMouseUp(event: MouseEvent): void {
+    // End panning
+    if (this.isPanning()) {
+      this.isPanning.set(false);
+      return;
+    }
+
+    if (!this.isDragging()) return;
+    this.isDragging.set(false);
+
+    // Determine if this was a click (tiny drag distance) vs a real lasso drag
+    const dx &#x3D; event.clientX - this.dragStartX;
+    const dy &#x3D; event.clientY - this.dragStartY;
+    const dragDistance &#x3D; Math.sqrt(dx * dx + dy * dy);
+
+    if (dragDistance &lt; 5) {
+      // This was a single click — attempt point selection
+      this.lassoPath.set([]);
+      const svg &#x3D; this.svgEl()?.nativeElement;
+      if (!svg) return;
+      const rect &#x3D; svg.getBoundingClientRect();
+      const x &#x3D; event.clientX - rect.left;
+      const y &#x3D; event.clientY - rect.top;
+
+      const pts &#x3D; this.transformedPoints();
+      const currentScale &#x3D; this.scale();
+      const tx &#x3D; this.translateX();
+      const ty &#x3D; this.translateY();
+      let minDist &#x3D; 15;
+      let nearestIdx: number | null &#x3D; null;
+
+      pts.forEach((p, idx) &#x3D;&gt; {
+        const screenPtX &#x3D; p.screenX * currentScale + tx;
+        const screenPtY &#x3D; p.screenY * currentScale + ty;
+        const ddx &#x3D; screenPtX - x;
+        const ddy &#x3D; screenPtY - y;
+        const dist &#x3D; Math.sqrt(ddx * ddx + ddy * ddy);
+        if (dist &lt; minDist) {
+          minDist &#x3D; dist;
+          nearestIdx &#x3D; idx;
+        }
+      });
+
+      if (nearestIdx !&#x3D;&#x3D; null) {
+        this.clickedPointIndex.set(nearestIdx);
+        const pt &#x3D; pts[nearestIdx];
+        this.pointClick.emit({
+          id: pt.id,
+          x: pt.x,
+          y: pt.y,
+          group: pt.group,
+          label: pt.label
+        });
+      } else {
+        // Clicked empty space — clear clicked point
+        this.clickedPointIndex.set(null);
+      }
+      return;
+    }
+
+    // Real lasso drag — determine points inside the polygon
+    const poly &#x3D; this.lassoPath();
+    if (poly.length &lt; 3) {
+      this.lassoPath.set([]);
+      return;
+    }
+
+    const selected: string[] &#x3D; [];
+    const pts &#x3D; this.transformedPoints();
+    pts.forEach(p &#x3D;&gt; {
+      if (this.isPointInPolygon([p.screenX, p.screenY], poly)) {
+        selected.push(p.id);
+      }
+    });
+
+    this.selectedIds.set(selected);
+    this.lassoSelected.emit(selected);
+  }
+
+  onMouseLeave(): void {
+    if (this.isDragging()) {
+      this.isDragging.set(false);
+      this.lassoPath.set([]);
+    }
+    if (this.isPanning()) {
+      this.isPanning.set(false);
+    }
+    this.hoveredIndex.set(null);
+  }
+
+  // Ray casting point-in-polygon implementation
+  private isPointInPolygon(pt: [number, number], poly: [number, number][]): boolean {
+    const x &#x3D; pt[0], y &#x3D; pt[1];
+    let inside &#x3D; false;
+    for (let i &#x3D; 0, j &#x3D; poly.length - 1; i &lt; poly.length; j &#x3D; i++) {
+      const xi &#x3D; poly[i][0], yi &#x3D; poly[i][1];
+      const xj &#x3D; poly[j][0], yj &#x3D; poly[j][1];
+      const intersect &#x3D; ((yi &gt; y) !&#x3D;&#x3D; (yj &gt; y))
+          &amp;&amp; (x &lt; (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) inside &#x3D; !inside;
+    }
+    return inside;
+  }
+
+  onExplainCluster(hp: any): void {
+    const ids &#x3D; this.selectedIds().length &gt; 0 ? this.selectedIds() : [hp.id];
+    this.agentQueryRequest.emit({
+      selectedIds: ids,
+      queryType: &#x27;explain_cluster&#x27;
+    });
+  }
+
+  toggleExportMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.exportMenuOpen.set(!this.exportMenuOpen());
+  }
+
+  @HostListener(&#x27;document:click&#x27;)
+  closeExportMenu(): void {
+    this.exportMenuOpen.set(false);
+  }
+
+  onExport(type: &#x27;json&#x27; | &#x27;csv&#x27; | &#x27;svg&#x27; | &#x27;pdf&#x27;): void {
+    this.exportMenuOpen.set(false);
+    if (type &#x3D;&#x3D;&#x3D; &#x27;json&#x27;) this.exportToJson();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;csv&#x27;) this.exportToCsv();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;svg&#x27;) this.exportToSvg();
+    else if (type &#x3D;&#x3D;&#x3D; &#x27;pdf&#x27;) this.exportToPdf();
+  }
+
+  // Zoom &amp; Pan
+  onWheel(event: WheelEvent): void {
+    event.preventDefault();
+    const zoomFactor &#x3D; 1.15;
+    let newScale &#x3D; this.scale();
+    if (event.deltaY &lt; 0) {
+      newScale *&#x3D; zoomFactor;
+    } else {
+      newScale /&#x3D; zoomFactor;
+    }
+
+    // Boundary constraints: min 0.3x, max 3.0x zoom
+    newScale &#x3D; Math.max(0.3, Math.min(3, newScale));
+
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (svg) {
+      const rect &#x3D; svg.getBoundingClientRect();
+      const mouseX &#x3D; event.clientX - rect.left;
+      const mouseY &#x3D; event.clientY - rect.top;
+
+      const currentScale &#x3D; this.scale();
+      const svgX &#x3D; (mouseX - this.translateX()) / currentScale;
+      const svgY &#x3D; (mouseY - this.translateY()) / currentScale;
+
+      this.scale.set(newScale);
+      this.translateX.set(mouseX - svgX * newScale);
+      this.translateY.set(mouseY - svgY * newScale);
+    } else {
+      this.scale.set(newScale);
+    }
+  }
+
+  zoomIn(): void {
+    const nextScale &#x3D; Math.min(3, this.scale() * 1.2);
+    this.scale.set(nextScale);
+  }
+
+  zoomOut(): void {
+    const nextScale &#x3D; Math.max(0.3, this.scale() / 1.2);
+    this.scale.set(nextScale);
+  }
+
+  resetZoom(): void {
+    this.scale.set(1);
+    this.translateX.set(0);
+    this.translateY.set(0);
+  }
+
+  exportToJson(): void {
+    const blob &#x3D; new Blob([JSON.stringify(this.data(), null, 2)], { type: &#x27;application/json&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;embedding-projection-data.json&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToCsv(): void {
+    let csv &#x3D; &#x27;ID,X,Y,Group,Label\n&#x27;;
+    this.data().forEach(p &#x3D;&gt; {
+      csv +&#x3D; &#x60;&quot;${p.id}&quot;,${p.x},${p.y},&quot;${p.group || &#x27;&#x27;}&quot;,&quot;${p.label || &#x27;&#x27;}&quot;\n&#x60;;
+    });
+    const blob &#x3D; new Blob([csv], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;embedding-projection-data.csv&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToSvg(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const serializer &#x3D; new XMLSerializer();
+    let source &#x3D; serializer.serializeToString(svg);
+    if (!source.match(/^&lt;svg[^&gt;]+xmlns&#x3D;&quot;http\:\/\/www\.w3\.org\/2000\/svg&quot;/)) {
+      source &#x3D; source.replace(/^&lt;svg/, &#x27;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&#x27;);
+    }
+    source &#x3D; &#x27;&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;\n&#x27; + source;
+    const blob &#x3D; new Blob([source], { type: &#x27;image/svg+xml;charset&#x3D;utf-8&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; URL.createObjectURL(blob);
+    link.setAttribute(&#x27;download&#x27;, &#x27;embedding-projection.svg&#x27;);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  exportToPdf(): void {
+    const svg &#x3D; this.svgEl()?.nativeElement;
+    if (!svg) return;
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;_blank&#x27;);
+    if (!printWindow) return;
+    const svgString &#x3D; new XMLSerializer().serializeToString(svg);
+    printWindow.document.write(&#x60;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;Export PDF&lt;/title&gt;
+          &lt;style&gt;
+            body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: white; }
+            svg { width: 100%; height: auto; }
+          &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          ${svgString}
+          &lt;script&gt;
+            window.onload &#x3D; () &#x3D;&gt; { window.print(); window.close(); };
+          &lt;/script&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;);
+    printWindow.document.close();
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'EmbeddingPoint.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

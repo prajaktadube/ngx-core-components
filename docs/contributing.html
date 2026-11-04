@@ -1,0 +1,243 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+        <link rel="stylesheet" href="./styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content contributing">
+                   <div class="content-data">
+
+
+
+
+<h1>Contributing to ngx-core-components</h1>
+<p>Thank you for your interest in contributing to <code>ngx-core-components</code>! We want to make contributing to this project as easy and transparent as possible.</p>
+<hr>
+<h2>🛠️ Local Environment Setup</h2>
+<h3>1. Prerequisites</h3>
+<p>Ensure you have <strong>Node.js 18+</strong> and <strong>npm</strong> installed on your system.</p>
+<h3>2. Clone and Install</h3>
+<p>Clone the repository and install the Node package dependencies:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">git clone https://github.com/prajaktadube/ngx-core-components.git
+cd ngx-core-components
+npm install</code></pre></div><hr>
+<h2>💻 Running the Project</h2>
+<h3>Start Live Demo Server</h3>
+<p>To serve the interactive demo app locally for testing your changes:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm start</code></pre></div><p>This runs <code>ng serve</code> and makes the application available at <code>http://localhost:4200/</code>.</p>
+<h3>Watch Build Loop</h3>
+<p>To compile the library in watch mode so that the demo automatically updates as you make changes to library source code:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run watch</code></pre></div><hr>
+<h2>🧪 Testing and Verification</h2>
+<h3>Run Jasmine Unit Tests</h3>
+<p>We use <strong>Karma</strong> and <strong>Jasmine</strong> for unit testing. Verify that all specs pass before submitting a Pull Request:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm test</code></pre></div><p>To run tests in headless mode (perfect for CI or local terminal-only verification):</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npx ng test demo --watch=false --browsers=ChromeHeadless</code></pre></div><h3>Production Package Compilation</h3>
+<p>To compile the production build for publishing or release verification:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run build</code></pre></div><hr>
+<h2>📐 Component Design &amp; Architecture Conventions</h2>
+<p>When adding or modifying components, please adhere to our strict design standards:</p>
+<ol>
+<li><strong>Signals-First</strong>: Use the signals API for reactive programming. Use <code>input()</code> instead of <code>@Input()</code>, <code>output()</code> instead of <code>@Output()</code>, and <code>model()</code> for two-way bindings.</li>
+<li><strong>OnPush Change Detection</strong>: Always use <code>changeDetection: ChangeDetectionStrategy.OnPush</code> in component decorators to ensure high performance and zoneless support.</li>
+<li><strong>No Direct DOM Access</strong>: Do not reference <code>document</code> or <code>window</code> globally. Wrap browser-specific code in <code>afterNextRender()</code> or inject <code>PLATFORM_ID</code> to support Server-Side Rendering (SSR).</li>
+<li><strong>Style with CSS Custom Properties</strong>: Scope your component styling with CSS custom properties using the <code>--ngx-</code> prefix to allow theme customization. Add fallbacks, e.g. <code>color: var(--ngx-color-text, #0f172a)</code>.</li>
+<li><strong>Implement Accessibility (a11y)</strong>: Include keyboard navigation and ARIA attributes (<code>role</code>, <code>aria-expanded</code>, etc.) on all interactive components.</li>
+<li><strong>Zero Runtime Dependencies</strong>: Do not introduce third-party libraries. All components must be written natively.</li>
+</ol>
+<hr>
+<h2>📬 Pull Request Guidelines</h2>
+<ol>
+<li><strong>Branch Naming</strong>: Use descriptive branch names like <code>feat/chart-hover</code> or <code>fix/tabs-focus</code>.</li>
+<li><strong>Commit Messages</strong>: Follow standard conventional commits format (e.g. <code>feat: add radial bar gradients</code>, <code>fix: correct gauge dial rotation</code>).</li>
+<li><strong>Checklist</strong>:<ul>
+<li>Verify that <code>npm run build</code> succeeds completely.</li>
+<li>Verify that <code>npm test</code> runs with 100% success.</li>
+<li>Check styling compatibility with light/dark theme CSS tokens.</li>
+<li>Verify keyboard focus accessibility visual rings.</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'contributing';
+            var COMPODOC_CURRENT_PAGE_URL = 'contributing.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1888 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-core-components-workspace documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ngx-core-components-workspace documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  TimeSlot</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-core-components/views/scheduler/scheduler.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#hour" 
+>
+                                            hour
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#key" 
+>
+                                            key
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#minute" 
+>
+                                            minute
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="hour"></a>
+                                        <span class="name "><b>hour</b>
+                                            <a href="#hour">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>hour:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="key"></a>
+                                        <span class="name "><b>key</b>
+                                            <a href="#key">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>key:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="minute"></a>
+                                        <span class="name "><b>minute</b>
+                                            <a href="#minute">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>minute:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, HostListener, computed, effect, input, output, signal, OnInit, OnDestroy, Directive, TemplateRef, inject, contentChild } from &#x27;@angular/core&#x27;;
+import { SchedulerEvent, SchedulerEventChangeEvent, SchedulerSlotClickEvent, SchedulerResource, SchedulerSlotRangeSelectEvent } from &#x27;./models&#x27;;
+import { NGX_CORE_I18N } from &#x27;ngx-core-components/i18n&#x27;;
+
+@Directive({
+  selector: &#x27;[ngxSchedulerEventTemplate]&#x27;,
+  standalone: true
+})
+export class NgxSchedulerEventTemplateDirective {
+  templateRef &#x3D; inject(TemplateRef);
+}
+
+interface TimeSlot {
+  hour: number;
+  minute: number;
+  key: string;
+}
+
+interface ResolvedSchedulerEvent {
+  id: string;
+  event: SchedulerEvent;
+  start: Date;
+  end: Date;
+}
+
+interface SchedulerEventLayout extends ResolvedSchedulerEvent {
+  top: number;
+  height: number;
+  left: number;
+  width: number;
+}
+
+interface ResizeState {
+  event: SchedulerEvent;
+  edge: &#x27;start&#x27; | &#x27;end&#x27;;
+  start: Date;
+  end: Date;
+  originY: number;
+}
+
+@Component({
+  selector: &#x27;ngx-scheduler&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: &#x60;
+    &lt;div class&#x3D;&quot;ngx-scheduler-wrapper&quot; [class.dark]&#x3D;&quot;theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;&gt;
+      
+      &lt;!-- Scheduler Toolbar --&gt;
+      &lt;div class&#x3D;&quot;scheduler-toolbar&quot;&gt;
+        &lt;div class&#x3D;&quot;nav-controls&quot;&gt;
+          &lt;div class&#x3D;&quot;nav-buttons-group&quot;&gt;
+            &lt;button class&#x3D;&quot;tool-btn nav-arrow&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;navigate(-1)&quot; aria-label&#x3D;&quot;Previous period&quot;&gt;
+              &lt;svg class&#x3D;&quot;icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z&quot;/&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;tool-btn today-btn&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;goToToday()&quot;&gt;{{ i18n.scheduler.today }}&lt;/button&gt;
+            &lt;button class&#x3D;&quot;tool-btn nav-arrow&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;navigate(1)&quot; aria-label&#x3D;&quot;Next period&quot;&gt;
+              &lt;svg class&#x3D;&quot;icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z&quot;/&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+          &lt;h2 class&#x3D;&quot;current-period-label&quot;&gt;{{ periodLabel() }}&lt;/h2&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;toolbar-actions&quot;&gt;
+          &lt;!-- Keyword Search --&gt;
+          @if (showSearch()) {
+            &lt;div class&#x3D;&quot;search-box-container&quot;&gt;
+              &lt;svg class&#x3D;&quot;search-icon&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z&quot;/&gt;&lt;/svg&gt;
+              &lt;input type&#x3D;&quot;text&quot; 
+                     class&#x3D;&quot;search-input&quot; 
+                     [placeholder]&#x3D;&quot;i18n.common.search&quot; 
+                     [value]&#x3D;&quot;searchQuery()&quot; 
+                     (input)&#x3D;&quot;onSearchInput($event)&quot; /&gt;
+            &lt;/div&gt;
+          }
+
+          &lt;!-- Resource Select Filter (Week/Month View) --&gt;
+          @if (resources().length &gt; 0 &amp;&amp; activeMode() !&#x3D;&#x3D; &#x27;day&#x27;) {
+            &lt;div class&#x3D;&quot;resource-filter-container&quot;&gt;
+              &lt;select class&#x3D;&quot;resource-select&quot; [value]&#x3D;&quot;selectedResourceId() || &#x27;&#x27;&quot; (change)&#x3D;&quot;onResourceFilterChange($event)&quot;&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;All Resources&lt;/option&gt;
+                @for (res of resources(); track res.id) {
+                  &lt;option [value]&#x3D;&quot;res.id&quot;&gt;{{ res.name }}&lt;/option&gt;
+                }
+              &lt;/select&gt;
+            &lt;/div&gt;
+          }
+
+          &lt;!-- Export Dropdown --&gt;
+          &lt;div class&#x3D;&quot;export-dropdown-wrapper&quot;&gt;
+            &lt;button class&#x3D;&quot;tool-btn export-toggle-btn&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;showExportDropdown.set(!showExportDropdown())&quot;&gt;
+              &lt;span&gt;Export&lt;/span&gt;
+              &lt;svg class&#x3D;&quot;dropdown-arrow-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M7 10l5 5 5-5z&quot;/&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+            
+            @if (showExportDropdown()) {
+              &lt;div class&#x3D;&quot;export-menu-dropdown&quot;&gt;
+                &lt;button class&#x3D;&quot;export-item&quot; (click)&#x3D;&quot;exportToICS(); showExportDropdown.set(false)&quot;&gt;
+                  &lt;svg class&#x3D;&quot;export-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z&quot;/&gt;&lt;/svg&gt;
+                  &lt;span&gt;iCalendar (.ics)&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button class&#x3D;&quot;export-item&quot; (click)&#x3D;&quot;exportToJSON(); showExportDropdown.set(false)&quot;&gt;
+                  &lt;svg class&#x3D;&quot;export-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z&quot;/&gt;&lt;/svg&gt;
+                  &lt;span&gt;JSON format&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button class&#x3D;&quot;export-item&quot; (click)&#x3D;&quot;exportToCSV(); showExportDropdown.set(false)&quot;&gt;
+                  &lt;svg class&#x3D;&quot;export-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z&quot;/&gt;&lt;/svg&gt;
+                  &lt;span&gt;CSV document&lt;/span&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+
+          &lt;!-- View Switches --&gt;
+          &lt;div class&#x3D;&quot;view-switch-controls&quot;&gt;
+            @for (mode of viewModes; track mode) {
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;view-btn&quot;
+                [class.active]&#x3D;&quot;activeMode() &#x3D;&#x3D;&#x3D; mode&quot;
+                (click)&#x3D;&quot;activeMode.set(mode)&quot;
+              &gt;
+                {{ getViewModeLabel(mode) }}
+              &lt;/button&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Scheduler Body --&gt;
+      &lt;div class&#x3D;&quot;scheduler-body&quot; (click)&#x3D;&quot;showExportDropdown.set(false); activeMonthPopoverDate.set(null)&quot;&gt;
+        @if (activeMode() &#x3D;&#x3D;&#x3D; &#x27;day&#x27; || activeMode() &#x3D;&#x3D;&#x3D; &#x27;week&#x27;) {
+          &lt;div class&#x3D;&quot;time-grid-container&quot;&gt;
+            
+            &lt;!-- Grid Header --&gt;
+            &lt;div class&#x3D;&quot;time-grid-header&quot;&gt;
+              &lt;div class&#x3D;&quot;time-axis-header&quot;&gt;&lt;/div&gt;
+              &lt;div class&#x3D;&quot;columns-headers-wrap&quot;&gt;
+                @for (col of activeColumns(); track col.resource ? col.resource.id : dateKey(col.date)) {
+                  &lt;div class&#x3D;&quot;column-header-cell&quot; [class.today]&#x3D;&quot;isToday(col.date)&quot;&gt;
+                    @if (col.resource) {
+                      &lt;div class&#x3D;&quot;resource-header-card&quot;&gt;
+                        @if (col.resource.avatarUrl) {
+                          &lt;img [src]&#x3D;&quot;col.resource.avatarUrl&quot; [alt]&#x3D;&quot;col.resource.name&quot; class&#x3D;&quot;resource-avatar&quot; /&gt;
+                        } @else {
+                          &lt;div class&#x3D;&quot;resource-initials&quot; [style.background-color]&#x3D;&quot;col.resource.color || &#x27;var(--primary-color)&#x27;&quot;&gt;
+                            {{ getInitials(col.resource.name) }}
+                          &lt;/div&gt;
+                        }
+                        &lt;div class&#x3D;&quot;resource-info&quot;&gt;
+                          &lt;span class&#x3D;&quot;resource-name&quot;&gt;{{ col.resource.name }}&lt;/span&gt;
+                          &lt;span class&#x3D;&quot;resource-desc&quot;&gt;{{ col.resource.description || &#x27;Team Member&#x27; }}&lt;/span&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    } @else {
+                      &lt;span class&#x3D;&quot;day-name&quot;&gt;{{ formatDate(col.date, { weekday: &#x27;short&#x27; }) }}&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;day-num&quot;&gt;{{ formatDate(col.date, { day: &#x27;numeric&#x27; }) }}&lt;/span&gt;
+                    }
+                  &lt;/div&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- All-Day Events row --&gt;
+            @if (hasAllDayEvents()) {
+              &lt;div class&#x3D;&quot;all-day-row-container&quot;&gt;
+                &lt;div class&#x3D;&quot;all-day-label-cell&quot;&gt;{{ i18n.scheduler.allDay }}&lt;/div&gt;
+                &lt;div class&#x3D;&quot;all-day-columns-wrap&quot;&gt;
+                  @for (col of activeColumns(); track col.resource ? col.resource.id : dateKey(col.date)) {
+                    &lt;div class&#x3D;&quot;all-day-column-cell&quot;&gt;
+                      @for (evt of getAllDayEventsForColumn(col); track evt.id) {
+                        &lt;div class&#x3D;&quot;all-day-event-block&quot;
+                             [class.meeting]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;meeting&#x27;&quot;
+                             [class.task]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;task&#x27;&quot;
+                             [class.important]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;important&#x27;&quot;
+                             [class.warning]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;warning&#x27;&quot;
+                             [class.milestone]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;milestone&#x27;&quot;
+                             [class.personal]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;personal&#x27;&quot;
+                             [class.completed]&#x3D;&quot;evt.event.completed&quot;
+                             [ngStyle]&#x3D;&quot;getEventStyles(evt.event)&quot;
+                             (click)&#x3D;&quot;clickEvent(evt.event); $event.stopPropagation()&quot;
+                             [title]&#x3D;&quot;evt.event.title&quot;
+                        &gt;
+                          &lt;div class&#x3D;&quot;all-day-event-indicator&quot;&gt;&lt;/div&gt;
+                          
+                          @if (evt.event.category &#x3D;&#x3D;&#x3D; &#x27;task&#x27;) {
+                            &lt;input type&#x3D;&quot;checkbox&quot;
+                                   class&#x3D;&quot;task-completion-checkbox all-day-task-checkbox&quot;
+                                   [checked]&#x3D;&quot;evt.event.completed || false&quot;
+                                   (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                                   (change)&#x3D;&quot;toggleTaskCompletion(evt.event, $event)&quot; /&gt;
+                          }
+
+                          &lt;span class&#x3D;&quot;all-day-event-title&quot;&gt;{{ evt.event.title }}&lt;/span&gt;
+                          &lt;button class&#x3D;&quot;event-delete-btn all-day-del&quot; 
+                                  type&#x3D;&quot;button&quot; 
+                                  aria-label&#x3D;&quot;Delete event&quot;
+                                  (click)&#x3D;&quot;deleteEvent(evt.event, $event)&quot;&gt;
+                            &lt;svg class&#x3D;&quot;delete-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z&quot;/&gt;&lt;/svg&gt;
+                          &lt;/button&gt;
+                        &lt;/div&gt;
+                      }
+                    &lt;/div&gt;
+                  }
+                &lt;/div&gt;
+              &lt;/div&gt;
+            }
+
+            &lt;!-- Grid Body --&gt;
+            &lt;div class&#x3D;&quot;time-grid-body&quot;&gt;
+              &lt;div class&#x3D;&quot;time-axis-labels&quot;&gt;
+                @for (h of hours(); track h) {
+                  &lt;div class&#x3D;&quot;time-label&quot;&gt;{{ formatHour(h) }}&lt;/div&gt;
+                }
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;columns-body-wrap&quot; [style.min-height.px]&#x3D;&quot;hours().length * hourHeight&quot;&gt;
+                &lt;div class&#x3D;&quot;hourly-grid-lines&quot;&gt;
+                  @for (h of hours(); track h) {
+                    &lt;div class&#x3D;&quot;grid-line&quot;&gt;&lt;/div&gt;
+                  }
+                &lt;/div&gt;
+
+                @for (col of activeColumns(); track col.resource ? col.resource.id : dateKey(col.date)) {
+                  &lt;div class&#x3D;&quot;column-body-cell&quot;&gt;
+                    
+                    &lt;!-- Interactive Slot Overlay --&gt;
+                    &lt;div class&#x3D;&quot;interactive-slots-overlay&quot;&gt;
+                      @for (slot of timeSlots(); track slot.key) {
+                        &lt;div
+                          class&#x3D;&quot;slot-trigger&quot;
+                          [class.non-business-slot]&#x3D;&quot;isNonBusinessHour(slot.hour)&quot;
+                          [style.height.px]&#x3D;&quot;slotHeight()&quot;
+                          (click)&#x3D;&quot;clickSlot(col.date, slot.hour, slot.minute, col.resource?.id)&quot;
+                          (pointerdown)&#x3D;&quot;onSlotPointerDown($event, col.date, slot.hour, slot.minute, col.resource?.id)&quot;
+                          (pointerenter)&#x3D;&quot;onSlotPointerEnter($event, col.date, slot.hour, slot.minute, col.resource?.id)&quot;
+                          (dragover)&#x3D;&quot;onSlotDragOver($event)&quot;
+                          (drop)&#x3D;&quot;onSlotDrop($event, col.date, slot.hour, slot.minute, col.resource?.id)&quot;
+                        &gt;&lt;/div&gt;
+                      }
+                    &lt;/div&gt;
+
+                    &lt;!-- Live Current Time Indicator Line --&gt;
+                    @if (isToday(col.date) &amp;&amp; currentTimeTop(); as lineTop) {
+                      &lt;div class&#x3D;&quot;current-time-line&quot; [style.top.%]&#x3D;&quot;lineTop&quot;&gt;
+                        &lt;div class&#x3D;&quot;line-dot&quot;&gt;&lt;/div&gt;
+                      &lt;/div&gt;
+                    }
+
+                    &lt;!-- Drag Select Preview Block --&gt;
+                    @if (getDragSelectionLayout(col); as previewLayout) {
+                      &lt;div class&#x3D;&quot;drag-select-preview&quot;
+                           [style.top.%]&#x3D;&quot;previewLayout.top&quot;
+                           [style.height.%]&#x3D;&quot;previewLayout.height&quot;&gt;
+                        &lt;div class&#x3D;&quot;preview-inner&quot;&gt;
+                          &lt;svg class&#x3D;&quot;plus-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z&quot;/&gt;&lt;/svg&gt;
+                          &lt;span&gt;Create Event&lt;/span&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    }
+
+                    &lt;!-- Event Cards --&gt;
+                    @for (layout of getEventLayoutsForColumn(col); track layout.id) {
+                      &lt;div
+                        class&#x3D;&quot;scheduler-event-card&quot;
+                        [class.meeting]&#x3D;&quot;layout.event.category &#x3D;&#x3D;&#x3D; &#x27;meeting&#x27;&quot;
+                        [class.task]&#x3D;&quot;layout.event.category &#x3D;&#x3D;&#x3D; &#x27;task&#x27;&quot;
+                        [class.important]&#x3D;&quot;layout.event.category &#x3D;&#x3D;&#x3D; &#x27;important&#x27;&quot;
+                        [class.warning]&#x3D;&quot;layout.event.category &#x3D;&#x3D;&#x3D; &#x27;warning&#x27;&quot;
+                        [class.milestone]&#x3D;&quot;layout.event.category &#x3D;&#x3D;&#x3D; &#x27;milestone&#x27;&quot;
+                        [class.personal]&#x3D;&quot;layout.event.category &#x3D;&#x3D;&#x3D; &#x27;personal&#x27;&quot;
+                        [class.completed]&#x3D;&quot;layout.event.completed&quot;
+                        [style.top.%]&#x3D;&quot;layout.top&quot;
+                        [style.height.%]&#x3D;&quot;layout.height&quot;
+                        [style.left.%]&#x3D;&quot;layout.left&quot;
+                        [style.width.%]&#x3D;&quot;layout.width&quot;
+                        [ngStyle]&#x3D;&quot;getEventStyles(layout.event)&quot;
+                        draggable&#x3D;&quot;true&quot;
+                        (dragstart)&#x3D;&quot;onEventDragStart($event, layout)&quot;
+                        (dragend)&#x3D;&quot;onEventDragEnd()&quot;
+                        (click)&#x3D;&quot;clickEvent(layout.event)&quot;
+                        (keydown.enter)&#x3D;&quot;clickEvent(layout.event)&quot;
+                        [title]&#x3D;&quot;eventTitle(layout)&quot;
+                        tabindex&#x3D;&quot;0&quot;
+                      &gt;
+                        &lt;button
+                          class&#x3D;&quot;resize-handle resize-start&quot;
+                          type&#x3D;&quot;button&quot;
+                          aria-label&#x3D;&quot;Resize event start&quot;
+                          (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                          (pointerdown)&#x3D;&quot;startResize($event, layout, &#x27;start&#x27;)&quot;
+                        &gt;&lt;/button&gt;
+                        
+                        @if (eventTemplate()) {
+                          &lt;ng-container *ngTemplateOutlet&#x3D;&quot;eventTemplate()!.templateRef; context: { $implicit: layout.event, event: layout.event, layout: layout }&quot; /&gt;
+                        } @else {
+                          &lt;div class&#x3D;&quot;event-color-indicator&quot;&gt;&lt;/div&gt;
+                          
+                          &lt;!-- Task Completion Checkbox --&gt;
+                          @if (layout.event.category &#x3D;&#x3D;&#x3D; &#x27;task&#x27;) {
+                            &lt;input type&#x3D;&quot;checkbox&quot;
+                                   class&#x3D;&quot;task-completion-checkbox&quot;
+                                   [checked]&#x3D;&quot;layout.event.completed || false&quot;
+                                   (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                                   (change)&#x3D;&quot;toggleTaskCompletion(layout.event, $event)&quot; /&gt;
+                          }
+
+                          &lt;div class&#x3D;&quot;event-details&quot;&gt;
+                            &lt;div class&#x3D;&quot;event-header-row&quot;&gt;
+                              &lt;span class&#x3D;&quot;event-title&quot;&gt;{{ layout.event.title }}&lt;/span&gt;
+                              @if (layout.event.recurrence) {
+                                &lt;svg class&#x3D;&quot;recurrence-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot; title&#x3D;&quot;Recurring series&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L4.7 18.7c-1.07-1.63-1.7-3.6-1.7-5.7 0-5.52 4.48-10 10-10zm7.76 5.74L18.3 10.3c1.07 1.63 1.7 3.6 1.7 5.7 0 5.52-4.48 10-10 10v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z&quot;/&gt;&lt;/svg&gt;
+                              }
+                            &lt;/div&gt;
+                            
+                            &lt;span class&#x3D;&quot;event-time&quot;&gt;
+                              {{ formatEventTime(layout.start, layout.end) }}
+                              @if (layout.event.resourceId; as resId) {
+                                • {{ getResourceName(resId) }}
+                              }
+                            &lt;/span&gt;
+                          &lt;/div&gt;
+
+                          &lt;!-- Card Delete Quick Action --&gt;
+                          &lt;button class&#x3D;&quot;event-delete-btn&quot; 
+                                  type&#x3D;&quot;button&quot; 
+                                  aria-label&#x3D;&quot;Delete event&quot;
+                                  (click)&#x3D;&quot;deleteEvent(layout.event, $event)&quot;&gt;
+                            &lt;svg class&#x3D;&quot;delete-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z&quot;/&gt;&lt;/svg&gt;
+                          &lt;/button&gt;
+                        }
+
+                        &lt;button
+                          class&#x3D;&quot;resize-handle resize-end&quot;
+                          type&#x3D;&quot;button&quot;
+                          aria-label&#x3D;&quot;Resize event end&quot;
+                          (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                          (pointerdown)&#x3D;&quot;startResize($event, layout, &#x27;end&#x27;)&quot;
+                        &gt;&lt;/button&gt;
+                      &lt;/div&gt;
+                    }
+                  &lt;/div&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+
+        @if (activeMode() &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) {
+          &lt;div class&#x3D;&quot;month-grid-container&quot;&gt;
+            &lt;div class&#x3D;&quot;month-grid-header&quot;&gt;
+              @for (dayName of weekDayLabels(); track dayName) {
+                &lt;div class&#x3D;&quot;month-header-cell&quot;&gt;{{ dayName }}&lt;/div&gt;
+              }
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;month-grid-body&quot;&gt;
+              @for (cell of activeColumns(); track dateKey(cell.date)) {
+                &lt;div
+                  class&#x3D;&quot;month-day-cell&quot;
+                  [class.today]&#x3D;&quot;isToday(cell.date)&quot;
+                  [class.other-month]&#x3D;&quot;isOtherMonth(cell.date)&quot;
+                  (click)&#x3D;&quot;clickSlot(cell.date, 9, 0)&quot;
+                &gt;
+                  &lt;span class&#x3D;&quot;month-day-number&quot;&gt;{{ formatDate(cell.date, { day: &#x27;numeric&#x27; }) }}&lt;/span&gt;
+
+                  &lt;div class&#x3D;&quot;month-day-events-list&quot;&gt;
+                    @for (evt of getEventsForDate(cell.date).slice(0, 2); track evt.id) {
+                      &lt;div
+                        class&#x3D;&quot;month-event-item&quot;
+                        [class.meeting]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;meeting&#x27;&quot;
+                        [class.task]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;task&#x27;&quot;
+                        [class.important]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;important&#x27;&quot;
+                        [class.warning]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;warning&#x27;&quot;
+                        [class.milestone]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;milestone&#x27;&quot;
+                        [class.personal]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;personal&#x27;&quot;
+                        [class.completed]&#x3D;&quot;evt.event.completed&quot;
+                        [ngStyle]&#x3D;&quot;getEventStyles(evt.event)&quot;
+                        (click)&#x3D;&quot;clickEvent(evt.event); $event.stopPropagation()&quot;
+                        (keydown.enter)&#x3D;&quot;clickEvent(evt.event); $event.stopPropagation()&quot;
+                        [title]&#x3D;&quot;evt.event.title&quot;
+                        tabindex&#x3D;&quot;0&quot;
+                      &gt;
+                        @if (evt.event.recurrence) {
+                          &lt;svg class&#x3D;&quot;month-recurrence-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L4.7 18.7c-1.07-1.63-1.7-3.6-1.7-5.7 0-5.52 4.48-10 10-10zm7.76 5.74L18.3 10.3c1.07 1.63 1.7 3.6 1.7 5.7 0 5.52-4.48 10-10 10v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z&quot;/&gt;&lt;/svg&gt;
+                        }
+                        @if (eventTemplate()) {
+                          &lt;ng-container *ngTemplateOutlet&#x3D;&quot;eventTemplate()!.templateRef; context: { $implicit: evt.event, event: evt.event, layout: evt }&quot; /&gt;
+                        } @else {
+                          {{ evt.event.title }}
+                        }
+                      &lt;/div&gt;
+                    }
+                    @if (getEventsForDate(cell.date).length &gt; 2) {
+                      &lt;button 
+                        class&#x3D;&quot;month-more-indicator&quot; 
+                        type&#x3D;&quot;button&quot; 
+                        (click)&#x3D;&quot;openMonthPopover($event, cell.date)&quot;
+                      &gt;
+                        +{{ getEventsForDate(cell.date).length - 2 }} more
+                      &lt;/button&gt;
+                    }
+                  &lt;/div&gt;
+
+                  &lt;!-- Month Events Popover --&gt;
+                  @if (activeMonthPopoverDate() &amp;&amp; isSameDate(activeMonthPopoverDate()!, cell.date)) {
+                    &lt;div class&#x3D;&quot;month-events-popover&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+                      &lt;div class&#x3D;&quot;popover-header&quot;&gt;
+                        &lt;span class&#x3D;&quot;popover-date&quot;&gt;{{ formatDate(cell.date, { weekday: &#x27;short&#x27;, month: &#x27;short&#x27;, day: &#x27;numeric&#x27; }) }}&lt;/span&gt;
+                        &lt;button class&#x3D;&quot;popover-close&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;closeMonthPopover($event)&quot;&gt;×&lt;/button&gt;
+                      &lt;/div&gt;
+                      &lt;div class&#x3D;&quot;popover-body&quot;&gt;
+                        @for (evt of getEventsForDate(cell.date); track evt.id) {
+                          &lt;div
+                            class&#x3D;&quot;month-event-item popover-event-item&quot;
+                            [class.meeting]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;meeting&#x27;&quot;
+                            [class.task]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;task&#x27;&quot;
+                            [class.important]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;important&#x27;&quot;
+                            [class.warning]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;warning&#x27;&quot;
+                            [class.milestone]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;milestone&#x27;&quot;
+                            [class.personal]&#x3D;&quot;evt.event.category &#x3D;&#x3D;&#x3D; &#x27;personal&#x27;&quot;
+                            [class.completed]&#x3D;&quot;evt.event.completed&quot;
+                            [ngStyle]&#x3D;&quot;getEventStyles(evt.event)&quot;
+                            (click)&#x3D;&quot;clickEvent(evt.event); activeMonthPopoverDate.set(null); $event.stopPropagation()&quot;
+                            (keydown.enter)&#x3D;&quot;clickEvent(evt.event); activeMonthPopoverDate.set(null); $event.stopPropagation()&quot;
+                            [title]&#x3D;&quot;evt.event.title&quot;
+                            tabindex&#x3D;&quot;0&quot;
+                          &gt;
+                            @if (evt.event.recurrence) {
+                              &lt;svg class&#x3D;&quot;month-recurrence-icon-svg&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;&lt;path fill&#x3D;&quot;currentColor&quot; d&#x3D;&quot;M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L4.7 18.7c-1.07-1.63-1.7-3.6-1.7-5.7 0-5.52 4.48-10 10-10zm7.76 5.74L18.3 10.3c1.07 1.63 1.7 3.6 1.7 5.7 0 5.52-4.48 10-10 10v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z&quot;/&gt;&lt;/svg&gt;
+                            }
+                            @if (eventTemplate()) {
+                              &lt;ng-container *ngTemplateOutlet&#x3D;&quot;eventTemplate()!.templateRef; context: { $implicit: evt.event, event: evt.event, layout: evt }&quot; /&gt;
+                            } @else {
+                              {{ evt.event.title }}
+                            }
+                          &lt;/div&gt;
+                        }
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  }
+                &lt;/div&gt;
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &#x60;,
+  styles: [&#x60;
+    :host { display: block; width: 100%; height: 100%; }
+    .ngx-scheduler-wrapper { display: flex; flex-direction: column; height: 100%; min-height: 500px; border: 1px solid var(--border-color, #cbd5e1); border-radius: var(--radius-md, 12px); background: var(--bg-secondary, #ffffff); color: var(--text-primary, #0f172a); box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.08)); font-family: var(--ngx-font-family, sans-serif); overflow: hidden; transition: all 0.25s; }
+    .scheduler-toolbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: var(--border-light, #f1f5f9); border-bottom: 1px solid var(--border-color, #cbd5e1); gap: 16px; flex-wrap: wrap; }
+    .nav-controls { display: flex; align-items: center; gap: 14px; }
+    .nav-buttons-group { display: flex; align-items: center; border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; overflow: hidden; background: var(--bg-secondary, #ffffff); box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05)); }
+    .tool-btn { background: var(--bg-secondary, #ffffff); border: none; border-right: 1px solid var(--border-color, #cbd5e1); padding: 6px 12px; font-size: 12px; font-weight: 650; cursor: pointer; color: var(--text-primary, #0f172a); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .tool-btn:last-child { border-right: none; }
+    .tool-btn:hover, .tool-btn:focus-visible { background: var(--border-light, #f1f5f9); color: var(--primary-color, #4f46e5); outline: none; }
+    .tool-btn.nav-arrow { padding: 8px 10px; }
+    .today-btn { font-weight: 750; }
+    .icon-svg, .dropdown-arrow-svg, .export-icon-svg, .recurrence-icon-svg, .month-recurrence-icon-svg, .delete-icon-svg, .plus-icon-svg { width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
+    .current-period-label { margin: 0; font-size: 16px; font-weight: 800; min-width: 180px; }
+    .toolbar-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    
+    /* Search Box styling */
+    .search-box-container { display: flex; align-items: center; background: var(--bg-secondary, #ffffff); border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; padding: 5px 12px; min-width: 200px; gap: 8px; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05)); }
+    .search-icon { width: 15px; height: 15px; color: var(--text-secondary, #64748b); }
+    .search-input { border: none; background: transparent; font-size: 12px; color: var(--text-primary, #0f172a); outline: none; width: 100%; font-family: inherit; }
+    .search-input::placeholder { color: var(--text-secondary, #94a3b8); }
+    
+    /* Resource Select styling */
+    .resource-filter-container { display: flex; align-items: center; background: var(--bg-secondary, #ffffff); border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; padding: 5px 10px; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05)); }
+    .resource-select { border: none; background: transparent; font-size: 12px; font-weight: 650; color: var(--text-primary, #0f172a); outline: none; cursor: pointer; font-family: inherit; }
+    
+    /* Export Dropdown styling */
+    .export-dropdown-wrapper { position: relative; }
+    .export-toggle-btn { display: flex; align-items: center; gap: 6px; font-weight: 650; border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05)); }
+    .dropdown-arrow-svg { width: 14px; height: 14px; opacity: 0.7; }
+    .export-menu-dropdown { position: absolute; top: calc(100% + 4px); right: 0; background: var(--bg-secondary, #ffffff); border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)); z-index: 100; min-width: 170px; display: flex; flex-direction: column; padding: 4px; overflow: hidden; animation: slideDown 0.15s ease-out; }
+    .export-item { display: flex; align-items: center; gap: 10px; border: none; background: none; padding: 8px 12px; font-size: 12px; text-align: left; cursor: pointer; color: var(--text-primary, #334155); border-radius: 6px; font-family: inherit; font-weight: 600; transition: background 0.15s; }
+    .export-item:hover { background: var(--border-light, #f1f5f9); color: var(--primary-color, #4f46e5); }
+    .export-icon-svg { width: 14px; height: 14px; color: var(--text-secondary, #64748b); }
+
+    /* View Switch Controls */
+    .view-switch-controls { display: flex; border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05)); }
+    .view-btn { background: var(--bg-secondary, #ffffff); border: none; border-right: 1px solid var(--border-color, #cbd5e1); padding: 6px 14px; font-size: 12px; font-weight: 650; color: var(--text-secondary, #475569); cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .view-btn:last-child { border-right: none; }
+    .view-btn.active { background: var(--primary-color, #4f46e5); color: #ffffff; }
+    
+    .scheduler-body { flex: 1; overflow: auto; background: var(--bg-secondary, #ffffff); display: flex; flex-direction: column; }
+    .time-grid-container { display: flex; flex-direction: column; flex: 1; min-width: 600px; }
+    .time-grid-header { display: flex; background: var(--border-light, #f8fafc); border-bottom: 1px solid var(--border-color, #cbd5e1); position: sticky; top: 0; z-index: 10; }
+    .time-axis-header { width: 70px; flex-shrink: 0; border-right: 1px solid var(--border-color, #cbd5e1); }
+    .columns-headers-wrap { flex: 1; display: flex; }
+    .column-header-cell { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0; border-right: 1px solid var(--border-color, #e2e8f0); min-width: 120px; }
+    .column-header-cell:last-child { border-right: none; }
+    .column-header-cell.today { background: var(--primary-glow, rgba(79, 70, 229, 0.03)); }
+    .column-header-cell.today .day-num { background: var(--primary-color, #4f46e5); color: #ffffff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-top: 2px; }
+    .day-name { font-size: 11px; font-weight: 650; color: var(--text-secondary, #64748b); text-transform: uppercase; letter-spacing: 0.5px; }
+    .day-num { font-size: 14px; margin-top: 4px; color: var(--text-primary, #0f172a); }
+
+    /* Resource Header Styling */
+    .resource-header-card { display: flex; align-items: center; gap: 10px; padding: 4px 12px; width: 100%; text-align: left; }
+    .resource-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-light, #e2e8f0); }
+    .resource-initials { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 750; color: #ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+    .resource-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .resource-name { font-size: 13px; font-weight: 750; color: var(--text-primary, #0f172a); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .resource-desc { font-size: 10px; color: var(--text-secondary, #64748b); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* All-Day Events row styling */
+    .all-day-row-container { display: flex; background: var(--border-light, #f8fafc); border-bottom: 1px solid var(--border-color, #cbd5e1); z-index: 8; position: relative; }
+    .all-day-label-cell { width: 70px; flex-shrink: 0; border-right: 1px solid var(--border-color, #cbd5e1); font-size: 10px; font-weight: 750; color: var(--text-secondary, #64748b); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .all-day-columns-wrap { flex: 1; display: flex; min-height: 38px; padding: 4px 0; }
+    .all-day-column-cell { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 0 4px; border-right: 1px solid var(--border-light, #e2e8f0); min-width: 120px; box-sizing: border-box; justify-content: center; }
+    .all-day-column-cell:last-child { border-right: none; }
+    .all-day-event-block { display: flex; align-items: center; gap: 6px; border-radius: 6px; padding: 4px 8px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1px solid transparent; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; min-height: 22px; transition: transform 0.15s; }
+    .all-day-event-block:hover { transform: translateY(-1px); }
+    .all-day-event-block.completed .all-day-event-title { text-decoration: line-through; opacity: 0.65; }
+    .all-day-event-indicator { width: 4px; height: 12px; border-radius: 2px; background: currentColor; flex-shrink: 0; }
+    .all-day-event-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
+    .event-delete-btn.all-day-del { opacity: 0; position: absolute; right: 4px; top: 2px; width: 18px; height: 18px; }
+    .all-day-event-block:hover .event-delete-btn.all-day-del { opacity: 1; }
+
+    .time-grid-body { display: flex; flex: 1; position: relative; }
+    .time-axis-labels { width: 70px; flex-shrink: 0; border-right: 1px solid var(--border-color, #cbd5e1); background: var(--border-light, #f8fafc); user-select: none; }
+    .time-label { height: 60px; font-size: 11px; font-weight: 650; color: var(--text-secondary, #64748b); text-align: right; padding-right: 10px; margin-top: -6px; }
+    .columns-body-wrap { flex: 1; display: flex; position: relative; }
+    .hourly-grid-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+    .grid-line { height: 60px; border-bottom: 1px solid var(--border-light, #e2e8f0); }
+    
+    .column-body-cell { flex: 1; border-right: 1px solid var(--border-light, #e2e8f0); position: relative; z-index: 2; min-width: 120px; }
+    .column-body-cell:last-child { border-right: none; }
+    .interactive-slots-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; z-index: 1; }
+    .slot-trigger { flex: 0 0 auto; cursor: cell; transition: background 0.15s; }
+    .slot-trigger:hover { background: var(--primary-glow, rgba(79, 70, 229, 0.02)); }
+    .slot-trigger.non-business-slot { background: var(--border-light, #f8fafc); opacity: 0.85; background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(148, 163, 184, 0.04) 10px, rgba(148, 163, 184, 0.04) 20px); }
+
+    /* Task completion checkbox styling */
+    .task-completion-checkbox {
+      width: 14px;
+      height: 14px;
+      margin: 0;
+      cursor: pointer;
+      flex-shrink: 0;
+      accent-color: var(--primary-color, #4f46e5);
+      border-radius: 4px;
+      border: 1px solid var(--border-color, #cbd5e1);
+      outline: none;
+      align-self: center;
+      transition: accent-color 0.15s;
+      z-index: 5;
+    }
+    .all-day-task-checkbox {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Live Current Time Indicator styling */
+    .current-time-line { position: absolute; left: 0; right: 0; height: 2px; background: #ef4444; z-index: 10; pointer-events: none; }
+    .line-dot { position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.8); animation: pulse-glow 2s infinite; }
+
+    @keyframes pulse-glow {
+      0% { transform: scale(1); box-shadow: 0 0 4px 0px rgba(239, 68, 68, 0.8); }
+      50% { transform: scale(1.35); box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.45); }
+      100% { transform: scale(1); box-shadow: 0 0 4px 0px rgba(239, 68, 68, 0.8); }
+    }
+
+    /* Drag Selection Preview styling */
+    .drag-select-preview { position: absolute; left: 4px; right: 4px; border: 2px dashed var(--primary-color, #4f46e5); border-radius: 8px; background: rgba(79, 70, 229, 0.08); z-index: 5; pointer-events: none; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+    .preview-inner { display: flex; align-items: center; gap: 6px; color: var(--primary-color, #4f46e5); font-size: 11px; font-weight: 750; background: #ffffff; padding: 4px 10px; border-radius: 20px; box-shadow: var(--shadow-sm); border: 1px solid rgba(79, 70, 229, 0.2); }
+    .plus-icon-svg { color: var(--primary-color, #4f46e5); width: 14px; height: 14px; }
+
+    /* Event Cards styling */
+    .scheduler-event-card { position: absolute; right: auto; border-radius: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.4; cursor: grab; display: flex; gap: 8px; z-index: 3; box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05)); transition: transform 0.2s, box-shadow 0.2s; overflow: hidden; border: 1px solid transparent; min-height: 28px; outline: none; }
+    .scheduler-event-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1)); z-index: 4; }
+    .scheduler-event-card:focus-visible { border-color: var(--primary-color, #4f46e5); box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25); }
+    .scheduler-event-card.completed .event-title { text-decoration: line-through; opacity: 0.65; }
+    .event-color-indicator { width: 3px; height: 100%; border-radius: 2px; flex-shrink: 0; background: currentColor; }
+    .event-details { display: flex; flex-direction: column; gap: 2px; overflow: hidden; min-width: 0; flex: 1; }
+    .event-header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 4px; width: 100%; }
+    .event-title { font-weight: 750; color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .event-time { font-size: 10px; opacity: 0.82; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .recurrence-icon-svg { color: currentColor; opacity: 0.65; width: 13px; height: 13px; flex-shrink: 0; margin-top: 1px; }
+
+    /* Card Delete Button */
+    .event-delete-btn { position: absolute; top: 6px; right: 6px; border: none; background: rgba(255,255,255,0.75); border-radius: 4px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ngx-schedule-important-text, #ef4444); opacity: 0; transition: opacity 0.15s, background 0.15s; }
+    .event-delete-btn:hover { background: #ffffff; color: #dc2626; transform: scale(1.05); }
+    .scheduler-event-card:hover .event-delete-btn { opacity: 1; }
+    .delete-icon-svg { width: 12px; height: 12px; }
+
+    /* Resize Handles */
+    .resize-handle { position: absolute; left: 0; right: 0; height: 8px; border: 0; background: transparent; cursor: ns-resize; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.15s; }
+    .resize-handle::after { content: &#x27;&#x27;; width: 24px; height: 2px; background: rgba(0,0,0,0.15); border-radius: 1px; opacity: 0; transition: opacity 0.15s; }
+    .ngx-scheduler-wrapper.dark .resize-handle::after { background: rgba(255,255,255,0.25); }
+    .scheduler-event-card:hover .resize-handle::after { opacity: 1; }
+    .resize-handle:hover { background: rgba(0, 0, 0, 0.05); }
+    .ngx-scheduler-wrapper.dark .resize-handle:hover { background: rgba(255, 255, 255, 0.05); }
+    .resize-start { top: 0; }
+    .resize-end { bottom: 0; }
+
+    /* Month Grid layout */
+    .month-grid-container { display: flex; flex-direction: column; flex: 1; min-height: 500px; }
+    .month-grid-header { display: flex; background: var(--border-light, #f8fafc); border-bottom: 1px solid var(--border-color, #cbd5e1); position: sticky; top: 0; z-index: 10; }
+    .month-header-cell { flex: 1; text-align: center; padding: 10px 0; font-size: 11px; font-weight: 750; color: var(--text-secondary, #64748b); text-transform: uppercase; letter-spacing: 0.5px; border-right: 1px solid var(--border-color, #cbd5e1); }
+    .month-header-cell:last-child { border-right: none; }
+    .month-grid-body { display: grid; grid-template-columns: repeat(7, minmax(110px, 1fr)); grid-auto-rows: minmax(100px, 1fr); flex: 1; }
+    .month-day-cell { border-right: 1px solid var(--border-light, #e2e8f0); border-bottom: 1px solid var(--border-light, #e2e8f0); padding: 6px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; position: relative; transition: background 0.15s; }
+    .month-day-cell:nth-child(7n) { border-right: none; }
+    .month-day-cell:hover { background: var(--primary-glow, rgba(79, 70, 229, 0.01)); }
+    .month-day-cell.today { background: var(--primary-glow, rgba(79, 70, 229, 0.02)); }
+    .month-day-cell.today .month-day-number { background: var(--primary-color, #4f46e5); color: #ffffff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    .month-day-cell.other-month { opacity: 0.45; }
+    .month-day-number { font-size: 11px; font-weight: 650; color: var(--text-secondary, #475569); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
+    
+    .month-day-events-list { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; max-height: 90px; }
+    .month-event-item { font-size: 10px; font-weight: 650; padding: 2px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: transform 0.1s; display: flex; align-items: center; outline: none; }
+    .month-event-item:hover { transform: scale(1.02); }
+    .month-event-item:focus-visible { box-shadow: 0 0 0 2px var(--primary-color, #4f46e5); }
+    .month-event-item.completed { text-decoration: line-through; opacity: 0.65; }
+    .month-recurrence-icon-svg { color: currentColor; opacity: 0.8; width: 11px; height: 11px; margin-right: 3px; display: inline-block; flex-shrink: 0; }
+
+    /* Month popover styles */
+    .month-more-indicator { background: var(--primary-glow, rgba(79, 70, 229, 0.08)); color: var(--primary-color, #4f46e5); border: none; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 3px 6px; cursor: pointer; text-align: left; transition: background 0.15s; width: 100%; outline: none; }
+    .month-more-indicator:hover { background: rgba(79, 70, 229, 0.15); }
+    .month-more-indicator:focus-visible { box-shadow: 0 0 0 2px var(--primary-color, #4f46e5); }
+    .month-events-popover { position: absolute; top: 4px; left: 4px; right: 4px; background: var(--bg-secondary, #ffffff); border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); z-index: 100; display: flex; flex-direction: column; padding: 8px; min-width: 180px; animation: popoverFadeIn 0.15s ease-out; }
+    .popover-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px solid var(--border-light, #e2e8f0); padding-bottom: 4px; }
+    .popover-date { font-size: 11px; font-weight: 750; color: var(--text-secondary, #475569); }
+    .popover-close { background: none; border: none; font-size: 16px; font-weight: 700; color: #94a3b8; cursor: pointer; line-height: 1; padding: 0 2px; }
+    .popover-close:hover { color: #475569; }
+    .popover-body { display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto; }
+    .popover-event-item { margin-bottom: 2px; }
+
+    @keyframes popoverFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Theme Categories */
+    .meeting { background-color: var(--ngx-schedule-meeting-bg, rgba(59, 130, 246, 0.07)); border-color: var(--ngx-schedule-meeting-border, rgba(59, 130, 246, 0.15)); color: var(--ngx-schedule-meeting-text, #2563eb); border-left: 4px solid #3b82f6 !important; }
+    .task { background-color: var(--ngx-schedule-task-bg, rgba(16, 185, 129, 0.07)); border-color: var(--ngx-schedule-task-border, rgba(16, 185, 129, 0.15)); color: var(--ngx-schedule-task-text, #059669); border-left: 4px solid #10b981 !important; }
+    .important { background-color: var(--ngx-schedule-important-bg, rgba(239, 68, 68, 0.07)); border-color: var(--ngx-schedule-important-border, rgba(239, 68, 68, 0.15)); color: var(--ngx-schedule-important-text, #dc2626); border-left: 4px solid #ef4444 !important; }
+    .warning { background-color: var(--ngx-schedule-warning-bg, rgba(245, 158, 11, 0.07)); border-color: var(--ngx-schedule-warning-border, rgba(245, 158, 11, 0.15)); color: var(--ngx-schedule-warning-text, #d97706); border-left: 4px solid #f59e0b !important; }
+    .milestone { background-color: var(--ngx-schedule-milestone-bg, rgba(139, 92, 246, 0.07)); border-color: var(--ngx-schedule-milestone-border, rgba(139, 92, 246, 0.15)); color: var(--ngx-schedule-milestone-text, #7c3aed); border-left: 4px solid #8b5cf6 !important; }
+    .personal { background-color: var(--ngx-schedule-personal-bg, rgba(20, 184, 166, 0.07)); border-color: var(--ngx-schedule-personal-border, rgba(20, 184, 166, 0.15)); color: var(--ngx-schedule-personal-text, #0d9488); border-left: 4px solid #14b8a6 !important; }
+    
+    /* Dark Theme Support */
+    .ngx-scheduler-wrapper.dark { border-color: #1f2937; background: #0f172a; color: #f8fafc; }
+    .ngx-scheduler-wrapper.dark .scheduler-toolbar, .ngx-scheduler-wrapper.dark .time-grid-header, .ngx-scheduler-wrapper.dark .time-axis-labels, .ngx-scheduler-wrapper.dark .month-grid-header { background: #1e293b; border-color: #1f2937; }
+    
+    .ngx-scheduler-wrapper.dark .nav-buttons-group,
+    .ngx-scheduler-wrapper.dark .search-box-container,
+    .ngx-scheduler-wrapper.dark .resource-filter-container,
+    .ngx-scheduler-wrapper.dark .export-menu-dropdown { background: #0f172a; border-color: #1f2937; }
+    
+    .ngx-scheduler-wrapper.dark .tool-btn, .ngx-scheduler-wrapper.dark .view-btn { background: #0f172a; border-color: #1f2937; color: #94a3b8; }
+    .ngx-scheduler-wrapper.dark .view-btn.active { background: var(--primary-color, #6366f1); color: #ffffff; }
+    .ngx-scheduler-wrapper.dark .grid-line, .ngx-scheduler-wrapper.dark .column-body-cell, .ngx-scheduler-wrapper.dark .month-day-cell { border-color: #1f2937; }
+    
+    .ngx-scheduler-wrapper.dark .search-input,
+    .ngx-scheduler-wrapper.dark .resource-select { color: #f8fafc; }
+    .ngx-scheduler-wrapper.dark .export-item { color: #cbd5e1; }
+    .ngx-scheduler-wrapper.dark .export-item:hover { background: #1e293b; color: #6366f1; }
+    .ngx-scheduler-wrapper.dark .resource-name { color: #f8fafc; }
+    .ngx-scheduler-wrapper.dark .resource-desc { color: #94a3b8; }
+
+    .ngx-scheduler-wrapper.dark .all-day-row-container { background: #1e293b; border-color: #1f2937; }
+    .ngx-scheduler-wrapper.dark .all-day-column-cell { border-color: #1f2937; }
+    .ngx-scheduler-wrapper.dark .all-day-event-block { border-color: transparent; }
+    .ngx-scheduler-wrapper.dark .slot-trigger.non-business-slot { background: #0f172a; background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(31, 41, 55, 0.25) 10px, rgba(31, 41, 55, 0.25) 20px); }
+
+    .ngx-scheduler-wrapper.dark .preview-inner { background: #0f172a; border-color: rgba(99, 102, 241, 0.4); color: #818cf8; }
+    .ngx-scheduler-wrapper.dark .plus-icon-svg { color: #818cf8; }
+    .ngx-scheduler-wrapper.dark .event-delete-btn { background: rgba(15, 23, 42, 0.6); color: #f87171; }
+    .ngx-scheduler-wrapper.dark .event-delete-btn:hover { background: #1e293b; }
+    .ngx-scheduler-wrapper.dark .task-completion-checkbox { border-color: #374151; background: #1f2937; }
+    .ngx-scheduler-wrapper.dark .month-events-popover { background: #1e293b; border-color: #374151; }
+    .ngx-scheduler-wrapper.dark .popover-date { color: #94a3b8; }
+    .ngx-scheduler-wrapper.dark .popover-header { border-color: #374151; }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  &#x60;]
+})
+export class SchedulerComponent implements OnInit, OnDestroy {
+  i18n &#x3D; inject(NGX_CORE_I18N);
+
+  getViewModeLabel(mode: string): string {
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;day&#x27;) return this.i18n.scheduler.day;
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;week&#x27;) return this.i18n.scheduler.week;
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;month&#x27;) return this.i18n.scheduler.month;
+    return mode;
+  }
+
+  readonly hourHeight &#x3D; 60;
+  viewModes: (&#x27;day&#x27; | &#x27;week&#x27; | &#x27;month&#x27;)[] &#x3D; [&#x27;day&#x27;, &#x27;week&#x27;, &#x27;month&#x27;];
+
+  // Component inputs
+  events &#x3D; input&lt;SchedulerEvent[]&gt;([]);
+  currentDate &#x3D; input&lt;Date&gt;(new Date());
+  viewMode &#x3D; input&lt;&#x27;day&#x27; | &#x27;week&#x27; | &#x27;month&#x27;&gt;(&#x27;week&#x27;);
+  theme &#x3D; input&lt;&#x27;light&#x27; | &#x27;dark&#x27;&gt;(&#x27;light&#x27;);
+  businessHoursStart &#x3D; input&lt;number&gt;(8);
+  businessHoursEnd &#x3D; input&lt;number&gt;(20);
+  weekStartsOn &#x3D; input&lt;0 | 1 | 2 | 3 | 4 | 5 | 6&gt;(0);
+  timeZone &#x3D; input&lt;string | undefined&gt;(undefined);
+  slotMinutes &#x3D; input&lt;number&gt;(60);
+
+  // New Enterprise feature inputs
+  resources &#x3D; input&lt;SchedulerResource[]&gt;([]);
+  enableDragToCreate &#x3D; input&lt;boolean&gt;(true);
+  showSearch &#x3D; input&lt;boolean&gt;(true);
+  showWorkHoursOnly &#x3D; input&lt;boolean&gt;(true);
+
+  // Component outputs
+  eventClick &#x3D; output&lt;SchedulerEvent&gt;();
+  slotClick &#x3D; output&lt;SchedulerSlotClickEvent&gt;();
+  eventTimeChange &#x3D; output&lt;SchedulerEventChangeEvent&gt;();
+  slotRangeSelect &#x3D; output&lt;SchedulerSlotRangeSelectEvent&gt;();
+  eventDelete &#x3D; output&lt;SchedulerEvent&gt;();
+  currentDateChange &#x3D; output&lt;Date&gt;();
+
+  // State Management
+  activeDate &#x3D; signal&lt;Date&gt;(new Date());
+  activeMode &#x3D; signal&lt;&#x27;day&#x27; | &#x27;week&#x27; | &#x27;month&#x27;&gt;(&#x27;week&#x27;);
+  selectedResourceId &#x3D; signal&lt;string | null&gt;(null);
+  searchQuery &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  dragSelectStart &#x3D; signal&lt;{ date: Date; hour: number; minute: number; resourceId?: string } | null&gt;(null);
+  dragSelectCurrent &#x3D; signal&lt;{ date: Date; hour: number; minute: number; resourceId?: string } | null&gt;(null);
+  showExportDropdown &#x3D; signal&lt;boolean&gt;(false);
+  activeMonthPopoverDate &#x3D; signal&lt;Date | null&gt;(null);
+
+  eventTemplate &#x3D; contentChild(NgxSchedulerEventTemplateDirective);
+
+  openMonthPopover(event: MouseEvent, date: Date): void {
+    event.stopPropagation();
+    this.activeMonthPopoverDate.set(date);
+  }
+
+  closeMonthPopover(event: MouseEvent): void {
+    event.stopPropagation();
+    this.activeMonthPopoverDate.set(null);
+  }
+
+  @HostListener(&#x27;window:keydown&#x27;, [&#x27;$event&#x27;])
+  handleKeyDown(event: KeyboardEvent): void {
+    const activeEl &#x3D; document.activeElement;
+    if (activeEl) {
+      const tagName &#x3D; activeEl.tagName.toLowerCase();
+      if (tagName &#x3D;&#x3D;&#x3D; &#x27;input&#x27; || tagName &#x3D;&#x3D;&#x3D; &#x27;textarea&#x27; || tagName &#x3D;&#x3D;&#x3D; &#x27;select&#x27; || activeEl.getAttribute(&#x27;contenteditable&#x27;) &#x3D;&#x3D;&#x3D; &#x27;true&#x27;) {
+        return;
+      }
+    }
+
+    switch (event.key.toLowerCase()) {
+      case &#x27;t&#x27;:
+        this.goToToday();
+        event.preventDefault();
+        break;
+      case &#x27;d&#x27;:
+        this.activeMode.set(&#x27;day&#x27;);
+        event.preventDefault();
+        break;
+      case &#x27;w&#x27;:
+        this.activeMode.set(&#x27;week&#x27;);
+        event.preventDefault();
+        break;
+      case &#x27;m&#x27;:
+        this.activeMode.set(&#x27;month&#x27;);
+        event.preventDefault();
+        break;
+      case &#x27;arrowleft&#x27;:
+        this.navigate(-1);
+        event.preventDefault();
+        break;
+      case &#x27;arrowright&#x27;:
+        this.navigate(1);
+        event.preventDefault();
+        break;
+    }
+  }
+
+  // Live Current-Time Indicator State
+  now &#x3D; signal&lt;Date&gt;(new Date());
+  private timeIntervalId?: any;
+
+  private activeDragEvent &#x3D; signal&lt;ResolvedSchedulerEvent | null&gt;(null);
+  private resizeState: ResizeState | null &#x3D; null;
+
+  constructor() {
+    effect(() &#x3D;&gt; {
+      this.activeDate.set(this.currentDate());
+    }, { allowSignalWrites: true });
+
+    effect(() &#x3D;&gt; {
+      this.activeMode.set(this.viewMode());
+    }, { allowSignalWrites: true });
+  }
+
+  ngOnInit() {
+    if (typeof window !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      this.timeIntervalId &#x3D; setInterval(() &#x3D;&gt; {
+        this.now.set(new Date());
+      }, 30000);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.timeIntervalId) {
+      clearInterval(this.timeIntervalId);
+    }
+  }
+
+  // Filter events based on keyword and resource selector
+  filteredEvents &#x3D; computed(() &#x3D;&gt; {
+    let list &#x3D; this.events();
+    const query &#x3D; this.searchQuery().toLowerCase().trim();
+    if (query) {
+      list &#x3D; list.filter(evt &#x3D;&gt;
+        evt.title.toLowerCase().includes(query) ||
+        (evt.description &amp;&amp; evt.description.toLowerCase().includes(query)) ||
+        (evt.category &amp;&amp; evt.category.toLowerCase().includes(query))
+      );
+    }
+
+    const selectedRes &#x3D; this.selectedResourceId();
+    const mode &#x3D; this.activeMode();
+    if (selectedRes &amp;&amp; mode !&#x3D;&#x3D; &#x27;day&#x27;) {
+      list &#x3D; list.filter(evt &#x3D;&gt; evt.resourceId &#x3D;&#x3D;&#x3D; selectedRes);
+    }
+
+    return list;
+  });
+
+  hasAllDayEvents &#x3D; computed(() &#x3D;&gt; {
+    return this.filteredEvents().some(evt &#x3D;&gt; evt.isAllDay &#x3D;&#x3D;&#x3D; true);
+  });
+
+  currentTimeTop &#x3D; computed(() &#x3D;&gt; {
+    const currentTime &#x3D; this.now();
+    const startHour &#x3D; this.showWorkHoursOnly() ? this.normalizedStartHour() : 0;
+    const endHour &#x3D; this.showWorkHoursOnly() ? this.normalizedEndHour() : 24;
+    const hour &#x3D; currentTime.getHours() + currentTime.getMinutes() / 60;
+    
+    if (hour &lt; startHour || hour &gt; endHour) return null;
+    const pct &#x3D; ((hour - startHour) / (endHour - startHour)) * 100;
+    return pct;
+  });
+
+  hours &#x3D; computed(() &#x3D;&gt; {
+    const start &#x3D; this.showWorkHoursOnly() ? this.normalizedStartHour() : 0;
+    const end &#x3D; this.showWorkHoursOnly() ? this.normalizedEndHour() : 24;
+    const list: number[] &#x3D; [];
+    for (let i &#x3D; start; i &lt; end; i++) list.push(i);
+    return list;
+  });
+
+  timeSlots &#x3D; computed&lt;TimeSlot[]&gt;(() &#x3D;&gt; {
+    const slots: TimeSlot[] &#x3D; [];
+    const minutes &#x3D; this.normalizedSlotMinutes();
+    for (const hour of this.hours()) {
+      for (let minute &#x3D; 0; minute &lt; 60; minute +&#x3D; minutes) {
+        slots.push({ hour, minute, key: &#x60;${hour}:${minute}&#x60; });
+      }
+    }
+    return slots;
+  });
+
+  activeColumns &#x3D; computed&lt;{ date: Date; resource?: SchedulerResource }[]&gt;(() &#x3D;&gt; {
+    const mode &#x3D; this.activeMode();
+    const date &#x3D; this.activeDate();
+    const resList &#x3D; this.resources();
+
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;day&#x27;) {
+      if (resList.length &gt; 0) {
+        return resList.map(res &#x3D;&gt; ({ date, resource: res }));
+      }
+      return [{ date }];
+    }
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;week&#x27;) {
+      const days &#x3D; this.getWeekDays(this.getStartOfWeek(date));
+      return days.map(d &#x3D;&gt; ({ date: d }));
+    }
+    const monthDays &#x3D; this.getMonthDays(date);
+    return monthDays.map(d &#x3D;&gt; ({ date: d }));
+  });
+
+  weekDayLabels &#x3D; computed(() &#x3D;&gt; {
+    const base &#x3D; [&#x27;Sun&#x27;, &#x27;Mon&#x27;, &#x27;Tue&#x27;, &#x27;Wed&#x27;, &#x27;Thu&#x27;, &#x27;Fri&#x27;, &#x27;Sat&#x27;];
+    const start &#x3D; this.weekStartsOn();
+    return [...base.slice(start), ...base.slice(0, start)];
+  });
+
+  periodLabel &#x3D; computed(() &#x3D;&gt; {
+    const mode &#x3D; this.activeMode();
+    const date &#x3D; this.activeDate();
+
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;day&#x27;) {
+      return this.formatDate(date, { month: &#x27;long&#x27;, day: &#x27;numeric&#x27;, year: &#x27;numeric&#x27; });
+    }
+
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;week&#x27;) {
+      const cols &#x3D; this.activeColumns();
+      const start &#x3D; cols[0].date;
+      const end &#x3D; cols[6].date;
+      if (start.getMonth() &#x3D;&#x3D;&#x3D; end.getMonth()) {
+        return &#x60;${this.formatDate(start, { month: &#x27;long&#x27; })} ${this.formatDate(start, { year: &#x27;numeric&#x27; })}&#x60;;
+      }
+      return &#x60;${this.formatDate(start, { month: &#x27;short&#x27; })} - ${this.formatDate(end, { month: &#x27;short&#x27;, year: &#x27;numeric&#x27; })}&#x60;;
+    }
+
+    return this.formatDate(date, { month: &#x27;long&#x27;, year: &#x27;numeric&#x27; });
+  });
+
+  slotHeight(): number {
+    return this.hourHeight * (this.normalizedSlotMinutes() / 60);
+  }
+
+  navigate(direction: number): void {
+    const mode &#x3D; this.activeMode();
+    const current &#x3D; new Date(this.activeDate());
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;day&#x27;) current.setDate(current.getDate() + direction);
+    else if (mode &#x3D;&#x3D;&#x3D; &#x27;week&#x27;) current.setDate(current.getDate() + direction * 7);
+    else current.setMonth(current.getMonth() + direction);
+    this.activeDate.set(current);
+    this.currentDateChange.emit(current);
+  }
+
+  goToToday(): void {
+    const today &#x3D; new Date();
+    this.activeDate.set(today);
+    this.currentDateChange.emit(today);
+  }
+
+  getEventsForDate(date: Date): ResolvedSchedulerEvent[] {
+    return this.filteredEvents()
+      .flatMap(event &#x3D;&gt; this.resolveEventForDate(event, date))
+      .sort((a, b) &#x3D;&gt; a.start.getTime() - b.start.getTime());
+  }
+
+  getEventsForColumn(col: { date: Date; resource?: SchedulerResource }): ResolvedSchedulerEvent[] {
+    return this.filteredEvents()
+      .filter(evt &#x3D;&gt; !evt.isAllDay)
+      .flatMap(event &#x3D;&gt; this.resolveEventForDate(event, col.date))
+      .filter(resolved &#x3D;&gt; {
+        if (col.resource) {
+          return resolved.event.resourceId &#x3D;&#x3D;&#x3D; col.resource.id;
+        }
+        return true;
+      })
+      .sort((a, b) &#x3D;&gt; a.start.getTime() - b.start.getTime());
+  }
+
+  getAllDayEventsForColumn(col: { date: Date; resource?: SchedulerResource }): ResolvedSchedulerEvent[] {
+    return this.filteredEvents()
+      .filter(evt &#x3D;&gt; evt.isAllDay &#x3D;&#x3D;&#x3D; true)
+      .flatMap(event &#x3D;&gt; this.resolveEventForDate(event, col.date))
+      .filter(resolved &#x3D;&gt; {
+        if (col.resource) {
+          return resolved.event.resourceId &#x3D;&#x3D;&#x3D; col.resource.id;
+        }
+        return true;
+      })
+      .sort((a, b) &#x3D;&gt; a.start.getTime() - b.start.getTime());
+  }
+
+  getEventLayoutsForColumn(col: { date: Date; resource?: SchedulerResource }): SchedulerEventLayout[] {
+    const events &#x3D; this.getEventsForColumn(col);
+    const groups: ResolvedSchedulerEvent[][] &#x3D; [];
+    let group: ResolvedSchedulerEvent[] &#x3D; [];
+    let groupEnd &#x3D; 0;
+
+    for (const event of events) {
+      if (!group.length || event.start.getTime() &lt; groupEnd) {
+        group.push(event);
+        groupEnd &#x3D; Math.max(groupEnd, event.end.getTime());
+      } else {
+        groups.push(group);
+        group &#x3D; [event];
+        groupEnd &#x3D; event.end.getTime();
+      }
+    }
+    if (group.length) groups.push(group);
+
+    return groups.flatMap(eventsGroup &#x3D;&gt; this.layoutOverlapGroup(eventsGroup));
+  }
+
+  clickEvent(event: SchedulerEvent): void {
+    this.eventClick.emit(event);
+  }
+
+  clickSlot(date: Date, hour: number, minute &#x3D; 0, resourceId?: string): void {
+    const targetDate &#x3D; new Date(date);
+    targetDate.setHours(hour, minute, 0, 0);
+    this.slotClick.emit({ date: targetDate, hour, minute, resourceId });
+  }
+
+  deleteEvent(event: SchedulerEvent, clickEvent: MouseEvent): void {
+    clickEvent.stopPropagation();
+    this.eventDelete.emit(event);
+  }
+
+  toggleTaskCompletion(event: SchedulerEvent, clickEvent: Event): void {
+    const isChecked &#x3D; (clickEvent.target as HTMLInputElement).checked;
+    this.eventTimeChange.emit({
+      event: { ...event, completed: isChecked },
+      start: event.start,
+      end: event.end
+    });
+  }
+
+  getEventStyles(event: SchedulerEvent): { [key: string]: string } {
+    const styles: { [key: string]: string } &#x3D; {};
+    if (event.color) {
+      const color &#x3D; event.color;
+      if (color.startsWith(&#x27;#&#x27;)) {
+        styles[&#x27;background-color&#x27;] &#x3D; &#x60;${color}12&#x60;;
+        styles[&#x27;border-color&#x27;] &#x3D; &#x60;${color}33&#x60;;
+        styles[&#x27;color&#x27;] &#x3D; color;
+        styles[&#x27;border-left&#x27;] &#x3D; &#x60;4px solid ${color}&#x60;;
+      } else {
+        styles[&#x27;background-color&#x27;] &#x3D; color;
+        styles[&#x27;color&#x27;] &#x3D; &#x27;#ffffff&#x27;;
+      }
+    }
+    return styles;
+  }
+
+  onSearchInput(event: Event): void {
+    const val &#x3D; (event.target as HTMLInputElement).value;
+    this.searchQuery.set(val);
+  }
+
+  onResourceFilterChange(event: Event): void {
+    const val &#x3D; (event.target as HTMLSelectElement).value;
+    this.selectedResourceId.set(val || null);
+  }
+
+  isNonBusinessHour(hour: number): boolean {
+    return hour &lt; this.normalizedStartHour() || hour &gt;&#x3D; this.normalizedEndHour();
+  }
+
+  // Pointer drag-to-create handlers
+  onSlotPointerDown(event: PointerEvent, date: Date, hour: number, minute: number, resourceId?: string): void {
+    if (!this.enableDragToCreate() || event.button !&#x3D;&#x3D; 0) return;
+    const target &#x3D; event.target as HTMLElement;
+    if (target.closest(&#x27;.scheduler-event-card&#x27;)) return;
+
+    event.preventDefault();
+    (event.target as HTMLElement).setPointerCapture(event.pointerId);
+
+    this.dragSelectStart.set({ date, hour, minute, resourceId });
+    this.dragSelectCurrent.set({ date, hour, minute, resourceId });
+  }
+
+  onSlotPointerEnter(event: PointerEvent, date: Date, hour: number, minute: number, resourceId?: string): void {
+    const start &#x3D; this.dragSelectStart();
+    if (!start) return;
+
+    if (this.dateKey(start.date) &#x3D;&#x3D;&#x3D; this.dateKey(date) &amp;&amp; start.resourceId &#x3D;&#x3D;&#x3D; resourceId) {
+      this.dragSelectCurrent.set({ date, hour, minute, resourceId });
+    }
+  }
+
+  @HostListener(&#x27;window:pointerup&#x27;, [&#x27;$event&#x27;])
+  onWindowPointerUp(event: PointerEvent): void {
+    const start &#x3D; this.dragSelectStart();
+    const current &#x3D; this.dragSelectCurrent();
+    if (start &amp;&amp; current) {
+      try {
+        const capturedEl &#x3D; document.querySelector(&#x27;:focus&#x27;) || event.target as HTMLElement;
+        if (capturedEl &amp;&amp; &#x27;releasePointerCapture&#x27; in capturedEl) {
+          (capturedEl as any).releasePointerCapture(event.pointerId);
+        }
+      } catch (e) {}
+
+      const colDate &#x3D; new Date(start.date);
+      const startMinutes &#x3D; start.hour * 60 + start.minute;
+      const currentMinutes &#x3D; current.hour * 60 + current.minute;
+      
+      const minMinutes &#x3D; Math.min(startMinutes, currentMinutes);
+      const maxMinutes &#x3D; Math.max(startMinutes, currentMinutes) + this.normalizedSlotMinutes();
+
+      const startDate &#x3D; new Date(colDate);
+      startDate.setHours(Math.floor(minMinutes / 60), minMinutes % 60, 0, 0);
+
+      const endDate &#x3D; new Date(colDate);
+      endDate.setHours(Math.floor(maxMinutes / 60), maxMinutes % 60, 0, 0);
+
+      this.slotRangeSelect.emit({
+        start: startDate,
+        end: endDate,
+        resourceId: start.resourceId
+      });
+
+      this.dragSelectStart.set(null);
+      this.dragSelectCurrent.set(null);
+    }
+  }
+
+  getDragSelectionLayout(col: { date: Date; resource?: SchedulerResource }): { top: number; height: number } | null {
+    const start &#x3D; this.dragSelectStart();
+    const current &#x3D; this.dragSelectCurrent();
+    if (!start || !current) return null;
+
+    if (this.dateKey(start.date) !&#x3D;&#x3D; this.dateKey(col.date) || start.resourceId !&#x3D;&#x3D; col.resource?.id) {
+      return null;
+    }
+
+    const startMinutes &#x3D; start.hour * 60 + start.minute;
+    const currentMinutes &#x3D; current.hour * 60 + current.minute;
+
+    const minMinutes &#x3D; Math.min(startMinutes, currentMinutes);
+    const maxMinutes &#x3D; Math.max(startMinutes, currentMinutes) + this.normalizedSlotMinutes();
+
+    const startRange &#x3D; this.showWorkHoursOnly() ? this.normalizedStartHour() : 0;
+    const endRange &#x3D; this.showWorkHoursOnly() ? this.normalizedEndHour() : 24;
+    const totalHours &#x3D; endRange - startRange;
+
+    const startHourFraction &#x3D; minMinutes / 60;
+    const endHourFraction &#x3D; maxMinutes / 60;
+
+    const top &#x3D; ((startHourFraction - startRange) / totalHours) * 100;
+    const height &#x3D; ((endHourFraction - startHourFraction) / totalHours) * 100;
+
+    return {
+      top: Math.max(0, Math.min(100, top)),
+      height: Math.max(2, Math.min(100 - top, height))
+    };
+  }
+
+  onSlotDragOver(event: DragEvent): void {
+    if (this.activeDragEvent()) event.preventDefault();
+  }
+
+  onEventDragStart(event: DragEvent, layout: SchedulerEventLayout): void {
+    this.activeDragEvent.set(layout);
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed &#x3D; &#x27;move&#x27;;
+      event.dataTransfer.setData(&#x27;text/plain&#x27;, layout.event.id);
+    }
+  }
+
+  onEventDragEnd(): void {
+    this.activeDragEvent.set(null);
+  }
+
+  onSlotDrop(event: DragEvent, date: Date, hour: number, minute &#x3D; 0, resourceId?: string): void {
+    event.preventDefault();
+    const dragged &#x3D; this.activeDragEvent();
+    if (!dragged) return;
+
+    const duration &#x3D; dragged.end.getTime() - dragged.start.getTime();
+    const start &#x3D; new Date(date);
+    start.setHours(hour, minute, 0, 0);
+    const end &#x3D; new Date(start.getTime() + duration);
+
+    const updatedEvent &#x3D; { ...dragged.event };
+    if (resourceId !&#x3D;&#x3D; undefined) {
+      updatedEvent.resourceId &#x3D; resourceId;
+    }
+
+    this.eventTimeChange.emit({
+      event: updatedEvent,
+      start,
+      end,
+      occurrenceStart: dragged.start,
+      occurrenceEnd: dragged.end,
+    });
+    this.activeDragEvent.set(null);
+  }
+
+  startResize(event: PointerEvent, layout: SchedulerEventLayout, edge: &#x27;start&#x27; | &#x27;end&#x27;): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.resizeState &#x3D; {
+      event: layout.event,
+      edge,
+      start: layout.start,
+      end: layout.end,
+      originY: event.clientY,
+    };
+  }
+
+  @HostListener(&#x27;window:pointerup&#x27;, [&#x27;$event&#x27;])
+  finishResize(event: PointerEvent): void {
+    if (!this.resizeState) return;
+    const state &#x3D; this.resizeState;
+    const deltaSlots &#x3D; Math.round((event.clientY - state.originY) / this.slotHeight());
+    const deltaMs &#x3D; deltaSlots * this.normalizedSlotMinutes() * 60 * 1000;
+    const minDuration &#x3D; this.normalizedSlotMinutes() * 60 * 1000;
+    let start &#x3D; new Date(state.start);
+    let end &#x3D; new Date(state.end);
+
+    if (state.edge &#x3D;&#x3D;&#x3D; &#x27;start&#x27;) {
+      start &#x3D; new Date(Math.min(state.start.getTime() + deltaMs, state.end.getTime() - minDuration));
+    } else {
+      end &#x3D; new Date(Math.max(state.end.getTime() + deltaMs, state.start.getTime() + minDuration));
+    }
+
+    this.eventTimeChange.emit({
+      event: state.event,
+      start,
+      end,
+      occurrenceStart: state.start,
+      occurrenceEnd: state.end,
+    });
+    this.resizeState &#x3D; null;
+  }
+
+  @HostListener(&#x27;window:pointercancel&#x27;)
+  cancelResize(): void {
+    this.resizeState &#x3D; null;
+  }
+
+  isToday(date: Date): boolean {
+    return this.isSameDate(date, new Date());
+  }
+
+  isOtherMonth(date: Date): boolean {
+    return date.getMonth() !&#x3D;&#x3D; this.activeDate().getMonth();
+  }
+
+  formatHour(hour: number): string {
+    const ampm &#x3D; hour &gt;&#x3D; 12 ? &#x27;PM&#x27; : &#x27;AM&#x27;;
+    const hr &#x3D; hour % 12 &#x3D;&#x3D;&#x3D; 0 ? 12 : hour % 12;
+    return &#x60;${hr} ${ampm}&#x60;;
+  }
+
+  formatDate(date: Date, options: Intl.DateTimeFormatOptions): string {
+    try {
+      return new Intl.DateTimeFormat(&#x27;en-US&#x27;, { ...options, timeZone: this.timeZone() }).format(date);
+    } catch {
+      return new Intl.DateTimeFormat(&#x27;en-US&#x27;, options).format(date);
+    }
+  }
+
+  formatEventTime(start: Date, end: Date): string {
+    return &#x60;${this.formatDate(start, { hour: &#x27;numeric&#x27;, minute: &#x27;2-digit&#x27; })} - ${this.formatDate(end, { hour: &#x27;numeric&#x27;, minute: &#x27;2-digit&#x27; })}&#x60;;
+  }
+
+  eventTitle(layout: SchedulerEventLayout): string {
+    const description &#x3D; layout.event.description ? &#x60; (${layout.event.description})&#x60; : &#x27;&#x27;;
+    return &#x60;${layout.event.title}${description}&#x60;;
+  }
+
+  dateKey(date: Date): string {
+    if (!this.timeZone()) {
+      return &#x60;${date.getFullYear()}-${date.getMonth()}-${date.getDate()}&#x60;;
+    }
+
+    try {
+      const parts &#x3D; new Intl.DateTimeFormat(&#x27;en-US&#x27;, {
+        timeZone: this.timeZone(),
+        year: &#x27;numeric&#x27;,
+        month: &#x27;2-digit&#x27;,
+        day: &#x27;2-digit&#x27;,
+      }).formatToParts(date);
+      const get &#x3D; (type: string) &#x3D;&gt; parts.find(part &#x3D;&gt; part.type &#x3D;&#x3D;&#x3D; type)?.value ?? &#x27;&#x27;;
+      return &#x60;${get(&#x27;year&#x27;)}-${get(&#x27;month&#x27;)}-${get(&#x27;day&#x27;)}&#x60;;
+    } catch {
+      return &#x60;${date.getFullYear()}-${date.getMonth()}-${date.getDate()}&#x60;;
+    }
+  }
+
+  getInitials(name: string): string {
+    if (!name) return &#x27;&#x27;;
+    return name.split(&#x27; &#x27;).map(n &#x3D;&gt; n[0]).join(&#x27;&#x27;).toUpperCase().slice(0, 2);
+  }
+
+  getResourceName(resourceId: string): string {
+    const res &#x3D; this.resources().find(r &#x3D;&gt; r.id &#x3D;&#x3D;&#x3D; resourceId);
+    return res ? res.name : &#x27;&#x27;;
+  }
+
+  // Export methods
+  exportToICS(): void {
+    const evts &#x3D; this.filteredEvents();
+    let ics &#x3D; [
+      &#x27;BEGIN:VCALENDAR&#x27;,
+      &#x27;VERSION:2.0&#x27;,
+      &#x27;PRODID:-//Antigravity//NGX Core Components Scheduler//EN&#x27;,
+      &#x27;CALSCALE:GREGORIAN&#x27;,
+      &#x27;METHOD:PUBLISH&#x27;
+    ];
+
+    for (const e of evts) {
+      const pad &#x3D; (num: number) &#x3D;&gt; String(num).padStart(2, &#x27;0&#x27;);
+      const formatICSDate &#x3D; (d: Date) &#x3D;&gt; {
+        return &#x60;${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z&#x60;;
+      };
+
+      ics.push(&#x27;BEGIN:VEVENT&#x27;);
+      ics.push(&#x60;UID:${e.id}&#x60;);
+      ics.push(&#x60;DTSTAMP:${formatICSDate(new Date())}&#x60;);
+      ics.push(&#x60;DTSTART:${formatICSDate(e.start)}&#x60;);
+      ics.push(&#x60;DTEND:${formatICSDate(e.end)}&#x60;);
+      ics.push(&#x60;SUMMARY:${e.title.replace(/[,;]/g, &#x27;\\$&amp;&#x27;)}&#x60;);
+      if (e.description) {
+        ics.push(&#x60;DESCRIPTION:${e.description.replace(/[,;]/g, &#x27;\\$&amp;&#x27;)}&#x60;);
+      }
+      if (e.category) {
+        ics.push(&#x60;CATEGORIES:${e.category.toUpperCase()}&#x60;);
+      }
+      ics.push(&#x27;END:VEVENT&#x27;);
+    }
+
+    ics.push(&#x27;END:VCALENDAR&#x27;);
+    this.downloadFile(ics.join(&#x27;\r\n&#x27;), &#x27;calendar.ics&#x27;, &#x27;text/calendar&#x27;);
+  }
+
+  exportToJSON(): void {
+    const evts &#x3D; this.filteredEvents();
+    const data &#x3D; JSON.stringify(evts, null, 2);
+    this.downloadFile(data, &#x27;calendar_events.json&#x27;, &#x27;application/json&#x27;);
+  }
+
+  exportToCSV(): void {
+    const evts &#x3D; this.filteredEvents();
+    const headers &#x3D; [&#x27;ID&#x27;, &#x27;Title&#x27;, &#x27;Description&#x27;, &#x27;Start&#x27;, &#x27;End&#x27;, &#x27;Category&#x27;, &#x27;Resource ID&#x27;, &#x27;All Day&#x27;];
+    const rows &#x3D; evts.map(e &#x3D;&gt; [
+      e.id,
+      &#x60;&quot;${e.title.replace(/&quot;/g, &#x27;&quot;&quot;&#x27;)}&quot;&#x60;,
+      &#x60;&quot;${(e.description || &#x27;&#x27;).replace(/&quot;/g, &#x27;&quot;&quot;&#x27;)}&quot;&#x60;,
+      e.start.toISOString(),
+      e.end.toISOString(),
+      e.category || &#x27;&#x27;,
+      e.resourceId || &#x27;&#x27;,
+      e.isAllDay ? &#x27;TRUE&#x27; : &#x27;FALSE&#x27;
+    ]);
+
+    const csvContent &#x3D; [headers.join(&#x27;,&#x27;), ...rows.map(r &#x3D;&gt; r.join(&#x27;,&#x27;))].join(&#x27;\n&#x27;);
+    this.downloadFile(csvContent, &#x27;calendar_events.csv&#x27;, &#x27;text/csv&#x27;);
+  }
+
+  private downloadFile(content: string, filename: string, contentType: string): void {
+    const blob &#x3D; new Blob([content], { type: contentType });
+    const url &#x3D; URL.createObjectURL(blob);
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; url;
+    link.download &#x3D; filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  private layoutOverlapGroup(events: ResolvedSchedulerEvent[]): SchedulerEventLayout[] {
+    const columnEnds: Date[] &#x3D; [];
+    const placements &#x3D; events.map(event &#x3D;&gt; {
+      let column &#x3D; columnEnds.findIndex(end &#x3D;&gt; event.start &gt;&#x3D; end);
+      if (column &#x3D;&#x3D;&#x3D; -1) {
+        column &#x3D; columnEnds.length;
+        columnEnds.push(event.end);
+      } else {
+        columnEnds[column] &#x3D; event.end;
+      }
+      return { event, column };
+    });
+
+    const columnCount &#x3D; Math.max(1, columnEnds.length);
+    return placements.map(({ event, column }) &#x3D;&gt; ({
+      ...event,
+      top: this.getEventTop(event.start),
+      height: this.getEventHeight(event.start, event.end),
+      left: column * (100 / columnCount) + 1,
+      width: Math.max(8, 100 / columnCount - 2),
+    }));
+  }
+
+  private resolveEventForDate(event: SchedulerEvent, date: Date): ResolvedSchedulerEvent[] {
+    if (event.recurrence) {
+      const occurrence &#x3D; this.resolveRecurringOccurrence(event, date);
+      return occurrence ? [occurrence] : [];
+    }
+
+    const dayStart &#x3D; this.startOfDay(date);
+    const dayEnd &#x3D; this.endOfDay(date);
+    if (!this.rangesOverlap(event.start, event.end, dayStart, dayEnd)) return [];
+
+    return [{
+      id: &#x60;${event.id}-${this.dateKey(date)}&#x60;,
+      event,
+      start: new Date(Math.max(event.start.getTime(), dayStart.getTime())),
+      end: new Date(Math.min(event.end.getTime(), dayEnd.getTime())),
+    }];
+  }
+
+  private resolveRecurringOccurrence(event: SchedulerEvent, date: Date): ResolvedSchedulerEvent | null {
+    const recurrence &#x3D; event.recurrence;
+    if (!recurrence) return null;
+
+    const startDay &#x3D; this.startOfDay(event.start);
+    const targetDay &#x3D; this.startOfDay(date);
+    if (targetDay &lt; startDay) return null;
+    if (recurrence.until &amp;&amp; targetDay &gt; this.startOfDay(recurrence.until)) return null;
+
+    const interval &#x3D; Math.max(1, recurrence.interval ?? 1);
+    const diffDays &#x3D; Math.floor((targetDay.getTime() - startDay.getTime()) / 86400000);
+    let occurrenceIndex &#x3D; 0;
+    let occurs &#x3D; false;
+
+    if (recurrence.frequency &#x3D;&#x3D;&#x3D; &#x27;daily&#x27;) {
+      occurs &#x3D; diffDays % interval &#x3D;&#x3D;&#x3D; 0;
+      occurrenceIndex &#x3D; Math.floor(diffDays / interval);
+    } else if (recurrence.frequency &#x3D;&#x3D;&#x3D; &#x27;weekly&#x27;) {
+      const days &#x3D; recurrence.daysOfWeek?.length ? recurrence.daysOfWeek : [event.start.getDay()];
+      const diffWeeks &#x3D; Math.floor(diffDays / 7);
+      occurs &#x3D; diffWeeks % interval &#x3D;&#x3D;&#x3D; 0 &amp;&amp; days.includes(targetDay.getDay());
+      occurrenceIndex &#x3D; diffWeeks;
+    } else {
+      const diffMonths &#x3D; (targetDay.getFullYear() - startDay.getFullYear()) * 12 + targetDay.getMonth() - startDay.getMonth();
+      occurs &#x3D; diffMonths % interval &#x3D;&#x3D;&#x3D; 0 &amp;&amp; targetDay.getDate() &#x3D;&#x3D;&#x3D; startDay.getDate();
+      occurrenceIndex &#x3D; diffMonths;
+    }
+
+    if (!occurs || (recurrence.count &amp;&amp; occurrenceIndex &gt;&#x3D; recurrence.count)) return null;
+
+    const duration &#x3D; event.end.getTime() - event.start.getTime();
+    const start &#x3D; new Date(targetDay);
+    start.setHours(event.start.getHours(), event.start.getMinutes(), event.start.getSeconds(), event.start.getMilliseconds());
+    const end &#x3D; new Date(start.getTime() + duration);
+
+    return {
+      id: &#x60;${event.id}-r-${this.dateKey(targetDay)}&#x60;,
+      event,
+      start,
+      end,
+    };
+  }
+
+  private getEventTop(start: Date): number {
+    const startHour &#x3D; start.getHours() + start.getMinutes() / 60;
+    const startRange &#x3D; this.showWorkHoursOnly() ? this.normalizedStartHour() : 0;
+    const endRange &#x3D; this.showWorkHoursOnly() ? this.normalizedEndHour() : 24;
+    const totalHours &#x3D; endRange - startRange;
+    const pct &#x3D; ((startHour - startRange) / totalHours) * 100;
+    return Math.max(0, Math.min(100, pct));
+  }
+
+  private getEventHeight(start: Date, end: Date): number {
+    const startHour &#x3D; start.getHours() + start.getMinutes() / 60;
+    const endHour &#x3D; end.getHours() + end.getMinutes() / 60;
+    const startRange &#x3D; this.showWorkHoursOnly() ? this.normalizedStartHour() : 0;
+    const endRange &#x3D; this.showWorkHoursOnly() ? this.normalizedEndHour() : 24;
+    const totalHours &#x3D; endRange - startRange;
+    const pct &#x3D; ((endHour - startHour) / totalHours) * 100;
+    return Math.max(8, Math.min(100 - this.getEventTop(start), pct));
+  }
+
+  private getStartOfWeek(date: Date): Date {
+    const res &#x3D; new Date(date);
+    const day &#x3D; res.getDay();
+    const diff &#x3D; (day - this.weekStartsOn() + 7) % 7;
+    res.setDate(res.getDate() - diff);
+    res.setHours(0, 0, 0, 0);
+    return res;
+  }
+
+  private getWeekDays(start: Date): Date[] {
+    return Array.from({ length: 7 }, (_, i) &#x3D;&gt; {
+      const day &#x3D; new Date(start);
+      day.setDate(start.getDate() + i);
+      return day;
+    });
+  }
+
+  private getMonthDays(date: Date): Date[] {
+    const firstDay &#x3D; new Date(date.getFullYear(), date.getMonth(), 1);
+    const startOfWeek &#x3D; this.getStartOfWeek(firstDay);
+    return Array.from({ length: 42 }, (_, i) &#x3D;&gt; {
+      const day &#x3D; new Date(startOfWeek);
+      day.setDate(startOfWeek.getDate() + i);
+      return day;
+    });
+  }
+
+  protected isSameDate(d1: Date, d2: Date): boolean {
+    return this.dateKey(d1) &#x3D;&#x3D;&#x3D; this.dateKey(d2);
+  }
+
+  private startOfDay(date: Date): Date {
+    const next &#x3D; new Date(date);
+    next.setHours(0, 0, 0, 0);
+    return next;
+  }
+
+  private endOfDay(date: Date): Date {
+    const next &#x3D; new Date(date);
+    next.setHours(23, 59, 59, 999);
+    return next;
+  }
+
+  private rangesOverlap(start: Date, end: Date, rangeStart: Date, rangeEnd: Date): boolean {
+    return start &lt;&#x3D; rangeEnd &amp;&amp; end &gt;&#x3D; rangeStart;
+  }
+
+  private normalizedStartHour(): number {
+    return Math.max(0, Math.min(23, Math.floor(this.businessHoursStart())));
+  }
+
+  private normalizedEndHour(): number {
+    return Math.max(this.normalizedStartHour() + 1, Math.min(24, Math.ceil(this.businessHoursEnd())));
+  }
+
+  private normalizedSlotMinutes(): number {
+    const minutes &#x3D; Math.floor(this.slotMinutes());
+    return [5, 10, 15, 20, 30, 60].includes(minutes) ? minutes : 60;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'TimeSlot.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
